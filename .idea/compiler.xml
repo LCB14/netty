@@ -41,10 +41,12 @@
         <module name="netty-testsuite-osgi" />
         <module name="netty-resolver" />
         <module name="netty-microbench" />
+        <module name="lcb-netty" />
         <module name="netty-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="lcb-netty" target="1.7" />
       <module name="netty-all" target="1.6" />
       <module name="netty-bom" target="1.5" />
       <module name="netty-buffer" target="1.6" />
@@ -88,6 +90,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="lcb-netty" options="-Xlint:-options" />
       <module name="netty-all" options="-Xlint:-options" />
       <module name="netty-buffer" options="-Xlint:-options" />
       <module name="netty-codec" options="-Xlint:-options" />

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/lcb-netty/lcb-netty.iml" filepath="$PROJECT_DIR$/lcb-netty/lcb-netty.iml" />
       <module fileurl="file://$PROJECT_DIR$/all/netty-all.iml" filepath="$PROJECT_DIR$/all/netty-all.iml" />
       <module fileurl="file://$PROJECT_DIR$/bom/netty-bom.iml" filepath="$PROJECT_DIR$/bom/netty-bom.iml" />
       <module fileurl="file://$PROJECT_DIR$/buffer/netty-buffer.iml" filepath="$PROJECT_DIR$/buffer/netty-buffer.iml" />

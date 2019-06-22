@@ -359,6 +359,7 @@
     <module>testsuite-native-image</module>
     <module>microbench</module>
     <module>bom</module>
+    <module>lcb-netty</module>
   </modules>
 
   <dependencyManagement>
