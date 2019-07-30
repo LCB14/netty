@@ -133,6 +133,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
     void init(Channel channel) throws Exception {
         final Map<ChannelOption<?>, Object> options = options0();
         synchronized (options) {
+            // 执行channel.config().setOptions(options);操作
             setChannelOptions(channel, options, logger);
         }
 
@@ -167,6 +168,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                     pipeline.addLast(handler);
                 }
 
+                // 添加新连接处理器,专门接受新请求
                 ch.eventLoop().execute(new Runnable() {
                     @Override
                     public void run() {
