@@ -69,6 +69,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
      */
     protected AbstractChannel(Channel parent) {
         this.parent = parent;
+        // 这里的id是netty中每条channel的唯一标识
         id = newId();
         unsafe = newUnsafe();
         pipeline = newChannelPipeline();
