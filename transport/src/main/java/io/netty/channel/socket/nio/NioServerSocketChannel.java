@@ -71,6 +71,7 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
      * Create a new instance
      */
     public NioServerSocketChannel() {
+        // newSocket()方法通过jdk的native方法来创建地城的channel
         this(newSocket(DEFAULT_SELECTOR_PROVIDER));
     }
 
@@ -86,6 +87,7 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
      */
     public NioServerSocketChannel(ServerSocketChannel channel) {
         super(null, channel, SelectionKey.OP_ACCEPT);
+        // NioServerSocketChannelConfig -- 负责tcp参数进行配置
         config = new NioServerSocketChannelConfig(this, javaChannel().socket());
     }
 
