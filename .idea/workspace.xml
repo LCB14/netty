@@ -3,20 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/AbstractChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/AbstractChannel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
