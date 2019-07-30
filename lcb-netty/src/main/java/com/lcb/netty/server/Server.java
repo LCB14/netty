@@ -20,7 +20,6 @@ public class Server {
     public static void main(String[] args) throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
@@ -36,7 +35,6 @@ public class Server {
                     });
 
             ChannelFuture channelFuture = serverBootstrap.bind(8888).sync();
-
             channelFuture.channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();

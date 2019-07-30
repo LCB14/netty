@@ -268,7 +268,9 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     private ChannelFuture doBind(final SocketAddress localAddress) {
+        // 1、创建且初始化channel并且
         final ChannelFuture regFuture = initAndRegister();
+        // 2、
         final Channel channel = regFuture.channel();
         if (regFuture.cause() != null) {
             return regFuture;
@@ -277,6 +279,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         if (regFuture.isDone()) {
             // At this point we know that the registration was complete and successful.
             ChannelPromise promise = channel.newPromise();
+            // 3、
             doBind0(regFuture, channel, localAddress, promise);
             return promise;
         } else {
@@ -306,7 +309,10 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     final ChannelFuture initAndRegister() {
         Channel channel = null;
         try {
+            // 1、参考ServerBootstrap启动器方法链的channel方法中的参数，创建channel
             channel = channelFactory.newChannel();
+
+            // 2、初始化channel
             init(channel);
         } catch (Throwable t) {
             if (channel != null) {
@@ -319,6 +325,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
             return new DefaultChannelPromise(new FailedChannel(), GlobalEventExecutor.INSTANCE).setFailure(t);
         }
 
+        // 3、
         ChannelFuture regFuture = config().group().register(channel);
         if (regFuture.cause() != null) {
             if (channel.isRegistered()) {

@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -160,24 +162,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java</url>
-          <line>308</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java</url>
           <line>75</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java</url>
-          <line>270</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
