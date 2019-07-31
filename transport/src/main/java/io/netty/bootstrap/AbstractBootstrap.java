@@ -90,6 +90,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
      * {@link Channel} implementation has no no-args constructor.
      */
     public B channel(Class<? extends C> channelClass) {
+        // ReflectiveChannelFactory()方法的作用就是获取channelClass的构造器对象，并保存到相应的字段中去。
         return channelFactory(new ReflectiveChannelFactory<C>(
                 ObjectUtil.checkNotNull(channelClass, "channelClass")
         ));
@@ -259,7 +260,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     private ChannelFuture doBind(final SocketAddress localAddress) {
-        // 1、创建且初始化channel
+        // 1、创建并初始化channel
         final ChannelFuture regFuture = initAndRegister();
         // 2、
         final Channel channel = regFuture.channel();
@@ -325,6 +326,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
 
         /**
          * 3、
+         *
          * @see SingleThreadEventLoop#register(io.netty.channel.Channel)
          */
         ChannelFuture regFuture = config().group().register(channel);
