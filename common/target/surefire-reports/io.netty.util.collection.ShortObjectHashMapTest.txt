@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: io.netty.util.collection.ShortObjectHashMapTest
 -------------------------------------------------------------------------------
-Tests run: 35, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.259 s - in io.netty.util.collection.ShortObjectHashMapTest
+Tests run: 35, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 s - in io.netty.util.collection.ShortObjectHashMapTest

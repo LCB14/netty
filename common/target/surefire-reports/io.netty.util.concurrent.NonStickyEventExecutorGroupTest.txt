@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: io.netty.util.concurrent.NonStickyEventExecutorGroupTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.867 s - in io.netty.util.concurrent.NonStickyEventExecutorGroupTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.964 s - in io.netty.util.concurrent.NonStickyEventExecutorGroupTest

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<japicmp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" accessModifier="PROTECTED" creationTimestamp="2019-07-29T13:45:22.703+0800" ignoreMissingClasses="false" ignoreMissingClassesByRegularExpressions="^(?!io\.netty\.).*;^io\.netty\.internal\.tcnative\..*" newJar="/Users/lichangbao/github/netty/common/target/netty-common-4.1.37.Final-SNAPSHOT.jar" newVersion="4.1.37-SNAPSHOT" oldJar="/Users/lichangbao/.m2/repository/io/netty/netty-common/4.1.36.Final/netty-common-4.1.36.Final.jar" oldVersion="4.1.36" onlyBinaryIncompatibleModifications="false" onlyModifications="false" packagesExclude="@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi" packagesInclude="all" semanticVersioning="0.0.1" title="Comparing source compatibility of /Users/lichangbao/github/netty/common/target/netty-common-4.1.37.Final-SNAPSHOT.jar against /Users/lichangbao/.m2/repository/io/netty/netty-common/4.1.36.Final/netty-common-4.1.36.Final.jar" xsi:noNamespaceSchemaLocation="japicmp.xsd">
+<japicmp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" accessModifier="PROTECTED" creationTimestamp="2019-07-31T10:08:26.842+0800" ignoreMissingClasses="false" ignoreMissingClassesByRegularExpressions="^(?!io\.netty\.).*;^io\.netty\.internal\.tcnative\..*" newJar="/Users/lichangbao/github/netty/common/target/netty-common-4.1.37.Final-SNAPSHOT.jar" newVersion="4.1.37-SNAPSHOT" oldJar="/Users/lichangbao/.m2/repository/io/netty/netty-common/4.1.36.Final/netty-common-4.1.36.Final.jar" oldVersion="4.1.36" onlyBinaryIncompatibleModifications="false" onlyModifications="false" packagesExclude="@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi;@io.netty.util.internal.UnstableApi" packagesInclude="all" semanticVersioning="0.0.1" title="Comparing source compatibility of /Users/lichangbao/github/netty/common/target/netty-common-4.1.37.Final-SNAPSHOT.jar against /Users/lichangbao/.m2/repository/io/netty/netty-common/4.1.36.Final/netty-common-4.1.36.Final.jar" xsi:noNamespaceSchemaLocation="japicmp.xsd">
     <classes>
         <class binaryCompatible="true" changeStatus="UNCHANGED" fullyQualifiedName="io.netty.util.AbstractConstant" javaObjectSerializationCompatible="NOT_SERIALIZABLE" javaObjectSerializationCompatibleAsString="not serializable" sourceCompatible="true">
             <annotations/>
@@ -13651,7 +13651,7 @@
                 </interface>
             </interfaces>
             <methods>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="awaitTermination" newLineNumber="214" oldLineNumber="214" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="awaitTermination" newLineNumber="215" oldLineNumber="214" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13674,7 +13674,7 @@
                     </parameters>
                     <returnType changeStatus="UNCHANGED" newValue="boolean" oldValue="boolean"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="executorCount" newLineNumber="150" oldLineNumber="150" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="executorCount" newLineNumber="151" oldLineNumber="150" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13692,7 +13692,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="int" oldValue="int"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="isShutdown" newLineNumber="193" oldLineNumber="193" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="isShutdown" newLineNumber="194" oldLineNumber="193" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13710,7 +13710,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="boolean" oldValue="boolean"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="isShuttingDown" newLineNumber="183" oldLineNumber="183" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="isShuttingDown" newLineNumber="184" oldLineNumber="183" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13728,7 +13728,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="boolean" oldValue="boolean"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="isTerminated" newLineNumber="203" oldLineNumber="203" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="isTerminated" newLineNumber="204" oldLineNumber="203" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13746,7 +13746,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="boolean" oldValue="boolean"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="iterator" newLineNumber="142" oldLineNumber="142" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="iterator" newLineNumber="143" oldLineNumber="142" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13787,7 +13787,7 @@
                     </parameters>
                     <returnType changeStatus="UNCHANGED" newValue="io.netty.util.concurrent.EventExecutor" oldValue="io.netty.util.concurrent.EventExecutor"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="newDefaultThreadFactory" newLineNumber="132" oldLineNumber="132" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="newDefaultThreadFactory" newLineNumber="133" oldLineNumber="132" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13805,7 +13805,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="java.util.concurrent.ThreadFactory" oldValue="java.util.concurrent.ThreadFactory"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="next" newLineNumber="137" oldLineNumber="137" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="next" newLineNumber="138" oldLineNumber="137" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13823,7 +13823,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="io.netty.util.concurrent.EventExecutor" oldValue="io.netty.util.concurrent.EventExecutor"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="shutdown" newLineNumber="176" oldLineNumber="176" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="shutdown" newLineNumber="177" oldLineNumber="176" sourceCompatible="true">
                     <annotations>
                         <annotation binaryCompatible="true" changeStatus="UNCHANGED" fullyQualifiedName="java.lang.Deprecated" sourceCompatible="true">
                             <compatibilityChanges/>
@@ -13846,7 +13846,7 @@
                     <parameters/>
                     <returnType changeStatus="UNCHANGED" newValue="void" oldValue="void"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="shutdownGracefully" newLineNumber="162" oldLineNumber="162" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="shutdownGracefully" newLineNumber="163" oldLineNumber="162" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>
@@ -13868,7 +13868,7 @@
                     </parameters>
                     <returnType changeStatus="UNCHANGED" newValue="io.netty.util.concurrent.Future" oldValue="io.netty.util.concurrent.Future"/>
                 </method>
-                <method binaryCompatible="true" changeStatus="UNCHANGED" name="terminationFuture" newLineNumber="170" oldLineNumber="170" sourceCompatible="true">
+                <method binaryCompatible="true" changeStatus="UNCHANGED" name="terminationFuture" newLineNumber="171" oldLineNumber="170" sourceCompatible="true">
                     <annotations/>
                     <attributes>
                         <attribute changeStatus="UNCHANGED" newValue="NON_SYNTHETIC" oldValue="NON_SYNTHETIC"/>

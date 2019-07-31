@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: io.netty.util.concurrent.GlobalEventExecutorTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.506 s - in io.netty.util.concurrent.GlobalEventExecutorTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.51 s - in io.netty.util.concurrent.GlobalEventExecutorTest
