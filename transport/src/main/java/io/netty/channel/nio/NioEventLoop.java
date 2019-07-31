@@ -144,6 +144,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         }
         provider = selectorProvider;
         final SelectorTuple selectorTuple = openSelector();
+        // 可以发现每个EventLoop都有一个与之绑定的selector
         selector = selectorTuple.selector;
         unwrappedSelector = selectorTuple.unwrappedSelector;
         selectStrategy = strategy;

@@ -32,6 +32,11 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
     @SuppressWarnings("unchecked")
     @Override
     public EventExecutorChooser newChooser(EventExecutor[] executors) {
+        /**
+         * 判断是否是2的幂（这个小技巧和HashMap的索引定位实现方式一样)
+         * 如果是在进行定位的时候用&运算符代替%
+         * 否者直接使用%进行定位
+         */
         if (isPowerOfTwo(executors.length)) {
             return new PowerOfTwoEventExecutorChooser(executors);
         } else {

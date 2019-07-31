@@ -73,14 +73,27 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         }
 
         if (executor == null) {
+            /**
+             * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次执行任务都会创建一个子线程
+             * newDefaultThreadFactory() -> 初始化生产线程的规则
+             */
             executor = new ThreadPerTaskExecutor(newDefaultThreadFactory());
         }
 
         children = new EventExecutor[nThreads];
 
+        // 为每个线程都创建一个EventExecutor
         for (int i = 0; i < nThreads; i ++) {
             boolean success = false;
             try {
+                /**
+                 * 构造NioEventExecutor
+                 *
+                 * newChild()主要干了三件事：
+                 * 1、保存上面创建的线程执行器；
+                 * 2、创建一个MpsQueue；
+                 * 3、创建一个selector；
+                 */
                 children[i] = newChild(executor, args);
                 success = true;
             } catch (Exception e) {
@@ -108,6 +121,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             }
         }
 
+        // 创建线程选择器，该选择器的作用是为新连接绑定NioEventLoop
         chooser = chooserFactory.newChooser(children);
 
         final FutureListener<Object> terminationListener = new FutureListener<Object>() {
