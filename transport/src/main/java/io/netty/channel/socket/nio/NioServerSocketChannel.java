@@ -87,8 +87,8 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
      */
     public NioServerSocketChannel(ServerSocketChannel channel) {
         /**
-         *  设置channel.configureBlocking(false)为非阻塞，并把上面调用provider.openServerSocketChannel();
-         *  创建出来的channel以及SelectionKey保存到成员变量中
+         *  设置channel.configureBlocking(false)为非阻塞
+         *  并把上面调用provider.openServerSocketChannel();创建出来的channel以及SelectionKey保存到成员变量中
          */
         super(null, channel, SelectionKey.OP_ACCEPT);
 
