@@ -68,6 +68,10 @@ public class DefaultChannelConfig implements ChannelConfig {
     private volatile boolean pinEventExecutor = true;
 
     public DefaultChannelConfig(Channel channel) {
+        /**
+         * AdaptiveRecvByteBufAllocator() -> 该方法稍微有点智能
+         * 会参考上一次缓存区的大小来动态的分配接下来待创建缓存区的大小。
+         */
         this(channel, new AdaptiveRecvByteBufAllocator());
     }
 

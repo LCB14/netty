@@ -3,22 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultEventExecutorChooserFactory$GenericEventExecutorChooser.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultEventExecutorChooserFactory$GenericEventExecutorChooser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultEventExecutorChooserFactory$PowerOfTwoEventExecutorChooser.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultEventExecutorChooserFactory$PowerOfTwoEventExecutorChooser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultEventExecutorChooserFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultEventExecutorChooserFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/DefaultChannelConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/DefaultChannelConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/socket/nio/NioServerSocketChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/socket/nio/NioServerSocketChannel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$SelectorTuple.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$SelectorTuple.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/DefaultChannelConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/DefaultChannelConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/socket/nio/NioServerSocketChannel$NioServerSocketChannelConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/socket/nio/NioServerSocketChannel$NioServerSocketChannelConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/socket/nio/NioServerSocketChannel.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/socket/nio/NioServerSocketChannel.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -160,7 +156,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="21878000" />
+      <workItem from="1564539097209" duration="24953000" />
     </task>
     <servers />
   </component>
@@ -186,13 +182,10 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java</url>
-          <line>132</line>
-          <properties class="io.netty.bootstrap.ServerBootstrap" method="init">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="8" />
+          <line>148</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

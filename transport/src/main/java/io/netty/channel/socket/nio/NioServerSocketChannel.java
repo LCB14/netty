@@ -92,7 +92,11 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
          */
         super(null, channel, SelectionKey.OP_ACCEPT);
 
-        // NioServerSocketChannelConfig -- 负责tcp参数进行配置
+        /**
+         * javaChannel()获取的其实就是super()初始化的channel
+         *
+         * 不明白Netty这又是什么骚操作不直接使用已有的方法参数而是非进行一下调用。。。
+         */
         config = new NioServerSocketChannelConfig(this, javaChannel().socket());
     }
 
