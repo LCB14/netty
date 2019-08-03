@@ -302,16 +302,18 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         Channel channel = null;
         try {
             /**
-             * 1、参考ServerBootstrap启动器方法链的channel方法中的参数，利用反射创建目标channel
-             *
+             * 1、利用反射创建目标channel
+             * 参考ServerBootstrap启动器方法链的channel方法中的参数，利用反射创建目标channel
              * @see io.netty.bootstrap.AbstractBootstrap#channel(java.lang.Class)
-             *
-             * 所以此处的newChannel()方法对应的实现如下：
              * @see ReflectiveChannelFactory#newChannel()
              */
             channel = channelFactory.newChannel();
 
-            // 2、初始化channel
+            /**
+             * 2、初始化channel
+             *
+             * @see ServerBootstrap#init(io.netty.channel.Channel)
+             */
             init(channel);
         } catch (Throwable t) {
             if (channel != null) {
