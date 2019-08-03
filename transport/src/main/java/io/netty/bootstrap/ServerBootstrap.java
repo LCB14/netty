@@ -121,6 +121,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
 
     @Override
     void init(Channel channel) throws Exception {
+        // 设置TCP相关配置
         final Map<ChannelOption<?>, Object> options = options0();
         synchronized (options) {
             /**
@@ -129,6 +130,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             setChannelOptions(channel, options, logger);
         }
 
+        // 设置流程数据
         final Map<AttributeKey<?>, Object> attrs = attrs0();
         synchronized (attrs) {
             for (Entry<AttributeKey<?>, Object> e: attrs.entrySet()) {

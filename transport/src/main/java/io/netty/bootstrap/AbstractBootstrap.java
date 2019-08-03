@@ -326,8 +326,9 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
 
         /**
          * 3、
-         *
-         * @see SingleThreadEventLoop#register(io.netty.channel.Channel)
+         * config() -> 主要完成对ServerBootStrap实例的保存
+         * group() -> 借助config()方法保存的bootStrap实例
+         * @see io.netty.channel.MultithreadEventLoopGroup#register(io.netty.channel.Channel)
          */
         ChannelFuture regFuture = config().group().register(channel);
         if (regFuture.cause() != null) {
