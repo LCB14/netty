@@ -144,11 +144,10 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
 
         /**
          * 思考：ChannelPipeline啥时间创建的?
-         * @see AbstractChannel#newChannelPipeline()
-         *
          * @see AbstractChannel#AbstractChannel(io.netty.channel.Channel)
+         *
          * 而AbstractChannel()方法的触发时机是在:
-         * @see io.netty.bootstrap.ChannelFactory#newChannel()
+         * @see ReflectiveChannelFactory#newChannel()
          */
         ChannelPipeline p = channel.pipeline();
 
