@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/DefaultEventExecutorChooserFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/DefaultEventExecutorChooserFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +68,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Client (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lcb.nio.client.Client" />
       <module name="lcb-netty" />
@@ -78,19 +88,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.lcb.socket.client.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.nio.server.Server" />
-      <module name="lcb-netty" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.lcb.nio.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -124,13 +121,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lcb.netty.server.Test" />
+      <module name="lcb-netty" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lcb.netty.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerBoot" />
         <item itemvalue="Application.Client (1)" />
-        <item itemvalue="Application.Server (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -146,7 +156,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="40345000" />
+      <workItem from="1564539097209" duration="46250000" />
     </task>
     <servers />
   </component>
