@@ -18,6 +18,9 @@ import io.netty.util.AttributeKey;
 public class Server {
 
     public static void main(String[] args) throws Exception {
+        /**
+         * @see io.netty.util.concurrent.MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, java.util.concurrent.Executor, io.netty.util.concurrent.EventExecutorChooserFactory, java.lang.Object...)
+         */
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {

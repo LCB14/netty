@@ -74,8 +74,8 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
         if (executor == null) {
             /**
-             * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次执行任务都会创建一个子线程
              * newDefaultThreadFactory() -> 初始化生产线程的规则
+             * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次执行任务都会创建一个子线程
              */
             executor = new ThreadPerTaskExecutor(newDefaultThreadFactory());
         }
