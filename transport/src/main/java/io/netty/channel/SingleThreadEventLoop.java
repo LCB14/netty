@@ -87,6 +87,7 @@ public abstract class SingleThreadEventLoop extends SingleThreadEventExecutor im
         ObjectUtil.checkNotNull(promise, "promise");
         /**
          * @see io.netty.channel.AbstractChannel.AbstractUnsafe#register(io.netty.channel.EventLoop, io.netty.channel.ChannelPromise)
+         *
          * @see AbstractNioMessageChannel
          * @see io.netty.channel.nio.AbstractNioChannel#unsafe
          */

@@ -16,10 +16,12 @@
 package io.netty.channel;
 
 import io.netty.buffer.ByteBufAllocator;
+import io.netty.channel.nio.AbstractNioChannel;
 import io.netty.channel.socket.ChannelOutputShutdownEvent;
 import io.netty.channel.socket.ChannelOutputShutdownException;
 import io.netty.util.DefaultAttributeMap;
 import io.netty.util.ReferenceCountUtil;
+import io.netty.util.concurrent.SingleThreadEventExecutor;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.UnstableApi;
 import io.netty.util.internal.logging.InternalLogger;
@@ -466,6 +468,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             // 1、先将EventLoop事件循环器绑定到该NioServerSocketChannel上，然后调用 register0()
             AbstractChannel.this.eventLoop = eventLoop;
 
+            /**
+             * @see SingleThreadEventExecutor#inEventLoop(java.lang.Thread)
+             */
             if (eventLoop.inEventLoop()) {
                 register0(promise);
             } else {
@@ -495,6 +500,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                     return;
                 }
                 boolean firstRegistration = neverRegistered;
+                /**
+                 * @see AbstractNioChannel#doRegister()
+                 */
                 doRegister();
                 neverRegistered = false;
                 registered = true;
