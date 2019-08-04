@@ -74,8 +74,11 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
         if (executor == null) {
             /**
+             * 通过这个方法可以很好的巩固包装模式和命令模式在Netty中的应用
+             * Executor设计的目的是实现任务的创建和任务的执行进行分离，ThreadFactory也是类似的思想。
+             *
              * newDefaultThreadFactory() -> 初始化生产线程的规则
-             * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次执行任务都会创建一个子线程
+             * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次提交新的任务该执行器都会创建一个子线程来进行单独处理
              */
             executor = new ThreadPerTaskExecutor(newDefaultThreadFactory());
         }
@@ -88,6 +91,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             try {
                 /**
                  * 构造NioEventExecutor
+                 * @see io.netty.channel.nio.NioEventLoopGroup#newChild(java.util.concurrent.Executor, java.lang.Object...)
                  *
                  * newChild()主要干了三件事：
                  * 1、保存上面创建的线程执行器；
