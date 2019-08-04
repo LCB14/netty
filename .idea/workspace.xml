@@ -3,13 +3,33 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/MultithreadEventLoopGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/MultithreadEventLoopGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/MultithreadEventLoopGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/MultithreadEventLoopGroup.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -146,7 +166,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="55394000" />
+      <workItem from="1564539097209" duration="57206000" />
     </task>
     <servers />
   </component>
@@ -168,5 +188,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

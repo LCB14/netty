@@ -1,5 +1,6 @@
 package com.lcb.netty.server;
 
+import io.netty.bootstrap.AbstractBootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -37,6 +38,9 @@ public class Server {
                         }
                     });
 
+            /**
+             * @see AbstractBootstrap#doBind(java.net.SocketAddress)
+             */
             ChannelFuture channelFuture = serverBootstrap.bind(8888).sync();
             channelFuture.channel().closeFuture().sync();
         } finally {

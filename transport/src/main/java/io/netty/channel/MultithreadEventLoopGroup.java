@@ -84,6 +84,9 @@ public abstract class MultithreadEventLoopGroup extends MultithreadEventExecutor
 
     @Override
     public ChannelFuture register(Channel channel) {
+        /**
+         * @see SingleThreadEventLoop#register(io.netty.channel.Channel)
+         */
         return next().register(channel);
     }
 
