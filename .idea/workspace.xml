@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoopGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoopGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/DefaultThreadFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/DefaultThreadFactory.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,13 +58,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Test">
-    <configuration name="Client (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.nio.client.Client" />
+  <component name="RunManager" selected="Application.DefaultThreadFactory">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lcb.socket.client.Client" />
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.nio.client.*" />
+          <option name="PATTERN" value="com.lcb.socket.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -73,12 +72,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.socket.client.Client" />
-      <module name="lcb-netty" />
+    <configuration name="DefaultThreadFactory" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="io.netty.util.concurrent.DefaultThreadFactory" />
+      <module name="netty-common" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.socket.client.*" />
+          <option name="PATTERN" value="io.netty.util.concurrent.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,11 +126,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DefaultThreadFactory" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerBoot" />
-        <item itemvalue="Application.Client (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -147,7 +146,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="50034000" />
+      <workItem from="1564539097209" duration="51197000" />
     </task>
     <servers />
   </component>

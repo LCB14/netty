@@ -76,6 +76,7 @@ public class DefaultThreadFactory implements ThreadFactory {
                 return poolName.toLowerCase(Locale.US);
             default:
                 if (Character.isUpperCase(poolName.charAt(0)) && Character.isLowerCase(poolName.charAt(1))) {
+                    // poolName.substring(1)表示从索引为1的位置开始剪切
                     return Character.toLowerCase(poolName.charAt(0)) + poolName.substring(1);
                 } else {
                     return poolName;
@@ -83,6 +84,10 @@ public class DefaultThreadFactory implements ThreadFactory {
         }
     }
 
+    public static void main(String[] args) {
+        String val = toPoolName(String.class);
+        System.out.println(val);
+    }
     public DefaultThreadFactory(String poolName, boolean daemon, int priority, ThreadGroup threadGroup) {
         if (poolName == null) {
             throw new NullPointerException("poolName");
