@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/MultithreadEventLoopGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/MultithreadEventLoopGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/MultithreadEventLoopGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/MultithreadEventLoopGroup.class" afterDir="false" />
-    </list>
+    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +157,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="57206000" />
+      <workItem from="1564539097209" duration="57545000" />
     </task>
     <servers />
   </component>
