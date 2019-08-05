@@ -2,35 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/ClientChannelInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/ServerChannelInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/ServerHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/ServerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/ServerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedConnectException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedConnectException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedNoRouteToHostException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedNoRouteToHostException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedSocketException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedSocketException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$CloseFuture.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$CloseFuture.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +165,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="78236000" />
+      <workItem from="1564539097209" duration="78765000" />
     </task>
     <servers />
   </component>

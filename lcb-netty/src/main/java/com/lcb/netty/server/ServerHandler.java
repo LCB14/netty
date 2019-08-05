@@ -22,7 +22,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         System.out.println("server receive:" + in.toString(CharsetUtil.UTF_8));
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Hello client,love to you!" + "-" + LocalTime.now(), CharsetUtil.UTF_8));
     }
 
     @Override
