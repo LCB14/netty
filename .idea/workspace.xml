@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/ClientChannelInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/ServerChannelInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/AbstractChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/AbstractChannel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/client/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/netty/server/ServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/client/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/ServerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/netty/server/ServerHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$3.class" afterDir="false" />
@@ -22,7 +31,6 @@
       <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedSocketException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedSocketException.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$CloseFuture.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$CloseFuture.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/SingleThreadEventLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/SingleThreadEventLoop.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +54,9 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="netty-parent" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -91,7 +102,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.Client (1)">
+    <configuration name="Client (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lcb.netty.client.Client" />
+      <module name="lcb-netty" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lcb.netty.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lcb.socket.client.Client" />
       <module name="lcb-netty" />
@@ -131,19 +155,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerBoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.socket.server.ServerBoot" />
-      <module name="lcb-netty" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.lcb.socket.server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lcb.netty.server.Test" />
       <module name="lcb-netty" />
@@ -159,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client (1)" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.DefaultThreadFactory" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Application.ServerBoot" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +190,7 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="60378000" />
+      <workItem from="1564539097209" duration="78236000" />
     </task>
     <servers />
   </component>
