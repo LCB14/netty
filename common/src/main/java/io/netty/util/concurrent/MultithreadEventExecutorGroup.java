@@ -55,6 +55,12 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
      * @param args              arguments which will passed to each {@link #newChild(Executor, Object...)} call
      */
     protected MultithreadEventExecutorGroup(int nThreads, Executor executor, Object... args) {
+        /**
+         * DefaultEventExecutorChooserFactory.INSTANCE返回的是DefaultEventExecutorChooserFactory实例
+         * 且DefaultEventExecutorChooserFactory实现了EventExecutorChooserFactory接口。
+         *
+         * 继续使用单例模式
+         */
         this(nThreads, executor, DefaultEventExecutorChooserFactory.INSTANCE, args);
     }
 

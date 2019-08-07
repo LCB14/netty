@@ -62,6 +62,8 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
 
     public NioEventLoopGroup(int nThreads, Executor executor) {
         /**
+         * SelectorProvider.provider()用于创建selector
+         *
          * @see java.nio.channels.Selector#open()
          */
         this(nThreads, executor, SelectorProvider.provider());
@@ -83,12 +85,21 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
 
     public NioEventLoopGroup(
             int nThreads, Executor executor, final SelectorProvider selectorProvider) {
-        // DefaultSelectStrategyFactory.INSTANCE会返回当前类（DefaultSelectStrategyFactory)的一个实例
+        /**
+         *  DefaultSelectStrategyFactory.INSTANCE会返回DefaultSelectStrategyFactory类的一个实例
+         *
+         *  使用了单例模式
+         */
         this(nThreads, executor, selectorProvider, DefaultSelectStrategyFactory.INSTANCE);
     }
 
     public NioEventLoopGroup(int nThreads, Executor executor, final SelectorProvider selectorProvider,
                              final SelectStrategyFactory selectStrategyFactory) {
+        /**
+         * RejectedExecutionHandlers.reject()返回的是RejectedExecutionHandlers类的一个实例
+         *
+         * 继续使用单例模式
+         */
         super(nThreads, executor, selectorProvider, selectStrategyFactory, RejectedExecutionHandlers.reject());
     }
 

@@ -50,6 +50,10 @@ public abstract class MultithreadEventLoopGroup extends MultithreadEventExecutor
      * @see MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, Executor, Object...)
      */
     protected MultithreadEventLoopGroup(int nThreads, Executor executor, Object... args) {
+        /**
+         * 可以发现如果在创建NioEventLoopGroup实例时采用默认构造函数，这里的线程数会被初始化为DEFAULT_EVENT_LOOP_THREADS
+         * 即CPU的核心数
+         */
         super(nThreads == 0 ? DEFAULT_EVENT_LOOP_THREADS : nThreads, executor, args);
     }
 

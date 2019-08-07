@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/MultithreadEventLoopGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/MultithreadEventLoopGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoopGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoopGroup.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,10 +60,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -162,7 +165,9 @@
       <updated>1564378685190</updated>
       <workItem from="1564538549186" duration="404000" />
       <workItem from="1564538960367" duration="30000" />
-      <workItem from="1564539097209" duration="80522000" />
+      <workItem from="1564539097209" duration="82870000" />
+      <workItem from="1565128281429" duration="59000" />
+      <workItem from="1565138440184" duration="2997000" />
     </task>
     <servers />
   </component>
