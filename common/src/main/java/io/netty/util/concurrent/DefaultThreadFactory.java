@@ -60,6 +60,7 @@ public class DefaultThreadFactory implements ThreadFactory {
     }
 
     public DefaultThreadFactory(Class<?> poolType, boolean daemon, int priority) {
+        // toPoolName()方法的作用是生成线程组的名称
         this(toPoolName(poolType), daemon, priority);
     }
 
@@ -100,12 +101,21 @@ public class DefaultThreadFactory implements ThreadFactory {
     }
 
     public DefaultThreadFactory(String poolName, boolean daemon, int priority) {
+        /**
+         * 关于System.getSecurityManager()的内容可以参考下面链接
+         *
+         * https://www.cnblogs.com/yaowen/p/10117893.html
+         */
         this(poolName, daemon, priority, System.getSecurityManager() == null ?
                 Thread.currentThread().getThreadGroup() : System.getSecurityManager().getThreadGroup());
     }
 
     @Override
     public Thread newThread(Runnable r) {
+        /**
+         * FastThreadLocalRunnable.wrap(r)对线程实例进行简单的封装
+         * FastThreadLocalRunnable实现了Runable接口
+         */
         Thread t = newThread(FastThreadLocalRunnable.wrap(r), prefix + nextId.incrementAndGet());
         try {
             if (t.isDaemon() != daemon) {
