@@ -115,6 +115,8 @@ public class DefaultThreadFactory implements ThreadFactory {
         /**
          * FastThreadLocalRunnable.wrap(r)对线程实例进行简单的封装
          * FastThreadLocalRunnable实现了Runable接口
+         *
+         * 思考：为何netty不直接使用Runable实例呢？为了装B？
          */
         Thread t = newThread(FastThreadLocalRunnable.wrap(r), prefix + nextId.incrementAndGet());
         try {
@@ -132,6 +134,10 @@ public class DefaultThreadFactory implements ThreadFactory {
     }
 
     protected Thread newThread(Runnable r, String name) {
+        /**
+         * 这里直接利用Runable实例然后借助Thread直接创建一个线程实例不就好了吗为何还要对Thread再进行一次封装呢？
+         * FastThreadLocalThread对Thread封装究竟意欲何为？
+         */
         return new FastThreadLocalThread(threadGroup, r, name);
     }
 }
