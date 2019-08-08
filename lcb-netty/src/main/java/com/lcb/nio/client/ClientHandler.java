@@ -82,6 +82,7 @@ public class ClientHandler {
             sc.register(selector, SelectionKey.OP_READ);
             doWrite(sc);
         } else {
+            // 向Reactor线程的多路复用器注册OP_CONNECT状态位，监听服务端的TCP ACK的应答。
             sc.register(selector, SelectionKey.OP_CONNECT);
         }
     }
