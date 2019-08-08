@@ -134,12 +134,13 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         }
 
         /**
-         * 创建线程选择器，该选择器的作用是为新连接绑定NioEventLoop
+         * 创建线程选择器，该选择器的作用是为新连接选择相关的EventLoop
          *
          * @see DefaultEventExecutorChooserFactory#newChooser(io.netty.util.concurrent.EventExecutor[])
          */
         chooser = chooserFactory.newChooser(children);
 
+        // 创建一个EventLoop操作完成监听器
         final FutureListener<Object> terminationListener = new FutureListener<Object>() {
             @Override
             public void operationComplete(Future<Object> future) throws Exception {
@@ -149,10 +150,12 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             }
         };
 
+        // 为children数组中的每个EventLoop实例都添加一个操作完成监听器
         for (EventExecutor e: children) {
             e.terminationFuture().addListener(terminationListener);
         }
 
+        // 将数组EventLoop中的EventLoop实例进行乱序处理然后保存到readonlyChildren全局变量中
         Set<EventExecutor> childrenSet = new LinkedHashSet<EventExecutor>(children.length);
         Collections.addAll(childrenSet, children);
         readonlyChildren = Collections.unmodifiableSet(childrenSet);

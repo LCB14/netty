@@ -144,10 +144,15 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             throw new NullPointerException("selectStrategy");
         }
         provider = selectorProvider;
+
+        // SelectorTuple是当前类的一个静态常量内部类
         final SelectorTuple selectorTuple = openSelector();
+
         // 可以发现每个EventLoop都有一个唯一与之绑定的selector
         selector = selectorTuple.selector;
+
         unwrappedSelector = selectorTuple.unwrappedSelector;
+
         selectStrategy = strategy;
     }
 
