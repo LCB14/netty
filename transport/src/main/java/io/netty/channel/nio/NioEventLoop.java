@@ -134,6 +134,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     NioEventLoop(NioEventLoopGroup parent, Executor executor, SelectorProvider selectorProvider,
                  SelectStrategy strategy, RejectedExecutionHandler rejectedExecutionHandler,
                  EventLoopTaskQueueFactory queueFactory) {
+
         super(parent, executor, false, newTaskQueue(queueFactory), newTaskQueue(queueFactory),
                 rejectedExecutionHandler);
         if (selectorProvider == null) {
@@ -144,7 +145,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         }
         provider = selectorProvider;
         final SelectorTuple selectorTuple = openSelector();
-        // 可以发现每个EventLoop都有一个与之绑定的selector
+        // 可以发现每个EventLoop都有一个唯一与之绑定的selector
         selector = selectorTuple.selector;
         unwrappedSelector = selectorTuple.unwrappedSelector;
         selectStrategy = strategy;

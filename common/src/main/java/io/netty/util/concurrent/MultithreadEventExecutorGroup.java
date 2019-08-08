@@ -80,7 +80,6 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
         if (executor == null) {
             /**
-             * 通过这个方法可以很好的学习设计模式包装模式和命令模式在Netty中的应用
              * Executor设计的目的是实现任务的创建和任务的执行进行分离，ThreadFactory也是类似的思想。
              *
              * newDefaultThreadFactory() -> 初始化生产线程的规则
@@ -98,7 +97,8 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             boolean success = false;
             try {
                 /**
-                 * 构造NioEventExecutor
+                 * 构造NioEventExecutor ->  NioEventExecutor继承了MultithreadEventExecutorGroup
+                 *
                  * @see io.netty.channel.nio.NioEventLoopGroup#newChild(java.util.concurrent.Executor, java.lang.Object...)
                  *
                  * newChild()主要干了三件事：
