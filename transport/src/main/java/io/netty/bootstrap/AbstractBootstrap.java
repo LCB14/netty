@@ -17,6 +17,7 @@
 package io.netty.bootstrap;
 
 import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoop;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GlobalEventExecutor;
@@ -361,6 +362,10 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
 
         // This method is invoked before channelRegistered() is triggered.  Give user handlers a chance to set up
         // the pipeline in its channelRegistered() implementation.
+        /**
+         * 最终触发如下：
+         * @see NioEventLoop#run()
+         */
         channel.eventLoop().execute(new Runnable() {
             @Override
             public void run() {
