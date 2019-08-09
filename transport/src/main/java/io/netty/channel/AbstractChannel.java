@@ -465,7 +465,12 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                         new IllegalStateException("incompatible event loop type: " + eventLoop.getClass().getName()));
                 return;
             }
-            // 1、先将EventLoop事件循环器绑定到该NioServerSocketChannel上，然后调用 register0()
+            /**
+             * 1、先将EventLoop事件循环器绑定到该NioServerSocketChannel上，然后调用 register0()
+             *
+             * AbstractChannel.this -> 由于目前处在AbstractChannel类的内部类AbstractUnsafe中，直接使用this表示的是
+             * 当前AbstractUnsafe实例只有使用AbstractChannel.this才是表示外部类当前实例对象。
+             */
             AbstractChannel.this.eventLoop = eventLoop;
 
             /**
@@ -501,6 +506,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 }
                 boolean firstRegistration = neverRegistered;
                 /**
+                 * 具体的注册
                  * @see AbstractNioChannel#doRegister()
                  */
                 doRegister();
@@ -509,12 +515,15 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                 // Ensure we call handlerAdded(...) before we actually notify the promise. This is needed as the
                 // user may already fire events through the pipeline in the ChannelFutureListener.
+                // 执行Event: HandlerAdded
                 pipeline.invokeHandlerAddedIfNeeded();
 
                 safeSetSuccess(promise);
+                // 传递Event: ChannelRegistered
                 pipeline.fireChannelRegistered();
                 // Only fire a channelActive if the channel has never been registered. This prevents firing
                 // multiple channel actives if the channel is deregistered and re-registered.
+                // 是否传递Event: ChannelActive
                 if (isActive()) {
                     if (firstRegistration) {
                         pipeline.fireChannelActive();

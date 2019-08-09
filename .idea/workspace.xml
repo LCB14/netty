@@ -3,7 +3,36 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$DefaultThreadProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$DefaultThreadProperties.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/AbstractChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/AbstractChannel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AbstractUnsafe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedConnectException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedConnectException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedNoRouteToHostException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedNoRouteToHostException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedSocketException.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$AnnotatedSocketException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$CloseFuture.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel$CloseFuture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/AbstractChannel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$SelectorTuple.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop$SelectorTuple.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +202,7 @@
       <workItem from="1565128281429" duration="59000" />
       <workItem from="1565138440184" duration="6615000" />
       <workItem from="1565192990424" duration="5534000" />
-      <workItem from="1565232597300" duration="12680000" />
+      <workItem from="1565232597300" duration="17195000" />
     </task>
     <servers />
   </component>
@@ -195,5 +224,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java</url>
+          <line>388</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

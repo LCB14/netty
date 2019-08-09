@@ -106,6 +106,9 @@ public abstract class AbstractNioChannel extends AbstractChannel {
         return (NioUnsafe) super.unsafe();
     }
 
+    /**
+     * SelectableChannel为ServerSocketChannel的父类
+     */
     protected SelectableChannel javaChannel() {
         return ch;
     }
@@ -379,6 +382,10 @@ public abstract class AbstractNioChannel extends AbstractChannel {
         boolean selected = false;
         for (;;) {
             try {
+                /**
+                 * javaChannel() -> 获取之前保存的ServerSocketChannel实例
+                 * eventLoop().unwrappedSelector() -> 获取之前保存的Selector实例
+                 */
                 selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this);
                 return;
             } catch (CancelledKeyException e) {
