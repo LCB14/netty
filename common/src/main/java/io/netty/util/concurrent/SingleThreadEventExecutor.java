@@ -765,6 +765,15 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         return isTerminated();
     }
 
+    /**
+     * 触发execute的地方
+     *
+     * 客户端：
+     * @see io.netty.bootstrap.Bootstrap#doConnect(java.net.SocketAddress, java.net.SocketAddress, io.netty.channel.ChannelPromise)
+     *
+     * 服务端:
+     * @see io.netty.bootstrap.AbstractBootstrap#doBind0(io.netty.channel.ChannelFuture, io.netty.channel.Channel, java.net.SocketAddress, io.netty.channel.ChannelPromise)
+     */
     @Override
     public void execute(Runnable task) {
         if (task == null) {
