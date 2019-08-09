@@ -137,6 +137,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
 
         super(parent, executor, false, newTaskQueue(queueFactory), newTaskQueue(queueFactory),
                 rejectedExecutionHandler);
+
         if (selectorProvider == null) {
             throw new NullPointerException("selectorProvider");
         }
