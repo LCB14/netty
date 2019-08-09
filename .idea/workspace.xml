@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +173,7 @@
       <workItem from="1565128281429" duration="59000" />
       <workItem from="1565138440184" duration="6615000" />
       <workItem from="1565192990424" duration="5534000" />
-      <workItem from="1565232597300" duration="7825000" />
+      <workItem from="1565232597300" duration="10542000" />
     </task>
     <servers />
   </component>
@@ -195,5 +195,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java</url>
+          <line>920</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

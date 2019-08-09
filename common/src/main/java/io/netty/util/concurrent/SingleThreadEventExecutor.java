@@ -80,9 +80,17 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             AtomicReferenceFieldUpdater.newUpdater(
                     SingleThreadEventExecutor.class, ThreadProperties.class, "threadProperties");
 
+    /**
+     *  用于存放需要执行的业务逻辑，是一个阻塞队列
+     */
     private final Queue<Runnable> taskQueue;
 
+    /**
+     * netty线程模型中实际工作的thread
+     * @see io.netty.util.concurrent.SingleThreadEventExecutor#execute
+     */
     private volatile Thread thread;
+
     @SuppressWarnings("unused")
     private volatile ThreadProperties threadProperties;
     private final Executor executor;
@@ -763,6 +771,12 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             throw new NullPointerException("task");
         }
 
+        /**
+         * inEventLoop方法其实是比较当前线程和this.Thread是否“==”。
+         * 刚开始this.thread还是NULL，故会执行else分支可以看到else中是一个startThread方法。
+         *
+         * @see SingleThreadEventExecutor#inEventLoop(java.lang.Thread)
+         */
         boolean inEventLoop = inEventLoop();
         addTask(task);
         if (!inEventLoop) {
