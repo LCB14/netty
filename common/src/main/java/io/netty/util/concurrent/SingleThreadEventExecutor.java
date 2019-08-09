@@ -87,7 +87,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
     /**
      * netty线程模型中实际工作的thread
-     * @see io.netty.util.concurrent.SingleThreadEventExecutor#execute
+     * @see io.netty.util.concurrent.SingleThreadEventExecutor#doStartThread
      */
     private volatile Thread thread;
 
@@ -919,9 +919,13 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
     private void doStartThread() {
         assert thread == null;
+        /**
+         * @see ThreadPerTaskExecutor#execute(java.lang.Runnable)
+         */
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                // 把ThreadPerTaskExecutor#execute(java.lang.Runnable)创建的线程赋值给thread
                 thread = Thread.currentThread();
                 if (interrupted) {
                     thread.interrupt();
@@ -930,6 +934,9 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                 boolean success = false;
                 updateLastExecutionTime();
                 try {
+                    /**
+                     * @see io.netty.channel.nio.NioEventLoop#run()
+                     */
                     SingleThreadEventExecutor.this.run();
                     success = true;
                 } catch (Throwable t) {

@@ -173,7 +173,7 @@
       <workItem from="1565128281429" duration="59000" />
       <workItem from="1565138440184" duration="6615000" />
       <workItem from="1565192990424" duration="5534000" />
-      <workItem from="1565232597300" duration="10542000" />
+      <workItem from="1565232597300" duration="11438000" />
     </task>
     <servers />
   </component>
@@ -195,16 +195,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java</url>
-          <line>920</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
