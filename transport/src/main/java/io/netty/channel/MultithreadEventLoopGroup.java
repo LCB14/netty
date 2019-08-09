@@ -16,6 +16,7 @@
 package io.netty.channel;
 
 import io.netty.util.NettyRuntime;
+import io.netty.util.concurrent.DefaultEventExecutorChooserFactory;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import io.netty.util.concurrent.EventExecutorChooserFactory;
 import io.netty.util.concurrent.MultithreadEventExecutorGroup;
@@ -89,6 +90,11 @@ public abstract class MultithreadEventLoopGroup extends MultithreadEventExecutor
     @Override
     public ChannelFuture register(Channel channel) {
         /**
+         * next() -> 会从之前children数组中取出一个EventLoop实例
+         * @see DefaultEventExecutorChooserFactory#newChooser(io.netty.util.concurrent.EventExecutor[])
+         * @see DefaultEventExecutorChooserFactory.PowerOfTwoEventExecutorChooser#next()
+         * @see io.netty.util.concurrent.DefaultEventExecutorChooserFactory.GenericEventExecutorChooser#next
+         *
          * @see SingleThreadEventLoop#register(io.netty.channel.Channel)
          */
         return next().register(channel);
