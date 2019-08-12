@@ -4,6 +4,15 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleStateEvent;
 
+/**
+ *  主要完成下面操作：
+ *
+ *  1、启动服务端，启动客户端
+ *  2、客户端向服务端发送"I am alive"，并sleep随机时间，用来模拟空闲。
+ *  3、服务端接收客户端消息，并返回"copy that"，客户端空闲时 计数+1.
+ *  4、服务端客户端继续通信
+ *  5、服务端检测客户端空闲太多，关闭连接。客户端发现连接关闭了，就退出了。
+ */
 public class HeartBeatHandler extends SimpleChannelInboundHandler<String> {
 
     int readIdleTimes = 0;

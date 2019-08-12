@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/ClientBootStrap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/HeartBeatClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/HeartBeatClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/HeartBeatClientInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/ServerBootStrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/MultithreadEventLoopGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/MultithreadEventLoopGroup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$AbstractNioUnsafe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$AbstractNioUnsafe$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$AbstractNioUnsafe$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$AbstractNioUnsafe$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$AbstractNioUnsafe.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel$AbstractNioUnsafe.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/AbstractNioChannel.class" afterDir="false" />
-    </list>
+    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +78,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ClientBootStrap">
+  <component name="RunManager" selected="Application.ServerBootStrap">
     <configuration name="ClientBootStrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lcb.apply.heart.beat.client.ClientBootStrap" />
       <module name="lcb-netty" />
@@ -192,7 +171,7 @@
       <workItem from="1565138440184" duration="6615000" />
       <workItem from="1565192990424" duration="5534000" />
       <workItem from="1565232597300" duration="20643000" />
-      <workItem from="1565425433606" duration="3182000" />
+      <workItem from="1565425433606" duration="6344000" />
     </task>
     <servers />
   </component>
