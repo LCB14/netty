@@ -39,11 +39,8 @@ public class ReconnectHandler extends ChannelInboundHandlerAdapter {
 
         boolean allowRetry = getRetryPolicy().allowRetry(retries);
         if (allowRetry) {
-
             long sleepTimeMs = getRetryPolicy().getSleepTimeMs(retries);
-
             System.out.println(String.format("Try to reconnect to the server after %dms. Retry count: %d.", sleepTimeMs, ++retries));
-
             final EventLoop eventLoop = ctx.channel().eventLoop();
             eventLoop.schedule(() -> {
                 System.out.println("Reconnecting ...");
