@@ -74,6 +74,9 @@ public class TcpClient {
         };
     }
 
+    /**
+     * @see com.lcb.apply.heart.reconnect.retry.ReconnectHandler#getRetryPolicy()
+     */
     public RetryPolicy getRetryPolicy() {
         return retryPolicy;
     }
