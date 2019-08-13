@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerBizHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerBizHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientIdleStateTrigger.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientIdleStateTrigger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/EchoHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/EchoHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/Pinger$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/Pinger$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/Pinger$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/Pinger$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/Pinger.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/Pinger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/retry/ExponentialBackOffRetry.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/retry/ExponentialBackOffRetry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/retry/ReconnectHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/retry/ReconnectHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerBizHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerBizHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerIdleStateTrigger.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerIdleStateTrigger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/TcpServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/TcpServer.class" afterDir="false" />
-    </list>
+    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +175,7 @@
       <workItem from="1565192990424" duration="5534000" />
       <workItem from="1565232597300" duration="20643000" />
       <workItem from="1565425433606" duration="12746000" />
-      <workItem from="1565685875857" duration="4780000" />
+      <workItem from="1565685875857" duration="5479000" />
     </task>
     <servers />
   </component>

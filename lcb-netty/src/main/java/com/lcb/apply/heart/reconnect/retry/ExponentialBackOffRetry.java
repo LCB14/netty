@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class ExponentialBackOffRetry implements RetryPolicy {
 
-    private static final int MAX_RETRIES_LIMIT = 29;
+    private static final int MAX_RETRIES_LIMIT = 9;
     private static final int DEFAULT_MAX_SLEEP_MS = Integer.MAX_VALUE;
 
     private final Random random = new Random();
