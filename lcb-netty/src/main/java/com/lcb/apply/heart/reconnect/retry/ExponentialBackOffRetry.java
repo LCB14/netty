@@ -21,8 +21,8 @@ public class ExponentialBackOffRetry implements RetryPolicy {
     }
 
     public ExponentialBackOffRetry(int baseSleepTimeMs, int maxRetries, int maxSleepMs) {
-        this.maxRetries = maxRetries;
         this.baseSleepTimeMs = baseSleepTimeMs;
+        this.maxRetries = maxRetries;
         this.maxSleepMs = maxSleepMs;
     }
 
