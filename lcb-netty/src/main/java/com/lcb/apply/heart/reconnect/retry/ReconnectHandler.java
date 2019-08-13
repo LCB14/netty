@@ -8,6 +8,9 @@ import io.netty.channel.EventLoop;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author lichangbao
+ */
 @ChannelHandler.Sharable
 public class ReconnectHandler extends ChannelInboundHandlerAdapter {
 

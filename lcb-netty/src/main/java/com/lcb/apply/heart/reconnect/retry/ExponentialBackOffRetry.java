@@ -4,6 +4,7 @@ import java.util.Random;
 
 /**
  * <p>Retry policy that retries a set number of times with increasing sleep time between retries</p>
+ * @author lichangbao
  */
 public class ExponentialBackOffRetry implements RetryPolicy {
 

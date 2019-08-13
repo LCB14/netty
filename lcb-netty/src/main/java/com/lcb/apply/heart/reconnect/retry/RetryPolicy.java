@@ -1,5 +1,8 @@
 package com.lcb.apply.heart.reconnect.retry;
 
+/**
+ * @author lichangbao
+ */
 public interface RetryPolicy {
 
     /**
