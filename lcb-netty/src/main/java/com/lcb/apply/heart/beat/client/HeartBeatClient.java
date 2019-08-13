@@ -32,6 +32,7 @@ public class HeartBeatClient {
                 sendMsg(text);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             // do something
         } finally {
             eventLoopGroup.shutdownGracefully();

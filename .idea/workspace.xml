@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="" />
+    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/ClientIdleStateTrigger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/EchoHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/Pinger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/TcpClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/retry/ExponentialBackOffRetry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/retry/ReconnectHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/retry/RetryPolicy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerBizHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerIdleStateTrigger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/TcpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/HeartBeatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/HeartBeatClient.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +54,9 @@
       </list>
     </option>
   </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <toolWindowEditorPreview>false</toolWindowEditorPreview>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -64,7 +83,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -171,7 +190,8 @@
       <workItem from="1565138440184" duration="6615000" />
       <workItem from="1565192990424" duration="5534000" />
       <workItem from="1565232597300" duration="20643000" />
-      <workItem from="1565425433606" duration="6344000" />
+      <workItem from="1565425433606" duration="12746000" />
+      <workItem from="1565685875857" duration="510000" />
     </task>
     <servers />
   </component>
