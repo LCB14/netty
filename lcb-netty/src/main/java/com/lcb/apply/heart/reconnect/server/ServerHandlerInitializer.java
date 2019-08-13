@@ -10,9 +10,11 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * <p>用于初始化服务器端涉及到的所有<code>Handler</code></p>
+ * @author lichangbao
  */
 public class ServerHandlerInitializer extends ChannelInitializer<SocketChannel> {
 
+    @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline().addLast("idleStateHandler", new IdleStateHandler(5, 0, 0));
         ch.pipeline().addLast("idleStateTrigger", new ServerIdleStateTrigger());

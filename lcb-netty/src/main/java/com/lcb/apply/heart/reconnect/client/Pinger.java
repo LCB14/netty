@@ -31,9 +31,6 @@ public class Pinger extends ChannelInboundHandlerAdapter {
 
     private void ping(Channel channel) {
         int second = Math.max(1, random.nextInt(baseRandom));
-        if (second == 5) {
-            second = 6;
-        }
         System.out.println("next heart beat will send after " + second + "s.");
         ScheduledFuture<?> future = channel.eventLoop().schedule(new Runnable() {
             @Override

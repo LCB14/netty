@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/TcpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/TcpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/Pinger.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/Pinger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerBizHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerBizHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerIdleStateTrigger.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerIdleStateTrigger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/TcpServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -178,7 +182,7 @@
       <workItem from="1565192990424" duration="5534000" />
       <workItem from="1565232597300" duration="20643000" />
       <workItem from="1565425433606" duration="12746000" />
-      <workItem from="1565685875857" duration="3082000" />
+      <workItem from="1565685875857" duration="3822000" />
     </task>
     <servers />
   </component>
