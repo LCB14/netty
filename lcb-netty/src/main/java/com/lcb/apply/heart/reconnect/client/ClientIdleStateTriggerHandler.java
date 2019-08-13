@@ -20,8 +20,11 @@ public class ClientIdleStateTriggerHandler extends ChannelInboundHandlerAdapter 
         if (evt instanceof IdleStateEvent) {
             IdleState state = ((IdleStateEvent) evt).state();
             if (state == IdleState.WRITER_IDLE) {
-                // write heartbeat to server
-                ctx.writeAndFlush(HEART_BEAT);
+                if(ctx.channel().isActive()) {
+                    System.out.println("timeout sending heart beat to the server...");
+                    // write heartbeat to server
+                    ctx.channel().writeAndFlush(HEART_BEAT);
+                }
             }
         } else {
             super.userEventTriggered(ctx, evt);
