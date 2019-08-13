@@ -11,6 +11,9 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 
+/**
+ * @author lichangbao
+ */
 public class ClientHandlersInitializer extends ChannelInitializer<SocketChannel> {
 
     private ReconnectHandler reconnectHandler;

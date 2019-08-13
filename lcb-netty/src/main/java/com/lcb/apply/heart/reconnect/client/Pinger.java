@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>客户端连接到服务器端后，会循环执行一个任务：随机等待几秒，然后ping一下Server端，即发送一个心跳包。</p>
+ * @author lichangbao
  */
 public class Pinger extends ChannelInboundHandlerAdapter {
 

@@ -10,6 +10,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+/**
+ * @author lichangbao
+ */
 public class TcpClient {
 
     private String host;
@@ -19,6 +22,7 @@ public class TcpClient {
      * 重连策略
      */
     private RetryPolicy retryPolicy;
+
     /**
      * 将<code>Channel</code>保存起来, 可用于在其他非handler的地方发送数据
      */

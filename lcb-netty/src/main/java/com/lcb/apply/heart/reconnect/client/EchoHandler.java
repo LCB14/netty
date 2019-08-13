@@ -4,6 +4,9 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+/**
+ * @author lichangbao
+ */
 @ChannelHandler.Sharable
 public class EchoHandler extends SimpleChannelInboundHandler<String> {
 
