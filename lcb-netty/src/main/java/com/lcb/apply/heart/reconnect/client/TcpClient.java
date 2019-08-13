@@ -60,19 +60,22 @@ public class TcpClient {
         }
     }
 
-    public RetryPolicy getRetryPolicy() {
-        return retryPolicy;
-    }
-
     private ChannelFutureListener getConnectionListener() {
         return new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {
                 if (!future.isSuccess()) {
+                    /**
+                     * @see com.lcb.apply.heart.reconnect.retry.ReconnectHandler#channelInactive
+                     */
                     future.channel().pipeline().fireChannelInactive();
                 }
             }
         };
+    }
+
+    public RetryPolicy getRetryPolicy() {
+        return retryPolicy;
     }
 
     public static void main(String[] args) {
