@@ -11,7 +11,7 @@ import io.netty.handler.timeout.IdleStateEvent;
  * </p>
  * @author lichangbao
  */
-public class ClientIdleStateTrigger extends ChannelInboundHandlerAdapter {
+public class ClientIdleStateTriggerHandler extends ChannelInboundHandlerAdapter {
 
     public static final String HEART_BEAT = "heart beat!";
 

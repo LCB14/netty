@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * <p>客户端连接到服务器端后，会循环执行一个任务：随机等待几秒，然后ping一下Server端，即发送一个心跳包。</p>
  * @author lichangbao
  */
-public class Pinger extends ChannelInboundHandlerAdapter {
+public class PingHandler extends ChannelInboundHandlerAdapter {
 
     private Random random = new Random();
     private int baseRandom = 8;
@@ -37,7 +37,7 @@ public class Pinger extends ChannelInboundHandlerAdapter {
             public void run() {
                 if (channel.isActive()) {
                     System.out.println("sending heart beat to the server...");
-                    channel.writeAndFlush(ClientIdleStateTrigger.HEART_BEAT);
+                    channel.writeAndFlush(ClientIdleStateTriggerHandler.HEART_BEAT);
                 } else {
                     System.err.println("The connection had broken, cancel the task that will send a heart beat.");
                     channel.closeFuture();

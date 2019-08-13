@@ -17,7 +17,7 @@ public class ServerHandlerInitializer extends ChannelInitializer<SocketChannel> 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline().addLast("idleStateHandler", new IdleStateHandler(5, 0, 0));
-        ch.pipeline().addLast("idleStateTrigger", new ServerIdleStateTrigger());
+        ch.pipeline().addLast("idleStateTrigger", new ServerIdleStateTriggerHandler());
         ch.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
         ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
         ch.pipeline().addLast("decoder", new StringDecoder());

@@ -33,7 +33,7 @@ public class ClientHandlersInitializer extends ChannelInitializer<SocketChannel>
         pipeline.addLast(new LengthFieldPrepender(4));
         pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
         pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
-        pipeline.addLast(new Pinger());
+        pipeline.addLast(new PingHandler());
         pipeline.addLast(echoHandler);
     }
 }

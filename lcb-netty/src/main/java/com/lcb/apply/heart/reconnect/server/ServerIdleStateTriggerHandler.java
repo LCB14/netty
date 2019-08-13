@@ -9,7 +9,7 @@ import io.netty.handler.timeout.IdleStateEvent;
  * <p>在规定时间内未收到客户端的任何数据包, 将主动断开该连接</p>
  * @author lichangbao
  */
-public class ServerIdleStateTrigger extends ChannelInboundHandlerAdapter {
+public class ServerIdleStateTriggerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
