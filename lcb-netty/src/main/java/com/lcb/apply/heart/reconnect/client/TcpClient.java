@@ -35,6 +35,15 @@ public class TcpClient {
         init();
     }
 
+    private void init() {
+        EventLoopGroup group = new NioEventLoopGroup();
+        // bootstrap 可重用, 只需在TcpClient实例化的时候初始化即可.
+        bootstrap = new Bootstrap();
+        bootstrap.group(group)
+                .channel(NioSocketChannel.class)
+                .handler(new ClientHandlersInitializer(TcpClient.this));
+    }
+
     /**
      * 向远程TCP服务器请求连接
      */
@@ -48,15 +57,6 @@ public class TcpClient {
 
     public RetryPolicy getRetryPolicy() {
         return retryPolicy;
-    }
-
-    private void init() {
-        EventLoopGroup group = new NioEventLoopGroup();
-        // bootstrap 可重用, 只需在TcpClient实例化的时候初始化即可.
-        bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .handler(new ClientHandlersInitializer(TcpClient.this));
     }
 
     private ChannelFutureListener getConnectionListener() {
