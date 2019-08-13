@@ -20,16 +20,16 @@ public class PingHandler extends ChannelInboundHandlerAdapter {
     private int baseRandom = 8;
 
     private Channel channel;
+    public static final String HEART_BEAT = "heart beat!";
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
         this.channel = ctx.channel();
-
-        ping(ctx.channel());
+        ping();
     }
 
-    private void ping(Channel channel) {
+    private void ping() {
         int second = Math.max(1, random.nextInt(baseRandom));
         System.out.println("next heart beat will send after " + second + "s.");
         ScheduledFuture<?> future = channel.eventLoop().schedule(new Runnable() {
@@ -37,7 +37,7 @@ public class PingHandler extends ChannelInboundHandlerAdapter {
             public void run() {
                 if (channel.isActive()) {
                     System.out.println("sending heart beat to the server...");
-                    channel.writeAndFlush(ClientIdleStateTriggerHandler.HEART_BEAT);
+                    channel.writeAndFlush(HEART_BEAT);
                 } else {
                     System.err.println("The connection had broken, cancel the task that will send a heart beat.");
                     channel.closeFuture();
@@ -50,7 +50,7 @@ public class PingHandler extends ChannelInboundHandlerAdapter {
             @Override
             public void operationComplete(Future future) throws Exception {
                 if (future.isSuccess()) {
-                    ping(channel);
+                    ping();
                 }
             }
         });
