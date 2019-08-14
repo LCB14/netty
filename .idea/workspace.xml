@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/ClientIdleStateTriggerHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/PingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/PingHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -183,7 +181,7 @@
       <workItem from="1565192990424" duration="5534000" />
       <workItem from="1565232597300" duration="20643000" />
       <workItem from="1565425433606" duration="12746000" />
-      <workItem from="1565685875857" duration="15998000" />
+      <workItem from="1565685875857" duration="19672000" />
     </task>
     <servers />
   </component>
