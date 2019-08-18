@@ -42,7 +42,8 @@ public class PooledByteBufAllocator extends AbstractByteBufAllocator implements 
     private static final int DEFAULT_NUM_DIRECT_ARENA;
 
     private static final int DEFAULT_PAGE_SIZE;
-    private static final int DEFAULT_MAX_ORDER; // 8192 << 11 = 16 MiB per chunk
+    // 8192 << 11 = 16 MiB per chunk
+    private static final int DEFAULT_MAX_ORDER;
     private static final int DEFAULT_TINY_CACHE_SIZE;
     private static final int DEFAULT_SMALL_CACHE_SIZE;
     private static final int DEFAULT_NORMAL_CACHE_SIZE;
@@ -82,6 +83,10 @@ public class PooledByteBufAllocator extends AbstractByteBufAllocator implements 
             maxOrderFallbackCause = t;
             defaultMaxOrder = 11;
         }
+        /**
+         * 表示默认的page(页)的大小为8k
+         * 这个pageSize大小不是随意设置是有限制的，它必须大于4096（4K），而且为了方便的支持位运算使内存分配更高效，它必须是2的整数次幂。
+         */
         DEFAULT_MAX_ORDER = defaultMaxOrder;
 
         // Determine reasonable default for nHeapArena and nDirectArena.
@@ -298,7 +303,12 @@ public class PooledByteBufAllocator extends AbstractByteBufAllocator implements 
         return Integer.SIZE - 1 - Integer.numberOfLeadingZeros(pageSize);
     }
 
+    /**
+     * 计算chunkSize的值
+     * 计算公式：chunkSize = pageSize*（2的maxOrder次幂）
+     */
     private static int validateAndCalculateChunkSize(int pageSize, int maxOrder) {
+        // maxOrder只能设置0-14范围内的值，默认值11.
         if (maxOrder > 14) {
             throw new IllegalArgumentException("maxOrder: " + maxOrder + " (expected: 0-14)");
         }
