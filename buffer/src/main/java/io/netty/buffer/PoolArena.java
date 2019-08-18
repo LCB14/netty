@@ -50,9 +50,12 @@ abstract class PoolArena<T> implements PoolArenaMetric {
     final int numSmallSubpagePools;
     final int directMemoryCacheAlignment;
     final int directMemoryCacheAlignmentMask;
+    // 用来缓存分配给tiny（小于512）的内存页
     private final PoolSubpage<T>[] tinySubpagePools;
+    // 用来缓存分配给small（大等于512）的内存页
     private final PoolSubpage<T>[] smallSubpagePools;
 
+    // 这六个PoolChunkList也通过链表串联，串联关系是：qInit->q000->q025->q050->q075->q100。
     private final PoolChunkList<T> q050;
     private final PoolChunkList<T> q025;
     private final PoolChunkList<T> q000;
@@ -334,6 +337,18 @@ abstract class PoolArena<T> implements PoolArenaMetric {
         return table[tableIdx];
     }
 
+    /**
+     * 计算内存分配，分配策略如下：
+     *
+     * 1、请求的内存大小是否超过了chunkSize，如果已超出说明一个该内存已经超出了一个chunk能分配的范围，
+     * 这种内存内存池无法分配应由JVM分配，直接返回原始大小。
+     *
+     * 2、请求大小大于等于512，返回一个512的2次幂倍数当做最终的内存大小，当原始大小是512时，返回512，
+     * 当原始大小在(512，1024]区间，返回1024，当在(1024，2048]区间，返回2048等等。
+     *
+     * 3、请求大小小于512，返回一个16的整数倍，原始大小(0，16]区间返回16，(16，32]区间返回32，(32，48]区间返回48等等，
+     * 这些大小的内存块在内存池中叫tiny块。
+     */
     int normalizeCapacity(int reqCapacity) {
         checkPositiveOrZero(reqCapacity, "reqCapacity");
 
