@@ -237,6 +237,7 @@ abstract class PoolArena<T> implements PoolArenaMetric {
     }
 
     // Method must be called inside synchronized(this) { ... } block
+    // 全局分配
     private void allocateNormal(PooledByteBuf<T> buf, int reqCapacity, int normCapacity) {
         if (q050.allocate(buf, reqCapacity, normCapacity) || q025.allocate(buf, reqCapacity, normCapacity) ||
             q000.allocate(buf, reqCapacity, normCapacity) || qInit.allocate(buf, reqCapacity, normCapacity) ||
@@ -248,6 +249,10 @@ abstract class PoolArena<T> implements PoolArenaMetric {
         PoolChunk<T> c = newChunk(pageSize, maxOrder, pageShifts, chunkSize);
         boolean success = c.allocate(buf, reqCapacity, normCapacity);
         assert success;
+        /**
+         * 初始状态下所有的PoolChunkList都是空的，所以在此先创建chunk块并且添加到PoolChunkList中，
+         * 需要注意的是虽然都是通过qInit.add添加chunk，这并不代表chunk都会被添加到qInit这个PoolChunkList.
+         */
         qInit.add(c);
     }
 

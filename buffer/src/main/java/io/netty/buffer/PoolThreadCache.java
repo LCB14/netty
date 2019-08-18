@@ -46,11 +46,21 @@ final class PoolThreadCache {
     final PoolArena<ByteBuffer> directArena;
 
     // Hold the caches for the different size classes, which are tiny, small and normal.
+    /**
+     * 用于在线程内缓存tiny内存块
+     */
     private final MemoryRegionCache<byte[]>[] tinySubPageHeapCaches;
+    /**
+     * 用于在线程内缓存small内存块
+     */
     private final MemoryRegionCache<byte[]>[] smallSubPageHeapCaches;
+    /**
+     * 用于在线程内缓存normal内存块
+     */
+    private final MemoryRegionCache<byte[]>[] normalHeapCaches;
+
     private final MemoryRegionCache<ByteBuffer>[] tinySubPageDirectCaches;
     private final MemoryRegionCache<ByteBuffer>[] smallSubPageDirectCaches;
-    private final MemoryRegionCache<byte[]>[] normalHeapCaches;
     private final MemoryRegionCache<ByteBuffer>[] normalDirectCaches;
 
     // Used for bitshifting when calculate the index of normal caches later
