@@ -17,17 +17,23 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+        // 如果是WebSocket请求，则保留数据并传递到下一个ChannelHandler
         if (wsUri.equalsIgnoreCase(request.uri())) {
-            // 如果是WebSocket请求，则保留数据并传递到下一个ChannelHandler
+            /**
+             * 这里之所以需要调用retain()方法，是因为调用channelRead0()方法完成之后，它将调用
+             * FullHttpRequest对象上的release()方法以释放它的资源。
+             */
             ctx.fireChannelRead(request.retain());
         } else {
             if (HttpUtil.is100ContinueExpected(request)) {
-                // 收到100-continue，则返回给客户端100
+                /**
+                 * 收到100-continue，则返回给客户端100
+                 */
                 send100Continue(ctx);
             }
             boolean keepAlive;
             ChannelFuture future;
-            try (RandomAccessFile file = new RandomAccessFile(this.getClass().getResource("/").getPath() + "../resources/index.html", "r")) {
+            try (RandomAccessFile file = new RandomAccessFile(this.getClass().getResource("/").getPath() + "chat.html", "r")) {
                 HttpResponse response = new DefaultHttpResponse(request.protocolVersion(), HttpResponseStatus.OK);
                 response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html; charset=UTF-8");
                 response.headers().set(HttpHeaderNames.CONTENT_LENGTH, file.length());
@@ -44,6 +50,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     future = ctx.writeAndFlush(new ChunkedNioFile(file.getChannel()));
                 }
             }
+
             // 如果不是keep-alive，则关闭Channel
             if (!keepAlive) {
                 future.addListener(ChannelFutureListener.CLOSE);

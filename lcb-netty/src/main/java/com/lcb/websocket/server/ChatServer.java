@@ -29,7 +29,7 @@ public class ChatServer {
      * 启动服务端
      */
     public ChannelFuture start(InetSocketAddress address) {
-        //服务端启动器
+        // 服务端启动器
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(group)
                 .channel(NioServerSocketChannel.class)
@@ -62,7 +62,7 @@ public class ChatServer {
      * 主方法
      */
     public static void main(String[] args) {
-        //服务端监听端口
+        // 服务端监听端口
         int port = 9999;
         final ChatServer endpoint = new ChatServer();
         ChannelFuture future = endpoint.start(new InetSocketAddress(port));
