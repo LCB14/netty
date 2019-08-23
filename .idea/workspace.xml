@@ -7,28 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena$DirectArena.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena$DirectArena.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena$HeapArena.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena$HeapArena.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolArena.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolChunkList.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolChunkList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$MemoryRegionCache$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$MemoryRegionCache$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$MemoryRegionCache$Entry.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$MemoryRegionCache$Entry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$MemoryRegionCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$MemoryRegionCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$NormalMemoryRegionCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$NormalMemoryRegionCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$SubPageMemoryRegionCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache$SubPageMemoryRegionCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PoolThreadCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PooledByteBufAllocator$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PooledByteBufAllocator$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PooledByteBufAllocator$PoolThreadLocalCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PooledByteBufAllocator$PoolThreadLocalCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PooledByteBufAllocator.class" beforeDir="false" afterPath="$PROJECT_DIR$/buffer/target/classes/io/netty/buffer/PooledByteBufAllocator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev-tools/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dev-tools/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev-tools/target/netty-dev-tools-4.1.37.Final-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dev-tools/target/netty-dev-tools-4.1.37.Final-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -309,7 +289,8 @@
       <workItem from="1566200051486" duration="1131000" />
       <workItem from="1566286387623" duration="1925000" />
       <workItem from="1566374891540" duration="3146000" />
-      <workItem from="1566532316246" duration="6074000" />
+      <workItem from="1566532316246" duration="6180000" />
+      <workItem from="1566577138154" duration="37000" />
     </task>
     <servers />
   </component>

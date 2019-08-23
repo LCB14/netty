@@ -1,6 +1,7 @@
-package com.lcb.websocket.handler;
+package com.lcb.websocket.init;
 
-import com.lcb.websocket.init.TextWebSocketFrameHandler;
+import com.lcb.websocket.handler.HttpRequestHandler;
+import com.lcb.websocket.handler.TextWebSocketFrameHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

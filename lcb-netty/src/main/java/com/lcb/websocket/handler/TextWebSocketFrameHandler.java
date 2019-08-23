@@ -1,4 +1,4 @@
-package com.lcb.websocket.init;
+package com.lcb.websocket.handler;
 
 import com.lcb.websocket.handler.HttpRequestHandler;
 import io.netty.channel.ChannelHandlerContext;

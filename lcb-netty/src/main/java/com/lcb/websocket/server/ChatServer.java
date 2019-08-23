@@ -1,6 +1,6 @@
 package com.lcb.websocket.server;
 
-import com.lcb.websocket.handler.ChatServerInitializer;
+import com.lcb.websocket.init.ChatServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
