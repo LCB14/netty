@@ -6,18 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/websocket/handler/HttpRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/websocket/handler/HttpRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/websocket/server/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/websocket/server/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/webapp/chat.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/webapp/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler/ChatServerInitializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler/HttpRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler/HttpRequestHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/init/TextWebSocketFrameHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/server/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/server/ChatServer.class" afterDir="false" />
-    </list>
+    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,13 +84,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lcb-netty/src/main/resources" />
+      <recent name="$PROJECT_DIR$/lcb-netty/target/classes" />
+      <recent name="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler" />
+      <recent name="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/websocket/handler" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lcb-netty/src/main/resources" />
       <recent name="$PROJECT_DIR$/lcb-netty/src/main/webapp" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler" />
-      <recent name="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/websocket/handler" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -299,7 +290,7 @@
       <workItem from="1566374891540" duration="3146000" />
       <workItem from="1566532316246" duration="6180000" />
       <workItem from="1566577138154" duration="37000" />
-      <workItem from="1566577226374" duration="1833000" />
+      <workItem from="1566577226374" duration="5172000" />
     </task>
     <servers />
   </component>

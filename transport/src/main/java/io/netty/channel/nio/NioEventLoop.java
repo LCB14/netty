@@ -783,6 +783,12 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         }
     }
 
+    /**
+     * 思考：Netty是如何规避NIO空轮询bug的？
+     *
+     * @param oldWakenUp
+     * @throws IOException
+     */
     private void select(boolean oldWakenUp) throws IOException {
         Selector selector = this.selector;
         try {
@@ -810,6 +816,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     break;
                 }
 
+                /**
+                 *  step1、调用了select方法，并默认设置1秒超时时间，同时记录轮询次数：selectCnt ++;
+                 */
                 int selectedKeys = selector.select(timeoutMillis);
                 selectCnt++;
 
@@ -835,6 +844,11 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     break;
                 }
 
+                /**
+                 * step2、获取当前时间，计算select方法的操作时间是否真的阻塞了timeoutMillis，如果是就证明是一次正常的select()，
+                 * 重置selectCnt = 1;如果不是，就可能触发了JDK的空轮询BUG，然后判断selectCnt 轮询次数是否大于默认的512，
+                 * 然后进行rebuildSelector()。
+                 */
                 long time = System.nanoTime();
                 if (time - TimeUnit.MILLISECONDS.toNanos(timeoutMillis) >= currentTimeNanos) {
                     // timeoutMillis elapsed without anything selected.
@@ -843,6 +857,10 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                         selectCnt >= SELECTOR_AUTO_REBUILD_THRESHOLD) {
                     // The code exists in an extra method to ensure the method is not too big to inline as this
                     // branch is not very likely to get hit very frequently.
+                    /**
+                     * ebuildSelector()方法重新打开一个Selector；然后遍历oldSelector，将所有的key重新注册到新的Selector；
+                     * 然后重新赋值selector，selectCnt = 1;这时候已经规避了空轮询。
+                     */
                     selector = selectRebuildSelector(selectCnt);
                     selectCnt = 1;
                     break;
