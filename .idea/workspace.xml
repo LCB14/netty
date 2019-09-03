@@ -6,7 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="" />
+    <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/init/HeartBeatInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatServer.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +82,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lcb-netty/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -139,7 +144,7 @@
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.apply.heart.beat.server.*" />
+          <option name="PATTERN" value="com.lcb.apply.heart.beat.server.init.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -291,6 +296,11 @@
       <workItem from="1566532316246" duration="6180000" />
       <workItem from="1566577138154" duration="37000" />
       <workItem from="1566577226374" duration="5172000" />
+      <workItem from="1566715788524" duration="1535000" />
+      <workItem from="1567101696002" duration="1722000" />
+      <workItem from="1567390101048" duration="782000" />
+      <workItem from="1567391682986" duration="64000" />
+      <workItem from="1567475667458" duration="323000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,6 @@
 package com.lcb.apply.heart.beat.client;
 
+import com.lcb.apply.heart.beat.client.init.HeartBeatClientInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

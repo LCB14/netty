@@ -1,4 +1,4 @@
-package com.lcb.apply.heart.beat.client;
+package com.lcb.apply.heart.beat.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

@@ -1,5 +1,6 @@
-package com.lcb.apply.heart.beat.server;
+package com.lcb.apply.heart.beat.server.init;
 
+import com.lcb.apply.heart.beat.server.handler.HeartBeatHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
