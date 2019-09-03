@@ -7,10 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/init/HeartBeatInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/init/ClientHandlersInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/EchoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/handler/EchoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/PingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/handler/PingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/TcpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/TcpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerBizHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/handler/ServerBizHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/init/ServerHandlerInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/TcpServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +135,7 @@
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.apply.heart.beat.client.*" />
+          <option name="PATTERN" value="com.lcb.apply.heart.beat.client.handler.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,7 +161,7 @@
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.apply.heart.reconnect.client.*" />
+          <option name="PATTERN" value="com.lcb.apply.heart.reconnect.client.init.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -170,7 +174,7 @@
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.apply.heart.reconnect.server.*" />
+          <option name="PATTERN" value="com.lcb.apply.heart.reconnect.server.handler.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -300,7 +304,8 @@
       <workItem from="1567101696002" duration="1722000" />
       <workItem from="1567390101048" duration="782000" />
       <workItem from="1567391682986" duration="64000" />
-      <workItem from="1567475667458" duration="323000" />
+      <workItem from="1567475667458" duration="502000" />
+      <workItem from="1567476206668" duration="22000" />
     </task>
     <servers />
   </component>

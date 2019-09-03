@@ -1,4 +1,4 @@
-package com.lcb.apply.heart.reconnect.server;
+package com.lcb.apply.heart.reconnect.server.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
