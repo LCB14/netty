@@ -450,6 +450,12 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         for (; ; ) {
             try {
                 try {
+                    /**
+                     * 首先会调用hasTasks()方法判断当前taskQueue是否有元素。如果taskQueue中有元素，执行selectNow()方法，
+                     * 最终执行selector.selectNow()，该方法会立即返回。如果taskQueue没有元素，执行 select(oldWakenUp) 方法
+                     *
+                     * @see SingleThreadEventLoop#hasTasks()
+                     */
                     switch (selectStrategy.calculateStrategy(selectNowSupplier, hasTasks())) {
                         case SelectStrategy.CONTINUE:
                             continue;

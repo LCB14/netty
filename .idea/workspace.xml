@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/reactor/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/reactor/Server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -267,6 +266,9 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_NON_PUBLIC,SHOW_FIELDS" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -301,7 +303,7 @@
       <workItem from="1567475667458" duration="502000" />
       <workItem from="1567476206668" duration="22000" />
       <workItem from="1567476271909" duration="1749000" />
-      <workItem from="1567569704610" duration="5745000" />
+      <workItem from="1567569704610" duration="14095000" />
     </task>
     <servers />
   </component>
