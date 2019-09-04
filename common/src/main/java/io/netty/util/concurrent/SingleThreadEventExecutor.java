@@ -944,6 +944,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                 updateLastExecutionTime();
                 try {
                     /**
+                     * 使当前eventLoop启动
                      * @see io.netty.channel.nio.NioEventLoop#run()
                      */
                     SingleThreadEventExecutor.this.run();
