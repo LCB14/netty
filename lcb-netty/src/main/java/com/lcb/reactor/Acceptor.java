@@ -35,7 +35,6 @@ public class Acceptor implements Runnable{
     @Override
     public void run() {
         while (true) {
-
             InputSource source = null;
             try {
                 // 相当于 serversocket.accept()，接收输入请求，该例从请求队列中获取输入请求
