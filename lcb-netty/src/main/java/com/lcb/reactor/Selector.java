@@ -8,10 +8,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * @Author: feiweiwei
  * @Description: reactor模式中的Demultiplexer类，提供select（）方法用于从缓冲队列中查找出符合条件的event列表
- * @Created Date: 11:09 17/10/12.
- * @Modify by:
  */
 public class Selector {
     /**
