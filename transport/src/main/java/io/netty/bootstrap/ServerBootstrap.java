@@ -166,12 +166,18 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             @Override
             public void initChannel(final Channel ch) throws Exception {
                 final ChannelPipeline pipeline = ch.pipeline();
+                // 首先添加用户指定的ChannelHandler
                 ChannelHandler handler = config.handler();
                 if (handler != null) {
                     pipeline.addLast(handler);
                 }
 
-                // 添加新连接处理器,专门接受新请求
+                /**
+                 * 异步添加一个ServerBootstrapAccptor，专门接受新请求
+                 *
+                 * ServerBootstrapAcceptor是ServerBootstrap的内部类， 它是bossGroup中Channel所属的管道中的最后一个进站处理器（除去TailContext）。
+                 * 当bossGroup处理完客户端的连接事件后，bossGroup会通过ServerBootstrapAcceptor将后续的客户端读写事件转交给workGroup处理。
+                 */
                 ch.eventLoop().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -240,14 +246,17 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
             final Channel child = (Channel) msg;
 
+            // 将childHandler添加到Channel的管道尾部
             child.pipeline().addLast(childHandler);
 
+            // 初始化连接参数
             setChannelOptions(child, childOptions, logger);
 
             for (Entry<AttributeKey<?>, Object> e: childAttrs) {
                 child.attr((AttributeKey<Object>) e.getKey()).set(e.getValue());
             }
 
+            // 向workGroup注册这个NioSocketChannel实例，并添加监听器监听后续连接
             try {
                 childGroup.register(child).addListener(new ChannelFutureListener() {
                     @Override

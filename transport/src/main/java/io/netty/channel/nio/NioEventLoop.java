@@ -513,7 +513,12 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 final int ioRatio = this.ioRatio;
                 if (ioRatio == 100) {
                     try {
+                        /**
+                         * 当一个客户端连接到服务器时，NIO底层会产生一个的OP_ACCEPT事件，然后NioEventLoop会通过processSelectedKey方法
+                         * 调用到NioMessageUnsafe类的read方法，read方法随即会调用NioServerSocketChannel的doReadMessage方法.
+                         */
                         processSelectedKeys();
+
                     } finally {
                         // Ensure we always run tasks.
                         runAllTasks();
