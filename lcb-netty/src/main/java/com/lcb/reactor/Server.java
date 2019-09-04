@@ -14,8 +14,13 @@ public class Server {
     }
 
     public void start() {
+        // 注册事件处理器
         eventLooper.registEventHandler(EventType.ACCEPT, new AcceptEventHandler(selector));
+
+        // 创建事件
         new Thread(acceptor, "Acceptor-" + acceptor.getPort()).start();
+
+        // 监听事件
         eventLooper.handleEvents();
     }
 }
