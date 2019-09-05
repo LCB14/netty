@@ -7,7 +7,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultThreadFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/DefaultThreadFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/MultithreadEventExecutorGroup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$DefaultThreadProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$DefaultThreadProperties.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/client/HeartBeatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/client/HeartBeatClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/client/HeartBeatClientHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/client/HeartBeatClientInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/server/HeartBeatHandler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/server/HeartBeatHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/server/HeartBeatInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/server/HeartBeatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/beat/server/HeartBeatServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/ClientHandlersInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/EchoHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/PingHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/client/TcpClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerBizHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerHandlerInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/ServerIdleStateTriggerHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/TcpServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/apply/heart/reconnect/server/TcpServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler/HttpRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/handler/HttpRequestHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/init/ChatServerInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/websocket/init/ChatServerInitializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$PendingRegistrationPromise.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap$ServerBootstrapAcceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/ServerBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/channel/nio/NioEventLoop.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +149,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ServerBootStrap">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="ChatServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lcb.websocket.server.ChatServer" />
       <module name="lcb-netty" />
@@ -123,12 +163,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientBootStrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.apply.heart.beat.client.ClientBootStrap" />
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lcb.netty.client.Client" />
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.apply.heart.beat.client.handler.*" />
+          <option name="PATTERN" value="com.lcb.netty.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -136,12 +176,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerBootStrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.apply.heart.beat.server.ServerBootStrap" />
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lcb.netty.server.Server" />
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.apply.heart.beat.server.init.*" />
+          <option name="PATTERN" value="com.lcb.netty.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -250,25 +290,25 @@
     </configuration>
     <list>
       <item itemvalue="Application.ChatServer" />
-      <item itemvalue="Application.ClientBootStrap" />
-      <item itemvalue="Application.ServerBootStrap" />
       <item itemvalue="Application.TcpClient" />
       <item itemvalue="Application.TcpServer" />
       <item itemvalue="Tomcat Server.Tomcat 8.5.32" />
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.Client" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="Application.ChatServer" />
         <item itemvalue="Application.TcpClient" />
         <item itemvalue="Application.TcpServer" />
-        <item itemvalue="Application.ClientBootStrap" />
-        <item itemvalue="Application.ServerBootStrap" />
       </list>
     </recent_temporary>
   </component>
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_MODE" value="false" />
-    <option name="ACTIVE_ACTIONS" value=",SHOW_NON_PUBLIC,SHOW_FIELDS" />
+    <option name="ACTIVE_ACTIONS" value=",SHOW_NON_PUBLIC,SHOW_FIELDS,SHOW_INTERFACES" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -305,7 +345,8 @@
       <workItem from="1567476206668" duration="22000" />
       <workItem from="1567476271909" duration="1749000" />
       <workItem from="1567569704610" duration="18299000" />
-      <workItem from="1567609704739" duration="6214000" />
+      <workItem from="1567609704739" duration="11328000" />
+      <workItem from="1567665878894" duration="4076000" />
     </task>
     <servers />
   </component>

@@ -21,6 +21,7 @@ import io.netty.channel.nio.NioEventLoop;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.concurrent.SingleThreadEventExecutor;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.SocketUtils;
 import io.netty.util.internal.StringUtil;
@@ -261,9 +262,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     private ChannelFuture doBind(final SocketAddress localAddress) {
-        // 1、创建并初始化channel并注册到相关的selector上
+        // 创建并初始化channel并注册到相关的selector上
         final ChannelFuture regFuture = initAndRegister();
-        // 2、
         final Channel channel = regFuture.channel();
         if (regFuture.cause() != null) {
             return regFuture;
@@ -272,7 +272,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         if (regFuture.isDone()) {
             // At this point we know that the registration was complete and successful.
             ChannelPromise promise = channel.newPromise();
-            // 3、
+            // 启动EventLoop监听通道的事件
             doBind0(regFuture, channel, localAddress, promise);
             return promise;
         } else {
@@ -290,7 +290,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
                         // Registration was successful, so set the correct executor to use.
                         // See https://github.com/netty/netty/issues/2586
                         promise.registered();
-
+                        // 启动EventLoop监听通道的事件
                         doBind0(regFuture, channel, localAddress, promise);
                     }
                 }
@@ -363,8 +363,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         // This method is invoked before channelRegistered() is triggered.  Give user handlers a chance to set up
         // the pipeline in its channelRegistered() implementation.
         /**
-         * 最终触发如下：
-         * @see NioEventLoop#run()
+         * @see SingleThreadEventExecutor#execute(java.lang.Runnable)
          */
         channel.eventLoop().execute(new Runnable() {
             @Override
