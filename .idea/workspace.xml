@@ -9,13 +9,8 @@
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$DefaultThreadProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor$DefaultThreadProperties.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/io/netty/util/concurrent/SingleThreadEventExecutor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/io/netty/bootstrap/AbstractBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/AbstractNioMessageChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/AbstractNioMessageChannel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoop.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -314,7 +309,7 @@
       <workItem from="1567476271909" duration="1749000" />
       <workItem from="1567569704610" duration="18299000" />
       <workItem from="1567609704739" duration="11328000" />
-      <workItem from="1567665878894" duration="5755000" />
+      <workItem from="1567665878894" duration="9052000" />
     </task>
     <servers />
   </component>
@@ -340,10 +335,10 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/common/src/main/java/io/netty/util/concurrent/SingleThreadEventExecutor.java</url>
-          <line>792</line>
-          <option name="timeStamp" value="5" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/transport/src/main/java/io/netty/channel/nio/NioEventLoop.java</url>
+          <line>721</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -792,6 +792,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         boolean inEventLoop = inEventLoop();
         addTask(task);
         if (!inEventLoop) {
+            // 启动和EventLoop关联的线程
             startThread();
             if (isShutdown()) {
                 boolean reject = false;
@@ -929,7 +930,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         return false;
     }
 
-    private void doStartThread() {
+    private void  doStartThread() {
         assert thread == null;
         /**
          * @see ThreadPerTaskExecutor#execute(java.lang.Runnable)

@@ -72,6 +72,9 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
             try {
                 try {
                     do {
+                        /**
+                         * @see io.netty.channel.socket.nio.NioServerSocketChannel#doReadMessages(java.util.List)
+                         */
                         int localRead = doReadMessages(readBuf);
                         if (localRead == 0) {
                             break;

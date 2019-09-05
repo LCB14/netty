@@ -464,6 +464,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                             // fall-through to SELECT since the busy-wait is not supported with NIO
 
                         case SelectStrategy.SELECT:
+                            // 轮询IO事件
                             select(wakenUp.getAndSet(false));
 
                             // 'wakenUp.compareAndSet(false, true)' is always evaluated
@@ -715,6 +716,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             // Also check for readOps of 0 to workaround possible JDK bug which may otherwise lead
             // to a spin loop
             if ((readyOps & (SelectionKey.OP_READ | SelectionKey.OP_ACCEPT)) != 0 || readyOps == 0) {
+                /**
+                 * @see AbstractNioMessageChannel.NioMessageUnsafe#read()
+                 */
                 unsafe.read();
             }
         } catch (CancelledKeyException ignored) {
