@@ -981,6 +981,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
 
     @Override
     public final ChannelFuture bind(SocketAddress localAddress, ChannelPromise promise) {
+        /**
+         * @see AbstractChannelHandlerContext#bind(java.net.SocketAddress)
+         */
         return tail.bind(localAddress, promise);
     }
 
