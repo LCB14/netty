@@ -67,6 +67,12 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
     /**
      * Create a new instance.
      *
+     *  1、判断传入的线程数目是否合法
+     *  2、是否创建了任务执行器，没有就先创建一个
+     *  3、创建线程
+     *  4、如果有线程创建失败，那么就将他们全部关闭
+     *  5、创建一个事件，监听线程是否创建完毕
+     *
      * @param nThreads          the number of threads that will be used by this instance.
      * @param executor          the Executor to use, or {@code null} if the default should be used.
      * @param chooserFactory    the {@link EventExecutorChooserFactory} to use.
@@ -112,6 +118,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
                 // TODO: Think about if this is a good exception type
                 throw new IllegalStateException("failed to create a child event loop", e);
             } finally {
+                // 如果一旦有一个线程创建失败，那么就要关闭所有已经创建的线程
                 if (!success) {
                     for (int j = 0; j < i; j ++) {
                         children[j].shutdownGracefully();
