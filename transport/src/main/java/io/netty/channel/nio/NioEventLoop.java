@@ -808,14 +808,19 @@ public final class NioEventLoop extends SingleThreadEventLoop {
      * @throws IOException
      */
     private void select(boolean oldWakenUp) throws IOException {
+        // 得到当前eventLoop的选择器
         Selector selector = this.selector;
         try {
+            // 记录空轮询的次数
             int selectCnt = 0;
+            // 得到开始轮询的时间
             long currentTimeNanos = System.nanoTime();
+            // 获得轮询的截至时间
             long selectDeadLineNanos = currentTimeNanos + delayNanos(currentTimeNanos);
 
             for (; ; ) {
                 long timeoutMillis = (selectDeadLineNanos - currentTimeNanos + 500000L) / 1000000L;
+                // 如果已经到截至时间了，进行一次非阻塞的轮询，返回
                 if (timeoutMillis <= 0) {
                     if (selectCnt == 0) {
                         selector.selectNow();
@@ -828,6 +833,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 // Selector#wakeup. So we need to check task queue again before executing select operation.
                 // If we don't, the task might be pended until select operation was timed out.
                 // It might be pended until idle timeout if IdleStateHandler existed in pipeline.
+                // 如果任务队列里面有任务并且成功的将select唤醒，进行一次非阻塞select返回
                 if (hasTasks() && wakenUp.compareAndSet(false, true)) {
                     selector.selectNow();
                     selectCnt = 1;
