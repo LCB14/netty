@@ -512,7 +512,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
     public boolean inEventLoop(Thread thread) {
         /**
          * 疑问：this.thread这个变量什么时间被初始化的？
-         *
+         * @see SingleThreadEventExecutor#doStartThread()
          */
         return thread == this.thread;
     }
@@ -785,10 +785,9 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         }
 
         /**
+         * 看下一下外部线程是不是和当前eventLoop绑定的线程是同一个，如果不是则需要启动与EventLoop绑定的线程。
          *
-         * 看下一下外部线程是不是和当前eventLoop绑定的线程是同一个，如果是就立即执行
          * @see SingleThreadEventExecutor#inEventLoop(java.lang.Thread)
-         *
          */
         boolean inEventLoop = inEventLoop();
         addTask(task);
