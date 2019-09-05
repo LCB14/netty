@@ -16,6 +16,7 @@
 
 package io.netty.util.concurrent;
 
+import io.netty.util.internal.InternalThreadLocalMap;
 import io.netty.util.internal.StringUtil;
 
 import java.util.Locale;
@@ -137,6 +138,8 @@ public class DefaultThreadFactory implements ThreadFactory {
         /**
          * 这里直接利用Runable实例然后借助Thread直接创建一个线程实例不就好了吗为何还要对Thread再进行一次封装呢？
          * FastThreadLocalThread对Thread封装究竟意欲何为？
+         *
+         * @see InternalThreadLocalMap -- 用于存储线程私有的变量
          */
         return new FastThreadLocalThread(threadGroup, r, name);
     }
