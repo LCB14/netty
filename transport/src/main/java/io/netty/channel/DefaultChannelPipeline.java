@@ -1127,6 +1127,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         // the EventLoop.
         PendingHandlerCallback task = pendingHandlerCallbackHead;
         while (task != null) {
+            /**
+             * @see PendingHandlerAddedTask#execute()
+             */
             task.execute();
             task = task.next;
         }
