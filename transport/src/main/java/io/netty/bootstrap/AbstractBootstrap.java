@@ -313,6 +313,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
             /**
              * 2、初始化channel
              *
+             * 把channelHandler转换为ChannelContext并添加到pipeLine的处理链中
+             *
              * @see ServerBootstrap#init(io.netty.channel.Channel)
              */
             init(channel);
@@ -328,9 +330,10 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         }
 
         /**
-         * 3、注册channel
-         * config() -> 主要完成对ServerBootStrap实例的保存
-         * group() -> 借助config()方法保存的bootStrap实例获取相关的EventLoopGroup
+         * 3、注册channel,并触发eventLoop所绑定的线程开始工作。
+         *
+         * config() -> 返回ServerBootStrap实例
+         * group() -> 借助config()方法返回的bootStrap实例获取相关的EventLoopGroup
          * @see io.netty.channel.MultithreadEventLoopGroup#register(io.netty.channel.Channel)
          */
         ChannelFuture regFuture = config().group().register(channel);

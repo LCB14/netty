@@ -480,6 +480,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 register0(promise);
             } else {
                 try {
+                    /**
+                     * @see SingleThreadEventExecutor#execute(java.lang.Runnable)
+                     */
                     eventLoop.execute(new Runnable() {
                         @Override
                         public void run() {
