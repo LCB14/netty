@@ -199,6 +199,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     public final ChannelPipeline addLast(EventExecutorGroup group, String name, ChannelHandler handler) {
         final AbstractChannelHandlerContext newCtx;
         synchronized (this) {
+            // 判断单例处理器（handler)是否添加@ChannelHandler.Sharable注解
             checkMultiplicity(handler);
 
             newCtx = newContext(group, filterName(name, handler), handler);
