@@ -96,7 +96,7 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
     public NioEventLoopGroup(int nThreads, Executor executor, final SelectorProvider selectorProvider,
                              final SelectStrategyFactory selectStrategyFactory) {
         /**
-         * RejectedExecutionHandlers.reject()返回的是RejectedExecutionHandlers类的一个实例
+         * RejectedExecutionHandlers.reject()返回的是RejectedExecutionHandler类的一个实例
          *
          * 继续使用单例模式
          */
