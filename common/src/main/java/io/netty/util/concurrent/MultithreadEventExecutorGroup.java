@@ -70,7 +70,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
      *  1、判断传入的线程数目是否合法
      *  2、是否创建了任务执行器，没有就先创建一个
      *  3、创建线程
-     *  4、如果有线程创建失败，那么就将他们全部关闭
+     *  4、如果有一个线程创建失败，那么就将他们全部关闭
      *  5、创建一个事件，监听线程是否创建完毕
      *
      * @param nThreads          the number of threads that will be used by this instance.
@@ -86,7 +86,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
         if (executor == null) {
             /**
-             * Executor设计的目的是实现任务的创建和任务的执行进行分离，ThreadFactory也是类似的思想。
+             * Executor设计的目的是实现任务的创建和任务的执行进行分离。
              *
              * newDefaultThreadFactory() -> 初始化生产线程的规则
              * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次提交新的任务该执行器都会创建一个子线程来进行单独处理
