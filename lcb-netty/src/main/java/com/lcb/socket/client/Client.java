@@ -35,6 +35,7 @@ public class Client {
             }
         }).start();
 
+        // 思考：多个线程使用同一个socket实例进行访问会出现什么问题？如何解决？
         final Socket socketB = new Socket(HOST, PORT);
         new Thread(() -> {
             System.out.println("客户端B成功启动...");
