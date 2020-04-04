@@ -17,8 +17,8 @@ public class ServerHandler {
     }
 
     public void start() {
-        System.out.println("新的客户端接入...");
         new Thread(() -> {
+            System.out.println("新的客户端接入..." + Thread.currentThread().getName());
             doStart();
         }).start();
     }
