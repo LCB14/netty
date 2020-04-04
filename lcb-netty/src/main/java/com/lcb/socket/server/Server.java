@@ -27,15 +27,14 @@ public class Server {
      * 为每个客户端单独创建一个线程进行通信
      */
     public void start() {
-        new Thread(() -> {
-            doStart();
-        }).start();
+        doStart();
     }
 
     public void doStart() {
         while (true) {
             try {
                 Socket client = serverSocket.accept();
+                // 开辟一个新线程
                 new ServerHandler(client).start();
             } catch (Exception e) {
                 e.printStackTrace();
