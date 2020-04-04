@@ -34,7 +34,7 @@ public class Server {
         while (true) {
             try {
                 Socket client = serverSocket.accept();
-                // 开辟一个新线程
+                // 开辟一个新线程,这样后面的请求就不会因为只有一个主线程在处理客户端请求而阻塞了
                 new ServerHandler(client).start();
             } catch (Exception e) {
                 e.printStackTrace();
