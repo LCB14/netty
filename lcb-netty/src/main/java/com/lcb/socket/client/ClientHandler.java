@@ -17,9 +17,7 @@ public class ClientHandler {
     }
 
     public void read() {
-        new Thread(() -> {
-            doRead();
-        }).start();
+        doRead();
     }
 
     public void doRead() {
