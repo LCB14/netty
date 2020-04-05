@@ -27,7 +27,7 @@ public class Server {
      * 为每个客户端单独创建一个线程进行通信
      */
     public void start() {
-        doStart();
+        new Thread(() -> doStart()).start();
     }
 
     public void doStart() {
