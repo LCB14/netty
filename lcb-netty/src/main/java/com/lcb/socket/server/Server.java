@@ -32,10 +32,11 @@ public class Server {
 
     public void doStart() {
         int i = 0;
-        while (true) {
+        // 与使用while(true)相比，下面方式可以避免CPU满负载
+        while (!Thread.interrupted()) {
             try {
                 Socket client = serverSocket.accept();
-                System.out.println(client + "" + i);
+                System.out.println(client + "-" + i + "-" + Thread.interrupted());
                 // 开辟一个新线程,这样后面的请求就不会因为只有一个主线程在处理客户端请求而阻塞了
                 new ServerHandler(client).start();
             } catch (Exception e) {
@@ -43,6 +44,7 @@ public class Server {
                 System.out.println("服务端异常");
             }
             i++;
+            System.out.println("end");
         }
     }
 }

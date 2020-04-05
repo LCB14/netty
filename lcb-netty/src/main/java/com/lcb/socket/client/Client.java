@@ -20,7 +20,7 @@ public class Client {
         // 模拟多个客户端请求服务端
         new Thread(() -> {
             System.out.println("客户端A成功启动...");
-            while (true) {
+            while (!Thread.interrupted()) {
                 try {
                     String message = "from clientA: hello Server";
                     System.out.println("客户端A向服务端发送内容为:" + message);
@@ -39,7 +39,7 @@ public class Client {
         final Socket socketB = new Socket(HOST, PORT);
         new Thread(() -> {
             System.out.println("客户端B成功启动...");
-            while (true) {
+            while (!Thread.interrupted()) {
                 try {
                     String message = "from clientB: hello Server";
                     System.out.println("客户端B向服务端发送内容为:" + message);
