@@ -7,12 +7,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/client/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/client/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/socket/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/socket/server/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/ClientBootStrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/client/ClientBootStrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/HeartBeatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/client/HeartBeatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/handler/HeartBeatClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/client/handler/HeartBeatClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/client/init/HeartBeatClientInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/client/init/HeartBeatClientInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/HeartBeatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/server/HeartBeatServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/ServerBootStrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/server/ServerBootStrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/handler/HeartBeatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/server/handler/HeartBeatHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/beat/server/init/HeartBeatInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/beat/server/init/HeartBeatInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/TcpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/client/TcpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/handler/EchoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/client/handler/EchoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/handler/PingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/client/handler/PingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/client/init/ClientHandlersInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/client/init/ClientHandlersInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/retry/ExponentialBackOffRetry.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/retry/ExponentialBackOffRetry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/retry/ReconnectHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/retry/ReconnectHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/retry/RetryPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/retry/RetryPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/server/TcpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/handler/ServerBizHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/server/handler/ServerBizHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/handler/ServerIdleStateTriggerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/server/handler/ServerIdleStateTriggerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/apply/heart/reconnect/server/init/ServerHandlerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nettyHeartCheck/reconnect/server/init/ServerHandlerInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/client/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/client/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/server/ServerHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +124,7 @@
       <recent name="$PROJECT_DIR$/lcb-netty/src/main/webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client (1)">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lcb.socket.client.Client" />
       <module name="lcb-netty" />
@@ -121,11 +139,11 @@
       </method>
     </configuration>
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.netty.client.Client" />
+      <option name="MAIN_CLASS_NAME" value="com.lcb.nio.client.Client" />
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.netty.client.*" />
+          <option name="PATTERN" value="com.lcb.nio.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -133,12 +151,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.socket.no.block.client.Client" />
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.lcb.nio.server.Server" />
       <module name="lcb-netty" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.lcb.socket.no.block.client.*" />
+          <option name="PATTERN" value="com.lcb.nio.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -152,19 +170,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.lcb.socket.server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerBoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lcb.socket.no.block.client.server.ServerBoot" />
-      <module name="lcb-netty" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.lcb.socket.no.block.client.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -259,20 +264,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Client" />
       <item itemvalue="Tomcat Server.Tomcat 8.5.32" />
-      <item itemvalue="Application.ServerBoot" />
       <item itemvalue="Application.Client (1)" />
       <item itemvalue="Application.ServerBoot (1)" />
       <item itemvalue="Application.Test" />
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.Client" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client (1)" />
         <item itemvalue="Application.ServerBoot (1)" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Client (1)" />
-        <item itemvalue="Application.ServerBoot" />
       </list>
     </recent_temporary>
   </component>
@@ -320,7 +325,7 @@
       <workItem from="1568185259059" duration="405000" />
       <workItem from="1568305024358" duration="7845000" />
       <workItem from="1585534797002" duration="17089000" />
-      <workItem from="1585789582861" duration="27250000" />
+      <workItem from="1585789582861" duration="32997000" />
     </task>
     <servers />
   </component>
@@ -348,37 +353,37 @@
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
     <state x="440" y="-875" width="822" height="669" key="#Project_Structure/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585629780497" />
-    <state x="460" y="-608" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1586057164697">
+    <state x="460" y="-608" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1586082850119">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state x="460" y="-608" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586057164697" />
+    <state x="460" y="-608" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586082850119" />
     <state x="551" y="-838" key="#xdebugger.evaluate" timestamp="1586078674945">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
     <state x="551" y="-838" key="#xdebugger.evaluate/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586078674944" />
     <state x="603" y="235" key="#xdebugger.evaluate/0.0.1680.1050@0.0.1680.1050" timestamp="1585725801087" />
-    <state width="2006" height="278" key="GridCell.Tab.0.bottom" timestamp="1586079528563">
+    <state width="2006" height="278" key="GridCell.Tab.0.bottom" timestamp="1586087236502">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="278" key="GridCell.Tab.0.bottom/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586079528563" />
+    <state width="2006" height="278" key="GridCell.Tab.0.bottom/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586087236502" />
     <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1585999911314" />
     <state width="1638" height="363" key="GridCell.Tab.0.bottom/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495746" />
-    <state width="2006" height="278" key="GridCell.Tab.0.center" timestamp="1586079528562">
+    <state width="2006" height="278" key="GridCell.Tab.0.center" timestamp="1586087236500">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="278" key="GridCell.Tab.0.center/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586079528562" />
+    <state width="2006" height="278" key="GridCell.Tab.0.center/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586087236500" />
     <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1585999911313" />
     <state width="1638" height="363" key="GridCell.Tab.0.center/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495743" />
-    <state width="2006" height="278" key="GridCell.Tab.0.left" timestamp="1586079528561">
+    <state width="2006" height="278" key="GridCell.Tab.0.left" timestamp="1586087236499">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="278" key="GridCell.Tab.0.left/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586079528561" />
+    <state width="2006" height="278" key="GridCell.Tab.0.left/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586087236499" />
     <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1585999911312" />
     <state width="1638" height="363" key="GridCell.Tab.0.left/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495742" />
-    <state width="2006" height="278" key="GridCell.Tab.0.right" timestamp="1586079528563">
+    <state width="2006" height="278" key="GridCell.Tab.0.right" timestamp="1586087236501">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="278" key="GridCell.Tab.0.right/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586079528563" />
+    <state width="2006" height="278" key="GridCell.Tab.0.right/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586087236501" />
     <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1585999911313" />
     <state width="1638" height="363" key="GridCell.Tab.0.right/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495745" />
     <state width="2006" height="280" key="GridCell.Tab.1.bottom" timestamp="1586079469106">

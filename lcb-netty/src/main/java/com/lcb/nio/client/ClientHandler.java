@@ -17,13 +17,15 @@ import java.util.Set;
 public class ClientHandler {
     private String host;
     private int port;
+
     private Selector selector;
     private SocketChannel sc;
+
     private volatile boolean stop;
 
-    public ClientHandler(String address, int port) {
+    public ClientHandler(String host, int port) {
         try {
-            this.host = address;
+            this.host = host;
             this.port = port;
             selector = Selector.open();
             sc = SocketChannel.open();
@@ -50,18 +52,21 @@ public class ClientHandler {
                 selector.select(1000);
                 Set<SelectionKey> keys = selector.selectedKeys();
                 Iterator<SelectionKey> it = keys.iterator();
-                SelectionKey key = null;
+                SelectionKey key;
                 while (it.hasNext()) {
                     key = it.next();
+                    handInput(key);
                     it.remove();
-                    try {
-                        handInput(key);
-                    } catch (Exception e) {
-                        key.cancel();
-                        if (key.channel() != null) {
-                            key.channel().close();
-                        }
-                    }
+                }
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        } finally {
+            if (sc != null) {
+                try {
+                    sc.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -72,8 +77,6 @@ public class ClientHandler {
                     e.printStackTrace();
                 }
             }
-        } catch (Throwable t) {
-            t.printStackTrace();
         }
     }
 
@@ -95,9 +98,7 @@ public class ClientHandler {
                     sc.register(selector, SelectionKey.OP_READ);
                     doWrite(sc);
                 }
-            }
-
-            if (key.isReadable()) {
+            } else if (key.isReadable()) {
                 ByteBuffer readBuffer = ByteBuffer.allocate(1024);
                 int readBytes = sc.read(readBuffer);
                 if (readBytes > 0) {

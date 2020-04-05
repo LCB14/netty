@@ -18,20 +18,33 @@ public class ServerHandler {
 
     private Selector selector;
     private ServerSocketChannel serverSocketChannel;
+
     private volatile boolean stop;
 
     public ServerHandler(int port) {
         try {
+            // 1、获取Selector选择器
             selector = Selector.open();
+
+            // 2、获取通道
             serverSocketChannel = ServerSocketChannel.open();
+
+            // 3.设置为非阻塞
             serverSocketChannel.configureBlocking(false);
+
             /**
-             *  @param backlog -- requested maximum length of the queue of incoming connections.
+             *  4、绑定连接
              *
              *  请求队列最大能缓存的请求连接数
+             *
+             *  @param backlog -- requested maximum length of the queue of incoming connections.
              */
-            serverSocketChannel.socket().bind(new InetSocketAddress(port), 1024);
+//            serverSocketChannel.socket().bind(new InetSocketAddress(port), 1024);
+            serverSocketChannel.bind(new InetSocketAddress(port), 1024);
+
+            // 5、将通道注册到选择器上,并注册的操作为：“接收”操作
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
             System.out.println("服务端启动成功...");
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,43 +62,59 @@ public class ServerHandler {
     }
 
     private void doStart() {
-        while (!stop) {
-            try {
+        // 6、采用轮询的方式，查询获取“准备就绪”的注册过的操作
+        try {
+            while (!stop) {
                 selector.select(1000);
+                // 7、获取当前选择器中所有注册的选择键（“已经准备就绪的操作”）
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
                 Iterator<SelectionKey> iterator = selectionKeys.iterator();
                 SelectionKey key = null;
                 while (iterator.hasNext()) {
+                    // 8、获取“准备就绪”的事件
                     key = iterator.next();
-                    iterator.remove();
                     handInput(key);
+                    // 15、移除选择键
+                    iterator.remove();
                 }
-            } catch (Throwable t) {
-                t.printStackTrace();
             }
-        }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        } finally {
+            // 16.关闭资源
+            if (serverSocketChannel != null) {
+                try {
+                    serverSocketChannel.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        if (selector != null) {
-            try {
-                selector.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (selector != null) {
+                try {
+                    selector.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     private void handInput(SelectionKey key) throws Exception {
         if (key.isValid()) {
-
+            // 9、判断key是具体的什么事件
             if (key.isAcceptable()) {
                 ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
+                // 10、若接受的事件是“接收就绪” 操作,就获取客户端连接
                 SocketChannel sc = serverSocketChannel.accept();
+                // 11、切换为非阻塞模式
                 sc.configureBlocking(false);
+                // 12、将该通道注册到selector选择器上
                 sc.register(selector, SelectionKey.OP_READ);
-            }
-
-            if (key.isReadable()) {
+            } else if (key.isReadable()) {
+                // 13、获取该选择器上的“读就绪”状态的通道
                 SocketChannel sc = (SocketChannel) key.channel();
+                // 14、读取数据
                 ByteBuffer bf = ByteBuffer.allocate(1024);
                 int readBytes = sc.read(bf);
                 if (readBytes > 0) {

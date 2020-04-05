@@ -7,13 +7,10 @@ package com.lcb.nio.client;
  */
 public class Client {
 
-    private static final String ADDRESS = "127.0.0.1";
+    private static final String HOST = "127.0.0.1";
     private static final int PORT = 8000;
 
     public static void main(String[] args) {
-
-        new Thread(() -> {
-            new ClientHandler(ADDRESS, PORT).start();
-        }, "client-NO1").start();
+        new ClientHandler(HOST, PORT).start();
     }
 }
