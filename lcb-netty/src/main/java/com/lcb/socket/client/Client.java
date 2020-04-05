@@ -41,7 +41,7 @@ public class Client {
             System.out.println("客户端B成功启动...");
             while (true) {
                 try {
-                    String message = "from clientA: hello Server";
+                    String message = "from clientB: hello Server";
                     System.out.println("客户端B向服务端发送内容为:" + message);
                     socketB.getOutputStream().write(message.getBytes());
                     new ClientHandler(socketB).read();
