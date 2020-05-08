@@ -30,6 +30,9 @@ public class ClientHandler {
             while ((len = inputStream.read(data)) != -1) {
                 String message = new String(data, 0, len);
                 System.out.println("收到服务端回复内容:" + message);
+                // 尝试把下面两行代码都注释掉，看看会发生啥
+                String toServer = "hello server,i come back";
+                socket.getOutputStream().write(toServer.getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();

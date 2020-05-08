@@ -25,12 +25,12 @@ public class Client {
                     String message = "from clientA: hello Server";
                     System.out.println("客户端A向服务端发送内容为:" + message);
                     socketA.getOutputStream().write(message.getBytes());
+                    System.out.println("clientA数据发送成功...");
                     new ClientHandler(socketA).read();
                 } catch (Exception e) {
                     System.out.println("客户端A发送数据出错");
                     e.printStackTrace();
                 }
-
                 sleep();
             }
         }).start();
@@ -49,7 +49,6 @@ public class Client {
                     System.out.println("客户端B发送数据出错");
                     e.printStackTrace();
                 }
-
                 sleep();
             }
         }).start();

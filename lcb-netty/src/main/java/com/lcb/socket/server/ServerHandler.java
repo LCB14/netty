@@ -32,13 +32,13 @@ public class ServerHandler {
             // inputStream.read(data)读取时会阻塞程序的执行，直到有数据返回。
             while ((len = inputStream.read(data)) != -1) {
                 String message = new String(data, 0, len);
-                System.out.println("收到客户端传过来的消息:" + message);
+                System.out.println("收到客户端传过来的消息:" + message + socket);
                 String toClient = "form server: hello client";
                 socket.getOutputStream().write(toClient.getBytes());
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("服务端读取客户端请求数据异常");
+            e.printStackTrace();
         } finally {
             if (inputStream != null) {
                 try {

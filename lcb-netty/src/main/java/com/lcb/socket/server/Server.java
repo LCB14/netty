@@ -19,8 +19,8 @@ public class Server {
             this.serverSocket = new ServerSocket(port);
             System.out.println("服务端启动成功...");
         } catch (IOException exception) {
-            exception.printStackTrace();
             System.out.println("服务端启动失败");
+            exception.printStackTrace();
         }
     }
 
@@ -32,20 +32,17 @@ public class Server {
     }
 
     public void doStart() {
-        int i = 0;
         // 与使用while(true)相比，下面方式可以避免CPU满负载
         while (!Thread.interrupted()) {
             try {
                 Socket client = serverSocket.accept();
-                System.out.println(client + "-" + i + "-" + Thread.interrupted());
+                System.out.println("连接socket信息：" + client + "-" + Thread.interrupted());
                 // 开辟一个新线程,这样后面的请求就不会因为只有一个主线程在处理客户端请求而阻塞了
                 new ServerHandler(client).start();
             } catch (Exception e) {
-                e.printStackTrace();
                 System.out.println("服务端异常");
+                e.printStackTrace();
             }
-            i++;
-            System.out.println("end");
         }
     }
 
