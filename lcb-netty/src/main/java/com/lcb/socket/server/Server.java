@@ -10,6 +10,7 @@ import java.net.Socket;
  * @Date 2019-07-29 14:59
  */
 public class Server {
+    private static final int PORT = 8000;
 
     private ServerSocket serverSocket;
 
@@ -46,5 +47,10 @@ public class Server {
             i++;
             System.out.println("end");
         }
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server(PORT);
+        server.start();
     }
 }

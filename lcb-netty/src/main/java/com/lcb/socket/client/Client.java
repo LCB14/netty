@@ -60,7 +60,6 @@ public class Client {
             TimeUnit.SECONDS.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            e.printStackTrace();
         }
     }
 }
