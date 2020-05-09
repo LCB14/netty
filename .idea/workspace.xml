@@ -8,12 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="335a7bf2-c346-44a1-a81f-1b94da1fecf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/client/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/client/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/socket/server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/socket/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/socket/client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/socket/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/target/classes/com/lcb/socket/server/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lcb-netty/src/main/java/com/lcb/nio/server/ServerHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +309,7 @@
       <workItem from="1568305024358" duration="7845000" />
       <workItem from="1585534797002" duration="17089000" />
       <workItem from="1585789582861" duration="41614000" />
-      <workItem from="1588753269225" duration="10836000" />
+      <workItem from="1588753269225" duration="17261000" />
     </task>
     <servers />
   </component>
@@ -351,28 +346,28 @@
     </state>
     <state x="551" y="-838" key="#xdebugger.evaluate/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1586078674944" />
     <state x="603" y="235" key="#xdebugger.evaluate/0.0.1680.1050@0.0.1680.1050" timestamp="1585725801087" />
-    <state width="2006" height="300" key="GridCell.Tab.0.bottom" timestamp="1588938742052">
+    <state width="2006" height="300" key="GridCell.Tab.0.bottom" timestamp="1588938823297">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="300" key="GridCell.Tab.0.bottom/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938742052" />
+    <state width="2006" height="300" key="GridCell.Tab.0.bottom/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938823297" />
     <state width="2006" height="280" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1586223823941" />
     <state width="1638" height="363" key="GridCell.Tab.0.bottom/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495746" />
-    <state width="2006" height="300" key="GridCell.Tab.0.center" timestamp="1588938742050">
+    <state width="2006" height="300" key="GridCell.Tab.0.center" timestamp="1588938823294">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="300" key="GridCell.Tab.0.center/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938742050" />
+    <state width="2006" height="300" key="GridCell.Tab.0.center/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938823294" />
     <state width="2006" height="280" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1586223823940" />
     <state width="1638" height="363" key="GridCell.Tab.0.center/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495743" />
-    <state width="2006" height="300" key="GridCell.Tab.0.left" timestamp="1588938742048">
+    <state width="2006" height="300" key="GridCell.Tab.0.left" timestamp="1588938823293">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="300" key="GridCell.Tab.0.left/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938742048" />
+    <state width="2006" height="300" key="GridCell.Tab.0.left/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938823293" />
     <state width="2006" height="280" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1586223823940" />
     <state width="1638" height="363" key="GridCell.Tab.0.left/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495742" />
-    <state width="2006" height="300" key="GridCell.Tab.0.right" timestamp="1588938742051">
+    <state width="2006" height="300" key="GridCell.Tab.0.right" timestamp="1588938823296">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state width="2006" height="300" key="GridCell.Tab.0.right/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938742051" />
+    <state width="2006" height="300" key="GridCell.Tab.0.right/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1588938823296" />
     <state width="2006" height="280" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1586223823941" />
     <state width="1638" height="363" key="GridCell.Tab.0.right/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1585789495745" />
     <state width="2006" height="280" key="GridCell.Tab.1.bottom" timestamp="1586223823943">

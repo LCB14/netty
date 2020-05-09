@@ -65,6 +65,7 @@ public class ServerHandler {
         // 6、采用轮询的方式，查询获取“准备就绪”的注册过的操作
         try {
             while (!stop) {
+                // 该方法会阻塞线程
                 selector.select(1000);
                 // 7、获取当前选择器中所有注册的选择键（“已经准备就绪的操作”）
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
