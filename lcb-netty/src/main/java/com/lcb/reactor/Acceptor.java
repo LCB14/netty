@@ -7,7 +7,7 @@ import com.lcb.reactor.event.InputSource;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class Acceptor implements Runnable{
+public class Acceptor implements Runnable {
     private int port;
     private Selector selector;
 

@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Selector {
     /**
-     *  定义一个链表阻塞queue实现缓冲队列，用于保证线程安全
+     * 定义一个链表阻塞queue实现缓冲队列，用于保证线程安全
      */
     private BlockingQueue<Event> eventQueue = new LinkedBlockingQueue<Event>();
     /**
@@ -35,7 +35,6 @@ public class Selector {
                         }
                     }
                 }
-
             }
         }
         //TODO 例子中只是简单的将event列表全部返回，可以在此处增加业务逻辑，选出符合条件的event进行返回
@@ -53,8 +52,6 @@ public class Selector {
                 //如果有新增事件则对lock对象解锁
                 lock.notify();
             }
-
         }
     }
-
 }
