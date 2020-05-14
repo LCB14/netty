@@ -77,7 +77,14 @@ public abstract class AbstractNioChannel extends AbstractChannel {
      * @param readInterestOp    the ops to set to receive data from the {@link SelectableChannel}
      */
     protected AbstractNioChannel(Channel parent, SelectableChannel ch, int readInterestOp) {
+        /**
+         * 父子通道
+         * 在Netty中，将有接收关系的NioServerSocketChannel和NioSocketChannel,叫做父子通道
+         * NioServerSocketChannel本身就作为父通道，因此自己本身是不存在父通道的，所以此处为null
+         */
         super(parent);
+
+        // 下面这些就是Java NIO中常见的服务端代码初始化逻辑了
         this.ch = ch;
         this.readInterestOp = readInterestOp;
         try {

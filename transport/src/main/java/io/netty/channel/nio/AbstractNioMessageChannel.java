@@ -37,6 +37,8 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
 
     /**
      * @see AbstractNioChannel#AbstractNioChannel(Channel, SelectableChannel, int)
+     *
+     * 注：nio中并不是所有的channel都能与Selector（选择器）进行绑定，只有那些继承SelectableChannel抽象类的通道才可以
      */
     protected AbstractNioMessageChannel(Channel parent, SelectableChannel ch, int readInterestOp) {
         super(parent, ch, readInterestOp);
