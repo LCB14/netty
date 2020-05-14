@@ -18,6 +18,7 @@ package io.netty.bootstrap;
 
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoop;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GlobalEventExecutor;
@@ -465,6 +466,10 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     private static void setChannelOption(
             Channel channel, ChannelOption<?> option, Object value, InternalLogger logger) {
         try {
+            /**
+             * 关于channel.config()参考下面：
+             * @see NioServerSocketChannel#NioServerSocketChannel(java.nio.channels.ServerSocketChannel)
+             */
             if (!channel.config().setOption((ChannelOption<Object>) option, value)) {
                 logger.warn("Unknown channel option '{}' for channel '{}'", option, channel);
             }

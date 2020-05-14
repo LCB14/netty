@@ -309,7 +309,7 @@
       <workItem from="1585534797002" duration="17089000" />
       <workItem from="1585789582861" duration="41614000" />
       <workItem from="1588753269225" duration="38153000" />
-      <workItem from="1589354593309" duration="17747000" />
+      <workItem from="1589354593309" duration="24515000" />
     </task>
     <servers />
   </component>
@@ -420,10 +420,11 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="556" y="323" key="git4idea.merge.GitPullDialog/0.0.1680.1050/-184.-1080.2048.1080@0.0.1680.1050" timestamp="1588912554786" />
-    <state x="505" y="-839" width="670" height="676" key="search.everywhere.popup" timestamp="1589186933892">
+    <state x="505" y="-839" width="670" height="676" key="search.everywhere.popup" timestamp="1589459076904">
       <screen x="-184" y="-1080" width="2048" height="1080" />
     </state>
-    <state x="505" y="-839" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1589186933892" />
+    <state x="505" y="-839" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1589451592593" />
+    <state x="505" y="-839" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027/-184.-1080.2048.1080@-184.-1080.2048.1080" timestamp="1589459076904" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
