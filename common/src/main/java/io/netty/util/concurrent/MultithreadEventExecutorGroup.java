@@ -91,11 +91,12 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
              * newDefaultThreadFactory() -> 初始化生产线程的规则
              * ThreadPerTaskExecutor() -> 初始化一个线程执行器,每次提交新的任务该执行器都会创建一个子线程来进行单独处理
              *
-             * 下面这行代码涉及到了三个设计模式：工厂模式，包装模式，命令模式。
+             * 下面这行代码涉及到了三种设计模式：工厂模式（创建线程），代理模式，命令模式。
              */
             executor = new ThreadPerTaskExecutor(newDefaultThreadFactory());
         }
 
+        // 创建一个EventExecutor数组
         children = new EventExecutor[nThreads];
 
         // 为每个线程都创建一个EventExecutor
