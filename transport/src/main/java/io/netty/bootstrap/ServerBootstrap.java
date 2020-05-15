@@ -175,8 +175,15 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                 /**
                  * 异步添加一个ServerBootstrapAcceptor，专门接受新请求
                  *
-                 * ServerBootstrapAcceptor是ServerBootstrap的内部类， 它是bossGroup对应的管道中的最后一个进站处理器（除去TailContext）。
+                 * @see ServerBootstrapAcceptor#ServerBootstrapAcceptor(io.netty.channel.Channel, io.netty.channel.EventLoopGroup,
+                 * io.netty.channel.ChannelHandler, java.util.Map.Entry[], java.util.Map.Entry[])
+                 *
+                 * ServerBootstrapAcceptor是ServerBootstrap的内部类， 它是channel中最后一个进站处理器（除去TailContext）。
                  * 当bossGroup处理完客户端的连接事件后，bossGroup会通过ServerBootstrapAcceptor将后续的客户端读写事件转交给workGroup处理。
+                 *
+                 * 思考：ch.eventLoop()获取的EventLoop实例是啥时候与channel关联的？
+                 * 此处只是提前创建并没有被执行，具体关联的位置参考下面
+                 * @see SingleThreadEventLoop#register(io.netty.channel.ChannelPromise)
                  */
                 ch.eventLoop().execute(new Runnable() {
                     @Override
