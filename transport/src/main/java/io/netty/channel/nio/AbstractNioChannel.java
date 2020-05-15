@@ -86,6 +86,7 @@ public abstract class AbstractNioChannel extends AbstractChannel {
 
         // 下面这些就是Java NIO中常见的服务端代码初始化逻辑了
         this.ch = ch;
+        // 表示SelectionKey.OP_ACCEPT
         this.readInterestOp = readInterestOp;
         try {
             ch.configureBlocking(false);

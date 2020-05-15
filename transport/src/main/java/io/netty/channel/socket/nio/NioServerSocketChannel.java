@@ -95,7 +95,8 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
         /**
          * javaChannel()获取的其实就是super()初始化的channel
          *
-         * 不明白Netty这又是什么骚操作不直接使用已有的方法参数而是非进行一下调用。。。
+         * 不明白Netty这又是什么骚操作不直接使用已有的方法参数而是非进行一下调用？
+         * 因为是private类型的，子类无法直接引用！！
          */
         config = new NioServerSocketChannelConfig(this, javaChannel().socket());
     }

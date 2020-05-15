@@ -173,9 +173,9 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                 }
 
                 /**
-                 * 异步添加一个ServerBootstrapAccptor，专门接受新请求
+                 * 异步添加一个ServerBootstrapAcceptor，专门接受新请求
                  *
-                 * ServerBootstrapAcceptor是ServerBootstrap的内部类， 它是bossGroup中Channel所属的管道中的最后一个进站处理器（除去TailContext）。
+                 * ServerBootstrapAcceptor是ServerBootstrap的内部类， 它是bossGroup对应的管道中的最后一个进站处理器（除去TailContext）。
                  * 当bossGroup处理完客户端的连接事件后，bossGroup会通过ServerBootstrapAcceptor将后续的客户端读写事件转交给workGroup处理。
                  */
                 ch.eventLoop().execute(new Runnable() {

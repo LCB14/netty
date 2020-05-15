@@ -334,8 +334,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         /**
          * 3、注册channel,并触发eventLoop所绑定的线程开始工作。
          *
-         * config() -> 返回ServerBootStrap实例
-         * group() -> 借助config()方法返回的bootStrap实例获取相关的EventLoopGroup
+         * config() -> 返回ServerBootstrapConfig实例 -- new ServerBootstrap();时进行的初始化
+         * group() -> 借助config()方法返回的bootStrap实例间接获取相关的EventLoopGroup（boss）
          * @see io.netty.channel.MultithreadEventLoopGroup#register(io.netty.channel.Channel)
          */
         ChannelFuture regFuture = config().group().register(channel);
