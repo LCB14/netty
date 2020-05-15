@@ -67,8 +67,17 @@ public abstract class ConstantPool<T extends Constant<T>> {
      */
     private T getOrCreate(String name) {
         T constant = constants.get(name);
+        // 这里之所以会进行两次判空，考虑一下多线程场景下就明白了
         if (constant == null) {
             final T tempConstant = newConstant(nextId(), name);
+            /**
+             * map.putIfAbsent()等价于：
+             *
+             *  if (!map.containsKey(key))
+             *     return map.put(key, value);
+             *  else
+             *     return map.get(key);
+             */
             constant = constants.putIfAbsent(name, tempConstant);
             if (constant == null) {
                 return tempConstant;
