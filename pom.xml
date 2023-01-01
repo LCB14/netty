@@ -675,7 +675,7 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- macOS 专用 -->
+      <!-- macOS 专用依赖 -->
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-transport-native-kqueue</artifactId>
