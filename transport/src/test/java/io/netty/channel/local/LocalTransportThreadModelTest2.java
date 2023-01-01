@@ -58,7 +58,7 @@ public class LocalTransportThreadModelTest2 {
         serverBootstrap.bind(new LocalAddress(LOCAL_CHANNEL)).sync();
 
         int count = 100;
-        for (int i = 1; i < count + 1; i ++) {
+        for (int i = 1; i < count + 1; i++) {
             Channel ch = clientBootstrap.connect().sync().channel();
 
             // SPIN until we get what we are looking for.
@@ -110,7 +110,7 @@ public class LocalTransportThreadModelTest2 {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            for (int i = 0; i < messageCountPerRun; i ++) {
+            for (int i = 0; i < messageCountPerRun; i++) {
                 lastWriteFuture = ctx.channel().write(name + ' ' + i);
             }
             ctx.channel().flush();

@@ -102,7 +102,7 @@ public final class SmtpRequestEncoder extends MessageToMessageEncoder<Object> {
             ByteBufUtil.writeAscii(out, parameters.get(sizeMinusOne));
         } else {
             final Iterator<CharSequence> params = parameters.iterator();
-            for (;;) {
+            for (; ; ) {
                 ByteBufUtil.writeAscii(out, params.next());
                 if (params.hasNext()) {
                     out.writeByte(SP);

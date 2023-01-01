@@ -69,9 +69,9 @@ public class WebSocket08EncoderDecoderTest {
 
         // With auto-close
         WebSocketDecoderConfig config = WebSocketDecoderConfig.newBuilder()
-            .maxFramePayloadLength(maxPayloadLength)
-            .closeOnProtocolViolation(true)
-            .build();
+                .maxFramePayloadLength(maxPayloadLength)
+                .closeOnProtocolViolation(true)
+                .build();
         EmbeddedChannel inChannel = new EmbeddedChannel(new WebSocket08FrameDecoder(config));
         EmbeddedChannel outChannel = new EmbeddedChannel(new WebSocket08FrameEncoder(true));
 
@@ -88,9 +88,9 @@ public class WebSocket08EncoderDecoderTest {
 
         // Without auto-close
         config = WebSocketDecoderConfig.newBuilder()
-            .maxFramePayloadLength(maxPayloadLength)
-            .closeOnProtocolViolation(false)
-            .build();
+                .maxFramePayloadLength(maxPayloadLength)
+                .closeOnProtocolViolation(false)
+                .build();
         inChannel = new EmbeddedChannel(new WebSocket08FrameDecoder(config));
         outChannel = new EmbeddedChannel(new WebSocket08FrameEncoder(true));
 
@@ -107,7 +107,7 @@ public class WebSocket08EncoderDecoderTest {
     }
 
     private void executeProtocolViolationTest(EmbeddedChannel outChannel, EmbeddedChannel inChannel,
-            int testDataLength, WebSocketCloseStatus expectedStatus, String errorMessage) {
+                                              int testDataLength, WebSocketCloseStatus expectedStatus, String errorMessage) {
         CorruptedWebSocketFrameException corrupted = null;
 
         try {
@@ -211,7 +211,7 @@ public class WebSocket08EncoderDecoderTest {
     private void transfer(EmbeddedChannel outChannel, EmbeddedChannel inChannel) {
         // Transfer encoded data into decoder
         // Loop because there might be multiple frames (gathering write)
-        for (;;) {
+        for (; ; ) {
             ByteBuf encoded = outChannel.readOutbound();
             if (encoded == null) {
                 return;

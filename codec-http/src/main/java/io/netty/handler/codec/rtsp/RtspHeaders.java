@@ -20,7 +20,7 @@ import io.netty.handler.codec.http.HttpHeaders;
 
 /**
  * @deprecated Use {@link RtspHeaderNames} or {@link RtspHeaderValues} instead.
-
+ * <p>
  * Standard RTSP header names and values.
  */
 @Deprecated
@@ -29,7 +29,7 @@ public final class RtspHeaders {
 
     /**
      * @deprecated Use {@link RtspHeaderNames} instead.
-     *
+     * <p>
      * Standard RTSP header names.
      */
     @Deprecated
@@ -217,7 +217,7 @@ public final class RtspHeaders {
 
     /**
      * @deprecated Use {@link RtspHeaderValues} instead.
-     *
+     * <p>
      * Standard RTSP header values.
      */
     @Deprecated
@@ -391,8 +391,10 @@ public final class RtspHeaders {
          */
         public static final String URL = "url";
 
-        private Values() { }
+        private Values() {
+        }
     }
 
-    private RtspHeaders() { }
+    private RtspHeaders() {
+    }
 }

@@ -38,7 +38,7 @@ public class GlobalEventExecutorTest {
     @BeforeEach
     public void setUp() throws Exception {
         // Wait until the global executor is stopped (just in case there is a task running due to previous test cases)
-        for (;;) {
+        for (; ; ) {
             if (e.thread == null || !e.thread.isAlive()) {
                 break;
             }
@@ -121,7 +121,7 @@ public class GlobalEventExecutorTest {
 
         //add scheduled task
         TestRunnable scheduledTask = new TestRunnable(0);
-        ScheduledFuture<?> f = e.schedule(scheduledTask , 1500, TimeUnit.MILLISECONDS);
+        ScheduledFuture<?> f = e.schedule(scheduledTask, 1500, TimeUnit.MILLISECONDS);
 
         //add task
         TestRunnable afterTask = new TestRunnable(0);

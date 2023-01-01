@@ -19,6 +19,7 @@ package io.netty.handler.ssl.util;
 import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 import io.netty.util.internal.SuppressJava6Requirement;
+
 import java.net.Socket;
 import java.security.Principal;
 import java.security.PrivateKey;

@@ -50,27 +50,26 @@ public abstract class AbstractDiskHttpData extends AbstractHttpData {
     }
 
     /**
-     *
      * @return the real DiskFilename (basename)
      */
     protected abstract String getDiskFilename();
+
     /**
-     *
      * @return the default prefix
      */
     protected abstract String getPrefix();
+
     /**
-     *
      * @return the default base Directory
      */
     protected abstract String getBaseDirectory();
+
     /**
-     *
      * @return the default postfix
      */
     protected abstract String getPostfix();
+
     /**
-     *
      * @return True if the file should be deleted on Exit by default
      */
     protected abstract boolean deleteOnExit();

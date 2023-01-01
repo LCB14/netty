@@ -35,8 +35,8 @@ public class FullBulkStringRedisMessage extends DefaultByteBufHolder implements 
      * Creates a {@link FullBulkStringRedisMessage} for the given {@code content}.
      *
      * @param content the content, must not be {@code null}. If content is null or empty,
-     * use {@link FullBulkStringRedisMessage#NULL_INSTANCE} or {@link FullBulkStringRedisMessage#EMPTY_INSTANCE}
-     * instead of constructor.
+     *                use {@link FullBulkStringRedisMessage#NULL_INSTANCE} or {@link FullBulkStringRedisMessage#EMPTY_INSTANCE}
+     *                instead of constructor.
      */
     public FullBulkStringRedisMessage(ByteBuf content) {
         super(content);

@@ -29,6 +29,7 @@ final class ShuffledDnsServerAddressStream implements DnsServerAddressStream {
 
     /**
      * Create a new instance.
+     *
      * @param addresses The addresses are not cloned. It is assumed the caller has cloned this array or otherwise will
      *                  not modify the contents.
      */
@@ -51,7 +52,7 @@ final class ShuffledDnsServerAddressStream implements DnsServerAddressStream {
     public InetSocketAddress next() {
         int i = this.i;
         InetSocketAddress next = addresses.get(i);
-        if (++ i < addresses.size()) {
+        if (++i < addresses.size()) {
             this.i = i;
         } else {
             this.i = 0;

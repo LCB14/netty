@@ -47,7 +47,7 @@ public class ScheduleFutureTaskBenchmark extends AbstractMicrobenchmark {
     @State(Scope.Thread)
     public static class ThreadState {
 
-        @Param({ "100000" })
+        @Param({"100000"})
         int num;
 
         AbstractScheduledEventExecutor eventLoop;

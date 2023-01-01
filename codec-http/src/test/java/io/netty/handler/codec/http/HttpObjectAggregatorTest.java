@@ -80,7 +80,7 @@ public class HttpObjectAggregatorTest {
         assertEquals(2, buffer.numComponents());
         List<ByteBuf> buffers = buffer.decompose(0, buffer.capacity());
         assertEquals(2, buffers.size());
-        for (ByteBuf buf: buffers) {
+        for (ByteBuf buf : buffers) {
             // This should be false as we decompose the buffer before to not have deep hierarchy
             assertFalse(buf instanceof CompositeByteBuf);
         }
@@ -159,8 +159,8 @@ public class HttpObjectAggregatorTest {
 
         assertTrue(embedder.isOpen());
 
-        assertFalse(embedder.writeInbound(Unpooled.wrappedBuffer(new byte[] { 1, 2, 3, 4 })));
-        assertFalse(embedder.writeInbound(Unpooled.wrappedBuffer(new byte[] { 5 })));
+        assertFalse(embedder.writeInbound(Unpooled.wrappedBuffer(new byte[]{1, 2, 3, 4})));
+        assertFalse(embedder.writeInbound(Unpooled.wrappedBuffer(new byte[]{5})));
 
         assertNull(embedder.readOutbound());
 
@@ -176,9 +176,9 @@ public class HttpObjectAggregatorTest {
 
         assertTrue(embedder.isOpen());
 
-        assertFalse(embedder.writeInbound(Unpooled.copiedBuffer(new byte[] { 1 })));
+        assertFalse(embedder.writeInbound(Unpooled.copiedBuffer(new byte[]{1})));
         assertNull(embedder.readOutbound());
-        assertTrue(embedder.writeInbound(Unpooled.copiedBuffer(new byte[] { 2 })));
+        assertTrue(embedder.writeInbound(Unpooled.copiedBuffer(new byte[]{2})));
         assertNull(embedder.readOutbound());
 
         FullHttpRequest request = embedder.readInbound();
@@ -189,7 +189,7 @@ public class HttpObjectAggregatorTest {
 
         byte[] actual = new byte[request.content().readableBytes()];
         request.content().readBytes(actual);
-        assertArrayEquals(new byte[] { 1, 2 }, actual);
+        assertArrayEquals(new byte[]{1, 2}, actual);
         request.release();
 
         assertFalse(embedder.finish());
@@ -243,9 +243,9 @@ public class HttpObjectAggregatorTest {
 
             assertFalse(embedder.writeInbound(message2));
             assertNull(embedder.readOutbound());
-            assertFalse(embedder.writeInbound(new DefaultHttpContent(Unpooled.copiedBuffer(new byte[] { 1 }))));
+            assertFalse(embedder.writeInbound(new DefaultHttpContent(Unpooled.copiedBuffer(new byte[]{1}))));
             assertNull(embedder.readOutbound());
-            assertTrue(embedder.writeInbound(new DefaultLastHttpContent(Unpooled.copiedBuffer(new byte[] { 2 }))));
+            assertTrue(embedder.writeInbound(new DefaultLastHttpContent(Unpooled.copiedBuffer(new byte[]{2}))));
             assertNull(embedder.readOutbound());
 
             FullHttpRequest request = embedder.readInbound();
@@ -256,7 +256,7 @@ public class HttpObjectAggregatorTest {
 
             byte[] actual = new byte[request.content().readableBytes()];
             request.content().readBytes(actual);
-            assertArrayEquals(new byte[] { 1, 2 }, actual);
+            assertArrayEquals(new byte[]{1, 2}, actual);
             request.release();
 
             assertFalse(embedder.finish());
@@ -482,9 +482,9 @@ public class HttpObjectAggregatorTest {
     public void testValidRequestWith100ContinueAndDecoder() {
         EmbeddedChannel embedder = new EmbeddedChannel(new HttpRequestDecoder(), new HttpObjectAggregator(100));
         embedder.writeInbound(Unpooled.copiedBuffer(
-            "GET /upload HTTP/1.1\r\n" +
-                "Expect: 100-continue\r\n" +
-                "Content-Length: 0\r\n\r\n", CharsetUtil.US_ASCII));
+                "GET /upload HTTP/1.1\r\n" +
+                        "Expect: 100-continue\r\n" +
+                        "Content-Length: 0\r\n\r\n", CharsetUtil.US_ASCII));
 
         FullHttpResponse response = embedder.readOutbound();
         assertEquals(HttpResponseStatus.CONTINUE, response.status());
@@ -675,13 +675,13 @@ public class HttpObjectAggregatorTest {
                 assertSame(content2, channel.readInbound());
                 assertSame(LastHttpContent.EMPTY_LAST_CONTENT, channel.readInbound());
             } finally {
-              ReferenceCountUtil.release(request2);
-              ReferenceCountUtil.release(content2);
+                ReferenceCountUtil.release(request2);
+                ReferenceCountUtil.release(content2);
             }
 
             assertFalse(channel.finish());
         } finally {
-          channel.close();
+            channel.close();
         }
     }
 
@@ -741,7 +741,7 @@ public class HttpObjectAggregatorTest {
 
             assertFalse(channel.finish());
         } finally {
-          channel.close();
+            channel.close();
         }
     }
 }

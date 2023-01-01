@@ -31,7 +31,7 @@ import static java.lang.Math.min;
 /**
  * Represent an array of struct array and so can be passed directly over via JNI without the need to do any more
  * array copies.
- *
+ * <p>
  * The buffers are written out directly into direct memory to match the struct iov. See also {@code man writev}.
  *
  * <pre>
@@ -40,14 +40,16 @@ import static java.lang.Math.min;
  *   size_t iov_len;
  * };
  * </pre>
- *
+ * <p>
  * See also
  * <a href="https://rkennke.wordpress.com/2007/07/30/efficient-jni-programming-iv-wrapping-native-data-objects/"
  * >Efficient JNI programming IV: Wrapping native data objects</a>.
  */
 public final class IovArray implements MessageProcessor {
 
-    /** The size of an address which should be 8 for 64 bits and 4 for 32 bits. */
+    /**
+     * The size of an address which should be 8 for 64 bits and 4 for 32 bits.
+     */
     private static final int ADDRESS_SIZE = Buffer.addressSize();
 
     /**
@@ -194,6 +196,7 @@ public final class IovArray implements MessageProcessor {
      * <p>
      * In order to ensure some progress is made at least one {@link ByteBuf} will be accepted even if it's size exceeds
      * this value.
+     *
      * @param maxBytes the maximum amount of bytes that can be added to this {@link IovArray}.
      */
     public void maxBytes(long maxBytes) {
@@ -202,6 +205,7 @@ public final class IovArray implements MessageProcessor {
 
     /**
      * Get the maximum amount of bytes that can be added to this {@link IovArray}.
+     *
      * @return the maximum amount of bytes that can be added to this {@link IovArray}.
      */
     public long maxBytes() {

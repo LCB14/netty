@@ -48,7 +48,8 @@ public final class DnsClient {
     private static final int DNS_SERVER_PORT = 53;
     private static final String DNS_SERVER_HOST = "8.8.8.8";
 
-    private DnsClient() { }
+    private DnsClient() {
+    }
 
     private static void handleQueryResp(DatagramDnsResponse msg) {
         if (msg.count(DnsSection.QUESTION) > 0) {
@@ -71,25 +72,25 @@ public final class DnsClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioDatagramChannel.class)
-             .handler(new ChannelInitializer<DatagramChannel>() {
-                 @Override
-                 protected void initChannel(DatagramChannel ch) throws Exception {
-                     ChannelPipeline p = ch.pipeline();
-                     p.addLast(new DatagramDnsQueryEncoder())
-                     .addLast(new DatagramDnsResponseDecoder())
-                     .addLast(new SimpleChannelInboundHandler<DatagramDnsResponse>() {
+                    .channel(NioDatagramChannel.class)
+                    .handler(new ChannelInitializer<DatagramChannel>() {
                         @Override
-                        protected void channelRead0(ChannelHandlerContext ctx, DatagramDnsResponse msg) {
-                            try {
-                                handleQueryResp(msg);
-                            } finally {
-                                ctx.close();
-                            }
+                        protected void initChannel(DatagramChannel ch) throws Exception {
+                            ChannelPipeline p = ch.pipeline();
+                            p.addLast(new DatagramDnsQueryEncoder())
+                                    .addLast(new DatagramDnsResponseDecoder())
+                                    .addLast(new SimpleChannelInboundHandler<DatagramDnsResponse>() {
+                                        @Override
+                                        protected void channelRead0(ChannelHandlerContext ctx, DatagramDnsResponse msg) {
+                                            try {
+                                                handleQueryResp(msg);
+                                            } finally {
+                                                ctx.close();
+                                            }
+                                        }
+                                    });
                         }
                     });
-                 }
-             });
             final Channel ch = b.bind(0).sync().channel();
             DnsQuery query = new DatagramDnsQuery(null, addr, 1).setRecord(
                     DnsSection.QUESTION,

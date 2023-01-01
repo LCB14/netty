@@ -139,7 +139,7 @@ final class DefaultRxtxChannelConfig extends DefaultChannelConfig implements Rxt
     @Override
     public RxtxChannelConfig setParitybit(final Paritybit paritybit) {
         this.paritybit = paritybit;
-        return  this;
+        return this;
     }
 
     @Override

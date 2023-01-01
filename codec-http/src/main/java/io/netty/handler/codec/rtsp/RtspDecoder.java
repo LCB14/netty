@@ -83,15 +83,16 @@ public class RtspDecoder extends HttpObjectDecoder {
      */
     public RtspDecoder() {
         this(DEFAULT_MAX_INITIAL_LINE_LENGTH,
-             DEFAULT_MAX_HEADER_SIZE,
-             DEFAULT_MAX_CONTENT_LENGTH);
+                DEFAULT_MAX_HEADER_SIZE,
+                DEFAULT_MAX_CONTENT_LENGTH);
     }
 
     /**
      * Creates a new instance with the specified parameters.
+     *
      * @param maxInitialLineLength The max allowed length of initial line
-     * @param maxHeaderSize The max allowed size of header
-     * @param maxContentLength The max allowed content length
+     * @param maxHeaderSize        The max allowed size of header
+     * @param maxContentLength     The max allowed content length
      */
     public RtspDecoder(final int maxInitialLineLength,
                        final int maxHeaderSize,
@@ -101,20 +102,21 @@ public class RtspDecoder extends HttpObjectDecoder {
 
     /**
      * Creates a new instance with the specified parameters.
+     *
      * @param maxInitialLineLength The max allowed length of initial line
-     * @param maxHeaderSize The max allowed size of header
-     * @param maxContentLength The max allowed content length
-     * @param validateHeaders Set to true if headers should be validated
+     * @param maxHeaderSize        The max allowed size of header
+     * @param maxContentLength     The max allowed content length
+     * @param validateHeaders      Set to true if headers should be validated
      */
     public RtspDecoder(final int maxInitialLineLength,
                        final int maxHeaderSize,
                        final int maxContentLength,
                        final boolean validateHeaders) {
         super(maxInitialLineLength,
-              maxHeaderSize,
-              maxContentLength * 2,
-              false,
-              validateHeaders);
+                maxHeaderSize,
+                maxContentLength * 2,
+                false,
+                validateHeaders);
     }
 
     @Override
@@ -125,9 +127,9 @@ public class RtspDecoder extends HttpObjectDecoder {
         if (versionPattern.matcher(initialLine[0]).matches()) {
             isDecodingRequest = false;
             return new DefaultHttpResponse(RtspVersions.valueOf(initialLine[0]),
-                new HttpResponseStatus(Integer.parseInt(initialLine[1]),
-                                       initialLine[2]),
-                validateHeaders);
+                    new HttpResponseStatus(Integer.parseInt(initialLine[1]),
+                            initialLine[2]),
+                    validateHeaders);
         } else {
             isDecodingRequest = true;
             return new DefaultHttpRequest(RtspVersions.valueOf(initialLine[2]),
@@ -148,11 +150,11 @@ public class RtspDecoder extends HttpObjectDecoder {
     protected HttpMessage createInvalidMessage() {
         if (isDecodingRequest) {
             return new DefaultFullHttpRequest(RtspVersions.RTSP_1_0,
-                       RtspMethods.OPTIONS, "/bad-request", validateHeaders);
+                    RtspMethods.OPTIONS, "/bad-request", validateHeaders);
         } else {
             return new DefaultFullHttpResponse(RtspVersions.RTSP_1_0,
-                                               UNKNOWN_STATUS,
-                                               validateHeaders);
+                    UNKNOWN_STATUS,
+                    validateHeaders);
         }
     }
 

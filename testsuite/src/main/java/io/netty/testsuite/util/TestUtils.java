@@ -72,7 +72,6 @@ public final class TestUtils {
 
     /**
      * Return {@code true} if SCTP is supported by the running os.
-     *
      */
     public static boolean isSctpSupported() {
         String os = System.getProperty("os.name").toLowerCase(Locale.US);
@@ -157,7 +156,7 @@ public final class TestUtils {
         final byte[] buf = new byte[65536];
         final LZMA2Options options = new LZMA2Options(LZMA2Options.PRESET_DEFAULT);
 
-        for (File file: files) {
+        for (File file : files) {
             final String filename = file.toString();
             final String xzFilename = filename + ".xz";
             final long fileLength = file.length();
@@ -172,7 +171,7 @@ public final class TestUtils {
             try {
                 in = new FileInputStream(filename);
                 out = new XZOutputStream(new FileOutputStream(xzFilename), options);
-                for (;;) {
+                for (; ; ) {
                     int readBytes = in.read(buf);
                     if (readBytes < 0) {
                         break;
@@ -187,7 +186,7 @@ public final class TestUtils {
                     long currentTime = System.nanoTime();
                     if (currentTime - lastLogTime > DUMP_PROGRESS_LOGGING_INTERVAL) {
                         logger.info("Compressing the heap dump: {} ({}%)",
-                                    xzFilename, counter * 100 / fileLength);
+                                xzFilename, counter * 100 / fileLength);
                         lastLogTime = currentTime;
                     }
                 }
@@ -269,5 +268,6 @@ public final class TestUtils {
         }
     }
 
-    private TestUtils() { }
+    private TestUtils() {
+    }
 }

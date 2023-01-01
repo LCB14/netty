@@ -44,7 +44,7 @@ public class MessageAggregatorTest {
     }
 
     abstract static class MockMessageAggregator
-        extends MessageAggregator<ByteBufHolder, ByteBufHolder, ByteBufHolder, ByteBufHolder> {
+            extends MessageAggregator<ByteBufHolder, ByteBufHolder, ByteBufHolder, ByteBufHolder> {
 
         protected MockMessageAggregator() {
             super(1024);
@@ -58,7 +58,7 @@ public class MessageAggregatorTest {
 
     private static ByteBufHolder message(String string) {
         return new DefaultByteBufHolder(
-            Unpooled.copiedBuffer(string, CharsetUtil.US_ASCII));
+                Unpooled.copiedBuffer(string, CharsetUtil.US_ASCII));
     }
 
     @SuppressWarnings("unchecked")
@@ -83,10 +83,10 @@ public class MessageAggregatorTest {
         assertTrue(embedded.writeInbound(last));
 
         assertEquals(3, counter.value); // 2 reads issued from MockMessageAggregator
-                                        // 1 read issued from EmbeddedChannel constructor
+        // 1 read issued from EmbeddedChannel constructor
 
         ByteBufHolder all = new DefaultByteBufHolder(Unpooled.wrappedBuffer(
-            first.content().retain(), chunk.content().retain(), last.content().retain()));
+                first.content().retain(), chunk.content().retain(), last.content().retain()));
         ByteBufHolder out = embedded.readInbound();
 
         assertEquals(all, out);

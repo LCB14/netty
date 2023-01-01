@@ -92,6 +92,6 @@ public class DefaultMemcacheContent extends AbstractMemcacheObject implements Me
     @Override
     public String toString() {
         return StringUtil.simpleClassName(this) +
-               "(data: " + content() + ", decoderResult: " + decoderResult() + ')';
+                "(data: " + content() + ", decoderResult: " + decoderResult() + ')';
     }
 }

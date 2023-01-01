@@ -581,5 +581,6 @@ public class EmptyHeadersTest {
         assertFalse(HEADERS.valueIterator("name1").hasNext());
     }
 
-    private static final class TestEmptyHeaders extends EmptyHeaders<String, String, TestEmptyHeaders> { }
+    private static final class TestEmptyHeaders extends EmptyHeaders<String, String, TestEmptyHeaders> {
+    }
 }

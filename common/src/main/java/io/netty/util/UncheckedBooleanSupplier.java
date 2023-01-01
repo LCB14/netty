@@ -21,6 +21,7 @@ package io.netty.util;
 public interface UncheckedBooleanSupplier extends BooleanSupplier {
     /**
      * Gets a boolean value.
+     *
      * @return a boolean value.
      */
     @Override

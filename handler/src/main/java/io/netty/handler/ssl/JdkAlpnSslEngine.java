@@ -101,19 +101,19 @@ class JdkAlpnSslEngine extends JdkSslEngine {
     JdkAlpnSslEngine(SSLEngine engine,
                      @SuppressWarnings("deprecation") JdkApplicationProtocolNegotiator applicationNegotiator,
                      boolean isServer) {
-       this(engine, applicationNegotiator, isServer,
-               new BiConsumer<SSLEngine, AlpnSelector>() {
-                   @Override
-                   public void accept(SSLEngine e, AlpnSelector s) {
-                       JdkAlpnSslUtils.setHandshakeApplicationProtocolSelector(e, s);
-                   }
-               },
-               new BiConsumer<SSLEngine, List<String>>() {
-                   @Override
-                   public void accept(SSLEngine e, List<String> p) {
-                       JdkAlpnSslUtils.setApplicationProtocols(e, p);
-                   }
-               });
+        this(engine, applicationNegotiator, isServer,
+                new BiConsumer<SSLEngine, AlpnSelector>() {
+                    @Override
+                    public void accept(SSLEngine e, AlpnSelector s) {
+                        JdkAlpnSslUtils.setHandshakeApplicationProtocolSelector(e, s);
+                    }
+                },
+                new BiConsumer<SSLEngine, List<String>>() {
+                    @Override
+                    public void accept(SSLEngine e, List<String> p) {
+                        JdkAlpnSslUtils.setApplicationProtocols(e, p);
+                    }
+                });
     }
 
     private SSLEngineResult verifyProtocolSelection(SSLEngineResult result) throws SSLException {

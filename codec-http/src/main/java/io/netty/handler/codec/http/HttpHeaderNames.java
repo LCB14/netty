@@ -216,7 +216,7 @@ public final class HttpHeaderNames {
     public static final AsciiString IF_UNMODIFIED_SINCE = AsciiString.cached("if-unmodified-since");
     /**
      * @deprecated use {@link #CONNECTION}
-     *
+     * <p>
      * {@code "keep-alive"}
      */
     @Deprecated
@@ -251,7 +251,7 @@ public final class HttpHeaderNames {
     public static final AsciiString PROXY_AUTHORIZATION = AsciiString.cached("proxy-authorization");
     /**
      * @deprecated use {@link #CONNECTION}
-     *
+     * <p>
      * {@code "proxy-connection"}
      */
     @Deprecated
@@ -377,5 +377,6 @@ public final class HttpHeaderNames {
      */
     public static final AsciiString X_REQUESTED_WITH = AsciiString.cached("x-requested-with");
 
-    private HttpHeaderNames() { }
+    private HttpHeaderNames() {
+    }
 }

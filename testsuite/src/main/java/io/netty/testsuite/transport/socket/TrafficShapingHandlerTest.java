@@ -68,6 +68,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
     private static EventExecutorGroup group;
     private static EventExecutorGroup groupForGlobal;
     private static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
+
     static {
         random.nextBytes(data);
     }
@@ -75,7 +76,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
     @BeforeAll
     public static void createGroup() {
         logger.info("Bandwidth: " + minfactor + " <= " + bandwidthFactor + " <= " + maxfactor +
-                    " StepMs: " + stepms + " MinMs: " + minimalms + " CheckMs: " + check);
+                " StepMs: " + stepms + " MinMs: " + minimalms + " CheckMs: " + check);
         group = new DefaultEventExecutorGroup(8);
         groupForGlobal = new DefaultEventExecutorGroup(8);
     }
@@ -112,8 +113,8 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
         return minimalWaitBetween;
     }
 
-    private static long[] computeWaitAutoRead(int []autoRead) {
-        long [] minimalWaitBetween = new long[autoRead.length + 1];
+    private static long[] computeWaitAutoRead(int[] autoRead) {
+        long[] minimalWaitBetween = new long[autoRead.length + 1];
         minimalWaitBetween[0] = 0;
         for (int i = 0; i < autoRead.length; i++) {
             if (autoRead[i] != 0) {
@@ -144,7 +145,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testNoTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 2, 1 };
+        int[] multipleMessage = {1, 2, 1};
         long[] minimalWaitBetween = null;
         testTrafficShapping0(sb, cb, false, false, false, false, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -164,7 +165,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testWriteTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 2, 1, 1 };
+        int[] multipleMessage = {1, 2, 1, 1};
         long[] minimalWaitBetween = computeWaitWrite(multipleMessage);
         testTrafficShapping0(sb, cb, false, false, true, false, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -184,7 +185,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testReadTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 2, 1, 1 };
+        int[] multipleMessage = {1, 2, 1, 1};
         long[] minimalWaitBetween = computeWaitRead(multipleMessage);
         testTrafficShapping0(sb, cb, false, true, false, false, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -204,7 +205,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testWrite1TrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 1, 1 };
+        int[] multipleMessage = {1, 1, 1};
         long[] minimalWaitBetween = computeWaitWrite(multipleMessage);
         testTrafficShapping0(sb, cb, false, false, true, false, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -224,7 +225,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testRead1TrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 1, 1 };
+        int[] multipleMessage = {1, 1, 1};
         long[] minimalWaitBetween = computeWaitRead(multipleMessage);
         testTrafficShapping0(sb, cb, false, true, false, false, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -244,7 +245,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testWriteGlobalTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 2, 1, 1 };
+        int[] multipleMessage = {1, 2, 1, 1};
         long[] minimalWaitBetween = computeWaitWrite(multipleMessage);
         testTrafficShapping0(sb, cb, false, false, true, true, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -264,7 +265,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
     public void testReadGlobalTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
         int[] autoRead = null;
-        int[] multipleMessage = { 1, 2, 1, 1 };
+        int[] multipleMessage = {1, 2, 1, 1};
         long[] minimalWaitBetween = computeWaitRead(multipleMessage);
         testTrafficShapping0(sb, cb, false, true, false, true, autoRead, minimalWaitBetween, multipleMessage);
     }
@@ -283,7 +284,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
     }
 
     public void testAutoReadTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
-        int[] autoRead = { 1, -1, -1, 1, -2, 0, 1, 0, -3, 0, 1, 2, 0 };
+        int[] autoRead = {1, -1, -1, 1, -2, 0, 1, 0, -3, 0, 1, 2, 0};
         int[] multipleMessage = new int[autoRead.length];
         Arrays.fill(multipleMessage, 1);
         long[] minimalWaitBetween = computeWaitAutoRead(autoRead);
@@ -304,7 +305,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
     }
 
     public void testAutoReadGlobalTrafficShapping(ServerBootstrap sb, Bootstrap cb) throws Throwable {
-        int[] autoRead = { 1, -1, -1, 1, -2, 0, 1, 0, -3, 0, 1, 2, 0 };
+        int[] autoRead = {1, -1, -1, 1, -2, 0, 1, 0, -3, 0, 1, 2, 0};
         int[] multipleMessage = new int[autoRead.length];
         Arrays.fill(multipleMessage, 1);
         long[] minimalWaitBetween = computeWaitAutoRead(autoRead);
@@ -312,21 +313,14 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
     }
 
     /**
-     *
-     * @param additionalExecutor
-     *            shall the pipeline add the handler using an additional executor
-     * @param limitRead
-     *            True to set Read Limit on Server side
-     * @param limitWrite
-     *            True to set Write Limit on Client side
-     * @param globalLimit
-     *            True to change Channel to Global TrafficShapping
-     * @param minimalWaitBetween
-     *            time in ms that should be waited before getting the final result (note: for READ the values are
-     *            right shifted once, the first value being 0)
-     * @param multipleMessage
-     *            how many message to send at each step (for READ: the first should be 1, as the two last steps to
-     *            ensure correct testing)
+     * @param additionalExecutor shall the pipeline add the handler using an additional executor
+     * @param limitRead          True to set Read Limit on Server side
+     * @param limitWrite         True to set Write Limit on Client side
+     * @param globalLimit        True to change Channel to Global TrafficShapping
+     * @param minimalWaitBetween time in ms that should be waited before getting the final result (note: for READ the values are
+     *                           right shifted once, the first value being 0)
+     * @param multipleMessage    how many message to send at each step (for READ: the first should be 1, as the two last steps to
+     *                           ensure correct testing)
      * @throws Throwable
      */
     private static void testTrafficShapping0(
@@ -336,12 +330,12 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
         currentTestRun++;
         logger.info("TEST: " + currentTestName + " RUN: " + currentTestRun +
-                    " Exec: " + additionalExecutor + " Read: " + limitRead + " Write: " + limitWrite + " Global: "
-                    + globalLimit);
+                " Exec: " + additionalExecutor + " Read: " + limitRead + " Write: " + limitWrite + " Global: "
+                + globalLimit);
         final ServerHandler sh = new ServerHandler(autoRead, multipleMessage);
         Promise<Boolean> promise = group.next().newPromise();
         final ClientHandler ch = new ClientHandler(promise, minimalWaitBetween, multipleMessage,
-                                                   autoRead);
+                autoRead);
 
         final AbstractTrafficShapingHandler handler;
         if (limitRead) {
@@ -399,7 +393,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
         float average = (totalNb * messageSize) / (float) (stop - start);
         logger.info("TEST: " + currentTestName + " RUN: " + currentTestRun +
-                    " Average of traffic: " + average + " compare to " + bandwidthFactor);
+                " Average of traffic: " + average + " compare to " + bandwidthFactor);
         sh.channel.close().sync();
         ch.channel.close().sync();
         sc.close().sync();
@@ -410,13 +404,13 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
 
         if (autoRead == null && minimalWaitBetween != null) {
             assertTrue(average <= maxfactor,
-                "Overall Traffic not ok since > " + maxfactor + ": " + average);
+                    "Overall Traffic not ok since > " + maxfactor + ": " + average);
             if (additionalExecutor) {
                 // Oio is not as good when using additionalExecutor
                 assertTrue(average >= 0.25, "Overall Traffic not ok since < 0.25: " + average);
             } else {
                 assertTrue(average >= minfactor,
-                    "Overall Traffic not ok since < " + minfactor + ": " + average);
+                        "Overall Traffic not ok since < " + minfactor + ": " + average);
             }
         }
         if (handler != null && globalLimit) {
@@ -473,7 +467,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
                 // still some message to get
                 return;
             }
-            long minimalWait = minimalWaitBetween != null? minimalWaitBetween[step] : 0;
+            long minimalWait = minimalWaitBetween != null ? minimalWaitBetween[step] : 0;
             int ar = 0;
             if (autoRead != null) {
                 if (step > 0 && autoRead[step - 1] != 0) {
@@ -481,7 +475,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
                 }
             }
             loggerClient.info("Step: " + step + " Interval: " + (lastTimestamp - currentLastTime) + " compareTo "
-                              + minimalWait + " (" + ar + ')');
+                    + minimalWait + " (" + ar + ')');
             assertTrue(lastTimestamp - currentLastTime >= minimalWait,
                     "The interval of time is incorrect:" + (lastTimestamp - currentLastTime) + " not> " + minimalWait);
             currentLastTime = lastTimestamp;
@@ -565,7 +559,7 @@ public class TrafficShapingHandlerTest extends AbstractSocketTest {
                 if (isAutoRead != 0) {
                     if (isAutoRead < 0) {
                         final int exactStep = step;
-                        long wait = isAutoRead == -1? minimalms : stepms + minimalms;
+                        long wait = isAutoRead == -1 ? minimalms : stepms + minimalms;
                         if (isAutoRead == -3) {
                             wait = stepms * 3;
                         }

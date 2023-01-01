@@ -216,7 +216,7 @@ public class HAProxyMessageDecoderTest {
     @Test
     public void testHeaderTooLong() {
         final String header = "PROXY TCP4 192.168.0.1 192.168.0.11 56324 " +
-                        "00000000000000000000000000000000000000000000000000000000000000000443\r\n";
+                "00000000000000000000000000000000000000000000000000000000000000000443\r\n";
         assertThrows(HAProxyProtocolException.class, new Executable() {
             @Override
             public void execute() {
@@ -230,7 +230,7 @@ public class HAProxyMessageDecoderTest {
         final EmbeddedChannel slowFailCh = new EmbeddedChannel(new HAProxyMessageDecoder(false));
         try {
             String headerPart1 = "PROXY TCP4 192.168.0.1 192.168.0.11 56324 " +
-                                 "000000000000000000000000000000000000000000000000000000000000000000000443";
+                    "000000000000000000000000000000000000000000000000000000000000000000000443";
             // Should not throw exception
             assertFalse(slowFailCh.writeInbound(copiedBuffer(headerPart1, CharsetUtil.US_ASCII)));
             String headerPart2 = "more header data";
@@ -255,13 +255,13 @@ public class HAProxyMessageDecoderTest {
         final EmbeddedChannel fastFailCh = new EmbeddedChannel(new HAProxyMessageDecoder(true));
         try {
             final String headerPart1 = "PROXY TCP4 192.168.0.1 192.168.0.11 56324 " +
-                                 "000000000000000000000000000000000000000000000000000000000000000000000443";
+                    "000000000000000000000000000000000000000000000000000000000000000000000443";
             assertThrows(HAProxyProtocolException.class, new Executable() {
-                        @Override
-                        public void execute() {
-                            fastFailCh.writeInbound(copiedBuffer(headerPart1, CharsetUtil.US_ASCII));
-                        }
-                    }, "over " + headerPart1.length());
+                @Override
+                public void execute() {
+                    fastFailCh.writeInbound(copiedBuffer(headerPart1, CharsetUtil.US_ASCII));
+                }
+            }, "over " + headerPart1.length());
         } finally {
             assertFalse(fastFailCh.finishAndReleaseAll());
         }
@@ -1151,7 +1151,7 @@ public class HAProxyMessageDecoderTest {
     @Test
     public void testDetectProtocol() {
         final ByteBuf validHeaderV1 = copiedBuffer("PROXY TCP4 192.168.0.1 192.168.0.11 56324 443\r\n",
-                                                   CharsetUtil.US_ASCII);
+                CharsetUtil.US_ASCII);
         ProtocolDetectionResult<HAProxyProtocolVersion> result = HAProxyMessageDecoder.detectProtocol(validHeaderV1);
         assertEquals(ProtocolDetectionState.DETECTED, result.state());
         assertEquals(HAProxyProtocolVersion.V1, result.detectedProtocol());
@@ -1199,7 +1199,7 @@ public class HAProxyMessageDecoderTest {
     public void testNestedTLV() throws Exception {
         ByteArrayOutputStream headerWriter = new ByteArrayOutputStream();
         //src_ip = "AAAA", dst_ip = "BBBB", src_port = "CC", dst_port = "DD"
-        headerWriter.write(new byte[] {'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'C', 'C', 'D', 'D'});
+        headerWriter.write(new byte[]{'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'C', 'C', 'D', 'D'});
         //write TLVs
         int countOfTLVs = 8100;
         ByteBuffer tlvLengthBuf = ByteBuffer.allocate(2);
@@ -1217,7 +1217,7 @@ public class HAProxyMessageDecoderTest {
             //write client field
             headerWriter.write(1);
             //write verify field
-            headerWriter.write(new byte[] {'V', 'V', 'V', 'V'});
+            headerWriter.write(new byte[]{'V', 'V', 'V', 'V'});
             //subtract the client and verify fields
             totalLength -= 1 + 4;
         }
@@ -1226,8 +1226,8 @@ public class HAProxyMessageDecoderTest {
         numsWrite.order(ByteOrder.BIG_ENDIAN);
         numsWrite.putShort((short) header.length);
 
-        final  ByteBuf data = Unpooled.buffer();
-        data.writeBytes(new byte[] {
+        final ByteBuf data = Unpooled.buffer();
+        data.writeBytes(new byte[]{
                 (byte) 0x0D,
                 (byte) 0x0A,
                 (byte) 0x0D,

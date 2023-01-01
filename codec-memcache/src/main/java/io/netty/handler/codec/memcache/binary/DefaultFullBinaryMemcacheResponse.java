@@ -25,7 +25,7 @@ import io.netty.util.internal.UnstableApi;
  */
 @UnstableApi
 public class DefaultFullBinaryMemcacheResponse extends DefaultBinaryMemcacheResponse
-    implements FullBinaryMemcacheResponse {
+        implements FullBinaryMemcacheResponse {
 
     private final ByteBuf content;
 
@@ -47,7 +47,7 @@ public class DefaultFullBinaryMemcacheResponse extends DefaultBinaryMemcacheResp
      * @param content the content of the full request.
      */
     public DefaultFullBinaryMemcacheResponse(ByteBuf key, ByteBuf extras,
-        ByteBuf content) {
+                                             ByteBuf content) {
         super(key, extras);
         this.content = ObjectUtil.checkNotNull(content, "content");
         setTotalBodyLength(keyLength() + extrasLength() + content.readableBytes());

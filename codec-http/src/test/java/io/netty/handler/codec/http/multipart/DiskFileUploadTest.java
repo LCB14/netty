@@ -64,27 +64,27 @@ public class DiskFileUploadTest {
         f2.delete();
     }
 
-     @Test
-     public void testEmptyBufferSetMultipleTimes() throws IOException {
-         DiskFileUpload f =
-                 new DiskFileUpload("d1", "d1", "application/json", null, null, 100);
+    @Test
+    public void testEmptyBufferSetMultipleTimes() throws IOException {
+        DiskFileUpload f =
+                new DiskFileUpload("d1", "d1", "application/json", null, null, 100);
 
-         f.setContent(Unpooled.EMPTY_BUFFER);
+        f.setContent(Unpooled.EMPTY_BUFFER);
 
-         assertTrue(f.getFile().exists());
-         assertEquals(0, f.getFile().length());
-         f.setContent(Unpooled.EMPTY_BUFFER);
-         assertTrue(f.getFile().exists());
-         assertEquals(0, f.getFile().length());
-         f.delete();
-     }
+        assertTrue(f.getFile().exists());
+        assertEquals(0, f.getFile().length());
+        f.setContent(Unpooled.EMPTY_BUFFER);
+        assertTrue(f.getFile().exists());
+        assertEquals(0, f.getFile().length());
+        f.delete();
+    }
 
     @Test
     public void testEmptyBufferSetAfterNonEmptyBuffer() throws IOException {
         DiskFileUpload f =
                 new DiskFileUpload("d1", "d1", "application/json", null, null, 100);
 
-        f.setContent(Unpooled.wrappedBuffer(new byte[] { 1, 2, 3, 4 }));
+        f.setContent(Unpooled.wrappedBuffer(new byte[]{1, 2, 3, 4}));
 
         assertTrue(f.getFile().exists());
         assertEquals(4, f.getFile().length());
@@ -99,11 +99,11 @@ public class DiskFileUploadTest {
         DiskFileUpload f =
                 new DiskFileUpload("d1", "d1", "application/json", null, null, 100);
 
-        f.setContent(Unpooled.wrappedBuffer(new byte[] { 1, 2, 3, 4 }));
+        f.setContent(Unpooled.wrappedBuffer(new byte[]{1, 2, 3, 4}));
 
         assertTrue(f.getFile().exists());
         assertEquals(4, f.getFile().length());
-        f.setContent(Unpooled.wrappedBuffer(new byte[] { 1, 2}));
+        f.setContent(Unpooled.wrappedBuffer(new byte[]{1, 2}));
         assertTrue(f.getFile().exists());
         assertEquals(2, f.getFile().length());
         f.delete();
@@ -206,7 +206,7 @@ public class DiskFileUploadTest {
 
             if (composite) {
                 buffer = Unpooled.compositeBuffer()
-                        .addComponent(true, Unpooled.wrappedBuffer(bytes, 0 , bytes.length / 2))
+                        .addComponent(true, Unpooled.wrappedBuffer(bytes, 0, bytes.length / 2))
                         .addComponent(true, Unpooled.wrappedBuffer(bytes, bytes.length / 2, bytes.length / 2));
             } else {
                 buffer = Unpooled.wrappedBuffer(bytes);

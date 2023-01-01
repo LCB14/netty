@@ -39,7 +39,7 @@ import static io.netty.handler.codec.compression.FastLz.compress;
 
 /**
  * Compresses a {@link ByteBuf} using the FastLZ algorithm.
- *
+ * <p>
  * See <a href="https://github.com/netty/netty/issues/2750">FastLZ format</a>.
  */
 public class FastLzFrameEncoder extends MessageToByteEncoder<ByteBuf> {
@@ -64,9 +64,9 @@ public class FastLzFrameEncoder extends MessageToByteEncoder<ByteBuf> {
      * Creates a FastLZ encoder with specified compression level and without checksum calculator.
      *
      * @param level supports only these values:
-     *        0 - Encoder will choose level automatically depending on the length of the input buffer.
-     *        1 - Level 1 is the fastest compression and generally useful for short data.
-     *        2 - Level 2 is slightly slower but it gives better compression ratio.
+     *              0 - Encoder will choose level automatically depending on the length of the input buffer.
+     *              1 - Level 1 is the fastest compression and generally useful for short data.
+     *              2 - Level 2 is slightly slower but it gives better compression ratio.
      */
     public FastLzFrameEncoder(int level) {
         this(level, null);
@@ -76,11 +76,10 @@ public class FastLzFrameEncoder extends MessageToByteEncoder<ByteBuf> {
      * Creates a FastLZ encoder with auto detection of compression
      * level and calculation of checksums as specified.
      *
-     * @param validateChecksums
-     *        If true, the checksum of each block will be calculated and this value
-     *        will be added to the header of block.
-     *        By default {@link FastLzFrameEncoder} uses {@link java.util.zip.Adler32}
-     *        for checksum calculation.
+     * @param validateChecksums If true, the checksum of each block will be calculated and this value
+     *                          will be added to the header of block.
+     *                          By default {@link FastLzFrameEncoder} uses {@link java.util.zip.Adler32}
+     *                          for checksum calculation.
      */
     public FastLzFrameEncoder(boolean validateChecksums) {
         this(LEVEL_AUTO, validateChecksums ? new Adler32() : null);
@@ -89,13 +88,12 @@ public class FastLzFrameEncoder extends MessageToByteEncoder<ByteBuf> {
     /**
      * Creates a FastLZ encoder with specified compression level and checksum calculator.
      *
-     * @param level supports only these values:
-     *        0 - Encoder will choose level automatically depending on the length of the input buffer.
-     *        1 - Level 1 is the fastest compression and generally useful for short data.
-     *        2 - Level 2 is slightly slower but it gives better compression ratio.
-     * @param checksum
-     *        the {@link Checksum} instance to use to check data for integrity.
-     *        You may set {@code null} if you don't want to validate checksum of each block.
+     * @param level    supports only these values:
+     *                 0 - Encoder will choose level automatically depending on the length of the input buffer.
+     *                 1 - Level 1 is the fastest compression and generally useful for short data.
+     *                 2 - Level 2 is slightly slower but it gives better compression ratio.
+     * @param checksum the {@link Checksum} instance to use to check data for integrity.
+     *                 You may set {@code null} if you don't want to validate checksum of each block.
      */
     public FastLzFrameEncoder(int level, Checksum checksum) {
         if (level != LEVEL_AUTO && level != LEVEL_1 && level != LEVEL_2) {
@@ -110,7 +108,7 @@ public class FastLzFrameEncoder extends MessageToByteEncoder<ByteBuf> {
     protected void encode(ChannelHandlerContext ctx, ByteBuf in, ByteBuf out) throws Exception {
         final ByteBufChecksum checksum = this.checksum;
 
-        for (;;) {
+        for (; ; ) {
             if (!in.isReadable()) {
                 return;
             }

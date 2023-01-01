@@ -82,5 +82,6 @@ final class HAProxyConstants {
             (byte) 'Y',
     };
 
-    private HAProxyConstants() { }
+    private HAProxyConstants() {
+    }
 }

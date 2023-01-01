@@ -65,7 +65,7 @@ public class SocketSpdyEchoTest extends AbstractSocketTest {
         frames.writeInt(random.nextInt() & 0x7FFFFFFF | 0x01);
         frames.writeByte(0x01);
         frames.writeMedium(1024);
-        for (int i = 0; i < 256; i ++) {
+        for (int i = 0; i < 256; i++) {
             frames.writeInt(random.nextInt());
         }
 
@@ -183,11 +183,11 @@ public class SocketSpdyEchoTest extends AbstractSocketTest {
 
         ByteBuf frames;
         switch (version) {
-        case SPDY_3_1:
-            frames = createFrames(3);
-            break;
-        default:
-            throw new IllegalArgumentException("unknown version");
+            case SPDY_3_1:
+                frames = createFrames(3);
+                break;
+            default:
+                throw new IllegalArgumentException("unknown version");
         }
 
         sb.childOption(ChannelOption.AUTO_READ, autoRead);
@@ -286,6 +286,7 @@ public class SocketSpdyEchoTest extends AbstractSocketTest {
             this.frames = frames;
             this.autoRead = autoRead;
         }
+
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             if (!autoRead) {
@@ -299,7 +300,7 @@ public class SocketSpdyEchoTest extends AbstractSocketTest {
             in.readBytes(actual);
 
             int lastIdx = counter;
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(frames.getByte(ignoredBytes + i + lastIdx), actual[i]);
             }
 

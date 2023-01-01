@@ -44,8 +44,8 @@ public abstract class AbstractMicrobenchmarkBase {
     protected static final int DEFAULT_WARMUP_ITERATIONS = 10;
     protected static final int DEFAULT_MEASURE_ITERATIONS = 10;
     protected static final String[] BASE_JVM_ARGS = {
-        "-server", "-dsa", "-da", "-ea:io.netty...",
-        "-XX:+HeapDumpOnOutOfMemoryError", "-Dio.netty.leakDetection.level=disabled"};
+            "-server", "-dsa", "-da", "-ea:io.netty...",
+            "-XX:+HeapDumpOnOutOfMemoryError", "-Dio.netty.leakDetection.level=disabled"};
 
     static {
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.DISABLED);
@@ -55,8 +55,8 @@ public abstract class AbstractMicrobenchmarkBase {
         String className = getClass().getSimpleName();
 
         ChainedOptionsBuilder runnerOptions = new OptionsBuilder()
-            .include(".*" + className + ".*")
-            .jvmArgs(jvmArgs());
+                .include(".*" + className + ".*")
+                .jvmArgs(jvmArgs());
 
         if (getWarmupIterations() > 0) {
             runnerOptions.warmupIterations(getWarmupIterations());

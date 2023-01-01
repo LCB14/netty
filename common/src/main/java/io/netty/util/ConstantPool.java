@@ -41,8 +41,8 @@ public abstract class ConstantPool<T extends Constant<T>> {
     public T valueOf(Class<?> firstNameComponent, String secondNameComponent) {
         return valueOf(
                 checkNotNull(firstNameComponent, "firstNameComponent").getName() +
-                '#' +
-                checkNotNull(secondNameComponent, "secondNameComponent"));
+                        '#' +
+                        checkNotNull(secondNameComponent, "secondNameComponent"));
     }
 
     /**

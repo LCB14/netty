@@ -105,8 +105,8 @@ public final class SctpTestPermutation {
         List<BootstrapFactory<Bootstrap>> cbfs = sctpClientChannel();
 
         // Populate the combinations
-        for (BootstrapFactory<ServerBootstrap> sbf: sbfs) {
-            for (BootstrapFactory<Bootstrap> cbf: cbfs) {
+        for (BootstrapFactory<ServerBootstrap> sbf : sbfs) {
+            for (BootstrapFactory<Bootstrap> cbf : cbfs) {
                 final BootstrapFactory<ServerBootstrap> sbf0 = sbf;
                 final BootstrapFactory<Bootstrap> cbf0 = cbf;
                 list.add(new BootstrapComboFactory<ServerBootstrap, Bootstrap>() {
@@ -126,5 +126,6 @@ public final class SctpTestPermutation {
         return list;
     }
 
-    private SctpTestPermutation() { }
+    private SctpTestPermutation() {
+    }
 }

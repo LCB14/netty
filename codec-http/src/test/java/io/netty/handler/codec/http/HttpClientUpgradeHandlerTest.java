@@ -81,7 +81,7 @@ public class HttpClientUpgradeHandlerTest {
         channel.pipeline().addFirst("upgrade", handler);
 
         assertTrue(
-            channel.writeOutbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "netty.io")));
+                channel.writeOutbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "netty.io")));
         FullHttpRequest request = channel.readOutbound();
 
         assertEquals(2, request.headers().size());
@@ -91,7 +91,7 @@ public class HttpClientUpgradeHandlerTest {
         assertEquals(HttpClientUpgradeHandler.UpgradeEvent.UPGRADE_ISSUED, catcher.getUserEvent());
 
         HttpResponse upgradeResponse =
-            new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.SWITCHING_PROTOCOLS);
+                new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.SWITCHING_PROTOCOLS);
 
         upgradeResponse.headers().add(HttpHeaderNames.UPGRADE, "fancyhttp");
         assertFalse(channel.writeInbound(upgradeResponse));
@@ -117,7 +117,7 @@ public class HttpClientUpgradeHandlerTest {
         channel.pipeline().addFirst("upgrade", handler);
 
         assertTrue(
-            channel.writeOutbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "netty.io")));
+                channel.writeOutbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "netty.io")));
         FullHttpRequest request = channel.readOutbound();
 
         assertEquals(2, request.headers().size());
@@ -127,7 +127,7 @@ public class HttpClientUpgradeHandlerTest {
         assertEquals(HttpClientUpgradeHandler.UpgradeEvent.UPGRADE_ISSUED, catcher.getUserEvent());
 
         HttpResponse upgradeResponse =
-            new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.SWITCHING_PROTOCOLS);
+                new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.SWITCHING_PROTOCOLS);
         upgradeResponse.headers().add(HttpHeaderNames.UPGRADE, "fancyhttp");
         assertTrue(channel.writeInbound(new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK)));
         assertTrue(channel.writeInbound(LastHttpContent.EMPTY_LAST_CONTENT));
@@ -154,7 +154,7 @@ public class HttpClientUpgradeHandlerTest {
         channel.pipeline().addFirst("upgrade", handler);
 
         assertTrue(
-            channel.writeOutbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "netty.io")));
+                channel.writeOutbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "netty.io")));
         FullHttpRequest request = channel.readOutbound();
 
         assertEquals(2, request.headers().size());
@@ -164,7 +164,7 @@ public class HttpClientUpgradeHandlerTest {
         assertEquals(HttpClientUpgradeHandler.UpgradeEvent.UPGRADE_ISSUED, catcher.getUserEvent());
 
         HttpResponse upgradeResponse =
-            new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.SWITCHING_PROTOCOLS);
+                new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.SWITCHING_PROTOCOLS);
         upgradeResponse.headers().add(HttpHeaderNames.UPGRADE, "fancyhttp");
         assertTrue(channel.writeInbound(new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK)));
 

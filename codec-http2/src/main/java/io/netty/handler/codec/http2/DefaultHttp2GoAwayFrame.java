@@ -52,9 +52,7 @@ public final class DefaultHttp2GoAwayFrame extends DefaultByteBufHolder implemen
     }
 
     /**
-     *
-     *
-     * @param error non-{@code null} reason for the go away
+     * @param error   non-{@code null} reason for the go away
      * @param content non-{@code null} debug data
      */
     public DefaultHttp2GoAwayFrame(Http2Error error, ByteBuf content) {
@@ -65,7 +63,7 @@ public final class DefaultHttp2GoAwayFrame extends DefaultByteBufHolder implemen
      * Construct a new GOAWAY message.
      *
      * @param errorCode reason for the go away
-     * @param content non-{@code null} debug data
+     * @param content   non-{@code null} debug data
      */
     public DefaultHttp2GoAwayFrame(long errorCode, ByteBuf content) {
         this(-1, errorCode, content);
@@ -73,7 +71,7 @@ public final class DefaultHttp2GoAwayFrame extends DefaultByteBufHolder implemen
 
     /**
      * Construct a new GOAWAY message.
-     *
+     * <p>
      * This constructor is for internal use only. A user should not have to specify a specific last stream identifier,
      * but use {@link #setExtraStreamIds(int)} instead.
      */
@@ -174,6 +172,6 @@ public final class DefaultHttp2GoAwayFrame extends DefaultByteBufHolder implemen
     @Override
     public String toString() {
         return StringUtil.simpleClassName(this) + "(errorCode=" + errorCode + ", content=" + content()
-               + ", extraStreamIds=" + extraStreamIds + ", lastStreamId=" + lastStreamId + ')';
+                + ", extraStreamIds=" + extraStreamIds + ", lastStreamId=" + lastStreamId + ')';
     }
 }

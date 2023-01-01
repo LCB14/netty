@@ -29,12 +29,12 @@ public class Socks5CommandType implements Comparable<Socks5CommandType> {
 
     public static Socks5CommandType valueOf(byte b) {
         switch (b) {
-        case 0x01:
-            return CONNECT;
-        case 0x02:
-            return BIND;
-        case 0x03:
-            return UDP_ASSOCIATE;
+            case 0x01:
+                return CONNECT;
+            case 0x02:
+                return BIND;
+            case 0x03:
+                return UDP_ASSOCIATE;
         }
 
         return new Socks5CommandType(b);

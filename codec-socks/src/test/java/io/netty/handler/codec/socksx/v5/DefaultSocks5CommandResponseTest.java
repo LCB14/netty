@@ -86,7 +86,7 @@ public class DefaultSocks5CommandResponseTest {
                 0x01,
                 0x00, // port
                 0x50
-                };
+        };
         assertByteBufEquals(expected, buffer);
         buffer.release();
     }

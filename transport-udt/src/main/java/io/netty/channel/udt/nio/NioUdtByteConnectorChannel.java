@@ -62,13 +62,13 @@ public class NioUdtByteConnectorChannel extends AbstractNioByteChannel implement
         try {
             channelUDT.configureBlocking(false);
             switch (channelUDT.socketUDT().status()) {
-            case INIT:
-            case OPENED:
-                config = new DefaultUdtChannelConfig(this, channelUDT, true);
-                break;
-            default:
-                config = new DefaultUdtChannelConfig(this, channelUDT, false);
-                break;
+                case INIT:
+                case OPENED:
+                    config = new DefaultUdtChannelConfig(this, channelUDT, true);
+                    break;
+                default:
+                    config = new DefaultUdtChannelConfig(this, channelUDT, false);
+                    break;
             }
         } catch (final Exception e) {
             try {
@@ -108,7 +108,7 @@ public class NioUdtByteConnectorChannel extends AbstractNioByteChannel implement
     @Override
     protected boolean doConnect(final SocketAddress remoteAddress,
                                 final SocketAddress localAddress) throws Exception {
-        doBind(localAddress != null? localAddress : new InetSocketAddress(0));
+        doBind(localAddress != null ? localAddress : new InetSocketAddress(0));
         boolean success = false;
         try {
             final boolean connected = SocketUtils.connect(javaChannel(), remoteAddress);

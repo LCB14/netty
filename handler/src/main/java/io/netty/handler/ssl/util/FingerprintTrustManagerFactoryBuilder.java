@@ -82,6 +82,6 @@ public final class FingerprintTrustManagerFactoryBuilder {
             throw new IllegalStateException("No fingerprints provided");
         }
         return new FingerprintTrustManagerFactory(this.algorithm,
-                                                  FingerprintTrustManagerFactory.toFingerprintArray(this.fingerprints));
+                FingerprintTrustManagerFactory.toFingerprintArray(this.fingerprints));
     }
 }

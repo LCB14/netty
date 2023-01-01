@@ -32,12 +32,12 @@ import java.util.concurrent.TimeUnit;
 public class GetIpV6ByNameBenchmark extends AbstractMicrobenchmark {
 
     @Param({
-        "::",
-        "::1234:2345",
-        "1234:2345::3456:7890",
-        "fe80::bdad:7a67:6fcd:fa89",
-        "fe80:bdad:7a67:6fcd::fa89",
-        "1234:2345:3456:4567:5678:6789:0:7890"
+            "::",
+            "::1234:2345",
+            "1234:2345::3456:7890",
+            "fe80::bdad:7a67:6fcd:fa89",
+            "fe80:bdad:7a67:6fcd::fa89",
+            "1234:2345:3456:4567:5678:6789:0:7890"
     })
     private String ip;
 

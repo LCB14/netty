@@ -264,7 +264,7 @@ public class Http2ConnectionHandlerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(booleans = { true, false })
+    @ValueSource(booleans = {true, false})
     public void clientShouldveSentPrefaceAndSettingsFrameWhenUserEventIsTriggered(boolean flushPreface)
             throws Exception {
         when(connection.isServer()).thenReturn(false);
@@ -336,7 +336,7 @@ public class Http2ConnectionHandlerTest {
         handler.channelRead(ctx, copiedBuffer("GET /path HTTP/1.1", US_ASCII));
         ArgumentCaptor<ByteBuf> captor = ArgumentCaptor.forClass(ByteBuf.class);
         verify(frameWriter).writeGoAway(eq(ctx), eq(Integer.MAX_VALUE), eq(PROTOCOL_ERROR.code()),
-            captor.capture(), eq(promise));
+                captor.capture(), eq(promise));
         assertEquals(0, captor.getValue().refCnt());
         assertTrue(goAwayDebugCap.contains("/path"));
     }
@@ -439,19 +439,19 @@ public class Http2ConnectionHandlerTest {
         int padding = 0;
         handler = newHandler();
         Http2Exception e = new Http2Exception.HeaderListSizeException(STREAM_ID, PROTOCOL_ERROR,
-            "Header size exceeded max allowed size 8196", false);
+                "Header size exceeded max allowed size 8196", false);
 
         when(stream.id()).thenReturn(STREAM_ID);
         when(connection.isServer()).thenReturn(true);
         when(stream.isHeadersSent()).thenReturn(false);
         when(remote.lastStreamCreated()).thenReturn(STREAM_ID);
         when(frameWriter.writeRstStream(eq(ctx), eq(STREAM_ID),
-            eq(PROTOCOL_ERROR.code()), eq(promise))).thenReturn(future);
+                eq(PROTOCOL_ERROR.code()), eq(promise))).thenReturn(future);
 
         handler.exceptionCaught(ctx, e);
 
         verify(encoder, never()).writeHeaders(eq(ctx), eq(STREAM_ID),
-            any(Http2Headers.class), eq(padding), eq(true), eq(promise));
+                any(Http2Headers.class), eq(padding), eq(true), eq(promise));
         verify(frameWriter).writeRstStream(ctx, STREAM_ID, PROTOCOL_ERROR.code(), promise);
     }
 
@@ -496,18 +496,18 @@ public class Http2ConnectionHandlerTest {
         int padding = 0;
         handler = newHandler();
         Http2Exception e = new Http2Exception.HeaderListSizeException(STREAM_ID, PROTOCOL_ERROR,
-            "Header size exceeded max allowed size 8196", true);
+                "Header size exceeded max allowed size 8196", true);
 
         when(stream.id()).thenReturn(STREAM_ID);
         when(connection.isServer()).thenReturn(true);
         when(stream.isHeadersSent()).thenReturn(true);
         when(remote.lastStreamCreated()).thenReturn(STREAM_ID);
         when(frameWriter.writeRstStream(eq(ctx), eq(STREAM_ID),
-            eq(PROTOCOL_ERROR.code()), eq(promise))).thenReturn(future);
+                eq(PROTOCOL_ERROR.code()), eq(promise))).thenReturn(future);
         handler.exceptionCaught(ctx, e);
 
         verify(encoder, never()).writeHeaders(eq(ctx), eq(STREAM_ID),
-            any(Http2Headers.class), eq(padding), eq(true), eq(promise));
+                any(Http2Headers.class), eq(padding), eq(true), eq(promise));
 
         verify(frameWriter).writeRstStream(ctx, STREAM_ID, PROTOCOL_ERROR.code(), promise);
     }
@@ -517,7 +517,7 @@ public class Http2ConnectionHandlerTest {
         int padding = 0;
         handler = newHandler();
         Http2Exception e = new Http2Exception.HeaderListSizeException(STREAM_ID, PROTOCOL_ERROR,
-            "Header size exceeded max allowed size 8196", true);
+                "Header size exceeded max allowed size 8196", true);
 
         when(connection.stream(STREAM_ID)).thenReturn(null);
         when(remote.createStream(STREAM_ID, true)).thenReturn(stream);
@@ -527,12 +527,12 @@ public class Http2ConnectionHandlerTest {
         when(stream.isHeadersSent()).thenReturn(false);
         when(remote.lastStreamCreated()).thenReturn(STREAM_ID);
         when(frameWriter.writeRstStream(eq(ctx), eq(STREAM_ID),
-            eq(PROTOCOL_ERROR.code()), eq(promise))).thenReturn(future);
+                eq(PROTOCOL_ERROR.code()), eq(promise))).thenReturn(future);
         handler.exceptionCaught(ctx, e);
 
         verify(remote).createStream(STREAM_ID, true);
         verify(encoder).writeHeaders(eq(ctx), eq(STREAM_ID),
-            any(Http2Headers.class), eq(padding), eq(true), eq(promise));
+                any(Http2Headers.class), eq(padding), eq(true), eq(promise));
 
         verify(frameWriter).writeRstStream(ctx, STREAM_ID, PROTOCOL_ERROR.code(), promise);
     }
@@ -551,7 +551,7 @@ public class Http2ConnectionHandlerTest {
     public void writeRstOnNonExistantStreamShouldSucceed() throws Exception {
         handler = newHandler();
         when(frameWriter.writeRstStream(eq(ctx), eq(NON_EXISTANT_STREAM_ID),
-                                        eq(STREAM_CLOSED.code()), eq(promise))).thenReturn(future);
+                eq(STREAM_CLOSED.code()), eq(promise))).thenReturn(future);
         handler.resetStream(ctx, NON_EXISTANT_STREAM_ID, STREAM_CLOSED.code(), promise);
         verify(frameWriter).writeRstStream(eq(ctx), eq(NON_EXISTANT_STREAM_ID), eq(STREAM_CLOSED.code()), eq(promise));
     }
@@ -736,9 +736,9 @@ public class Http2ConnectionHandlerTest {
         when(channel.isActive()).thenReturn(false);
         handler.channelInactive(ctx);
         verify(frameWriter, never()).writeGoAway(any(ChannelHandlerContext.class), anyInt(), anyLong(),
-                                                 any(ByteBuf.class), any(ChannelPromise.class));
+                any(ByteBuf.class), any(ChannelPromise.class));
         verify(frameWriter, never()).writeRstStream(any(ChannelHandlerContext.class), anyInt(), anyLong(),
-                                                    any(ChannelPromise.class));
+                any(ChannelPromise.class));
     }
 
     @Test

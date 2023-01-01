@@ -37,13 +37,13 @@ public class RtspEncoder extends HttpObjectEncoder<HttpMessage> {
 
     @Override
     public boolean acceptOutboundMessage(final Object msg)
-           throws Exception {
+            throws Exception {
         return super.acceptOutboundMessage(msg) && ((msg instanceof HttpRequest) || (msg instanceof HttpResponse));
     }
 
     @Override
     protected void encodeInitialLine(final ByteBuf buf, final HttpMessage message)
-           throws Exception {
+            throws Exception {
         if (message instanceof HttpRequest) {
             HttpRequest request = (HttpRequest) message;
             ByteBufUtil.copy(request.method().asciiName(), buf);
@@ -62,7 +62,7 @@ public class RtspEncoder extends HttpObjectEncoder<HttpMessage> {
             ByteBufUtil.writeShortBE(buf, CRLF_SHORT);
         } else {
             throw new UnsupportedMessageTypeException("Unsupported type "
-                                + StringUtil.simpleClassName(message));
+                    + StringUtil.simpleClassName(message));
         }
     }
 }

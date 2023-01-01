@@ -43,7 +43,7 @@ public final class IdentityCipherSuiteFilter implements CipherSuiteFilter {
 
     @Override
     public String[] filterCipherSuites(Iterable<String> ciphers, List<String> defaultCiphers,
-            Set<String> supportedCiphers) {
+                                       Set<String> supportedCiphers) {
         if (ciphers == null) {
             return defaultToDefaultCiphers ?
                     defaultCiphers.toArray(new String[0]) :

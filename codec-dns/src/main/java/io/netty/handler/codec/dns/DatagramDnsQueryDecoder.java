@@ -52,11 +52,11 @@ public class DatagramDnsQueryDecoder extends MessageToMessageDecoder<DatagramPac
     protected void decode(ChannelHandlerContext ctx, final DatagramPacket packet, List<Object> out) throws Exception {
         DnsQuery query = DnsMessageUtil.decodeDnsQuery(recordDecoder, packet.content(),
                 new DnsMessageUtil.DnsQueryFactory() {
-            @Override
-            public DnsQuery newQuery(int id, DnsOpCode dnsOpCode) {
-                return new DatagramDnsQuery(packet.sender(), packet.recipient(), id, dnsOpCode);
-            }
-        });
+                    @Override
+                    public DnsQuery newQuery(int id, DnsOpCode dnsOpCode) {
+                        return new DatagramDnsQuery(packet.sender(), packet.recipient(), id, dnsOpCode);
+                    }
+                });
         out.add(query);
     }
 }

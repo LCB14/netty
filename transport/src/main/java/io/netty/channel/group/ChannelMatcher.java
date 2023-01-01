@@ -20,7 +20,7 @@ import io.netty.channel.Channel;
 
 /**
  * Allows to only match some {@link Channel}'s for operations in {@link ChannelGroup}.
- *
+ * <p>
  * {@link ChannelMatchers} provide you with helper methods for usual needed implementations.
  */
 public interface ChannelMatcher {

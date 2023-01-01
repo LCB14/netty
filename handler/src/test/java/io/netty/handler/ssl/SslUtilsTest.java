@@ -54,11 +54,11 @@ public class SslUtilsTest {
 
         // Test that the packet-length for BE and LE is the same
         assertEquals(getEncryptedPacketLength(bufferBE, 0), getEncryptedPacketLength(bufferLE, 0));
-        assertEquals(getEncryptedPacketLength(new ByteBuffer[] { bufferBE.nioBuffer() }, 0),
-                getEncryptedPacketLength(new ByteBuffer[] { bufferLE.nioBuffer().order(ByteOrder.LITTLE_ENDIAN) }, 0));
+        assertEquals(getEncryptedPacketLength(new ByteBuffer[]{bufferBE.nioBuffer()}, 0),
+                getEncryptedPacketLength(new ByteBuffer[]{bufferLE.nioBuffer().order(ByteOrder.LITTLE_ENDIAN)}, 0));
     }
 
-    private static SSLEngine newEngine() throws SSLException, NoSuchAlgorithmException  {
+    private static SSLEngine newEngine() throws SSLException, NoSuchAlgorithmException {
         SSLEngine engine = SSLContext.getDefault().createSSLEngine();
         engine.setUseClientMode(true);
         engine.beginHandshake();
@@ -79,9 +79,9 @@ public class SslUtilsTest {
     public void shouldGetPacketLengthOfGmsslProtocolFromByteBuf() {
         int bodyLength = 65;
         ByteBuf buf = Unpooled.buffer()
-                              .writeByte(SslUtils.SSL_CONTENT_TYPE_HANDSHAKE)
-                              .writeShort(SslUtils.GMSSL_PROTOCOL_VERSION)
-                              .writeShort(bodyLength);
+                .writeByte(SslUtils.SSL_CONTENT_TYPE_HANDSHAKE)
+                .writeShort(SslUtils.GMSSL_PROTOCOL_VERSION)
+                .writeShort(bodyLength);
 
         int packetLength = getEncryptedPacketLength(buf, 0);
         assertEquals(bodyLength + SslUtils.SSL_RECORD_HEADER_LENGTH, packetLength);
@@ -92,11 +92,11 @@ public class SslUtilsTest {
     public void shouldGetPacketLengthOfGmsslProtocolFromByteBuffer() {
         int bodyLength = 65;
         ByteBuf buf = Unpooled.buffer()
-                              .writeByte(SslUtils.SSL_CONTENT_TYPE_HANDSHAKE)
-                              .writeShort(SslUtils.GMSSL_PROTOCOL_VERSION)
-                              .writeShort(bodyLength);
+                .writeByte(SslUtils.SSL_CONTENT_TYPE_HANDSHAKE)
+                .writeShort(SslUtils.GMSSL_PROTOCOL_VERSION)
+                .writeShort(bodyLength);
 
-        int packetLength = getEncryptedPacketLength(new ByteBuffer[] { buf.nioBuffer() }, 0);
+        int packetLength = getEncryptedPacketLength(new ByteBuffer[]{buf.nioBuffer()}, 0);
         assertEquals(bodyLength + SslUtils.SSL_RECORD_HEADER_LENGTH, packetLength);
         buf.release();
     }

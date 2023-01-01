@@ -61,11 +61,11 @@ public final class Html {
         for (int y = 0; y < IMAGES_Y_AXIS; y++) {
             for (int x = 0; x < IMAGES_X_AXIS; x++) {
                 sb.append("<img width=30 height=29 src='/http2?x=")
-                .append(x)
-                .append("&y=").append(y)
-                .append("&cachebust=").append(r)
-                .append("&latency=").append(latency)
-                .append("'>");
+                        .append(x)
+                        .append("&y=").append(y)
+                        .append("&cachebust=").append(r)
+                        .append("&latency=").append(latency)
+                        .append("'>");
             }
             sb.append("<br/>\r\n");
         }

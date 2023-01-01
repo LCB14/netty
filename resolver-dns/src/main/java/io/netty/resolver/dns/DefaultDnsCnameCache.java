@@ -67,7 +67,7 @@ public final class DefaultDnsCnameCache implements DnsCnameCache {
     @SuppressWarnings("unchecked")
     @Override
     public String get(String hostname) {
-        List<? extends String> cached =  cache.get(checkNotNull(hostname, "hostname"));
+        List<? extends String> cached = cache.get(checkNotNull(hostname, "hostname"));
         if (cached == null || cached.isEmpty()) {
             return null;
         }

@@ -43,6 +43,7 @@ import java.util.Set;
 public final class LazyX509Certificate extends X509Certificate {
 
     static final CertificateFactory X509_CERT_FACTORY;
+
     static {
         try {
             X509_CERT_FACTORY = CertificateFactory.getInstance("X.509");

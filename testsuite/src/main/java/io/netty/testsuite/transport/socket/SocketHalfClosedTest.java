@@ -78,46 +78,46 @@ public class SocketHalfClosedTest extends AbstractSocketTest {
         final CountDownLatch waitHalfClosureDone = new CountDownLatch(1);
         try {
             sb.childOption(ChannelOption.SO_LINGER, 1)
-              .childHandler(new ChannelInitializer<Channel>() {
+                    .childHandler(new ChannelInitializer<Channel>() {
 
-                  @Override
-                  protected void initChannel(Channel ch) throws Exception {
-                      ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                        @Override
+                        protected void initChannel(Channel ch) throws Exception {
+                            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
 
-                            @Override
-                            public void channelActive(final ChannelHandlerContext ctx) {
-                                SocketChannel channel = (SocketChannel) ctx.channel();
-                                channel.shutdownOutput();
-                            }
+                                @Override
+                                public void channelActive(final ChannelHandlerContext ctx) {
+                                    SocketChannel channel = (SocketChannel) ctx.channel();
+                                    channel.shutdownOutput();
+                                }
 
-                            @Override
-                            public void channelRead(ChannelHandlerContext ctx, Object msg) {
-                                ReferenceCountUtil.release(msg);
-                                waitHalfClosureDone.countDown();
-                            }
-                        });
-                  }
-              });
+                                @Override
+                                public void channelRead(ChannelHandlerContext ctx, Object msg) {
+                                    ReferenceCountUtil.release(msg);
+                                    waitHalfClosureDone.countDown();
+                                }
+                            });
+                        }
+                    });
 
             cb.option(ChannelOption.ALLOW_HALF_CLOSURE, true)
-              .handler(new ChannelInitializer<Channel>() {
-                  @Override
-                  protected void initChannel(Channel ch) throws Exception {
-                      ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                    .handler(new ChannelInitializer<Channel>() {
+                        @Override
+                        protected void initChannel(Channel ch) throws Exception {
+                            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
 
-                            @Override
-                            public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
-                                if (ChannelInputShutdownEvent.INSTANCE == evt) {
-                                    ctx.writeAndFlush(ctx.alloc().buffer().writeZero(16));
-                                }
+                                @Override
+                                public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+                                    if (ChannelInputShutdownEvent.INSTANCE == evt) {
+                                        ctx.writeAndFlush(ctx.alloc().buffer().writeZero(16));
+                                    }
 
-                                if (ChannelInputShutdownReadComplete.INSTANCE == evt) {
-                                    ctx.close();
+                                    if (ChannelInputShutdownReadComplete.INSTANCE == evt) {
+                                        ctx.close();
+                                    }
                                 }
-                            }
-                        });
-                  }
-              });
+                            });
+                        }
+                    });
 
             serverChannel = sb.bind().sync().channel();
             clientChannel = cb.connect(serverChannel.localAddress()).sync().channel();
@@ -237,8 +237,8 @@ public class SocketHalfClosedTest extends AbstractSocketTest {
         Channel clientChannel = null;
         try {
             cb.option(ChannelOption.ALLOW_HALF_CLOSURE, true)
-              .option(ChannelOption.AUTO_READ, autoRead)
-              .option(ChannelOption.RCVBUF_ALLOCATOR, new TestNumReadsRecvByteBufAllocator(numReadsPerReadLoop));
+                    .option(ChannelOption.AUTO_READ, autoRead)
+                    .option(ChannelOption.RCVBUF_ALLOCATOR, new TestNumReadsRecvByteBufAllocator(numReadsPerReadLoop));
 
             sb.childHandler(new ChannelInitializer<Channel>() {
                 @Override
@@ -382,7 +382,7 @@ public class SocketHalfClosedTest extends AbstractSocketTest {
             sb.childHandler(new ChannelInitializer<Channel>() {
                 @Override
                 protected void initChannel(Channel ch) throws Exception {
-                    ch.pipeline().addLast(clientIsLeader ? followerHandler :leaderHandler);
+                    ch.pipeline().addLast(clientIsLeader ? followerHandler : leaderHandler);
                 }
             });
 
@@ -655,7 +655,7 @@ public class SocketHalfClosedTest extends AbstractSocketTest {
             clientReadAllDataLatch.await();
             clientHalfClosedLatch.await();
             assertTrue(totalServerBytesWritten / numReadsPerReadLoop + 10 > clientReadCompletes.get(),
-                "too many read complete events: " + clientReadCompletes.get());
+                    "too many read complete events: " + clientReadCompletes.get());
         } finally {
             if (clientChannel != null) {
                 clientChannel.close().sync();
@@ -671,6 +671,7 @@ public class SocketHalfClosedTest extends AbstractSocketTest {
      */
     private static final class TestNumReadsRecvByteBufAllocator implements RecvByteBufAllocator {
         private final int numReads;
+
         TestNumReadsRecvByteBufAllocator(int numReads) {
             this.numReads = numReads;
         }
@@ -681,6 +682,7 @@ public class SocketHalfClosedTest extends AbstractSocketTest {
                 private int attemptedBytesRead;
                 private int lastBytesRead;
                 private int numMessagesRead;
+
                 @Override
                 public ByteBuf allocate(ByteBufAllocator alloc) {
                     return alloc.ioBuffer(guess(), guess());

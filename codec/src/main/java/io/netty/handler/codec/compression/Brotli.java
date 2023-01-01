@@ -32,11 +32,11 @@ public final class Brotli {
 
         try {
             Class.forName("com.aayushatharva.brotli4j.Brotli4jLoader", false,
-                PlatformDependent.getClassLoader(Brotli.class));
+                    PlatformDependent.getClassLoader(Brotli.class));
         } catch (ClassNotFoundException t) {
             cnfe = t;
             logger.debug(
-                "brotli4j not in the classpath; Brotli support will be unavailable.");
+                    "brotli4j not in the classpath; Brotli support will be unavailable.");
         }
 
         CNFE = cnfe;
@@ -51,7 +51,6 @@ public final class Brotli {
     }
 
     /**
-     *
      * @return true when brotli4j is in the classpath
      * and native library is available on this platform and could be loaded
      */
@@ -61,8 +60,9 @@ public final class Brotli {
 
     /**
      * Throws when brotli support is missing from the classpath or is unavailable on this platform
+     *
      * @throws Throwable a ClassNotFoundException if brotli4j is missing
-     * or a UnsatisfiedLinkError if brotli4j native lib can't be loaded
+     *                   or a UnsatisfiedLinkError if brotli4j native lib can't be loaded
      */
     public static void ensureAvailability() throws Throwable {
         if (CNFE != null) {

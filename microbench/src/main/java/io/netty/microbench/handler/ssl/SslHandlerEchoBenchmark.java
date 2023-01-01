@@ -20,7 +20,7 @@ import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Param;
 
 public class SslHandlerEchoBenchmark extends AbstractSslHandlerThroughputBenchmark {
-    @Param({ "1", "2", "5", "10" })
+    @Param({"1", "2", "5", "10"})
     public int numWrites;
 
     @Benchmark

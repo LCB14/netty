@@ -38,6 +38,7 @@ public final class ClassResolvers {
 
     /**
      * cache disabled
+     *
      * @param classLoader - specific classLoader to use, or null if you want to revert to default
      * @return new instance of class resolver
      */

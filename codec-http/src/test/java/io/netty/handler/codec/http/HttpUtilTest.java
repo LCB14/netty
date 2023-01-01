@@ -51,7 +51,8 @@ public class HttpUtilTest {
         assertFalse(HttpUtil.isOriginForm(URI.create("*")));
     }
 
-    @Test public void testRecognizesAsteriskForm() {
+    @Test
+    public void testRecognizesAsteriskForm() {
         // Asterisk form: https://tools.ietf.org/html/rfc7230#section-5.3.4
         assertTrue(HttpUtil.isAsteriskForm(URI.create("*")));
         // Origin form: https://tools.ietf.org/html/rfc7230#section-5.3.1
@@ -166,10 +167,10 @@ public class HttpUtilTest {
     @Test
     public void testGetCharsetIfNotLastParameter() {
         String NORMAL_CONTENT_TYPE_WITH_PARAMETERS = "application/soap-xml; charset=utf-8; "
-            + "action=\"http://www.soap-service.by/foo/add\"";
+                + "action=\"http://www.soap-service.by/foo/add\"";
 
         HttpMessage message = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
-            "http://localhost:7788/foo");
+                "http://localhost:7788/foo");
         message.headers().set(HttpHeaderNames.CONTENT_TYPE, NORMAL_CONTENT_TYPE_WITH_PARAMETERS);
 
         assertEquals(CharsetUtil.UTF_8, HttpUtil.getCharset(message));
@@ -201,7 +202,7 @@ public class HttpUtilTest {
         message.headers().set(HttpHeaderNames.CONTENT_TYPE, CONTENT_TYPE_WITH_INCORRECT_CHARSET);
         assertEquals(CharsetUtil.UTF_8, HttpUtil.getCharset(message, StandardCharsets.UTF_8));
         assertEquals(CharsetUtil.UTF_8,
-                     HttpUtil.getCharset(CONTENT_TYPE_WITH_INCORRECT_CHARSET, StandardCharsets.UTF_8));
+                HttpUtil.getCharset(CONTENT_TYPE_WITH_INCORRECT_CHARSET, StandardCharsets.UTF_8));
 
         message.headers().set(HttpHeaderNames.CONTENT_TYPE, CONTENT_TYPE_WITH_ILLEGAL_CHARSET_NAME);
         assertEquals(CharsetUtil.ISO_8859_1, HttpUtil.getCharset(message));
@@ -368,25 +369,25 @@ public class HttpUtilTest {
     }
 
     @Test
-    public void testIpv6() throws Exception  {
+    public void testIpv6() throws Exception {
         InetSocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName("::1"), 8080);
         assertEquals("[::1]", HttpUtil.formatHostnameForHttp(socketAddress));
     }
 
     @Test
-    public void testIpv6Unresolved()  {
+    public void testIpv6Unresolved() {
         InetSocketAddress socketAddress = InetSocketAddress.createUnresolved("::1", 8080);
         assertEquals("[::1]", HttpUtil.formatHostnameForHttp(socketAddress));
     }
 
     @Test
-    public void testIpv4() throws Exception  {
+    public void testIpv4() throws Exception {
         InetSocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 8080);
         assertEquals("10.0.0.1", HttpUtil.formatHostnameForHttp(socketAddress));
     }
 
     @Test
-    public void testIpv4Unresolved()  {
+    public void testIpv4Unresolved() {
         InetSocketAddress socketAddress = InetSocketAddress.createUnresolved("10.0.0.1", 8080);
         assertEquals("10.0.0.1", HttpUtil.formatHostnameForHttp(socketAddress));
     }
@@ -394,18 +395,18 @@ public class HttpUtilTest {
     @Test
     public void testKeepAliveIfConnectionHeaderAbsent() {
         HttpMessage http11Message = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-            "http:localhost/http_1_1");
+                "http:localhost/http_1_1");
         assertTrue(HttpUtil.isKeepAlive(http11Message));
 
         HttpMessage http10Message = new DefaultHttpRequest(HttpVersion.HTTP_1_0, HttpMethod.GET,
-            "http:localhost/http_1_0");
+                "http:localhost/http_1_0");
         assertFalse(HttpUtil.isKeepAlive(http10Message));
     }
 
     @Test
     public void testKeepAliveIfConnectionHeaderMultipleValues() {
         HttpMessage http11Message = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-            "http:localhost/http_1_1");
+                "http:localhost/http_1_1");
         http11Message.headers().set(
                 HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE + ", " + HttpHeaderValues.CLOSE);
         assertFalse(HttpUtil.isKeepAlive(http11Message));

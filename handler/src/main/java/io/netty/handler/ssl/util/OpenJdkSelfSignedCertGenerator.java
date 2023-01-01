@@ -82,5 +82,6 @@ final class OpenJdkSelfSignedCertGenerator {
         return newSelfSignedCertificate(fqdn, key, cert);
     }
 
-    private OpenJdkSelfSignedCertGenerator() { }
+    private OpenJdkSelfSignedCertGenerator() {
+    }
 }

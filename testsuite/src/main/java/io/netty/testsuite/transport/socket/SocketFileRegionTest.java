@@ -176,7 +176,7 @@ public class SocketFileRegionTest extends AbstractSocketTest {
 
         // Prepend random data which will not be transferred, so that we can test non-zero start offset
         final int startOffset = random.nextInt(8192);
-        for (int i = 0; i < startOffset; i ++) {
+        for (int i = 0; i < startOffset; i++) {
             out.write(random.nextInt());
         }
 
@@ -184,7 +184,7 @@ public class SocketFileRegionTest extends AbstractSocketTest {
         out.write(data, bufferSize, data.length - bufferSize);
 
         // .. and then some extra data which is not supposed to be transferred.
-        for (int i = random.nextInt(8192); i > 0; i --) {
+        for (int i = random.nextInt(8192); i > 0; i--) {
             out.write(random.nextInt());
         }
 
@@ -287,7 +287,7 @@ public class SocketFileRegionTest extends AbstractSocketTest {
             in.readBytes(actual);
 
             int lastIdx = counter;
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(data[i + lastIdx], actual[i]);
             }
             counter += actual.length;
@@ -302,7 +302,7 @@ public class SocketFileRegionTest extends AbstractSocketTest {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx,
-                Throwable cause) throws Exception {
+                                    Throwable cause) throws Exception {
             if (exception.compareAndSet(null, cause)) {
                 ctx.close();
             }

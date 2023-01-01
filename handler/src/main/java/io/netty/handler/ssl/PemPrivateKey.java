@@ -31,7 +31,7 @@ import io.netty.util.internal.ObjectUtil;
  * This is a special purpose implementation of a {@link PrivateKey} which allows the
  * user to pass PEM/PKCS#8 encoded key material straight into {@link OpenSslContext}
  * without having to parse and re-encode bytes in Java land.
- *
+ * <p>
  * All methods other than what's implemented in {@link PemEncoded} and {@link Destroyable}
  * throw {@link UnsupportedOperationException}s.
  *
@@ -101,7 +101,7 @@ public final class PemPrivateKey extends AbstractReferenceCounted implements Pri
 
     /**
      * Creates a {@link PemPrivateKey} from raw {@code byte[]}.
-     *
+     * <p>
      * ATTENTION: It's assumed that the given argument is a PEM/PKCS#8 encoded value.
      * No input validation is performed to validate it.
      */
@@ -111,7 +111,7 @@ public final class PemPrivateKey extends AbstractReferenceCounted implements Pri
 
     /**
      * Creates a {@link PemPrivateKey} from raw {@code ByteBuf}.
-     *
+     * <p>
      * ATTENTION: It's assumed that the given argument is a PEM/PKCS#8 encoded value.
      * No input validation is performed to validate it.
      */

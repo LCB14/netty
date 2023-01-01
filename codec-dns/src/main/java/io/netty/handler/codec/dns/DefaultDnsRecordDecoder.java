@@ -31,7 +31,8 @@ public class DefaultDnsRecordDecoder implements DnsRecordDecoder {
     /**
      * Creates a new instance.
      */
-    protected DefaultDnsRecordDecoder() { }
+    protected DefaultDnsRecordDecoder() {
+    }
 
     @Override
     public final DnsQuestion decodeQuestion(ByteBuf in) throws Exception {
@@ -74,14 +75,13 @@ public class DefaultDnsRecordDecoder implements DnsRecordDecoder {
     /**
      * Decodes a record from the information decoded so far by {@link #decodeRecord(ByteBuf)}.
      *
-     * @param name the domain name of the record
-     * @param type the type of the record
-     * @param dnsClass the class of the record
+     * @param name       the domain name of the record
+     * @param type       the type of the record
+     * @param dnsClass   the class of the record
      * @param timeToLive the TTL of the record
-     * @param in the {@link ByteBuf} that contains the RDATA
-     * @param offset the start offset of the RDATA in {@code in}
-     * @param length the length of the RDATA
-     *
+     * @param in         the {@link ByteBuf} that contains the RDATA
+     * @param offset     the start offset of the RDATA in {@code in}
+     * @param length     the length of the RDATA
      * @return a {@link DnsRawRecord}. Override this method to decode RDATA and return other record implementation.
      */
     protected DnsRecord decodeRecord(
@@ -98,8 +98,8 @@ public class DefaultDnsRecordDecoder implements DnsRecordDecoder {
         }
         if (type == DnsRecordType.CNAME || type == DnsRecordType.NS) {
             return new DefaultDnsRawRecord(name, type, dnsClass, timeToLive,
-                                           DnsCodecUtil.decompressDomainName(
-                                                   in.duplicate().setIndex(offset, offset + length)));
+                    DnsCodecUtil.decompressDomainName(
+                            in.duplicate().setIndex(offset, offset + length)));
         }
         return new DefaultDnsRawRecord(
                 name, type, dnsClass, timeToLive, in.retainedDuplicate().setIndex(offset, offset + length));

@@ -35,6 +35,7 @@ public abstract class AbstractByteBufNoCleanerBenchmark extends AbstractMicroben
                         UnpooledByteBufAllocator.DEFAULT, initialCapacity, Integer.MAX_VALUE);
             }
         };
+
         abstract ByteBuf newBuffer(int initialCapacity);
     }
 

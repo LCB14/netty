@@ -22,7 +22,7 @@ import static io.netty.util.internal.EmptyArrays.EMPTY_INTS;
 
 /**
  * User credentials discovered for the peer unix domain socket.
- *
+ * <p>
  * The PID, UID and GID of the user connected on the other side of the unix domain socket
  * For details see:
  * <a href=https://man7.org/linux/man-pages/man7/socket.7.html>SO_PEERCRED</a>
@@ -44,6 +44,7 @@ public final class PeerCredentials {
      * Get the PID of the peer process.
      * <p>
      * This is currently not populated on MacOS and BSD based systems.
+     *
      * @return The PID of the peer process.
      */
     public int pid() {

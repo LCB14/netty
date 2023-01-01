@@ -83,7 +83,7 @@ public class OpenSslPrivateKeyMethodTest {
         for (int a = 0; a < 2; a++) {
             for (int b = 0; b < 2; b++) {
                 for (int c = 0; c < 2; c++) {
-                    dst.add(new Object[] { a == 0, b == 0, c == 0 });
+                    dst.add(new Object[]{a == 0, b == 0, c == 0});
                 }
             }
         }
@@ -123,7 +123,7 @@ public class OpenSslPrivateKeyMethodTest {
         boolean cipherSupported = false;
         if (provider == SslProvider.JDK) {
             SSLEngine engine = SSLContext.getDefault().createSSLEngine();
-            for (String c: engine.getSupportedCipherSuites()) {
+            for (String c : engine.getSupportedCipherSuites()) {
                 if (RFC_CIPHER_NAME.equals(c)) {
                     cipherSupported = true;
                     break;
@@ -157,7 +157,7 @@ public class OpenSslPrivateKeyMethodTest {
                 .build();
     }
 
-    private SslContext buildClientContext()  throws Exception {
+    private SslContext buildClientContext() throws Exception {
         return SslContextBuilder.forClient()
                 .sslProvider(SslProvider.JDK)
                 .ciphers(Collections.singletonList(RFC_CIPHER_NAME))
@@ -170,6 +170,7 @@ public class OpenSslPrivateKeyMethodTest {
     private static Executor delegateExecutor(boolean delegate) {
         return delegate ? EXECUTOR : null;
     }
+
     private SslContext buildServerContext(OpenSslAsyncPrivateKeyMethod method) throws Exception {
         List<String> ciphers = Collections.singletonList(RFC_CIPHER_NAME);
 
@@ -251,7 +252,7 @@ public class OpenSslPrivateKeyMethodTest {
                             @Override
                             public void channelRead0(ChannelHandlerContext ctx, Object msg) {
                                 if (serverPromise.trySuccess(null)) {
-                                    ctx.writeAndFlush(Unpooled.wrappedBuffer(new byte[] {'P', 'O', 'N', 'G'}));
+                                    ctx.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{'P', 'O', 'N', 'G'}));
                                 }
                                 ctx.close();
                             }
@@ -302,7 +303,7 @@ public class OpenSslPrivateKeyMethodTest {
 
                     Channel client = client(server, clientHandler);
                     try {
-                        client.writeAndFlush(Unpooled.wrappedBuffer(new byte[] {'P', 'I', 'N', 'G'}))
+                        client.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{'P', 'I', 'N', 'G'}))
                                 .syncUninterruptibly();
 
                         assertTrue(clientPromise.await(5L, TimeUnit.SECONDS), "client timeout");

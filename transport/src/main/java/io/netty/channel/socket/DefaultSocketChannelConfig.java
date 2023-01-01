@@ -35,7 +35,7 @@ import static io.netty.channel.ChannelOption.*;
  * The default {@link SocketChannelConfig} implementation.
  */
 public class DefaultSocketChannelConfig extends DefaultChannelConfig
-                                        implements SocketChannelConfig {
+        implements SocketChannelConfig {
 
     protected final Socket javaSocket;
     private volatile boolean allowHalfClosure;
@@ -311,7 +311,7 @@ public class DefaultSocketChannelConfig extends DefaultChannelConfig
 
     @Override
     public SocketChannelConfig setAutoRead(boolean autoRead) {
-         super.setAutoRead(autoRead);
+        super.setAutoRead(autoRead);
         return this;
     }
 

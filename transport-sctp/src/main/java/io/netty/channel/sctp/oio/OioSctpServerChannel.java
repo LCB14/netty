@@ -44,7 +44,7 @@ import java.util.Set;
 /**
  * {@link io.netty.channel.sctp.SctpServerChannel} implementation which use blocking mode to accept new
  * connections and create the {@link OioSctpChannel} for them.
- *
+ * <p>
  * Be aware that not all operations systems support SCTP. Please refer to the documentation of your operation system,
  * to understand what you need to do to use it. Also this feature is only supported on Java 7+.
  *
@@ -81,7 +81,7 @@ public class OioSctpServerChannel extends AbstractOioMessageChannel
     /**
      * Create a new instance from the given {@link SctpServerChannel}
      *
-     * @param sch    the {@link SctpServerChannel} which is used by this instance
+     * @param sch the {@link SctpServerChannel} which is used by this instance
      */
     public OioSctpServerChannel(SctpServerChannel sch) {
         super(null);
@@ -190,14 +190,14 @@ public class OioSctpServerChannel extends AbstractOioMessageChannel
             final int selectedKeys = selector.select(SO_TIMEOUT);
             if (selectedKeys > 0) {
                 final Iterator<SelectionKey> selectionKeys = selector.selectedKeys().iterator();
-                for (;;) {
+                for (; ; ) {
                     SelectionKey key = selectionKeys.next();
                     selectionKeys.remove();
                     if (key.isAcceptable()) {
                         s = sch.accept();
                         if (s != null) {
                             buf.add(new OioSctpChannel(this, s));
-                            acceptedChannels ++;
+                            acceptedChannels++;
                         }
                     }
                     if (!selectionKeys.hasNext()) {

@@ -60,6 +60,7 @@ public enum WebSocketVersion {
     WebSocketVersion(AsciiString headerValue) {
         this.headerValue = headerValue;
     }
+
     /**
      * @return Value for HTTP Header 'Sec-WebSocket-Version'
      */

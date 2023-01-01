@@ -55,7 +55,7 @@ public class SniHandler extends AbstractSniHandler<SslContext> {
      * Creates a SNI detection handler with configured {@link SslContext}
      * maintained by {@link Mapping}
      *
-     * @param mapping the mapping of domain name to {@link SslContext}
+     * @param mapping                the mapping of domain name to {@link SslContext}
      * @param handshakeTimeoutMillis the handshake timeout in milliseconds
      */
     public SniHandler(Mapping<? super String, ? extends SslContext> mapping, long handshakeTimeoutMillis) {
@@ -87,7 +87,7 @@ public class SniHandler extends AbstractSniHandler<SslContext> {
      * Creates a SNI detection handler with configured {@link SslContext}
      * maintained by {@link AsyncMapping}
      *
-     * @param mapping the mapping of domain name to {@link SslContext}
+     * @param mapping                the mapping of domain name to {@link SslContext}
      * @param handshakeTimeoutMillis the handshake timeout in milliseconds
      */
     @SuppressWarnings("unchecked")
@@ -145,10 +145,10 @@ public class SniHandler extends AbstractSniHandler<SslContext> {
     /**
      * The default implementation of this method will simply replace {@code this} {@link SniHandler}
      * instance with a {@link SslHandler}. Users may override this method to implement custom behavior.
-     *
+     * <p>
      * Please be aware that this method may get called after a client has already disconnected and
      * custom implementations must take it into consideration when overriding this method.
-     *
+     * <p>
      * It's also possible for the hostname argument to be {@code null}.
      */
     protected void replaceHandler(ChannelHandlerContext ctx, String hostname, SslContext sslContext) throws Exception {

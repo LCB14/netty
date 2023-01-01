@@ -91,7 +91,7 @@ public class HpackUtilBenchmark extends AbstractMicrobenchmark {
             AsciiString s1Ascii = (AsciiString) s1;
             AsciiString s2Ascii = (AsciiString) s2;
             return PlatformDependent.equalsConstantTime(s1Ascii.array(), s1Ascii.arrayOffset(),
-                                                        s2Ascii.array(), s2Ascii.arrayOffset(), s1.length()) != 0;
+                    s2Ascii.array(), s2Ascii.arrayOffset(), s1.length()) != 0;
         }
 
         return ConstantTimeUtils.equalsConstantTime(s1, s2) != 0;
@@ -105,7 +105,7 @@ public class HpackUtilBenchmark extends AbstractMicrobenchmark {
             hpackEncoder.setMaxHeaderListSize(MAX_HEADER_LIST_SIZE);
         } catch (Http2Exception e) {
             throw new Error("max size not allowed?", e);
-        } finally  {
+        } finally {
             buf.release();
         }
         return hpackEncoder;

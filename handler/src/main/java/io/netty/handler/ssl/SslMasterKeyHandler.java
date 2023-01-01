@@ -84,12 +84,13 @@ public abstract class SslMasterKeyHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * Constructor.
-    */
+     */
     protected SslMasterKeyHandler() {
     }
 
     /**
      * Ensure that SSLSessionImpl is available.
+     *
      * @throws UnsatisfiedLinkError if unavailable
      */
     public static void ensureSunSslEngineAvailability() {
@@ -116,8 +117,9 @@ public abstract class SslMasterKeyHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * Consume the master key for the session and the sessionId
+     *
      * @param masterKey A 48-byte secret shared between the client and server.
-     * @param session The current TLS session
+     * @param session   The current TLS session
      */
     protected abstract void accept(SecretKey masterKey, SSLSession session);
 

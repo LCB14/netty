@@ -54,7 +54,7 @@ public class OsgiBundleTest {
         if (files == null) {
             throw new IllegalStateException(directory + " is not found or is not a directory");
         }
-        for (File f: files) {
+        for (File f : files) {
             links.add(f.getName());
         }
         LINKS = links;

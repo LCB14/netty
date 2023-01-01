@@ -46,5 +46,6 @@ final class GroupsConverter {
         return mapping;
     }
 
-    private GroupsConverter() { }
+    private GroupsConverter() {
+    }
 }

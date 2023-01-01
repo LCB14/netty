@@ -59,6 +59,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
     public interface NameValidator<K> {
         /**
          * Verify that {@code name} is valid.
+         *
          * @param name The name to validate.
          * @throws RuntimeException if {@code name} is not valid.
          */
@@ -105,17 +106,18 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
     }
 
     public DefaultHeaders(HashingStrategy<K> nameHashingStrategy,
-            ValueConverter<V> valueConverter, NameValidator<K> nameValidator) {
+                          ValueConverter<V> valueConverter, NameValidator<K> nameValidator) {
         this(nameHashingStrategy, valueConverter, nameValidator, 16);
     }
 
     /**
      * Create a new instance.
+     *
      * @param nameHashingStrategy Used to hash and equality compare names.
-     * @param valueConverter Used to convert values to/from native types.
-     * @param nameValidator Used to validate name elements.
-     * @param arraySizeHint A hint as to how large the hash data structure should be.
-     * The next positive power of two will be used. An upper bound may be enforced.
+     * @param valueConverter      Used to convert values to/from native types.
+     * @param nameValidator       Used to validate name elements.
+     * @param arraySizeHint       A hint as to how large the hash data structure should be.
+     *                            The next positive power of two will be used. An upper bound may be enforced.
      */
     @SuppressWarnings("unchecked")
     public DefaultHeaders(HashingStrategy<K> nameHashingStrategy,
@@ -126,12 +128,13 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
 
     /**
      * Create a new instance.
+     *
      * @param nameHashingStrategy Used to hash and equality compare names.
-     * @param valueConverter Used to convert values to/from native types.
-     * @param nameValidator Used to validate name elements.
-     * @param arraySizeHint A hint as to how large the hash data structure should be.
-     * The next positive power of two will be used. An upper bound may be enforced.
-     * @param valueValidator The validation strategy for entry values.
+     * @param valueConverter      Used to convert values to/from native types.
+     * @param nameValidator       Used to validate name elements.
+     * @param arraySizeHint       A hint as to how large the hash data structure should be.
+     *                            The next positive power of two will be used. An upper bound may be enforced.
+     * @param valueValidator      The validation strategy for entry values.
      */
     @SuppressWarnings("unchecked")
     public DefaultHeaders(HashingStrategy<K> nameHashingStrategy, ValueConverter<V> valueConverter,
@@ -210,6 +213,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
 
     /**
      * Equivalent to {@link #getAll(Object)} but no intermediate list is generated.
+     *
      * @param name the name of the header to retrieve
      * @return an {@link Iterator} of header values corresponding to {@code name}.
      */
@@ -340,7 +344,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
         validateName(nameValidator, true, name);
         int h = hashingStrategy.hashCode(name);
         int i = index(h);
-        for (V v: values) {
+        for (V v : values) {
             validateValue(valueValidator, name, v);
             add0(h, i, name, v);
         }
@@ -352,7 +356,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
         validateName(nameValidator, true, name);
         int h = hashingStrategy.hashCode(name);
         int i = index(h);
-        for (V v: values) {
+        for (V v : values) {
             validateValue(valueValidator, name, v);
             add0(h, i, name, v);
         }
@@ -374,7 +378,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
 
     @Override
     public T addObject(K name, Object... values) {
-        for (Object value: values) {
+        for (Object value : values) {
             addObject(name, value);
         }
         return thisT();
@@ -436,8 +440,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
 
     protected void addImpl(Headers<? extends K, ? extends V, ?> headers) {
         if (headers instanceof DefaultHeaders) {
-            @SuppressWarnings("unchecked")
-            final DefaultHeaders<? extends K, ? extends V, T> defaultHeaders =
+            @SuppressWarnings("unchecked") final DefaultHeaders<? extends K, ? extends V, T> defaultHeaders =
                     (DefaultHeaders<? extends K, ? extends V, T>) headers;
             HeaderEntry<? extends K, ? extends V> e = defaultHeaders.head.after;
             if (defaultHeaders.hashingStrategy == hashingStrategy &&
@@ -483,7 +486,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
         int i = index(h);
 
         remove0(h, i, name);
-        for (V v: values) {
+        for (V v : values) {
             if (v == null) {
                 break;
             }
@@ -503,7 +506,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
         int i = index(h);
 
         remove0(h, i, name);
-        for (V v: values) {
+        for (V v : values) {
             if (v == null) {
                 break;
             }
@@ -528,7 +531,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
         int i = index(h);
 
         remove0(h, i, name);
-        for (Object v: values) {
+        for (Object v : values) {
             if (v == null) {
                 break;
             }
@@ -548,7 +551,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
         int i = index(h);
 
         remove0(h, i, name);
-        for (Object v: values) {
+        for (Object v : values) {
             if (v == null) {
                 break;
             }
@@ -949,7 +952,8 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
 
     /**
      * Test this object for equality against {@code h2}.
-     * @param h2 The object to check equality for.
+     *
+     * @param h2                   The object to check equality for.
      * @param valueHashingStrategy Defines how values will be compared for equality.
      * @return {@code true} if this object equals {@code h2} given {@code valueHashingStrategy}.
      * {@code false} otherwise.
@@ -981,6 +985,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
     /**
      * Generate a hash code for this object given a {@link HashingStrategy} to generate hash codes for
      * individual values.
+     *
      * @param valueHashingStrategy Defines how values will be hashed.
      */
     public final int hashCode(HashingStrategy<V> valueHashingStrategy) {
@@ -1004,9 +1009,9 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
      * Call out to the given {@link NameValidator} to validate the given name.
      *
      * @param validator the validator to use
-     * @param forAdd {@code true } if this validation is for adding to the headers, or {@code false} if this is for
-     * setting (overwriting) the given header.
-     * @param name the name to validate.
+     * @param forAdd    {@code true } if this validation is for adding to the headers, or {@code false} if this is for
+     *                  setting (overwriting) the given header.
+     * @param name      the name to validate.
      */
     protected void validateName(NameValidator<K> validator, boolean forAdd, K name) {
         validator.validateName(name);
@@ -1093,7 +1098,7 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
                 previous = next;
                 next = next.next;
             }
-            assert next != null: "Entry not found in its hash bucket: " + entry;
+            assert next != null : "Entry not found in its hash bucket: " + entry;
             previous.next = entry.next;
         } else {
             previous.next = entry.next;
@@ -1430,8 +1435,8 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
                 return false;
             }
             Entry<?, ?> other = (Entry<?, ?>) o;
-            return (getKey() == null ? other.getKey() == null : getKey().equals(other.getKey()))  &&
-                   (getValue() == null ? other.getValue() == null : getValue().equals(other.getValue()));
+            return (getKey() == null ? other.getKey() == null : getKey().equals(other.getKey())) &&
+                    (getValue() == null ? other.getValue() == null : getValue().equals(other.getValue()));
         }
 
         @Override

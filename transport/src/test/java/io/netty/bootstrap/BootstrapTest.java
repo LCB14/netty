@@ -144,7 +144,7 @@ public class BootstrapTest {
         List<Future<?>> bindFutures = new ArrayList<Future<?>>();
 
         // Try to bind from each other.
-        for (int i = 0; i < 1024; i ++) {
+        for (int i = 0; i < 1024; i++) {
             bindFutures.add(groupA.next().submit(new Runnable() {
                 @Override
                 public void run() {
@@ -160,7 +160,7 @@ public class BootstrapTest {
             }));
         }
 
-        for (Future<?> f: bindFutures) {
+        for (Future<?> f : bindFutures) {
             f.sync();
         }
     }
@@ -181,7 +181,7 @@ public class BootstrapTest {
         List<Future<?>> bindFutures = new ArrayList<Future<?>>();
 
         // Try to connect from each other.
-        for (int i = 0; i < 1024; i ++) {
+        for (int i = 0; i < 1024; i++) {
             bindFutures.add(groupA.next().submit(new Runnable() {
                 @Override
                 public void run() {
@@ -197,7 +197,7 @@ public class BootstrapTest {
             }));
         }
 
-        for (Future<?> f: bindFutures) {
+        for (Future<?> f : bindFutures) {
             f.sync();
         }
     }
@@ -342,7 +342,8 @@ public class BootstrapTest {
 
     @Test
     public void testGetResolverFailed() throws Exception {
-        class TestException extends RuntimeException { }
+        class TestException extends RuntimeException {
+        }
 
         final Bootstrap bootstrapA = new Bootstrap();
         bootstrapA.group(groupA);
@@ -380,11 +381,11 @@ public class BootstrapTest {
                 .handler(dummyHandler)
                 .group(groupA)
                 .channelFactory(new ChannelFactory<Channel>() {
-            @Override
-            public Channel newChannel() {
-                throw exception;
-            }
-        });
+                    @Override
+                    public Channel newChannel() {
+                        throw exception;
+                    }
+                });
 
         ChannelFuture connectFuture = bootstrap.connect(LocalAddress.ANY);
 
@@ -422,6 +423,7 @@ public class BootstrapTest {
                     public Channel newChannel() {
                         return new LocalChannel() {
                             private ChannelConfigValidator config;
+
                             @Override
                             public synchronized ChannelConfig config() {
                                 if (config == null) {
@@ -485,7 +487,8 @@ public class BootstrapTest {
     }
 
     @Sharable
-    private static final class DummyHandler extends ChannelInboundHandlerAdapter { }
+    private static final class DummyHandler extends ChannelInboundHandlerAdapter {
+    }
 
     private static final class TestAddressResolverGroup extends AddressResolverGroup<SocketAddress> {
 

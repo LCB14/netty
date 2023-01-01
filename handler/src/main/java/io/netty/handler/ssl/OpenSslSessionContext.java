@@ -101,6 +101,7 @@ public abstract class OpenSslSessionContext implements SSLSessionContext {
     public Enumeration<byte[]> getIds() {
         return new Enumeration<byte[]>() {
             private final Iterator<OpenSslSessionId> ids = sessionCache.getIds().iterator();
+
             @Override
             public boolean hasMoreElements() {
                 return ids.hasNext();
@@ -115,12 +116,13 @@ public abstract class OpenSslSessionContext implements SSLSessionContext {
 
     /**
      * Sets the SSL session ticket keys of this context.
+     *
      * @deprecated use {@link #setTicketKeys(OpenSslSessionTicketKey...)}.
      */
     @Deprecated
     public void setTicketKeys(byte[] keys) {
         if (keys.length % SessionTicketKey.TICKET_KEY_SIZE != 0) {
-            throw new IllegalArgumentException("keys.length % " + SessionTicketKey.TICKET_KEY_SIZE  + " != 0");
+            throw new IllegalArgumentException("keys.length % " + SessionTicketKey.TICKET_KEY_SIZE + " != 0");
         }
         SessionTicketKey[] tickets = new SessionTicketKey[keys.length / SessionTicketKey.TICKET_KEY_SIZE];
         for (int i = 0, a = 0; i < tickets.length; i++) {
@@ -147,7 +149,7 @@ public abstract class OpenSslSessionContext implements SSLSessionContext {
      * argument or pass an empty array and so let the native library handle the key generation and rotating for you.
      * If this is supported by the underlying native library should be checked in this case. For example
      * <a href="https://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#Session-tickets/">
-     *     BoringSSL</a> is known to support this.
+     * BoringSSL</a> is known to support this.
      */
     public void setTicketKeys(OpenSslSessionTicketKey... keys) {
         ObjectUtil.checkNotNull(keys, "keys");

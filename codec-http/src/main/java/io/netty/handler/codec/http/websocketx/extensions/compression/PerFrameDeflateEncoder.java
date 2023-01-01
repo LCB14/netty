@@ -41,9 +41,9 @@ class PerFrameDeflateEncoder extends DeflateEncoder {
     /**
      * Constructor
      *
-     * @param compressionLevel compression level of the compressor.
-     * @param windowSize       maximum size of the window compressor buffer.
-     * @param noContext        true to disable context takeover.
+     * @param compressionLevel       compression level of the compressor.
+     * @param windowSize             maximum size of the window compressor buffer.
+     * @param noContext              true to disable context takeover.
      * @param extensionEncoderFilter extension encoder filter for per frame deflate encoder.
      */
     PerFrameDeflateEncoder(int compressionLevel, int windowSize, boolean noContext,
@@ -64,8 +64,8 @@ class PerFrameDeflateEncoder extends DeflateEncoder {
 
         return (msg instanceof TextWebSocketFrame || msg instanceof BinaryWebSocketFrame ||
                 msg instanceof ContinuationWebSocketFrame) &&
-               wsFrame.content().readableBytes() > 0 &&
-               (wsFrame.rsv() & WebSocketExtension.RSV1) == 0;
+                wsFrame.content().readableBytes() > 0 &&
+                (wsFrame.rsv() & WebSocketExtension.RSV1) == 0;
     }
 
     @Override

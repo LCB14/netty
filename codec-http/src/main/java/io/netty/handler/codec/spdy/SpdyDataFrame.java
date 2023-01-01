@@ -33,7 +33,7 @@ public interface SpdyDataFrame extends ByteBufHolder, SpdyStreamFrame {
     /**
      * Returns the data payload of this frame.  If there is no data payload
      * {@link Unpooled#EMPTY_BUFFER} is returned.
-     *
+     * <p>
      * The data payload cannot exceed 16777215 bytes.
      */
     @Override

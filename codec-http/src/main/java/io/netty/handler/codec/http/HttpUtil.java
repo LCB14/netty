@@ -42,7 +42,8 @@ public final class HttpUtil {
     private static final AsciiString SEMICOLON = AsciiString.cached(";");
     private static final String COMMA_STRING = String.valueOf(COMMA);
 
-    private HttpUtil() { }
+    private HttpUtil() {
+    }
 
     /**
      * Determine if a uri is in origin-form according to
@@ -79,14 +80,14 @@ public final class HttpUtil {
     /**
      * Returns {@code true} if and only if the connection can remain open and
      * thus 'kept alive'.  This methods respects the value of the.
-     *
+     * <p>
      * {@code "Connection"} header first and then the return value of
      * {@link HttpVersion#isKeepAliveDefault()}.
      */
     public static boolean isKeepAlive(HttpMessage message) {
         return !message.headers().containsValue(HttpHeaderNames.CONNECTION, HttpHeaderValues.CLOSE, true) &&
-               (message.protocolVersion().isKeepAliveDefault() ||
-                message.headers().containsValue(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE, true));
+                (message.protocolVersion().isKeepAliveDefault() ||
+                        message.headers().containsValue(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE, true));
     }
 
     /**
@@ -107,6 +108,7 @@ public final class HttpUtil {
      *     <li>remove otherwise.</li>
      *     </ul></li>
      * </ul>
+     *
      * @see #setKeepAlive(HttpHeaders, HttpVersion, boolean)
      */
     public static void setKeepAlive(HttpMessage message, boolean keepAlive) {
@@ -155,10 +157,8 @@ public final class HttpUtil {
      * other.
      *
      * @return the content length
-     *
-     * @throws NumberFormatException
-     *         if the message does not have the {@code "Content-Length"} header
-     *         or its value is not a number
+     * @throws NumberFormatException if the message does not have the {@code "Content-Length"} header
+     *                               or its value is not a number
      */
     public static long getContentLength(HttpMessage message) {
         String value = message.headers().get(HttpHeaderNames.CONTENT_LENGTH);
@@ -208,8 +208,7 @@ public final class HttpUtil {
      * Get an {@code int} representation of {@link #getContentLength(HttpMessage, long)}.
      *
      * @return the content length or {@code defaultValue} if this message does
-     *         not have the {@code "Content-Length"} header.
-     *
+     * not have the {@code "Content-Length"} header.
      * @throws NumberFormatException if the {@code "Content-Length"} header does not parse as an int
      */
     public static int getContentLength(HttpMessage message, int defaultValue) {
@@ -265,8 +264,8 @@ public final class HttpUtil {
      */
     public static boolean is100ContinueExpected(HttpMessage message) {
         return isExpectHeaderValid(message)
-          // unquoted tokens in the expect header are case-insensitive, thus 100-continue is case insensitive
-          && message.headers().contains(HttpHeaderNames.EXPECT, HttpHeaderValues.CONTINUE, true);
+                // unquoted tokens in the expect header are case-insensitive, thus 100-continue is case insensitive
+                && message.headers().contains(HttpHeaderNames.EXPECT, HttpHeaderValues.CONTINUE, true);
     }
 
     /**
@@ -325,9 +324,9 @@ public final class HttpUtil {
      * Set the {@link HttpHeaderNames#TRANSFER_ENCODING} to either include {@link HttpHeaderValues#CHUNKED} if
      * {@code chunked} is {@code true}, or remove {@link HttpHeaderValues#CHUNKED} if {@code chunked} is {@code false}.
      *
-     * @param m The message which contains the headers to modify.
+     * @param m       The message which contains the headers to modify.
      * @param chunked if {@code true} then include {@link HttpHeaderValues#CHUNKED} in the headers. otherwise remove
-     * {@link HttpHeaderValues#CHUNKED} from the headers.
+     *                {@link HttpHeaderValues#CHUNKED} from the headers.
      */
     public static void setTransferEncodingChunked(HttpMessage m, boolean chunked) {
         if (chunked) {
@@ -428,7 +427,7 @@ public final class HttpUtil {
 
     /**
      * Fetch charset from message's Content-Type header as a char sequence.
-     *
+     * <p>
      * A lot of sites/possibly clients have charset="CHARSET", for example charset="utf-8". Or "utf8" instead of "utf-8"
      * This is not according to standard, but this method provide an ability to catch desired mistakes manually in code
      *
@@ -444,7 +443,7 @@ public final class HttpUtil {
 
     /**
      * Fetch charset from message's Content-Type header as a char sequence.
-     *
+     * <p>
      * A lot of sites/possibly clients have charset="CHARSET", for example charset="utf-8". Or "utf8" instead of "utf-8"
      * This is not according to standard, but this method provide an ability to catch desired mistakes manually in code
      *
@@ -462,7 +461,7 @@ public final class HttpUtil {
 
     /**
      * Fetch charset from Content-Type header value as a char sequence.
-     *
+     * <p>
      * A lot of sites/possibly clients have charset="CHARSET", for example charset="utf-8". Or "utf8" instead of "utf-8"
      * This is not according to standard, but this method provide an ability to catch desired mistakes manually in code
      *
@@ -558,8 +557,8 @@ public final class HttpUtil {
      * Validates, and optionally extracts the content length from headers. This method is not intended for
      * general use, but is here to be shared between HTTP/1 and HTTP/2 parsing.
      *
-     * @param contentLengthFields the content-length header fields.
-     * @param isHttp10OrEarlier {@code true} if we are handling HTTP/1.0 or earlier
+     * @param contentLengthFields          the content-length header fields.
+     * @param isHttp10OrEarlier            {@code true} if we are handling HTTP/1.0 or earlier
      * @param allowDuplicateContentLengths {@code true}  if multiple, identical-value content lengths should be allowed.
      * @return the normalized content length from the headers or {@code -1} if the fields were empty.
      * @throws IllegalArgumentException if the content-length fields are not valid

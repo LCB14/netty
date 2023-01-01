@@ -27,11 +27,16 @@ package io.netty.channel.unix;
  * Static members which call JNI methods must not be declared in this class!
  */
 final class LimitsStaticallyReferencedJniMethods {
-    private LimitsStaticallyReferencedJniMethods() { }
+    private LimitsStaticallyReferencedJniMethods() {
+    }
 
     static native long ssizeMax();
+
     static native int iovMax();
+
     static native int uioMaxIov();
+
     static native int sizeOfjlong();
+
     static native int udsSunPathSize();
 }

@@ -48,6 +48,7 @@ public class HttpChunkedInput implements ChunkedInput<HttpContent> {
 
     /**
      * Creates a new instance using the specified input.
+     *
      * @param input {@link ChunkedInput} containing data to write
      */
     public HttpChunkedInput(ChunkedInput<ByteBuf> input) {
@@ -58,9 +59,10 @@ public class HttpChunkedInput implements ChunkedInput<HttpContent> {
     /**
      * Creates a new instance using the specified input. {@code lastHttpContent} will be written as the terminating
      * chunk.
-     * @param input {@link ChunkedInput} containing data to write
+     *
+     * @param input           {@link ChunkedInput} containing data to write
      * @param lastHttpContent {@link LastHttpContent} that will be written as the terminating chunk. Use this for
-     *            training headers.
+     *                        training headers.
      */
     public HttpChunkedInput(ChunkedInput<ByteBuf> input, LastHttpContent lastHttpContent) {
         this.input = input;

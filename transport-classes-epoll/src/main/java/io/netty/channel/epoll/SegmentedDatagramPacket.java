@@ -28,9 +28,9 @@ public final class SegmentedDatagramPacket extends io.netty.channel.unix.Segment
     /**
      * Create a new instance.
      *
-     * @param data          the {@link ByteBuf} which must be continguous.
-     * @param segmentSize   the segment size.
-     * @param recipient     the recipient.
+     * @param data        the {@link ByteBuf} which must be continguous.
+     * @param segmentSize the segment size.
+     * @param recipient   the recipient.
      */
     public SegmentedDatagramPacket(ByteBuf data, int segmentSize, InetSocketAddress recipient) {
         super(data, segmentSize, recipient);
@@ -40,9 +40,9 @@ public final class SegmentedDatagramPacket extends io.netty.channel.unix.Segment
     /**
      * Create a new instance.
      *
-     * @param data          the {@link ByteBuf} which must be continguous.
-     * @param segmentSize   the segment size.
-     * @param recipient     the recipient.
+     * @param data        the {@link ByteBuf} which must be continguous.
+     * @param segmentSize the segment size.
+     * @param recipient   the recipient.
      */
     public SegmentedDatagramPacket(ByteBuf data, int segmentSize,
                                    InetSocketAddress recipient, InetSocketAddress sender) {

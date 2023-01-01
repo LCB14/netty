@@ -23,9 +23,9 @@ import java.util.List;
 /**
  * A <a href="https://tools.ietf.org/html/rfc6265">RFC6265</a> compliant cookie encoder to be used server side,
  * so some fields are sent (Version is typically ignored).
- *
+ * <p>
  * As Netty's Cookie merges Expires and MaxAge into one single field, only Max-Age field is sent.
- *
+ * <p>
  * Note that multiple cookies must be sent as separate "Set-Cookie" headers.
  *
  * <pre>
@@ -35,7 +35,6 @@ import java.util.List;
  * </pre>
  *
  * @see ServerCookieDecoder
- *
  * @deprecated Use {@link io.netty.handler.codec.http.cookie.ServerCookieEncoder} instead
  */
 @Deprecated
@@ -44,7 +43,7 @@ public final class ServerCookieEncoder {
     /**
      * Encodes the specified cookie name-value pair into a Set-Cookie header value.
      *
-     * @param name the cookie name
+     * @param name  the cookie name
      * @param value the cookie value
      * @return a single Set-Cookie header value
      */

@@ -38,7 +38,8 @@ public abstract class ReferenceCountUpdater<T extends ReferenceCounted> {
      * for example: if (rawCnt == 2 || rawCnt == 4 || (rawCnt & 1) == 0) { ...
      */
 
-    protected ReferenceCountUpdater() { }
+    protected ReferenceCountUpdater() {
+    }
 
     public static long getUnsafeOffset(Class<? extends ReferenceCounted> clz, String fieldName) {
         try {
@@ -168,7 +169,7 @@ public abstract class ReferenceCountUpdater<T extends ReferenceCounted> {
     }
 
     private boolean retryRelease0(T instance, int decrement) {
-        for (;;) {
+        for (; ; ) {
             int rawCnt = updater().get(instance), realCnt = toLiveRealRefCnt(rawCnt, decrement);
             if (decrement == realCnt) {
                 if (tryFinalRelease0(instance, rawCnt)) {

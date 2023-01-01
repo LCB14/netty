@@ -94,9 +94,8 @@ public class WebSocket08FrameEncoder extends MessageToMessageEncoder<WebSocketFr
     /**
      * Constructor
      *
-     * @param maskPayload
-     *            Web socket clients must set this to true to mask payload. Server implementations must set this to
-     *            false.
+     * @param maskPayload Web socket clients must set this to true to mask payload. Server implementations must set this to
+     *                    false.
      */
     public WebSocket08FrameEncoder(boolean maskPayload) {
         this.maskPayload = maskPayload;

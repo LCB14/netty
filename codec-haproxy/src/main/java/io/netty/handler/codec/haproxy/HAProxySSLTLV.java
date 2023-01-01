@@ -36,10 +36,10 @@ public final class HAProxySSLTLV extends HAProxyTLV {
     /**
      * Creates a new HAProxySSLTLV
      *
-     * @param verify the verification result as defined in the specification for the pp2_tlv_ssl struct (see
-     * https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+     * @param verify         the verification result as defined in the specification for the pp2_tlv_ssl struct (see
+     *                       https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
      * @param clientBitField the bitfield with client information
-     * @param tlvs the encapsulated {@link HAProxyTLV}s
+     * @param tlvs           the encapsulated {@link HAProxyTLV}s
      */
     public HAProxySSLTLV(final int verify, final byte clientBitField, final List<HAProxyTLV> tlvs) {
         this(verify, clientBitField, tlvs, Unpooled.EMPTY_BUFFER);
@@ -48,11 +48,11 @@ public final class HAProxySSLTLV extends HAProxyTLV {
     /**
      * Creates a new HAProxySSLTLV
      *
-     * @param verify the verification result as defined in the specification for the pp2_tlv_ssl struct (see
-     * https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
+     * @param verify         the verification result as defined in the specification for the pp2_tlv_ssl struct (see
+     *                       https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
      * @param clientBitField the bitfield with client information
-     * @param tlvs the encapsulated {@link HAProxyTLV}s
-     * @param rawContent the raw TLV content
+     * @param tlvs           the encapsulated {@link HAProxyTLV}s
+     * @param rawContent     the raw TLV content
      */
     HAProxySSLTLV(final int verify, final byte clientBitField, final List<HAProxyTLV> tlvs, final ByteBuf rawContent) {
         super(Type.PP2_TYPE_SSL, (byte) 0x20, rawContent);
@@ -116,10 +116,10 @@ public final class HAProxySSLTLV extends HAProxyTLV {
     @Override
     public String toString() {
         return StringUtil.simpleClassName(this) +
-               "(type: " + type() +
-               ", typeByteValue: " + typeByteValue() +
-               ", client: " + client() +
-               ", verify: " + verify() +
-               ", numEncapsulatedTlvs: " + tlvs.size() + ')';
+                "(type: " + type() +
+                ", typeByteValue: " + typeByteValue() +
+                ", client: " + client() +
+                ", verify: " + verify() +
+                ", numEncapsulatedTlvs: " + tlvs.size() + ')';
     }
 }

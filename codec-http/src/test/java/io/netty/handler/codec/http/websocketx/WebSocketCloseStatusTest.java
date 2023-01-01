@@ -33,18 +33,18 @@ import static io.netty.handler.codec.http.websocketx.WebSocketCloseStatus.*;
 public class WebSocketCloseStatusTest {
 
     private final List<WebSocketCloseStatus> validCodes = Arrays.asList(
-        NORMAL_CLOSURE,
-        ENDPOINT_UNAVAILABLE,
-        PROTOCOL_ERROR,
-        INVALID_MESSAGE_TYPE,
-        INVALID_PAYLOAD_DATA,
-        POLICY_VIOLATION,
-        MESSAGE_TOO_BIG,
-        MANDATORY_EXTENSION,
-        INTERNAL_SERVER_ERROR,
-        SERVICE_RESTART,
-        TRY_AGAIN_LATER,
-        BAD_GATEWAY
+            NORMAL_CLOSURE,
+            ENDPOINT_UNAVAILABLE,
+            PROTOCOL_ERROR,
+            INVALID_MESSAGE_TYPE,
+            INVALID_PAYLOAD_DATA,
+            POLICY_VIOLATION,
+            MESSAGE_TOO_BIG,
+            MANDATORY_EXTENSION,
+            INTERNAL_SERVER_ERROR,
+            SERVICE_RESTART,
+            TRY_AGAIN_LATER,
+            BAD_GATEWAY
     );
 
     @Test
@@ -101,18 +101,18 @@ public class WebSocketCloseStatusTest {
     public void testRfc6455CodeValidation() {
         // Given
         List<Integer> knownCodes = Arrays.asList(
-            NORMAL_CLOSURE.code(),
-            ENDPOINT_UNAVAILABLE.code(),
-            PROTOCOL_ERROR.code(),
-            INVALID_MESSAGE_TYPE.code(),
-            INVALID_PAYLOAD_DATA.code(),
-            POLICY_VIOLATION.code(),
-            MESSAGE_TOO_BIG.code(),
-            MANDATORY_EXTENSION.code(),
-            INTERNAL_SERVER_ERROR.code(),
-            SERVICE_RESTART.code(),
-            TRY_AGAIN_LATER.code(),
-            BAD_GATEWAY.code()
+                NORMAL_CLOSURE.code(),
+                ENDPOINT_UNAVAILABLE.code(),
+                PROTOCOL_ERROR.code(),
+                INVALID_MESSAGE_TYPE.code(),
+                INVALID_PAYLOAD_DATA.code(),
+                POLICY_VIOLATION.code(),
+                MESSAGE_TOO_BIG.code(),
+                MANDATORY_EXTENSION.code(),
+                INTERNAL_SERVER_ERROR.code(),
+                SERVICE_RESTART.code(),
+                TRY_AGAIN_LATER.code(),
+                BAD_GATEWAY.code()
         );
 
         SortedSet<Integer> invalidCodes = new TreeSet<Integer>();

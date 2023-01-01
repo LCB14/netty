@@ -47,6 +47,7 @@ final class HpackUtil {
      *     String s4 = "goo";
      *     boolean equals = (equalsConstantTime(s1, s2) & equalsConstantTime(s3, s4)) != 0;
      * </pre>
+     *
      * @param s1 the first value.
      * @param s2 the second value.
      * @return {@code 0} if not equal. {@code 1} if equal.
@@ -59,7 +60,7 @@ final class HpackUtil {
             AsciiString s1Ascii = (AsciiString) s1;
             AsciiString s2Ascii = (AsciiString) s2;
             return PlatformDependent.equalsConstantTime(s1Ascii.array(), s1Ascii.arrayOffset(),
-                                                        s2Ascii.array(), s2Ascii.arrayOffset(), s1.length());
+                    s2Ascii.array(), s2Ascii.arrayOffset(), s1.length());
         }
 
         return ConstantTimeUtils.equalsConstantTime(s1, s2);
@@ -67,6 +68,7 @@ final class HpackUtil {
 
     /**
      * Compare two {@link CharSequence}s.
+     *
      * @param s1 the first value.
      * @param s2 the second value.
      * @return {@code false} if not equal. {@code true} if equal.

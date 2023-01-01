@@ -40,15 +40,15 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 public class MultipleContentLengthHeadersTest {
 
     static Collection<Object[]> parameters() {
-        return Arrays.asList(new Object[][] {
-                { false, false, false },
-                { false, false, true },
-                { false, true, false },
-                { false, true, true },
-                { true, false, false },
-                { true, false, true },
-                { true, true, false },
-                { true, true, true }
+        return Arrays.asList(new Object[][]{
+                {false, false, false},
+                {false, false, true},
+                {false, true, false},
+                {false, true, true},
+                {true, false, false},
+                {true, false, true},
+                {true, true, false},
+                {true, true, true}
         });
     }
 
@@ -97,20 +97,20 @@ public class MultipleContentLengthHeadersTest {
             contentLength = "Content-Length: " + firstValue + ", " + secondValue + "\r\n\r\n";
         } else {
             contentLength = "Content-Length: " + firstValue + "\r\n" +
-                            "Content-Length: " + secondValue + "\r\n\r\n";
+                    "Content-Length: " + secondValue + "\r\n\r\n";
         }
         return "PUT /some/path HTTP/1.1\r\n" +
-               contentLength +
-               "ab";
+                contentLength +
+                "ab";
     }
 
     @Test
     public void testDanglingComma() {
         EmbeddedChannel channel = newChannel(false);
         String requestStr = "GET /some/path HTTP/1.1\r\n" +
-                            "Content-Length: 1,\r\n" +
-                            "Connection: close\n\n" +
-                            "ab";
+                "Content-Length: 1,\r\n" +
+                "Connection: close\n\n" +
+                "ab";
         assertThat(channel.writeInbound(Unpooled.copiedBuffer(requestStr, CharsetUtil.US_ASCII)), is(true));
         HttpRequest request = channel.readInbound();
         assertInvalid(request);
@@ -125,6 +125,6 @@ public class MultipleContentLengthHeadersTest {
         assertThat(request.decoderResult().isFailure(), is(true));
         assertThat(request.decoderResult().cause(), instanceOf(IllegalArgumentException.class));
         assertThat(request.decoderResult().cause().getMessage(),
-                   containsString("Multiple Content-Length values found"));
+                containsString("Multiple Content-Length values found"));
     }
 }

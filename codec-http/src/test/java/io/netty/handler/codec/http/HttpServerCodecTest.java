@@ -43,8 +43,8 @@ public class HttpServerCodecTest {
         int totalContentLength = maxChunkSize * 5;
         decoderEmbedder.writeInbound(Unpooled.copiedBuffer(
                 "PUT /test HTTP/1.1\r\n" +
-                "Content-Length: " + totalContentLength + "\r\n" +
-                "\r\n", CharsetUtil.UTF_8));
+                        "Content-Length: " + totalContentLength + "\r\n" +
+                        "\r\n", CharsetUtil.UTF_8));
 
         int offeredContentLength = (int) (maxChunkSize * 2.5);
         decoderEmbedder.writeInbound(prepareDataChunk(offeredContentLength));
@@ -55,7 +55,7 @@ public class HttpServerCodecTest {
 
         boolean empty = true;
         int totalBytesPolled = 0;
-        for (;;) {
+        for (; ; ) {
             HttpContent httpChunk = decoderEmbedder.readInbound();
             if (httpChunk == null) {
                 break;
@@ -76,8 +76,8 @@ public class HttpServerCodecTest {
         // Send the request headers.
         ch.writeInbound(Unpooled.copiedBuffer(
                 "PUT /upload-large HTTP/1.1\r\n" +
-                "Expect: 100-continue\r\n" +
-                "Content-Length: 1\r\n\r\n", CharsetUtil.UTF_8));
+                        "Expect: 100-continue\r\n" +
+                        "Content-Length: 1\r\n\r\n", CharsetUtil.UTF_8));
 
         // Ensure the aggregator generates nothing.
         assertThat(ch.readInbound(), is(nullValue()));
@@ -91,7 +91,7 @@ public class HttpServerCodecTest {
         assertThat(ch.readOutbound(), is(nullValue()));
 
         // Send the content of the request.
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 42 }));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{42}));
 
         // Ensure the aggregator generates a full request.
         FullHttpRequest req = ch.readInbound();
@@ -112,7 +112,7 @@ public class HttpServerCodecTest {
         // Ensure the encoder handles the response after handling 100 Continue.
         ByteBuf encodedRes = ch.readOutbound();
         assertThat(encodedRes.toString(CharsetUtil.UTF_8),
-                   is("HTTP/1.1 201 Created\r\n" + HttpHeaderNames.CONTENT_LENGTH + ": 2\r\n\r\nOK"));
+                is("HTTP/1.1 201 Created\r\n" + HttpHeaderNames.CONTENT_LENGTH + ": 2\r\n\r\nOK"));
         encodedRes.release();
 
         ch.finish();

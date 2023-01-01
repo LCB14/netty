@@ -53,10 +53,10 @@ public class NoPriorityByteDistributionBenchmark extends AbstractMicrobenchmark 
         UNIFORM
     }
 
-    @Param({ "100", "10000" })
+    @Param({"100", "10000"})
     private int numStreams;
 
-    @Param({ "1024", "65536", "1048576" })
+    @Param({"1024", "65536", "1048576"})
     private int windowSize;
 
     @Param
@@ -132,10 +132,10 @@ public class NoPriorityByteDistributionBenchmark extends AbstractMicrobenchmark 
         controller = new DefaultHttp2RemoteFlowController(connection, new ByteCounter(distributor));
         connection.remote().flowController(controller);
         Http2ConnectionHandler handler = new Http2ConnectionHandlerBuilder()
-            .encoderEnforceMaxConcurrentStreams(false).validateHeaders(false)
-            .frameListener(new Http2FrameAdapter())
-            .connection(connection)
-            .build();
+                .encoderEnforceMaxConcurrentStreams(false).validateHeaders(false)
+                .frameListener(new Http2FrameAdapter())
+                .connection(connection)
+                .build();
         ctx = new EmbeddedChannelWriteReleaseHandlerContext(PooledByteBufAllocator.DEFAULT, handler) {
             @Override
             protected void handleException(Throwable t) {

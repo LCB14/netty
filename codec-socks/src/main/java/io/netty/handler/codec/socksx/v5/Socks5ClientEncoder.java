@@ -80,11 +80,11 @@ public class Socks5ClientEncoder extends MessageToByteEncoder<Socks5Message> {
         out.writeByte(numAuthMethods);
 
         if (authMethods instanceof RandomAccess) {
-            for (int i = 0; i < numAuthMethods; i ++) {
+            for (int i = 0; i < numAuthMethods; i++) {
                 out.writeByte(authMethods.get(i).byteValue());
             }
         } else {
-            for (Socks5AuthMethod a: authMethods) {
+            for (Socks5AuthMethod a : authMethods) {
                 out.writeByte(a.byteValue());
             }
         }

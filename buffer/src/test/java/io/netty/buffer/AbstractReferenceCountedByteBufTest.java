@@ -42,7 +42,7 @@ public class AbstractReferenceCountedByteBufTest {
         assertEquals(Integer.MAX_VALUE, referenceCounted.refCnt());
         assertThrows(IllegalReferenceCountException.class, new Executable() {
             @Override
-            public void execute()  {
+            public void execute() {
                 referenceCounted.retain();
             }
         });

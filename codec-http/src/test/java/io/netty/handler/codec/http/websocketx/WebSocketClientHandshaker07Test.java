@@ -46,8 +46,8 @@ public class WebSocketClientHandshaker07Test extends WebSocketClientHandshakerTe
     protected WebSocketClientHandshaker newHandshaker(URI uri, String subprotocol, HttpHeaders headers,
                                                       boolean absoluteUpgradeUrl, boolean generateOriginHeader) {
         return new WebSocketClientHandshaker07(uri, WebSocketVersion.V07, subprotocol, false, headers,
-          1024, true, false, 10000,
-          absoluteUpgradeUrl, generateOriginHeader);
+                1024, true, false, 10000,
+                absoluteUpgradeUrl, generateOriginHeader);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class WebSocketClientHandshaker07Test extends WebSocketClientHandshakerTe
 
     @Override
     protected CharSequence[] getHandshakeRequiredHeaderNames() {
-        return new CharSequence[] {
+        return new CharSequence[]{
                 HttpHeaderNames.UPGRADE,
                 HttpHeaderNames.CONNECTION,
                 HttpHeaderNames.SEC_WEBSOCKET_KEY,

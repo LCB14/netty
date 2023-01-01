@@ -89,7 +89,7 @@ public abstract class NioUdtAcceptorChannel extends AbstractNioMessageChannel im
 
     @Override
     protected boolean doConnect(final SocketAddress remoteAddress,
-            final SocketAddress localAddress) throws Exception {
+                                final SocketAddress localAddress) throws Exception {
         throw new UnsupportedOperationException();
     }
 

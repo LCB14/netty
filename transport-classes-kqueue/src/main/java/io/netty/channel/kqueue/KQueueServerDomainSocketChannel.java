@@ -29,7 +29,7 @@ import static io.netty.channel.kqueue.BsdSocket.newSocketDomain;
 
 @UnstableApi
 public final class KQueueServerDomainSocketChannel extends AbstractKQueueServerChannel
-                                                  implements ServerDomainSocketChannel {
+        implements ServerDomainSocketChannel {
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(
             KQueueServerDomainSocketChannel.class);
 

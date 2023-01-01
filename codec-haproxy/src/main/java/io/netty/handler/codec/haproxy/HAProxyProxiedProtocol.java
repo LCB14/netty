@@ -157,7 +157,7 @@ public enum HAProxyProxiedProtocol {
          */
         public static AddressFamily valueOf(byte tpafByte) {
             int addressFamily = tpafByte & FAMILY_MASK;
-            switch((byte) addressFamily) {
+            switch ((byte) addressFamily) {
                 case AF_IPV4_BYTE:
                     return AF_IPv4;
                 case AF_IPV6_BYTE:

@@ -252,7 +252,7 @@ public class PromiseCombinerTest {
     @SuppressWarnings("unchecked")
     private static void mockListener(final Promise<Void> p, final GenericFutureListenerConsumer consumer) {
         doAnswer(new Answer<Promise<Void>>() {
-            @SuppressWarnings({ "unchecked", "raw-types" })
+            @SuppressWarnings({"unchecked", "raw-types"})
             @Override
             public Promise<Void> answer(InvocationOnMock invocation) throws Throwable {
                 consumer.accept((GenericFutureListener) invocation.getArgument(0));

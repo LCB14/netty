@@ -27,7 +27,7 @@ import io.netty.channel.sctp.nio.NioSctpChannel;
 /**
  * Sends one message when a connection is open and echoes back any received
  * data to the server over SCTP connection.
- *
+ * <p>
  * Simply put, the echo client initiates the ping-pong
  * traffic between the echo client and server by sending the first message to
  * the server.
@@ -44,16 +44,16 @@ public final class SctpEchoClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioSctpChannel.class)
-             .option(SctpChannelOption.SCTP_NODELAY, true)
-             .handler(new ChannelInitializer<SctpChannel>() {
-                 @Override
-                 public void initChannel(SctpChannel ch) throws Exception {
-                     ch.pipeline().addLast(
-                             //new LoggingHandler(LogLevel.INFO),
-                             new SctpEchoClientHandler());
-                 }
-             });
+                    .channel(NioSctpChannel.class)
+                    .option(SctpChannelOption.SCTP_NODELAY, true)
+                    .handler(new ChannelInitializer<SctpChannel>() {
+                        @Override
+                        public void initChannel(SctpChannel ch) throws Exception {
+                            ch.pipeline().addLast(
+                                    //new LoggingHandler(LogLevel.INFO),
+                                    new SctpEchoClientHandler());
+                        }
+                    });
 
             // Start the client.
             ChannelFuture f = b.connect(HOST, PORT).sync();

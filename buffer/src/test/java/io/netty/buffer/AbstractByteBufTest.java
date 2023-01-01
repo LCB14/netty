@@ -557,13 +557,13 @@ public abstract class AbstractByteBufTest {
 
     @Test
     public void testRandomByteAccess() {
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             buffer.setByte(i, value);
         }
 
         random.setSeed(seed);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             assertEquals(value, buffer.getByte(i));
         }
@@ -571,13 +571,13 @@ public abstract class AbstractByteBufTest {
 
     @Test
     public void testRandomUnsignedByteAccess() {
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             buffer.setByte(i, value);
         }
 
         random.setSeed(seed);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             int value = random.nextInt() & 0xFF;
             assertEquals(value, buffer.getUnsignedByte(i));
         }
@@ -587,6 +587,7 @@ public abstract class AbstractByteBufTest {
     public void testRandomShortAccess() {
         testRandomShortAccess(true);
     }
+
     @Test
     public void testRandomShortLEAccess() {
         testRandomShortAccess(false);
@@ -624,7 +625,7 @@ public abstract class AbstractByteBufTest {
     private void testShortConsistentWithByteBuffer(boolean direct, boolean testBigEndian) {
         for (int i = 0; i < JAVA_BYTEBUFFER_CONSISTENCY_ITERATIONS; ++i) {
             ByteBuffer javaBuffer = direct ? ByteBuffer.allocateDirect(buffer.capacity())
-                                           : ByteBuffer.allocate(buffer.capacity());
+                    : ByteBuffer.allocate(buffer.capacity());
             if (!testBigEndian) {
                 javaBuffer = javaBuffer.order(ByteOrder.LITTLE_ENDIAN);
             }
@@ -643,7 +644,7 @@ public abstract class AbstractByteBufTest {
             short javaActual = javaBuffer.getShort();
             assertEquals(expected, javaActual);
             assertEquals(javaActual, testBigEndian ? buffer.getShort(bufferIndex)
-                                                   : buffer.getShortLE(bufferIndex));
+                    : buffer.getShortLE(bufferIndex));
         }
     }
 
@@ -751,7 +752,7 @@ public abstract class AbstractByteBufTest {
     private void testMediumConsistentWithByteBuffer(boolean direct, boolean testBigEndian) {
         for (int i = 0; i < JAVA_BYTEBUFFER_CONSISTENCY_ITERATIONS; ++i) {
             ByteBuffer javaBuffer = direct ? ByteBuffer.allocateDirect(buffer.capacity())
-                                           : ByteBuffer.allocate(buffer.capacity());
+                    : ByteBuffer.allocate(buffer.capacity());
             if (!testBigEndian) {
                 javaBuffer = javaBuffer.order(ByteOrder.LITTLE_ENDIAN);
             }
@@ -770,7 +771,7 @@ public abstract class AbstractByteBufTest {
             int javaActual = javaBuffer.getInt();
             assertEquals(expected, javaActual);
             assertEquals(javaActual, testBigEndian ? buffer.getUnsignedMedium(bufferIndex)
-                                                   : buffer.getUnsignedMediumLE(bufferIndex));
+                    : buffer.getUnsignedMediumLE(bufferIndex));
         }
     }
 
@@ -816,7 +817,7 @@ public abstract class AbstractByteBufTest {
     private void testIntConsistentWithByteBuffer(boolean direct, boolean testBigEndian) {
         for (int i = 0; i < JAVA_BYTEBUFFER_CONSISTENCY_ITERATIONS; ++i) {
             ByteBuffer javaBuffer = direct ? ByteBuffer.allocateDirect(buffer.capacity())
-                                           : ByteBuffer.allocate(buffer.capacity());
+                    : ByteBuffer.allocate(buffer.capacity());
             if (!testBigEndian) {
                 javaBuffer = javaBuffer.order(ByteOrder.LITTLE_ENDIAN);
             }
@@ -835,7 +836,7 @@ public abstract class AbstractByteBufTest {
             int javaActual = javaBuffer.getInt();
             assertEquals(expected, javaActual);
             assertEquals(javaActual, testBigEndian ? buffer.getInt(bufferIndex)
-                                                   : buffer.getIntLE(bufferIndex));
+                    : buffer.getIntLE(bufferIndex));
         }
     }
 
@@ -912,7 +913,7 @@ public abstract class AbstractByteBufTest {
     private void testLongConsistentWithByteBuffer(boolean direct, boolean testBigEndian) {
         for (int i = 0; i < JAVA_BYTEBUFFER_CONSISTENCY_ITERATIONS; ++i) {
             ByteBuffer javaBuffer = direct ? ByteBuffer.allocateDirect(buffer.capacity())
-                                           : ByteBuffer.allocate(buffer.capacity());
+                    : ByteBuffer.allocate(buffer.capacity());
             if (!testBigEndian) {
                 javaBuffer = javaBuffer.order(ByteOrder.LITTLE_ENDIAN);
             }
@@ -931,7 +932,7 @@ public abstract class AbstractByteBufTest {
             long javaActual = javaBuffer.getLong();
             assertEquals(expected, javaActual);
             assertEquals(javaActual, testBigEndian ? buffer.getLong(bufferIndex)
-                                                   : buffer.getLongLE(bufferIndex));
+                    : buffer.getLongLE(bufferIndex));
         }
     }
 
@@ -958,7 +959,7 @@ public abstract class AbstractByteBufTest {
         random.setSeed(seed);
         for (int i = 0; i < buffer.capacity() - 7; i += 8) {
             float expected = random.nextFloat();
-            float actual = testBigEndian? buffer.getFloat(i) : buffer.getFloatLE(i);
+            float actual = testBigEndian ? buffer.getFloat(i) : buffer.getFloatLE(i);
             assertEquals(expected, actual, 0.01);
         }
     }
@@ -986,7 +987,7 @@ public abstract class AbstractByteBufTest {
         random.setSeed(seed);
         for (int i = 0; i < buffer.capacity() - 7; i += 8) {
             double expected = random.nextDouble();
-            double actual = testBigEndian? buffer.getDouble(i) : buffer.getDoubleLE(i);
+            double actual = testBigEndian ? buffer.getDouble(i) : buffer.getDoubleLE(i);
             assertEquals(expected, actual, 0.01);
         }
     }
@@ -998,13 +999,13 @@ public abstract class AbstractByteBufTest {
             buffer.writeByte((byte) 0xFF);
         }
 
-        for (int i = 0; i < buffer.capacity();) {
+        for (int i = 0; i < buffer.capacity(); ) {
             int length = Math.min(buffer.capacity() - i, random.nextInt(32));
             buffer.setZero(i, length);
             i += length;
         }
 
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             assertEquals(0, buffer.getByte(i));
         }
     }
@@ -1012,7 +1013,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void testSequentialByteAccess() {
         buffer.writerIndex(0);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             assertEquals(i, buffer.writerIndex());
             assertTrue(buffer.isWritable());
@@ -1024,7 +1025,7 @@ public abstract class AbstractByteBufTest {
         assertFalse(buffer.isWritable());
 
         random.setSeed(seed);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             assertEquals(i, buffer.readerIndex());
             assertTrue(buffer.isReadable());
@@ -1040,7 +1041,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void testSequentialUnsignedByteAccess() {
         buffer.writerIndex(0);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             assertEquals(i, buffer.writerIndex());
             assertTrue(buffer.isWritable());
@@ -1052,7 +1053,7 @@ public abstract class AbstractByteBufTest {
         assertFalse(buffer.isWritable());
 
         random.setSeed(seed);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             int value = random.nextInt() & 0xFF;
             assertEquals(i, buffer.readerIndex());
             assertTrue(buffer.isReadable());
@@ -1159,6 +1160,7 @@ public abstract class AbstractByteBufTest {
     public void testSequentialMediumAccess() {
         testSequentialMediumAccess(true);
     }
+
     @Test
     public void testSequentialMediumLEAccess() {
         testSequentialMediumAccess(false);
@@ -1393,7 +1395,7 @@ public abstract class AbstractByteBufTest {
             random.nextBytes(expectedValue);
             int valueOffset = random.nextInt(BLOCK_SIZE);
             buffer.getBytes(i, value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue[j], value[j]);
             }
         }
@@ -1413,7 +1415,7 @@ public abstract class AbstractByteBufTest {
         for (int i = 0; i < buffer.capacity() - BLOCK_SIZE + 1; i += BLOCK_SIZE) {
             random.nextBytes(expectedValueContent);
             buffer.getBytes(i, value);
-            for (int j = 0; j < BLOCK_SIZE; j ++) {
+            for (int j = 0; j < BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value[j]);
             }
         }
@@ -1434,7 +1436,7 @@ public abstract class AbstractByteBufTest {
             random.nextBytes(expectedValueContent);
             int valueOffset = random.nextInt(BLOCK_SIZE);
             buffer.getBytes(i, value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value[j]);
             }
         }
@@ -1461,7 +1463,7 @@ public abstract class AbstractByteBufTest {
             buffer.getBytes(i, value);
             assertEquals(0, value.readerIndex());
             assertEquals(BLOCK_SIZE, value.writerIndex());
-            for (int j = 0; j < BLOCK_SIZE; j ++) {
+            for (int j = 0; j < BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
         }
@@ -1483,7 +1485,7 @@ public abstract class AbstractByteBufTest {
             random.nextBytes(expectedValueContent);
             int valueOffset = random.nextInt(BLOCK_SIZE);
             buffer.getBytes(i, value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
         }
@@ -1506,7 +1508,7 @@ public abstract class AbstractByteBufTest {
             expectedValue.setBytes(0, tmp, 0, expectedValue.capacity());
             int valueOffset = random.nextInt(BLOCK_SIZE);
             buffer.getBytes(i, value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
         }
@@ -1532,7 +1534,7 @@ public abstract class AbstractByteBufTest {
             value.clear().position(valueOffset).limit(valueOffset + BLOCK_SIZE);
             buffer.getBytes(i, value);
             assertEquals(valueOffset + BLOCK_SIZE, value.position());
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.get(j), value.get(j));
             }
         }
@@ -1556,7 +1558,7 @@ public abstract class AbstractByteBufTest {
             assertEquals(i, buffer.readerIndex());
             assertEquals(CAPACITY, buffer.writerIndex());
             buffer.readBytes(value);
-            for (int j = 0; j < BLOCK_SIZE; j ++) {
+            for (int j = 0; j < BLOCK_SIZE; j++) {
                 assertEquals(expectedValue[j], value[j]);
             }
         }
@@ -1582,7 +1584,7 @@ public abstract class AbstractByteBufTest {
             assertEquals(i, buffer.readerIndex());
             assertEquals(CAPACITY, buffer.writerIndex());
             buffer.readBytes(value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue[j], value[j]);
             }
         }
@@ -1611,7 +1613,7 @@ public abstract class AbstractByteBufTest {
             assertEquals(i, buffer.readerIndex());
             assertEquals(CAPACITY, buffer.writerIndex());
             buffer.readBytes(value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
             assertEquals(0, value.readerIndex());
@@ -1647,7 +1649,7 @@ public abstract class AbstractByteBufTest {
             value.readerIndex(valueOffset);
             value.writerIndex(valueOffset);
             buffer.readBytes(value, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
             assertEquals(valueOffset, value.readerIndex());
@@ -1680,7 +1682,7 @@ public abstract class AbstractByteBufTest {
             assertEquals(i, buffer.readerIndex());
             assertEquals(CAPACITY, buffer.writerIndex());
             buffer.readBytes(value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
             assertEquals(0, value.readerIndex());
@@ -1721,7 +1723,7 @@ public abstract class AbstractByteBufTest {
             value.readerIndex(valueOffset);
             value.writerIndex(valueOffset);
             buffer.readBytes(value, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
             assertEquals(valueOffset, value.readerIndex());
@@ -1757,7 +1759,7 @@ public abstract class AbstractByteBufTest {
             assertEquals(i, buffer.readerIndex());
             assertEquals(CAPACITY, buffer.writerIndex());
             buffer.readBytes(value, valueOffset, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
             assertEquals(0, value.readerIndex());
@@ -1797,7 +1799,7 @@ public abstract class AbstractByteBufTest {
             value.readerIndex(valueOffset);
             value.writerIndex(valueOffset);
             buffer.readBytes(value, BLOCK_SIZE);
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.getByte(j), value.getByte(j));
             }
             assertEquals(valueOffset, value.readerIndex());
@@ -1824,7 +1826,7 @@ public abstract class AbstractByteBufTest {
             value.clear().position(valueOffset).limit(valueOffset + BLOCK_SIZE);
             buffer.readBytes(value);
             assertEquals(valueOffset + BLOCK_SIZE, value.position());
-            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j ++) {
+            for (int j = valueOffset; j < valueOffset + BLOCK_SIZE; j++) {
                 assertEquals(expectedValue.get(j), value.get(j));
             }
         }
@@ -1899,7 +1901,7 @@ public abstract class AbstractByteBufTest {
         }
 
         buffer.clear();
-        for (int i = 0; i < buffer.capacity();) {
+        for (int i = 0; i < buffer.capacity(); ) {
             int length = Math.min(buffer.capacity() - i, random.nextInt(32));
             buffer.writeZero(length);
             i += length;
@@ -1908,7 +1910,7 @@ public abstract class AbstractByteBufTest {
         assertEquals(0, buffer.readerIndex());
         assertEquals(buffer.capacity(), buffer.writerIndex());
 
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             assertEquals(0, buffer.getByte(i));
         }
     }
@@ -1969,7 +1971,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void testDiscardReadBytes2() {
         buffer.writerIndex(0);
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             buffer.writeByte((byte) i);
         }
         ByteBuf copy = copiedBuffer(buffer);
@@ -1979,7 +1981,7 @@ public abstract class AbstractByteBufTest {
         buffer.discardReadBytes();
         assertEquals(0, buffer.readerIndex());
         assertEquals(CAPACITY / 2, buffer.writerIndex());
-        for (int i = 0; i < CAPACITY / 2; i ++) {
+        for (int i = 0; i < CAPACITY / 2; i++) {
             assertEquals(copy.slice(CAPACITY / 2 - 1 + i, CAPACITY / 2 - i), buffer.slice(i, CAPACITY / 2 - i));
         }
         copy.release();
@@ -2029,7 +2031,7 @@ public abstract class AbstractByteBufTest {
 
     @Test
     public void testCopy() {
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             buffer.setByte(i, value);
         }
@@ -2044,7 +2046,7 @@ public abstract class AbstractByteBufTest {
         assertEquals(buffer.readableBytes(), copy.writerIndex());
         assertEquals(buffer.readableBytes(), copy.capacity());
         assertSame(buffer.order(), copy.order());
-        for (int i = 0; i < copy.capacity(); i ++) {
+        for (int i = 0; i < copy.capacity(); i++) {
             assertEquals(buffer.getByte(i + readerIndex), copy.getByte(i));
         }
 
@@ -2058,7 +2060,7 @@ public abstract class AbstractByteBufTest {
 
     @Test
     public void testDuplicate() {
-        for (int i = 0; i < buffer.capacity(); i ++) {
+        for (int i = 0; i < buffer.capacity(); i++) {
             byte value = (byte) random.nextInt();
             buffer.setByte(i, value);
         }
@@ -2150,7 +2152,7 @@ public abstract class AbstractByteBufTest {
         assertEquals(buffer, wrappedBuffer(value));
         assertEquals(buffer, wrappedBuffer(value).order(LITTLE_ENDIAN));
 
-        value[0] ++;
+        value[0]++;
         assertFalse(buffer.equals(wrappedBuffer(value)));
         assertFalse(buffer.equals(wrappedBuffer(value).order(LITTLE_ENDIAN)));
     }
@@ -2169,9 +2171,9 @@ public abstract class AbstractByteBufTest {
         random.nextBytes(value);
         // Prevent overflow / underflow
         if (value[0] == 0) {
-            value[0] ++;
+            value[0]++;
         } else if (value[0] == -1) {
-            value[0] --;
+            value[0]--;
         }
 
         buffer.setIndex(0, value.length);
@@ -2180,13 +2182,13 @@ public abstract class AbstractByteBufTest {
         assertEquals(0, buffer.compareTo(wrappedBuffer(value)));
         assertEquals(0, buffer.compareTo(wrappedBuffer(value).order(LITTLE_ENDIAN)));
 
-        value[0] ++;
+        value[0]++;
         assertTrue(buffer.compareTo(wrappedBuffer(value)) < 0);
         assertTrue(buffer.compareTo(wrappedBuffer(value).order(LITTLE_ENDIAN)) < 0);
         value[0] -= 2;
         assertTrue(buffer.compareTo(wrappedBuffer(value)) > 0);
         assertTrue(buffer.compareTo(wrappedBuffer(value).order(LITTLE_ENDIAN)) > 0);
-        value[0] ++;
+        value[0]++;
 
         assertTrue(buffer.compareTo(wrappedBuffer(value, 0, 31)) > 0);
         assertTrue(buffer.compareTo(wrappedBuffer(value, 0, 31).order(LITTLE_ENDIAN)) > 0);
@@ -2418,8 +2420,8 @@ public abstract class AbstractByteBufTest {
     public void testHashCode() {
         ByteBuf elemA = buffer(15);
         ByteBuf elemB = directBuffer(15);
-        elemA.writeBytes(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5 });
-        elemB.writeBytes(new byte[] { 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9 });
+        elemA.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5});
+        elemB.writeBytes(new byte[]{6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9});
 
         Set<ByteBuf> set = new HashSet<ByteBuf>();
         set.add(elemA);
@@ -2461,7 +2463,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void testForEachByte() {
         buffer.clear();
-        for (int i = 0; i < CAPACITY; i ++) {
+        for (int i = 0; i < CAPACITY; i++) {
             buffer.writeByte(i + 1);
         }
 
@@ -2474,7 +2476,7 @@ public abstract class AbstractByteBufTest {
             public boolean process(byte value) throws Exception {
                 assertThat(value, is((byte) (i + 1)));
                 lastIndex.set(i);
-                i ++;
+                i++;
                 return true;
             }
         }), is(-1));
@@ -2485,7 +2487,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void testForEachByteAbort() {
         buffer.clear();
-        for (int i = 0; i < CAPACITY; i ++) {
+        for (int i = 0; i < CAPACITY; i++) {
             buffer.writeByte(i + 1);
         }
 
@@ -2509,7 +2511,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void testForEachByteDesc() {
         buffer.clear();
-        for (int i = 0; i < CAPACITY; i ++) {
+        for (int i = 0; i < CAPACITY; i++) {
             buffer.writeByte(i + 1);
         }
 
@@ -2521,7 +2523,7 @@ public abstract class AbstractByteBufTest {
             public boolean process(byte value) throws Exception {
                 assertThat(value, is((byte) (i + 1)));
                 lastIndex.set(i);
-                i --;
+                i--;
                 return true;
             }
         }), is(-1));
@@ -2583,9 +2585,9 @@ public abstract class AbstractByteBufTest {
                     while (latch.getCount() > 0) {
                         ByteBuf buf;
                         if (slice) {
-                           buf = buffer.slice();
+                            buf = buffer.slice();
                         } else {
-                           buf = buffer.duplicate();
+                            buf = buffer.duplicate();
                         }
                         TestGatheringByteChannel channel = new TestGatheringByteChannel();
 
@@ -4495,6 +4497,7 @@ public abstract class AbstractByteBufTest {
     public void testWriteIso88591CharSequenceExpand() {
         testWriteCharSequenceExpand(CharsetUtil.ISO_8859_1);
     }
+
     @Test
     public void testWriteUtf16CharSequenceExpand() {
         testWriteCharSequenceExpand(CharsetUtil.UTF_16);
@@ -4719,11 +4722,11 @@ public abstract class AbstractByteBufTest {
         ByteBuf expected2 = newBuffer(5).resetWriterIndex();
         ByteBuf expected3 = newBuffer(4).resetWriterIndex();
         ByteBuf expected4 = newBuffer(3).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
-        expected1.writeBytes(new byte[] {2, 3, 4, 5, 6, 7});
-        expected2.writeBytes(new byte[] {3, 4, 5, 6, 7});
-        expected3.writeBytes(new byte[] {4, 5, 6, 7});
-        expected4.writeBytes(new byte[] {5, 6, 7});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
+        expected1.writeBytes(new byte[]{2, 3, 4, 5, 6, 7});
+        expected2.writeBytes(new byte[]{3, 4, 5, 6, 7});
+        expected3.writeBytes(new byte[]{4, 5, 6, 7});
+        expected4.writeBytes(new byte[]{5, 6, 7});
 
         ByteBuf slice1 = buf.retainedSlice(buf.readerIndex() + 1, 6);
         assertEquals(0, slice1.compareTo(expected1));
@@ -4781,10 +4784,10 @@ public abstract class AbstractByteBufTest {
         ByteBuf expected1 = newBuffer(6).resetWriterIndex();
         ByteBuf expected2 = newBuffer(5).resetWriterIndex();
         ByteBuf expected3 = newBuffer(4).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
-        expected1.writeBytes(new byte[] {2, 3, 4, 5, 6, 7});
-        expected2.writeBytes(new byte[] {3, 4, 5, 6, 7});
-        expected3.writeBytes(new byte[] {5, 6, 7});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
+        expected1.writeBytes(new byte[]{2, 3, 4, 5, 6, 7});
+        expected2.writeBytes(new byte[]{3, 4, 5, 6, 7});
+        expected3.writeBytes(new byte[]{5, 6, 7});
 
         ByteBuf dup1 = buf.retainedDuplicate();
         assertEquals(0, dup1.compareTo(buf));
@@ -5063,7 +5066,7 @@ public abstract class AbstractByteBufTest {
         ByteBuf buf1 = initRetainedSlice ? buf.retainedSlice() : buf.slice().retain();
         ByteBuf buf2 = unreleasableBuffer(buf1);
         ByteBuf buf3 = finalRetainedSlice ? buf2.readRetainedSlice(buf2.readableBytes())
-                                          : buf2.readSlice(buf2.readableBytes()).retain();
+                : buf2.readSlice(buf2.readableBytes()).retain();
         assertFalse(buf3.release());
         assertFalse(buf2.release());
         buf1.release();
@@ -5104,7 +5107,7 @@ public abstract class AbstractByteBufTest {
     private void testSliceCapacityChange(boolean retainedSlice) {
         ByteBuf buf = newBuffer(8);
         ByteBuf slice = retainedSlice ? buf.retainedSlice(buf.readerIndex() + 1, 3)
-                                      : buf.slice(buf.readerIndex() + 1, 3);
+                : buf.slice(buf.readerIndex() + 1, 3);
         try {
             slice.capacity(10);
         } finally {
@@ -5118,7 +5121,7 @@ public abstract class AbstractByteBufTest {
     private void testSliceOutOfBounds(boolean initRetainedSlice, boolean finalRetainedSlice, boolean indexOutOfBounds) {
         ByteBuf buf = newBuffer(8);
         ByteBuf slice = initRetainedSlice ? buf.retainedSlice(buf.readerIndex() + 1, 2)
-                                          : buf.slice(buf.readerIndex() + 1, 2);
+                : buf.slice(buf.readerIndex() + 1, 2);
         try {
             assertEquals(2, slice.capacity());
             assertEquals(2, slice.maxCapacity());
@@ -5141,10 +5144,10 @@ public abstract class AbstractByteBufTest {
     private void testSliceContents(boolean retainedSlice) {
         ByteBuf buf = newBuffer(8).resetWriterIndex();
         ByteBuf expected = newBuffer(3).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
-        expected.writeBytes(new byte[] {4, 5, 6});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
+        expected.writeBytes(new byte[]{4, 5, 6});
         ByteBuf slice = retainedSlice ? buf.retainedSlice(buf.readerIndex() + 3, 3)
-                                      : buf.slice(buf.readerIndex() + 3, 3);
+                : buf.slice(buf.readerIndex() + 3, 3);
         try {
             assertEquals(0, slice.compareTo(expected));
             assertEquals(0, slice.compareTo(slice.duplicate()));
@@ -5165,17 +5168,17 @@ public abstract class AbstractByteBufTest {
         ByteBuf buf = newBuffer(8).resetWriterIndex();
         ByteBuf expected1 = newBuffer(3).resetWriterIndex();
         ByteBuf expected2 = newBuffer(2).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
-        expected1.writeBytes(new byte[] {6, 7, 8});
-        expected2.writeBytes(new byte[] {7, 8});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
+        expected1.writeBytes(new byte[]{6, 7, 8});
+        expected2.writeBytes(new byte[]{7, 8});
         ByteBuf slice1 = retainedSlice1 ? buf.retainedSlice(buf.readerIndex() + 5, 3)
-                                        : buf.slice(buf.readerIndex() + 5, 3).retain();
+                : buf.slice(buf.readerIndex() + 5, 3).retain();
         assertEquals(0, slice1.compareTo(expected1));
         // Simulate a handler that releases the original buffer, and propagates a slice.
         buf.release();
 
         ByteBuf slice2 = retainedSlice2 ? slice1.retainedSlice(slice1.readerIndex() + 1, 2)
-                                        : slice1.slice(slice1.readerIndex() + 1, 2).retain();
+                : slice1.slice(slice1.readerIndex() + 1, 2).retain();
         assertEquals(0, slice2.compareTo(expected2));
 
         // Cleanup the expected buffers used for testing.
@@ -5202,12 +5205,12 @@ public abstract class AbstractByteBufTest {
         ByteBuf expected3 = newBuffer(2).resetWriterIndex();
         ByteBuf expected4SliceSlice = newBuffer(1).resetWriterIndex();
         ByteBuf expected4DupSlice = newBuffer(1).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
-        expected1.writeBytes(new byte[] {2, 3, 4, 5, 6, 7});
-        expected2.writeBytes(new byte[] {3, 4, 5, 6});
-        expected3.writeBytes(new byte[] {4, 5});
-        expected4SliceSlice.writeBytes(new byte[] {5});
-        expected4DupSlice.writeBytes(new byte[] {4});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
+        expected1.writeBytes(new byte[]{2, 3, 4, 5, 6, 7});
+        expected2.writeBytes(new byte[]{3, 4, 5, 6});
+        expected3.writeBytes(new byte[]{4, 5});
+        expected4SliceSlice.writeBytes(new byte[]{5});
+        expected4DupSlice.writeBytes(new byte[]{4});
 
         ByteBuf slice1 = buf.retainedSlice(buf.readerIndex() + 1, 6);
         assertEquals(0, slice1.compareTo(expected1));
@@ -5268,16 +5271,16 @@ public abstract class AbstractByteBufTest {
     private void testDuplicateReleaseOriginal(boolean retainedDuplicate1, boolean retainedDuplicate2) {
         ByteBuf buf = newBuffer(8).resetWriterIndex();
         ByteBuf expected = newBuffer(8).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
         expected.writeBytes(buf, buf.readerIndex(), buf.readableBytes());
         ByteBuf dup1 = retainedDuplicate1 ? buf.retainedDuplicate()
-                                          : buf.duplicate().retain();
+                : buf.duplicate().retain();
         assertEquals(0, dup1.compareTo(expected));
         // Simulate a handler that releases the original buffer, and propagates a slice.
         buf.release();
 
         ByteBuf dup2 = retainedDuplicate2 ? dup1.retainedDuplicate()
-                                          : dup1.duplicate().retain();
+                : dup1.duplicate().retain();
         assertEquals(0, dup2.compareTo(expected));
 
         // Cleanup the expected buffers used for testing.
@@ -5301,18 +5304,18 @@ public abstract class AbstractByteBufTest {
         ByteBuf expected1 = newBuffer(3).resetWriterIndex();
         ByteBuf expected2 = newBuffer(2).resetWriterIndex();
         ByteBuf expected3 = newBuffer(2).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
-        expected1.writeBytes(new byte[] {6, 7, 8});
-        expected2.writeBytes(new byte[] {7, 8});
-        expected3.writeBytes(new byte[] {6, 7});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
+        expected1.writeBytes(new byte[]{6, 7, 8});
+        expected2.writeBytes(new byte[]{7, 8});
+        expected3.writeBytes(new byte[]{6, 7});
         ByteBuf slice1 = retainedSlice1 ? buf.retainedSlice(buf.readerIndex() + 5, 3)
-                                        : buf.slice(buf.readerIndex() + 5, 3).retain();
+                : buf.slice(buf.readerIndex() + 5, 3).retain();
         assertEquals(0, slice1.compareTo(expected1));
         // Simulate a handler that releases the original buffer, and propagates a slice.
         buf.release();
 
         ByteBuf slice2 = retainedSlice2 ? slice1.retainedSlice(slice1.readerIndex() + 1, 2)
-                                        : slice1.slice(slice1.readerIndex() + 1, 2).retain();
+                : slice1.slice(slice1.readerIndex() + 1, 2).retain();
         assertEquals(0, slice2.compareTo(expected2));
 
         // The handler created a slice of the slice and is now done with it.
@@ -5343,16 +5346,16 @@ public abstract class AbstractByteBufTest {
     private void testMultipleRetainedDuplicateReleaseOriginal(boolean retainedDuplicate1, boolean retainedDuplicate2) {
         ByteBuf buf = newBuffer(8).resetWriterIndex();
         ByteBuf expected = newBuffer(8).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
         expected.writeBytes(buf, buf.readerIndex(), buf.readableBytes());
         ByteBuf dup1 = retainedDuplicate1 ? buf.retainedDuplicate()
-                                          : buf.duplicate().retain();
+                : buf.duplicate().retain();
         assertEquals(0, dup1.compareTo(expected));
         // Simulate a handler that releases the original buffer, and propagates a slice.
         buf.release();
 
         ByteBuf dup2 = retainedDuplicate2 ? dup1.retainedDuplicate()
-                                          : dup1.duplicate().retain();
+                : dup1.duplicate().retain();
         assertEquals(0, dup2.compareTo(expected));
         assertEquals(0, dup2.compareTo(dup2.duplicate()));
         assertEquals(0, dup2.compareTo(dup2.slice()));
@@ -5389,7 +5392,7 @@ public abstract class AbstractByteBufTest {
 
     private void testDuplicateContents(boolean retainedDuplicate) {
         ByteBuf buf = newBuffer(8).resetWriterIndex();
-        buf.writeBytes(new byte[] {1, 2, 3, 4, 5, 6, 7, 8});
+        buf.writeBytes(new byte[]{1, 2, 3, 4, 5, 6, 7, 8});
         ByteBuf dup = retainedDuplicate ? buf.retainedDuplicate() : buf.duplicate();
         try {
             assertEquals(0, dup.compareTo(buf));
@@ -5450,7 +5453,7 @@ public abstract class AbstractByteBufTest {
     }
 
     private void testGetReadOnlyDst(boolean direct) {
-        byte[] bytes = { 'a', 'b', 'c', 'd' };
+        byte[] bytes = {'a', 'b', 'c', 'd'};
 
         ByteBuf buffer = newBuffer(bytes.length);
         buffer.writeBytes(bytes);
@@ -5681,6 +5684,7 @@ public abstract class AbstractByteBufTest {
         private final ByteArrayOutputStream out = new ByteArrayOutputStream();
         private final WritableByteChannel channel = Channels.newChannel(out);
         private final int limit;
+
         TestGatheringByteChannel(int limit) {
             this.limit = limit;
         }
@@ -5924,7 +5928,7 @@ public abstract class AbstractByteBufTest {
     @Test
     public void explicitLittleEndianReadMethodsMustAlwaysUseLittleEndianByteOrder() {
         buffer.clear();
-        buffer.writeBytes(new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
+        buffer.writeBytes(new byte[]{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
         assertEquals(0x0201, buffer.readShortLE());
         buffer.readerIndex(0);
         assertEquals(0x0201, buffer.readUnsignedShortLE());

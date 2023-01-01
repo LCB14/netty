@@ -58,13 +58,13 @@ import static java.lang.Math.min;
 @State(Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class Http2FrameWriterDataBenchmark extends AbstractMicrobenchmark {
-    @Param({ "64", "1024", "4096", "16384", "1048576", "4194304" })
+    @Param({"64", "1024", "4096", "16384", "1048576", "4194304"})
     public int payloadSize;
 
-    @Param({ "0", "100", "255" })
+    @Param({"0", "100", "255"})
     public int padding;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean pooled;
 
     private ByteBuf payload;
@@ -116,6 +116,7 @@ public class Http2FrameWriterDataBenchmark extends AbstractMicrobenchmark {
         private static final ByteBuf ZERO_BUFFER =
                 unreleasableBuffer(directBuffer(MAX_UNSIGNED_BYTE).writeZero(MAX_UNSIGNED_BYTE)).asReadOnly();
         private final int maxFrameSize = DEFAULT_MAX_FRAME_SIZE;
+
         @Override
         public ChannelFuture writeData(ChannelHandlerContext ctx, int streamId, ByteBuf data,
                                        int padding, boolean endStream, ChannelPromise promise) {

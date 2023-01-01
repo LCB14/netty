@@ -74,7 +74,7 @@ public class FlowControlHandlerTest {
      * The {@link OneByteToThreeStringsDecoder} decodes this {@code byte[]} into three messages.
      */
     private static ByteBuf newOneMessage() {
-        return Unpooled.wrappedBuffer(new byte[]{ 1 });
+        return Unpooled.wrappedBuffer(new byte[]{1});
     }
 
     private static Channel newServer(final boolean autoRead, final ChannelHandler... handlers) {
@@ -82,16 +82,16 @@ public class FlowControlHandlerTest {
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(GROUP)
-            .channel(NioServerSocketChannel.class)
-            .childOption(ChannelOption.AUTO_READ, autoRead)
-            .childHandler(new ChannelInitializer<Channel>() {
-                @Override
-                protected void initChannel(Channel ch) {
-                    ChannelPipeline pipeline = ch.pipeline();
-                    pipeline.addLast(new OneByteToThreeStringsDecoder());
-                    pipeline.addLast(handlers);
-                }
-            });
+                .channel(NioServerSocketChannel.class)
+                .childOption(ChannelOption.AUTO_READ, autoRead)
+                .childHandler(new ChannelInitializer<Channel>() {
+                    @Override
+                    protected void initChannel(Channel ch) {
+                        ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new OneByteToThreeStringsDecoder());
+                        pipeline.addLast(handlers);
+                    }
+                });
 
         return serverBootstrap.bind(0)
                 .syncUninterruptibly()
@@ -102,14 +102,14 @@ public class FlowControlHandlerTest {
         Bootstrap bootstrap = new Bootstrap();
 
         bootstrap.group(GROUP)
-            .channel(NioSocketChannel.class)
-            .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1000)
-            .handler(new ChannelInboundHandlerAdapter() {
-                @Override
-                public void channelRead(ChannelHandlerContext ctx, Object msg) {
-                    fail("In this test the client is never receiving a message from the server.");
-                }
-            });
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1000)
+                .handler(new ChannelInboundHandlerAdapter() {
+                    @Override
+                    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+                        fail("In this test the client is never receiving a message from the server.");
+                    }
+                });
 
         return bootstrap.connect(server)
                 .syncUninterruptibly()
@@ -120,7 +120,7 @@ public class FlowControlHandlerTest {
      * This test demonstrates the default behavior if auto reading
      * is turned on from the get-go and you're trying to turn it off
      * once you've received your first message.
-     *
+     * <p>
      * NOTE: This test waits for the client to disconnect which is
      * interpreted as the signal that all {@code byte}s have been
      * transferred to the server.
@@ -146,7 +146,7 @@ public class FlowControlHandlerTest {
 
         try {
             client.writeAndFlush(newOneMessage())
-                .syncUninterruptibly();
+                    .syncUninterruptibly();
 
             // We received three messages even through auto reading
             // was turned off after we received the first message.
@@ -161,7 +161,7 @@ public class FlowControlHandlerTest {
      * This test demonstrates the default behavior if auto reading
      * is turned off from the get-go and you're calling read() in
      * the hope that only one message will be returned.
-     *
+     * <p>
      * NOTE: This test waits for the client to disconnect which is
      * interpreted as the signal that all {@code byte}s have been
      * transferred to the server.
@@ -194,7 +194,7 @@ public class FlowControlHandlerTest {
 
             // Write the message
             client.writeAndFlush(newOneMessage())
-                .syncUninterruptibly();
+                    .syncUninterruptibly();
 
             // Read the message
             peer.read();
@@ -242,7 +242,7 @@ public class FlowControlHandlerTest {
 
             // Write the message
             client.writeAndFlush(newOneMessage())
-                .syncUninterruptibly();
+                    .syncUninterruptibly();
 
             // We should receive 3 messages
             assertTrue(latch.await(1L, SECONDS));
@@ -275,6 +275,7 @@ public class FlowControlHandlerTest {
         ChannelInboundHandlerAdapter handler = new ChannelInboundHandlerAdapter() {
             private int msgRcvCount;
             private int expectedMsgCount;
+
             @Override
             public void channelActive(ChannelHandlerContext ctx) throws Exception {
                 peerRef.exchange(ctx.channel(), 1L, SECONDS);
@@ -319,7 +320,7 @@ public class FlowControlHandlerTest {
             Channel peer = peerRef.exchange(null, 1L, SECONDS);
 
             client.writeAndFlush(newOneMessage())
-                .syncUninterruptibly();
+                    .syncUninterruptibly();
 
             // channelRead(1)
             assertTrue(msgRcvLatch1.await(1L, SECONDS));
@@ -382,7 +383,7 @@ public class FlowControlHandlerTest {
 
             // Write the message
             client.writeAndFlush(newOneMessage())
-                .syncUninterruptibly();
+                    .syncUninterruptibly();
 
             // channelRead(1)
             peer.read();
@@ -469,35 +470,35 @@ public class FlowControlHandlerTest {
         final long delayMillis = 100;
         final Queue<IdleStateEvent> userEvents = new LinkedBlockingQueue<IdleStateEvent>();
         final EmbeddedChannel channel = new EmbeddedChannel(false, false,
-            new FlowControlHandler(),
-            new IdleStateHandler(delayMillis, 0, 0, MILLISECONDS),
-            new ChannelInboundHandlerAdapter() {
-                @Override
-                public void channelActive(ChannelHandlerContext ctx) {
-                    ctx.fireChannelActive();
-                    ctx.read();
-                }
-
-                @Override
-                public void channelRead(ChannelHandlerContext ctx, Object msg) {
-                    ctx.fireChannelRead(msg);
-                    ctx.read();
-                }
-
-                @Override
-                public void channelReadComplete(ChannelHandlerContext ctx) {
-                    ctx.fireChannelReadComplete();
-                    ctx.read();
-                }
-
-                @Override
-                public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
-                    if (evt instanceof IdleStateEvent) {
-                        userEvents.add((IdleStateEvent) evt);
+                new FlowControlHandler(),
+                new IdleStateHandler(delayMillis, 0, 0, MILLISECONDS),
+                new ChannelInboundHandlerAdapter() {
+                    @Override
+                    public void channelActive(ChannelHandlerContext ctx) {
+                        ctx.fireChannelActive();
+                        ctx.read();
                     }
-                    ctx.fireUserEventTriggered(evt);
+
+                    @Override
+                    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+                        ctx.fireChannelRead(msg);
+                        ctx.read();
+                    }
+
+                    @Override
+                    public void channelReadComplete(ChannelHandlerContext ctx) {
+                        ctx.fireChannelReadComplete();
+                        ctx.read();
+                    }
+
+                    @Override
+                    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+                        if (evt instanceof IdleStateEvent) {
+                            userEvents.add((IdleStateEvent) evt);
+                        }
+                        ctx.fireUserEventTriggered(evt);
+                    }
                 }
-            }
         );
 
         channel.config().setAutoRead(false);
@@ -534,6 +535,7 @@ public class FlowControlHandlerTest {
                 ctx.read();
                 super.channelActive(ctx);
             }
+
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                 latch.countDown();
@@ -543,6 +545,7 @@ public class FlowControlHandlerTest {
 
         final FlowControlHandler flow = new FlowControlHandler() {
             private int num;
+
             @Override
             public void channelRead(final ChannelHandlerContext ctx, Object msg) throws Exception {
                 super.channelRead(ctx, msg);

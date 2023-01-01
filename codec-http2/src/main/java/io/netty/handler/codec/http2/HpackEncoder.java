@@ -70,7 +70,7 @@ final class HpackEncoder {
     private final NameValueEntry[] nameValueEntries;
 
     private final NameValueEntry head = new NameValueEntry(-1, AsciiString.EMPTY_STRING,
-      AsciiString.EMPTY_STRING, Integer.MAX_VALUE, null);
+            AsciiString.EMPTY_STRING, Integer.MAX_VALUE, null);
 
     private NameValueEntry latest = head;
 
@@ -117,7 +117,7 @@ final class HpackEncoder {
      * <strong>The given {@link CharSequence}s must be immutable!</strong>
      */
     public void encodeHeaders(int streamId, ByteBuf out, Http2Headers headers, SensitivityDetector sensitivityDetector)
-      throws Http2Exception {
+            throws Http2Exception {
         if (ignoreMaxHeaderListSize) {
             encodeHeadersIgnoreMaxHeaderListSize(out, headers, sensitivityDetector);
         } else {
@@ -127,7 +127,7 @@ final class HpackEncoder {
 
     private void encodeHeadersEnforceMaxHeaderListSize(int streamId, ByteBuf out, Http2Headers headers,
                                                        SensitivityDetector sensitivityDetector)
-      throws Http2Exception {
+            throws Http2Exception {
         long headerSize = 0;
         // To ensure we stay consistent with our peer check the size is valid before we potentially modify HPACK state.
         for (Map.Entry<CharSequence, CharSequence> header : headers) {
@@ -149,7 +149,7 @@ final class HpackEncoder {
             CharSequence name = header.getKey();
             CharSequence value = header.getValue();
             encodeHeader(out, name, value, sensitivityDetector.isSensitive(name, value),
-              HpackHeaderField.sizeOf(name, value));
+                    HpackHeaderField.sizeOf(name, value));
         }
     }
 
@@ -224,7 +224,7 @@ final class HpackEncoder {
             encodeLiteral(out, name, value, IndexType.INCREMENTAL, staticTableIndex);
             // use the name from the static table to optimize memory usage.
             addNameValueEntry(
-              HpackStaticTable.getEntry(staticTableIndex).name, value, nameHash, valueHash, nextCounter);
+                    HpackStaticTable.getEntry(staticTableIndex).name, value, nameHash, valueHash, nextCounter);
         }
     }
 
@@ -234,7 +234,7 @@ final class HpackEncoder {
     public void setMaxHeaderTableSize(ByteBuf out, long maxHeaderTableSize) throws Http2Exception {
         if (maxHeaderTableSize < MIN_HEADER_TABLE_SIZE || maxHeaderTableSize > MAX_HEADER_TABLE_SIZE) {
             throw connectionError(PROTOCOL_ERROR, "Header Table Size must be >= %d and <= %d but was %d",
-              MIN_HEADER_TABLE_SIZE, MAX_HEADER_TABLE_SIZE, maxHeaderTableSize);
+                    MIN_HEADER_TABLE_SIZE, MAX_HEADER_TABLE_SIZE, maxHeaderTableSize);
         }
         if (this.maxHeaderTableSize == maxHeaderTableSize) {
             return;
@@ -255,7 +255,7 @@ final class HpackEncoder {
     public void setMaxHeaderListSize(long maxHeaderListSize) throws Http2Exception {
         if (maxHeaderListSize < MIN_HEADER_LIST_SIZE || maxHeaderListSize > MAX_HEADER_LIST_SIZE) {
             throw connectionError(PROTOCOL_ERROR, "Header List Size must be >= %d and <= %d but was %d",
-              MIN_HEADER_LIST_SIZE, MAX_HEADER_LIST_SIZE, maxHeaderListSize);
+                    MIN_HEADER_LIST_SIZE, MAX_HEADER_LIST_SIZE, maxHeaderListSize);
         }
         this.maxHeaderListSize = maxHeaderListSize;
     }
@@ -295,7 +295,7 @@ final class HpackEncoder {
     private void encodeStringLiteral(ByteBuf out, CharSequence string) {
         int huffmanLength;
         if (string.length() >= huffCodeThreshold
-          && (huffmanLength = hpackHuffmanEncoder.getEncodedLength(string)) < string.length()) {
+                && (huffmanLength = hpackHuffmanEncoder.getEncodedLength(string)) < string.length()) {
             encodeInteger(out, 0x80, 7, huffmanLength);
             hpackHuffmanEncoder.encode(out, string);
         } else {

@@ -145,7 +145,7 @@ public final class ChannelOutboundBuffer {
                 flushedEntry = entry;
             }
             do {
-                flushed ++;
+                flushed++;
                 if (!entry.promise.setUncancellable()) {
                     // Was cancelled so make sure we free up memory and notify about the freed bytes
                     int pending = entry.cancel();
@@ -224,6 +224,7 @@ public final class ChannelOutboundBuffer {
 
     /**
      * Return the current message flush progress.
+     *
      * @return {@code 0} if nothing was flushed before for the current message or there is no current message
      */
     public long currentProgress() {
@@ -316,7 +317,7 @@ public final class ChannelOutboundBuffer {
     }
 
     private void removeEntry(Entry e) {
-        if (-- flushed == 0) {
+        if (--flushed == 0) {
             // processed everything
             flushedEntry = null;
             if (e == tailEntry) {
@@ -333,7 +334,7 @@ public final class ChannelOutboundBuffer {
      * This operation assumes all messages in this buffer is {@link ByteBuf}.
      */
     public void removeBytes(long writtenBytes) {
-        for (;;) {
+        for (; ; ) {
             Object msg = current();
             if (!(msg instanceof ByteBuf)) {
                 assert writtenBytes == 0;
@@ -394,6 +395,7 @@ public final class ChannelOutboundBuffer {
      * {@link AbstractChannel#doWrite(ChannelOutboundBuffer)}.
      * Refer to {@link NioSocketChannel#doWrite(ChannelOutboundBuffer)} for an example.
      * </p>
+     *
      * @param maxCount The maximum amount of buffers that will be added to the return value.
      * @param maxBytes A hint toward the maximum number of bytes to include as part of the return value. Note that this
      *                 value maybe exceeded because we make a best effort to include at least 1 {@link ByteBuffer}
@@ -552,7 +554,7 @@ public final class ChannelOutboundBuffer {
 
     private void setUserDefinedWritability(int index) {
         final int mask = ~writabilityMask(index);
-        for (;;) {
+        for (; ; ) {
             final int oldValue = unwritable;
             final int newValue = oldValue & mask;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
@@ -566,7 +568,7 @@ public final class ChannelOutboundBuffer {
 
     private void clearUserDefinedWritability(int index) {
         final int mask = writabilityMask(index);
-        for (;;) {
+        for (; ; ) {
             final int oldValue = unwritable;
             final int newValue = oldValue | mask;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
@@ -586,7 +588,7 @@ public final class ChannelOutboundBuffer {
     }
 
     private void setWritable(boolean invokeLater) {
-        for (;;) {
+        for (; ; ) {
             final int oldValue = unwritable;
             final int newValue = oldValue & ~1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
@@ -599,7 +601,7 @@ public final class ChannelOutboundBuffer {
     }
 
     private void setUnwritable(boolean invokeLater) {
-        for (;;) {
+        for (; ; ) {
             final int oldValue = unwritable;
             final int newValue = oldValue | 1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
@@ -656,7 +658,7 @@ public final class ChannelOutboundBuffer {
 
         try {
             inFail = true;
-            for (;;) {
+            for (; ; ) {
                 if (!remove0(cause, notify)) {
                     break;
                 }

@@ -52,7 +52,7 @@ public class EpollSocketTest extends SocketTest<LinuxSocket> {
             s1.listen(1);
 
             assertTrue(s2.connect(dsa));
-            byte [] addr = new byte[64];
+            byte[] addr = new byte[64];
             s1.accept(addr);
             PeerCredentials pc = s1.getPeerCredentials();
             assertNotEquals(pc.uid(), -1);

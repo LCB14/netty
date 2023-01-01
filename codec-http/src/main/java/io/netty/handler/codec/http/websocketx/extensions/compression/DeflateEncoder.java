@@ -49,9 +49,10 @@ abstract class DeflateEncoder extends WebSocketExtensionEncoder {
 
     /**
      * Constructor
-     * @param compressionLevel compression level of the compressor.
-     * @param windowSize maximum size of the window compressor buffer.
-     * @param noContext true to disable context takeover.
+     *
+     * @param compressionLevel       compression level of the compressor.
+     * @param windowSize             maximum size of the window compressor buffer.
+     * @param noContext              true to disable context takeover.
      * @param extensionEncoderFilter extension encoder filter.
      */
     DeflateEncoder(int compressionLevel, int windowSize, boolean noContext,
@@ -123,7 +124,7 @@ abstract class DeflateEncoder extends WebSocketExtensionEncoder {
         encoder.writeOutbound(msg.content().retain());
 
         CompositeByteBuf fullCompressedContent = ctx.alloc().compositeBuffer();
-        for (;;) {
+        for (; ; ) {
             ByteBuf partCompressedContent = encoder.readOutbound();
             if (partCompressedContent == null) {
                 break;

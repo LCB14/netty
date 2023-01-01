@@ -41,7 +41,7 @@ public class WebSocketUtf8FrameValidatorTest {
     @Test
     void testNotCloseOnProtocolViolation() {
         final EmbeddedChannel channel = new EmbeddedChannel(new Utf8FrameValidator(false));
-        final TextWebSocketFrame frame = new TextWebSocketFrame(Unpooled.copiedBuffer(new byte[] { -50 }));
+        final TextWebSocketFrame frame = new TextWebSocketFrame(Unpooled.copiedBuffer(new byte[]{-50}));
         assertThrows(CorruptedWebSocketFrameException.class, new Executable() {
             @Override
             public void execute() throws Throwable {

@@ -36,8 +36,8 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void defaultLookupShouldReturnResultsIfOnlySingleFileSpecified(@TempDir Path tempDir) throws Exception {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-                           "nameserver 127.0.0.2\n" +
-                           "nameserver 127.0.0.3\n");
+                "nameserver 127.0.0.2\n" +
+                "nameserver 127.0.0.3\n");
         UnixResolverDnsServerAddressStreamProvider p =
                 new UnixResolverDnsServerAddressStreamProvider(f, null);
 
@@ -48,14 +48,14 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
 
     @Test
     public void nameServerAddressStreamShouldBeRotationalWhenRotationOptionsIsPresent(
-        @TempDir Path tempDir) throws Exception {
+            @TempDir Path tempDir) throws Exception {
         File f = buildFile(tempDir, "options rotate\n" +
-            "domain linecorp.local\n" +
-            "nameserver 127.0.0.2\n" +
-            "nameserver 127.0.0.3\n" +
-            "nameserver 127.0.0.4\n");
+                "domain linecorp.local\n" +
+                "nameserver 127.0.0.2\n" +
+                "nameserver 127.0.0.3\n" +
+                "nameserver 127.0.0.4\n");
         UnixResolverDnsServerAddressStreamProvider p =
-            new UnixResolverDnsServerAddressStreamProvider(f, null);
+                new UnixResolverDnsServerAddressStreamProvider(f, null);
 
         DnsServerAddressStream stream = p.nameServerAddressStream("");
         assertHostNameEquals("127.0.0.2", stream.next());
@@ -80,13 +80,13 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
 
     @Test
     public void nameServerAddressStreamShouldAlwaysStartFromTheTopWhenRotationOptionsIsAbsent(
-        @TempDir Path tempDir) throws Exception {
+            @TempDir Path tempDir) throws Exception {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-            "nameserver 127.0.0.2\n" +
-            "nameserver 127.0.0.3\n" +
-            "nameserver 127.0.0.4\n");
+                "nameserver 127.0.0.2\n" +
+                "nameserver 127.0.0.3\n" +
+                "nameserver 127.0.0.4\n");
         UnixResolverDnsServerAddressStreamProvider p =
-            new UnixResolverDnsServerAddressStreamProvider(f, null);
+                new UnixResolverDnsServerAddressStreamProvider(f, null);
 
         DnsServerAddressStream stream = p.nameServerAddressStream("");
         assertHostNameEquals("127.0.0.2", stream.next());
@@ -107,11 +107,11 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void defaultReturnedWhenNoBetterMatch(@TempDir Path tempDir) throws Exception {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-                           "nameserver 127.0.0.2\n" +
-                           "nameserver 127.0.0.3\n");
+                "nameserver 127.0.0.2\n" +
+                "nameserver 127.0.0.3\n");
         File f2 = buildFile(tempDir, "domain squarecorp.local\n" +
-                            "nameserver 127.0.0.4\n" +
-                            "nameserver 127.0.0.5\n");
+                "nameserver 127.0.0.4\n" +
+                "nameserver 127.0.0.5\n");
         UnixResolverDnsServerAddressStreamProvider p =
                 new UnixResolverDnsServerAddressStreamProvider(f, f2);
 
@@ -123,11 +123,11 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void moreRefinedSelectionReturnedWhenMatch(@TempDir Path tempDir) throws Exception {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-                           "nameserver 127.0.0.2\n" +
-                           "nameserver 127.0.0.3\n");
+                "nameserver 127.0.0.2\n" +
+                "nameserver 127.0.0.3\n");
         File f2 = buildFile(tempDir, "domain dc1.linecorp.local\n" +
-                            "nameserver 127.0.0.4\n" +
-                            "nameserver 127.0.0.5\n");
+                "nameserver 127.0.0.4\n" +
+                "nameserver 127.0.0.5\n");
         UnixResolverDnsServerAddressStreamProvider p =
                 new UnixResolverDnsServerAddressStreamProvider(f, f2);
 
@@ -139,68 +139,68 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void ndotsOptionIsParsedIfPresent(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n" +
-            "options ndots:0\n");
+                "nameserver 127.0.0.11\n" +
+                "options ndots:0\n");
         assertEquals(0, parseEtcResolverOptions(f).ndots());
 
         f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n" +
-            "options ndots:123 foo:goo\n");
+                "nameserver 127.0.0.11\n" +
+                "options ndots:123 foo:goo\n");
         assertEquals(123, parseEtcResolverOptions(f).ndots());
     }
 
     @Test
     public void defaultValueReturnedIfNdotsOptionsNotPresent(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n");
+                "nameserver 127.0.0.11\n");
         assertEquals(1, parseEtcResolverOptions(f).ndots());
     }
 
     @Test
     public void timeoutOptionIsParsedIfPresent(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n" +
-            "options timeout:0\n");
+                "nameserver 127.0.0.11\n" +
+                "options timeout:0\n");
         assertEquals(0, parseEtcResolverOptions(f).timeout());
 
         f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n" +
-            "options foo:bar timeout:124\n");
+                "nameserver 127.0.0.11\n" +
+                "options foo:bar timeout:124\n");
         assertEquals(124, parseEtcResolverOptions(f).timeout());
     }
 
     @Test
     public void defaultValueReturnedIfTimeoutOptionsIsNotPresent(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n");
+                "nameserver 127.0.0.11\n");
         assertEquals(5, parseEtcResolverOptions(f).timeout());
     }
 
     @Test
     public void attemptsOptionIsParsedIfPresent(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n" +
-            "options attempts:0\n");
+                "nameserver 127.0.0.11\n" +
+                "options attempts:0\n");
         assertEquals(0, parseEtcResolverOptions(f).attempts());
 
         f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n" +
-            "options foo:bar attempts:12\n");
+                "nameserver 127.0.0.11\n" +
+                "options foo:bar attempts:12\n");
         assertEquals(12, parseEtcResolverOptions(f).attempts());
     }
 
     @Test
     public void defaultValueReturnedIfAttemptsOptionsIsNotPresent(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search localdomain\n" +
-            "nameserver 127.0.0.11\n");
+                "nameserver 127.0.0.11\n");
         assertEquals(16, parseEtcResolverOptions(f).attempts());
     }
 
     @Test
     public void emptyEtcResolverDirectoryDoesNotThrow(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-                           "nameserver 127.0.0.2\n" +
-                           "nameserver 127.0.0.3\n");
+                "nameserver 127.0.0.2\n" +
+                "nameserver 127.0.0.3\n");
         UnixResolverDnsServerAddressStreamProvider p =
                 new UnixResolverDnsServerAddressStreamProvider(f, tempDir.resolve("netty-empty").toFile().listFiles());
 
@@ -211,7 +211,7 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void searchDomainsWithOnlyDomain(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-                           "nameserver 127.0.0.2\n");
+                "nameserver 127.0.0.2\n");
         List<String> domains = UnixResolverDnsServerAddressStreamProvider.parseEtcResolverSearchDomains(f);
         assertEquals(Collections.singletonList("linecorp.local"), domains);
     }
@@ -219,7 +219,7 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void searchDomainsWithOnlySearch(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search linecorp.local\n" +
-                           "nameserver 127.0.0.2\n");
+                "nameserver 127.0.0.2\n");
         List<String> domains = UnixResolverDnsServerAddressStreamProvider.parseEtcResolverSearchDomains(f);
         assertEquals(Collections.singletonList("linecorp.local"), domains);
     }
@@ -227,8 +227,8 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void searchDomainsWithMultipleSearch(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search linecorp.local\n" +
-                           "search squarecorp.local\n" +
-                           "nameserver 127.0.0.2\n");
+                "search squarecorp.local\n" +
+                "nameserver 127.0.0.2\n");
         List<String> domains = UnixResolverDnsServerAddressStreamProvider.parseEtcResolverSearchDomains(f);
         assertEquals(Arrays.asList("linecorp.local", "squarecorp.local"), domains);
     }
@@ -236,7 +236,7 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void searchDomainsWithMultipleSearchSeperatedByWhitespace(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "search linecorp.local squarecorp.local\n" +
-                           "nameserver 127.0.0.2\n");
+                "nameserver 127.0.0.2\n");
         List<String> domains = UnixResolverDnsServerAddressStreamProvider.parseEtcResolverSearchDomains(f);
         assertEquals(Arrays.asList("linecorp.local", "squarecorp.local"), domains);
     }
@@ -252,8 +252,8 @@ public class UnixResolverDnsServerAddressStreamProviderTest {
     @Test
     public void searchDomainsPrecedence(@TempDir Path tempDir) throws IOException {
         File f = buildFile(tempDir, "domain linecorp.local\n" +
-                           "search squarecorp.local\n" +
-                           "nameserver 127.0.0.2\n");
+                "search squarecorp.local\n" +
+                "nameserver 127.0.0.2\n");
         List<String> domains = UnixResolverDnsServerAddressStreamProvider.parseEtcResolverSearchDomains(f);
         assertEquals(Collections.singletonList("squarecorp.local"), domains);
     }

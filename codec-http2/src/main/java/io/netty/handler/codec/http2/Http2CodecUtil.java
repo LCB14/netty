@@ -120,9 +120,9 @@ public final class Http2CodecUtil {
 
     /**
      * Calculate the threshold in bytes which should trigger a {@code GO_AWAY} if a set of headers exceeds this amount.
-     * @param maxHeaderListSize
-     *      <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a> for the local
-     *      endpoint.
+     *
+     * @param maxHeaderListSize <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a> for the local
+     *                          endpoint.
      * @return the threshold in bytes which should trigger a {@code GO_AWAY} if a set of headers exceeds this amount.
      */
     public static long calculateMaxHeaderListSizeGoAway(long maxHeaderListSize) {
@@ -137,8 +137,8 @@ public final class Http2CodecUtil {
     /**
      * Returns {@code true} if the stream is an outbound stream.
      *
-     * @param server    {@code true} if the endpoint is a server, {@code false} otherwise.
-     * @param streamId  the stream identifier
+     * @param server   {@code true} if the endpoint is a server, {@code false} otherwise.
+     * @param streamId the stream identifier
      */
     public static boolean isOutboundStream(boolean server, int streamId) {
         boolean even = (streamId & 1) == 0;
@@ -208,7 +208,7 @@ public final class Http2CodecUtil {
      * Writes an HTTP/2 frame header to the output buffer.
      */
     public static void writeFrameHeader(ByteBuf out, int payloadLength, byte type,
-            Http2Flags flags, int streamId) {
+                                        Http2Flags flags, int streamId) {
         out.ensureWritable(FRAME_HEADER_LENGTH + payloadLength);
         writeFrameHeaderInternal(out, payloadLength, type, flags, streamId);
     }
@@ -223,21 +223,23 @@ public final class Http2CodecUtil {
     /**
      * Results in a RST_STREAM being sent for {@code streamId} due to violating
      * <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a>.
-     * @param streamId The stream ID that was being processed when the exceptional condition occurred.
+     *
+     * @param streamId          The stream ID that was being processed when the exceptional condition occurred.
      * @param maxHeaderListSize The max allowed size for a list of headers in bytes which was exceeded.
-     * @param onDecode {@code true} if the exception was encountered during decoder. {@code false} for encode.
+     * @param onDecode          {@code true} if the exception was encountered during decoder. {@code false} for encode.
      * @throws Http2Exception a stream error.
      */
     public static void headerListSizeExceeded(int streamId, long maxHeaderListSize,
                                               boolean onDecode) throws Http2Exception {
         throw headerListSizeError(streamId, PROTOCOL_ERROR, onDecode, "Header size exceeded max " +
-                                  "allowed size (%d)", maxHeaderListSize);
+                "allowed size (%d)", maxHeaderListSize);
     }
 
     /**
      * Results in a GO_AWAY being sent due to violating
      * <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a> in an unrecoverable
      * manner.
+     *
      * @param maxHeaderListSize The max allowed size for a list of headers in bytes which was exceeded.
      * @throws Http2Exception a connection error.
      */
@@ -247,7 +249,7 @@ public final class Http2CodecUtil {
     }
 
     static void writeFrameHeaderInternal(ByteBuf out, int payloadLength, byte type,
-            Http2Flags flags, int streamId) {
+                                         Http2Flags flags, int streamId) {
         out.writeMedium(payloadLength);
         out.writeByte(type);
         out.writeByte(flags.value());
@@ -273,6 +275,7 @@ public final class Http2CodecUtil {
 
         /**
          * Allocate a new promise which will be used to aggregate the overall success of this promise aggregator.
+         *
          * @return A new promise which will be aggregated.
          * {@code null} if {@link #doneAllocatingPromises()} was previously called.
          */
@@ -285,6 +288,7 @@ public final class Http2CodecUtil {
         /**
          * Signify that no more {@link #newPromise()} allocations will be made.
          * The aggregation can not be successful until this method is called.
+         *
          * @return The promise that is the aggregation of all promises allocated with {@link #newPromise()}.
          */
         public ChannelPromise doneAllocatingPromises() {
@@ -397,8 +401,10 @@ public final class Http2CodecUtil {
     public static void verifyPadding(int padding) {
         if (padding < 0 || padding > MAX_PADDING) {
             throw new IllegalArgumentException(String.format("Invalid padding '%d'. Padding must be between 0 and " +
-                                                             "%d (inclusive).", padding, MAX_PADDING));
+                    "%d (inclusive).", padding, MAX_PADDING));
         }
     }
-    private Http2CodecUtil() { }
+
+    private Http2CodecUtil() {
+    }
 }

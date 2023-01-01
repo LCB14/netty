@@ -122,7 +122,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
      * Splice from this {@link AbstractEpollStreamChannel} to another {@link AbstractEpollStreamChannel}.
      * The {@code len} is the number of bytes to splice. If using {@link Integer#MAX_VALUE} it will
      * splice until the {@link ChannelFuture} was canceled or it was failed.
-     *
+     * <p>
      * Please note:
      * <ul>
      *   <li>both channels need to be registered to the same {@link EventLoop}, otherwise an
@@ -130,7 +130,6 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
      *   <li>{@link EpollChannelConfig#getEpollMode()} must be {@link EpollMode#LEVEL_TRIGGERED} for this and the
      *   target {@link AbstractEpollStreamChannel}</li>
      * </ul>
-     *
      */
     public final ChannelFuture spliceTo(final AbstractEpollStreamChannel ch, final int len) {
         return spliceTo(ch, len, newPromise());
@@ -140,7 +139,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
      * Splice from this {@link AbstractEpollStreamChannel} to another {@link AbstractEpollStreamChannel}.
      * The {@code len} is the number of bytes to splice. If using {@link Integer#MAX_VALUE} it will
      * splice until the {@link ChannelFuture} was canceled or it was failed.
-     *
+     * <p>
      * Please note:
      * <ul>
      *   <li>both channels need to be registered to the same {@link EventLoop}, otherwise an
@@ -148,7 +147,6 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
      *   <li>{@link EpollChannelConfig#getEpollMode()} must be {@link EpollMode#LEVEL_TRIGGERED} for this and the
      *   target {@link AbstractEpollStreamChannel}</li>
      * </ul>
-     *
      */
     public final ChannelFuture spliceTo(final AbstractEpollStreamChannel ch, final int len,
                                         final ChannelPromise promise) {
@@ -175,7 +173,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
      * The {@code offset} is the offset for the {@link FileDescriptor} and {@code len} is the
      * number of bytes to splice. If using {@link Integer#MAX_VALUE} it will splice until the
      * {@link ChannelFuture} was canceled or it was failed.
-     *
+     * <p>
      * Please note:
      * <ul>
      *   <li>{@link EpollChannelConfig#getEpollMode()} must be {@link EpollMode#LEVEL_TRIGGERED} for this
@@ -193,7 +191,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
      * The {@code offset} is the offset for the {@link FileDescriptor} and {@code len} is the
      * number of bytes to splice. If using {@link Integer#MAX_VALUE} it will splice until the
      * {@link ChannelFuture} was canceled or it was failed.
-     *
+     * <p>
      * Please note:
      * <ul>
      *   <li>{@link EpollChannelConfig#getEpollMode()} must be {@link EpollMode#LEVEL_TRIGGERED} for this
@@ -237,7 +235,8 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Write bytes form the given {@link ByteBuf} to the underlying {@link java.nio.channels.Channel}.
-     * @param in the collection which contains objects to write.
+     *
+     * @param in  the collection which contains objects to write.
      * @param buf the {@link ByteBuf} from which the bytes should be written
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -280,7 +279,8 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Write multiple bytes via {@link IovArray}.
-     * @param in the collection which contains objects to write.
+     *
+     * @param in    the collection which contains objects to write.
      * @param array The array which contains the content to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -310,10 +310,11 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Write multiple bytes via {@link ByteBuffer} array.
-     * @param in the collection which contains objects to write.
-     * @param nioBuffers The buffers to write.
-     * @param nioBufferCnt The number of buffers to write.
-     * @param expectedWrittenBytes The number of bytes we expect to write.
+     *
+     * @param in                        the collection which contains objects to write.
+     * @param nioBuffers                The buffers to write.
+     * @param nioBufferCnt              The number of buffers to write.
+     * @param expectedWrittenBytes      The number of bytes we expect to write.
      * @param maxBytesPerGatheringWrite The maximum number of bytes we should attempt to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -345,7 +346,8 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Write a {@link DefaultFileRegion}
-     * @param in the collection which contains objects to write.
+     *
+     * @param in     the collection which contains objects to write.
      * @param region the {@link DefaultFileRegion} from which the bytes should be written
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -380,7 +382,8 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Write a {@link FileRegion}
-     * @param in the collection which contains objects to write.
+     *
+     * @param in     the collection which contains objects to write.
      * @param region the {@link FileRegion} from which the bytes should be written
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -452,6 +455,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Attempt to write a single object.
+     *
      * @param in the collection which contains objects to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -487,6 +491,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
 
     /**
      * Attempt to write multiple {@link ByteBuf} objects.
+     *
      * @param in the collection which contains objects to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -518,7 +523,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
     protected Object filterOutboundMessage(Object msg) {
         if (msg instanceof ByteBuf) {
             ByteBuf buf = (ByteBuf) msg;
-            return UnixChannelUtil.isBufferCopyNeededForWrite(buf)? newDirectBuffer(buf): buf;
+            return UnixChannelUtil.isBufferCopyNeededForWrite(buf) ? newDirectBuffer(buf) : buf;
         }
 
         if (msg instanceof FileRegion || msg instanceof SpliceOutTask) {
@@ -648,8 +653,8 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
     }
 
     private static void shutdownDone(ChannelFuture shutdownOutputFuture,
-                              ChannelFuture shutdownInputFuture,
-                              ChannelPromise promise) {
+                                     ChannelFuture shutdownInputFuture,
+                                     ChannelPromise promise) {
         Throwable shutdownOutputCause = shutdownOutputFuture.cause();
         Throwable shutdownInputCause = shutdownInputFuture.cause();
         if (shutdownOutputCause != null) {
@@ -684,7 +689,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
         }
         ClosedChannelException exception = null;
 
-        for (;;) {
+        for (; ; ) {
             SpliceInTask task = sQueue.poll();
             if (task == null) {
                 break;
@@ -714,7 +719,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
         }
 
         private void handleReadException(ChannelPipeline pipeline, ByteBuf byteBuf, Throwable cause, boolean close,
-                EpollRecvByteAllocatorHandle allocHandle) {
+                                         EpollRecvByteAllocatorHandle allocHandle) {
             if (byteBuf != null) {
                 if (byteBuf.isReadable()) {
                     readPending = false;
@@ -864,7 +869,7 @@ public abstract class AbstractEpollStreamChannel extends AbstractEpollChannel im
             // calculate the maximum amount of data we are allowed to splice
             int length = Math.min(handle.guess(), len);
             int splicedIn = 0;
-            for (;;) {
+            for (; ; ) {
                 // Splicing until there is nothing left to splice.
                 int localSplicedIn = Native.splice(socket.intValue(), -1, pipeOut.intValue(), -1, length);
                 handle.lastBytesRead(localSplicedIn);

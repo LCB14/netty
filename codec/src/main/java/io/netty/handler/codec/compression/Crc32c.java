@@ -19,7 +19,7 @@ package io.netty.handler.codec.compression;
  * Implements CRC32-C as defined in:
  * "Optimization of Cyclic Redundancy-CHeck Codes with 24 and 32 Parity Bits",
  * IEEE Transactions on Communications 41(6): 883-892 (1993).
- *
+ * <p>
  * The implementation of this class has been sourced from the Appendix of RFC 3309,
  * but with masking due to Java not being able to support unsigned types.
  */

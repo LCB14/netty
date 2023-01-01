@@ -40,6 +40,7 @@ class OpenSslSessionCache implements SSLSessionCache {
     private static final OpenSslSession[] EMPTY_SESSIONS = new OpenSslSession[0];
 
     private static final int DEFAULT_CACHE_SIZE;
+
     static {
         // Respect the same system property as the JDK implementation to make it easy to switch between implementations.
         int cacheSize = SystemPropertyUtil.getInt("javax.net.ssl.sessionCacheSize", 20480);
@@ -49,6 +50,7 @@ class OpenSslSessionCache implements SSLSessionCache {
             DEFAULT_CACHE_SIZE = 20480;
         }
     }
+
     private final OpenSslEngineMap engineMap;
 
     private final Map<OpenSslSessionId, NativeSslSession> sessions =
@@ -106,7 +108,8 @@ class OpenSslSessionCache implements SSLSessionCache {
      *
      * @param session the session to remove.
      */
-    protected void sessionRemoved(NativeSslSession session) { }
+    protected void sessionRemoved(NativeSslSession session) {
+    }
 
     final void setSessionCacheSize(int size) {
         long oldSize = maximumCacheSize.getAndSet(size);
@@ -256,7 +259,7 @@ class OpenSslSessionCache implements SSLSessionCache {
             sessionsArray = sessions.values().toArray(EMPTY_SESSIONS);
         }
         List<OpenSslSessionId> ids = new ArrayList<OpenSslSessionId>(sessionsArray.length);
-        for (OpenSslSession session: sessionsArray) {
+        for (OpenSslSession session : sessionsArray) {
             if (session.isValid()) {
                 ids.add(session.sessionId());
             }

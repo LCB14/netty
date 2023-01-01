@@ -51,5 +51,6 @@ final class SctpTestUtil {
         return SCTP_SUPPORTED;
     }
 
-    private SctpTestUtil() { }
+    private SctpTestUtil() {
+    }
 }

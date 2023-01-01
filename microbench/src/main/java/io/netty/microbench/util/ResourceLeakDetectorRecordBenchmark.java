@@ -33,7 +33,7 @@ public class ResourceLeakDetectorRecordBenchmark extends AbstractMicrobenchmark 
         }
     };
 
-    @Param({ "8", "16" })
+    @Param({"8", "16"})
     private int recordTimes;
     private ResourceLeakDetector.Level level;
 
@@ -69,7 +69,7 @@ public class ResourceLeakDetectorRecordBenchmark extends AbstractMicrobenchmark 
     @Benchmark
     public boolean record() {
         ResourceLeakTracker<Object> tracker = detector.track(TRACKED);
-        for (int i = 0 ; i < recordTimes; i++) {
+        for (int i = 0; i < recordTimes; i++) {
             tracker.record();
         }
         return tracker.close(TRACKED);
@@ -78,7 +78,7 @@ public class ResourceLeakDetectorRecordBenchmark extends AbstractMicrobenchmark 
     @Benchmark
     public boolean recordWithHint() {
         ResourceLeakTracker<Object> tracker = detector.track(TRACKED);
-        for (int i = 0 ; i < recordTimes; i++) {
+        for (int i = 0; i < recordTimes; i++) {
             tracker.record(HINT);
         }
         return tracker.close(TRACKED);

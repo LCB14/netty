@@ -56,8 +56,8 @@ public class SpdyFrameEncoder {
         return frame;
     }
 
-    public ByteBuf encodeSynStreamFrame(ByteBufAllocator allocator,  int streamId, int associatedToStreamId,
-            byte priority, boolean last, boolean unidirectional, ByteBuf headerBlock) {
+    public ByteBuf encodeSynStreamFrame(ByteBufAllocator allocator, int streamId, int associatedToStreamId,
+                                        byte priority, boolean last, boolean unidirectional, ByteBuf headerBlock) {
         int headerBlockLength = headerBlock.readableBytes();
         byte flags = last ? SPDY_FLAG_FIN : 0;
         if (unidirectional) {

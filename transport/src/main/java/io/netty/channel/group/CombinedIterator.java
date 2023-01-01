@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ *
  */
 final class CombinedIterator<E> implements Iterator<E> {
 
@@ -36,7 +37,7 @@ final class CombinedIterator<E> implements Iterator<E> {
 
     @Override
     public boolean hasNext() {
-        for (;;) {
+        for (; ; ) {
             if (currentIterator.hasNext()) {
                 return true;
             }
@@ -51,7 +52,7 @@ final class CombinedIterator<E> implements Iterator<E> {
 
     @Override
     public E next() {
-        for (;;) {
+        for (; ; ) {
             try {
                 return currentIterator.next();
             } catch (NoSuchElementException e) {

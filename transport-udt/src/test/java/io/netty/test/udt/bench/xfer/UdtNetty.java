@@ -46,10 +46,14 @@ public final class UdtNetty {
 
     static final InternalLogger log = InternalLoggerFactory.getInstance(UdtNetty.class);
 
-    /** benchmark duration */
+    /**
+     * benchmark duration
+     */
     static final int time = 10 * 60 * 1000;
 
-    /** transfer chunk size */
+    /**
+     * transfer chunk size
+     */
     static final int size = 64 * 1024;
 
     static final Counter benchTime = Metrics.newCounter(UdtNetty.class,
@@ -99,13 +103,13 @@ public final class UdtNetty {
 
         final Bootstrap peerBoot1 = new Bootstrap();
         peerBoot1.group(group1)
-                 .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
-                 .localAddress(addr1).remoteAddress(addr2).handler(handler1);
+                .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
+                .localAddress(addr1).remoteAddress(addr2).handler(handler1);
 
         final Bootstrap peerBoot2 = new Bootstrap();
         peerBoot2.group(group2)
-                 .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
-                 .localAddress(addr2).remoteAddress(addr1).handler(handler2);
+                .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
+                .localAddress(addr2).remoteAddress(addr1).handler(handler2);
 
         final ChannelFuture peerFuture1 = peerBoot1.connect();
         final ChannelFuture peerFuture2 = peerBoot2.connect();

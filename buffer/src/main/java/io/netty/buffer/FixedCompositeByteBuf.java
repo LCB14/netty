@@ -34,7 +34,7 @@ import java.util.Collections;
  * This is useful to write an array of {@link ByteBuf}s.
  */
 final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
-    private static final ByteBuf[] EMPTY = { Unpooled.EMPTY_BUFFER };
+    private static final ByteBuf[] EMPTY = {Unpooled.EMPTY_BUFFER};
     private final int nioBufferCount;
     private final int capacity;
     private final ByteBufAllocator allocator;
@@ -228,7 +228,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
 
     private Component findComponent(int index) {
         int readable = 0;
-        for (int i = 0 ; i < buffers.length; i++) {
+        for (int i = 0; i < buffers.length; i++) {
             Component comp = null;
             ByteBuf b = buffers[i];
             if (b instanceof Component) {
@@ -375,7 +375,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
         int i = c.index;
         int adjustment = c.offset;
         ByteBuf s = c.buf;
-        for (;;) {
+        for (; ; ) {
             int localLength = Math.min(length, s.readableBytes() - (index - adjustment));
             s.getBytes(index - adjustment, dst, dstIndex, localLength);
             index += localLength;
@@ -405,7 +405,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
             int i = c.index;
             int adjustment = c.offset;
             ByteBuf s = c.buf;
-            for (;;) {
+            for (; ; ) {
                 int localLength = Math.min(length, s.readableBytes() - (index - adjustment));
                 dst.limit(dst.position() + localLength);
                 s.getBytes(index - adjustment, dst);
@@ -434,7 +434,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
         int i = c.index;
         int adjustment = c.offset;
         ByteBuf s = c.buf;
-        for (;;) {
+        for (; ; ) {
             int localLength = Math.min(length, s.readableBytes() - (index - adjustment));
             s.getBytes(index - adjustment, dst, dstIndex, localLength);
             index += localLength;
@@ -495,7 +495,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
         int i = c.index;
         int adjustment = c.offset;
         ByteBuf s = c.buf;
-        for (;;) {
+        for (; ; ) {
             int localLength = Math.min(length, s.readableBytes() - (index - adjustment));
             s.getBytes(index - adjustment, out, localLength);
             index += localLength;
@@ -572,7 +572,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
             int i = c.index;
             int adjustment = c.offset;
             ByteBuf s = c.buf;
-            for (;;) {
+            for (; ; ) {
                 int localLength = Math.min(length, s.readableBytes() - (index - adjustment));
                 switch (s.nioBufferCount()) {
                     case 0:
@@ -662,7 +662,7 @@ final class FixedCompositeByteBuf extends AbstractReferenceCountedByteBuf {
     @Override
     protected void deallocate() {
         for (int i = 0; i < buffers.length; i++) {
-             buffer(i).release();
+            buffer(i).release();
         }
     }
 

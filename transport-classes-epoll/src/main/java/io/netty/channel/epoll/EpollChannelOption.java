@@ -17,6 +17,7 @@ package io.netty.channel.epoll;
 
 import io.netty.channel.ChannelOption;
 import io.netty.channel.unix.UnixChannelOption;
+
 import java.net.InetAddress;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public final class EpollChannelOption<T> extends UnixChannelOption<T> {
     public static final ChannelOption<Integer> MAX_DATAGRAM_PAYLOAD_SIZE = valueOf("MAX_DATAGRAM_PAYLOAD_SIZE");
     public static final ChannelOption<Boolean> UDP_GRO = valueOf("UDP_GRO");
 
-    @SuppressWarnings({ "unused", "deprecation" })
+    @SuppressWarnings({"unused", "deprecation"})
     private EpollChannelOption() {
     }
 }

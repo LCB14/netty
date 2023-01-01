@@ -53,8 +53,8 @@ final class SslUtils {
     // See https://tools.ietf.org/html/rfc8446#appendix-B.4
     static final Set<String> TLSV13_CIPHERS = Collections.unmodifiableSet(new LinkedHashSet<String>(
             asList("TLS_AES_256_GCM_SHA384", "TLS_CHACHA20_POLY1305_SHA256",
-                          "TLS_AES_128_GCM_SHA256", "TLS_AES_128_CCM_8_SHA256",
-                          "TLS_AES_128_CCM_SHA256")));
+                    "TLS_AES_128_GCM_SHA256", "TLS_AES_128_CCM_8_SHA256",
+                    "TLS_AES_128_CCM_SHA256")));
 
     /**
      * GMSSL Protocol Version
@@ -105,7 +105,7 @@ final class SslUtils {
 
     static final String[] DEFAULT_CIPHER_SUITES;
     static final String[] DEFAULT_TLSV13_CIPHER_SUITES;
-    static final String[] TLSV13_CIPHER_SUITES = { "TLS_AES_128_GCM_SHA256", "TLS_AES_256_GCM_SHA384" };
+    static final String[] TLSV13_CIPHER_SUITES = {"TLS_AES_128_GCM_SHA256", "TLS_AES_256_GCM_SHA384"};
 
     private static final boolean TLSV1_3_JDK_SUPPORTED;
     private static final boolean TLSV1_3_JDK_DEFAULT_ENABLED;
@@ -210,7 +210,7 @@ final class SslUtils {
     }
 
     static boolean arrayContains(String[] array, String value) {
-        for (String v: array) {
+        for (String v : array) {
             if (value.equals(v)) {
                 return true;
             }
@@ -222,7 +222,7 @@ final class SslUtils {
      * Add elements from {@code names} into {@code enabled} if they are in {@code supported}.
      */
     static void addIfSupported(Set<String> supported, List<String> enabled, String... names) {
-        for (String n: names) {
+        for (String n : names) {
             if (supported.contains(n)) {
                 enabled.add(n);
             }
@@ -259,18 +259,16 @@ final class SslUtils {
      * Return how much bytes can be read out of the encrypted data. Be aware that this method will not increase
      * the readerIndex of the given {@link ByteBuf}.
      *
-     * @param   buffer
-     *                  The {@link ByteBuf} to read from. Be aware that it must have at least
-     *                  {@link #SSL_RECORD_HEADER_LENGTH} bytes to read,
-     *                  otherwise it will throw an {@link IllegalArgumentException}.
+     * @param buffer The {@link ByteBuf} to read from. Be aware that it must have at least
+     *               {@link #SSL_RECORD_HEADER_LENGTH} bytes to read,
+     *               otherwise it will throw an {@link IllegalArgumentException}.
      * @return length
-     *                  The length of the encrypted packet that is included in the buffer or
-     *                  {@link #SslUtils#NOT_ENOUGH_DATA} if not enough data is present in the
-     *                  {@link ByteBuf}. This will return {@link SslUtils#NOT_ENCRYPTED} if
-     *                  the given {@link ByteBuf} is not encrypted at all.
-     * @throws IllegalArgumentException
-     *                  Is thrown if the given {@link ByteBuf} has not at least {@link #SSL_RECORD_HEADER_LENGTH}
-     *                  bytes to read.
+     * The length of the encrypted packet that is included in the buffer or
+     * {@link #SslUtils#NOT_ENOUGH_DATA} if not enough data is present in the
+     * {@link ByteBuf}. This will return {@link SslUtils#NOT_ENCRYPTED} if
+     * the given {@link ByteBuf} is not encrypted at all.
+     * @throws IllegalArgumentException Is thrown if the given {@link ByteBuf} has not at least {@link #SSL_RECORD_HEADER_LENGTH}
+     *                                  bytes to read.
      */
     static int getEncryptedPacketLength(ByteBuf buffer, int offset) {
         int packetLength = 0;
@@ -480,12 +478,12 @@ final class SslUtils {
     static boolean isValidHostNameForSNI(String hostname) {
         // See  https://datatracker.ietf.org/doc/html/rfc6066#section-3
         return hostname != null &&
-               // SNI HostName has to be a FQDN according to TLS SNI Extension spec (see [1]),
-               // which means that is has to have at least a host name and a domain part.
-               hostname.indexOf('.') > 0 &&
-               !hostname.endsWith(".") && !hostname.startsWith("/") &&
-               !NetUtil.isValidIpV4Address(hostname) &&
-               !NetUtil.isValidIpV6Address(hostname);
+                // SNI HostName has to be a FQDN according to TLS SNI Extension spec (see [1]),
+                // which means that is has to have at least a host name and a domain part.
+                hostname.indexOf('.') > 0 &&
+                !hostname.endsWith(".") && !hostname.startsWith("/") &&
+                !NetUtil.isValidIpV4Address(hostname) &&
+                !NetUtil.isValidIpV6Address(hostname);
     }
 
     /**

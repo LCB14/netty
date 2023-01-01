@@ -66,8 +66,8 @@ public class DefaultAuthoritativeDnsServerCache implements AuthoritativeDnsServe
     /**
      * Create a cache.
      *
-     * @param minTtl the minimum TTL
-     * @param maxTtl the maximum TTL
+     * @param minTtl     the minimum TTL
+     * @param maxTtl     the maximum TTL
      * @param comparator the {@link Comparator} to order the {@link InetSocketAddress} for a hostname or {@code null}
      *                   if insertion order should be used.
      */

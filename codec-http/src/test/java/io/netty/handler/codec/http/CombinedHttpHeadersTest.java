@@ -278,13 +278,13 @@ public class CombinedHttpHeadersTest {
     }
 
     private static void addValues(final CombinedHttpHeaders headers, HeaderValue... headerValues) {
-        for (HeaderValue v: headerValues) {
+        for (HeaderValue v : headerValues) {
             headers.add(HEADER_NAME, v.toString());
         }
     }
 
     private static void addObjectValues(final CombinedHttpHeaders headers, HeaderValue... headerValues) {
-        for (HeaderValue v: headerValues) {
+        for (HeaderValue v : headerValues) {
             headers.add(HEADER_NAME, v.toString());
         }
     }

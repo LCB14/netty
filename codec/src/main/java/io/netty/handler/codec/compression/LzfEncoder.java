@@ -85,13 +85,13 @@ public class LzfEncoder extends MessageToByteEncoder<ByteBuf> {
     /**
      * Creates a new LZF encoder with specified encoding instance and compressThreshold.
      *
-     * @param safeInstance      If {@code true} encoder will use {@link ChunkEncoder} that only uses standard
-     *                          JDK access methods, and should work on all Java platforms and JVMs.
-     *                          Otherwise encoder will try to use highly optimized {@link ChunkEncoder}
-     *                          implementation that uses Sun JDK's {@link sun.misc.Unsafe}
-     *                          class (which may be included by other JDK's as well).
-     * @param totalLength       Expected total length of content to compress; only matters for outgoing messages
-     *                          that is smaller than maximum chunk size (64k), to optimize encoding hash tables.
+     * @param safeInstance If {@code true} encoder will use {@link ChunkEncoder} that only uses standard
+     *                     JDK access methods, and should work on all Java platforms and JVMs.
+     *                     Otherwise encoder will try to use highly optimized {@link ChunkEncoder}
+     *                     implementation that uses Sun JDK's {@link sun.misc.Unsafe}
+     *                     class (which may be included by other JDK's as well).
+     * @param totalLength  Expected total length of content to compress; only matters for outgoing messages
+     *                     that is smaller than maximum chunk size (64k), to optimize encoding hash tables.
      */
     public LzfEncoder(boolean safeInstance, int totalLength) {
         this(safeInstance, totalLength, MIN_BLOCK_TO_COMPRESS);
@@ -112,16 +112,16 @@ public class LzfEncoder extends MessageToByteEncoder<ByteBuf> {
     /**
      * Creates a new LZF encoder with specified settings.
      *
-     * @param safeInstance          If {@code true} encoder will use {@link ChunkEncoder} that only uses standard JDK
-     *                              access methods, and should work on all Java platforms and JVMs.
-     *                              Otherwise encoder will try to use highly optimized {@link ChunkEncoder}
-     *                              implementation that uses Sun JDK's {@link sun.misc.Unsafe}
-     *                              class (which may be included by other JDK's as well).
-     * @param totalLength           Expected total length of content to compress; only matters for outgoing messages
-     *                              that is smaller than maximum chunk size (64k), to optimize encoding hash tables.
-     * @param compressThreshold     Compress threshold for LZF format. When the amount of input data is less than
-     *                              compressThreshold, we will construct an uncompressed output according
-     *                              to the LZF format.
+     * @param safeInstance      If {@code true} encoder will use {@link ChunkEncoder} that only uses standard JDK
+     *                          access methods, and should work on all Java platforms and JVMs.
+     *                          Otherwise encoder will try to use highly optimized {@link ChunkEncoder}
+     *                          implementation that uses Sun JDK's {@link sun.misc.Unsafe}
+     *                          class (which may be included by other JDK's as well).
+     * @param totalLength       Expected total length of content to compress; only matters for outgoing messages
+     *                          that is smaller than maximum chunk size (64k), to optimize encoding hash tables.
+     * @param compressThreshold Compress threshold for LZF format. When the amount of input data is less than
+     *                          compressThreshold, we will construct an uncompressed output according
+     *                          to the LZF format.
      */
     public LzfEncoder(boolean safeInstance, int totalLength, int compressThreshold) {
         super(false);

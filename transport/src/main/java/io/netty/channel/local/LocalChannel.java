@@ -49,13 +49,13 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
  */
 public class LocalChannel extends AbstractChannel {
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(LocalChannel.class);
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     private static final AtomicReferenceFieldUpdater<LocalChannel, Future> FINISH_READ_FUTURE_UPDATER =
             AtomicReferenceFieldUpdater.newUpdater(LocalChannel.class, Future.class, "finishReadFuture");
     private static final ChannelMetadata METADATA = new ChannelMetadata(false);
     private static final int MAX_READER_STACK_DEPTH = 8;
 
-    private enum State { OPEN, BOUND, CONNECTED, CLOSED }
+    private enum State {OPEN, BOUND, CONNECTED, CLOSED}
 
     private final ChannelConfig config = new DefaultChannelConfig(this);
     // To further optimize this we could write our own SPSC queue.
@@ -338,13 +338,13 @@ public class LocalChannel extends AbstractChannel {
     @Override
     protected void doWrite(ChannelOutboundBuffer in) throws Exception {
         switch (state) {
-        case OPEN:
-        case BOUND:
-            throw new NotYetConnectedException();
-        case CLOSED:
-            throw new ClosedChannelException();
-        case CONNECTED:
-            break;
+            case OPEN:
+            case BOUND:
+                throw new NotYetConnectedException();
+            case CLOSED:
+                throw new ClosedChannelException();
+            case CONNECTED:
+                break;
         }
 
         final LocalChannel peer = this.peer;
@@ -352,7 +352,7 @@ public class LocalChannel extends AbstractChannel {
         writeInProgress = true;
         try {
             ClosedChannelException exception = null;
-            for (;;) {
+            for (; ; ) {
                 Object msg = in.current();
                 if (msg == null) {
                     break;
@@ -450,7 +450,7 @@ public class LocalChannel extends AbstractChannel {
 
         @Override
         public void connect(final SocketAddress remoteAddress,
-                SocketAddress localAddress, final ChannelPromise promise) {
+                            SocketAddress localAddress, final ChannelPromise promise) {
             if (!promise.setUncancellable() || !ensureOpen(promise)) {
                 return;
             }

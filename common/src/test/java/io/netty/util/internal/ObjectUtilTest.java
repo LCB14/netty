@@ -22,10 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Testcases for io.netty.util.internal.ObjectUtil.
- *
+ * <p>
  * The tests for exceptions do not use a fail mimic. The tests evaluate the
  * presence and type, to have really regression character.
- *
  */
 public class ObjectUtilTest {
 
@@ -35,14 +34,14 @@ public class ObjectUtilTest {
     private static final String NON_NULL_EMPTY_STRING = "";
     private static final String NON_NULL_WHITESPACE_STRING = "  ";
     private static final Object[] NON_NULL_EMPTY_OBJECT_ARRAY = {};
-    private static final Object[] NON_NULL_FILLED_OBJECT_ARRAY = { NON_NULL_OBJECT };
+    private static final Object[] NON_NULL_FILLED_OBJECT_ARRAY = {NON_NULL_OBJECT};
     private static final CharSequence NULL_CHARSEQUENCE = (CharSequence) NULL_OBJECT;
     private static final CharSequence NON_NULL_CHARSEQUENCE = (CharSequence) NON_NULL_OBJECT;
     private static final CharSequence NON_NULL_EMPTY_CHARSEQUENCE = (CharSequence) NON_NULL_EMPTY_STRING;
     private static final byte[] NON_NULL_EMPTY_BYTE_ARRAY = {};
-    private static final byte[] NON_NULL_FILLED_BYTE_ARRAY = { (byte) 0xa };
+    private static final byte[] NON_NULL_FILLED_BYTE_ARRAY = {(byte) 0xa};
     private static final char[] NON_NULL_EMPTY_CHAR_ARRAY = {};
-    private static final char[] NON_NULL_FILLED_CHAR_ARRAY = { 'A' };
+    private static final char[] NON_NULL_FILLED_CHAR_ARRAY = {'A'};
 
     private static final String NULL_NAME = "IS_NULL";
     private static final String NON_NULL_NAME = "NOT_NULL";

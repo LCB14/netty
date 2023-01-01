@@ -60,18 +60,18 @@ public class SocketReadPendingTest extends AbstractSocketTest {
             ReadPendingInitializer serverInitializer = new ReadPendingInitializer();
             ReadPendingInitializer clientInitializer = new ReadPendingInitializer();
             sb.option(ChannelOption.SO_BACKLOG, 1024)
-              .option(ChannelOption.AUTO_READ, true)
-              .childOption(ChannelOption.AUTO_READ, false)
-              // We intend to do 2 reads per read loop wakeup
-              .childOption(ChannelOption.RCVBUF_ALLOCATOR, new TestNumReadsRecvByteBufAllocator(2))
-              .childHandler(serverInitializer);
+                    .option(ChannelOption.AUTO_READ, true)
+                    .childOption(ChannelOption.AUTO_READ, false)
+                    // We intend to do 2 reads per read loop wakeup
+                    .childOption(ChannelOption.RCVBUF_ALLOCATOR, new TestNumReadsRecvByteBufAllocator(2))
+                    .childHandler(serverInitializer);
 
             serverChannel = sb.bind().syncUninterruptibly().channel();
 
             cb.option(ChannelOption.AUTO_READ, false)
-              // We intend to do 2 reads per read loop wakeup
-              .option(ChannelOption.RCVBUF_ALLOCATOR, new TestNumReadsRecvByteBufAllocator(2))
-              .handler(clientInitializer);
+                    // We intend to do 2 reads per read loop wakeup
+                    .option(ChannelOption.RCVBUF_ALLOCATOR, new TestNumReadsRecvByteBufAllocator(2))
+                    .handler(clientInitializer);
             clientChannel = cb.connect(serverChannel.localAddress()).syncUninterruptibly().channel();
 
             // 4 bytes means 2 read loops for TestNumReadsRecvByteBufAllocator
@@ -142,6 +142,7 @@ public class SocketReadPendingTest extends AbstractSocketTest {
      */
     private static final class TestNumReadsRecvByteBufAllocator implements RecvByteBufAllocator {
         private final int numReads;
+
         TestNumReadsRecvByteBufAllocator(int numReads) {
             this.numReads = numReads;
         }
@@ -152,6 +153,7 @@ public class SocketReadPendingTest extends AbstractSocketTest {
                 private int attemptedBytesRead;
                 private int lastBytesRead;
                 private int numMessagesRead;
+
                 @Override
                 public ByteBuf allocate(ByteBufAllocator alloc) {
                     return alloc.ioBuffer(guess(), guess());

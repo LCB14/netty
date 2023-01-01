@@ -45,8 +45,8 @@ public final class HttpSnoopClient {
 
     public static void main(String[] args) throws Exception {
         URI uri = new URI(URL);
-        String scheme = uri.getScheme() == null? "http" : uri.getScheme();
-        String host = uri.getHost() == null? "127.0.0.1" : uri.getHost();
+        String scheme = uri.getScheme() == null ? "http" : uri.getScheme();
+        String host = uri.getHost() == null ? "127.0.0.1" : uri.getHost();
         int port = uri.getPort();
         if (port == -1) {
             if ("http".equalsIgnoreCase(scheme)) {
@@ -66,7 +66,7 @@ public final class HttpSnoopClient {
         final SslContext sslCtx;
         if (ssl) {
             sslCtx = SslContextBuilder.forClient()
-                .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+                    .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
         } else {
             sslCtx = null;
         }
@@ -76,8 +76,8 @@ public final class HttpSnoopClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioSocketChannel.class)
-             .handler(new HttpSnoopClientInitializer(sslCtx));
+                    .channel(NioSocketChannel.class)
+                    .handler(new HttpSnoopClientInitializer(sslCtx));
 
             // Make the connection attempt.
             Channel ch = b.connect(host, port).sync().channel();

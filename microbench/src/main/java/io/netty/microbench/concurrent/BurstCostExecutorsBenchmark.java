@@ -174,11 +174,11 @@ public class BurstCostExecutorsBenchmark extends AbstractMicrobenchmark {
         kqueueEventLoop
     }
 
-    @Param({ "1", "10" })
+    @Param({"1", "10"})
     private int burstLength;
-    @Param({ "spinning", "epollEventLoop", "nioEventLoop", "defaultEventExecutor", "juc", "kqueueEventLoop" })
+    @Param({"spinning", "epollEventLoop", "nioEventLoop", "defaultEventExecutor", "juc", "kqueueEventLoop"})
     private String executorType;
-    @Param({ "0", "10" })
+    @Param({"0", "10"})
     private int work;
 
     private ExecutorService executor;
@@ -188,42 +188,42 @@ public class BurstCostExecutorsBenchmark extends AbstractMicrobenchmark {
     public void setup() {
         ExecutorType type = ExecutorType.valueOf(executorType);
         switch (type) {
-        case spinning:
-            //The case with 3 producers can have a peak of 3*burstLength offers:
-            //4 is to leave some room between the offers and 1024 is to leave some room
-            //between producer/consumer when work is > 0 and 1 producer.
-            //If work = 0 then the task queue is supposed to be near empty most of the time.
-            executor = new SpinExecutorService(Math.min(1024, burstLength * 4));
-            executorToShutdown = executor;
-            break;
-        case defaultEventExecutor:
-            executor = new DefaultEventExecutor();
-            executorToShutdown = executor;
-            break;
-        case juc:
-            executor = Executors.newSingleThreadScheduledExecutor();
-            executorToShutdown = executor;
-            break;
-        case nioEventLoop:
-            NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup(1);
-            nioEventLoopGroup.setIoRatio(1);
-            executor = nioEventLoopGroup.next();
-            executorToShutdown = nioEventLoopGroup;
-            break;
-        case epollEventLoop:
-            Epoll.ensureAvailability();
-            EpollEventLoopGroup epollEventLoopGroup = new EpollEventLoopGroup(1);
-            epollEventLoopGroup.setIoRatio(1);
-            executor = epollEventLoopGroup.next();
-            executorToShutdown = epollEventLoopGroup;
-            break;
-        case kqueueEventLoop:
-            KQueue.ensureAvailability();
-            KQueueEventLoopGroup kQueueEventLoopGroup = new KQueueEventLoopGroup(1);
-            kQueueEventLoopGroup.setIoRatio(1);
-            executor = kQueueEventLoopGroup.next();
-            executorToShutdown = kQueueEventLoopGroup;
-            break;
+            case spinning:
+                //The case with 3 producers can have a peak of 3*burstLength offers:
+                //4 is to leave some room between the offers and 1024 is to leave some room
+                //between producer/consumer when work is > 0 and 1 producer.
+                //If work = 0 then the task queue is supposed to be near empty most of the time.
+                executor = new SpinExecutorService(Math.min(1024, burstLength * 4));
+                executorToShutdown = executor;
+                break;
+            case defaultEventExecutor:
+                executor = new DefaultEventExecutor();
+                executorToShutdown = executor;
+                break;
+            case juc:
+                executor = Executors.newSingleThreadScheduledExecutor();
+                executorToShutdown = executor;
+                break;
+            case nioEventLoop:
+                NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup(1);
+                nioEventLoopGroup.setIoRatio(1);
+                executor = nioEventLoopGroup.next();
+                executorToShutdown = nioEventLoopGroup;
+                break;
+            case epollEventLoop:
+                Epoll.ensureAvailability();
+                EpollEventLoopGroup epollEventLoopGroup = new EpollEventLoopGroup(1);
+                epollEventLoopGroup.setIoRatio(1);
+                executor = epollEventLoopGroup.next();
+                executorToShutdown = epollEventLoopGroup;
+                break;
+            case kqueueEventLoop:
+                KQueue.ensureAvailability();
+                KQueueEventLoopGroup kQueueEventLoopGroup = new KQueueEventLoopGroup(1);
+                kQueueEventLoopGroup.setIoRatio(1);
+                executor = kQueueEventLoopGroup.next();
+                executorToShutdown = kQueueEventLoopGroup;
+                break;
         }
     }
 

@@ -40,7 +40,7 @@ import java.util.Map.Entry;
  * into {@link SpdySynStreamFrame}s and {@link SpdySynReplyFrame}s.
  *
  * <h3>Request Annotations</h3>
- *
+ * <p>
  * SPDY specific headers must be added to {@link HttpRequest}s:
  * <table border=1>
  * <tr>
@@ -61,7 +61,7 @@ import java.util.Map.Entry;
  * </table>
  *
  * <h3>Response Annotations</h3>
- *
+ * <p>
  * SPDY specific headers must be added to {@link HttpResponse}s:
  * <table border=1>
  * <tr>
@@ -74,7 +74,7 @@ import java.util.Map.Entry;
  * </table>
  *
  * <h3>Pushed Resource Annotations</h3>
- *
+ * <p>
  * SPDY specific headers must be added to pushed {@link HttpRequest}s:
  * <table border=1>
  * <tr>
@@ -99,24 +99,24 @@ import java.util.Map.Entry;
  * </table>
  *
  * <h3>Required Annotations</h3>
- *
+ * <p>
  * SPDY requires that all Requests and Pushed Resources contain
  * an HTTP "Host" header.
  *
  * <h3>Optional Annotations</h3>
- *
+ * <p>
  * Requests and Pushed Resources must contain a SPDY scheme header.
  * This can be set via the {@code "X-SPDY-Scheme"} header but otherwise
  * defaults to "https" as that is the most common SPDY deployment.
  *
  * <h3>Chunked Content</h3>
- *
+ * <p>
  * This encoder associates all {@link HttpContent}s that it receives
  * with the most recently received 'chunked' {@link HttpRequest}
  * or {@link HttpResponse}.
  *
  * <h3>Pushed Resources</h3>
- *
+ * <p>
  * All pushed resources should be sent before sending the response
  * that corresponds to the initial request.
  */

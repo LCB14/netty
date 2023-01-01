@@ -42,14 +42,14 @@ public final class CipherSuiteConverter {
 
     /**
      * A_B_WITH_C_D, where:
-     *
+     * <p>
      * A - TLS or SSL (protocol)
      * B - handshake algorithm (key exchange and authentication algorithms to be precise)
      * C - bulk cipher
      * D - HMAC algorithm
-     *
+     * <p>
      * This regular expression assumes that:
-     *
+     * <p>
      * 1) A is always TLS or SSL, and
      * 2) D is always a single word.
      */
@@ -58,13 +58,13 @@ public final class CipherSuiteConverter {
 
     /**
      * A-B-C, where:
-     *
+     * <p>
      * A - handshake algorithm (key exchange and authentication algorithms to be precise)
      * B - bulk cipher
      * C - HMAC algorithm
-     *
+     * <p>
      * This regular expression assumes that:
-     *
+     * <p>
      * 1) A has some deterministic pattern as shown below, and
      * 2) C is always a single word
      */
@@ -72,15 +72,15 @@ public final class CipherSuiteConverter {
             // Be very careful not to break the indentation while editing.
             Pattern.compile(
                     "^(?:(" + // BEGIN handshake algorithm
-                        "(?:(?:EXP-)?" +
+                            "(?:(?:EXP-)?" +
                             "(?:" +
-                                "(?:DHE|EDH|ECDH|ECDHE|SRP|RSA)-(?:DSS|RSA|ECDSA|PSK)|" +
-                                "(?:ADH|AECDH|KRB5|PSK|SRP)" +
+                            "(?:DHE|EDH|ECDH|ECDHE|SRP|RSA)-(?:DSS|RSA|ECDSA|PSK)|" +
+                            "(?:ADH|AECDH|KRB5|PSK|SRP)" +
                             ')' +
-                        ")|" +
-                        "EXP" +
-                    ")-)?" +  // END handshake algorithm
-                    "(.*)-(.*)$");
+                            ")|" +
+                            "EXP" +
+                            ")-)?" +  // END handshake algorithm
+                            "(.*)-(.*)$");
 
     private static final Pattern JAVA_AES_CBC_PATTERN = Pattern.compile("^(AES)_([0-9]+)_CBC$");
     private static final Pattern JAVA_AES_PATTERN = Pattern.compile("^(AES)_([0-9]+)_(.*)$");
@@ -277,8 +277,9 @@ public final class CipherSuiteConverter {
 
     /**
      * Convert from OpenSSL cipher suite name convention to java cipher suite name convention.
+     *
      * @param openSslCipherSuite An OpenSSL cipher suite name.
-     * @param protocol The cryptographic protocol (i.e. SSL, TLS, ...).
+     * @param protocol           The cryptographic protocol (i.e. SSL, TLS, ...).
      * @return The translated cipher suite name according to java conventions. This will not be {@code null}.
      */
     public static String toJava(String openSslCipherSuite, String protocol) {
@@ -458,7 +459,7 @@ public final class CipherSuiteConverter {
      */
     static void convertToCipherStrings(Iterable<String> cipherSuites, StringBuilder cipherBuilder,
                                        StringBuilder cipherTLSv13Builder, boolean boringSSL) {
-        for (String c: cipherSuites) {
+        for (String c : cipherSuites) {
             if (c == null) {
                 break;
             }
@@ -492,5 +493,6 @@ public final class CipherSuiteConverter {
         }
     }
 
-    private CipherSuiteConverter() { }
+    private CipherSuiteConverter() {
+    }
 }

@@ -169,10 +169,10 @@ class WebSocketServerProtocolHandshakeHandler extends ChannelInboundHandlerAdapt
             @Override
             public void run() {
                 if (!localHandshakePromise.isDone() &&
-                    localHandshakePromise.tryFailure(new WebSocketServerHandshakeException("handshake timed out"))) {
+                        localHandshakePromise.tryFailure(new WebSocketServerHandshakeException("handshake timed out"))) {
                     ctx.flush()
-                       .fireUserEventTriggered(ServerHandshakeStateEvent.HANDSHAKE_TIMEOUT)
-                       .close();
+                            .fireUserEventTriggered(ServerHandshakeStateEvent.HANDSHAKE_TIMEOUT)
+                            .close();
                 }
             }
         }, handshakeTimeoutMillis, TimeUnit.MILLISECONDS);

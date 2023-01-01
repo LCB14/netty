@@ -28,7 +28,7 @@ import java.util.zip.Checksum;
 
 /**
  * {@link Checksum} implementation which can directly act on a {@link ByteBuf}.
- *
+ * <p>
  * Implementations may optimize access patterns depending on if the {@link ByteBuf} is backed by a
  * byte array ({@link ByteBuf#hasArray()} is {@code true}) or not.
  */

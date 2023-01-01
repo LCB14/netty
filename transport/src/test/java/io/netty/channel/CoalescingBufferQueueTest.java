@@ -268,9 +268,9 @@ public class CoalescingBufferQueueTest {
     private void testWritabilityChanged0(boolean fail) {
         channel.config().setWriteBufferWaterMark(new WriteBufferWaterMark(3, 4));
         assertTrue(channel.isWritable());
-        writeQueue.add(Unpooled.wrappedBuffer(new byte[] {1 , 2, 3}));
+        writeQueue.add(Unpooled.wrappedBuffer(new byte[]{1, 2, 3}));
         assertTrue(channel.isWritable());
-        writeQueue.add(Unpooled.wrappedBuffer(new byte[] {4, 5}));
+        writeQueue.add(Unpooled.wrappedBuffer(new byte[]{4, 5}));
         assertFalse(channel.isWritable());
         assertEquals(5, writeQueue.readableBytes());
 

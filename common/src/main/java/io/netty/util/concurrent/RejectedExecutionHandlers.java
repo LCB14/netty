@@ -32,7 +32,8 @@ public final class RejectedExecutionHandlers {
         }
     };
 
-    private RejectedExecutionHandlers() { }
+    private RejectedExecutionHandlers() {
+    }
 
     /**
      * Returns a {@link RejectedExecutionHandler} that will always just throw a {@link RejectedExecutionException}.

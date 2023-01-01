@@ -55,7 +55,7 @@ import java.util.Set;
 /**
  * {@link io.netty.channel.sctp.SctpChannel} implementation which use blocking mode and allows to read / write
  * {@link SctpMessage}s to the underlying {@link SctpChannel}.
- *
+ * <p>
  * Be aware that not all operations systems support SCTP. Please refer to the documentation of your operation system,
  * to understand what you need to do to use it. Also this feature is only supported on Java 7+.
  *
@@ -98,7 +98,7 @@ public class OioSctpChannel extends AbstractOioMessageChannel
     /**
      * Create a new instance from the given {@link SctpChannel}.
      *
-     * @param ch    the {@link SctpChannel} which is used by this instance
+     * @param ch the {@link SctpChannel} which is used by this instance
      */
     public OioSctpChannel(SctpChannel ch) {
         this(null, ch);
@@ -107,9 +107,9 @@ public class OioSctpChannel extends AbstractOioMessageChannel
     /**
      * Create a new instance from the given {@link SctpChannel}.
      *
-     * @param parent    the parent {@link Channel} which was used to create this instance. This can be null if the
-     *                  {@link} has no parent as it was created by your self.
-     * @param ch        the {@link SctpChannel} which is used by this instance
+     * @param parent the parent {@link Channel} which was used to create this instance. This can be null if the
+     *               {@link} has no parent as it was created by your self.
+     * @param ch     the {@link SctpChannel} which is used by this instance
      */
     public OioSctpChannel(Channel parent, SctpChannel ch) {
         super(parent);
@@ -210,7 +210,7 @@ public class OioSctpChannel extends AbstractOioMessageChannel
             ++readMessages;
         } catch (Throwable cause) {
             PlatformDependent.throwException(cause);
-        }  finally {
+        } finally {
             if (free) {
                 buffer.release();
             }
@@ -232,7 +232,7 @@ public class OioSctpChannel extends AbstractOioMessageChannel
             }
             Iterator<SelectionKey> writableKeysIt = writableKeys.iterator();
             int written = 0;
-            for (;;) {
+            for (; ; ) {
                 if (written == size) {
                     // all written
                     return;
@@ -263,7 +263,7 @@ public class OioSctpChannel extends AbstractOioMessageChannel
                 mi.unordered(packet.isUnordered());
 
                 ch.send(nioData, mi);
-                written ++;
+                written++;
                 in.remove();
 
                 if (!writableKeysIt.hasNext()) {
@@ -366,16 +366,16 @@ public class OioSctpChannel extends AbstractOioMessageChannel
         boolean success = false;
         try {
             ch.connect(remoteAddress);
-            boolean  finishConnect = false;
+            boolean finishConnect = false;
             while (!finishConnect) {
                 if (connectSelector.select(SO_TIMEOUT) >= 0) {
                     final Set<SelectionKey> selectionKeys = connectSelector.selectedKeys();
                     for (SelectionKey key : selectionKeys) {
-                       if (key.isConnectable()) {
-                           selectionKeys.clear();
-                           finishConnect = true;
-                           break;
-                       }
+                        if (key.isConnectable()) {
+                            selectionKeys.clear();
+                            finishConnect = true;
+                            break;
+                        }
                     }
                     selectionKeys.clear();
                 }

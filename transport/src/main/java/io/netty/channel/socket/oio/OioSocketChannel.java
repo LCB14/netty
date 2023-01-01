@@ -60,7 +60,7 @@ public class OioSocketChannel extends OioByteStreamChannel implements SocketChan
     /**
      * Create a new instance from the given {@link Socket}
      *
-     * @param socket    the {@link Socket} which is used by this instance
+     * @param socket the {@link Socket} which is used by this instance
      */
     public OioSocketChannel(Socket socket) {
         this(null, socket);
@@ -69,9 +69,9 @@ public class OioSocketChannel extends OioByteStreamChannel implements SocketChan
     /**
      * Create a new instance from the given {@link Socket}
      *
-     * @param parent    the parent {@link Channel} which was used to create this instance. This can be null if the
-     *                  {@link} has no parent as it was created by your self.
-     * @param socket    the {@link Socket} which is used by this instance
+     * @param parent the parent {@link Channel} which was used to create this instance. This can be null if the
+     *               {@link} has no parent as it was created by your self.
+     * @param socket the {@link Socket} which is used by this instance
      */
     public OioSocketChannel(Channel parent, Socket socket) {
         super(parent);
@@ -295,7 +295,7 @@ public class OioSocketChannel extends OioByteStreamChannel implements SocketChan
 
     @Override
     protected void doConnect(SocketAddress remoteAddress,
-            SocketAddress localAddress) throws Exception {
+                             SocketAddress localAddress) throws Exception {
         if (localAddress != null) {
             SocketUtils.bind(socket, localAddress);
         }

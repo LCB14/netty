@@ -55,18 +55,18 @@ final class Http2FrameInboundWriter {
     }
 
     void writeInboundHeaders(int streamId, Http2Headers headers,
-                         int padding, boolean endStream) {
+                             int padding, boolean endStream) {
         writer.writeHeaders(ctx, streamId, headers, padding, endStream, ctx.newPromise()).syncUninterruptibly();
     }
 
     void writeInboundHeaders(int streamId, Http2Headers headers,
-                               int streamDependency, short weight, boolean exclusive, int padding, boolean endStream) {
+                             int streamDependency, short weight, boolean exclusive, int padding, boolean endStream) {
         writer.writeHeaders(ctx, streamId, headers, streamDependency,
                 weight, exclusive, padding, endStream, ctx.newPromise()).syncUninterruptibly();
     }
 
     void writeInboundPriority(int streamId, int streamDependency,
-                                short weight, boolean exclusive) {
+                              short weight, boolean exclusive) {
         writer.writePriority(ctx, streamId, streamDependency, weight,
                 exclusive, ctx.newPromise()).syncUninterruptibly();
     }
@@ -88,9 +88,9 @@ final class Http2FrameInboundWriter {
     }
 
     void writePushPromise(int streamId, int promisedStreamId,
-                                   Http2Headers headers, int padding) {
-           writer.writePushPromise(ctx, streamId, promisedStreamId,
-                   headers, padding, ctx.newPromise()).syncUninterruptibly();
+                          Http2Headers headers, int padding) {
+        writer.writePushPromise(ctx, streamId, promisedStreamId,
+                headers, padding, ctx.newPromise()).syncUninterruptibly();
     }
 
     void writeInboundGoAway(int lastStreamId, long errorCode, ByteBuf debugData) {
@@ -102,7 +102,7 @@ final class Http2FrameInboundWriter {
     }
 
     void writeInboundFrame(byte frameType, int streamId,
-                             Http2Flags flags, ByteBuf payload) {
+                           Http2Flags flags, ByteBuf payload) {
         writer.writeFrame(ctx, frameType, streamId, flags, payload, ctx.newPromise()).syncUninterruptibly();
     }
 

@@ -75,7 +75,7 @@ public final class Unix {
      */
     @Deprecated
     public static void ensureAvailability() {
-       throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     /**

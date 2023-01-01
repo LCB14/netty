@@ -73,9 +73,8 @@ public class JdkZlibDecoder extends ZlibDecoder {
      * Creates a new instance with the default wrapper ({@link ZlibWrapper#ZLIB})
      * and the specified maximum buffer allocation.
      *
-     * @param maxAllocation
-     *          Maximum size of the decompression buffer. Must be &gt;= 0.
-     *          If zero, maximum size is decided by the {@link ByteBufAllocator}.
+     * @param maxAllocation Maximum size of the decompression buffer. Must be &gt;= 0.
+     *                      If zero, maximum size is decided by the {@link ByteBufAllocator}.
      */
     public JdkZlibDecoder(int maxAllocation) {
         this(ZlibWrapper.ZLIB, null, false, maxAllocation);
@@ -95,9 +94,8 @@ public class JdkZlibDecoder extends ZlibDecoder {
      * The wrapper is always {@link ZlibWrapper#ZLIB} because it is the only format that
      * supports the preset dictionary.
      *
-     * @param maxAllocation
-     *          Maximum size of the decompression buffer. Must be &gt;= 0.
-     *          If zero, maximum size is decided by the {@link ByteBufAllocator}.
+     * @param maxAllocation Maximum size of the decompression buffer. Must be &gt;= 0.
+     *                      If zero, maximum size is decided by the {@link ByteBufAllocator}.
      */
     public JdkZlibDecoder(byte[] dictionary, int maxAllocation) {
         this(ZlibWrapper.ZLIB, dictionary, false, maxAllocation);
@@ -117,9 +115,8 @@ public class JdkZlibDecoder extends ZlibDecoder {
      * Be aware that only {@link ZlibWrapper#GZIP}, {@link ZlibWrapper#ZLIB} and {@link ZlibWrapper#NONE} are
      * supported atm.
      *
-     * @param maxAllocation
-     *          Maximum size of the decompression buffer. Must be &gt;= 0.
-     *          If zero, maximum size is decided by the {@link ByteBufAllocator}.
+     * @param maxAllocation Maximum size of the decompression buffer. Must be &gt;= 0.
+     *                      If zero, maximum size is decided by the {@link ByteBufAllocator}.
      */
     public JdkZlibDecoder(ZlibWrapper wrapper, int maxAllocation) {
         this(wrapper, null, false, maxAllocation);
@@ -246,7 +243,7 @@ public class JdkZlibDecoder extends ZlibDecoder {
                     if (crc != null) {
                         crc.update(outArray, outIndex, outputLength);
                     }
-                } else  if (inflater.needsDictionary()) {
+                } else if (inflater.needsDictionary()) {
                     if (dictionary == null) {
                         throw new DecompressionException(
                                 "decompression failure, unable to set dictionary as non was specified");
@@ -404,14 +401,15 @@ public class JdkZlibDecoder extends ZlibDecoder {
 
     /**
      * Skip bytes in the input if needed until we find the end marker {@code 0x00}.
-     * @param   in the input
-     * @param   flagMask the mask that should be present in the {@code flags} when we need to skip bytes.
-     * @return  {@code true} if the operation is complete and we can move to the next state, {@code false} if we need
-     *          the retry again once we have more readable bytes.
+     *
+     * @param in       the input
+     * @param flagMask the mask that should be present in the {@code flags} when we need to skip bytes.
+     * @return {@code true} if the operation is complete and we can move to the next state, {@code false} if we need
+     * the retry again once we have more readable bytes.
      */
     private boolean skipIfNeeded(ByteBuf in, int flagMask) {
         if ((flags & flagMask) != 0) {
-            for (;;) {
+            for (; ; ) {
                 if (!in.isReadable()) {
                     // We didnt find the end yet, need to retry again once more data is readable
                     return false;
@@ -430,9 +428,9 @@ public class JdkZlibDecoder extends ZlibDecoder {
     /**
      * Read the GZIP footer.
      *
-     * @param   in the input.
-     * @return  {@code true} if the footer could be read, {@code false} if the read could not be performed as
-     *          the input {@link ByteBuf} doesn't have enough readable bytes (8 bytes).
+     * @param in the input.
+     * @return {@code true} if the footer could be read, {@code false} if the read could not be performed as
+     * the input {@link ByteBuf} doesn't have enough readable bytes (8 bytes).
      */
     private boolean readGZIPFooter(ByteBuf in) {
         if (in.readableBytes() < 8) {
@@ -458,9 +456,9 @@ public class JdkZlibDecoder extends ZlibDecoder {
     /**
      * Verifies CRC.
      *
-     * @param   in the input.
-     * @return  {@code true} if verification could be performed, {@code false} if verification could not be performed as
-     *          the input {@link ByteBuf} doesn't have enough readable bytes (4 bytes).
+     * @param in the input.
+     * @return {@code true} if verification could be performed, {@code false} if verification could not be performed as
+     * the input {@link ByteBuf} doesn't have enough readable bytes (4 bytes).
      */
     private boolean verifyCrc(ByteBuf in) {
         if (in.readableBytes() < 4) {

@@ -44,7 +44,7 @@ public final class ObjectUtil {
     /**
      * Check that the given varargs is not null and does not contain elements
      * null elements.
-     *
+     * <p>
      * If it is, throws {@link NullPointerException}.
      * Otherwise, returns the argument.
      */
@@ -76,8 +76,8 @@ public final class ObjectUtil {
      * Checks that the given argument is not null. If it is, throws {@link IllegalArgumentException}.
      * Otherwise, returns the argument.
      *
-     * @param <T> type of the given argument value.
-     * @param name of the parameter, belongs to the exception message.
+     * @param <T>   type of the given argument value.
+     * @param name  of the parameter, belongs to the exception message.
      * @param index of the array, belongs to the exception message.
      * @param value to check.
      * @return the given argument value.
@@ -295,9 +295,9 @@ public final class ObjectUtil {
      * Otherwise, returns the trimmed argument.
      *
      * @param value to trim and check.
-     * @param name of the parameter.
+     * @param name  of the parameter.
      * @return the trimmed (not the original) value.
-     * @throws NullPointerException if value is null.
+     * @throws NullPointerException     if value is null.
      * @throws IllegalArgumentException if the trimmed value is empty.
      */
     public static String checkNonEmptyAfterTrim(final String value, final String name) {
@@ -307,7 +307,8 @@ public final class ObjectUtil {
 
     /**
      * Resolves a possibly null Integer to a primitive int, using a default value.
-     * @param wrapper the wrapper
+     *
+     * @param wrapper      the wrapper
      * @param defaultValue the default value
      * @return the primitive value
      */
@@ -317,7 +318,8 @@ public final class ObjectUtil {
 
     /**
      * Resolves a possibly null Long to a primitive long, using a default value.
-     * @param wrapper the wrapper
+     *
+     * @param wrapper      the wrapper
      * @param defaultValue the default value
      * @return the primitive value
      */

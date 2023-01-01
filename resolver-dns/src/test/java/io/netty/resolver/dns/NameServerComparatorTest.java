@@ -45,14 +45,14 @@ public class NameServerComparatorTest {
 
     @BeforeAll
     public static void before() throws UnknownHostException {
-        IPV4ADDRESS1 = new InetSocketAddress(InetAddress.getByAddress("ns1", new byte[] { 10, 0, 0, 1 }), 53);
-        IPV4ADDRESS2 = new InetSocketAddress(InetAddress.getByAddress("ns2", new byte[] { 10, 0, 0, 2 }), 53);
-        IPV4ADDRESS3 = new InetSocketAddress(InetAddress.getByAddress("ns3", new byte[] { 10, 0, 0, 3 }), 53);
+        IPV4ADDRESS1 = new InetSocketAddress(InetAddress.getByAddress("ns1", new byte[]{10, 0, 0, 1}), 53);
+        IPV4ADDRESS2 = new InetSocketAddress(InetAddress.getByAddress("ns2", new byte[]{10, 0, 0, 2}), 53);
+        IPV4ADDRESS3 = new InetSocketAddress(InetAddress.getByAddress("ns3", new byte[]{10, 0, 0, 3}), 53);
 
         IPV6ADDRESS1 = new InetSocketAddress(InetAddress.getByAddress(
-                "ns1", new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }), 53);
+                "ns1", new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}), 53);
         IPV6ADDRESS2 = new InetSocketAddress(InetAddress.getByAddress(
-                "ns2", new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 }), 53);
+                "ns2", new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}), 53);
 
         UNRESOLVED1 = InetSocketAddress.createUnresolved("ns3", 53);
         UNRESOLVED2 = InetSocketAddress.createUnresolved("ns4", 53);

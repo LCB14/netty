@@ -84,10 +84,10 @@ public class RxtxChannel extends OioByteStreamChannel {
 
     protected void doInit() throws Exception {
         serialPort.setSerialPortParams(
-            config().getOption(BAUD_RATE),
-            config().getOption(DATA_BITS).value(),
-            config().getOption(STOP_BITS).value(),
-            config().getOption(PARITY_BIT).value()
+                config().getOption(BAUD_RATE),
+                config().getOption(DATA_BITS).value(),
+                config().getOption(STOP_BITS).value(),
+                config().getOption(PARITY_BIT).value()
         );
         serialPort.setDTR(config().getOption(DTR));
         serialPort.setRTS(config().getOption(RTS));
@@ -129,7 +129,7 @@ public class RxtxChannel extends OioByteStreamChannel {
     protected void doClose() throws Exception {
         open = false;
         try {
-           super.doClose();
+            super.doClose();
         } finally {
             if (serialPort != null) {
                 serialPort.removeEventListener();
@@ -178,7 +178,7 @@ public class RxtxChannel extends OioByteStreamChannel {
                                 closeIfClosed();
                             }
                         }
-                   }, waitTime, TimeUnit.MILLISECONDS);
+                    }, waitTime, TimeUnit.MILLISECONDS);
                 } else {
                     doInit();
                     safeSetSuccess(promise);

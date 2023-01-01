@@ -41,7 +41,7 @@ public final class SctpChannelOption<T> extends ChannelOption<T> {
     public static final ChannelOption<SocketAddress> SCTP_SET_PEER_PRIMARY_ADDR =
             valueOf(SctpChannelOption.class, "SCTP_SET_PEER_PRIMARY_ADDR");
 
-    @SuppressWarnings({ "unused", "deprecation" })
+    @SuppressWarnings({"unused", "deprecation"})
     private SctpChannelOption() {
         super(null);
     }

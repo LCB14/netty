@@ -108,12 +108,11 @@ public class HttpServerKeepAliveHandler extends ChannelDuplexHandler {
      * </ul>
      *
      * @param response The HttpResponse to check
-     *
      * @return true if the response has a self defined message length.
      */
     private static boolean isSelfDefinedMessageLength(HttpResponse response) {
         return isContentLengthSet(response) || isTransferEncodingChunked(response) || isMultipart(response) ||
-               isInformational(response) || response.status().code() == HttpResponseStatus.NO_CONTENT.code();
+                isInformational(response) || response.status().code() == HttpResponseStatus.NO_CONTENT.code();
     }
 
     private static boolean isInformational(HttpResponse response) {
@@ -123,6 +122,6 @@ public class HttpServerKeepAliveHandler extends ChannelDuplexHandler {
     private static boolean isMultipart(HttpResponse response) {
         String contentType = response.headers().get(HttpHeaderNames.CONTENT_TYPE);
         return contentType != null &&
-               contentType.regionMatches(true, 0, MULTIPART_PREFIX, 0, MULTIPART_PREFIX.length());
+                contentType.regionMatches(true, 0, MULTIPART_PREFIX, 0, MULTIPART_PREFIX.length());
     }
 }

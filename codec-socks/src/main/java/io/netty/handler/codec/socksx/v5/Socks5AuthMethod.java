@@ -34,14 +34,14 @@ public class Socks5AuthMethod implements Comparable<Socks5AuthMethod> {
 
     public static Socks5AuthMethod valueOf(byte b) {
         switch (b) {
-        case 0x00:
-            return NO_AUTH;
-        case 0x01:
-            return GSSAPI;
-        case 0x02:
-            return PASSWORD;
-        case (byte) 0xFF:
-            return UNACCEPTED;
+            case 0x00:
+                return NO_AUTH;
+            case 0x01:
+                return GSSAPI;
+            case 0x02:
+                return PASSWORD;
+            case (byte) 0xFF:
+                return UNACCEPTED;
         }
 
         return new Socks5AuthMethod(b);

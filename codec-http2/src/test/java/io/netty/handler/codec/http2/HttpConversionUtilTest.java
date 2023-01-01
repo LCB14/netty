@@ -179,7 +179,7 @@ public class HttpConversionUtilTest {
     public void handlesRequest() throws Exception {
         boolean validateHeaders = true;
         HttpRequest msg = new DefaultHttpRequest(
-            HttpVersion.HTTP_1_1, HttpMethod.GET, "http://example.com/path/to/something", validateHeaders);
+                HttpVersion.HTTP_1_1, HttpMethod.GET, "http://example.com/path/to/something", validateHeaders);
         HttpHeaders inHeaders = msg.headers();
         inHeaders.add(CONNECTION, "foo,  bar");
         inHeaders.add("hello", "world");
@@ -195,7 +195,7 @@ public class HttpConversionUtilTest {
     public void handlesRequestWithDoubleSlashPath() throws Exception {
         boolean validateHeaders = true;
         HttpRequest msg = new DefaultHttpRequest(
-            HttpVersion.HTTP_1_1, HttpMethod.GET, "//path/to/something", validateHeaders);
+                HttpVersion.HTTP_1_1, HttpMethod.GET, "//path/to/something", validateHeaders);
         HttpHeaders inHeaders = msg.headers();
         inHeaders.add(CONNECTION, "foo,  bar");
         inHeaders.add(HOST, "example.com");

@@ -46,8 +46,8 @@ public class HttpContentDecompressor extends HttpContentDecoder {
     /**
      * Create a new {@link HttpContentDecompressor}.
      *
-     * @param strict    if {@code true} use strict handling of deflate if used, otherwise handle it in a
-     *                  more lenient fashion.
+     * @param strict if {@code true} use strict handling of deflate if used, otherwise handle it in a
+     *               more lenient fashion.
      */
     public HttpContentDecompressor(boolean strict) {
         this.strict = strict;
@@ -56,12 +56,12 @@ public class HttpContentDecompressor extends HttpContentDecoder {
     @Override
     protected EmbeddedChannel newContentDecoder(String contentEncoding) throws Exception {
         if (GZIP.contentEqualsIgnoreCase(contentEncoding) ||
-            X_GZIP.contentEqualsIgnoreCase(contentEncoding)) {
+                X_GZIP.contentEqualsIgnoreCase(contentEncoding)) {
             return new EmbeddedChannel(ctx.channel().id(), ctx.channel().metadata().hasDisconnect(),
                     ctx.channel().config(), ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
         }
         if (DEFLATE.contentEqualsIgnoreCase(contentEncoding) ||
-            X_DEFLATE.contentEqualsIgnoreCase(contentEncoding)) {
+                X_DEFLATE.contentEqualsIgnoreCase(contentEncoding)) {
             final ZlibWrapper wrapper = strict ? ZlibWrapper.ZLIB : ZlibWrapper.ZLIB_OR_NONE;
             // To be strict, 'deflate' means ZLIB, but some servers were not implemented correctly.
             return new EmbeddedChannel(ctx.channel().id(), ctx.channel().metadata().hasDisconnect(),
@@ -69,7 +69,7 @@ public class HttpContentDecompressor extends HttpContentDecoder {
         }
         if (Brotli.isAvailable() && BR.contentEqualsIgnoreCase(contentEncoding)) {
             return new EmbeddedChannel(ctx.channel().id(), ctx.channel().metadata().hasDisconnect(),
-              ctx.channel().config(), new BrotliDecoder());
+                    ctx.channel().config(), new BrotliDecoder());
         }
 
         // 'identity' or unsupported

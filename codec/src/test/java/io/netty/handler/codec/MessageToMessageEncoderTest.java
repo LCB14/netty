@@ -65,6 +65,7 @@ public class MessageToMessageEncoderTest {
 
         ChannelHandler writeThrower = new ChannelOutboundHandlerAdapter() {
             private boolean firstWritten;
+
             @Override
             public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
                 if (firstWritten) {

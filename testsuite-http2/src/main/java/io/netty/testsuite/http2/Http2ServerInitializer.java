@@ -78,7 +78,7 @@ public class Http2ServerInitializer extends ChannelInitializer<SocketChannel> {
         final HttpServerUpgradeHandler upgradeHandler = new HttpServerUpgradeHandler(sourceCodec, upgradeCodecFactory);
         final CleartextHttp2ServerUpgradeHandler cleartextHttp2ServerUpgradeHandler =
                 new CleartextHttp2ServerUpgradeHandler(sourceCodec, upgradeHandler,
-                                                       new HelloWorldHttp2HandlerBuilder().build());
+                        new HelloWorldHttp2HandlerBuilder().build());
 
         p.addLast(cleartextHttp2ServerUpgradeHandler);
         p.addLast(new SimpleChannelInboundHandler<HttpMessage>() {

@@ -68,7 +68,7 @@ class BaseChannelTest {
         if (firstExpected.equals(actual)) {
             return;
         }
-        for (String e: otherExpected) {
+        for (String e : otherExpected) {
             if (e.equals(actual)) {
                 return;
             }

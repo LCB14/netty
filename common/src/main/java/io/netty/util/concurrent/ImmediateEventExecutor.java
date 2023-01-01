@@ -55,7 +55,8 @@ public final class ImmediateEventExecutor extends AbstractEventExecutor {
     private final Future<?> terminationFuture = new FailedFuture<Object>(
             GlobalEventExecutor.INSTANCE, new UnsupportedOperationException());
 
-    private ImmediateEventExecutor() { }
+    private ImmediateEventExecutor() {
+    }
 
     @Override
     public boolean inEventLoop() {
@@ -79,7 +80,8 @@ public final class ImmediateEventExecutor extends AbstractEventExecutor {
 
     @Override
     @Deprecated
-    public void shutdown() { }
+    public void shutdown() {
+    }
 
     @Override
     public boolean isShuttingDown() {

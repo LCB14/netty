@@ -356,7 +356,8 @@ public class DefaultChannelPipelineTest {
         try {
             group.register(channel).syncUninterruptibly();
             channel.pipeline().addLast(new ChannelInboundHandlerAdapter() {
-                class TestException extends Exception { }
+                class TestException extends Exception {
+                }
 
                 @Override
                 public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
@@ -400,7 +401,8 @@ public class DefaultChannelPipelineTest {
                     ctx.fireChannelReadComplete();
                 }
             }, new ChannelInboundHandlerAdapter() {
-                class TestException extends Exception { }
+                class TestException extends Exception {
+                }
 
                 @Override
                 public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
@@ -2101,6 +2103,7 @@ public class DefaultChannelPipelineTest {
             }
         }
     }
+
     private static final class ErrorChannelHandler extends ChannelHandlerAdapter {
         private final AtomicReference<Throwable> error;
 
@@ -2162,7 +2165,8 @@ public class DefaultChannelPipelineTest {
     }
 
     @Sharable
-    private static class TestHandler extends ChannelDuplexHandler { }
+    private static class TestHandler extends ChannelDuplexHandler {
+    }
 
     private static class BufferedTestHandler extends ChannelDuplexHandler {
         final Queue<Object> inboundBuffer = new ArrayDeque<Object>();
@@ -2181,13 +2185,13 @@ public class DefaultChannelPipelineTest {
         @Override
         public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
             if (!inboundBuffer.isEmpty()) {
-                for (Object o: inboundBuffer) {
+                for (Object o : inboundBuffer) {
                     ctx.fireChannelRead(o);
                 }
                 ctx.fireChannelReadComplete();
             }
             if (!outboundBuffer.isEmpty()) {
-                for (Object o: outboundBuffer) {
+                for (Object o : outboundBuffer) {
                     ctx.write(o);
                 }
                 ctx.flush();
@@ -2195,7 +2199,9 @@ public class DefaultChannelPipelineTest {
         }
     }
 
-    /** Test handler to validate life-cycle aware behavior. */
+    /**
+     * Test handler to validate life-cycle aware behavior.
+     */
     private static final class LifeCycleAwareTestHandler extends ChannelHandlerAdapter {
         private final String name;
 

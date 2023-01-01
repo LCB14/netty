@@ -31,7 +31,7 @@ import static lzma.sdk.lzma.Encoder.EMatchFinderTypeBT4;
 
 /**
  * Compresses a {@link ByteBuf} using the LZMA algorithm.
- *
+ * <p>
  * See <a href="https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm">LZMA</a>
  * and <a href="https://svn.python.org/projects/external/xz-5.0.5/doc/lzma-file-format.txt">LZMA format</a>
  * or documents in <a href="https://www.7-zip.org/sdk.html">LZMA SDK</a> archive.
@@ -61,13 +61,13 @@ public class LzmaFrameEncoder extends MessageToByteEncoder<ByteBuf> {
      * The Properties field contains three properties which are encoded using the following formula:
      *
      * <p>{@code Properties = (pb * 5 + lp) * 9 + lc}</p>
-     *
+     * <p>
      * The field consists of
-     *  <ol>
-     *      <li>the number of literal context bits (lc, [0, 8]);</li>
-     *      <li>the number of literal position bits (lp, [0, 4]);</li>
-     *      <li>the number of position bits (pb, [0, 4]).</li>
-     *  </ol>
+     * <ol>
+     *     <li>the number of literal context bits (lc, [0, 8]);</li>
+     *     <li>the number of literal position bits (lp, [0, 4]);</li>
+     *     <li>the number of position bits (pb, [0, 4]).</li>
+     * </ol>
      */
     private final byte properties;
 
@@ -116,23 +116,17 @@ public class LzmaFrameEncoder extends MessageToByteEncoder<ByteBuf> {
     /**
      * Creates LZMA encoder with specified settings.
      *
-     * @param lc
-     *        the number of "literal context" bits, available values [0, 8], default value {@value #DEFAULT_LC}.
-     * @param lp
-     *        the number of "literal position" bits, available values [0, 4], default value {@value #DEFAULT_LP}.
-     * @param pb
-     *        the number of "position" bits, available values [0, 4], default value {@value #DEFAULT_PB}.
-     * @param dictionarySize
-     *        available values [0, {@link java.lang.Integer#MAX_VALUE}],
-     *        default value is {@value #MEDIUM_DICTIONARY_SIZE}.
-     * @param endMarkerMode
-     *        indicates should {@link LzmaFrameEncoder} use end of stream marker or not.
-     *        Note, that {@link LzmaFrameEncoder} always sets size of uncompressed data
-     *        in LZMA header, so EOS marker is unnecessary. But you may use it for
-     *        better portability. For full description see "LZMA Decoding modes" section
-     *        of LZMA-Specification.txt in official LZMA SDK.
-     * @param numFastBytes
-     *        available values [{@value #MIN_FAST_BYTES}, {@value #MAX_FAST_BYTES}].
+     * @param lc             the number of "literal context" bits, available values [0, 8], default value {@value #DEFAULT_LC}.
+     * @param lp             the number of "literal position" bits, available values [0, 4], default value {@value #DEFAULT_LP}.
+     * @param pb             the number of "position" bits, available values [0, 4], default value {@value #DEFAULT_PB}.
+     * @param dictionarySize available values [0, {@link java.lang.Integer#MAX_VALUE}],
+     *                       default value is {@value #MEDIUM_DICTIONARY_SIZE}.
+     * @param endMarkerMode  indicates should {@link LzmaFrameEncoder} use end of stream marker or not.
+     *                       Note, that {@link LzmaFrameEncoder} always sets size of uncompressed data
+     *                       in LZMA header, so EOS marker is unnecessary. But you may use it for
+     *                       better portability. For full description see "LZMA Decoding modes" section
+     *                       of LZMA-Specification.txt in official LZMA SDK.
+     * @param numFastBytes   available values [{@value #MIN_FAST_BYTES}, {@value #MAX_FAST_BYTES}].
      */
     public LzmaFrameEncoder(int lc, int lp, int pb, int dictionarySize, boolean endMarkerMode, int numFastBytes) {
         if (lc < 0 || lc > 8) {

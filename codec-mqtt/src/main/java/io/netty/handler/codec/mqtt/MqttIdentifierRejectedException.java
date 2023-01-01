@@ -27,7 +27,8 @@ public final class MqttIdentifierRejectedException extends DecoderException {
     /**
      * Creates a new instance
      */
-    public MqttIdentifierRejectedException() { }
+    public MqttIdentifierRejectedException() {
+    }
 
     /**
      * Creates a new instance

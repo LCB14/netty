@@ -46,7 +46,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-/** {@link HttpPostRequestEncoder} test case. */
+/**
+ * {@link HttpPostRequestEncoder} test case.
+ */
 public class HttpPostRequestEncoderTest {
 
     @Test
@@ -341,12 +343,12 @@ public class HttpPostRequestEncoderTest {
         File file1 = new File(getClass().getResource("/file-01.txt").toURI());
         encoder.addBodyFileUpload("myfile", file1, "application/x-zip-compressed", false);
         encoder.finalizeRequest();
-        while (! encoder.isEndOfInput()) {
+        while (!encoder.isEndOfInput()) {
             HttpContent httpContent = encoder.readChunk((ByteBufAllocator) null);
             ByteBuf content = httpContent.content();
             int refCnt = content.refCnt();
             assertTrue((content.unwrap() == content || content.unwrap() == null) && refCnt == 1 ||
-                    content.unwrap() != content && refCnt == 2,
+                            content.unwrap() != content && refCnt == 2,
                     "content: " + content + " content.unwrap(): " + content.unwrap() + " refCnt: " + refCnt);
             httpContent.release();
         }
@@ -404,7 +406,7 @@ public class HttpPostRequestEncoderTest {
         assertTrue(httpContent instanceof LastHttpContent, "Expected LastHttpContent is not received");
         httpContent.release();
 
-           assertTrue(encoder.isEndOfInput(), "Expected end of input is not receive");
+        assertTrue(encoder.isEndOfInput(), "Expected end of input is not receive");
     }
 
     @Test

@@ -158,7 +158,7 @@ public abstract class AbstractSniHandler<T> extends SslClientHelloHandler<T> {
             public void run() {
                 if (ctx.channel().isActive()) {
                     SslHandshakeTimeoutException exception = new SslHandshakeTimeoutException(
-                        "handshake timed out after " + handshakeTimeoutMillis + "ms");
+                            "handshake timed out after " + handshakeTimeoutMillis + "ms");
                     ctx.fireUserEventTriggered(new SniCompletionEvent(exception));
                     ctx.close();
                 }

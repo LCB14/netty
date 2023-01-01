@@ -151,24 +151,24 @@ public class HttpClientCodecTest {
                              * See <a href="https://tools.ietf.org/html/rfc7230#section-3.3.3">RFC 7230, 3.3.3</a>.
                              */
                             sChannel.writeAndFlush(Unpooled.wrappedBuffer(("HTTP/1.0 200 OK\r\n" +
-                            "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n" +
-                            "Content-Type: text/html\r\n\r\n").getBytes(CharsetUtil.ISO_8859_1)))
+                                            "Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n" +
+                                            "Content-Type: text/html\r\n\r\n").getBytes(CharsetUtil.ISO_8859_1)))
                                     .addListener(new ChannelFutureListener() {
-                                @Override
-                                public void operationComplete(ChannelFuture future) throws Exception {
-                                    assertTrue(future.isSuccess());
-                                    sChannel.writeAndFlush(Unpooled.wrappedBuffer(
-                                            "<html><body>hello half closed!</body></html>\r\n"
-                                            .getBytes(CharsetUtil.ISO_8859_1)))
-                                            .addListener(new ChannelFutureListener() {
                                         @Override
                                         public void operationComplete(ChannelFuture future) throws Exception {
                                             assertTrue(future.isSuccess());
-                                            sChannel.shutdownOutput();
+                                            sChannel.writeAndFlush(Unpooled.wrappedBuffer(
+                                                            "<html><body>hello half closed!</body></html>\r\n"
+                                                                    .getBytes(CharsetUtil.ISO_8859_1)))
+                                                    .addListener(new ChannelFutureListener() {
+                                                        @Override
+                                                        public void operationComplete(ChannelFuture future) throws Exception {
+                                                            assertTrue(future.isSuccess());
+                                                            sChannel.shutdownOutput();
+                                                        }
+                                                    });
                                         }
                                     });
-                                }
-                            });
                         }
                     });
                     serverChannelLatch.countDown();
@@ -250,14 +250,14 @@ public class HttpClientCodecTest {
         assertTrue(ch.writeInbound(Unpooled.copiedBuffer(response, CharsetUtil.ISO_8859_1)),
                 "Channel inbound write failed.");
 
-        for (;;) {
+        for (; ; ) {
             Object msg = ch.readOutbound();
             if (msg == null) {
                 break;
             }
             release(msg);
         }
-        for (;;) {
+        for (; ; ) {
             Object msg = ch.readInbound();
             if (msg == null) {
                 break;
@@ -342,9 +342,9 @@ public class HttpClientCodecTest {
     @Test
     public void testWebDavResponse() {
         byte[] data = ("HTTP/1.1 102 Processing\r\n" +
-                       "Status-URI: Status-URI:http://status.com; 404\r\n" +
-                       "\r\n" +
-                       "1234567812345678").getBytes();
+                "Status-URI: Status-URI:http://status.com; 404\r\n" +
+                "\r\n" +
+                "1234567812345678").getBytes();
         EmbeddedChannel ch = new EmbeddedChannel(new HttpClientCodec());
         assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(data)));
 

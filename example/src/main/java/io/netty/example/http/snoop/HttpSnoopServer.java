@@ -32,7 +32,7 @@ import io.netty.handler.ssl.SslContext;
 public final class HttpSnoopServer {
 
     static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8443" : "8080"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8443" : "8080"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.
@@ -44,14 +44,14 @@ public final class HttpSnoopServer {
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new HttpSnoopServerInitializer(sslCtx));
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new HttpSnoopServerInitializer(sslCtx));
 
             Channel ch = b.bind(PORT).sync().channel();
 
             System.err.println("Open your web browser and navigate to " +
-                    (SSL? "https" : "http") + "://127.0.0.1:" + PORT + '/');
+                    (SSL ? "https" : "http") + "://127.0.0.1:" + PORT + '/');
 
             ch.closeFuture().sync();
         } finally {

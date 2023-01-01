@@ -33,8 +33,8 @@ public class InetSocketAddressResolver extends AbstractAddressResolver<InetSocke
     final NameResolver<InetAddress> nameResolver;
 
     /**
-     * @param executor the {@link EventExecutor} which is used to notify the listeners of the {@link Future} returned
-     *                 by {@link #resolve(java.net.SocketAddress)}
+     * @param executor     the {@link EventExecutor} which is used to notify the listeners of the {@link Future} returned
+     *                     by {@link #resolve(java.net.SocketAddress)}
      * @param nameResolver the {@link NameResolver} used for name resolution
      */
     public InetSocketAddressResolver(EventExecutor executor, NameResolver<InetAddress> nameResolver) {

@@ -28,7 +28,7 @@ import io.netty.util.internal.SocketUtils;
 
 /**
  * A UDP broadcast client that asks for a quote of the moment (QOTM) to {@link QuoteOfTheMomentServer}.
- *
+ * <p>
  * Inspired by <a href="https://docs.oracle.com/javase/tutorial/networking/datagrams/clientServer.html">the official
  * Java tutorial</a>.
  */
@@ -42,9 +42,9 @@ public final class QuoteOfTheMomentClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioDatagramChannel.class)
-             .option(ChannelOption.SO_BROADCAST, true)
-             .handler(new QuoteOfTheMomentClientHandler());
+                    .channel(NioDatagramChannel.class)
+                    .option(ChannelOption.SO_BROADCAST, true)
+                    .handler(new QuoteOfTheMomentClientHandler());
 
             Channel ch = b.bind(0).sync().channel();
 

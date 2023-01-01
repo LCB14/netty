@@ -56,7 +56,7 @@ public class DefaultChannelPipelineBenchmark extends AbstractMicrobenchmark {
         }
     };
 
-    @Param({ "4" })
+    @Param({"4"})
     public int extraHandlers;
 
     private ChannelPipeline pipeline;

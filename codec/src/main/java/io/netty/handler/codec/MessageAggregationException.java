@@ -23,7 +23,8 @@ public class MessageAggregationException extends IllegalStateException {
 
     private static final long serialVersionUID = -1995826182950310255L;
 
-    public MessageAggregationException() { }
+    public MessageAggregationException() {
+    }
 
     public MessageAggregationException(String s) {
         super(s);

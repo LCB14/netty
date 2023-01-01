@@ -42,21 +42,21 @@ public interface OpenSslPrivateKeyMethod {
     /**
      * Signs the input with the given key and returns the signed bytes.
      *
-     * @param engine                the {@link SSLEngine}
-     * @param signatureAlgorithm    the algorithm to use for signing
-     * @param input                 the digest itself
-     * @return                      the signed data (must not be {@code null})
-     * @throws Exception            thrown if an error is encountered during the signing
+     * @param engine             the {@link SSLEngine}
+     * @param signatureAlgorithm the algorithm to use for signing
+     * @param input              the digest itself
+     * @return the signed data (must not be {@code null})
+     * @throws Exception thrown if an error is encountered during the signing
      */
     byte[] sign(SSLEngine engine, int signatureAlgorithm, byte[] input) throws Exception;
 
     /**
      * Decrypts the input with the given key and returns the decrypted bytes.
      *
-     * @param engine                the {@link SSLEngine}
-     * @param input                 the input which should be decrypted
-     * @return                      the decrypted data (must not be {@code null})
-     * @throws Exception            thrown if an error is encountered during the decrypting
+     * @param engine the {@link SSLEngine}
+     * @param input  the input which should be decrypted
+     * @return the decrypted data (must not be {@code null})
+     * @throws Exception thrown if an error is encountered during the decrypting
      */
     byte[] decrypt(SSLEngine engine, byte[] input) throws Exception;
 }

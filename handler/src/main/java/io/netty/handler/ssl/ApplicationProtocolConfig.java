@@ -41,33 +41,36 @@ public final class ApplicationProtocolConfig {
 
     /**
      * Create a new instance.
-     * @param protocol The application protocol functionality to use.
-     * @param selectorBehavior How the peer selecting the protocol should behave.
-     * @param selectedBehavior How the peer being notified of the selected protocol should behave.
+     *
+     * @param protocol           The application protocol functionality to use.
+     * @param selectorBehavior   How the peer selecting the protocol should behave.
+     * @param selectedBehavior   How the peer being notified of the selected protocol should behave.
      * @param supportedProtocols The order of iteration determines the preference of support for protocols.
      */
     public ApplicationProtocolConfig(Protocol protocol, SelectorFailureBehavior selectorBehavior,
-            SelectedListenerFailureBehavior selectedBehavior, Iterable<String> supportedProtocols) {
+                                     SelectedListenerFailureBehavior selectedBehavior, Iterable<String> supportedProtocols) {
         this(protocol, selectorBehavior, selectedBehavior, toList(supportedProtocols));
     }
 
     /**
      * Create a new instance.
-     * @param protocol The application protocol functionality to use.
-     * @param selectorBehavior How the peer selecting the protocol should behave.
-     * @param selectedBehavior How the peer being notified of the selected protocol should behave.
+     *
+     * @param protocol           The application protocol functionality to use.
+     * @param selectorBehavior   How the peer selecting the protocol should behave.
+     * @param selectedBehavior   How the peer being notified of the selected protocol should behave.
      * @param supportedProtocols The order of iteration determines the preference of support for protocols.
      */
     public ApplicationProtocolConfig(Protocol protocol, SelectorFailureBehavior selectorBehavior,
-            SelectedListenerFailureBehavior selectedBehavior, String... supportedProtocols) {
+                                     SelectedListenerFailureBehavior selectedBehavior, String... supportedProtocols) {
         this(protocol, selectorBehavior, selectedBehavior, toList(supportedProtocols));
     }
 
     /**
      * Create a new instance.
-     * @param protocol The application protocol functionality to use.
-     * @param selectorBehavior How the peer selecting the protocol should behave.
-     * @param selectedBehavior How the peer being notified of the selected protocol should behave.
+     *
+     * @param protocol           The application protocol functionality to use.
+     * @param selectorBehavior   How the peer selecting the protocol should behave.
+     * @param selectedBehavior   How the peer being notified of the selected protocol should behave.
      * @param supportedProtocols The order of iteration determines the preference of support for protocols.
      */
     private ApplicationProtocolConfig(

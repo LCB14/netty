@@ -30,7 +30,7 @@ abstract class DefaultDnsServerAddresses extends DnsServerAddresses {
         final StringBuilder buf = new StringBuilder(type.length() + 2 + addresses.size() * 16);
         buf.append(type).append('(');
 
-        for (InetSocketAddress a: addresses) {
+        for (InetSocketAddress a : addresses) {
             buf.append(a).append(", ");
         }
 

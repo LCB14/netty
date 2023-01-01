@@ -66,7 +66,7 @@ public class DefaultHttpHeaders extends HttpHeaders {
      * validate & protect against user-supplied header values that are malicious.
      * This can leave your server implementation vulnerable to
      * <a href="https://cwe.mitre.org/data/definitions/113.html">
-     *     CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')
+     * CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')
      * </a>.
      * When disabling this validation, it is the responsibility of the caller to ensure that the values supplied
      * do not contain a non-url-escaped carriage return (CR) and/or line feed (LF) characters.

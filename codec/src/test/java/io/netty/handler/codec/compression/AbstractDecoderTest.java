@@ -70,14 +70,14 @@ public abstract class AbstractDecoderTest extends AbstractCompressionTest {
         ByteBuf heap = Unpooled.wrappedBuffer(compressedBytesSmall);
         ByteBuf direct = Unpooled.directBuffer(compressedBytesSmall.length);
         direct.writeBytes(compressedBytesSmall);
-        return new ByteBuf[] {heap, direct};
+        return new ByteBuf[]{heap, direct};
     }
 
     public ByteBuf[] largeData() {
         ByteBuf heap = Unpooled.wrappedBuffer(compressedBytesLarge);
         ByteBuf direct = Unpooled.directBuffer(compressedBytesLarge.length);
         direct.writeBytes(compressedBytesLarge);
-        return new ByteBuf[] {heap, direct};
+        return new ByteBuf[]{heap, direct};
     }
 
     @ParameterizedTest
@@ -139,7 +139,7 @@ public abstract class AbstractDecoderTest extends AbstractCompressionTest {
         try {
             channel.writeInbound(data);
         } finally {
-            for (;;) {
+            for (; ; ) {
                 ByteBuf inflated = channel.readInbound();
                 if (inflated == null) {
                     break;

@@ -60,7 +60,7 @@ import static io.netty.handler.codec.http2.Http2Exception.connectionError;
  * <p>{@link ChannelConfig#setMaxMessagesPerRead(int)} and {@link ChannelConfig#setAutoRead(boolean)} are supported.
  *
  * <h3>Reference Counting</h3>
- *
+ * <p>
  * Some {@link Http2StreamFrame}s implement the {@link ReferenceCounted} interface, as they carry
  * reference counted objects (e.g. {@link ByteBuf}s). The multiplex codec will call {@link ReferenceCounted#retain()}
  * before propagating a reference counted object through the pipeline, and thus an application handler needs to release
@@ -68,7 +68,7 @@ import static io.netty.handler.codec.http2.Http2Exception.connectionError;
  * https://netty.io/wiki/reference-counted-objects.html
  *
  * <h3>Channel Events</h3>
- *
+ * <p>
  * A child channel becomes active as soon as it is registered to an {@link EventLoop}. Therefore, an active channel
  * does not map to an active HTTP/2 stream immediately. Only once a {@link Http2HeadersFrame} has been successfully sent
  * or received, does the channel map to an active HTTP/2 stream. In case it is not possible to open a new HTTP/2 stream
@@ -76,7 +76,7 @@ import static io.netty.handler.codec.http2.Http2Exception.connectionError;
  * indicating the cause and is closed immediately thereafter.
  *
  * <h3>Writability and Flow Control</h3>
- *
+ * <p>
  * A child channel observes outbound/remote flow control via the channel's writability. A channel only becomes writable
  * when it maps to an active HTTP/2 stream . A child channel does not know about the connection-level flow control
  * window. {@link ChannelHandler}s are free to ignore the channel's writability, in which case the excessive writes will

@@ -63,7 +63,7 @@ public final class Errors {
      * Holds the mappings for errno codes to String messages.
      * This eliminates the need to call back into JNI to get the right String message on an exception
      * and thus is faster.
-     *
+     * <p>
      * The array length of 512 should be more then enough because errno.h only holds < 200 codes.
      */
     private static final String[] ERRORS = new String[512];
@@ -102,6 +102,7 @@ public final class Errors {
     static final class NativeConnectException extends ConnectException {
         private static final long serialVersionUID = -5532328671712318161L;
         private final int expectedErr;
+
         NativeConnectException(String method, int expectedErr) {
             super(method + "(..) failed: " + ERRORS[-expectedErr]);
             this.expectedErr = expectedErr;
@@ -129,10 +130,10 @@ public final class Errors {
     }
 
     /**
-     * @deprecated Use {@link #handleConnectErrno(String, int)}.
      * @param method The native method name which caused the errno.
-     * @param err the negative value of the errno.
+     * @param err    the negative value of the errno.
      * @throws IOException The errno translated into an exception.
+     * @deprecated Use {@link #handleConnectErrno(String, int)}.
      */
     @Deprecated
     public static void throwConnectException(String method, int err) throws IOException {
@@ -208,5 +209,6 @@ public final class Errors {
         throw new NativeIoException(method, err, false);
     }
 
-    private Errors() { }
+    private Errors() {
+    }
 }

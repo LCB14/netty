@@ -178,7 +178,7 @@ public class QueryStringDecoderTest {
     public void testHashDos() {
         StringBuilder buf = new StringBuilder();
         buf.append('?');
-        for (int i = 0; i < 65536; i ++) {
+        for (int i = 0; i < 65536; i++) {
             buf.append('k');
             buf.append(i);
             buf.append("=v");
@@ -207,24 +207,24 @@ public class QueryStringDecoderTest {
                 // "Caffé" but instead of putting the literal E-acute in the
                 // source file, we directly use the UTF-8 encoding so as to
                 // not rely on the platform's default encoding (not portable).
-                new byte[] {'C', 'a', 'f', 'f', (byte) 0xC3, (byte) 0xA9},
+                new byte[]{'C', 'a', 'f', 'f', (byte) 0xC3, (byte) 0xA9},
                 "UTF-8");
         final String[] tests = {
-            // Encoded   ->   Decoded or error message substring
-            "",               "",
-            "foo",            "foo",
-            "f+o",            "f o",
-            "f++",            "f  ",
-            "fo%",            "unterminated escape sequence at index 2 of: fo%",
-            "%42",            "B",
-            "%5f",            "_",
-            "f%4",            "unterminated escape sequence at index 1 of: f%4",
-            "%x2",            "invalid hex byte 'x2' at index 1 of '%x2'",
-            "%4x",            "invalid hex byte '4x' at index 1 of '%4x'",
-            "Caff%C3%A9",     caffe,
-            "случайный праздник",               "случайный праздник",
-            "случайный%20праздник",             "случайный праздник",
-            "случайный%20праздник%20%E2%98%BA", "случайный праздник ☺",
+                // Encoded   ->   Decoded or error message substring
+                "", "",
+                "foo", "foo",
+                "f+o", "f o",
+                "f++", "f  ",
+                "fo%", "unterminated escape sequence at index 2 of: fo%",
+                "%42", "B",
+                "%5f", "_",
+                "f%4", "unterminated escape sequence at index 1 of: f%4",
+                "%x2", "invalid hex byte 'x2' at index 1 of '%x2'",
+                "%4x", "invalid hex byte '4x' at index 1 of '%4x'",
+                "Caff%C3%A9", caffe,
+                "случайный праздник", "случайный праздник",
+                "случайный%20праздник", "случайный праздник",
+                "случайный%20праздник%20%E2%98%BA", "случайный праздник ☺",
         };
         for (int i = 0; i < tests.length; i += 2) {
             final String encoded = tests[i];
@@ -259,7 +259,7 @@ public class QueryStringDecoderTest {
         assertEquals("/foo", decoder.path());
         assertEquals("/foo", decoder.rawPath());
         assertEquals("param1=value1&param2=value2&param3=value3", decoder.rawQuery());
-        Map<String, List<String>> params =  decoder.parameters();
+        Map<String, List<String>> params = decoder.parameters();
         assertEquals(3, params.size());
         Iterator<Entry<String, List<String>>> entries = params.entrySet().iterator();
 
@@ -290,7 +290,7 @@ public class QueryStringDecoderTest {
         assertEquals("/", decoder.rawPath());
         assertEquals("param1=value1&param2=value2&param3=value3", decoder.rawQuery());
 
-        Map<String, List<String>> params =  decoder.parameters();
+        Map<String, List<String>> params = decoder.parameters();
         assertEquals(3, params.size());
         Iterator<Entry<String, List<String>>> entries = params.entrySet().iterator();
 
@@ -321,7 +321,7 @@ public class QueryStringDecoderTest {
         assertEquals("", decoder.rawPath());
         assertEquals("param1=value1&param2=value2&param3=value3", decoder.rawQuery());
 
-        Map<String, List<String>> params =  decoder.parameters();
+        Map<String, List<String>> params = decoder.parameters();
         assertEquals(3, params.size());
         Iterator<Entry<String, List<String>>> entries = params.entrySet().iterator();
 
@@ -352,7 +352,7 @@ public class QueryStringDecoderTest {
         assertEquals("/images;num=10", decoder.rawPath());
         assertEquals("query=name;value=123", decoder.rawQuery());
 
-        Map<String, List<String>> params =  decoder.parameters();
+        Map<String, List<String>> params = decoder.parameters();
         assertEquals(2, params.size());
         Iterator<Entry<String, List<String>>> entries = params.entrySet().iterator();
 

@@ -46,7 +46,8 @@ public abstract class AddressResolverGroup<T extends SocketAddress> implements C
     private final Map<EventExecutor, GenericFutureListener<Future<Object>>> executorTerminationListeners =
             new IdentityHashMap<EventExecutor, GenericFutureListener<Future<Object>>>();
 
-    protected AddressResolverGroup() { }
+    protected AddressResolverGroup() {
+    }
 
     /**
      * Returns the {@link AddressResolver} associated with the specified {@link EventExecutor}. If there's no associated
@@ -104,7 +105,7 @@ public abstract class AddressResolverGroup<T extends SocketAddress> implements C
      * Closes all {@link NameResolver}s created by this group.
      */
     @Override
-    @SuppressWarnings({ "unchecked", "SuspiciousToArrayCall" })
+    @SuppressWarnings({"unchecked", "SuspiciousToArrayCall"})
     public void close() {
         final AddressResolver<T>[] rArray;
         final Map.Entry<EventExecutor, GenericFutureListener<Future<Object>>>[] listeners;
@@ -120,7 +121,7 @@ public abstract class AddressResolverGroup<T extends SocketAddress> implements C
             entry.getKey().terminationFuture().removeListener(entry.getValue());
         }
 
-        for (final AddressResolver<T> r: rArray) {
+        for (final AddressResolver<T> r : rArray) {
             try {
                 r.close();
             } catch (Throwable t) {

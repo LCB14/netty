@@ -31,7 +31,8 @@ import java.util.List;
 @SuppressJava6Requirement(reason = "Usage guarded by java version check")
 final class Java8SslUtils {
 
-    private Java8SslUtils() { }
+    private Java8SslUtils() {
+    }
 
     static List<String> getSniHostNames(SSLParameters sslParameters) {
         List<SNIServerName> names = sslParameters.getServerNames();
@@ -69,7 +70,7 @@ final class Java8SslUtils {
             return Collections.emptyList();
         }
         List<SNIServerName> sniServerNames = new ArrayList<SNIServerName>(names.size());
-        for (String name: names) {
+        for (String name : names) {
             sniServerNames.add(new SNIHostName(name.getBytes(CharsetUtil.UTF_8)));
         }
         return sniServerNames;

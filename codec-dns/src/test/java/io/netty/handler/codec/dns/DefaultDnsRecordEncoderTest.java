@@ -31,28 +31,28 @@ public class DefaultDnsRecordEncoderTest {
 
     @Test
     public void testEncodeName() throws Exception {
-        testEncodeName(new byte[] { 5, 'n', 'e', 't', 't', 'y', 2, 'i', 'o', 0 }, "netty.io.");
+        testEncodeName(new byte[]{5, 'n', 'e', 't', 't', 'y', 2, 'i', 'o', 0}, "netty.io.");
     }
 
     @Test
     public void testEncodeNameWithoutTerminator() throws Exception {
-        testEncodeName(new byte[] { 5, 'n', 'e', 't', 't', 'y', 2, 'i', 'o', 0 }, "netty.io");
+        testEncodeName(new byte[]{5, 'n', 'e', 't', 't', 'y', 2, 'i', 'o', 0}, "netty.io");
     }
 
     @Test
     public void testEncodeNameWithExtraTerminator() throws Exception {
-        testEncodeName(new byte[] { 5, 'n', 'e', 't', 't', 'y', 2, 'i', 'o', 0 }, "netty.io..");
+        testEncodeName(new byte[]{5, 'n', 'e', 't', 't', 'y', 2, 'i', 'o', 0}, "netty.io..");
     }
 
     // Test for https://github.com/netty/netty/issues/5014
     @Test
     public void testEncodeEmptyName() throws Exception {
-        testEncodeName(new byte[] { 0 }, StringUtil.EMPTY_STRING);
+        testEncodeName(new byte[]{0}, StringUtil.EMPTY_STRING);
     }
 
     @Test
     public void testEncodeRootName() throws Exception {
-        testEncodeName(new byte[] { 0 }, ".");
+        testEncodeName(new byte[]{0}, ".");
     }
 
     private static void testEncodeName(byte[] expected, String name) throws Exception {

@@ -64,7 +64,7 @@ public class SpdyFrameDecoderTest {
 
         @Override
         public void readSynStreamFrame(int streamId, int associatedToStreamId,
-        byte priority, boolean last, boolean unidirectional) {
+                                       byte priority, boolean last, boolean unidirectional) {
             delegate.readSynStreamFrame(streamId, associatedToStreamId, priority, last, unidirectional);
         }
 
@@ -130,7 +130,7 @@ public class SpdyFrameDecoderTest {
         }
 
         void releaseAll() {
-            for (;;) {
+            for (; ; ) {
                 ByteBuf buf = buffers.poll();
                 if (buf == null) {
                     return;
@@ -161,7 +161,7 @@ public class SpdyFrameDecoderTest {
 
         ByteBuf buf = Unpooled.buffer(SPDY_HEADER_SIZE + length);
         encodeDataFrameHeader(buf, streamId, flags, length);
-        for (int i = 0; i < 256; i ++) {
+        for (int i = 0; i < 256; i++) {
             buf.writeInt(RANDOM.nextInt());
         }
         decoder.decode(buf);
@@ -445,7 +445,7 @@ public class SpdyFrameDecoderTest {
         buf.writeByte(0);
 
         ByteBuf headerBlock = Unpooled.buffer(headerBlockLength);
-        for (int i = 0; i < 256; i ++) {
+        for (int i = 0; i < 256; i++) {
             headerBlock.writeInt(RANDOM.nextInt());
         }
 
@@ -578,7 +578,7 @@ public class SpdyFrameDecoderTest {
         buf.writeInt(streamId);
 
         ByteBuf headerBlock = Unpooled.buffer(headerBlockLength);
-        for (int i = 0; i < 256; i ++) {
+        for (int i = 0; i < 256; i++) {
             headerBlock.writeInt(RANDOM.nextInt());
         }
 
@@ -1220,7 +1220,7 @@ public class SpdyFrameDecoderTest {
         buf.writeInt(streamId);
 
         ByteBuf headerBlock = Unpooled.buffer(headerBlockLength);
-        for (int i = 0; i < 256; i ++) {
+        for (int i = 0; i < 256; i++) {
             headerBlock.writeInt(RANDOM.nextInt());
         }
         decoder.decode(buf);

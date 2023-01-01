@@ -126,9 +126,9 @@ public class Http2ClientInitializer extends ChannelInitializer<SocketChannel> {
         HttpClientUpgradeHandler upgradeHandler = new HttpClientUpgradeHandler(sourceCodec, upgradeCodec, 65536);
 
         ch.pipeline().addLast(sourceCodec,
-                              upgradeHandler,
-                              new UpgradeRequestHandler(),
-                              new UserEventLogger());
+                upgradeHandler,
+                new UpgradeRequestHandler(),
+                new UserEventLogger());
     }
 
     /**

@@ -37,10 +37,10 @@ public interface AuthoritativeDnsServerCache {
     /**
      * Caches a nameserver that should be used to resolve the given hostname.
      *
-     * @param hostname the hostname
-     * @param address the nameserver address (which may be unresolved).
+     * @param hostname    the hostname
+     * @param address     the nameserver address (which may be unresolved).
      * @param originalTtl the TTL as returned by the DNS server
-     * @param loop the {@link EventLoop} used to register the TTL timeout
+     * @param loop        the {@link EventLoop} used to register the TTL timeout
      */
     void cache(String hostname, InetSocketAddress address, long originalTtl, EventLoop loop);
 
@@ -55,7 +55,7 @@ public interface AuthoritativeDnsServerCache {
      * Clears the cached nameservers for the specified hostname.
      *
      * @return {@code true} if and only if there was an entry for the specified host name in the cache and
-     *         it has been removed by this method
+     * it has been removed by this method
      */
     boolean clear(String hostname);
 }

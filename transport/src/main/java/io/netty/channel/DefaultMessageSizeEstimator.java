@@ -58,7 +58,7 @@ public final class DefaultMessageSizeEstimator implements MessageSizeEstimator {
     /**
      * Create a new instance
      *
-     * @param unknownSize       The size which is returned for unknown messages.
+     * @param unknownSize The size which is returned for unknown messages.
      */
     public DefaultMessageSizeEstimator(int unknownSize) {
         checkPositiveOrZero(unknownSize, "unknownSize");

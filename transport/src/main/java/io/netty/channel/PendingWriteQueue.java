@@ -116,7 +116,7 @@ public final class PendingWriteQueue {
             currentTail.next = write;
             tail = write;
         }
-        size ++;
+        size++;
         bytes += messageSize;
         tracker.incrementPendingOutboundBytes(write.size);
     }
@@ -125,8 +125,8 @@ public final class PendingWriteQueue {
      * Remove all pending write operation and performs them via
      * {@link ChannelHandlerContext#write(Object, ChannelPromise)}.
      *
-     * @return  {@link ChannelFuture} if something was written and {@code null}
-     *          if the {@link PendingWriteQueue} is empty.
+     * @return {@link ChannelFuture} if something was written and {@code null}
+     * if the {@link PendingWriteQueue} is empty.
      */
     public ChannelFuture removeAndWriteAll() {
         assert executor.inEventLoop();
@@ -216,8 +216,8 @@ public final class PendingWriteQueue {
      * Removes a pending write operation and performs it via
      * {@link ChannelHandlerContext#write(Object, ChannelPromise)}.
      *
-     * @return  {@link ChannelFuture} if something was written and {@code null}
-     *          if the {@link PendingWriteQueue} is empty.
+     * @return {@link ChannelFuture} if something was written and {@code null}
+     * if the {@link PendingWriteQueue} is empty.
      */
     public ChannelFuture removeAndWrite() {
         assert executor.inEventLoop();
@@ -234,8 +234,7 @@ public final class PendingWriteQueue {
     /**
      * Removes a pending write operation and release it's message via {@link ReferenceCountUtil#safeRelease(Object)}.
      *
-     * @return  {@link ChannelPromise} of the pending write or {@code null} if the queue is empty.
-     *
+     * @return {@link ChannelPromise} of the pending write or {@code null} if the queue is empty.
      */
     public ChannelPromise remove() {
         assert executor.inEventLoop();
@@ -274,7 +273,7 @@ public final class PendingWriteQueue {
                 bytes = 0;
             } else {
                 head = next;
-                size --;
+                size--;
                 bytes -= writeSize;
                 assert size > 0 && bytes >= 0;
             }

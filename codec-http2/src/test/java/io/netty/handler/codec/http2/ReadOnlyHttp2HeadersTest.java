@@ -36,7 +36,7 @@ public class ReadOnlyHttp2HeadersTest {
         assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() {
-                ReadOnlyHttp2Headers.trailers(false, new AsciiString[]{ null });
+                ReadOnlyHttp2Headers.trailers(false, new AsciiString[]{null});
             }
         });
     }
@@ -209,7 +209,7 @@ public class ReadOnlyHttp2HeadersTest {
         Http2Headers headers = newClientHeaders();
         assertTrue(AsciiString.contentEqualsIgnoreCase("value1", headers.get("Name1")));
         assertTrue(AsciiString.contentEqualsIgnoreCase("/foo",
-                   headers.get(Http2Headers.PseudoHeaderName.PATH.value())));
+                headers.get(Http2Headers.PseudoHeaderName.PATH.value())));
         assertNull(headers.get(Http2Headers.PseudoHeaderName.STATUS.value()));
         assertNull(headers.get("a missing header"));
     }
@@ -289,7 +289,7 @@ public class ReadOnlyHttp2HeadersTest {
     }
 
     private static AsciiString[] otherHeaders() {
-        return new AsciiString[] {
+        return new AsciiString[]{
                 new AsciiString("name1"), new AsciiString("value1"),
                 new AsciiString("name2"), new AsciiString("value2"),
                 new AsciiString("name3"), new AsciiString("value3")

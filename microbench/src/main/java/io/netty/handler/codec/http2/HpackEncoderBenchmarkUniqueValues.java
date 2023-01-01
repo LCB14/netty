@@ -78,7 +78,7 @@ public class HpackEncoderBenchmarkUniqueValues extends AbstractMicrobenchmark {
 
         for (int i = 0; i < hpackEncoder.length; i++) {
             hpackEncoder[i] = new HpackEncoder();
-            for (Http2Headers headers: http2Headers) {
+            for (Http2Headers headers : http2Headers) {
                 output.clear();
                 hpackEncoder[i].encodeHeaders(3, output, headers, Http2HeadersEncoder.NEVER_SENSITIVE);
             }

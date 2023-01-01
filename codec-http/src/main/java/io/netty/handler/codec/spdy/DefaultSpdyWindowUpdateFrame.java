@@ -66,13 +66,13 @@ public class DefaultSpdyWindowUpdateFrame implements SpdyWindowUpdateFrame {
     @Override
     public String toString() {
         return new StringBuilder()
-            .append(StringUtil.simpleClassName(this))
-            .append(StringUtil.NEWLINE)
-            .append("--> Stream-ID = ")
-            .append(streamId())
-            .append(StringUtil.NEWLINE)
-            .append("--> Delta-Window-Size = ")
-            .append(deltaWindowSize())
-            .toString();
+                .append(StringUtil.simpleClassName(this))
+                .append(StringUtil.NEWLINE)
+                .append("--> Stream-ID = ")
+                .append(streamId())
+                .append(StringUtil.NEWLINE)
+                .append("--> Delta-Window-Size = ")
+                .append(deltaWindowSize())
+                .toString();
     }
 }

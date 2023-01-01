@@ -95,7 +95,7 @@ public final class DomainNameMappingBuilder<V> {
         private static final String REPR_MAP_OPENING = ", map: {";
         private static final String REPR_MAP_CLOSING = "})";
         private static final int REPR_CONST_PART_LENGTH =
-            REPR_HEADER.length() + REPR_MAP_OPENING.length() + REPR_MAP_CLOSING.length();
+                REPR_HEADER.length() + REPR_MAP_OPENING.length() + REPR_MAP_CLOSING.length();
 
         private final String[] domainNamePatterns;
         private final V[] values;
@@ -128,7 +128,7 @@ public final class DomainNameMappingBuilder<V> {
         @Deprecated
         public DomainNameMapping<V> add(String hostname, V output) {
             throw new UnsupportedOperationException(
-                "Immutable DomainNameMapping does not support modification after initial creation");
+                    "Immutable DomainNameMapping does not support modification after initial creation");
         }
 
         @Override
@@ -167,7 +167,7 @@ public final class DomainNameMappingBuilder<V> {
             int estimatedBufferSize = estimateBufferSize(defaultValueStr.length(), numberOfMappings, oneMappingLength);
 
             StringBuilder sb = new StringBuilder(estimatedBufferSize)
-                .append(REPR_HEADER).append(defaultValueStr).append(REPR_MAP_OPENING);
+                    .append(REPR_HEADER).append(defaultValueStr).append(REPR_MAP_OPENING);
 
             appendMapping(sb, pattern0, value0);
             for (int index = 1; index < numberOfMappings; ++index) {
@@ -192,7 +192,7 @@ public final class DomainNameMappingBuilder<V> {
                                               int numberOfMappings,
                                               int estimatedMappingLength) {
             return REPR_CONST_PART_LENGTH + defaultValueLength
-                + (int) (estimatedMappingLength * numberOfMappings * 1.10);
+                    + (int) (estimatedMappingLength * numberOfMappings * 1.10);
         }
 
         private StringBuilder appendMapping(StringBuilder sb, int mappingIndex) {

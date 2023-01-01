@@ -64,7 +64,7 @@ public class ByteToMessageDecoderTest {
             }
         });
 
-        ByteBuf buf = Unpooled.wrappedBuffer(new byte[] {'a', 'b', 'c'});
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'a', 'b', 'c'});
         channel.writeInbound(buf.copy());
         ByteBuf b = channel.readInbound();
         assertEquals(b, buf.skipBytes(1));
@@ -74,7 +74,7 @@ public class ByteToMessageDecoderTest {
 
     @Test
     public void testRemoveItselfWriteBuffer() {
-        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[] {'a', 'b', 'c'});
+        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[]{'a', 'b', 'c'});
         EmbeddedChannel channel = new EmbeddedChannel(new ByteToMessageDecoder() {
             private boolean removed;
 
@@ -91,7 +91,7 @@ public class ByteToMessageDecoderTest {
         });
 
         channel.writeInbound(buf.copy());
-        ByteBuf expected = Unpooled.wrappedBuffer(new byte[] {'b', 'c'});
+        ByteBuf expected = Unpooled.wrappedBuffer(new byte[]{'b', 'c'});
         ByteBuf b = channel.readInbound();
         assertEquals(expected, b);
         expected.release();
@@ -105,7 +105,7 @@ public class ByteToMessageDecoderTest {
      */
     @Test
     public void testInternalBufferClearReadAll() {
-        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[] {'a'});
+        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[]{'a'});
         EmbeddedChannel channel = newInternalBufferTestChannel();
         assertFalse(channel.writeInbound(buf));
         assertFalse(channel.finish());
@@ -117,11 +117,11 @@ public class ByteToMessageDecoderTest {
      */
     @Test
     public void testInternalBufferClearReadPartly() {
-        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[] {'a', 'b'});
+        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[]{'a', 'b'});
         EmbeddedChannel channel = newInternalBufferTestChannel();
         assertTrue(channel.writeInbound(buf));
         assertTrue(channel.finish());
-        ByteBuf expected = Unpooled.wrappedBuffer(new byte[] {'b'});
+        ByteBuf expected = Unpooled.wrappedBuffer(new byte[]{'b'});
         ByteBuf b = channel.readInbound();
         assertEquals(expected, b);
         assertNull(channel.readInbound());
@@ -176,7 +176,7 @@ public class ByteToMessageDecoderTest {
     @Test
     public void testFireChannelReadCompleteOnInactive() throws InterruptedException {
         final BlockingQueue<Integer> queue = new LinkedBlockingDeque<Integer>();
-        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[] {'a', 'b'});
+        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[]{'a', 'b'});
         EmbeddedChannel channel = new EmbeddedChannel(new ByteToMessageDecoder() {
             @Override
             protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
@@ -239,7 +239,7 @@ public class ByteToMessageDecoderTest {
             }
         });
 
-        ByteBuf buf = Unpooled.wrappedBuffer(new byte[] { 'a', 'b', 'c' });
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'a', 'b', 'c'});
         assertTrue(channel.writeInbound(buf.copy()));
         ByteBuf b = channel.readInbound();
         assertEquals(b, buf.skipBytes(1));
@@ -318,7 +318,7 @@ public class ByteToMessageDecoderTest {
             }
         });
         assertFalse(channel.writeInbound(Unpooled.buffer(8).writeByte(1).asReadOnly()));
-        assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(new byte[] { (byte) 2 })));
+        assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(new byte[]{(byte) 2})));
         assertFalse(channel.finish());
     }
 
@@ -423,6 +423,7 @@ public class ByteToMessageDecoderTest {
             public CompositeByteBuf addComponent(boolean increaseWriterIndex, ByteBuf buffer) {
                 throw error;
             }
+
             @Override
             public CompositeByteBuf addFlattenedComponents(boolean increaseWriterIndex, ByteBuf buffer) {
                 throw error;
@@ -459,27 +460,27 @@ public class ByteToMessageDecoderTest {
         assertEquals(0, interceptor.readsTriggered);
 
         // 0 complete frames, 1 partial frame: SHOULD trigger a read
-        channel.writeInbound(wrappedBuffer(new byte[] { 0, 1 }));
+        channel.writeInbound(wrappedBuffer(new byte[]{0, 1}));
         assertEquals(1, interceptor.readsTriggered);
 
         // 2 complete frames, 0 partial frames: should NOT trigger a read
-        channel.writeInbound(wrappedBuffer(new byte[] { 2 }), wrappedBuffer(new byte[] { 3, 4, 5 }));
+        channel.writeInbound(wrappedBuffer(new byte[]{2}), wrappedBuffer(new byte[]{3, 4, 5}));
         assertEquals(1, interceptor.readsTriggered);
 
         // 1 complete frame, 1 partial frame: should NOT trigger a read
-        channel.writeInbound(wrappedBuffer(new byte[] { 6, 7, 8 }), wrappedBuffer(new byte[] { 9 }));
+        channel.writeInbound(wrappedBuffer(new byte[]{6, 7, 8}), wrappedBuffer(new byte[]{9}));
         assertEquals(1, interceptor.readsTriggered);
 
         // 1 complete frame, 1 partial frame: should NOT trigger a read
-        channel.writeInbound(wrappedBuffer(new byte[] { 10, 11 }), wrappedBuffer(new byte[] { 12 }));
+        channel.writeInbound(wrappedBuffer(new byte[]{10, 11}), wrappedBuffer(new byte[]{12}));
         assertEquals(1, interceptor.readsTriggered);
 
         // 0 complete frames, 1 partial frame: SHOULD trigger a read
-        channel.writeInbound(wrappedBuffer(new byte[] { 13 }));
+        channel.writeInbound(wrappedBuffer(new byte[]{13}));
         assertEquals(2, interceptor.readsTriggered);
 
         // 1 complete frame, 0 partial frames: should NOT trigger a read
-        channel.writeInbound(wrappedBuffer(new byte[] { 14 }));
+        channel.writeInbound(wrappedBuffer(new byte[]{14}));
         assertEquals(2, interceptor.readsTriggered);
 
         for (int i = 0; i < 5; i++) {

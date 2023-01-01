@@ -19,7 +19,7 @@ import java.util.Queue;
 
 /**
  * Factory used to create {@link Queue} instances that will be used to store tasks for an {@link EventLoop}.
- *
+ * <p>
  * Generally speaking the returned {@link Queue} MUST be thread-safe and depending on the {@link EventLoop}
  * implementation must be of type {@link java.util.concurrent.BlockingQueue}.
  */
@@ -27,6 +27,7 @@ public interface EventLoopTaskQueueFactory {
 
     /**
      * Returns a new {@link Queue} to use.
+     *
      * @param maxCapacity the maximum amount of elements that can be stored in the {@link Queue} at a given point
      *                    in time.
      * @return the new queue.

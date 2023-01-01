@@ -53,7 +53,8 @@ class PromiseTask<V> extends DefaultPromise<V> implements RunnableFuture<V> {
         }
 
         @Override
-        public void run() { } // no-op
+        public void run() {
+        } // no-op
 
         @Override
         public String toString() {
@@ -182,7 +183,7 @@ class PromiseTask<V> extends DefaultPromise<V> implements RunnableFuture<V> {
         buf.setCharAt(buf.length() - 1, ',');
 
         return buf.append(" task: ")
-                  .append(task)
-                  .append(')');
+                .append(task)
+                .append(')');
     }
 }

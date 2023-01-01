@@ -97,7 +97,7 @@ final class HttpMessageUtil {
     }
 
     private static void appendHeaders(StringBuilder buf, HttpHeaders headers) {
-        for (Map.Entry<String, String> e: headers) {
+        for (Map.Entry<String, String> e : headers) {
             buf.append(e.getKey());
             buf.append(": ");
             buf.append(e.getValue());
@@ -109,5 +109,6 @@ final class HttpMessageUtil {
         buf.setLength(buf.length() - StringUtil.NEWLINE.length());
     }
 
-    private HttpMessageUtil() { }
+    private HttpMessageUtil() {
+    }
 }

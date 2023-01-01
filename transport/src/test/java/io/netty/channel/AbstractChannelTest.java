@@ -79,7 +79,7 @@ public class AbstractChannelTest {
         verify(handler).handlerAdded(any(ChannelHandlerContext.class));
 
         // Should register twice
-        verify(handler,  times(2)) .channelRegistered(any(ChannelHandlerContext.class));
+        verify(handler, times(2)).channelRegistered(any(ChannelHandlerContext.class));
         verify(handler).channelActive(any(ChannelHandlerContext.class));
         verify(handler).channelUnregistered(any(ChannelHandlerContext.class));
     }
@@ -130,7 +130,7 @@ public class AbstractChannelTest {
             }
 
             @Override
-            protected void doClose()  {
+            protected void doClose() {
                 active = false;
                 open = false;
             }
@@ -234,18 +234,23 @@ public class AbstractChannelTest {
         }
 
         @Override
-        protected void doBind(SocketAddress localAddress) { }
+        protected void doBind(SocketAddress localAddress) {
+        }
 
         @Override
-        protected void doDisconnect() { }
+        protected void doDisconnect() {
+        }
 
         @Override
-        protected void doClose() { }
+        protected void doClose() {
+        }
 
         @Override
-        protected void doBeginRead() { }
+        protected void doBeginRead() {
+        }
 
         @Override
-        protected void doWrite(ChannelOutboundBuffer in) throws Exception { }
+        protected void doWrite(ChannelOutboundBuffer in) throws Exception {
+        }
     }
 }

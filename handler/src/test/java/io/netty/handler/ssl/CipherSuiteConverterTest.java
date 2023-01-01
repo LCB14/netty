@@ -388,28 +388,28 @@ public class CipherSuiteConverterTest {
         CipherSuiteConverter.clearCache();
 
         assertEquals("TLS_AES_128_GCM_SHA256",
-                     CipherSuiteConverter.toJava("TLS_AES_128_GCM_SHA256", "TLS"));
+                CipherSuiteConverter.toJava("TLS_AES_128_GCM_SHA256", "TLS"));
         assertNull(CipherSuiteConverter.toJava("TLS_AES_128_GCM_SHA256", "SSL"));
         assertEquals("TLS_AES_256_GCM_SHA384",
-                     CipherSuiteConverter.toJava("TLS_AES_256_GCM_SHA384", "TLS"));
+                CipherSuiteConverter.toJava("TLS_AES_256_GCM_SHA384", "TLS"));
         assertNull(CipherSuiteConverter.toJava("TLS_AES_256_GCM_SHA384", "SSL"));
         assertEquals("TLS_CHACHA20_POLY1305_SHA256",
-                     CipherSuiteConverter.toJava("TLS_CHACHA20_POLY1305_SHA256", "TLS"));
+                CipherSuiteConverter.toJava("TLS_CHACHA20_POLY1305_SHA256", "TLS"));
         assertNull(CipherSuiteConverter.toJava("TLS_CHACHA20_POLY1305_SHA256", "SSL"));
 
         // BoringSSL use different cipher naming then OpenSSL so we need to test for both
         assertEquals("TLS_AES_128_GCM_SHA256",
-                     CipherSuiteConverter.toOpenSsl("TLS_AES_128_GCM_SHA256", false));
+                CipherSuiteConverter.toOpenSsl("TLS_AES_128_GCM_SHA256", false));
         assertEquals("TLS_AES_256_GCM_SHA384",
-                     CipherSuiteConverter.toOpenSsl("TLS_AES_256_GCM_SHA384", false));
+                CipherSuiteConverter.toOpenSsl("TLS_AES_256_GCM_SHA384", false));
         assertEquals("TLS_CHACHA20_POLY1305_SHA256",
-                     CipherSuiteConverter.toOpenSsl("TLS_CHACHA20_POLY1305_SHA256", false));
+                CipherSuiteConverter.toOpenSsl("TLS_CHACHA20_POLY1305_SHA256", false));
 
         assertEquals("AEAD-AES128-GCM-SHA256",
-                     CipherSuiteConverter.toOpenSsl("TLS_AES_128_GCM_SHA256", true));
+                CipherSuiteConverter.toOpenSsl("TLS_AES_128_GCM_SHA256", true));
         assertEquals("AEAD-AES256-GCM-SHA384",
-                     CipherSuiteConverter.toOpenSsl("TLS_AES_256_GCM_SHA384", true));
+                CipherSuiteConverter.toOpenSsl("TLS_AES_256_GCM_SHA384", true));
         assertEquals("AEAD-CHACHA20-POLY1305-SHA256",
-                     CipherSuiteConverter.toOpenSsl("TLS_CHACHA20_POLY1305_SHA256", true));
+                CipherSuiteConverter.toOpenSsl("TLS_CHACHA20_POLY1305_SHA256", true));
     }
 }

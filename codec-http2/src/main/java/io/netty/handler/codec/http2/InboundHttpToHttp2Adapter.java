@@ -37,7 +37,7 @@ public class InboundHttpToHttp2Adapter extends ChannelInboundHandlerAdapter {
 
     private static int getStreamId(Http2Connection connection, HttpHeaders httpHeaders) {
         return httpHeaders.getInt(HttpConversionUtil.ExtensionHeaderNames.STREAM_ID.text(),
-                                  connection.remote().incrementAndGetNextStreamId());
+                connection.remote().incrementAndGetNextStreamId());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class InboundHttpToHttp2Adapter extends ChannelInboundHandlerAdapter {
     // message when using h2c, since that message is ineligible for flow
     // control, but there is not yet an API for signaling that.
     static void handle(ChannelHandlerContext ctx, Http2Connection connection,
-                              Http2FrameListener listener, FullHttpMessage message) throws Http2Exception {
+                       Http2FrameListener listener, FullHttpMessage message) throws Http2Exception {
         try {
             int streamId = getStreamId(connection, message.headers());
             Http2Stream stream = connection.stream(streamId);

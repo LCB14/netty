@@ -20,10 +20,10 @@ import io.netty.handler.codec.http.cookie.ClientCookieDecoder;
 /**
  * A <a href="https://tools.ietf.org/html/rfc6265">RFC6265</a> compliant cookie encoder to be used client side,
  * so only name=value pairs are sent.
- *
+ * <p>
  * User-Agents are not supposed to interpret cookies, so, if present, {@link Cookie#rawValue()} will be used.
  * Otherwise, {@link Cookie#value()} will be used unquoted.
- *
+ * <p>
  * Note that multiple cookies are supposed to be sent at once in a single "Cookie" header.
  *
  * <pre>
@@ -40,7 +40,7 @@ public final class ClientCookieEncoder {
     /**
      * Encodes the specified cookie into a Cookie header value.
      *
-     * @param name the cookie name
+     * @param name  the cookie name
      * @param value the cookie value
      * @return a Rfc6265 style Cookie header value
      */

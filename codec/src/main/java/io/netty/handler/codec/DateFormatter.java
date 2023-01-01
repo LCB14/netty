@@ -28,7 +28,7 @@ import java.util.TimeZone;
 
 /**
  * A formatter for HTTP header dates, such as "Expires" and "Date" headers, or "expires" field in "Set-Cookie".
- *
+ * <p>
  * On the parsing side, it honors RFC6265 (so it supports RFC1123).
  * Note that:
  * <ul>
@@ -37,7 +37,7 @@ import java.util.TimeZone;
  * </ul>
  * If you're looking for a date format that validates day of week, or supports other timezones, consider using
  * java.util.DateTimeFormatter.RFC_1123_DATE_TIME.
- *
+ * <p>
  * On the formatting side, it uses a subset of RFC1123 (2 digit day-of-month and 4 digit year) as per RFC2616.
  * This subset supports RFC6265.
  *
@@ -48,6 +48,7 @@ import java.util.TimeZone;
 public final class DateFormatter {
 
     private static final BitSet DELIMITERS = new BitSet();
+
     static {
         DELIMITERS.set(0x09);
         for (char c = 0x20; c <= 0x2F; c++) {
@@ -80,6 +81,7 @@ public final class DateFormatter {
 
     /**
      * Parse some text into a {@link Date}, according to RFC6265
+     *
      * @param txt text to parse
      * @return a {@link Date}, or null if text couldn't be parsed
      */
@@ -89,9 +91,10 @@ public final class DateFormatter {
 
     /**
      * Parse some text into a {@link Date}, according to RFC6265
-     * @param txt text to parse
+     *
+     * @param txt   text to parse
      * @param start the start index inside {@code txt}
-     * @param end the end index inside {@code txt}
+     * @param end   the end index inside {@code txt}
      * @return a {@link Date}, or null if text couldn't be parsed
      */
     public static Date parseHttpDate(CharSequence txt, int start, int end) {
@@ -109,6 +112,7 @@ public final class DateFormatter {
 
     /**
      * Format a {@link Date} into RFC1123 format
+     *
      * @param date the date to format
      * @return a RFC1123 string
      */
@@ -118,8 +122,9 @@ public final class DateFormatter {
 
     /**
      * Append a {@link Date} to a {@link StringBuilder} into RFC1123 format
+     *
      * @param date the date to format
-     * @param sb the StringBuilder
+     * @param sb   the StringBuilder
      * @return the same StringBuilder
      */
     public static StringBuilder append(Date date, StringBuilder sb) {
@@ -197,7 +202,7 @@ public final class DateFormatter {
             if (isDigit(c)) {
                 currentPartValue = currentPartValue * 10 + getNumericalValue(c);
                 if (++numDigits > 2) {
-                  return false; // too many digits in this part
+                    return false; // too many digits in this part
                 }
             } else if (c == ':') {
                 if (numDigits == 0) {

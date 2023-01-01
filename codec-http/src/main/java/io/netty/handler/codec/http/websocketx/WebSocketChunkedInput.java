@@ -34,6 +34,7 @@ public final class WebSocketChunkedInput implements ChunkedInput<WebSocketFrame>
 
     /**
      * Creates a new instance using the specified input.
+     *
      * @param input {@link ChunkedInput} containing data to write
      */
     public WebSocketChunkedInput(ChunkedInput<ByteBuf> input) {
@@ -42,10 +43,10 @@ public final class WebSocketChunkedInput implements ChunkedInput<WebSocketFrame>
 
     /**
      * Creates a new instance using the specified input.
-     * @param input {@link ChunkedInput} containing data to write
-     * @param rsv RSV1, RSV2, RSV3 used for extensions
      *
-     * @throws  NullPointerException if {@code input} is null
+     * @param input {@link ChunkedInput} containing data to write
+     * @param rsv   RSV1, RSV2, RSV3 used for extensions
+     * @throws NullPointerException if {@code input} is null
      */
     public WebSocketChunkedInput(ChunkedInput<ByteBuf> input, int rsv) {
         this.input = ObjectUtil.checkNotNull(input, "input");
@@ -70,14 +71,13 @@ public final class WebSocketChunkedInput implements ChunkedInput<WebSocketFrame>
     }
 
     /**
+     * @param ctx {@link ChannelHandlerContext} context of channelHandler
+     * @return {@link WebSocketFrame} contain chunk of data
      * @deprecated Use {@link #readChunk(ByteBufAllocator)}.
-     *
+     * <p>
      * Fetches a chunked data from the stream. Once this method returns the last chunk
      * and thus the stream has reached at its end, any subsequent {@link #isEndOfInput()}
      * call must return {@code true}.
-     *
-     * @param ctx {@link ChannelHandlerContext} context of channelHandler
-     * @return {@link WebSocketFrame} contain chunk of data
      */
     @Deprecated
     @Override

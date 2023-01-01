@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+
 import org.junit.jupiter.api.TestInfo;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -66,8 +67,8 @@ public class SocketExceptionHandlingTest extends AbstractSocketTest {
 
             // After we get the first exception, we should get no more, this is expected to timeout.
             assertFalse(serverInitializer.exceptionHandler.latch2.await(1, TimeUnit.SECONDS),
-                "Encountered " + serverInitializer.exceptionHandler.count.get() +
-                                        " exceptions when 1 was expected");
+                    "Encountered " + serverInitializer.exceptionHandler.count.get() +
+                            " exceptions when 1 was expected");
         } finally {
             if (serverChannel != null) {
                 serverChannel.close().syncUninterruptibly();
@@ -80,6 +81,7 @@ public class SocketExceptionHandlingTest extends AbstractSocketTest {
 
     private static class MyInitializer extends ChannelInitializer<Channel> {
         final ExceptionHandler exceptionHandler = new ExceptionHandler();
+
         @Override
         protected void initChannel(Channel ch) throws Exception {
             ChannelPipeline pipeline = ch.pipeline();

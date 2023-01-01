@@ -22,11 +22,12 @@ import java.util.regex.Pattern;
 /**
  * Converts OpenSSL signature Algorithm names to
  * <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#Signature">
- *     Java signature Algorithm names</a>.
+ * Java signature Algorithm names</a>.
  */
 final class SignatureAlgorithmConverter {
 
-    private SignatureAlgorithmConverter() { }
+    private SignatureAlgorithmConverter() {
+    }
 
     // OpenSSL has 3 different formats it uses at the moment we will match against all of these.
     // For example:
@@ -42,10 +43,10 @@ final class SignatureAlgorithmConverter {
     private static final Pattern PATTERN = Pattern.compile(
             // group 1 - 2
             "(?:(^[a-zA-Z].+)With(.+)Encryption$)|" +
-            // group 3 - 4
-            "(?:(^[a-zA-Z].+)(?:_with_|-with-|_pkcs1_|_pss_rsae_)(.+$))|" +
-            // group 5 - 6
-            "(?:(^[a-zA-Z].+)_(.+$))");
+                    // group 3 - 4
+                    "(?:(^[a-zA-Z].+)(?:_with_|-with-|_pkcs1_|_pss_rsae_)(.+$))|" +
+                    // group 5 - 6
+                    "(?:(^[a-zA-Z].+)_(.+$))");
 
     /**
      * Converts an OpenSSL algorithm name to a Java algorithm name and return it,

@@ -38,8 +38,8 @@ public abstract class AbstractCoalescingBufferQueue {
     /**
      * Create a new instance.
      *
-     * @param channel the {@link Channel} which will have the {@link Channel#isWritable()} reflect the amount of queued
-     *                buffers or {@code null} if there is no writability state updated.
+     * @param channel  the {@link Channel} which will have the {@link Channel#isWritable()} reflect the amount of queued
+     *                 buffers or {@code null} if there is no writability state updated.
      * @param initSize the initial size of the underlying queue.
      */
     protected AbstractCoalescingBufferQueue(Channel channel, int initSize) {
@@ -50,7 +50,8 @@ public abstract class AbstractCoalescingBufferQueue {
     /**
      * Add a buffer to the front of the queue and associate a promise with it that should be completed when
      * all the buffer's bytes have been consumed from the queue and written.
-     * @param buf to add to the head of the queue
+     *
+     * @param buf     to add to the head of the queue
      * @param promise to complete when all the bytes have been consumed and written, can be void.
      */
     public final void addFirst(ByteBuf buf, ChannelPromise promise) {
@@ -75,7 +76,8 @@ public abstract class AbstractCoalescingBufferQueue {
     /**
      * Add a buffer to the end of the queue and associate a promise with it that should be completed when
      * all the buffer's bytes have been consumed from the queue and written.
-     * @param buf to add to the tail of the queue
+     *
+     * @param buf     to add to the tail of the queue
      * @param promise to complete when all the bytes have been consumed and written, can be void.
      */
     public final void add(ByteBuf buf, ChannelPromise promise) {
@@ -87,7 +89,8 @@ public abstract class AbstractCoalescingBufferQueue {
     /**
      * Add a buffer to the end of the queue and associate a listener with it that should be completed when
      * all the buffers  bytes have been consumed from the queue and written.
-     * @param buf to add to the tail of the queue
+     *
+     * @param buf      to add to the tail of the queue
      * @param listener to notify when all the bytes have been consumed and written, can be {@code null}.
      */
     public final void add(ByteBuf buf, ChannelFutureListener listener) {
@@ -102,6 +105,7 @@ public abstract class AbstractCoalescingBufferQueue {
 
     /**
      * Remove the first {@link ByteBuf} from the queue.
+     *
      * @param aggregatePromise used to aggregate the promises and listeners for the returned buffer.
      * @return the first {@link ByteBuf} from the queue.
      */
@@ -128,9 +132,9 @@ public abstract class AbstractCoalescingBufferQueue {
      * fully consumed during removal will have it's promise completed when the passed aggregate {@link ChannelPromise}
      * completes.
      *
-     * @param alloc The allocator used if a new {@link ByteBuf} is generated during the aggregation process.
-     * @param bytes the maximum number of readable bytes in the returned {@link ByteBuf}, if {@code bytes} is greater
-     *              than {@link #readableBytes} then a buffer of length {@link #readableBytes} is returned.
+     * @param alloc            The allocator used if a new {@link ByteBuf} is generated during the aggregation process.
+     * @param bytes            the maximum number of readable bytes in the returned {@link ByteBuf}, if {@code bytes} is greater
+     *                         than {@link #readableBytes} then a buffer of length {@link #readableBytes} is returned.
      * @param aggregatePromise used to aggregate the promises and listeners for the constituent buffers.
      * @return a {@link ByteBuf} composed of the enqueued buffers.
      */
@@ -149,7 +153,7 @@ public abstract class AbstractCoalescingBufferQueue {
         ByteBuf entryBuffer = null;
         int originalBytes = bytes;
         try {
-            for (;;) {
+            for (; ; ) {
                 Object entry = bufAndListenerPairs.poll();
                 if (entry == null) {
                     break;
@@ -166,14 +170,14 @@ public abstract class AbstractCoalescingBufferQueue {
                         // Take a slice of what we can consume and retain it.
                         entryBuffer = entryBuffer.readRetainedSlice(bytes);
                         toReturn = toReturn == null ? composeFirst(alloc, entryBuffer)
-                                                    : compose(alloc, toReturn, entryBuffer);
+                                : compose(alloc, toReturn, entryBuffer);
                         bytes = 0;
                     }
                     break;
                 } else {
                     bytes -= entryBuffer.readableBytes();
                     toReturn = toReturn == null ? composeFirst(alloc, entryBuffer)
-                                                : compose(alloc, toReturn, entryBuffer);
+                            : compose(alloc, toReturn, entryBuffer);
                 }
                 entryBuffer = null;
             }
@@ -202,7 +206,7 @@ public abstract class AbstractCoalescingBufferQueue {
     }
 
     /**
-     *  Release all buffers in the queue and complete all listeners and promises.
+     * Release all buffers in the queue and complete all listeners and promises.
      */
     public final void releaseAndFailAll(ChannelOutboundInvoker invoker, Throwable cause) {
         releaseAndCompleteAll(invoker.newFailedFuture(cause));
@@ -210,6 +214,7 @@ public abstract class AbstractCoalescingBufferQueue {
 
     /**
      * Copy all pending entries in this queue into the destination queue.
+     *
      * @param dest to copy pending buffers to.
      */
     public final void copyTo(AbstractCoalescingBufferQueue dest) {
@@ -219,12 +224,13 @@ public abstract class AbstractCoalescingBufferQueue {
 
     /**
      * Writes all remaining elements in this queue.
+     *
      * @param ctx The context to write all elements to.
      */
     public final void writeAndRemoveAll(ChannelHandlerContext ctx) {
         Throwable pending = null;
         ByteBuf previousBuf = null;
-        for (;;) {
+        for (; ; ) {
             Object entry = bufAndListenerPairs.poll();
             try {
                 if (entry == null) {
@@ -293,9 +299,10 @@ public abstract class AbstractCoalescingBufferQueue {
 
     /**
      * Compose {@code cumulation} and {@code next} into a new {@link ByteBufAllocator#ioBuffer()}.
-     * @param alloc The allocator to use to allocate the new buffer.
+     *
+     * @param alloc      The allocator to use to allocate the new buffer.
      * @param cumulation The current cumulation.
-     * @param next The next buffer.
+     * @param next       The next buffer.
      * @return The result of {@code cumulation + next}.
      */
     protected final ByteBuf copyAndCompose(ByteBufAllocator alloc, ByteBuf cumulation, ByteBuf next) {
@@ -322,12 +329,14 @@ public abstract class AbstractCoalescingBufferQueue {
 
     /**
      * The value to return when {@link #remove(ByteBufAllocator, int, ChannelPromise)} is called but the queue is empty.
+     *
      * @return the {@link ByteBuf} which represents an empty queue.
      */
     protected abstract ByteBuf removeEmptyValue();
 
     /**
      * Get the number of elements in this queue added via one of the {@link #add(ByteBuf)} methods.
+     *
      * @return the number of elements in this queue.
      */
     protected final int size() {
@@ -336,7 +345,7 @@ public abstract class AbstractCoalescingBufferQueue {
 
     private void releaseAndCompleteAll(ChannelFuture future) {
         Throwable pending = null;
-        for (;;) {
+        for (; ; ) {
             Object entry = bufAndListenerPairs.poll();
             if (entry == null) {
                 break;

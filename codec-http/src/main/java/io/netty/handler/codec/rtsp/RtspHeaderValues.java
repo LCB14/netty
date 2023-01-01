@@ -58,7 +58,7 @@ public final class RtspHeaderValues {
     /**
      * {@code "100-continue"}
      */
-    public static final AsciiString CONTINUE =  HttpHeaderValues.CONTINUE;
+    public static final AsciiString CONTINUE = HttpHeaderValues.CONTINUE;
     /**
      * {@code "deflate"}
      */
@@ -192,5 +192,6 @@ public final class RtspHeaderValues {
      */
     public static final AsciiString URL = AsciiString.cached("url");
 
-    private RtspHeaderValues() { }
+    private RtspHeaderValues() {
+    }
 }

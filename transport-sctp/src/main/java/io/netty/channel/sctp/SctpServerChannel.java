@@ -40,11 +40,11 @@ public interface SctpServerChannel extends ServerChannel {
 
     /**
      * Return the (primary) local address of the SCTP server channel.
-     *
+     * <p>
      * Please note that, this return the first local address in the underlying SCTP ServerChannel's
      * local address iterator to support Netty Channel API. In other words, its the application's
      * responsibility to keep track of it's local primary address.
-     *
+     * <p>
      * (To set a local address as primary, the application can request by calling local SCTP stack,
      * with SctpStandardSocketOption.SCTP_PRIMARY_ADDR option).
      */
@@ -66,21 +66,21 @@ public interface SctpServerChannel extends ServerChannel {
     /**
      * Bind a address to the already bound channel to enable multi-homing.
      * The Channel must be bound and yet to be connected.
-     *
+     * <p>
      * Will notify the given {@link ChannelPromise} and return a {@link ChannelFuture}
      */
     ChannelFuture bindAddress(InetAddress localAddress, ChannelPromise promise);
 
     /**
-     *  Unbind the address from channel's multi-homing address list.
-     *  The address should be added already in multi-homing address list.
+     * Unbind the address from channel's multi-homing address list.
+     * The address should be added already in multi-homing address list.
      */
     ChannelFuture unbindAddress(InetAddress localAddress);
 
     /**
-     *  Unbind the address from channel's multi-homing address list.
-     *  The address should be added already in multi-homing address list.
-     *
+     * Unbind the address from channel's multi-homing address list.
+     * The address should be added already in multi-homing address list.
+     * <p>
      * Will notify the given {@link ChannelPromise} and return a {@link ChannelFuture}
      */
     ChannelFuture unbindAddress(InetAddress localAddress, ChannelPromise promise);

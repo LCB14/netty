@@ -48,7 +48,7 @@ public class DefaultEventLoop extends SingleThreadEventLoop {
 
     @Override
     protected void run() {
-        for (;;) {
+        for (; ; ) {
             Runnable task = takeTask();
             if (task != null) {
                 runTask(task);

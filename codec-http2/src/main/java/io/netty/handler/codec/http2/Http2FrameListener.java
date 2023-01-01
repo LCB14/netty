@@ -27,11 +27,11 @@ public interface Http2FrameListener {
     /**
      * Handles an inbound {@code DATA} frame.
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the subject stream for the frame.
-     * @param data payload buffer for the frame. This buffer will be released by the codec.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
+     * @param ctx         the context from the handler where the frame was read.
+     * @param streamId    the subject stream for the frame.
+     * @param data        payload buffer for the frame. This buffer will be released by the codec.
+     * @param padding     additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                    256 (inclusive).
      * @param endOfStream Indicates whether this is the last frame to be sent from the remote endpoint for this stream.
      * @return the number of bytes that have been processed by the application. The returned bytes are used by the
      * inbound flow controller to determine the appropriate time to expand the inbound flow control window (i.e. send
@@ -58,16 +58,16 @@ public interface Http2FrameListener {
      * To say it another way; the {@link Http2Headers} will contain all of the headers
      * for the current message exchange step (additional queuing is not necessary).
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the subject stream for the frame.
-     * @param headers the received headers.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
+     * @param ctx         the context from the handler where the frame was read.
+     * @param streamId    the subject stream for the frame.
+     * @param headers     the received headers.
+     * @param padding     additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                    256 (inclusive).
      * @param endOfStream Indicates whether this is the last frame to be sent from the remote endpoint
-     *            for this stream.
+     *                    for this stream.
      */
     void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int padding,
-            boolean endOfStream) throws Http2Exception;
+                       boolean endOfStream) throws Http2Exception;
 
     /**
      * Handles an inbound {@code HEADERS} frame with priority information specified.
@@ -84,20 +84,20 @@ public interface Http2FrameListener {
      * To say it another way; the {@link Http2Headers} will contain all of the headers
      * for the current message exchange step (additional queuing is not necessary).
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the subject stream for the frame.
-     * @param headers the received headers.
+     * @param ctx              the context from the handler where the frame was read.
+     * @param streamId         the subject stream for the frame.
+     * @param headers          the received headers.
      * @param streamDependency the stream on which this stream depends, or 0 if dependent on the
-     *            connection.
-     * @param weight the new weight for the stream.
-     * @param exclusive whether or not the stream should be the exclusive dependent of its parent.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
-     * @param endOfStream Indicates whether this is the last frame to be sent from the remote endpoint
-     *            for this stream.
+     *                         connection.
+     * @param weight           the new weight for the stream.
+     * @param exclusive        whether or not the stream should be the exclusive dependent of its parent.
+     * @param padding          additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                         256 (inclusive).
+     * @param endOfStream      Indicates whether this is the last frame to be sent from the remote endpoint
+     *                         for this stream.
      */
     void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers,
-            int streamDependency, short weight, boolean exclusive, int padding, boolean endOfStream)
+                       int streamDependency, short weight, boolean exclusive, int padding, boolean endOfStream)
             throws Http2Exception;
 
     /**
@@ -107,27 +107,28 @@ public interface Http2FrameListener {
      * {@code streamId}, {@code streamDependency}, or both. This is because the {@code PRIORITY} frame can be
      * sent/received when streams are in the {@code CLOSED} state.
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the subject stream for the frame.
+     * @param ctx              the context from the handler where the frame was read.
+     * @param streamId         the subject stream for the frame.
      * @param streamDependency the stream on which this stream depends, or 0 if dependent on the
-     *            connection.
-     * @param weight the new weight for the stream.
-     * @param exclusive whether or not the stream should be the exclusive dependent of its parent.
+     *                         connection.
+     * @param weight           the new weight for the stream.
+     * @param exclusive        whether or not the stream should be the exclusive dependent of its parent.
      */
     void onPriorityRead(ChannelHandlerContext ctx, int streamId, int streamDependency,
-            short weight, boolean exclusive) throws Http2Exception;
+                        short weight, boolean exclusive) throws Http2Exception;
 
     /**
      * Handles an inbound {@code RST_STREAM} frame.
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the stream that is terminating.
+     * @param ctx       the context from the handler where the frame was read.
+     * @param streamId  the stream that is terminating.
      * @param errorCode the error code identifying the type of failure.
      */
     void onRstStreamRead(ChannelHandlerContext ctx, int streamId, long errorCode) throws Http2Exception;
 
     /**
      * Handles an inbound {@code SETTINGS} acknowledgment frame.
+     *
      * @param ctx the context from the handler where the frame was read.
      */
     void onSettingsAckRead(ChannelHandlerContext ctx) throws Http2Exception;
@@ -135,7 +136,7 @@ public interface Http2FrameListener {
     /**
      * Handles an inbound {@code SETTINGS} frame.
      *
-     * @param ctx the context from the handler where the frame was read.
+     * @param ctx      the context from the handler where the frame was read.
      * @param settings the settings received from the remote endpoint.
      */
     void onSettingsRead(ChannelHandlerContext ctx, Http2Settings settings) throws Http2Exception;
@@ -143,7 +144,7 @@ public interface Http2FrameListener {
     /**
      * Handles an inbound {@code PING} frame.
      *
-     * @param ctx the context from the handler where the frame was read.
+     * @param ctx  the context from the handler where the frame was read.
      * @param data the payload of the frame.
      */
     void onPingRead(ChannelHandlerContext ctx, long data) throws Http2Exception;
@@ -151,7 +152,7 @@ public interface Http2FrameListener {
     /**
      * Handles an inbound {@code PING} acknowledgment.
      *
-     * @param ctx the context from the handler where the frame was read.
+     * @param ctx  the context from the handler where the frame was read.
      * @param data the payload of the frame.
      */
     void onPingAckRead(ChannelHandlerContext ctx, long data) throws Http2Exception;
@@ -173,24 +174,24 @@ public interface Http2FrameListener {
      * To say it another way; the {@link Http2Headers} will contain all of the headers
      * for the current message exchange step (additional queuing is not necessary).
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the stream the frame was sent on.
+     * @param ctx              the context from the handler where the frame was read.
+     * @param streamId         the stream the frame was sent on.
      * @param promisedStreamId the ID of the promised stream.
-     * @param headers the received headers.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
+     * @param headers          the received headers.
+     * @param padding          additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                         256 (inclusive).
      */
     void onPushPromiseRead(ChannelHandlerContext ctx, int streamId, int promisedStreamId,
-            Http2Headers headers, int padding) throws Http2Exception;
+                           Http2Headers headers, int padding) throws Http2Exception;
 
     /**
      * Handles an inbound {@code GO_AWAY} frame.
      *
-     * @param ctx the context from the handler where the frame was read.
+     * @param ctx          the context from the handler where the frame was read.
      * @param lastStreamId the last known stream of the remote endpoint.
-     * @param errorCode the error code, if abnormal closure.
-     * @param debugData application-defined debug data. If this buffer needs to be retained by the
-     *            listener they must make a copy.
+     * @param errorCode    the error code, if abnormal closure.
+     * @param debugData    application-defined debug data. If this buffer needs to be retained by the
+     *                     listener they must make a copy.
      */
     void onGoAwayRead(ChannelHandlerContext ctx, int lastStreamId, long errorCode, ByteBuf debugData)
             throws Http2Exception;
@@ -198,10 +199,10 @@ public interface Http2FrameListener {
     /**
      * Handles an inbound {@code WINDOW_UPDATE} frame.
      *
-     * @param ctx the context from the handler where the frame was read.
-     * @param streamId the stream the frame was sent on.
+     * @param ctx                 the context from the handler where the frame was read.
+     * @param streamId            the stream the frame was sent on.
      * @param windowSizeIncrement the increased number of bytes of the remote endpoint's flow
-     *            control window.
+     *                            control window.
      */
     void onWindowUpdateRead(ChannelHandlerContext ctx, int streamId, int windowSizeIncrement)
             throws Http2Exception;
@@ -209,11 +210,11 @@ public interface Http2FrameListener {
     /**
      * Handler for a frame not defined by the HTTP/2 spec.
      *
-     * @param ctx the context from the handler where the frame was read.
+     * @param ctx       the context from the handler where the frame was read.
      * @param frameType the frame type from the HTTP/2 header.
-     * @param streamId the stream the frame was sent on.
-     * @param flags the flags in the frame header.
-     * @param payload the payload of the frame.
+     * @param streamId  the stream the frame was sent on.
+     * @param flags     the flags in the frame header.
+     * @param payload   the payload of the frame.
      */
     void onUnknownFrame(ChannelHandlerContext ctx, byte frameType, int streamId, Http2Flags flags, ByteBuf payload)
             throws Http2Exception;

@@ -25,7 +25,8 @@ public final class SslCloseCompletionEvent extends SslCompletionEvent {
     /**
      * Creates a new event that indicates a successful receiving of close_notify.
      */
-    private SslCloseCompletionEvent() { }
+    private SslCloseCompletionEvent() {
+    }
 
     /**
      * Creates a new event that indicates an close_notify was not received because of an previous error.

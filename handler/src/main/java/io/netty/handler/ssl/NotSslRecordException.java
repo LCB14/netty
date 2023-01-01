@@ -22,8 +22,6 @@ import javax.net.ssl.SSLException;
  * received that not looks like a TLS/SSL record. A user can check for
  * this {@link NotSslRecordException} and so detect if one peer tries to
  * use secure and the other plain connection.
- *
- *
  */
 public class NotSslRecordException extends SSLException {
 

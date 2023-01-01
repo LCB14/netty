@@ -77,6 +77,7 @@ public class CompositeBufferGatheringWriteTest extends AbstractSocketTest {
                 protected void initChannel(Channel ch) throws Exception {
                     ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                         private ByteBuf aggregator;
+
                         @Override
                         public void handlerAdded(ChannelHandlerContext ctx) {
                             aggregator = ctx.alloc().buffer(EXPECTED_BYTES);
@@ -176,55 +177,56 @@ public class CompositeBufferGatheringWriteTest extends AbstractSocketTest {
             final CountDownLatch latch = new CountDownLatch(1);
             final AtomicReference<Object> clientReceived = new AtomicReference<Object>();
             sb.childOption(ChannelOption.SO_SNDBUF, soSndBuf)
-              .childHandler(new ChannelInitializer<Channel>() {
-                @Override
-                protected void initChannel(Channel ch) throws Exception {
-                    ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                    .childHandler(new ChannelInitializer<Channel>() {
                         @Override
-                        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                            compositeBufferPartialWriteDoesNotCorruptDataInitServerConfig(ctx.channel().config(),
-                                    soSndBuf);
-                            // First single write
-                            int offset = soSndBuf - 100;
-                            ctx.write(expectedContent.retainedSlice(expectedContent.readerIndex(), offset));
+                        protected void initChannel(Channel ch) throws Exception {
+                            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                                @Override
+                                public void channelActive(ChannelHandlerContext ctx) throws Exception {
+                                    compositeBufferPartialWriteDoesNotCorruptDataInitServerConfig(ctx.channel().config(),
+                                            soSndBuf);
+                                    // First single write
+                                    int offset = soSndBuf - 100;
+                                    ctx.write(expectedContent.retainedSlice(expectedContent.readerIndex(), offset));
 
-                            // Build and write CompositeByteBuf
-                            CompositeByteBuf compositeByteBuf = ctx.alloc().compositeBuffer();
-                            compositeByteBuf.addComponent(true,
-                                    expectedContent.retainedSlice(expectedContent.readerIndex() + offset, 50));
-                            offset += 50;
-                            compositeByteBuf.addComponent(true,
-                                    expectedContent.retainedSlice(expectedContent.readerIndex() + offset, 200));
-                            offset += 200;
-                            ctx.write(compositeByteBuf);
+                                    // Build and write CompositeByteBuf
+                                    CompositeByteBuf compositeByteBuf = ctx.alloc().compositeBuffer();
+                                    compositeByteBuf.addComponent(true,
+                                            expectedContent.retainedSlice(expectedContent.readerIndex() + offset, 50));
+                                    offset += 50;
+                                    compositeByteBuf.addComponent(true,
+                                            expectedContent.retainedSlice(expectedContent.readerIndex() + offset, 200));
+                                    offset += 200;
+                                    ctx.write(compositeByteBuf);
 
-                            // Write a single buffer that is smaller than the second component of the CompositeByteBuf
-                            // above but small enough to fit in the remaining space allowed by the soSndBuf amount.
-                            ctx.write(expectedContent.retainedSlice(expectedContent.readerIndex() + offset, 50));
-                            offset += 50;
+                                    // Write a single buffer that is smaller than the second component of the CompositeByteBuf
+                                    // above but small enough to fit in the remaining space allowed by the soSndBuf amount.
+                                    ctx.write(expectedContent.retainedSlice(expectedContent.readerIndex() + offset, 50));
+                                    offset += 50;
 
-                            // Write the remainder of the content
-                            ctx.writeAndFlush(expectedContent.retainedSlice(expectedContent.readerIndex() + offset,
-                                    expectedContent.readableBytes() - expectedContent.readerIndex() - offset))
-                                    .addListener(ChannelFutureListener.CLOSE);
-                        }
+                                    // Write the remainder of the content
+                                    ctx.writeAndFlush(expectedContent.retainedSlice(expectedContent.readerIndex() + offset,
+                                                    expectedContent.readableBytes() - expectedContent.readerIndex() - offset))
+                                            .addListener(ChannelFutureListener.CLOSE);
+                                }
 
-                        @Override
-                        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-                            // IOException is fine as it will also close the channel and may just be a connection reset.
-                            if (!(cause instanceof IOException)) {
-                                clientReceived.set(cause);
-                                latch.countDown();
-                            }
+                                @Override
+                                public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+                                    // IOException is fine as it will also close the channel and may just be a connection reset.
+                                    if (!(cause instanceof IOException)) {
+                                        clientReceived.set(cause);
+                                        latch.countDown();
+                                    }
+                                }
+                            });
                         }
                     });
-                }
-            });
             cb.handler(new ChannelInitializer<Channel>() {
                 @Override
                 protected void initChannel(Channel ch) throws Exception {
                     ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                         private ByteBuf aggregator;
+
                         @Override
                         public void handlerAdded(ChannelHandlerContext ctx) {
                             aggregator = ctx.alloc().buffer(expectedContent.readableBytes());

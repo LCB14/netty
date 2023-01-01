@@ -45,12 +45,9 @@ public class ContinuationWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new continuation frame with the specified binary data.
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions
-     * @param binaryData
-     *            the content of the frame.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions
+     * @param binaryData    the content of the frame.
      */
     public ContinuationWebSocketFrame(boolean finalFragment, int rsv, ByteBuf binaryData) {
         super(finalFragment, rsv, binaryData);
@@ -59,12 +56,9 @@ public class ContinuationWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new continuation frame with the specified text data
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions
-     * @param text
-     *            text content of the frame.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions
+     * @param text          text content of the frame.
      */
     public ContinuationWebSocketFrame(boolean finalFragment, int rsv, String text) {
         this(finalFragment, rsv, fromText(text));
@@ -80,8 +74,7 @@ public class ContinuationWebSocketFrame extends WebSocketFrame {
     /**
      * Sets the string for this frame.
      *
-     * @param text
-     *            text to store.
+     * @param text text to store.
      */
     private static ByteBuf fromText(String text) {
         if (text == null || text.isEmpty()) {

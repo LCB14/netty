@@ -32,22 +32,30 @@ public class XmlDocumentStart {
         this.encodingScheme = encodingScheme;
     }
 
-    /** Return defined or guessed XML encoding **/
+    /**
+     * Return defined or guessed XML encoding
+     **/
     public String encoding() {
         return encoding;
     }
 
-    /** Return defined XML version or null **/
+    /**
+     * Return defined XML version or null
+     **/
     public String version() {
         return version;
     }
 
-    /** Return standalonity of the document **/
+    /**
+     * Return standalonity of the document
+     **/
     public boolean standalone() {
         return standalone;
     }
 
-    /** Return defined encoding or null **/
+    /**
+     * Return defined encoding or null
+     **/
     public String encodingScheme() {
         return encodingScheme;
     }

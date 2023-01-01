@@ -135,7 +135,7 @@ public class DefaultLastHttpContent extends DefaultHttpContent implements LastHt
             }
         };
 
-        @SuppressWarnings({ "unchecked" })
+        @SuppressWarnings({"unchecked"})
         TrailingHttpHeaders(boolean validate) {
             super(validate, validate ? TrailerNameValidator : NameValidator.NOT_NULL);
         }

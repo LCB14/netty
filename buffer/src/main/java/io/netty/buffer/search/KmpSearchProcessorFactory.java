@@ -24,6 +24,7 @@ import io.netty.util.internal.PlatformDependent;
  * to create an instance of this factory.
  * Use {@link KmpSearchProcessorFactory#newSearchProcessor} to get an instance of {@link io.netty.util.ByteProcessor}
  * implementation for performing the actual search.
+ *
  * @see AbstractSearchProcessorFactory
  */
 public class KmpSearchProcessorFactory extends AbstractSearchProcessorFactory {

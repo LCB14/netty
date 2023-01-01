@@ -27,10 +27,10 @@ public class MqttMessageIdVariableHeader {
     private final int messageId;
 
     public static MqttMessageIdVariableHeader from(int messageId) {
-      if (messageId < 1 || messageId > 0xffff) {
-        throw new IllegalArgumentException("messageId: " + messageId + " (expected: 1 ~ 65535)");
-      }
-      return new MqttMessageIdVariableHeader(messageId);
+        if (messageId < 1 || messageId > 0xffff) {
+            throw new IllegalArgumentException("messageId: " + messageId + " (expected: 1 ~ 65535)");
+        }
+        return new MqttMessageIdVariableHeader(messageId);
     }
 
     protected MqttMessageIdVariableHeader(int messageId) {
@@ -44,10 +44,10 @@ public class MqttMessageIdVariableHeader {
     @Override
     public String toString() {
         return new StringBuilder(StringUtil.simpleClassName(this))
-            .append('[')
-            .append("messageId=").append(messageId)
-            .append(']')
-            .toString();
+                .append('[')
+                .append("messageId=").append(messageId)
+                .append(']')
+                .toString();
     }
 
     public MqttMessageIdAndPropertiesVariableHeader withEmptyProperties() {

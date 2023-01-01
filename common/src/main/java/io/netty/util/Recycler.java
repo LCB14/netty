@@ -206,12 +206,14 @@ public abstract class Recycler<T> {
     protected abstract T newObject(Handle<T> handle);
 
     @SuppressWarnings("ClassNameSameAsAncestorName") // Can't change this due to compatibility.
-    public interface Handle<T> extends ObjectPool.Handle<T>  { }
+    public interface Handle<T> extends ObjectPool.Handle<T> {
+    }
 
     private static final class DefaultHandle<T> implements Handle<T> {
         private static final int STATE_CLAIMED = 0;
         private static final int STATE_AVAILABLE = 1;
         private static final AtomicIntegerFieldUpdater<DefaultHandle<?>> STATE_UPDATER;
+
         static {
             AtomicIntegerFieldUpdater<?> updater = AtomicIntegerFieldUpdater.newUpdater(DefaultHandle.class, "state");
             //noinspection unchecked

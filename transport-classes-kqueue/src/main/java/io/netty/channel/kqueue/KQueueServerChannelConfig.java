@@ -150,7 +150,6 @@ public class KQueueServerChannelConfig extends KQueueChannelConfig implements Se
      * effect. This has to be set before doing listen on the socket otherwise this takes no effect.
      *
      * @param enableTcpFastOpen {@code true} if TCP FastOpen should be enabled for incomming connections.
-     *
      * @see <a href="https://tools.ietf.org/html/rfc7413#appendix-A.2">RFC 7413 Passive Open</a>
      */
     public KQueueServerChannelConfig setTcpFastOpen(boolean enableTcpFastOpen) {

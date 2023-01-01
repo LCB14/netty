@@ -33,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class Java8SslTestUtils {
 
-    private Java8SslTestUtils() { }
+    private Java8SslTestUtils() {
+    }
 
     static void setSNIMatcher(SSLParameters parameters, final byte[] match) {
         SNIMatcher matcher = new SNIMatcher(0) {

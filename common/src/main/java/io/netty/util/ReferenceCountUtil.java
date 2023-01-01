@@ -205,5 +205,6 @@ public final class ReferenceCountUtil {
         }
     }
 
-    private ReferenceCountUtil() { }
+    private ReferenceCountUtil() {
+    }
 }

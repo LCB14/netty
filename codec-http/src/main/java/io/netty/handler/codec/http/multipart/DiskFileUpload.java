@@ -48,7 +48,7 @@ public class DiskFileUpload extends AbstractDiskHttpData implements FileUpload {
     private String contentTransferEncoding;
 
     public DiskFileUpload(String name, String filename, String contentType,
-            String contentTransferEncoding, Charset charset, long size, String baseDir, boolean deleteOnExit) {
+                          String contentTransferEncoding, Charset charset, long size, String baseDir, boolean deleteOnExit) {
         super(name, charset, size);
         setFilename(filename);
         setContentType(contentType);
@@ -58,7 +58,7 @@ public class DiskFileUpload extends AbstractDiskHttpData implements FileUpload {
     }
 
     public DiskFileUpload(String name, String filename, String contentType,
-            String contentTransferEncoding, Charset charset, long size) {
+                          String contentTransferEncoding, Charset charset, long size) {
         this(name, filename, contentType, contentTransferEncoding,
                 charset, size, baseDirectory, deleteOnExitTemporaryFile);
     }
@@ -131,10 +131,10 @@ public class DiskFileUpload extends AbstractDiskHttpData implements FileUpload {
         }
 
         return HttpHeaderNames.CONTENT_DISPOSITION + ": " +
-               HttpHeaderValues.FORM_DATA + "; " + HttpHeaderValues.NAME + "=\"" + getName() +
+                HttpHeaderValues.FORM_DATA + "; " + HttpHeaderValues.NAME + "=\"" + getName() +
                 "\"; " + HttpHeaderValues.FILENAME + "=\"" + filename + "\"\r\n" +
                 HttpHeaderNames.CONTENT_TYPE + ": " + contentType +
-                (getCharset() != null? "; " + HttpHeaderValues.CHARSET + '=' + getCharset().name() + "\r\n" : "\r\n") +
+                (getCharset() != null ? "; " + HttpHeaderValues.CHARSET + '=' + getCharset().name() + "\r\n" : "\r\n") +
                 HttpHeaderNames.CONTENT_LENGTH + ": " + length() + "\r\n" +
                 "Completed: " + isCompleted() +
                 "\r\nIsInMemory: " + isInMemory() + "\r\nRealFile: " +

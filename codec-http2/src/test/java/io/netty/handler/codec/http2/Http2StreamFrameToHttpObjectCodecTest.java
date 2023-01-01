@@ -709,13 +709,13 @@ public class Http2StreamFrameToHttpObjectCodecTest {
     }
 
     /**
-     *    An informational response using a 1xx status code other than 101 is
-     *    transmitted as a HEADERS frame, followed by zero or more CONTINUATION
-     *    frames.
-     *    Trailing header fields are sent as a header block after both the
-     *    request or response header block and all the DATA frames have been
-     *    sent.  The HEADERS frame starting the trailers header block has the
-     *    END_STREAM flag set.
+     * An informational response using a 1xx status code other than 101 is
+     * transmitted as a HEADERS frame, followed by zero or more CONTINUATION
+     * frames.
+     * Trailing header fields are sent as a header block after both the
+     * request or response header block and all the DATA frames have been
+     * sent.  The HEADERS frame starting the trailers header block has the
+     * END_STREAM flag set.
      */
     @Test
     public void decode103EarlyHintsHttp2HeadersAsFullHttpResponse() throws Exception {
@@ -915,33 +915,33 @@ public class Http2StreamFrameToHttpObjectCodecTest {
 
         final SslContext ctx = SslContextBuilder.forClient().sslProvider(SslProvider.JDK).build();
         EmbeddedChannel tlsCh = new EmbeddedChannel(ctx.newHandler(ByteBufAllocator.DEFAULT),
-            new ChannelOutboundHandlerAdapter() {
-                @Override
-                public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
-                    if (msg instanceof Http2StreamFrame) {
-                        frames.add((Http2StreamFrame) msg);
-                        promise.setSuccess();
-                    } else {
-                        ctx.write(msg, promise);
+                new ChannelOutboundHandlerAdapter() {
+                    @Override
+                    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
+                        if (msg instanceof Http2StreamFrame) {
+                            frames.add((Http2StreamFrame) msg);
+                            promise.setSuccess();
+                        } else {
+                            ctx.write(msg, promise);
+                        }
                     }
-                }
-            }, sharedHandler);
+                }, sharedHandler);
 
         EmbeddedChannel plaintextCh = new EmbeddedChannel(
-            new ChannelOutboundHandlerAdapter() {
-                @Override
-                public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
-                    if (msg instanceof Http2StreamFrame) {
-                        frames.add((Http2StreamFrame) msg);
-                        promise.setSuccess();
-                    } else {
-                        ctx.write(msg, promise);
+                new ChannelOutboundHandlerAdapter() {
+                    @Override
+                    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
+                        if (msg instanceof Http2StreamFrame) {
+                            frames.add((Http2StreamFrame) msg);
+                            promise.setSuccess();
+                        } else {
+                            ctx.write(msg, promise);
+                        }
                     }
-                }
-            }, sharedHandler);
+                }, sharedHandler);
 
         FullHttpRequest req = new DefaultFullHttpRequest(
-            HttpVersion.HTTP_1_1, HttpMethod.GET, "/hello/world");
+                HttpVersion.HTTP_1_1, HttpMethod.GET, "/hello/world");
         assertTrue(tlsCh.writeOutbound(req));
         assertTrue(tlsCh.finishAndReleaseAll());
 

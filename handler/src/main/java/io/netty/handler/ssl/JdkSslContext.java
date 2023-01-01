@@ -174,7 +174,7 @@ public class JdkSslContext extends SslContext {
     }
 
     private static boolean isTlsV13Supported(String[] protocols) {
-        for (String protocol: protocols) {
+        for (String protocol : protocols) {
             if (SslProtocols.TLS_v1_3.equals(protocol)) {
                 return true;
             }
@@ -195,7 +195,7 @@ public class JdkSslContext extends SslContext {
      * Creates a new {@link JdkSslContext} from a pre-configured {@link SSLContext}.
      *
      * @param sslContext the {@link SSLContext} to use.
-     * @param isClient {@code true} if this context should create {@link SSLEngine}s for client-side usage.
+     * @param isClient   {@code true} if this context should create {@link SSLEngine}s for client-side usage.
      * @param clientAuth the {@link ClientAuth} to use. This will only be used when {@param isClient} is {@code false}.
      * @deprecated Use {@link #JdkSslContext(SSLContext, boolean, Iterable, CipherSuiteFilter,
      * ApplicationProtocolConfig, ClientAuth, String[], boolean)}
@@ -210,12 +210,12 @@ public class JdkSslContext extends SslContext {
     /**
      * Creates a new {@link JdkSslContext} from a pre-configured {@link SSLContext}.
      *
-     * @param sslContext the {@link SSLContext} to use.
-     * @param isClient {@code true} if this context should create {@link SSLEngine}s for client-side usage.
-     * @param ciphers the ciphers to use or {@code null} if the standard should be used.
+     * @param sslContext   the {@link SSLContext} to use.
+     * @param isClient     {@code true} if this context should create {@link SSLEngine}s for client-side usage.
+     * @param ciphers      the ciphers to use or {@code null} if the standard should be used.
      * @param cipherFilter the filter to use.
-     * @param apn the {@link ApplicationProtocolConfig} to use.
-     * @param clientAuth the {@link ClientAuth} to use. This will only be used when {@param isClient} is {@code false}.
+     * @param apn          the {@link ApplicationProtocolConfig} to use.
+     * @param clientAuth   the {@link ClientAuth} to use. This will only be used when {@param isClient} is {@code false}.
      * @deprecated Use {@link #JdkSslContext(SSLContext, boolean, Iterable, CipherSuiteFilter,
      * ApplicationProtocolConfig, ClientAuth, String[], boolean)}
      */
@@ -229,14 +229,14 @@ public class JdkSslContext extends SslContext {
     /**
      * Creates a new {@link JdkSslContext} from a pre-configured {@link SSLContext}.
      *
-     * @param sslContext the {@link SSLContext} to use.
-     * @param isClient {@code true} if this context should create {@link SSLEngine}s for client-side usage.
-     * @param ciphers the ciphers to use or {@code null} if the standard should be used.
+     * @param sslContext   the {@link SSLContext} to use.
+     * @param isClient     {@code true} if this context should create {@link SSLEngine}s for client-side usage.
+     * @param ciphers      the ciphers to use or {@code null} if the standard should be used.
      * @param cipherFilter the filter to use.
-     * @param apn the {@link ApplicationProtocolConfig} to use.
-     * @param clientAuth the {@link ClientAuth} to use. This will only be used when {@param isClient} is {@code false}.
-     * @param protocols the protocols to enable, or {@code null} to enable the default protocols.
-     * @param startTls {@code true} if the first write request shouldn't be encrypted
+     * @param apn          the {@link ApplicationProtocolConfig} to use.
+     * @param clientAuth   the {@link ClientAuth} to use. This will only be used when {@param isClient} is {@code false}.
+     * @param protocols    the protocols to enable, or {@code null} to enable the default protocols.
+     * @param startTls     {@code true} if the first write request shouldn't be encrypted
      */
     public JdkSslContext(SSLContext sslContext,
                          boolean isClient,
@@ -267,7 +267,7 @@ public class JdkSslContext extends SslContext {
         final List<String> defaultCiphers;
         final Set<String> supportedCiphers;
         if (DEFAULT_PROVIDER.equals(sslContext.getProvider())) {
-            this.protocols = protocols == null? DEFAULT_PROTOCOLS : protocols;
+            this.protocols = protocols == null ? DEFAULT_PROTOCOLS : protocols;
             if (isTlsV13Supported(this.protocols)) {
                 supportedCiphers = SUPPORTED_CIPHERS;
                 defaultCiphers = DEFAULT_CIPHERS;
@@ -291,7 +291,7 @@ public class JdkSslContext extends SslContext {
                 defaultCiphers = defaultCiphers(engine, supportedCiphers);
                 if (!isTlsV13Supported(this.protocols)) {
                     // TLSv1.3 is not supported, ensure we do not include any TLSv1.3 ciphersuite.
-                    for (String cipher: SslUtils.DEFAULT_TLSV13_CIPHER_SUITES) {
+                    for (String cipher : SslUtils.DEFAULT_TLSV13_CIPHER_SUITES) {
                         supportedCiphers.remove(cipher);
                         defaultCiphers.remove(cipher);
                     }
@@ -381,7 +381,8 @@ public class JdkSslContext extends SslContext {
 
     /**
      * Translate a {@link ApplicationProtocolConfig} object to a {@link JdkApplicationProtocolNegotiator} object.
-     * @param config The configuration which defines the translation
+     *
+     * @param config   The configuration which defines the translation
      * @param isServer {@code true} if a server {@code false} otherwise.
      * @return The results of the translation
      */
@@ -391,74 +392,75 @@ public class JdkSslContext extends SslContext {
             return JdkDefaultApplicationProtocolNegotiator.INSTANCE;
         }
 
-        switch(config.protocol()) {
-        case NONE:
-            return JdkDefaultApplicationProtocolNegotiator.INSTANCE;
-        case ALPN:
-            if (isServer) {
-                switch(config.selectorFailureBehavior()) {
-                case FATAL_ALERT:
-                    return new JdkAlpnApplicationProtocolNegotiator(true, config.supportedProtocols());
-                case NO_ADVERTISE:
-                    return new JdkAlpnApplicationProtocolNegotiator(false, config.supportedProtocols());
-                default:
-                    throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
-                    .append(config.selectorFailureBehavior()).append(" failure behavior").toString());
+        switch (config.protocol()) {
+            case NONE:
+                return JdkDefaultApplicationProtocolNegotiator.INSTANCE;
+            case ALPN:
+                if (isServer) {
+                    switch (config.selectorFailureBehavior()) {
+                        case FATAL_ALERT:
+                            return new JdkAlpnApplicationProtocolNegotiator(true, config.supportedProtocols());
+                        case NO_ADVERTISE:
+                            return new JdkAlpnApplicationProtocolNegotiator(false, config.supportedProtocols());
+                        default:
+                            throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
+                                    .append(config.selectorFailureBehavior()).append(" failure behavior").toString());
+                    }
+                } else {
+                    switch (config.selectedListenerFailureBehavior()) {
+                        case ACCEPT:
+                            return new JdkAlpnApplicationProtocolNegotiator(false, config.supportedProtocols());
+                        case FATAL_ALERT:
+                            return new JdkAlpnApplicationProtocolNegotiator(true, config.supportedProtocols());
+                        default:
+                            throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
+                                    .append(config.selectedListenerFailureBehavior()).append(" failure behavior").toString());
+                    }
                 }
-            } else {
-                switch(config.selectedListenerFailureBehavior()) {
-                case ACCEPT:
-                    return new JdkAlpnApplicationProtocolNegotiator(false, config.supportedProtocols());
-                case FATAL_ALERT:
-                    return new JdkAlpnApplicationProtocolNegotiator(true, config.supportedProtocols());
-                default:
-                    throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
-                    .append(config.selectedListenerFailureBehavior()).append(" failure behavior").toString());
+            case NPN:
+                if (isServer) {
+                    switch (config.selectedListenerFailureBehavior()) {
+                        case ACCEPT:
+                            return new JdkNpnApplicationProtocolNegotiator(false, config.supportedProtocols());
+                        case FATAL_ALERT:
+                            return new JdkNpnApplicationProtocolNegotiator(true, config.supportedProtocols());
+                        default:
+                            throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
+                                    .append(config.selectedListenerFailureBehavior()).append(" failure behavior").toString());
+                    }
+                } else {
+                    switch (config.selectorFailureBehavior()) {
+                        case FATAL_ALERT:
+                            return new JdkNpnApplicationProtocolNegotiator(true, config.supportedProtocols());
+                        case NO_ADVERTISE:
+                            return new JdkNpnApplicationProtocolNegotiator(false, config.supportedProtocols());
+                        default:
+                            throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
+                                    .append(config.selectorFailureBehavior()).append(" failure behavior").toString());
+                    }
                 }
-            }
-        case NPN:
-            if (isServer) {
-                switch(config.selectedListenerFailureBehavior()) {
-                case ACCEPT:
-                    return new JdkNpnApplicationProtocolNegotiator(false, config.supportedProtocols());
-                case FATAL_ALERT:
-                    return new JdkNpnApplicationProtocolNegotiator(true, config.supportedProtocols());
-                default:
-                    throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
-                    .append(config.selectedListenerFailureBehavior()).append(" failure behavior").toString());
-                }
-            } else {
-                switch(config.selectorFailureBehavior()) {
-                case FATAL_ALERT:
-                    return new JdkNpnApplicationProtocolNegotiator(true, config.supportedProtocols());
-                case NO_ADVERTISE:
-                    return new JdkNpnApplicationProtocolNegotiator(false, config.supportedProtocols());
-                default:
-                    throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
-                    .append(config.selectorFailureBehavior()).append(" failure behavior").toString());
-                }
-            }
-        default:
-            throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
-            .append(config.protocol()).append(" protocol").toString());
+            default:
+                throw new UnsupportedOperationException(new StringBuilder("JDK provider does not support ")
+                        .append(config.protocol()).append(" protocol").toString());
         }
     }
 
     /**
      * Build a {@link KeyManagerFactory} based upon a key file, key file password, and a certificate chain.
+     *
      * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param kmf The existing {@link KeyManagerFactory} that will be used if not {@code null}
-     * @param keyStore the {@link KeyStore} that should be used in the {@link KeyManagerFactory}
+     * @param keyFile       a PKCS#8 private key file in PEM format
+     * @param keyPassword   the password of the {@code keyFile}.
+     *                      {@code null} if it's not password-protected.
+     * @param kmf           The existing {@link KeyManagerFactory} that will be used if not {@code null}
+     * @param keyStore      the {@link KeyStore} that should be used in the {@link KeyManagerFactory}
      * @return A {@link KeyManagerFactory} based upon a key file, key file password, and a certificate chain.
      */
     static KeyManagerFactory buildKeyManagerFactory(File certChainFile, File keyFile, String keyPassword,
-            KeyManagerFactory kmf, String keyStore)
-                    throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
-                    NoSuchPaddingException, InvalidKeySpecException, InvalidAlgorithmParameterException,
-                    CertificateException, KeyException, IOException {
+                                                    KeyManagerFactory kmf, String keyStore)
+            throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+            NoSuchPaddingException, InvalidKeySpecException, InvalidAlgorithmParameterException,
+            CertificateException, KeyException, IOException {
         String algorithm = Security.getProperty("ssl.KeyManagerFactory.algorithm");
         if (algorithm == null) {
             algorithm = "SunX509";
@@ -468,11 +470,12 @@ public class JdkSslContext extends SslContext {
 
     /**
      * Build a {@link KeyManagerFactory} based upon a key file, key file password, and a certificate chain.
+     *
      * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param kmf The existing {@link KeyManagerFactory} that will be used if not {@code null}
+     * @param keyFile       a PKCS#8 private key file in PEM format
+     * @param keyPassword   the password of the {@code keyFile}.
+     *                      {@code null} if it's not password-protected.
+     * @param kmf           The existing {@link KeyManagerFactory} that will be used if not {@code null}
      * @return A {@link KeyManagerFactory} based upon a key file, key file password, and a certificate chain.
      * @deprecated will be removed.
      */
@@ -488,37 +491,39 @@ public class JdkSslContext extends SslContext {
     /**
      * Build a {@link KeyManagerFactory} based upon a key algorithm, key file, key file password,
      * and a certificate chain.
+     *
      * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyAlgorithm the standard name of the requested algorithm. See the Java Secure Socket Extension
-     *                    Reference Guide for information about standard algorithm names.
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param kmf The existing {@link KeyManagerFactory} that will be used if not {@code null}
-     * @param keyStore the {@link KeyStore} that should be used in the {@link KeyManagerFactory}
+     * @param keyAlgorithm  the standard name of the requested algorithm. See the Java Secure Socket Extension
+     *                      Reference Guide for information about standard algorithm names.
+     * @param keyFile       a PKCS#8 private key file in PEM format
+     * @param keyPassword   the password of the {@code keyFile}.
+     *                      {@code null} if it's not password-protected.
+     * @param kmf           The existing {@link KeyManagerFactory} that will be used if not {@code null}
+     * @param keyStore      the {@link KeyStore} that should be used in the {@link KeyManagerFactory}
      * @return A {@link KeyManagerFactory} based upon a key algorithm, key file, key file password,
      * and a certificate chain.
      */
     static KeyManagerFactory buildKeyManagerFactory(File certChainFile,
-            String keyAlgorithm, File keyFile, String keyPassword, KeyManagerFactory kmf,
-            String keyStore)
-                    throws KeyStoreException, NoSuchAlgorithmException, NoSuchPaddingException,
-                    InvalidKeySpecException, InvalidAlgorithmParameterException, IOException,
-                    CertificateException, KeyException, UnrecoverableKeyException {
+                                                    String keyAlgorithm, File keyFile, String keyPassword, KeyManagerFactory kmf,
+                                                    String keyStore)
+            throws KeyStoreException, NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeySpecException, InvalidAlgorithmParameterException, IOException,
+            CertificateException, KeyException, UnrecoverableKeyException {
         return buildKeyManagerFactory(toX509Certificates(certChainFile), keyAlgorithm,
-                                      toPrivateKey(keyFile, keyPassword), keyPassword, kmf, keyStore);
+                toPrivateKey(keyFile, keyPassword), keyPassword, kmf, keyStore);
     }
 
     /**
      * Build a {@link KeyManagerFactory} based upon a key algorithm, key file, key file password,
      * and a certificate chain.
+     *
      * @param certChainFile an buildKeyManagerFactory X.509 certificate chain file in PEM format
-     * @param keyAlgorithm the standard name of the requested algorithm. See the Java Secure Socket Extension
-     *                    Reference Guide for information about standard algorithm names.
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param kmf The existing {@link KeyManagerFactory} that will be used if not {@code null}
+     * @param keyAlgorithm  the standard name of the requested algorithm. See the Java Secure Socket Extension
+     *                      Reference Guide for information about standard algorithm names.
+     * @param keyFile       a PKCS#8 private key file in PEM format
+     * @param keyPassword   the password of the {@code keyFile}.
+     *                      {@code null} if it's not password-protected.
+     * @param kmf           The existing {@link KeyManagerFactory} that will be used if not {@code null}
      * @return A {@link KeyManagerFactory} based upon a key algorithm, key file, key file password,
      * and a certificate chain.
      * @deprecated will be removed.

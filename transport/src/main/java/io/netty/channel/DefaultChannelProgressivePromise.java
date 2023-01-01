@@ -35,8 +35,7 @@ public class DefaultChannelProgressivePromise
     /**
      * Creates a new instance.
      *
-     * @param channel
-     *        the {@link Channel} associated with this future
+     * @param channel the {@link Channel} associated with this future
      */
     public DefaultChannelProgressivePromise(Channel channel) {
         this.channel = channel;
@@ -45,8 +44,7 @@ public class DefaultChannelProgressivePromise
     /**
      * Creates a new instance.
      *
-     * @param channel
-     *        the {@link Channel} associated with this future
+     * @param channel the {@link Channel} associated with this future
      */
     public DefaultChannelProgressivePromise(Channel channel, EventExecutor executor) {
         super(executor);

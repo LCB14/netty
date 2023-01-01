@@ -194,18 +194,18 @@ public class LineBasedFrameDecoderTest {
     @Test
     public void testNotFailFast() throws Exception {
         EmbeddedChannel ch = new EmbeddedChannel(new LineBasedFrameDecoder(2, false, false));
-        assertFalse(ch.writeInbound(wrappedBuffer(new byte[] { 0, 1, 2 })));
-        assertFalse(ch.writeInbound(wrappedBuffer(new byte[]{ 3, 4 })));
+        assertFalse(ch.writeInbound(wrappedBuffer(new byte[]{0, 1, 2})));
+        assertFalse(ch.writeInbound(wrappedBuffer(new byte[]{3, 4})));
         try {
-            ch.writeInbound(wrappedBuffer(new byte[] { '\n' }));
+            ch.writeInbound(wrappedBuffer(new byte[]{'\n'}));
             fail();
         } catch (TooLongFrameException expected) {
             // Expected once we received a full frame.
         }
-        assertFalse(ch.writeInbound(wrappedBuffer(new byte[] { '5' })));
-        assertTrue(ch.writeInbound(wrappedBuffer(new byte[] { '\n' })));
+        assertFalse(ch.writeInbound(wrappedBuffer(new byte[]{'5'})));
+        assertTrue(ch.writeInbound(wrappedBuffer(new byte[]{'\n'})));
 
-        ByteBuf expected = wrappedBuffer(new byte[] { '5', '\n' });
+        ByteBuf expected = wrappedBuffer(new byte[]{'5', '\n'});
         ByteBuf buffer = ch.readInbound();
         assertEquals(expected, buffer);
         expected.release();

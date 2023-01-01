@@ -73,13 +73,12 @@ public class JsonObjectDecoder extends ByteToMessageDecoder {
     }
 
     /**
-     * @param maxObjectLength   maximum number of bytes a JSON object/array may use (including braces and all).
-     *                             Objects exceeding this length are dropped and an {@link TooLongFrameException}
-     *                             is thrown.
-     * @param streamArrayElements   if set to true and the "top level" JSON object is an array, each of its entries
-     *                                  is passed through the pipeline individually and immediately after it was fully
-     *                                  received, allowing for arrays with "infinitely" many elements.
-     *
+     * @param maxObjectLength     maximum number of bytes a JSON object/array may use (including braces and all).
+     *                            Objects exceeding this length are dropped and an {@link TooLongFrameException}
+     *                            is thrown.
+     * @param streamArrayElements if set to true and the "top level" JSON object is an array, each of its entries
+     *                            is passed through the pipeline individually and immediately after it was fully
+     *                            received, allowing for arrays with "infinitely" many elements.
      */
     public JsonObjectDecoder(int maxObjectLength, boolean streamArrayElements) {
         this.maxObjectLength = checkPositive(maxObjectLength, "maxObjectLength");
@@ -106,7 +105,7 @@ public class JsonObjectDecoder extends ByteToMessageDecoder {
             in.skipBytes(in.readableBytes());
             reset();
             throw new TooLongFrameException(
-                            "object length exceeds " + maxObjectLength + ": " + wrtIdx + " bytes discarded");
+                    "object length exceeds " + maxObjectLength + ": " + wrtIdx + " bytes discarded");
         }
 
         for (/* use current idx */; idx < wrtIdx; idx++) {
@@ -156,7 +155,7 @@ public class JsonObjectDecoder extends ByteToMessageDecoder {
                         reset();
                     }
                 }
-            // JSON object/array detected. Accumulate bytes until all braces/brackets are closed.
+                // JSON object/array detected. Accumulate bytes until all braces/brackets are closed.
             } else if (c == '{' || c == '[') {
                 initDecoding(c);
 
@@ -164,7 +163,7 @@ public class JsonObjectDecoder extends ByteToMessageDecoder {
                     // Discard the array bracket
                     in.skipBytes(1);
                 }
-            // Discard leading spaces in front of a JSON object/array.
+                // Discard leading spaces in front of a JSON object/array.
             } else if (Character.isWhitespace(c)) {
                 in.skipBytes(1);
             } else {

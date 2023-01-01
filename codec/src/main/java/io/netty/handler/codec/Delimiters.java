@@ -28,8 +28,8 @@ public final class Delimiters {
      * Flash XML socket or any similar protocols.
      */
     public static ByteBuf[] nulDelimiter() {
-        return new ByteBuf[] {
-                Unpooled.wrappedBuffer(new byte[] { 0 }) };
+        return new ByteBuf[]{
+                Unpooled.wrappedBuffer(new byte[]{0})};
     }
 
     /**
@@ -37,9 +37,9 @@ public final class Delimiters {
      * be used for text-based line protocols.
      */
     public static ByteBuf[] lineDelimiter() {
-        return new ByteBuf[] {
-                Unpooled.wrappedBuffer(new byte[] { '\r', '\n' }),
-                Unpooled.wrappedBuffer(new byte[] { '\n' }),
+        return new ByteBuf[]{
+                Unpooled.wrappedBuffer(new byte[]{'\r', '\n'}),
+                Unpooled.wrappedBuffer(new byte[]{'\n'}),
         };
     }
 

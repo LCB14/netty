@@ -57,8 +57,8 @@ public class UniqueIpFilterTest {
     }
 
     private static Future<EmbeddedChannel> newChannelAsync(final CyclicBarrier barrier,
-            ExecutorService executorService,
-            final ChannelHandler... handler) {
+                                                           ExecutorService executorService,
+                                                           final ChannelHandler... handler) {
         return executorService.submit(new Callable<EmbeddedChannel>() {
             @Override
             public EmbeddedChannel call() throws Exception {

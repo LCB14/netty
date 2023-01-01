@@ -59,7 +59,7 @@ public class SimpleLeakAwareCompositeByteBufTest extends WrappedCompositeByteBuf
     public void dispose() {
         super.dispose();
 
-        for (;;) {
+        for (; ; ) {
             NoopResourceLeakTracker<ByteBuf> tracker = trackers.poll();
 
             if (tracker == null) {
@@ -73,7 +73,7 @@ public class SimpleLeakAwareCompositeByteBufTest extends WrappedCompositeByteBuf
         return SimpleLeakAwareByteBuf.class;
     }
 
-   @Test
+    @Test
     public void testWrapSlice() {
         assertWrapped(newBuffer(8).slice());
     }

@@ -151,12 +151,13 @@ public final class KQueueDomainSocketChannel extends AbstractKQueueStreamChannel
             readReadyBefore();
 
             try {
-                readLoop: do {
+                readLoop:
+                do {
                     // lastBytesRead represents the fd. We use lastBytesRead because it must be set so that the
                     // KQueueRecvByteAllocatorHandle knows if it should try to read again or not when autoRead is
                     // enabled.
                     int recvFd = socket.recvFd();
-                    switch(recvFd) {
+                    switch (recvFd) {
                         case 0:
                             allocHandle.lastBytesRead(0);
                             break readLoop;

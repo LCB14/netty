@@ -174,7 +174,7 @@ public class DefaultHttp2ConnectionDecoderTest {
                 if (isInformational) {
                     return stream;
                 }
-                for (;;) {
+                for (; ; ) {
                     int current = headersReceivedState.get();
                     int next = current;
                     if ((current & STATE_RECV_HEADERS) != 0) {

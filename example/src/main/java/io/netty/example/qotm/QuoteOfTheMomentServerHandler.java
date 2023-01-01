@@ -29,10 +29,10 @@ public class QuoteOfTheMomentServerHandler extends SimpleChannelInboundHandler<D
 
     // Quotes from Mohandas K. Gandhi:
     private static final String[] quotes = {
-        "Where there is love there is life.",
-        "First they ignore you, then they laugh at you, then they fight you, then you win.",
-        "Be the change you want to see in the world.",
-        "The weak can never forgive. Forgiveness is the attribute of the strong.",
+            "Where there is love there is life.",
+            "First they ignore you, then they laugh at you, then they fight you, then you win.",
+            "Be the change you want to see in the world.",
+            "The weak can never forgive. Forgiveness is the attribute of the strong.",
     };
 
     private static String nextQuote() {

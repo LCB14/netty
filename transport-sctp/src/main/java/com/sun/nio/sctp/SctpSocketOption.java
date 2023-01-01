@@ -17,5 +17,6 @@ package com.sun.nio.sctp;
 
 public interface SctpSocketOption<T> {
     String name();
+
     Class<T> type();
 }

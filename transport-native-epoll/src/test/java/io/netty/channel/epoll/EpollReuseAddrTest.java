@@ -57,6 +57,7 @@ public class EpollReuseAddrTest {
     private static final int MAJOR;
     private static final int MINOR;
     private static final int BUGFIX;
+
     static {
         String kernelVersion = Native.KERNEL_VERSION;
         int index = kernelVersion.indexOf('-');
@@ -182,7 +183,7 @@ public class EpollReuseAddrTest {
         };
 
         ExecutorService executor = Executors.newFixedThreadPool(count);
-        for (int i = 0 ; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             executor.execute(r);
         }
         latch.await();
@@ -212,7 +213,7 @@ public class EpollReuseAddrTest {
         return bootstrap;
     }
 
-    private static boolean versionEqOrGt(int major, int minor, int bugfix)  {
+    private static boolean versionEqOrGt(int major, int minor, int bugfix) {
         if (MAJOR > major) {
             return true;
         }
@@ -259,5 +260,6 @@ public class EpollReuseAddrTest {
     }
 
     @ChannelHandler.Sharable
-    private static final class DummyHandler extends ChannelHandlerAdapter { }
+    private static final class DummyHandler extends ChannelHandlerAdapter {
+    }
 }

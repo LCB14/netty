@@ -531,7 +531,7 @@ public class CorsHandlerTest {
             httpRequest.headers().set(ACCESS_CONTROL_REQUEST_HEADERS, requestHeaders);
         }
         assertThat(channel.writeInbound(httpRequest), is(false));
-        HttpResponse response =  channel.readOutbound();
+        HttpResponse response = channel.readOutbound();
         assertThat(channel.finish(), is(false));
         return response;
     }

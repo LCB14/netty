@@ -31,7 +31,6 @@ public interface NameResolver<T> extends Closeable {
      * Resolves the specified name into an address.
      *
      * @param inetHost the name to resolve
-     *
      * @return the address as the result of the resolution
      */
     Future<T> resolve(String inetHost);
@@ -40,8 +39,7 @@ public interface NameResolver<T> extends Closeable {
      * Resolves the specified name into an address.
      *
      * @param inetHost the name to resolve
-     * @param promise the {@link Promise} which will be fulfilled when the name resolution is finished
-     *
+     * @param promise  the {@link Promise} which will be fulfilled when the name resolution is finished
      * @return the address as the result of the resolution
      */
     Future<T> resolve(String inetHost, Promise<T> promise);
@@ -50,7 +48,6 @@ public interface NameResolver<T> extends Closeable {
      * Resolves the specified host name and port into a list of address.
      *
      * @param inetHost the name to resolve
-     *
      * @return the list of the address as the result of the resolution
      */
     Future<List<T>> resolveAll(String inetHost);
@@ -59,8 +56,7 @@ public interface NameResolver<T> extends Closeable {
      * Resolves the specified host name and port into a list of address.
      *
      * @param inetHost the name to resolve
-     * @param promise the {@link Promise} which will be fulfilled when the name resolution is finished
-     *
+     * @param promise  the {@link Promise} which will be fulfilled when the name resolution is finished
      * @return the list of the address as the result of the resolution
      */
     Future<List<T>> resolveAll(String inetHost, Promise<List<T>> promise);

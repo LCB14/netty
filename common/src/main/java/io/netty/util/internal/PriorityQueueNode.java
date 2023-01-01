@@ -37,8 +37,9 @@ public interface PriorityQueueNode {
      * Used by {@link DefaultPriorityQueue} to maintain state for an element in the queue.
      * <p>
      * Throwing exceptions from this method will result in undefined behavior.
+     *
      * @param queue The queue for which the index is being set.
-     * @param i The index as used by {@link DefaultPriorityQueue}.
+     * @param i     The index as used by {@link DefaultPriorityQueue}.
      */
     void priorityQueueIndex(DefaultPriorityQueue<?> queue, int i);
 }

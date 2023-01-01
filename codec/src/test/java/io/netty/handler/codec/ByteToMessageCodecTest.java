@@ -92,10 +92,12 @@ public class ByteToMessageCodecTest {
         }
 
         @Override
-        protected void encode(ChannelHandlerContext ctx, Integer msg, ByteBuf out) throws Exception { }
+        protected void encode(ChannelHandlerContext ctx, Integer msg, ByteBuf out) throws Exception {
+        }
 
         @Override
-        protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception { }
+        protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        }
     }
 
     @ChannelHandler.Sharable
@@ -105,9 +107,11 @@ public class ByteToMessageCodecTest {
         }
 
         @Override
-        protected void encode(ChannelHandlerContext ctx, Integer msg, ByteBuf out) throws Exception { }
+        protected void encode(ChannelHandlerContext ctx, Integer msg, ByteBuf out) throws Exception {
+        }
 
         @Override
-        protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception { }
+        protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        }
     }
 }

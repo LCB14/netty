@@ -27,7 +27,7 @@ import io.netty.channel.socket.SocketChannelConfig;
  * A {@link ChannelConfig} for a {@link OioSocketChannel}.
  *
  * <h3>Available options</h3>
- *
+ * <p>
  * In addition to the options provided by {@link SocketChannelConfig},
  * {@link OioSocketChannelConfig} allows the following options in the
  * option map:

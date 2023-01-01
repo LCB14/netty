@@ -77,6 +77,7 @@ public final class ChannelFlushPromiseNotifier {
         }
         return this;
     }
+
     /**
      * Increase the current write counter by the given delta
      */
@@ -96,7 +97,7 @@ public final class ChannelFlushPromiseNotifier {
     /**
      * Notify all {@link ChannelFuture}s that were registered with {@link #add(ChannelPromise, int)} and
      * their pendingDatasize is smaller after the current writeCounter returned by {@link #writeCounter()}.
-     *
+     * <p>
      * After a {@link ChannelFuture} was notified it will be removed from this {@link ChannelFlushPromiseNotifier} and
      * so not receive anymore notification.
      */
@@ -116,17 +117,17 @@ public final class ChannelFlushPromiseNotifier {
     /**
      * Notify all {@link ChannelFuture}s that were registered with {@link #add(ChannelPromise, int)} and
      * their pendingDatasize isis smaller then the current writeCounter returned by {@link #writeCounter()}.
-     *
+     * <p>
      * After a {@link ChannelFuture} was notified it will be removed from this {@link ChannelFlushPromiseNotifier} and
      * so not receive anymore notification.
-     *
+     * <p>
      * The rest of the remaining {@link ChannelFuture}s will be failed with the given {@link Throwable}.
-     *
+     * <p>
      * So after this operation this {@link ChannelFutureListener} is empty.
      */
     public ChannelFlushPromiseNotifier notifyPromises(Throwable cause) {
         notifyPromises();
-        for (;;) {
+        for (; ; ) {
             FlushCheckpoint cp = flushCheckpoints.poll();
             if (cp == null) {
                 break;
@@ -152,21 +153,21 @@ public final class ChannelFlushPromiseNotifier {
      * Notify all {@link ChannelFuture}s that were registered with {@link #add(ChannelPromise, int)} and
      * their pendingDatasize is smaller then the current writeCounter returned by {@link #writeCounter()} using
      * the given cause1.
-     *
+     * <p>
      * After a {@link ChannelFuture} was notified it will be removed from this {@link ChannelFlushPromiseNotifier} and
      * so not receive anymore notification.
-     *
+     * <p>
      * The rest of the remaining {@link ChannelFuture}s will be failed with the given {@link Throwable}.
-     *
+     * <p>
      * So after this operation this {@link ChannelFutureListener} is empty.
      *
-     * @param cause1    the {@link Throwable} which will be used to fail all of the {@link ChannelFuture}s which
-     *                  pendingDataSize is smaller then the current writeCounter returned by {@link #writeCounter()}
-     * @param cause2    the {@link Throwable} which will be used to fail the remaining {@link ChannelFuture}s
+     * @param cause1 the {@link Throwable} which will be used to fail all of the {@link ChannelFuture}s which
+     *               pendingDataSize is smaller then the current writeCounter returned by {@link #writeCounter()}
+     * @param cause2 the {@link Throwable} which will be used to fail the remaining {@link ChannelFuture}s
      */
     public ChannelFlushPromiseNotifier notifyPromises(Throwable cause1, Throwable cause2) {
         notifyPromises0(cause1);
-        for (;;) {
+        for (; ; ) {
             FlushCheckpoint cp = flushCheckpoints.poll();
             if (cp == null) {
                 break;
@@ -195,7 +196,7 @@ public final class ChannelFlushPromiseNotifier {
         }
 
         final long writeCounter = this.writeCounter;
-        for (;;) {
+        for (; ; ) {
             FlushCheckpoint cp = flushCheckpoints.peek();
             if (cp == null) {
                 // Reset the counter if there's nothing in the notification list.
@@ -234,7 +235,7 @@ public final class ChannelFlushPromiseNotifier {
             // Reset the counter only when the counter grew pretty large
             // so that we can reduce the cost of updating all entries in the notification list.
             this.writeCounter = 0;
-            for (FlushCheckpoint cp: flushCheckpoints) {
+            for (FlushCheckpoint cp : flushCheckpoints) {
                 cp.flushCheckpoint(cp.flushCheckpoint() - newWriteCounter);
             }
         }
@@ -242,7 +243,9 @@ public final class ChannelFlushPromiseNotifier {
 
     interface FlushCheckpoint {
         long flushCheckpoint();
+
         void flushCheckpoint(long checkpoint);
+
         ChannelPromise promise();
     }
 

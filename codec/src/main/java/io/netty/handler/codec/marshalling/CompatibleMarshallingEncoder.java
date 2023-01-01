@@ -26,12 +26,11 @@ import org.jboss.marshalling.Marshaller;
 /**
  * {@link MessageToByteEncoder} implementation which uses JBoss Marshalling to marshal
  * an Object.
- *
+ * <p>
  * See <a href="https://www.jboss.org/jbossmarshalling">JBoss Marshalling website</a>
  * for more information
- *
+ * <p>
  * Use {@link MarshallingEncoder} if possible.
- *
  */
 @Sharable
 public class CompatibleMarshallingEncoder extends MessageToByteEncoder<Object> {
@@ -41,7 +40,7 @@ public class CompatibleMarshallingEncoder extends MessageToByteEncoder<Object> {
     /**
      * Create a new instance of the {@link CompatibleMarshallingEncoder}
      *
-     * @param provider  the {@link MarshallerProvider} to use to get the {@link Marshaller} for a {@link Channel}
+     * @param provider the {@link MarshallerProvider} to use to get the {@link Marshaller} for a {@link Channel}
      */
     public CompatibleMarshallingEncoder(MarshallerProvider provider) {
         this.provider = provider;

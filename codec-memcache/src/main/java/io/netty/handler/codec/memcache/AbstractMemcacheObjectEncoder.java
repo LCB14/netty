@@ -44,8 +44,7 @@ public abstract class AbstractMemcacheObjectEncoder<M extends MemcacheMessage> e
                 throw new IllegalStateException("unexpected message type: " + StringUtil.simpleClassName(msg));
             }
 
-            @SuppressWarnings({ "unchecked", "CastConflictsWithInstanceof" })
-            final M m = (M) msg;
+            @SuppressWarnings({"unchecked", "CastConflictsWithInstanceof"}) final M m = (M) msg;
             out.add(encodeMessage(ctx, m));
         }
 

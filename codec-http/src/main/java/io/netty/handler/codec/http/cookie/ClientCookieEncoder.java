@@ -21,6 +21,7 @@ import static io.netty.handler.codec.http.cookie.CookieUtil.stringBuilder;
 import static io.netty.handler.codec.http.cookie.CookieUtil.stripTrailingSeparator;
 import static io.netty.handler.codec.http.cookie.CookieUtil.stripTrailingSeparatorOrNull;
 import static io.netty.util.internal.ObjectUtil.checkNotNull;
+
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.internal.InternalThreadLocalMap;
 
@@ -33,7 +34,7 @@ import java.util.List;
 /**
  * A <a href="https://tools.ietf.org/html/rfc6265">RFC6265</a> compliant cookie encoder to be used client side, so
  * only name=value pairs are sent.
- *
+ * <p>
  * Note that multiple cookies are supposed to be sent at once in a single "Cookie" header.
  *
  * <pre>
@@ -65,10 +66,8 @@ public final class ClientCookieEncoder extends CookieEncoder {
     /**
      * Encodes the specified cookie into a Cookie header value.
      *
-     * @param name
-     *            the cookie name
-     * @param value
-     *            the cookie value
+     * @param name  the cookie name
+     * @param value the cookie value
      * @return a Rfc6265 style Cookie header value
      */
     public String encode(String name, String value) {
@@ -114,8 +113,7 @@ public final class ClientCookieEncoder extends CookieEncoder {
     /**
      * Encodes the specified cookies into a single Cookie header value.
      *
-     * @param cookies
-     *            some cookies
+     * @param cookies some cookies
      * @return a Rfc6265 style Cookie header value, null if no cookies are passed.
      */
     public String encode(Cookie... cookies) {
@@ -145,8 +143,7 @@ public final class ClientCookieEncoder extends CookieEncoder {
     /**
      * Encodes the specified cookies into a single Cookie header value.
      *
-     * @param cookies
-     *            some cookies
+     * @param cookies some cookies
      * @return a Rfc6265 style Cookie header value, null if no cookies are passed.
      */
     public String encode(Collection<? extends Cookie> cookies) {

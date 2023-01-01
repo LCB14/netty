@@ -37,13 +37,14 @@ public interface DnsCache {
      * Clears the resolved addresses of the specified host name from the cache of this resolver.
      *
      * @return {@code true} if and only if there was an entry for the specified host name in the cache and
-     *         it has been removed by this method
+     * it has been removed by this method
      */
     boolean clear(String hostname);
 
     /**
      * Return the cached entries for the given hostname.
-     * @param hostname the hostname
+     *
+     * @param hostname    the hostname
      * @param additionals the additional records
      * @return the cached entries
      */
@@ -51,11 +52,12 @@ public interface DnsCache {
 
     /**
      * Create a new {@link DnsCacheEntry} and cache a resolved address for a given hostname.
-     * @param hostname the hostname
+     *
+     * @param hostname    the hostname
      * @param additionals the additional records
-     * @param address the resolved address
+     * @param address     the resolved address
      * @param originalTtl the TTL as returned by the DNS server
-     * @param loop the {@link EventLoop} used to register the TTL timeout
+     * @param loop        the {@link EventLoop} used to register the TTL timeout
      * @return The {@link DnsCacheEntry} corresponding to this cache entry.
      */
     DnsCacheEntry cache(String hostname, DnsRecord[] additionals, InetAddress address, long originalTtl,
@@ -64,11 +66,11 @@ public interface DnsCache {
     /**
      * Cache the resolution failure for a given hostname.
      * Be aware this <strong>won't</strong> be called with timeout / cancel / transport exceptions.
-      *
-     * @param hostname the hostname
+     *
+     * @param hostname    the hostname
      * @param additionals the additional records
-     * @param cause the resolution failure
-     * @param loop the {@link EventLoop} used to register the TTL timeout
+     * @param cause       the resolution failure
+     * @param loop        the {@link EventLoop} used to register the TTL timeout
      * @return The {@link DnsCacheEntry} corresponding to this cache entry, or {@code null} if this cache doesn't
      * support caching failed responses.
      */

@@ -82,7 +82,7 @@ public final class Socks5ProxyHandler extends ProxyHandler {
 
     @Override
     public String authScheme() {
-        return socksAuthMethod() == Socks5AuthMethod.PASSWORD? AUTH_PASSWORD : AUTH_NONE;
+        return socksAuthMethod() == Socks5AuthMethod.PASSWORD ? AUTH_PASSWORD : AUTH_NONE;
     }
 
     public String username() {
@@ -122,7 +122,7 @@ public final class Socks5ProxyHandler extends ProxyHandler {
 
     @Override
     protected Object newInitialMessage(ChannelHandlerContext ctx) throws Exception {
-        return socksAuthMethod() == Socks5AuthMethod.PASSWORD? INIT_REQUEST_PASSWORD : INIT_REQUEST_NO_AUTH;
+        return socksAuthMethod() == Socks5AuthMethod.PASSWORD ? INIT_REQUEST_PASSWORD : INIT_REQUEST_NO_AUTH;
     }
 
     @Override
@@ -142,7 +142,7 @@ public final class Socks5ProxyHandler extends ProxyHandler {
                 // In case of password authentication, send an authentication request.
                 ctx.pipeline().replace(decoderName, decoderName, new Socks5PasswordAuthResponseDecoder());
                 sendToProxyServer(new DefaultSocks5PasswordAuthRequest(
-                        username != null? username : "", password != null? password : ""));
+                        username != null ? username : "", password != null ? password : ""));
             } else {
                 // Should never reach here.
                 throw new Error();

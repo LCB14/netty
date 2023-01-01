@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 final class TcpMd5Util {
 
     static Collection<InetAddress> newTcpMd5Sigs(AbstractEpollChannel channel, Collection<InetAddress> current,
-                                         Map<InetAddress, byte[]> newKeys) throws IOException {
+                                                 Map<InetAddress, byte[]> newKeys) throws IOException {
         checkNotNull(channel, "channel");
         checkNotNull(current, "current");
         checkNotNull(newKeys, "newKeys");
@@ -42,7 +42,7 @@ final class TcpMd5Util {
             checkNonEmpty(key, e.getKey().toString());
             if (key.length > Native.TCP_MD5SIG_MAXKEYLEN) {
                 throw new IllegalArgumentException("newKeys[" + e.getKey() +
-                    "] has a key with invalid length; should not exceed the maximum length (" +
+                        "] has a key with invalid length; should not exceed the maximum length (" +
                         Native.TCP_MD5SIG_MAXKEYLEN + ')');
             }
         }

@@ -23,6 +23,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.handler.ssl.JdkApplicationProtocolNegotiator.ProtocolSelectionListener;
 import io.netty.handler.ssl.JdkApplicationProtocolNegotiator.ProtocolSelector;
+
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -45,12 +46,12 @@ abstract class ConscryptAlpnSslEngine extends JdkSslEngine {
             "io.netty.handler.ssl.conscrypt.useBufferAllocator", true);
 
     static ConscryptAlpnSslEngine newClientEngine(SSLEngine engine, ByteBufAllocator alloc,
-            JdkApplicationProtocolNegotiator applicationNegotiator) {
+                                                  JdkApplicationProtocolNegotiator applicationNegotiator) {
         return new ClientEngine(engine, alloc, applicationNegotiator);
     }
 
     static ConscryptAlpnSslEngine newServerEngine(SSLEngine engine, ByteBufAllocator alloc,
-            JdkApplicationProtocolNegotiator applicationNegotiator) {
+                                                  JdkApplicationProtocolNegotiator applicationNegotiator) {
         return new ServerEngine(engine, alloc, applicationNegotiator);
     }
 
@@ -79,7 +80,7 @@ abstract class ConscryptAlpnSslEngine extends JdkSslEngine {
      * as a worst case that there is one TLS record per buffer.
      *
      * @param plaintextBytes the number of plaintext bytes to be wrapped.
-     * @param numBuffers the number of buffers that the plaintext bytes are spread across.
+     * @param numBuffers     the number of buffers that the plaintext bytes are spread across.
      * @return the maximum size of the encrypted output buffer required for the wrap operation.
      */
     final int calculateOutNetBufSize(int plaintextBytes, int numBuffers) {
@@ -97,7 +98,7 @@ abstract class ConscryptAlpnSslEngine extends JdkSslEngine {
         private final ProtocolSelectionListener protocolListener;
 
         ClientEngine(SSLEngine engine, ByteBufAllocator alloc,
-                JdkApplicationProtocolNegotiator applicationNegotiator) {
+                     JdkApplicationProtocolNegotiator applicationNegotiator) {
             super(engine, alloc, applicationNegotiator.protocols());
             // Register for completion of the handshake.
             Conscrypt.setHandshakeListener(engine, new HandshakeListener() {

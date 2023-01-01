@@ -21,7 +21,8 @@ public final class NoopDnsCnameCache implements DnsCnameCache {
 
     public static final NoopDnsCnameCache INSTANCE = new NoopDnsCnameCache();
 
-    private NoopDnsCnameCache() { }
+    private NoopDnsCnameCache() {
+    }
 
     @Override
     public String get(String hostname) {

@@ -22,7 +22,7 @@ public class UnixChannelOption<T> extends ChannelOption<T> {
     public static final ChannelOption<DomainSocketReadMode> DOMAIN_SOCKET_READ_MODE =
             ChannelOption.valueOf(UnixChannelOption.class, "DOMAIN_SOCKET_READ_MODE");
 
-    @SuppressWarnings({ "unused", "deprecation" })
+    @SuppressWarnings({"unused", "deprecation"})
     protected UnixChannelOption() {
         super(null);
     }

@@ -51,13 +51,13 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<String>
 
                         channels.add(ctx.channel());
                     }
-        });
+                });
     }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
         // Send the received message to all channels but the current one.
-        for (Channel c: channels) {
+        for (Channel c : channels) {
             if (c != ctx.channel()) {
                 c.writeAndFlush("[" + ctx.channel().remoteAddress() + "] " + msg + '\n');
             } else {

@@ -34,7 +34,7 @@ final class SequentialDnsServerAddressStream implements DnsServerAddressStream {
     public InetSocketAddress next() {
         int i = this.i;
         InetSocketAddress next = addresses.get(i);
-        if (++ i < addresses.size()) {
+        if (++i < addresses.size()) {
             this.i = i;
         } else {
             this.i = 0;
@@ -61,7 +61,7 @@ final class SequentialDnsServerAddressStream implements DnsServerAddressStream {
         final StringBuilder buf = new StringBuilder(type.length() + 2 + addresses.size() * 16);
         buf.append(type).append("(index: ").append(index);
         buf.append(", addrs: (");
-        for (InetSocketAddress a: addresses) {
+        for (InetSocketAddress a : addresses) {
             buf.append(a).append(", ");
         }
 

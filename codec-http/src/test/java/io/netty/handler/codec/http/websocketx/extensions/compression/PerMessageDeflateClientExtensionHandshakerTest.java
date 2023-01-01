@@ -192,7 +192,7 @@ public class PerMessageDeflateClientExtensionHandshakerTest {
         PerMessageDeflateClientExtensionHandshaker handshaker =
                 new PerMessageDeflateClientExtensionHandshaker(6, true, MAX_WINDOW_SIZE, true, false);
 
-        byte[] firstPayload = new byte[] {
+        byte[] firstPayload = new byte[]{
                 76, -50, -53, 10, -62, 48, 20, 4, -48, 95, 41, 89, -37, 36, 77, 90, 31, -39, 41, -72, 112, 33, -120, 20,
                 20, 119, -79, 70, 123, -95, 121, -48, 92, -116, 80, -6, -17, -58, -99, -37, -31, 12, 51, 19, 1, -9, -12,
                 68, -111, -117, 25, 58, 111, 77, -127, -66, -64, -34, 20, 59, -64, -29, -2, 90, -100, -115, 30, 16, 114,
@@ -203,14 +203,14 @@ public class PerMessageDeflateClientExtensionHandshakerTest {
                 -2, 2
         };
 
-        byte[] secondPayload = new byte[] {
+        byte[] secondPayload = new byte[]{
                 -86, 86, 42, 46, 77, 78, 78, 45, 6, 26, 83, 82, 84, -102, -86, 3, -28, 38, 21, 39, 23, 101, 38, -91, 2,
                 -51, -51, 47, 74, 73, 45, 114, -54, -49, -49, -10, 49, -78, -118, 112, 10, 9, 13, 118, 1, -102, 84,
                 -108, 90, 88, 10, 116, 27, -56, -84, 124, -112, -13, 16, 26, 116, -108, 18, -117, -46, -127, 6, 69, 99,
                 -45, 24, 91, 91, 11, 0
         };
 
-        Map<String, String> parameters =  Collections.singletonMap(CLIENT_NO_CONTEXT, null);
+        Map<String, String> parameters = Collections.singletonMap(CLIENT_NO_CONTEXT, null);
 
         WebSocketClientExtension extension = handshaker.handshakeExtension(
                 new WebSocketExtensionData(PERMESSAGE_DEFLATE_EXTENSION, parameters));
@@ -228,17 +228,17 @@ public class PerMessageDeflateClientExtensionHandshakerTest {
         assertNotNull(firstFrameDecompressed.content());
         assertTrue(firstFrameDecompressed instanceof TextWebSocketFrame);
         assertEquals(firstFrameDecompressed.text(),
-                     "{\"info\":\"Welcome to the BitMEX Realtime API.\",\"version\"" +
-                     ":\"2018-10-02T22:53:23.000Z\",\"timestamp\":\"2018-10-15T06:43:40.437Z\"," +
-                     "\"docs\":\"https://www.bitmex.com/app/wsAPI\",\"limit\":{\"remaining\":39}}");
+                "{\"info\":\"Welcome to the BitMEX Realtime API.\",\"version\"" +
+                        ":\"2018-10-02T22:53:23.000Z\",\"timestamp\":\"2018-10-15T06:43:40.437Z\"," +
+                        "\"docs\":\"https://www.bitmex.com/app/wsAPI\",\"limit\":{\"remaining\":39}}");
         assertTrue(firstFrameDecompressed.release());
 
         assertNotNull(secondFrameDecompressed);
         assertNotNull(secondFrameDecompressed.content());
         assertTrue(secondFrameDecompressed instanceof TextWebSocketFrame);
         assertEquals(secondFrameDecompressed.text(),
-                     "{\"success\":true,\"subscribe\":\"orderBookL2:XBTUSD\"," +
-                     "\"request\":{\"op\":\"subscribe\",\"args\":[\"orderBookL2:XBTUSD\"]}}");
+                "{\"success\":true,\"subscribe\":\"orderBookL2:XBTUSD\"," +
+                        "\"request\":{\"op\":\"subscribe\",\"args\":[\"orderBookL2:XBTUSD\"]}}");
         assertTrue(secondFrameDecompressed.release());
 
         assertFalse(decoderChannel.finish());

@@ -45,7 +45,7 @@ public final class ObjectCleaner {
         @Override
         public void run() {
             boolean interrupted = false;
-            for (;;) {
+            for (; ; ) {
                 // Keep on processing as long as the LIVE_SET is not empty and once it becomes empty
                 // See if we can let this thread complete.
                 while (!LIVE_SET.isEmpty()) {
@@ -87,7 +87,7 @@ public final class ObjectCleaner {
     /**
      * Register the given {@link Object} for which the {@link Runnable} will be executed once there are no references
      * to the object anymore.
-     *
+     * <p>
      * This should only be used if there are no other ways to execute some cleanup once the Object is not reachable
      * anymore because it is not a cheap way to handle the cleanup.
      */

@@ -123,7 +123,7 @@ final class InternalAttribute extends AbstractReferenceCounted implements Interf
 
     @Override
     public InterfaceHttpData retain() {
-        for (ByteBuf buf: value) {
+        for (ByteBuf buf : value) {
             buf.retain();
         }
         return this;
@@ -131,7 +131,7 @@ final class InternalAttribute extends AbstractReferenceCounted implements Interf
 
     @Override
     public InterfaceHttpData retain(int increment) {
-        for (ByteBuf buf: value) {
+        for (ByteBuf buf : value) {
             buf.retain(increment);
         }
         return this;
@@ -139,7 +139,7 @@ final class InternalAttribute extends AbstractReferenceCounted implements Interf
 
     @Override
     public InterfaceHttpData touch() {
-        for (ByteBuf buf: value) {
+        for (ByteBuf buf : value) {
             buf.touch();
         }
         return this;
@@ -147,7 +147,7 @@ final class InternalAttribute extends AbstractReferenceCounted implements Interf
 
     @Override
     public InterfaceHttpData touch(Object hint) {
-        for (ByteBuf buf: value) {
+        for (ByteBuf buf : value) {
             buf.touch(hint);
         }
         return this;

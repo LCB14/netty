@@ -44,9 +44,9 @@ public final class OpenSslSessionTicketKey {
     /**
      * Construct a OpenSslSessionTicketKey.
      *
-     * @param name the name of the session ticket key
+     * @param name    the name of the session ticket key
      * @param hmacKey the HMAC key of the session ticket key
-     * @param aesKey the AES key of the session ticket key
+     * @param aesKey  the AES key of the session ticket key
      */
     public OpenSslSessionTicketKey(byte[] name, byte[] hmacKey, byte[] aesKey) {
         key = new SessionTicketKey(name.clone(), hmacKey.clone(), aesKey.clone());
@@ -54,6 +54,7 @@ public final class OpenSslSessionTicketKey {
 
     /**
      * Get name.
+     *
      * @return the name of the session ticket key
      */
     public byte[] name() {
@@ -62,6 +63,7 @@ public final class OpenSslSessionTicketKey {
 
     /**
      * Get HMAC key.
+     *
      * @return the HMAC key of the session ticket key
      */
     public byte[] hmacKey() {
@@ -70,6 +72,7 @@ public final class OpenSslSessionTicketKey {
 
     /**
      * Get AES Key.
+     *
      * @return the AES key of the session ticket key
      */
     public byte[] aesKey() {

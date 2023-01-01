@@ -40,10 +40,10 @@ class HttpContentCompressorOptionsTest {
     @Test
     void testGetBrTargetContentEncoding() {
         HttpContentCompressor compressor = new HttpContentCompressor(
-            StandardCompressionOptions.gzip(),
-            StandardCompressionOptions.deflate(),
-            StandardCompressionOptions.brotli(),
-            StandardCompressionOptions.zstd()
+                StandardCompressionOptions.gzip(),
+                StandardCompressionOptions.deflate(),
+                StandardCompressionOptions.brotli(),
+                StandardCompressionOptions.zstd()
         );
 
         String[] tests = {
@@ -67,10 +67,10 @@ class HttpContentCompressorOptionsTest {
     @Test
     void testGetZstdTargetContentEncoding() {
         HttpContentCompressor compressor = new HttpContentCompressor(
-            StandardCompressionOptions.gzip(),
-            StandardCompressionOptions.deflate(),
-            StandardCompressionOptions.brotli(),
-            StandardCompressionOptions.zstd()
+                StandardCompressionOptions.gzip(),
+                StandardCompressionOptions.deflate(),
+                StandardCompressionOptions.brotli(),
+                StandardCompressionOptions.zstd()
         );
 
         String[] tests = {

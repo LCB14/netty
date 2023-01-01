@@ -113,10 +113,10 @@ public class StreamBufferingEncoderTest {
                 any(ChannelPromise.class)))
                 .thenAnswer(successAnswer());
         when(writer.writeHeaders(any(ChannelHandlerContext.class), anyInt(), any(Http2Headers.class),
-            anyInt(), anyBoolean(), any(ChannelPromise.class))).thenAnswer(noopAnswer());
+                anyInt(), anyBoolean(), any(ChannelPromise.class))).thenAnswer(noopAnswer());
         when(writer.writeHeaders(any(ChannelHandlerContext.class), anyInt(), any(Http2Headers.class),
-            anyInt(), anyShort(), anyBoolean(), anyInt(), anyBoolean(), any(ChannelPromise.class)))
-            .thenAnswer(noopAnswer());
+                anyInt(), anyShort(), anyBoolean(), anyInt(), anyBoolean(), any(ChannelPromise.class)))
+                .thenAnswer(noopAnswer());
 
         connection = new DefaultHttp2Connection(false);
         connection.remote().flowController(new DefaultHttp2RemoteFlowController(connection));
@@ -286,9 +286,9 @@ public class StreamBufferingEncoderTest {
         setMaxConcurrentStreams(1);
 
         when(writer.writeHeaders(any(ChannelHandlerContext.class), anyInt(), any(Http2Headers.class), anyInt(),
-              anyBoolean(), any(ChannelPromise.class))).thenAnswer(successAnswer());
+                anyBoolean(), any(ChannelPromise.class))).thenAnswer(successAnswer());
         when(writer.writeHeaders(any(ChannelHandlerContext.class), anyInt(), any(Http2Headers.class), anyInt(),
-              anyShort(), anyBoolean(), anyInt(), anyBoolean(), any(ChannelPromise.class))).thenAnswer(successAnswer());
+                anyShort(), anyBoolean(), anyInt(), anyBoolean(), any(ChannelPromise.class))).thenAnswer(successAnswer());
 
         ChannelFuture f1 = encoderWriteHeaders(3, newPromise());
         assertEquals(0, encoder.numBufferedStreams());
@@ -523,7 +523,7 @@ public class StreamBufferingEncoderTest {
 
     private ChannelFuture encoderWriteHeaders(int streamId, ChannelPromise promise) {
         encoder.writeHeaders(ctx, streamId, new DefaultHttp2Headers(), 0, DEFAULT_PRIORITY_WEIGHT,
-                             false, 0, false, promise);
+                false, 0, false, promise);
         try {
             encoder.flowController().writePendingBytes();
             return promise;
@@ -534,8 +534,8 @@ public class StreamBufferingEncoderTest {
 
     private void writeVerifyWriteHeaders(VerificationMode mode, int streamId) {
         verify(writer, mode).writeHeaders(eq(ctx), eq(streamId), any(Http2Headers.class), eq(0),
-                                          eq(DEFAULT_PRIORITY_WEIGHT), eq(false), eq(0),
-                                          eq(false), any(ChannelPromise.class));
+                eq(DEFAULT_PRIORITY_WEIGHT), eq(false), eq(0),
+                eq(false), any(ChannelPromise.class));
     }
 
     private Answer<ChannelFuture> successAnswer() {

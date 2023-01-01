@@ -428,7 +428,7 @@ public class Http2FrameRoundtripTest {
 
     private static ByteBuf data(int size) {
         byte[] data = new byte[size];
-        for (int ix = 0; ix < data.length;) {
+        for (int ix = 0; ix < data.length; ) {
             int length = min(MESSAGE.length, data.length - ix);
             System.arraycopy(MESSAGE, 0, data, ix, length);
             ix += length;

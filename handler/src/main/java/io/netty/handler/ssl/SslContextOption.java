@@ -26,7 +26,7 @@ import io.netty.util.internal.ObjectUtil;
  * of {@link SslContext} and may depend on the nature of the SSL implementation it belongs
  * to.
  *
- * @param <T>   the type of the value which is valid for the {@link SslContextOption}
+ * @param <T> the type of the value which is valid for the {@link SslContextOption}
  */
 public class SslContextOption<T> extends AbstractConstant<SslContextOption<T>> {
 

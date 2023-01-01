@@ -27,6 +27,7 @@ public interface Http2FlowController {
      * <p>
      * This <strong>must</strong> be called to properly initialize the {@link Http2FlowController}.
      * Not calling this is considered a programming error.
+     *
      * @param ctx The {@link ChannelHandlerContext} for which to apply flow control on.
      * @throws Http2Exception if any protocol-related error occurred.
      */
@@ -73,8 +74,8 @@ public interface Http2FlowController {
      * {@code WINDOW_UPDATE} is actually sent.
      *
      * @param stream The subject stream. Use {@link Http2Connection#connectionStream()} for
-     *            requesting the size of the connection window.
-     * @param delta the change in size of the flow control window.
+     *               requesting the size of the connection window.
+     * @param delta  the change in size of the flow control window.
      * @throws Http2Exception thrown if a protocol-related error occurred.
      */
     void incrementWindowSize(Http2Stream stream, int delta) throws Http2Exception;

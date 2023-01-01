@@ -59,19 +59,19 @@ public class LocalTransportThreadModelTest {
         group = new DefaultEventLoopGroup();
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
-                      @Override
-                      public void channelRead(ChannelHandlerContext ctx, Object msg) {
-                          // Discard
-                          ReferenceCountUtil.release(msg);
-                      }
-                  });
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                            @Override
+                            public void channelRead(ChannelHandlerContext ctx, Object msg) {
+                                // Discard
+                                ReferenceCountUtil.release(msg);
+                            }
+                        });
+                    }
+                });
 
         localAddr = (LocalAddress) sb.bind(LocalAddress.ANY).syncUninterruptibly().channel().localAddress();
     }
@@ -85,7 +85,7 @@ public class LocalTransportThreadModelTest {
     @Timeout(value = 30000, unit = TimeUnit.MILLISECONDS)
     @Disabled("regression test")
     public void testStagedExecutionMultiple() throws Throwable {
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             testStagedExecution();
         }
     }
@@ -125,7 +125,7 @@ public class LocalTransportThreadModelTest {
 
         // Wait until all events are handled completely.
         while (h1.outboundThreadNames.size() < 3 || h3.inboundThreadNames.size() < 3 ||
-               h1.removalThreadNames.size() < 1) {
+                h1.removalThreadNames.size() < 1) {
             if (h1.exception.get() != null) {
                 throw h1.exception.get();
             }
@@ -154,31 +154,31 @@ public class LocalTransportThreadModelTest {
             assertFalse(h3.removalThreadNames.contains(currentName));
 
             // Assert that events were handled by the correct executor.
-            for (String name: h1.inboundThreadNames) {
+            for (String name : h1.inboundThreadNames) {
                 assertTrue(name.startsWith("l-"));
             }
-            for (String name: h2.inboundThreadNames) {
+            for (String name : h2.inboundThreadNames) {
                 assertTrue(name.startsWith("e1-"));
             }
-            for (String name: h3.inboundThreadNames) {
+            for (String name : h3.inboundThreadNames) {
                 assertTrue(name.startsWith("e2-"));
             }
-            for (String name: h1.outboundThreadNames) {
+            for (String name : h1.outboundThreadNames) {
                 assertTrue(name.startsWith("l-"));
             }
-            for (String name: h2.outboundThreadNames) {
+            for (String name : h2.outboundThreadNames) {
                 assertTrue(name.startsWith("e1-"));
             }
-            for (String name: h3.outboundThreadNames) {
+            for (String name : h3.outboundThreadNames) {
                 assertTrue(name.startsWith("e2-"));
             }
-            for (String name: h1.removalThreadNames) {
+            for (String name : h1.removalThreadNames) {
                 assertTrue(name.startsWith("l-"));
             }
-            for (String name: h2.removalThreadNames) {
+            for (String name : h2.removalThreadNames) {
                 assertTrue(name.startsWith("e1-"));
             }
-            for (String name: h3.removalThreadNames) {
+            for (String name : h3.removalThreadNames) {
                 assertTrue(name.startsWith("e2-"));
             }
 
@@ -250,25 +250,25 @@ public class LocalTransportThreadModelTest {
             final MessageForwarder3 h3 = new MessageForwarder3();
             final MessageForwarder1 h4 = new MessageForwarder1();
             final MessageForwarder2 h5 = new MessageForwarder2();
-            final MessageDiscarder  h6 = new MessageDiscarder();
+            final MessageDiscarder h6 = new MessageDiscarder();
 
             final Channel ch = new LocalChannel();
 
             // inbound:  int -> byte[4] -> int -> int -> byte[4] -> int -> /dev/null
             // outbound: int -> int -> byte[4] -> int -> int -> byte[4] -> /dev/null
             ch.pipeline().addLast(h1)
-                         .addLast(e1, h2)
-                         .addLast(e2, h3)
-                         .addLast(e3, h4)
-                         .addLast(e4, h5)
-                         .addLast(e5, h6);
+                    .addLast(e1, h2)
+                    .addLast(e2, h3)
+                    .addLast(e3, h4)
+                    .addLast(e4, h5)
+                    .addLast(e5, h6);
 
             l.register(ch).sync().channel().connect(localAddr).sync();
 
             final int ROUNDS = 1024;
             final int ELEMS_PER_ROUNDS = 8192;
             final int TOTAL_CNT = ROUNDS * ELEMS_PER_ROUNDS;
-            for (int i = 0; i < TOTAL_CNT;) {
+            for (int i = 0; i < TOTAL_CNT; ) {
                 final int start = i;
                 final int end = i + ELEMS_PER_ROUNDS;
                 i = end;
@@ -276,7 +276,7 @@ public class LocalTransportThreadModelTest {
                 ch.eventLoop().execute(new Runnable() {
                     @Override
                     public void run() {
-                        for (int j = start; j < end; j ++) {
+                        for (int j = start; j < end; j++) {
                             ch.pipeline().fireChannelRead(Integer.valueOf(j));
                         }
                     }
@@ -306,7 +306,7 @@ public class LocalTransportThreadModelTest {
                 Thread.sleep(10);
             }
 
-            for (int i = 0; i < TOTAL_CNT;) {
+            for (int i = 0; i < TOTAL_CNT; ) {
                 final int start = i;
                 final int end = i + ELEMS_PER_ROUNDS;
                 i = end;
@@ -314,7 +314,7 @@ public class LocalTransportThreadModelTest {
                 ch.pipeline().context(h6).executor().execute(new Runnable() {
                     @Override
                     public void run() {
-                        for (int j = start; j < end; j ++) {
+                        for (int j = start; j < end; j++) {
                             ch.write(Integer.valueOf(j));
                         }
                         ch.flush();
@@ -429,7 +429,7 @@ public class LocalTransportThreadModelTest {
 
             ByteBuf out = ctx.alloc().buffer(4);
             int m = ((Integer) msg).intValue();
-            int expected = inCnt ++;
+            int expected = inCnt++;
             assertEquals(expected, m);
             out.writeInt(m);
 
@@ -445,9 +445,9 @@ public class LocalTransportThreadModelTest {
 
             ByteBuf m = (ByteBuf) msg;
             int count = m.readableBytes() / 4;
-            for (int j = 0; j < count; j ++) {
+            for (int j = 0; j < count; j++) {
                 int actual = m.readInt();
-                int expected = outCnt ++;
+                int expected = outCnt++;
                 assertEquals(expected, actual);
                 if (!swallow) {
                     ctx.write(actual);
@@ -487,9 +487,9 @@ public class LocalTransportThreadModelTest {
 
             ByteBuf m = (ByteBuf) msg;
             int count = m.readableBytes() / 4;
-            for (int j = 0; j < count; j ++) {
+            for (int j = 0; j < count; j++) {
                 int actual = m.readInt();
-                int expected = inCnt ++;
+                int expected = inCnt++;
                 assertEquals(expected, actual);
                 ctx.fireChannelRead(actual);
             }
@@ -502,7 +502,7 @@ public class LocalTransportThreadModelTest {
 
             ByteBuf out = ctx.alloc().buffer(4);
             int m = (Integer) msg;
-            int expected = outCnt ++;
+            int expected = outCnt++;
             assertEquals(expected, m);
             out.writeInt(m);
 
@@ -538,7 +538,7 @@ public class LocalTransportThreadModelTest {
             }
 
             int actual = (Integer) msg;
-            int expected = inCnt ++;
+            int expected = inCnt++;
             assertEquals(expected, actual);
 
             ctx.fireChannelRead(msg);
@@ -549,7 +549,7 @@ public class LocalTransportThreadModelTest {
             assertSame(t, Thread.currentThread());
 
             int actual = (Integer) msg;
-            int expected = outCnt ++;
+            int expected = outCnt++;
             assertEquals(expected, actual);
 
             ctx.write(msg, promise);
@@ -584,7 +584,7 @@ public class LocalTransportThreadModelTest {
             }
 
             int actual = (Integer) msg;
-            int expected = inCnt ++;
+            int expected = inCnt++;
             assertEquals(expected, actual);
         }
 
@@ -594,7 +594,7 @@ public class LocalTransportThreadModelTest {
             assertSame(t, Thread.currentThread());
 
             int actual = (Integer) msg;
-            int expected = outCnt ++;
+            int expected = outCnt++;
             assertEquals(expected, actual);
             ctx.write(msg, promise);
         }

@@ -54,16 +54,16 @@ public class StompEncoderBenchmark extends AbstractMicrobenchmark {
     private StompFrame stompFrame;
     private ChannelHandlerContext context;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean pooledAllocator;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean voidPromise;
 
     @Param
     public ExampleStompHeadersSubframe.HeadersType headersType;
 
-    @Param({ "0", "100", "1000" })
+    @Param({"0", "100", "1000"})
     public int contentLength;
 
     @Setup(Level.Trial)
@@ -79,7 +79,7 @@ public class StompEncoderBenchmark extends AbstractMicrobenchmark {
 
         stompEncoder = new StompSubframeEncoder();
         context = new EmbeddedChannelWriteReleaseHandlerContext(
-                pooledAllocator? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT, stompEncoder) {
+                pooledAllocator ? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT, stompEncoder) {
             @Override
             protected void handleException(Throwable t) {
                 handleUnexpectedException(t);
@@ -99,7 +99,7 @@ public class StompEncoderBenchmark extends AbstractMicrobenchmark {
     }
 
     private ChannelPromise newPromise() {
-        return voidPromise? context.voidPromise() : context.newPromise();
+        return voidPromise ? context.voidPromise() : context.newPromise();
     }
 
     @Override

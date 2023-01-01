@@ -44,11 +44,11 @@ import io.netty.util.CharsetUtil;
 public final class OcspUtils {
     /**
      * The OID for OCSP responder URLs.
-     *
+     * <p>
      * https://www.alvestrand.no/objectid/1.3.6.1.5.5.7.48.1.html
      */
     private static final ASN1ObjectIdentifier OCSP_RESPONDER_OID
-        = new ASN1ObjectIdentifier("1.3.6.1.5.5.7.48.1").intern();
+            = new ASN1ObjectIdentifier("1.3.6.1.5.5.7.48.1").intern();
 
     private static final String OCSP_REQUEST_TYPE = "application/ocsp-request";
 

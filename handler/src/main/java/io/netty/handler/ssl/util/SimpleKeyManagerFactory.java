@@ -21,6 +21,7 @@ import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.StringUtil;
 import io.netty.util.internal.SuppressJava6Requirement;
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -46,7 +47,7 @@ public abstract class SimpleKeyManagerFactory extends KeyManagerFactory {
      * to delegate its callbacks back to {@link SimpleKeyManagerFactory}.  However, it is impossible to do so,
      * because {@link KeyManagerFactory} requires {@link KeyManagerFactorySpi} at construction time and
      * does not provide a way to access it later.
-     *
+     * <p>
      * To work around this issue, we use an ugly hack which uses a {@link FastThreadLocal }.
      */
     private static final FastThreadLocal<SimpleKeyManagerFactorySpi> CURRENT_SPI =

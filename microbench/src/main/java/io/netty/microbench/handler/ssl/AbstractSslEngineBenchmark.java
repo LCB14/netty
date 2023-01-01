@@ -93,8 +93,8 @@ public class AbstractSslEngineBenchmark extends AbstractMicrobenchmark {
         abstract SslProvider sslProvider();
 
         static SSLEngine configureEngine(SSLEngine engine, String cipher) {
-            engine.setEnabledProtocols(new String[]{ PROTOCOL_TLS_V1_2 });
-            engine.setEnabledCipherSuites(new String[]{ cipher });
+            engine.setEnabledProtocols(new String[]{PROTOCOL_TLS_V1_2});
+            engine.setEnabledCipherSuites(new String[]{cipher});
             return engine;
         }
     }
@@ -120,7 +120,8 @@ public class AbstractSslEngineBenchmark extends AbstractMicrobenchmark {
 
         abstract ByteBuffer newBuffer(int size);
 
-        void freeBuffer(ByteBuffer buffer) { }
+        void freeBuffer(ByteBuffer buffer) {
+        }
     }
 
     @Param
@@ -130,7 +131,7 @@ public class AbstractSslEngineBenchmark extends AbstractMicrobenchmark {
     public BufferType bufferType;
 
     // Includes cipher required by HTTP/2
-    @Param({ "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" })
+    @Param({"TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"})
     public String cipher;
 
     protected SSLEngine clientEngine;
@@ -267,7 +268,7 @@ public class AbstractSslEngineBenchmark extends AbstractMicrobenchmark {
 
     private static void runDelegatedTasks(SSLEngineResult result, SSLEngine engine) {
         if (result.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_TASK) {
-            for (;;) {
+            for (; ; ) {
                 Runnable task = engine.getDelegatedTask();
                 if (task == null) {
                     break;

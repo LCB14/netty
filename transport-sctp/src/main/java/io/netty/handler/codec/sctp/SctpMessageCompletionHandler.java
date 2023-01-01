@@ -71,7 +71,7 @@ public class SctpMessageCompletionHandler extends MessageToMessageDecoder<SctpMe
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        for (ByteBuf buffer: fragments.values()) {
+        for (ByteBuf buffer : fragments.values()) {
             buffer.release();
         }
         fragments.clear();

@@ -34,8 +34,8 @@ public class SctpMessageCompletionHandlerTest {
     @Test
     public void testFragmentsReleased() {
         EmbeddedChannel channel = new EmbeddedChannel(new SctpMessageCompletionHandler());
-        ByteBuf buffer = Unpooled.wrappedBuffer(new byte[] { 1, 2, 3, 4 });
-        ByteBuf buffer2 = Unpooled.wrappedBuffer(new byte[] { 1, 2, 3, 4 });
+        ByteBuf buffer = Unpooled.wrappedBuffer(new byte[]{1, 2, 3, 4});
+        ByteBuf buffer2 = Unpooled.wrappedBuffer(new byte[]{1, 2, 3, 4});
         SctpMessage message = new SctpMessage(new TestMessageInfo(false, 1), buffer);
         assertFalse(channel.writeInbound(message));
         assertEquals(1, buffer.refCnt());

@@ -37,7 +37,7 @@ public abstract class ZlibEncoder extends MessageToByteEncoder<ByteBuf> {
 
     /**
      * Close this {@link ZlibEncoder} and so finish the encoding.
-     *
+     * <p>
      * The returned {@link ChannelFuture} will be notified once the
      * operation completes.
      */

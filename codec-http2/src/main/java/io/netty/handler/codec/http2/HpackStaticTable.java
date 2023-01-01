@@ -46,67 +46,67 @@ final class HpackStaticTable {
     // Appendix A: Static Table
     // https://tools.ietf.org/html/rfc7541#appendix-A
     private static final List<HpackHeaderField> STATIC_TABLE = Arrays.asList(
-    /*  1 */ newEmptyHeaderField(":authority"),
-    /*  2 */ newHeaderField(":method", "GET"),
-    /*  3 */ newHeaderField(":method", "POST"),
-    /*  4 */ newHeaderField(":path", "/"),
-    /*  5 */ newHeaderField(":path", "/index.html"),
-    /*  6 */ newHeaderField(":scheme", "http"),
-    /*  7 */ newHeaderField(":scheme", "https"),
-    /*  8 */ newHeaderField(":status", "200"),
-    /*  9 */ newHeaderField(":status", "204"),
-    /* 10 */ newHeaderField(":status", "206"),
-    /* 11 */ newHeaderField(":status", "304"),
-    /* 12 */ newHeaderField(":status", "400"),
-    /* 13 */ newHeaderField(":status", "404"),
-    /* 14 */ newHeaderField(":status", "500"),
-    /* 15 */ newEmptyHeaderField("accept-charset"),
-    /* 16 */ newHeaderField("accept-encoding", "gzip, deflate"),
-    /* 17 */ newEmptyHeaderField("accept-language"),
-    /* 18 */ newEmptyHeaderField("accept-ranges"),
-    /* 19 */ newEmptyHeaderField("accept"),
-    /* 20 */ newEmptyHeaderField("access-control-allow-origin"),
-    /* 21 */ newEmptyHeaderField("age"),
-    /* 22 */ newEmptyHeaderField("allow"),
-    /* 23 */ newEmptyHeaderField("authorization"),
-    /* 24 */ newEmptyHeaderField("cache-control"),
-    /* 25 */ newEmptyHeaderField("content-disposition"),
-    /* 26 */ newEmptyHeaderField("content-encoding"),
-    /* 27 */ newEmptyHeaderField("content-language"),
-    /* 28 */ newEmptyHeaderField("content-length"),
-    /* 29 */ newEmptyHeaderField("content-location"),
-    /* 30 */ newEmptyHeaderField("content-range"),
-    /* 31 */ newEmptyHeaderField("content-type"),
-    /* 32 */ newEmptyHeaderField("cookie"),
-    /* 33 */ newEmptyHeaderField("date"),
-    /* 34 */ newEmptyHeaderField("etag"),
-    /* 35 */ newEmptyHeaderField("expect"),
-    /* 36 */ newEmptyHeaderField("expires"),
-    /* 37 */ newEmptyHeaderField("from"),
-    /* 38 */ newEmptyHeaderField("host"),
-    /* 39 */ newEmptyHeaderField("if-match"),
-    /* 40 */ newEmptyHeaderField("if-modified-since"),
-    /* 41 */ newEmptyHeaderField("if-none-match"),
-    /* 42 */ newEmptyHeaderField("if-range"),
-    /* 43 */ newEmptyHeaderField("if-unmodified-since"),
-    /* 44 */ newEmptyHeaderField("last-modified"),
-    /* 45 */ newEmptyHeaderField("link"),
-    /* 46 */ newEmptyHeaderField("location"),
-    /* 47 */ newEmptyHeaderField("max-forwards"),
-    /* 48 */ newEmptyHeaderField("proxy-authenticate"),
-    /* 49 */ newEmptyHeaderField("proxy-authorization"),
-    /* 50 */ newEmptyHeaderField("range"),
-    /* 51 */ newEmptyHeaderField("referer"),
-    /* 52 */ newEmptyHeaderField("refresh"),
-    /* 53 */ newEmptyHeaderField("retry-after"),
-    /* 54 */ newEmptyHeaderField("server"),
-    /* 55 */ newEmptyHeaderField("set-cookie"),
-    /* 56 */ newEmptyHeaderField("strict-transport-security"),
-    /* 57 */ newEmptyHeaderField("transfer-encoding"),
-    /* 58 */ newEmptyHeaderField("user-agent"),
-    /* 59 */ newEmptyHeaderField("vary"),
-    /* 60 */ newEmptyHeaderField("via"),
-    /* 61 */ newEmptyHeaderField("www-authenticate")
+            /*  1 */ newEmptyHeaderField(":authority"),
+            /*  2 */ newHeaderField(":method", "GET"),
+            /*  3 */ newHeaderField(":method", "POST"),
+            /*  4 */ newHeaderField(":path", "/"),
+            /*  5 */ newHeaderField(":path", "/index.html"),
+            /*  6 */ newHeaderField(":scheme", "http"),
+            /*  7 */ newHeaderField(":scheme", "https"),
+            /*  8 */ newHeaderField(":status", "200"),
+            /*  9 */ newHeaderField(":status", "204"),
+            /* 10 */ newHeaderField(":status", "206"),
+            /* 11 */ newHeaderField(":status", "304"),
+            /* 12 */ newHeaderField(":status", "400"),
+            /* 13 */ newHeaderField(":status", "404"),
+            /* 14 */ newHeaderField(":status", "500"),
+            /* 15 */ newEmptyHeaderField("accept-charset"),
+            /* 16 */ newHeaderField("accept-encoding", "gzip, deflate"),
+            /* 17 */ newEmptyHeaderField("accept-language"),
+            /* 18 */ newEmptyHeaderField("accept-ranges"),
+            /* 19 */ newEmptyHeaderField("accept"),
+            /* 20 */ newEmptyHeaderField("access-control-allow-origin"),
+            /* 21 */ newEmptyHeaderField("age"),
+            /* 22 */ newEmptyHeaderField("allow"),
+            /* 23 */ newEmptyHeaderField("authorization"),
+            /* 24 */ newEmptyHeaderField("cache-control"),
+            /* 25 */ newEmptyHeaderField("content-disposition"),
+            /* 26 */ newEmptyHeaderField("content-encoding"),
+            /* 27 */ newEmptyHeaderField("content-language"),
+            /* 28 */ newEmptyHeaderField("content-length"),
+            /* 29 */ newEmptyHeaderField("content-location"),
+            /* 30 */ newEmptyHeaderField("content-range"),
+            /* 31 */ newEmptyHeaderField("content-type"),
+            /* 32 */ newEmptyHeaderField("cookie"),
+            /* 33 */ newEmptyHeaderField("date"),
+            /* 34 */ newEmptyHeaderField("etag"),
+            /* 35 */ newEmptyHeaderField("expect"),
+            /* 36 */ newEmptyHeaderField("expires"),
+            /* 37 */ newEmptyHeaderField("from"),
+            /* 38 */ newEmptyHeaderField("host"),
+            /* 39 */ newEmptyHeaderField("if-match"),
+            /* 40 */ newEmptyHeaderField("if-modified-since"),
+            /* 41 */ newEmptyHeaderField("if-none-match"),
+            /* 42 */ newEmptyHeaderField("if-range"),
+            /* 43 */ newEmptyHeaderField("if-unmodified-since"),
+            /* 44 */ newEmptyHeaderField("last-modified"),
+            /* 45 */ newEmptyHeaderField("link"),
+            /* 46 */ newEmptyHeaderField("location"),
+            /* 47 */ newEmptyHeaderField("max-forwards"),
+            /* 48 */ newEmptyHeaderField("proxy-authenticate"),
+            /* 49 */ newEmptyHeaderField("proxy-authorization"),
+            /* 50 */ newEmptyHeaderField("range"),
+            /* 51 */ newEmptyHeaderField("referer"),
+            /* 52 */ newEmptyHeaderField("refresh"),
+            /* 53 */ newEmptyHeaderField("retry-after"),
+            /* 54 */ newEmptyHeaderField("server"),
+            /* 55 */ newEmptyHeaderField("set-cookie"),
+            /* 56 */ newEmptyHeaderField("strict-transport-security"),
+            /* 57 */ newEmptyHeaderField("transfer-encoding"),
+            /* 58 */ newEmptyHeaderField("user-agent"),
+            /* 59 */ newEmptyHeaderField("vary"),
+            /* 60 */ newEmptyHeaderField("via"),
+            /* 61 */ newEmptyHeaderField("www-authenticate")
     );
 
     private static HpackHeaderField newEmptyHeaderField(String name) {
@@ -124,6 +124,7 @@ final class HpackStaticTable {
 
     // A table mapping header names to their associated indexes.
     private static final HeaderNameIndex[] HEADER_NAMES = new HeaderNameIndex[HEADER_NAMES_TABLE_SIZE];
+
     static {
         // Iterate through the static table in reverse order to
         // save the smallest index for a given name in the table.
@@ -134,7 +135,7 @@ final class HpackStaticTable {
             if (tableEntry != null && !equalsVariableTime(tableEntry.name, entry.name)) {
                 // Can happen if AsciiString.hashCode changes
                 throw new IllegalStateException("Hash bucket collision between " +
-                  tableEntry.name + " and " + entry.name);
+                        tableEntry.name + " and " + entry.name);
             }
             HEADER_NAMES[bucket] = new HeaderNameIndex(entry.name, index, entry.value.length() == 0);
         }
@@ -144,11 +145,12 @@ final class HpackStaticTable {
     private static final int HEADERS_WITH_NON_EMPTY_VALUES_TABLE_SIZE = 1 << 6;
 
     private static final int HEADERS_WITH_NON_EMPTY_VALUES_TABLE_SHIFT =
-      PlatformDependent.BIG_ENDIAN_NATIVE_ORDER ? 0 : 6;
+            PlatformDependent.BIG_ENDIAN_NATIVE_ORDER ? 0 : 6;
 
     // A table mapping headers with non-empty values to their associated indexes.
     private static final HeaderIndex[] HEADERS_WITH_NON_EMPTY_VALUES =
-      new HeaderIndex[HEADERS_WITH_NON_EMPTY_VALUES_TABLE_SIZE];
+            new HeaderIndex[HEADERS_WITH_NON_EMPTY_VALUES_TABLE_SIZE];
+
     static {
         for (int index = STATIC_TABLE.size(); index > 0; index--) {
             HpackHeaderField entry = getEntry(index);
@@ -158,7 +160,7 @@ final class HpackStaticTable {
                 if (tableEntry != null) {
                     // Can happen if AsciiString.hashCode changes
                     throw new IllegalStateException("Hash bucket collision between " +
-                      tableEntry.value + " and " + entry.value);
+                            tableEntry.value + " and " + entry.value);
                 }
                 HEADERS_WITH_NON_EMPTY_VALUES[bucket] = new HeaderIndex(entry.name, entry.value, index);
             }

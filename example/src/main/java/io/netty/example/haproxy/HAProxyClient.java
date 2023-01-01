@@ -39,8 +39,8 @@ public final class HAProxyClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioSocketChannel.class)
-             .handler(new HAProxyHandler());
+                    .channel(NioSocketChannel.class)
+                    .handler(new HAProxyHandler());
 
             // Start the connection attempt.
             Channel ch = b.connect(HOST, PORT).sync().channel();

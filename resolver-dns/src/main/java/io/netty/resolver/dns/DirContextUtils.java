@@ -33,7 +33,8 @@ final class DirContextUtils {
     private static final InternalLogger logger =
             InternalLoggerFactory.getInstance(DirContextUtils.class);
 
-    private DirContextUtils() { }
+    private DirContextUtils() {
+    }
 
     static void addNameServers(List<InetSocketAddress> defaultNameServers, int defaultPort) {
         // Using jndi-dns to obtain the default name servers.
@@ -62,7 +63,7 @@ final class DirContextUtils {
                             // If the host portion can not be parsed we should just skip this entry.
                             continue;
                         }
-                        int port  = uri.getPort();
+                        int port = uri.getPort();
                         defaultNameServers.add(SocketUtils.socketAddress(uri.getHost(), port == -1 ?
                                 defaultPort : port));
                     } catch (URISyntaxException e) {

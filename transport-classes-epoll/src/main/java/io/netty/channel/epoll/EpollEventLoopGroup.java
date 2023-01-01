@@ -94,7 +94,7 @@ public final class EpollEventLoopGroup extends MultithreadEventLoopGroup {
      * Create a new instance using the specified number of threads, the given {@link ThreadFactory} and the given
      * maximal amount of epoll events to handle per epollWait(...).
      *
-     * @deprecated  Use {@link #EpollEventLoopGroup(int)} or {@link #EpollEventLoopGroup(int, ThreadFactory)}
+     * @deprecated Use {@link #EpollEventLoopGroup(int)} or {@link #EpollEventLoopGroup(int, ThreadFactory)}
      */
     @Deprecated
     public EpollEventLoopGroup(int nThreads, ThreadFactory threadFactory, int maxEventsAtOnce) {
@@ -105,7 +105,7 @@ public final class EpollEventLoopGroup extends MultithreadEventLoopGroup {
      * Create a new instance using the specified number of threads, the given {@link ThreadFactory} and the given
      * maximal amount of epoll events to handle per epollWait(...).
      *
-     * @deprecated  Use {@link #EpollEventLoopGroup(int)}, {@link #EpollEventLoopGroup(int, ThreadFactory)}, or
+     * @deprecated Use {@link #EpollEventLoopGroup(int)}, {@link #EpollEventLoopGroup(int, ThreadFactory)}, or
      * {@link #EpollEventLoopGroup(int, SelectStrategyFactory)}
      */
     @Deprecated
@@ -137,17 +137,17 @@ public final class EpollEventLoopGroup extends MultithreadEventLoopGroup {
     }
 
     /**
-     * @param nThreads the number of threads that will be used by this instance.
-     * @param executor the Executor to use, or {@code null} if default one should be used.
-     * @param chooserFactory the {@link EventExecutorChooserFactory} to use.
-     * @param selectStrategyFactory the {@link SelectStrategyFactory} to use.
+     * @param nThreads                 the number of threads that will be used by this instance.
+     * @param executor                 the Executor to use, or {@code null} if default one should be used.
+     * @param chooserFactory           the {@link EventExecutorChooserFactory} to use.
+     * @param selectStrategyFactory    the {@link SelectStrategyFactory} to use.
      * @param rejectedExecutionHandler the {@link RejectedExecutionHandler} to use.
-     * @param taskQueueFactory the {@link EventLoopTaskQueueFactory} to use for
-     *                         {@link SingleThreadEventLoop#execute(Runnable)},
-     *                         or {@code null} if default one should be used.
-     * @param tailTaskQueueFactory the {@link EventLoopTaskQueueFactory} to use for
-     *                             {@link SingleThreadEventLoop#executeAfterEventLoopIteration(Runnable)},
-     *                             or {@code null} if default one should be used.
+     * @param taskQueueFactory         the {@link EventLoopTaskQueueFactory} to use for
+     *                                 {@link SingleThreadEventLoop#execute(Runnable)},
+     *                                 or {@code null} if default one should be used.
+     * @param tailTaskQueueFactory     the {@link EventLoopTaskQueueFactory} to use for
+     *                                 {@link SingleThreadEventLoop#executeAfterEventLoopIteration(Runnable)},
+     *                                 or {@code null} if default one should be used.
      */
     public EpollEventLoopGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory,
                                SelectStrategyFactory selectStrategyFactory,
@@ -163,7 +163,7 @@ public final class EpollEventLoopGroup extends MultithreadEventLoopGroup {
      * {@code 50}, which means the event loop will try to spend the same amount of time for I/O as for non-I/O tasks.
      */
     public void setIoRatio(int ioRatio) {
-        for (EventExecutor e: this) {
+        for (EventExecutor e : this) {
             ((EpollEventLoop) e).setIoRatio(ioRatio);
         }
     }

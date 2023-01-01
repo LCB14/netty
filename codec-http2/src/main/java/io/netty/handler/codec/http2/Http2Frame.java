@@ -17,7 +17,9 @@ package io.netty.handler.codec.http2;
 
 import io.netty.util.internal.UnstableApi;
 
-/** An HTTP/2 frame. */
+/**
+ * An HTTP/2 frame.
+ */
 @UnstableApi
 public interface Http2Frame {
 

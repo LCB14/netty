@@ -101,6 +101,7 @@ public class SocketConditionalWritabilityTest extends AbstractSocketTest {
                 protected void initChannel(Channel ch) {
                     ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                         private int totalRead;
+
                         @Override
                         public void channelActive(ChannelHandlerContext ctx) {
                             ctx.writeAndFlush(ctx.alloc().buffer(1).writeByte(0));

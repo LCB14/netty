@@ -35,9 +35,9 @@ public class DatagramDnsResponse extends DefaultDnsResponse
      * Creates a new instance with the {@link DnsOpCode#QUERY} {@code opCode} and
      * the {@link DnsResponseCode#NOERROR} {@code RCODE}.
      *
-     * @param sender the address of the sender
+     * @param sender    the address of the sender
      * @param recipient the address of the recipient
-     * @param id the {@code ID} of the DNS response
+     * @param id        the {@code ID} of the DNS response
      */
     public DatagramDnsResponse(InetSocketAddress sender, InetSocketAddress recipient, int id) {
         this(sender, recipient, id, DnsOpCode.QUERY, DnsResponseCode.NOERROR);
@@ -46,10 +46,10 @@ public class DatagramDnsResponse extends DefaultDnsResponse
     /**
      * Creates a new instance with the {@link DnsResponseCode#NOERROR} responseCode.
      *
-     * @param sender the address of the sender
+     * @param sender    the address of the sender
      * @param recipient the address of the recipient
-     * @param id the {@code ID} of the DNS response
-     * @param opCode the {@code opCode} of the DNS response
+     * @param id        the {@code ID} of the DNS response
+     * @param opCode    the {@code opCode} of the DNS response
      */
     public DatagramDnsResponse(InetSocketAddress sender, InetSocketAddress recipient, int id, DnsOpCode opCode) {
         this(sender, recipient, id, opCode, DnsResponseCode.NOERROR);
@@ -58,10 +58,10 @@ public class DatagramDnsResponse extends DefaultDnsResponse
     /**
      * Creates a new instance.
      *
-     * @param sender the address of the sender
-     * @param recipient the address of the recipient
-     * @param id the {@code ID} of the DNS response
-     * @param opCode the {@code opCode} of the DNS response
+     * @param sender       the address of the sender
+     * @param recipient    the address of the recipient
+     * @param id           the {@code ID} of the DNS response
+     * @param opCode       the {@code opCode} of the DNS response
      * @param responseCode the {@code RCODE} of the DNS response
      */
     public DatagramDnsResponse(
@@ -191,8 +191,7 @@ public class DatagramDnsResponse extends DefaultDnsResponse
             return false;
         }
 
-        @SuppressWarnings("unchecked")
-        final AddressedEnvelope<?, SocketAddress> that = (AddressedEnvelope<?, SocketAddress>) obj;
+        @SuppressWarnings("unchecked") final AddressedEnvelope<?, SocketAddress> that = (AddressedEnvelope<?, SocketAddress>) obj;
         if (sender() == null) {
             if (that.sender() != null) {
                 return false;

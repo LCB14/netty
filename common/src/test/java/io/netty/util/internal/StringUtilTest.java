@@ -51,10 +51,10 @@ public class StringUtilTest {
 
     @Test
     public void testToHexString() {
-        assertThat(toHexString(new byte[] { 0 }), is("0"));
-        assertThat(toHexString(new byte[] { 1 }), is("1"));
-        assertThat(toHexString(new byte[] { 0, 0 }), is("0"));
-        assertThat(toHexString(new byte[] { 1, 0 }), is("100"));
+        assertThat(toHexString(new byte[]{0}), is("0"));
+        assertThat(toHexString(new byte[]{1}), is("1"));
+        assertThat(toHexString(new byte[]{0, 0}), is("0"));
+        assertThat(toHexString(new byte[]{1, 0}), is("100"));
         assertThat(toHexString(EmptyArrays.EMPTY_BYTES), is(""));
     }
 
@@ -69,48 +69,48 @@ public class StringUtilTest {
 
     @Test
     public void splitSimple() {
-        assertArrayEquals(new String[] { "foo", "bar" }, "foo:bar".split(":"));
+        assertArrayEquals(new String[]{"foo", "bar"}, "foo:bar".split(":"));
     }
 
     @Test
     public void splitWithTrailingDelimiter() {
-        assertArrayEquals(new String[] { "foo", "bar" }, "foo,bar,".split(","));
+        assertArrayEquals(new String[]{"foo", "bar"}, "foo,bar,".split(","));
     }
 
     @Test
     public void splitWithTrailingDelimiters() {
-        assertArrayEquals(new String[] { "foo", "bar" }, "foo!bar!!".split("!"));
+        assertArrayEquals(new String[]{"foo", "bar"}, "foo!bar!!".split("!"));
     }
 
     @Test
     public void splitWithTrailingDelimitersDot() {
-        assertArrayEquals(new String[] { "foo", "bar" }, "foo.bar..".split("\\."));
+        assertArrayEquals(new String[]{"foo", "bar"}, "foo.bar..".split("\\."));
     }
 
     @Test
     public void splitWithTrailingDelimitersEq() {
-        assertArrayEquals(new String[] { "foo", "bar" }, "foo=bar==".split("="));
+        assertArrayEquals(new String[]{"foo", "bar"}, "foo=bar==".split("="));
     }
 
     @Test
     public void splitWithTrailingDelimitersSpace() {
-        assertArrayEquals(new String[] { "foo", "bar" }, "foo bar  ".split(" "));
+        assertArrayEquals(new String[]{"foo", "bar"}, "foo bar  ".split(" "));
     }
 
     @Test
     public void splitWithConsecutiveDelimiters() {
-        assertArrayEquals(new String[] { "foo", "", "bar" }, "foo$$bar".split("\\$"));
+        assertArrayEquals(new String[]{"foo", "", "bar"}, "foo$$bar".split("\\$"));
     }
 
     @Test
     public void splitWithDelimiterAtBeginning() {
-        assertArrayEquals(new String[] { "", "foo", "bar" }, "#foo#bar".split("#"));
+        assertArrayEquals(new String[]{"", "foo", "bar"}, "#foo#bar".split("#"));
     }
 
     @Test
     public void splitMaxPart() {
-        assertArrayEquals(new String[] { "foo", "bar:bar2" }, "foo:bar:bar2".split(":", 2));
-        assertArrayEquals(new String[] { "foo", "bar", "bar2" }, "foo:bar:bar2".split(":", 3));
+        assertArrayEquals(new String[]{"foo", "bar:bar2"}, "foo:bar:bar2".split(":", 2));
+        assertArrayEquals(new String[]{"foo", "bar", "bar2"}, "foo:bar:bar2".split(":", 3));
     }
 
     @Test
@@ -564,7 +564,8 @@ public class StringUtilTest {
         assertEquals(name, simpleClassName(clazz));
     }
 
-    private static final class TestClass { }
+    private static final class TestClass {
+    }
 
     @Test
     public void testEndsWith() {
@@ -595,15 +596,15 @@ public class StringUtilTest {
     @Test
     public void testJoin() {
         assertEquals("",
-                     StringUtil.join(",", Collections.<CharSequence>emptyList()).toString());
+                StringUtil.join(",", Collections.<CharSequence>emptyList()).toString());
         assertEquals("a",
-                     StringUtil.join(",", Collections.singletonList("a")).toString());
+                StringUtil.join(",", Collections.singletonList("a")).toString());
         assertEquals("a,b",
-                     StringUtil.join(",", Arrays.asList("a", "b")).toString());
+                StringUtil.join(",", Arrays.asList("a", "b")).toString());
         assertEquals("a,b,c",
-                     StringUtil.join(",", Arrays.asList("a", "b", "c")).toString());
+                StringUtil.join(",", Arrays.asList("a", "b", "c")).toString());
         assertEquals("a,b,c,null,d",
-                     StringUtil.join(",", Arrays.asList("a", "b", "c", null, "d")).toString());
+                StringUtil.join(",", Arrays.asList("a", "b", "c", null, "d")).toString());
     }
 
     @Test

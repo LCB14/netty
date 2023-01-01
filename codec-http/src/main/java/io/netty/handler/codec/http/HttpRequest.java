@@ -22,7 +22,7 @@ package io.netty.handler.codec.http;
  * <p>
  * Unlike the Servlet API, a query string is constructed and decomposed by
  * {@link QueryStringEncoder} and {@link QueryStringDecoder}.
- *
+ * <p>
  * {@link io.netty.handler.codec.http.cookie.Cookie} support is also provided
  * separately via {@link io.netty.handler.codec.http.cookie.ServerCookieDecoder},
  * {@link io.netty.handler.codec.http.cookie.ClientCookieDecoder},
@@ -69,7 +69,7 @@ public interface HttpRequest extends HttpMessage {
     String uri();
 
     /**
-     *  Set the requested URI (or alternatively, path)
+     * Set the requested URI (or alternatively, path)
      */
     HttpRequest setUri(String uri);
 

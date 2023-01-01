@@ -129,8 +129,8 @@ final class PoolThreadCache {
             int max = Math.min(area.chunkSize, maxCachedBufferCapacity);
             // Create as many normal caches as we support based on how many sizeIdx we have and what the upper
             // bound is that we want to cache in general.
-            List<MemoryRegionCache<T>> cache = new ArrayList<MemoryRegionCache<T>>() ;
-            for (int idx = area.numSmallSubpagePools; idx < area.nSizes && area.sizeIdx2size(idx) <= max ; idx++) {
+            List<MemoryRegionCache<T>> cache = new ArrayList<MemoryRegionCache<T>>();
+            for (int idx = area.numSmallSubpagePools; idx < area.nSizes && area.sizeIdx2size(idx) <= max; idx++) {
                 cache.add(new NormalMemoryRegionCache<T>(cacheSize));
             }
             return cache.toArray(new MemoryRegionCache[0]);
@@ -158,14 +158,14 @@ final class PoolThreadCache {
         return allocate(cacheForNormal(area, sizeIdx), buf, reqCapacity);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private boolean allocate(MemoryRegionCache<?> cache, PooledByteBuf buf, int reqCapacity) {
         if (cache == null) {
             // no cache found so just return false here
             return false;
         }
         boolean allocated = cache.allocate(buf, reqCapacity, this);
-        if (++ allocations >= freeSweepAllocationThreshold) {
+        if (++allocations >= freeSweepAllocationThreshold) {
             allocations = 0;
             trim();
         }
@@ -176,7 +176,7 @@ final class PoolThreadCache {
      * Add {@link PoolChunk} and {@code handle} to the cache if there is enough room.
      * Returns {@code true} if it fit into the cache {@code false} otherwise.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     boolean add(PoolArena<?> area, PoolChunk chunk, ByteBuffer nioBuffer,
                 long handle, int normCapacity, SizeClass sizeClass) {
         int sizeIdx = area.size2SizeIdx(normCapacity);
@@ -192,12 +192,12 @@ final class PoolThreadCache {
 
     private MemoryRegionCache<?> cache(PoolArena<?> area, int sizeIdx, SizeClass sizeClass) {
         switch (sizeClass) {
-        case Normal:
-            return cacheForNormal(area, sizeIdx);
-        case Small:
-            return cacheForSmall(area, sizeIdx);
-        default:
-            throw new Error();
+            case Normal:
+                return cacheForNormal(area, sizeIdx);
+            case Small:
+                return cacheForSmall(area, sizeIdx);
+            default:
+                throw new Error();
         }
     }
 
@@ -212,7 +212,7 @@ final class PoolThreadCache {
     }
 
     /**
-     *  Should be called if the Thread that uses this cache is about to exist to release resources out of the cache
+     * Should be called if the Thread that uses this cache is about to exist to release resources out of the cache
      */
     void free(boolean finalizer) {
         // As free() may be called either by the finalizer or by FastThreadLocal.onRemoval(...) we need to ensure
@@ -259,7 +259,7 @@ final class PoolThreadCache {
         }
 
         int numFreed = 0;
-        for (MemoryRegionCache<?> c: caches) {
+        for (MemoryRegionCache<?> c : caches) {
             numFreed += free(c, finalizer);
         }
         return numFreed;
@@ -283,7 +283,7 @@ final class PoolThreadCache {
         if (caches == null) {
             return;
         }
-        for (MemoryRegionCache<?> c: caches) {
+        for (MemoryRegionCache<?> c : caches) {
             trim(c);
         }
     }
@@ -395,7 +395,7 @@ final class PoolThreadCache {
             entry.recycle();
 
             // allocations is not thread-safe which is fine as this is only called from the same thread all time.
-            ++ allocations;
+            ++allocations;
             return true;
         }
 
@@ -433,8 +433,8 @@ final class PoolThreadCache {
             }
         }
 
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        private  void freeEntry(Entry entry, boolean finalizer) {
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        private void freeEntry(Entry entry, boolean finalizer) {
             // Capture entry state before we recycle the entry object.
             PoolChunk chunk = entry.chunk;
             long handle = entry.handle;

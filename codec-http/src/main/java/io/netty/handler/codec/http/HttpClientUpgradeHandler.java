@@ -95,9 +95,9 @@ public class HttpClientUpgradeHandler extends HttpObjectAggregator implements Ch
          * Performs an HTTP protocol upgrade from the source codec. This method is responsible for
          * adding all handlers required for the new protocol.
          *
-         * @param ctx the context for the current handler.
+         * @param ctx             the context for the current handler.
          * @param upgradeResponse the 101 Switching Protocols response that indicates that the server
-         *            has switched to this protocol.
+         *                        has switched to this protocol.
          */
         void upgradeTo(ChannelHandlerContext ctx, FullHttpResponse upgradeResponse) throws Exception;
     }
@@ -109,8 +109,8 @@ public class HttpClientUpgradeHandler extends HttpObjectAggregator implements Ch
     /**
      * Constructs the client upgrade handler.
      *
-     * @param sourceCodec the codec that is being used initially.
-     * @param upgradeCodec the codec that the client would like to upgrade to.
+     * @param sourceCodec      the codec that is being used initially.
+     * @param upgradeCodec     the codec that the client would like to upgrade to.
      * @param maxContentLength the maximum length of the aggregated content.
      */
     public HttpClientUpgradeHandler(SourceCodec sourceCodec, UpgradeCodec upgradeCodec,

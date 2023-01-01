@@ -30,7 +30,7 @@ import io.netty.handler.ssl.SslContext;
 public final class TelnetServer {
 
     static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8992" : "8023"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8992" : "8023"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.
@@ -41,9 +41,9 @@ public final class TelnetServer {
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new TelnetServerInitializer(sslCtx));
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new TelnetServerInitializer(sslCtx));
 
             b.bind(PORT).sync().channel().closeFuture().sync();
         } finally {

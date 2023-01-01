@@ -24,11 +24,11 @@ final class PooledUnsafeHeapByteBuf extends PooledHeapByteBuf {
 
     private static final ObjectPool<PooledUnsafeHeapByteBuf> RECYCLER = ObjectPool.newPool(
             new ObjectCreator<PooledUnsafeHeapByteBuf>() {
-        @Override
-        public PooledUnsafeHeapByteBuf newObject(Handle<PooledUnsafeHeapByteBuf> handle) {
-            return new PooledUnsafeHeapByteBuf(handle, 0);
-        }
-    });
+                @Override
+                public PooledUnsafeHeapByteBuf newObject(Handle<PooledUnsafeHeapByteBuf> handle) {
+                    return new PooledUnsafeHeapByteBuf(handle, 0);
+                }
+            });
 
     static PooledUnsafeHeapByteBuf newUnsafeInstance(int maxCapacity) {
         PooledUnsafeHeapByteBuf buf = RECYCLER.get();

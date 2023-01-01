@@ -28,8 +28,10 @@ public interface SocketChannel extends DuplexChannel {
 
     @Override
     SocketChannelConfig config();
+
     @Override
     InetSocketAddress localAddress();
+
     @Override
     InetSocketAddress remoteAddress();
 }

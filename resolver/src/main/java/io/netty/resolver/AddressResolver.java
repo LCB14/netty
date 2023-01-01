@@ -28,63 +28,59 @@ import java.util.List;
  */
 public interface AddressResolver<T extends SocketAddress> extends Closeable {
 
-  /**
-   * Returns {@code true} if and only if the specified address is supported by this resolved.
-   */
-  boolean isSupported(SocketAddress address);
+    /**
+     * Returns {@code true} if and only if the specified address is supported by this resolved.
+     */
+    boolean isSupported(SocketAddress address);
 
-  /**
-   * Returns {@code true} if and only if the specified address has been resolved.
-   *
-   * @throws UnsupportedAddressTypeException if the specified address is not supported by this resolver
-   */
-  boolean isResolved(SocketAddress address);
+    /**
+     * Returns {@code true} if and only if the specified address has been resolved.
+     *
+     * @throws UnsupportedAddressTypeException if the specified address is not supported by this resolver
+     */
+    boolean isResolved(SocketAddress address);
 
-  /**
-   * Resolves the specified address. If the specified address is resolved already, this method does nothing
-   * but returning the original address.
-   *
-   * @param address the address to resolve
-   *
-   * @return the {@link SocketAddress} as the result of the resolution
-   */
-  Future<T> resolve(SocketAddress address);
+    /**
+     * Resolves the specified address. If the specified address is resolved already, this method does nothing
+     * but returning the original address.
+     *
+     * @param address the address to resolve
+     * @return the {@link SocketAddress} as the result of the resolution
+     */
+    Future<T> resolve(SocketAddress address);
 
-  /**
-   * Resolves the specified address. If the specified address is resolved already, this method does nothing
-   * but returning the original address.
-   *
-   * @param address the address to resolve
-   * @param promise the {@link Promise} which will be fulfilled when the name resolution is finished
-   *
-   * @return the {@link SocketAddress} as the result of the resolution
-   */
-  Future<T> resolve(SocketAddress address, Promise<T> promise);
+    /**
+     * Resolves the specified address. If the specified address is resolved already, this method does nothing
+     * but returning the original address.
+     *
+     * @param address the address to resolve
+     * @param promise the {@link Promise} which will be fulfilled when the name resolution is finished
+     * @return the {@link SocketAddress} as the result of the resolution
+     */
+    Future<T> resolve(SocketAddress address, Promise<T> promise);
 
-  /**
-   * Resolves the specified address. If the specified address is resolved already, this method does nothing
-   * but returning the original address.
-   *
-   * @param address the address to resolve
-   *
-   * @return the list of the {@link SocketAddress}es as the result of the resolution
-   */
-  Future<List<T>> resolveAll(SocketAddress address);
+    /**
+     * Resolves the specified address. If the specified address is resolved already, this method does nothing
+     * but returning the original address.
+     *
+     * @param address the address to resolve
+     * @return the list of the {@link SocketAddress}es as the result of the resolution
+     */
+    Future<List<T>> resolveAll(SocketAddress address);
 
-  /**
-   * Resolves the specified address. If the specified address is resolved already, this method does nothing
-   * but returning the original address.
-   *
-   * @param address the address to resolve
-   * @param promise the {@link Promise} which will be fulfilled when the name resolution is finished
-   *
-   * @return the list of the {@link SocketAddress}es as the result of the resolution
-   */
-  Future<List<T>> resolveAll(SocketAddress address, Promise<List<T>> promise);
+    /**
+     * Resolves the specified address. If the specified address is resolved already, this method does nothing
+     * but returning the original address.
+     *
+     * @param address the address to resolve
+     * @param promise the {@link Promise} which will be fulfilled when the name resolution is finished
+     * @return the list of the {@link SocketAddress}es as the result of the resolution
+     */
+    Future<List<T>> resolveAll(SocketAddress address, Promise<List<T>> promise);
 
-  /**
-   * Closes all the resources allocated and used by this resolver.
-   */
-  @Override
-  void close();
+    /**
+     * Closes all the resources allocated and used by this resolver.
+     */
+    @Override
+    void close();
 }

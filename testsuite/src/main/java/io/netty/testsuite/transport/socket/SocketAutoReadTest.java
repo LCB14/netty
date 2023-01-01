@@ -56,7 +56,7 @@ public class SocketAutoReadTest extends AbstractSocketTest {
     }
 
     private static void testAutoReadOffDuringReadOnlyReadsOneTime(boolean readOutsideEventLoopThread,
-                                                           ServerBootstrap sb, Bootstrap cb) throws Throwable {
+                                                                  ServerBootstrap sb, Bootstrap cb) throws Throwable {
         Channel serverChannel = null;
         Channel clientChannel = null;
         try {
@@ -172,6 +172,7 @@ public class SocketAutoReadTest extends AbstractSocketTest {
                 private ChannelConfig config;
                 private int attemptedBytesRead;
                 private int lastBytesRead;
+
                 @Override
                 public ByteBuf allocate(ByteBufAllocator alloc) {
                     return alloc.ioBuffer(guess(), guess());

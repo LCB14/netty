@@ -28,7 +28,7 @@ public class AdvancedCodecOutputListBenchmark extends AbstractMicrobenchmark {
 
     private static final Object ELEMENT = new Object();
 
-    @Param({ "1", "4" })
+    @Param({"1", "4"})
     public int elements;
 
     @Benchmark

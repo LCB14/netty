@@ -23,7 +23,7 @@ import static io.netty.handler.codec.compression.Snappy.calculateChecksum;
 
 /**
  * Compresses a {@link ByteBuf} using the Snappy framing format.
- *
+ * <p>
  * See <a href="https://github.com/google/snappy/blob/master/framing_format.txt">Snappy framing format</a>.
  */
 public class SnappyFrameEncoder extends MessageToByteEncoder<ByteBuf> {
@@ -39,7 +39,7 @@ public class SnappyFrameEncoder extends MessageToByteEncoder<ByteBuf> {
      * type 0xff, a length field of 0x6, and 'sNaPpY' in ASCII.
      */
     private static final byte[] STREAM_START = {
-        (byte) 0xff, 0x06, 0x00, 0x00, 0x73, 0x4e, 0x61, 0x50, 0x70, 0x59
+            (byte) 0xff, 0x06, 0x00, 0x00, 0x73, 0x4e, 0x61, 0x50, 0x70, 0x59
     };
 
     private final Snappy snappy = new Snappy();
@@ -58,7 +58,7 @@ public class SnappyFrameEncoder extends MessageToByteEncoder<ByteBuf> {
 
         int dataLength = in.readableBytes();
         if (dataLength > MIN_COMPRESSIBLE_LENGTH) {
-            for (;;) {
+            for (; ; ) {
                 final int lengthIdx = out.writerIndex() + 1;
                 if (dataLength < MIN_COMPRESSIBLE_LENGTH) {
                     ByteBuf slice = in.readSlice(dataLength);
@@ -104,7 +104,7 @@ public class SnappyFrameEncoder extends MessageToByteEncoder<ByteBuf> {
     /**
      * Writes the 2-byte chunk length to the output buffer.
      *
-     * @param out The buffer to write to
+     * @param out         The buffer to write to
      * @param chunkLength The length to write
      */
     private static void writeChunkLength(ByteBuf out, int chunkLength) {
@@ -115,7 +115,7 @@ public class SnappyFrameEncoder extends MessageToByteEncoder<ByteBuf> {
      * Calculates and writes the 4-byte checksum to the output buffer
      *
      * @param slice The data to calculate the checksum for
-     * @param out The output buffer to write the checksum to
+     * @param out   The output buffer to write the checksum to
      */
     private static void calculateAndWriteChecksum(ByteBuf slice, ByteBuf out) {
         out.writeIntLE(calculateChecksum(slice));

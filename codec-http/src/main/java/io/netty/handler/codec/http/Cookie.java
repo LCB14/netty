@@ -20,6 +20,7 @@ import java.util.Set;
 /**
  * An interface defining an
  * <a href="https://en.wikipedia.org/wiki/HTTP_cookie">HTTP cookie</a>.
+ *
  * @deprecated Use {@link io.netty.handler.codec.http.cookie.Cookie} instead.
  */
 @Deprecated
@@ -59,7 +60,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Returns the comment of this {@link Cookie}.
      *
      * @return The comment of this {@link Cookie}
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -69,7 +69,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Sets the comment of this {@link Cookie}.
      *
      * @param comment The comment to use
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -85,7 +84,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Returns the maximum age of this {@link Cookie} in seconds or {@link Long#MIN_VALUE} if unspecified
      *
      * @return The maximum age of this {@link Cookie}
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -100,7 +98,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * browser is closed.
      *
      * @param maxAge The maximum age of this {@link Cookie} in seconds
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -117,7 +114,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Returns the version of this {@link Cookie}.
      *
      * @return The version of this {@link Cookie}
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -127,7 +123,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Sets the version of this {@link Cookie}.
      *
      * @param version The new version to use
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -143,7 +138,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Returns the comment URL of this {@link Cookie}.
      *
      * @return The comment URL of this {@link Cookie}
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -153,7 +147,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Sets the comment URL of this {@link Cookie}.
      *
      * @param commentUrl The comment URL to use
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -164,7 +157,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * at the end of the current session.
      *
      * @return True if this {@link Cookie} is to be discarded, otherwise false
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -176,7 +168,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * at the end of the current session
      *
      * @param discard True if the {@link Cookie} is to be discarded
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -192,7 +183,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Returns the ports that this {@link Cookie} can be accessed on.
      *
      * @return The {@link Set} of ports that this {@link Cookie} can use
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -202,7 +192,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      * Sets the ports that this {@link Cookie} can be accessed on.
      *
      * @param ports The ports that this {@link Cookie} can be accessed on
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated
@@ -213,7 +202,6 @@ public interface Cookie extends io.netty.handler.codec.http.cookie.Cookie {
      *
      * @param ports The {@link Iterable} collection of ports that this
      *              {@link Cookie} can be accessed on.
-     *
      * @deprecated Not part of RFC6265
      */
     @Deprecated

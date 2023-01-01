@@ -165,7 +165,7 @@ final class VoidChannelGroupFuture implements ChannelGroupFuture {  // lgtm[java
     }
 
     @Override
-    public Void get(long timeout, TimeUnit unit)  {
+    public Void get(long timeout, TimeUnit unit) {
         throw reject();
     }
 

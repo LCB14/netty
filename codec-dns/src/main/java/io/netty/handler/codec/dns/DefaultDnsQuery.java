@@ -35,7 +35,7 @@ public class DefaultDnsQuery extends AbstractDnsMessage implements DnsQuery {
     /**
      * Creates a new instance.
      *
-     * @param id the {@code ID} of the DNS query
+     * @param id     the {@code ID} of the DNS query
      * @param opCode the {@code opCode} of the DNS query
      */
     public DefaultDnsQuery(int id, DnsOpCode opCode) {

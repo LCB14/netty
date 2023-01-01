@@ -75,7 +75,7 @@ public class StompSubframeEncoderTest {
     @Test
     public void testUtf8FrameEncoding() {
         StompFrame frame = new DefaultStompFrame(StompCommand.SEND,
-                                                 Unpooled.wrappedBuffer("body".getBytes(CharsetUtil.UTF_8)));
+                Unpooled.wrappedBuffer("body".getBytes(CharsetUtil.UTF_8)));
         StompHeaders incoming = frame.headers();
         incoming.set(StompHeaders.DESTINATION, "/queue/№11±♛нетти♕");
         incoming.set(StompHeaders.CONTENT_TYPE, AsciiString.of("text/plain"));
@@ -106,12 +106,12 @@ public class StompSubframeEncoderTest {
     void testEscapeStompHeaders() {
         StompFrame messageFrame = new DefaultStompFrame(StompCommand.MESSAGE);
         messageFrame.headers()
-                  .add(StompHeaders.MESSAGE_ID, "100")
-                  .add(StompHeaders.SUBSCRIPTION, "1")
-                  .add(StompHeaders.DESTINATION, "/queue/a:")
-                  .add("header\\\r\n:Name", "header\\\r\n:Value")
-                  .add("header_\\_\r_\n_:_Name", "header_\\_\r_\n_:_Value")
-                  .add("headerName:", ":headerValue");
+                .add(StompHeaders.MESSAGE_ID, "100")
+                .add(StompHeaders.SUBSCRIPTION, "1")
+                .add(StompHeaders.DESTINATION, "/queue/a:")
+                .add("header\\\r\n:Name", "header\\\r\n:Value")
+                .add("header_\\_\r_\n_:_Name", "header_\\_\r_\n_:_Value")
+                .add("headerName:", ":headerValue");
 
         assertTrue(channel.writeOutbound(messageFrame));
 
@@ -130,7 +130,7 @@ public class StompSubframeEncoderTest {
                 + '\n' + '\0';
         StompFrame connectFrame = new DefaultStompFrame(StompCommand.CONNECT);
         connectFrame.headers()
-                  .add("colonHeaderName-:", "colonHeaderValue-:");
+                .add("colonHeaderName-:", "colonHeaderValue-:");
 
         assertTrue(channel.writeOutbound(connectFrame));
 
@@ -145,11 +145,11 @@ public class StompSubframeEncoderTest {
     @Test
     void testNotEscapeStompHeadersForConnectedCommand() {
         String expectedStompFrame = "CONNECTED\n"
-                                    + "colonHeaderName-::colonHeaderValue-:\n"
-                                    + '\n' + '\0';
+                + "colonHeaderName-::colonHeaderValue-:\n"
+                + '\n' + '\0';
         StompFrame connectedFrame = new DefaultStompFrame(StompCommand.CONNECTED);
         connectedFrame.headers()
-                    .add("colonHeaderName-:", "colonHeaderValue-:");
+                .add("colonHeaderName-:", "colonHeaderValue-:");
 
         assertTrue(channel.writeOutbound(connectedFrame));
 

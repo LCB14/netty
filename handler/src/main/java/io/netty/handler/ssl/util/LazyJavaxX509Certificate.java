@@ -112,14 +112,14 @@ public final class LazyJavaxX509Certificate extends X509Certificate {
     @Override
     public void verify(PublicKey key)
             throws CertificateException, NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException,
-                   SignatureException {
+            SignatureException {
         unwrap().verify(key);
     }
 
     @Override
     public void verify(PublicKey key, String sigProvider)
             throws CertificateException, NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException,
-                   SignatureException {
+            SignatureException {
         unwrap().verify(key, sigProvider);
     }
 

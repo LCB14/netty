@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class PlatformDependentTest {
     private static final Random r = new Random();
+
     @Test
     public void testEqualsConsistentTime() {
         testEquals(new EqualityChecker() {
@@ -76,19 +77,19 @@ public class PlatformDependentTest {
         assertTrue(equalsChecker.equals(bytes1, 0, bytes2, 0, bytes1.length));
         assertTrue(equalsChecker.equals(bytes1, 2, bytes2, 2, bytes1.length - 2));
 
-        bytes1 = new byte[] {1, 2, 3, 4, 5, 6};
-        bytes2 = new byte[] {1, 2, 3, 4, 5, 6, 7};
+        bytes1 = new byte[]{1, 2, 3, 4, 5, 6};
+        bytes2 = new byte[]{1, 2, 3, 4, 5, 6, 7};
         assertNotSame(bytes1, bytes2);
         assertFalse(equalsChecker.equals(bytes1, 0, bytes2, 1, bytes1.length));
         assertTrue(equalsChecker.equals(bytes2, 0, bytes1, 0, bytes1.length));
 
-        bytes1 = new byte[] {1, 2, 3, 4};
-        bytes2 = new byte[] {1, 2, 3, 5};
+        bytes1 = new byte[]{1, 2, 3, 4};
+        bytes2 = new byte[]{1, 2, 3, 5};
         assertFalse(equalsChecker.equals(bytes1, 0, bytes2, 0, bytes1.length));
         assertTrue(equalsChecker.equals(bytes1, 0, bytes2, 0, 3));
 
-        bytes1 = new byte[] {1, 2, 3, 4};
-        bytes2 = new byte[] {1, 3, 3, 4};
+        bytes1 = new byte[]{1, 2, 3, 4};
+        bytes2 = new byte[]{1, 3, 3, 4};
         assertFalse(equalsChecker.equals(bytes1, 0, bytes2, 0, bytes1.length));
         assertTrue(equalsChecker.equals(bytes1, 2, bytes2, 2, bytes1.length - 2));
 
@@ -142,11 +143,11 @@ public class PlatformDependentTest {
             }
             String string = new String(bytesChar);
             assertEquals(hashCodeAsciiSafe(bytes, 0, bytes.length),
-                         hashCodeAscii(bytes, 0, bytes.length),
-                        "length=" + i);
+                    hashCodeAscii(bytes, 0, bytes.length),
+                    "length=" + i);
             assertEquals(hashCodeAscii(bytes, 0, bytes.length),
-                        hashCodeAscii(string),
-                        "length=" + i);
+                    hashCodeAscii(string),
+                    "length=" + i);
         }
     }
 

@@ -22,6 +22,7 @@ import io.netty.util.internal.PlatformDependent;
  * to create an instance of this factory.
  * Use {@link BitapSearchProcessorFactory#newSearchProcessor} to get an instance of {@link io.netty.util.ByteProcessor}
  * implementation for performing the actual search.
+ *
  * @see AbstractSearchProcessorFactory
  */
 public class BitapSearchProcessorFactory extends AbstractSearchProcessorFactory {
@@ -58,7 +59,7 @@ public class BitapSearchProcessorFactory extends AbstractSearchProcessorFactory 
         }
 
         long bit = 1L;
-        for (byte c: needle) {
+        for (byte c : needle) {
             bitMasks[c & 0xff] |= bit;
             bit <<= 1;
         }

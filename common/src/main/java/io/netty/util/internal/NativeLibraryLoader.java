@@ -43,7 +43,6 @@ import java.util.Set;
 
 /**
  * Helper class to load JNI resources.
- *
  */
 public final class NativeLibraryLoader {
 
@@ -95,8 +94,7 @@ public final class NativeLibraryLoader {
      * Loads the first available library in the collection with the specified
      * {@link ClassLoader}.
      *
-     * @throws IllegalArgumentException
-     *         if none of the given libraries load successfully.
+     * @throws IllegalArgumentException if none of the given libraries load successfully.
      */
     public static void loadFirstAvailable(ClassLoader loader, String... names) {
         List<Throwable> suppressed = new ArrayList<Throwable>();
@@ -142,11 +140,11 @@ public final class NativeLibraryLoader {
         if (!maybeShaded.endsWith(expected)) {
             throw new UnsatisfiedLinkError(String.format(
                     "Could not find prefix added to %s to get %s. When shading, only adding a "
-                    + "package prefix is supported", expected, maybeShaded));
+                            + "package prefix is supported", expected, maybeShaded));
         }
         return maybeShaded.substring(0, maybeShaded.length() - expected.length())
-                          .replace("_", "_1")
-                          .replace('.', '_');
+                .replace("_", "_1")
+                .replace('.', '_');
     }
 
     /**
@@ -219,14 +217,14 @@ public final class NativeLibraryLoader {
         } catch (UnsatisfiedLinkError e) {
             try {
                 if (tmpFile != null && tmpFile.isFile() && tmpFile.canRead() &&
-                    !NoexecVolumeDetector.canExecuteExecutable(tmpFile)) {
+                        !NoexecVolumeDetector.canExecuteExecutable(tmpFile)) {
                     // Pass "io.netty.native.workdir" as an argument to allow shading tools to see
                     // the string. Since this is printed out to users to tell them what to do next,
                     // we want the value to be correct even when shading.
                     logger.info("{} exists but cannot be executed even when execute permissions set; " +
-                                "check volume for \"noexec\" flag; use -D{}=[path] " +
-                                "to set native working directory separately.",
-                                tmpFile.getPath(), "io.netty.native.workdir");
+                                    "check volume for \"noexec\" flag; use -D{}=[path] " +
+                                    "to set native working directory separately.",
+                            tmpFile.getPath(), "io.netty.native.workdir");
                 }
             } catch (Throwable t) {
                 suppressed.add(t);
@@ -370,8 +368,9 @@ public final class NativeLibraryLoader {
 
     /**
      * Loading the native library into the specified {@link ClassLoader}.
-     * @param loader - The {@link ClassLoader} where the native library will be loaded into
-     * @param name - The native library path or name
+     *
+     * @param loader   - The {@link ClassLoader} where the native library will be loaded into
+     * @param name     - The native library path or name
      * @param absolute - Whether the native library will be loaded by path or by name
      */
     private static void loadLibrary(final ClassLoader loader, final String name, final boolean absolute) {
@@ -443,6 +442,7 @@ public final class NativeLibraryLoader {
 
     /**
      * Try to load the helper {@link Class} into specified {@link ClassLoader}.
+     *
      * @param loader - The {@link ClassLoader} where to load the helper {@link Class}
      * @param helper - The helper {@link Class}
      * @return A new helper Class defined in the specified ClassLoader.
@@ -491,6 +491,7 @@ public final class NativeLibraryLoader {
 
     /**
      * Load the helper {@link Class} as a byte array, to be redefined in specified {@link ClassLoader}.
+     *
      * @param clazz - The helper {@link Class} provided by this bundle
      * @return The binary content of helper {@link Class}.
      * @throws ClassNotFoundException Helper class not found or loading failed
@@ -510,7 +511,7 @@ public final class NativeLibraryLoader {
         InputStream in = null;
         try {
             in = classUrl.openStream();
-            for (int r; (r = in.read(buf)) != -1;) {
+            for (int r; (r = in.read(buf)) != -1; ) {
                 out.write(buf, 0, r);
             }
             return out.toByteArray();

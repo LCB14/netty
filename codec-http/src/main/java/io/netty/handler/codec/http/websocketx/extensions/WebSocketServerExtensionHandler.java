@@ -35,11 +35,11 @@ import java.util.List;
 
 /**
  * This handler negotiates and initializes the WebSocket Extensions.
- *
+ * <p>
  * It negotiates the extensions based on the client desired order,
  * ensures that the successfully negotiated extensions are consistent between them,
  * and initializes the channel pipeline with the extension decoder and encoder.
- *
+ * <p>
  * Find a basic implementation for compression extensions at
  * <tt>io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler</tt>.
  */
@@ -52,9 +52,8 @@ public class WebSocketServerExtensionHandler extends ChannelDuplexHandler {
     /**
      * Constructor
      *
-     * @param extensionHandshakers
-     *      The extension handshaker in priority order. A handshaker could be repeated many times
-     *      with fallback configuration.
+     * @param extensionHandshakers The extension handshaker in priority order. A handshaker could be repeated many times
+     *                             with fallback configuration.
      */
     public WebSocketServerExtensionHandler(WebSocketServerExtensionHandshaker... extensionHandshakers) {
         this.extensionHandshakers = Arrays.asList(checkNonEmpty(extensionHandshakers, "extensionHandshakers"));
@@ -122,12 +121,12 @@ public class WebSocketServerExtensionHandler extends ChannelDuplexHandler {
             if (validExtensions != null) {
                 String headerValue = headers.getAsString(HttpHeaderNames.SEC_WEBSOCKET_EXTENSIONS);
                 List<WebSocketExtensionData> extraExtensions =
-                  new ArrayList<WebSocketExtensionData>(extensionHandshakers.size());
+                        new ArrayList<WebSocketExtensionData>(extensionHandshakers.size());
                 for (WebSocketServerExtension extension : validExtensions) {
                     extraExtensions.add(extension.newReponseData());
                 }
                 String newHeaderValue = WebSocketExtensionUtil
-                  .computeMergeExtensionsHeaderValue(headerValue, extraExtensions);
+                        .computeMergeExtensionsHeaderValue(headerValue, extraExtensions);
                 promise.addListener(new ChannelFutureListener() {
                     @Override
                     public void operationComplete(ChannelFuture future) {
@@ -137,8 +136,8 @@ public class WebSocketServerExtensionHandler extends ChannelDuplexHandler {
                                 WebSocketExtensionEncoder encoder = extension.newExtensionEncoder();
                                 String name = ctx.name();
                                 ctx.pipeline()
-                                    .addAfter(name, decoder.getClass().getName(), decoder)
-                                    .addAfter(name, encoder.getClass().getName(), encoder);
+                                        .addAfter(name, decoder.getClass().getName(), decoder)
+                                        .addAfter(name, encoder.getClass().getName(), encoder);
                             }
                         }
                     }

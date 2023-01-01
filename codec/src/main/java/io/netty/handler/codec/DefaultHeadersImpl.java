@@ -18,12 +18,13 @@ import io.netty.util.HashingStrategy;
 
 /**
  * A concrete implementation of {@link DefaultHeaders} that allows for direct instantiation.
+ *
  * @param <K> the type of the header name.
  * @param <V> the type of the header value.
  */
 public final class DefaultHeadersImpl<K, V> extends DefaultHeaders<K, V, DefaultHeadersImpl<K, V>> {
     public DefaultHeadersImpl(HashingStrategy<K> nameHashingStrategy,
-            ValueConverter<V> valueConverter, NameValidator<K> nameValidator) {
+                              ValueConverter<V> valueConverter, NameValidator<K> nameValidator) {
         super(nameHashingStrategy, valueConverter, nameValidator);
     }
 

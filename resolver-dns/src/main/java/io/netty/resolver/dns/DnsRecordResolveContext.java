@@ -30,8 +30,8 @@ final class DnsRecordResolveContext extends DnsResolveContext<DnsRecord> {
     DnsRecordResolveContext(DnsNameResolver parent, Promise<?> originalPromise, DnsQuestion question,
                             DnsRecord[] additionals, DnsServerAddressStream nameServerAddrs, int allowedQueries) {
         this(parent, originalPromise, question.name(), question.dnsClass(),
-             new DnsRecordType[] { question.type() },
-             additionals, nameServerAddrs, allowedQueries);
+                new DnsRecordType[]{question.type()},
+                additionals, nameServerAddrs, allowedQueries);
     }
 
     private DnsRecordResolveContext(DnsNameResolver parent, Promise<?> originalPromise, String hostname,
@@ -50,7 +50,7 @@ final class DnsRecordResolveContext extends DnsResolveContext<DnsRecord> {
                                                     DnsServerAddressStream nameServerAddrs,
                                                     int allowedQueries) {
         return new DnsRecordResolveContext(parent, originalPromise, hostname, dnsClass,
-                                           expectedTypes, additionals, nameServerAddrs, allowedQueries);
+                expectedTypes, additionals, nameServerAddrs, allowedQueries);
     }
 
     @Override

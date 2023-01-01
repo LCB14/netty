@@ -28,11 +28,12 @@ import java.util.Set;
 public final class SupportedCipherSuiteFilter implements CipherSuiteFilter {
     public static final SupportedCipherSuiteFilter INSTANCE = new SupportedCipherSuiteFilter();
 
-    private SupportedCipherSuiteFilter() { }
+    private SupportedCipherSuiteFilter() {
+    }
 
     @Override
     public String[] filterCipherSuites(Iterable<String> ciphers, List<String> defaultCiphers,
-            Set<String> supportedCiphers) {
+                                       Set<String> supportedCiphers) {
         ObjectUtil.checkNotNull(defaultCiphers, "defaultCiphers");
         ObjectUtil.checkNotNull(supportedCiphers, "supportedCiphers");
 

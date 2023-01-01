@@ -85,6 +85,7 @@ public class DefaultHttp2Connection implements Http2Connection {
 
     /**
      * Creates a new connection with the given settings.
+     *
      * @param server whether or not this end-point is the server-side of the HTTP/2 connection.
      */
     public DefaultHttp2Connection(boolean server) {
@@ -93,7 +94,8 @@ public class DefaultHttp2Connection implements Http2Connection {
 
     /**
      * Creates a new connection with the given settings.
-     * @param server whether or not this end-point is the server-side of the HTTP/2 connection.
+     *
+     * @param server             whether or not this end-point is the server-side of the HTTP/2 connection.
      * @param maxReservedStreams The maximum amount of streams which can exist in the reserved state for each endpoint.
      */
     public DefaultHttp2Connection(boolean server, int maxReservedStreams) {
@@ -298,9 +300,10 @@ public class DefaultHttp2Connection implements Http2Connection {
 
     /**
      * Remove a stream from the {@link #streamMap}.
+     *
      * @param stream the stream to remove.
-     * @param itr an iterator that may be pointing to the stream during iteration and {@link Iterator#remove()} will be
-     * used if non-{@code null}.
+     * @param itr    an iterator that may be pointing to the stream during iteration and {@link Iterator#remove()} will be
+     *               used if non-{@code null}.
      */
     void removeStream(DefaultStream stream, Iterator<?> itr) {
         final boolean removed;
@@ -329,15 +332,15 @@ public class DefaultHttp2Connection implements Http2Connection {
     static State activeState(int streamId, State initialState, boolean isLocal, boolean halfClosed)
             throws Http2Exception {
         switch (initialState) {
-        case IDLE:
-            return halfClosed ? isLocal ? HALF_CLOSED_LOCAL : HALF_CLOSED_REMOTE : OPEN;
-        case RESERVED_LOCAL:
-            return HALF_CLOSED_REMOTE;
-        case RESERVED_REMOTE:
-            return HALF_CLOSED_LOCAL;
-        default:
-            throw streamError(streamId, PROTOCOL_ERROR, "Attempting to open a stream in an invalid state: "
-                    + initialState);
+            case IDLE:
+                return halfClosed ? isLocal ? HALF_CLOSED_LOCAL : HALF_CLOSED_REMOTE : OPEN;
+            case RESERVED_LOCAL:
+                return HALF_CLOSED_REMOTE;
+            case RESERVED_REMOTE:
+                return HALF_CLOSED_LOCAL;
+            default:
+                throw streamError(streamId, PROTOCOL_ERROR, "Attempting to open a stream in an invalid state: "
+                        + initialState);
         }
     }
 
@@ -369,8 +372,8 @@ public class DefaultHttp2Connection implements Http2Connection {
     /**
      * Verifies that the key is valid and returns it as the internal {@link DefaultPropertyKey} type.
      *
-     * @throws NullPointerException if the key is {@code null}.
-     * @throws ClassCastException if the key is not of type {@link DefaultPropertyKey}.
+     * @throws NullPointerException     if the key is {@code null}.
+     * @throws ClassCastException       if the key is not of type {@link DefaultPropertyKey}.
      * @throws IllegalArgumentException if the key was not created by this connection.
      */
     final DefaultPropertyKey verifyKey(PropertyKey key) {
@@ -524,15 +527,15 @@ public class DefaultHttp2Connection implements Http2Connection {
         @Override
         public Http2Stream closeLocalSide() {
             switch (state) {
-            case OPEN:
-                state = HALF_CLOSED_LOCAL;
-                notifyHalfClosed(this);
-                break;
-            case HALF_CLOSED_LOCAL:
-                break;
-            default:
-                close();
-                break;
+                case OPEN:
+                    state = HALF_CLOSED_LOCAL;
+                    notifyHalfClosed(this);
+                    break;
+                case HALF_CLOSED_LOCAL:
+                    break;
+                default:
+                    close();
+                    break;
             }
             return this;
         }
@@ -540,15 +543,15 @@ public class DefaultHttp2Connection implements Http2Connection {
         @Override
         public Http2Stream closeRemoteSide() {
             switch (state) {
-            case OPEN:
-                state = HALF_CLOSED_REMOTE;
-                notifyHalfClosed(this);
-                break;
-            case HALF_CLOSED_REMOTE:
-                break;
-            default:
-                close();
-                break;
+                case OPEN:
+                    state = HALF_CLOSED_REMOTE;
+                    notifyHalfClosed(this);
+                    break;
+                case HALF_CLOSED_REMOTE:
+                    break;
+                default:
+                    close();
+                    break;
             }
             return this;
         }
@@ -904,7 +907,7 @@ public class DefaultHttp2Connection implements Http2Connection {
             }
             if (isClosed()) {
                 throw connectionError(INTERNAL_ERROR, "Attempted to create stream id %d after connection was closed",
-                                      streamId);
+                        streamId);
             }
         }
 
@@ -1020,7 +1023,7 @@ public class DefaultHttp2Connection implements Http2Connection {
         void decrementPendingIterations() {
             --pendingIterations;
             if (allowModifications()) {
-                for (;;) {
+                for (; ; ) {
                     Event event = pendingEvents.poll();
                     if (event == null) {
                         break;

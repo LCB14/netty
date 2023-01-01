@@ -18,6 +18,7 @@ import io.netty.util.ByteProcessor;
 
 /**
  * Interface for {@link ByteProcessor} that implements string search.
+ *
  * @see SearchProcessorFactory
  */
 public interface SearchProcessor extends ByteProcessor {

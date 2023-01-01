@@ -75,6 +75,7 @@ public final class HttpConversionUtil {
      */
     private static final CharSequenceMap<AsciiString> HTTP_TO_HTTP2_HEADER_BLACKLIST =
             new CharSequenceMap<AsciiString>();
+
     static {
         HTTP_TO_HTTP2_HEADER_BLACKLIST.add(CONNECTION, EMPTY_STRING);
         @SuppressWarnings("deprecation")
@@ -194,7 +195,7 @@ public final class HttpConversionUtil {
             throw e;
         } catch (Throwable t) {
             throw connectionError(PROTOCOL_ERROR, t,
-                            "Unrecognized HTTP status code '%s' encountered in translation to HTTP/1.x", status);
+                    "Unrecognized HTTP status code '%s' encountered in translation to HTTP/1.x", status);
         }
         return result;
     }
@@ -202,13 +203,13 @@ public final class HttpConversionUtil {
     /**
      * Create a new object to contain the response data
      *
-     * @param streamId The stream associated with the response
-     * @param http2Headers The initial set of HTTP/2 headers to create the response with
-     * @param alloc The {@link ByteBufAllocator} to use to generate the content of the message
+     * @param streamId            The stream associated with the response
+     * @param http2Headers        The initial set of HTTP/2 headers to create the response with
+     * @param alloc               The {@link ByteBufAllocator} to use to generate the content of the message
      * @param validateHttpHeaders <ul>
-     *        <li>{@code true} to validate HTTP headers in the http-codec</li>
-     *        <li>{@code false} not to validate HTTP headers in the http-codec</li>
-     *        </ul>
+     *                            <li>{@code true} to validate HTTP headers in the http-codec</li>
+     *                            <li>{@code false} not to validate HTTP headers in the http-codec</li>
+     *                            </ul>
      * @return A new response object which represents headers/data
      * @throws Http2Exception see {@link #addHttp2ToHttpHeaders(int, Http2Headers, FullHttpMessage, boolean)}
      */
@@ -220,24 +221,24 @@ public final class HttpConversionUtil {
     /**
      * Create a new object to contain the response data
      *
-     * @param streamId The stream associated with the response
-     * @param http2Headers The initial set of HTTP/2 headers to create the response with
-     * @param content {@link ByteBuf} content to put in {@link FullHttpResponse}
+     * @param streamId            The stream associated with the response
+     * @param http2Headers        The initial set of HTTP/2 headers to create the response with
+     * @param content             {@link ByteBuf} content to put in {@link FullHttpResponse}
      * @param validateHttpHeaders <ul>
-     *        <li>{@code true} to validate HTTP headers in the http-codec</li>
-     *        <li>{@code false} not to validate HTTP headers in the http-codec</li>
-     *        </ul>
+     *                            <li>{@code true} to validate HTTP headers in the http-codec</li>
+     *                            <li>{@code false} not to validate HTTP headers in the http-codec</li>
+     *                            </ul>
      * @return A new response object which represents headers/data
      * @throws Http2Exception see {@link #addHttp2ToHttpHeaders(int, Http2Headers, FullHttpMessage, boolean)}
      */
     public static FullHttpResponse toFullHttpResponse(int streamId, Http2Headers http2Headers, ByteBuf content,
                                                       boolean validateHttpHeaders)
-                    throws Http2Exception {
+            throws Http2Exception {
         HttpResponseStatus status = parseStatus(http2Headers.status());
         // HTTP/2 does not define a way to carry the version or reason phrase that is included in an
         // HTTP/1.1 status line.
         FullHttpResponse msg = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, content,
-                                                           validateHttpHeaders);
+                validateHttpHeaders);
         try {
             addHttp2ToHttpHeaders(streamId, http2Headers, msg, false);
         } catch (Http2Exception e) {
@@ -253,13 +254,13 @@ public final class HttpConversionUtil {
     /**
      * Create a new object to contain the request data
      *
-     * @param streamId The stream associated with the request
-     * @param http2Headers The initial set of HTTP/2 headers to create the request with
-     * @param alloc The {@link ByteBufAllocator} to use to generate the content of the message
+     * @param streamId            The stream associated with the request
+     * @param http2Headers        The initial set of HTTP/2 headers to create the request with
+     * @param alloc               The {@link ByteBufAllocator} to use to generate the content of the message
      * @param validateHttpHeaders <ul>
-     *        <li>{@code true} to validate HTTP headers in the http-codec</li>
-     *        <li>{@code false} not to validate HTTP headers in the http-codec</li>
-     *        </ul>
+     *                            <li>{@code true} to validate HTTP headers in the http-codec</li>
+     *                            <li>{@code false} not to validate HTTP headers in the http-codec</li>
+     *                            </ul>
      * @return A new request object which represents headers/data
      * @throws Http2Exception see {@link #addHttp2ToHttpHeaders(int, Http2Headers, FullHttpMessage, boolean)}
      */
@@ -282,24 +283,24 @@ public final class HttpConversionUtil {
     /**
      * Create a new object to contain the request data
      *
-     * @param streamId The stream associated with the request
-     * @param http2Headers The initial set of HTTP/2 headers to create the request with
-     * @param content {@link ByteBuf} content to put in {@link FullHttpRequest}
+     * @param streamId            The stream associated with the request
+     * @param http2Headers        The initial set of HTTP/2 headers to create the request with
+     * @param content             {@link ByteBuf} content to put in {@link FullHttpRequest}
      * @param validateHttpHeaders <ul>
-     *        <li>{@code true} to validate HTTP headers in the http-codec</li>
-     *        <li>{@code false} not to validate HTTP headers in the http-codec</li>
-     *        </ul>
+     *                            <li>{@code true} to validate HTTP headers in the http-codec</li>
+     *                            <li>{@code false} not to validate HTTP headers in the http-codec</li>
+     *                            </ul>
      * @return A new request object which represents headers/data
      * @throws Http2Exception see {@link #addHttp2ToHttpHeaders(int, Http2Headers, FullHttpMessage, boolean)}
      */
     public static FullHttpRequest toFullHttpRequest(int streamId, Http2Headers http2Headers, ByteBuf content,
-                                                boolean validateHttpHeaders) throws Http2Exception {
+                                                    boolean validateHttpHeaders) throws Http2Exception {
         // HTTP/2 does not define a way to carry the version identifier that is included in the HTTP/1.1 request line.
         final CharSequence method = checkNotNull(http2Headers.method(),
                 "method header cannot be null in conversion to HTTP/1.x");
         final CharSequence path = extractPath(method, http2Headers);
         FullHttpRequest msg = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.valueOf(method
-                        .toString()), path.toString(), content, validateHttpHeaders);
+                .toString()), path.toString(), content, validateHttpHeaders);
         try {
             addHttp2ToHttpHeaders(streamId, http2Headers, msg, false);
         } catch (Http2Exception e) {
@@ -315,17 +316,17 @@ public final class HttpConversionUtil {
     /**
      * Create a new object to contain the request data.
      *
-     * @param streamId The stream associated with the request
-     * @param http2Headers The initial set of HTTP/2 headers to create the request with
+     * @param streamId            The stream associated with the request
+     * @param http2Headers        The initial set of HTTP/2 headers to create the request with
      * @param validateHttpHeaders <ul>
-     *        <li>{@code true} to validate HTTP headers in the http-codec</li>
-     *        <li>{@code false} not to validate HTTP headers in the http-codec</li>
-     *        </ul>
+     *                            <li>{@code true} to validate HTTP headers in the http-codec</li>
+     *                            <li>{@code false} not to validate HTTP headers in the http-codec</li>
+     *                            </ul>
      * @return A new request object which represents headers for a chunked request
      * @throws Http2Exception see {@link #addHttp2ToHttpHeaders(int, Http2Headers, FullHttpMessage, boolean)}
      */
     public static HttpRequest toHttpRequest(int streamId, Http2Headers http2Headers, boolean validateHttpHeaders)
-                    throws Http2Exception {
+            throws Http2Exception {
         // HTTP/2 does not define a way to carry the version identifier that is included in the HTTP/1.1 request line.
         final CharSequence method = checkNotNull(http2Headers.method(),
                 "method header cannot be null in conversion to HTTP/1.x");
@@ -345,15 +346,15 @@ public final class HttpConversionUtil {
     /**
      * Create a new object to contain the response data.
      *
-     * @param streamId The stream associated with the response
-     * @param http2Headers The initial set of HTTP/2 headers to create the response with
+     * @param streamId            The stream associated with the response
+     * @param http2Headers        The initial set of HTTP/2 headers to create the response with
      * @param validateHttpHeaders <ul>
-     *        <li>{@code true} to validate HTTP headers in the http-codec</li>
-     *        <li>{@code false} not to validate HTTP headers in the http-codec</li>
-     *        </ul>
+     *                            <li>{@code true} to validate HTTP headers in the http-codec</li>
+     *                            <li>{@code false} not to validate HTTP headers in the http-codec</li>
+     *                            </ul>
      * @return A new response object which represents headers for a chunked response
      * @throws Http2Exception see {@link #addHttp2ToHttpHeaders(int, Http2Headers,
-     *         HttpHeaders, HttpVersion, boolean, boolean)}
+     *                        HttpHeaders, HttpVersion, boolean, boolean)}
      */
     public static HttpResponse toHttpResponse(final int streamId,
                                               final Http2Headers http2Headers,
@@ -375,15 +376,15 @@ public final class HttpConversionUtil {
     /**
      * Translate and add HTTP/2 headers to HTTP/1.x headers.
      *
-     * @param streamId The stream associated with {@code sourceHeaders}.
-     * @param inputHeaders The HTTP/2 headers to convert.
+     * @param streamId           The stream associated with {@code sourceHeaders}.
+     * @param inputHeaders       The HTTP/2 headers to convert.
      * @param destinationMessage The object which will contain the resulting HTTP/1.x headers.
-     * @param addToTrailer {@code true} to add to trailing headers. {@code false} to add to initial headers.
+     * @param addToTrailer       {@code true} to add to trailing headers. {@code false} to add to initial headers.
      * @throws Http2Exception If not all HTTP/2 headers can be translated to HTTP/1.x.
      * @see #addHttp2ToHttpHeaders(int, Http2Headers, HttpHeaders, HttpVersion, boolean, boolean)
      */
     public static void addHttp2ToHttpHeaders(int streamId, Http2Headers inputHeaders,
-                    FullHttpMessage destinationMessage, boolean addToTrailer) throws Http2Exception {
+                                             FullHttpMessage destinationMessage, boolean addToTrailer) throws Http2Exception {
         addHttp2ToHttpHeaders(streamId, inputHeaders,
                 addToTrailer ? destinationMessage.trailingHeaders() : destinationMessage.headers(),
                 destinationMessage.protocolVersion(), addToTrailer, destinationMessage instanceof HttpRequest);
@@ -392,18 +393,18 @@ public final class HttpConversionUtil {
     /**
      * Translate and add HTTP/2 headers to HTTP/1.x headers.
      *
-     * @param streamId The stream associated with {@code sourceHeaders}.
-     * @param inputHeaders The HTTP/2 headers to convert.
+     * @param streamId      The stream associated with {@code sourceHeaders}.
+     * @param inputHeaders  The HTTP/2 headers to convert.
      * @param outputHeaders The object which will contain the resulting HTTP/1.x headers..
-     * @param httpVersion What HTTP/1.x version {@code outputHeaders} should be treated as when doing the conversion.
-     * @param isTrailer {@code true} if {@code outputHeaders} should be treated as trailing headers.
-     * {@code false} otherwise.
-     * @param isRequest {@code true} if the {@code outputHeaders} will be used in a request message.
-     * {@code false} for response message.
+     * @param httpVersion   What HTTP/1.x version {@code outputHeaders} should be treated as when doing the conversion.
+     * @param isTrailer     {@code true} if {@code outputHeaders} should be treated as trailing headers.
+     *                      {@code false} otherwise.
+     * @param isRequest     {@code true} if the {@code outputHeaders} will be used in a request message.
+     *                      {@code false} for response message.
      * @throws Http2Exception If not all HTTP/2 headers can be translated to HTTP/1.x.
      */
     public static void addHttp2ToHttpHeaders(int streamId, Http2Headers inputHeaders, HttpHeaders outputHeaders,
-            HttpVersion httpVersion, boolean isTrailer, boolean isRequest) throws Http2Exception {
+                                             HttpVersion httpVersion, boolean isTrailer, boolean isRequest) throws Http2Exception {
         Http2ToHttpHeaderTranslator translator = new Http2ToHttpHeaderTranslator(streamId, outputHeaders, isRequest);
         try {
             translator.translateHeaders(inputHeaders);
@@ -483,7 +484,7 @@ public final class HttpConversionUtil {
                         result.add(lowerCased.subSequence(start, index, false).trim(), EMPTY_STRING);
                         start = index + 1;
                     } while (start < lowerCased.length() &&
-                             (index = lowerCased.forEachByte(start, lowerCased.length() - start, FIND_COMMA)) != -1);
+                            (index = lowerCased.forEachByte(start, lowerCased.length() - start, FIND_COMMA)) != -1);
                     result.add(lowerCased.subSequence(start, lowerCased.length(), false).trim(), EMPTY_STRING);
                 } else {
                     result.add(lowerCased.trim(), EMPTY_STRING);
@@ -500,8 +501,9 @@ public final class HttpConversionUtil {
     /**
      * Filter the {@link HttpHeaderNames#TE} header according to the
      * <a href="https://tools.ietf.org/html/rfc7540#section-8.1.2.2">special rules in the HTTP/2 RFC</a>.
+     *
      * @param entry An entry whose name is {@link HttpHeaderNames#TE}.
-     * @param out the resulting HTTP/2 headers.
+     * @param out   the resulting HTTP/2 headers.
      */
     private static void toHttp2HeadersFilterTE(Entry<CharSequence, CharSequence> entry,
                                                Http2Headers out) {
@@ -525,7 +527,7 @@ public final class HttpConversionUtil {
         // Choose 8 as a default size because it is unlikely we will see more than 4 Connection headers values, but
         // still allowing for "enough" space in the map to reduce the chance of hash code collision.
         CharSequenceMap<AsciiString> connectionBlacklist =
-            toLowercaseMap(inHeaders.valueCharSequenceIterator(CONNECTION), 8);
+                toLowercaseMap(inHeaders.valueCharSequenceIterator(CONNECTION), 8);
         while (iter.hasNext()) {
             Entry<CharSequence, CharSequence> entry = iter.next();
             final AsciiString aName = AsciiString.of(entry.getKey()).toLowerCase();
@@ -641,17 +643,18 @@ public final class HttpConversionUtil {
          * Translations from HTTP/2 header name to the HTTP/1.x equivalent.
          */
         private static final CharSequenceMap<AsciiString>
-            REQUEST_HEADER_TRANSLATIONS = new CharSequenceMap<AsciiString>();
+                REQUEST_HEADER_TRANSLATIONS = new CharSequenceMap<AsciiString>();
         private static final CharSequenceMap<AsciiString>
-            RESPONSE_HEADER_TRANSLATIONS = new CharSequenceMap<AsciiString>();
+                RESPONSE_HEADER_TRANSLATIONS = new CharSequenceMap<AsciiString>();
+
         static {
             RESPONSE_HEADER_TRANSLATIONS.add(Http2Headers.PseudoHeaderName.AUTHORITY.value(),
-                            HttpHeaderNames.HOST);
+                    HttpHeaderNames.HOST);
             RESPONSE_HEADER_TRANSLATIONS.add(Http2Headers.PseudoHeaderName.SCHEME.value(),
-                            ExtensionHeaderNames.SCHEME.text());
+                    ExtensionHeaderNames.SCHEME.text());
             REQUEST_HEADER_TRANSLATIONS.add(RESPONSE_HEADER_TRANSLATIONS);
             RESPONSE_HEADER_TRANSLATIONS.add(Http2Headers.PseudoHeaderName.PATH.value(),
-                            ExtensionHeaderNames.PATH.text());
+                    ExtensionHeaderNames.PATH.text());
         }
 
         private final int streamId;
@@ -661,9 +664,9 @@ public final class HttpConversionUtil {
         /**
          * Create a new instance
          *
-         * @param output The HTTP/1.x headers object to store the results of the translation
+         * @param output  The HTTP/1.x headers object to store the results of the translation
          * @param request if {@code true}, translates headers using the request translation map. Otherwise uses the
-         *        response translation map.
+         *                response translation map.
          */
         Http2ToHttpHeaderTranslator(int streamId, HttpHeaders output, boolean request) {
             this.streamId = streamId;

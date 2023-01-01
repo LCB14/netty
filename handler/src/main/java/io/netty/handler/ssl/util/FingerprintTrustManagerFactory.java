@@ -112,7 +112,7 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
             X509Certificate cert = chain[0];
             byte[] fingerprint = fingerprint(cert);
             boolean found = false;
-            for (byte[] allowedFingerprint: fingerprints) {
+            for (byte[] allowedFingerprint : fingerprints) {
                 if (Arrays.equals(fingerprint, allowedFingerprint)) {
                     found = true;
                     break;
@@ -142,11 +142,10 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
     /**
      * Creates a new instance.
      *
-     * @deprecated This deprecated constructor uses SHA-1 that is considered insecure.
-     *      It is recommended to specify a stronger hash algorithm, such as SHA-256,
-     *      by calling {@link FingerprintTrustManagerFactory#builder(String)} method.
-     *
      * @param fingerprints a list of SHA1 fingerprints in hexadecimal form
+     * @deprecated This deprecated constructor uses SHA-1 that is considered insecure.
+     * It is recommended to specify a stronger hash algorithm, such as SHA-256,
+     * by calling {@link FingerprintTrustManagerFactory#builder(String)} method.
      */
     @Deprecated
     public FingerprintTrustManagerFactory(Iterable<String> fingerprints) {
@@ -156,11 +155,10 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
     /**
      * Creates a new instance.
      *
-     * @deprecated This deprecated constructor uses SHA-1 that is considered insecure.
-     *      It is recommended to specify a stronger hash algorithm, such as SHA-256,
-     *      by calling {@link FingerprintTrustManagerFactory#builder(String)} method.
-     *
      * @param fingerprints a list of SHA1 fingerprints in hexadecimal form
+     * @deprecated This deprecated constructor uses SHA-1 that is considered insecure.
+     * It is recommended to specify a stronger hash algorithm, such as SHA-256,
+     * by calling {@link FingerprintTrustManagerFactory#builder(String)} method.
      */
     @Deprecated
     public FingerprintTrustManagerFactory(String... fingerprints) {
@@ -170,11 +168,10 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
     /**
      * Creates a new instance.
      *
-     * @deprecated This deprecated constructor uses SHA-1 that is considered insecure.
-     *      It is recommended to specify a stronger hash algorithm, such as SHA-256,
-     *      by calling {@link FingerprintTrustManagerFactory#builder(String)} method.
-     *
      * @param fingerprints a list of SHA1 fingerprints
+     * @deprecated This deprecated constructor uses SHA-1 that is considered insecure.
+     * It is recommended to specify a stronger hash algorithm, such as SHA-256,
+     * by calling {@link FingerprintTrustManagerFactory#builder(String)} method.
      */
     @Deprecated
     public FingerprintTrustManagerFactory(byte[]... fingerprints) {
@@ -184,7 +181,7 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
     /**
      * Creates a new instance.
      *
-     * @param algorithm a hash algorithm
+     * @param algorithm    a hash algorithm
      * @param fingerprints a list of fingerprints
      */
     FingerprintTrustManagerFactory(final String algorithm, byte[][] fingerprints) {
@@ -206,14 +203,14 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
 
         int hashLength = md.getDigestLength();
         List<byte[]> list = new ArrayList<byte[]>(fingerprints.length);
-        for (byte[] f: fingerprints) {
+        for (byte[] f : fingerprints) {
             if (f == null) {
                 break;
             }
             if (f.length != hashLength) {
                 throw new IllegalArgumentException(
                         String.format("malformed fingerprint (length is %d but expected %d): %s",
-                                      f.length, hashLength, ByteBufUtil.hexDump(Unpooled.wrappedBuffer(f))));
+                                f.length, hashLength, ByteBufUtil.hexDump(Unpooled.wrappedBuffer(f))));
             }
             list.add(f.clone());
         }
@@ -238,7 +235,7 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
         ObjectUtil.checkNotNull(fingerprints, "fingerprints");
 
         List<byte[]> list = new ArrayList<byte[]>();
-        for (String f: fingerprints) {
+        for (String f : fingerprints) {
             if (f == null) {
                 break;
             }
@@ -255,13 +252,15 @@ public final class FingerprintTrustManagerFactory extends SimpleTrustManagerFact
     }
 
     @Override
-    protected void engineInit(KeyStore keyStore) throws Exception { }
+    protected void engineInit(KeyStore keyStore) throws Exception {
+    }
 
     @Override
-    protected void engineInit(ManagerFactoryParameters managerFactoryParameters) throws Exception { }
+    protected void engineInit(ManagerFactoryParameters managerFactoryParameters) throws Exception {
+    }
 
     @Override
     protected TrustManager[] engineGetTrustManagers() {
-        return new TrustManager[] { tm };
+        return new TrustManager[]{tm};
     }
 }

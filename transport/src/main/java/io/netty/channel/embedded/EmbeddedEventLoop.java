@@ -33,7 +33,7 @@ final class EmbeddedEventLoop extends AbstractScheduledEventExecutor implements 
     /**
      * When time is not {@link #timeFrozen frozen}, the base time to subtract from {@link System#nanoTime()}. When time
      * is frozen, this variable is unused.
-     *
+     * <p>
      * Initialized to {@link #initialNanoTime()} so that until one of the time mutator methods is called,
      * {@link #getCurrentTimeNanos()} matches the default behavior.
      */
@@ -65,7 +65,7 @@ final class EmbeddedEventLoop extends AbstractScheduledEventExecutor implements 
     }
 
     void runTasks() {
-        for (;;) {
+        for (; ; ) {
             Runnable task = tasks.poll();
             if (task == null) {
                 break;
@@ -81,7 +81,7 @@ final class EmbeddedEventLoop extends AbstractScheduledEventExecutor implements 
 
     long runScheduledTasks() {
         long time = getCurrentTimeNanos();
-        for (;;) {
+        for (; ; ) {
             Runnable task = pollScheduledTask(time);
             if (task == null) {
                 return nextScheduledTaskNano();

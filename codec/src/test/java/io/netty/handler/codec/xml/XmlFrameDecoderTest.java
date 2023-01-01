@@ -192,7 +192,7 @@ public class XmlFrameDecoderTest {
             cause = e;
         }
         List<Object> actual = new ArrayList<Object>();
-        for (;;) {
+        for (; ; ) {
             ByteBuf buf = ch.readInbound();
             if (buf == null) {
                 break;

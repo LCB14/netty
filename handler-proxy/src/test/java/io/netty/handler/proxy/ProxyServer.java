@@ -61,10 +61,10 @@ abstract class ProxyServer {
     /**
      * Starts a new proxy server with disabled authentication for testing purpose.
      *
-     * @param useSsl {@code true} if and only if implicit SSL is enabled
-     * @param testMode the test mode
+     * @param useSsl      {@code true} if and only if implicit SSL is enabled
+     * @param testMode    the test mode
      * @param destination the expected destination. If the client requests proxying to a different destination, this
-     * server will reject the connection request.
+     *                    server will reject the connection request.
      */
     protected ProxyServer(boolean useSsl, TestMode testMode, InetSocketAddress destination) {
         this(useSsl, testMode, destination, null, null);
@@ -73,14 +73,14 @@ abstract class ProxyServer {
     /**
      * Starts a new proxy server with disabled authentication for testing purpose.
      *
-     * @param useSsl {@code true} if and only if implicit SSL is enabled
-     * @param testMode the test mode
-     * @param username the expected username. If the client tries to authenticate with a different username, this server
-     * will fail the authentication request.
-     * @param password the expected password. If the client tries to authenticate with a different password, this server
-     * will fail the authentication request.
+     * @param useSsl      {@code true} if and only if implicit SSL is enabled
+     * @param testMode    the test mode
+     * @param username    the expected username. If the client tries to authenticate with a different username, this server
+     *                    will fail the authentication request.
+     * @param password    the expected password. If the client tries to authenticate with a different password, this server
+     *                    will fail the authentication request.
      * @param destination the expected destination. If the client requests proxying to a different destination, this
-     * server will reject the connection request.
+     *                    server will reject the connection request.
      */
     protected ProxyServer(
             final boolean useSsl, TestMode testMode,
@@ -132,7 +132,7 @@ abstract class ProxyServer {
      */
     public final void checkExceptions() {
         Throwable t;
-        for (;;) {
+        for (; ; ) {
             t = recordedExceptions.poll();
             if (t == null) {
                 break;
@@ -187,7 +187,7 @@ abstract class ProxyServer {
         private void flush() {
             if (backend != null) {
                 boolean wrote = false;
-                for (;;) {
+                for (; ; ) {
                     Object msg = received.poll();
                     if (msg == null) {
                         break;
@@ -277,7 +277,7 @@ abstract class ProxyServer {
                     ctx.write(Unpooled.copiedBuffer("2\n", CharsetUtil.US_ASCII));
                 } else if ("C\n".equals(str)) {
                     ctx.write(Unpooled.copiedBuffer("3\n", CharsetUtil.US_ASCII))
-                       .addListener(ChannelFutureListener.CLOSE);
+                            .addListener(ChannelFutureListener.CLOSE);
                 } else {
                     throw new IllegalStateException("unexpected message: " + str);
                 }

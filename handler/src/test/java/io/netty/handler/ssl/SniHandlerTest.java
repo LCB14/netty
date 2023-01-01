@@ -380,7 +380,7 @@ public class SniHandlerTest {
             ch.close();
 
             // Consume all the outbound data that may be produced by the SSLEngine.
-            for (;;) {
+            for (; ; ) {
                 ByteBuf buf = ch.readOutbound();
                 if (buf == null) {
                     break;
@@ -560,18 +560,18 @@ public class SniHandlerTest {
                     ServerBootstrap sb = new ServerBootstrap();
                     sc = sb.group(group).channel(LocalServerChannel.class)
                             .childHandler(new ChannelInitializer<Channel>() {
-                        @Override
-                        protected void initChannel(Channel ch) throws Exception {
-                            ch.pipeline().addFirst(handler);
-                        }
-                    }).bind(address).syncUninterruptibly().channel();
+                                @Override
+                                protected void initChannel(Channel ch) throws Exception {
+                                    ch.pipeline().addFirst(handler);
+                                }
+                            }).bind(address).syncUninterruptibly().channel();
 
                     sslContext = SslContextBuilder.forClient().sslProvider(provider)
                             .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
 
                     Bootstrap cb = new Bootstrap();
                     cc = cb.group(group).channel(LocalChannel.class).handler(new SslHandler(
-                            sslContext.newEngine(ByteBufAllocator.DEFAULT, sniHost, -1)))
+                                    sslContext.newEngine(ByteBufAllocator.DEFAULT, sniHost, -1)))
                             .connect(address).syncUninterruptibly().channel();
 
                     cc.writeAndFlush(Unpooled.wrappedBuffer("Hello, World!".getBytes()))
@@ -632,7 +632,7 @@ public class SniHandlerTest {
     }
 
     private static void releaseAll(SslContext... contexts) {
-        for (SslContext ctx: contexts) {
+        for (SslContext ctx : contexts) {
             ReferenceCountUtil.release(ctx);
         }
     }
@@ -658,12 +658,12 @@ public class SniHandlerTest {
         try {
             @SuppressWarnings("unchecked") final EmbeddedChannel server = new EmbeddedChannel(
                     new SniHandler(mock(DomainNameMapping.class)) {
-                @Override
-                protected Future<SslContext> lookup(final ChannelHandlerContext ctx, final String hostname) {
-                    assertEquals(sni, hostname);
-                    return ctx.executor().newSucceededFuture(context);
-                }
-            });
+                        @Override
+                        protected Future<SslContext> lookup(final ChannelHandlerContext ctx, final String hostname) {
+                            assertEquals(sni, hostname);
+                            return ctx.executor().newSucceededFuture(context);
+                        }
+                    });
 
             final List<ByteBuf> buffers = clientHelloInMultipleFragments(provider, sni, maxFragmentSize);
             for (ByteBuf buffer : buffers) {
@@ -725,7 +725,7 @@ public class SniHandlerTest {
         }, 10);
 
         final AtomicReference<SniCompletionEvent> completionEventRef =
-            new AtomicReference<SniCompletionEvent>();
+                new AtomicReference<SniCompletionEvent>();
         EmbeddedChannel ch = new EmbeddedChannel(handler, new ChannelInboundHandlerAdapter() {
             @Override
             public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
@@ -761,9 +761,9 @@ public class SniHandlerTest {
         }, 100);
 
         final AtomicReference<SniCompletionEvent> sniCompletionEventRef =
-            new AtomicReference<SniCompletionEvent>();
+                new AtomicReference<SniCompletionEvent>();
         final AtomicReference<SslHandshakeCompletionEvent> handshakeCompletionEventRef =
-            new AtomicReference<SslHandshakeCompletionEvent>();
+                new AtomicReference<SslHandshakeCompletionEvent>();
         EmbeddedChannel ch = new EmbeddedChannel(handler, new ChannelInboundHandlerAdapter() {
             @Override
             public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
@@ -778,16 +778,16 @@ public class SniHandlerTest {
             // Send enough data to add the SslHandler and let the handshake incomplete
             // Client Hello with "host1" server name
             ch.writeInbound(Unpooled.wrappedBuffer(StringUtil.decodeHexDump(
-                "16030301800100017c0303478ae7e536aa7a9debad1f873121862d2d3d3173e0ef42975c31007faeb2" +
-                "52522047f55f81fc84fe58951e2af14026147d6178498fde551fcbafc636462c016ec9005a13011302" +
-                "c02cc02bc030009dc02ec032009f00a3c02f009cc02dc031009e00a2c024c028003dc026c02a006b00" +
-                "6ac00ac0140035c005c00f00390038c023c027003cc025c02900670040c009c013002fc004c00e0033" +
-                "003200ff010000d90000000a0008000005686f737431000500050100000000000a00160014001d0017" +
-                "00180019001e01000101010201030104000b00020100000d0028002604030503060308040805080608" +
-                "09080a080b040105010601040203030301030202030201020200320028002604030503060308040805" +
-                "08060809080a080b040105010601040203030301030202030201020200110009000702000400000000" +
-                "00170000002b00050403040303002d00020101003300260024001d00200bbc37375e214c1e4e7cb90f" +
-                "869e131dc983a21f8205ba24456177f340904935")));
+                    "16030301800100017c0303478ae7e536aa7a9debad1f873121862d2d3d3173e0ef42975c31007faeb2" +
+                            "52522047f55f81fc84fe58951e2af14026147d6178498fde551fcbafc636462c016ec9005a13011302" +
+                            "c02cc02bc030009dc02ec032009f00a3c02f009cc02dc031009e00a2c024c028003dc026c02a006b00" +
+                            "6ac00ac0140035c005c00f00390038c023c027003cc025c02900670040c009c013002fc004c00e0033" +
+                            "003200ff010000d90000000a0008000005686f737431000500050100000000000a00160014001d0017" +
+                            "00180019001e01000101010201030104000b00020100000d0028002604030503060308040805080608" +
+                            "09080a080b040105010601040203030301030202030201020200320028002604030503060308040805" +
+                            "08060809080a080b040105010601040203030301030202030201020200110009000702000400000000" +
+                            "00170000002b00050403040303002d00020101003300260024001d00200bbc37375e214c1e4e7cb90f" +
+                            "869e131dc983a21f8205ba24456177f340904935")));
 
             while (handshakeCompletionEventRef.get() == null) {
                 Thread.sleep(10);

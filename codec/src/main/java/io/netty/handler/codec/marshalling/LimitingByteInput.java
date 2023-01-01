@@ -96,7 +96,6 @@ class LimitingByteInput implements ByteInput {
 
     /**
      * Exception that will get thrown if the {@link Object} is too big to unmarshall
-     *
      */
     static final class TooBigObjectException extends IOException {
         private static final long serialVersionUID = 1L;

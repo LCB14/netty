@@ -87,7 +87,7 @@ abstract class DnsQueryContext implements FutureListener<AddressedEnvelope<DnsRe
 
     private static boolean hasOptRecord(DnsRecord[] additionals) {
         if (additionals != null && additionals.length > 0) {
-            for (DnsRecord additional: additionals) {
+            for (DnsRecord additional : additionals) {
                 if (additional.type() == DnsRecordType.OPT) {
                     return true;
                 }
@@ -109,7 +109,9 @@ abstract class DnsQueryContext implements FutureListener<AddressedEnvelope<DnsRe
     }
 
     protected abstract DnsQuery newQuery(int id);
+
     protected abstract Channel channel();
+
     protected abstract String protocol();
 
     void query(boolean flush, ChannelPromise writePromise) {
@@ -121,7 +123,7 @@ abstract class DnsQueryContext implements FutureListener<AddressedEnvelope<DnsRe
 
         query.addRecord(DnsSection.QUESTION, question);
 
-        for (DnsRecord record: additionals) {
+        for (DnsRecord record : additionals) {
             query.addRecord(DnsSection.ADDITIONAL, record);
         }
 
@@ -240,10 +242,10 @@ abstract class DnsQueryContext implements FutureListener<AddressedEnvelope<DnsRe
 
         final StringBuilder buf = new StringBuilder(message.length() + 64);
         buf.append('[')
-           .append(nameServerAddr)
-           .append("] ")
-           .append(message)
-           .append(" (no stack trace available)");
+                .append(nameServerAddr)
+                .append("] ")
+                .append(message)
+                .append(" (no stack trace available)");
 
         final DnsNameResolverException e;
         if (timeout) {

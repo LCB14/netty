@@ -36,7 +36,8 @@ public final class SocksServerHandler extends SimpleChannelInboundHandler<SocksM
 
     public static final SocksServerHandler INSTANCE = new SocksServerHandler();
 
-    private SocksServerHandler() { }
+    private SocksServerHandler() {
+    }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, SocksMessage socksRequest) throws Exception {

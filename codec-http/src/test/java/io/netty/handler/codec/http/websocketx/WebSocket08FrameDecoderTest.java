@@ -52,7 +52,7 @@ public class WebSocket08FrameDecoderTest {
         }
         validIanaCodes.removeAll(forbiddenIanaCodes);
 
-        for (int statusCode: validIanaCodes) {
+        for (int statusCode : validIanaCodes) {
             EmbeddedChannel encoderChannel = new EmbeddedChannel(new WebSocket08FrameEncoder(true));
             EmbeddedChannel decoderChannel = new EmbeddedChannel(new WebSocket08FrameDecoder(true, true, 65535, false));
 
@@ -79,7 +79,7 @@ public class WebSocket08FrameDecoderTest {
         WebSocket08FrameDecoder decoder = new WebSocket08FrameDecoder(true, true, 65535, false);
         final EmbeddedChannel channel = new EmbeddedChannel(decoder);
         final ByteBuf invalidFrame = Unpooled.buffer(10).writeByte(0x81)
-                                             .writeByte(0xFF).writeLong(-1L);
+                .writeByte(0xFF).writeLong(-1L);
 
         Throwable exception = assertThrows(CorruptedWebSocketFrameException.class, new Executable() {
             @Override

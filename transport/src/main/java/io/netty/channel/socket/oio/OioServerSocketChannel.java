@@ -35,17 +35,17 @@ import java.util.List;
 
 /**
  * {@link ServerSocketChannel} which accepts new connections and create the {@link OioSocketChannel}'s for them.
- *
+ * <p>
  * This implementation use Old-Blocking-IO.
  *
  * @deprecated use NIO / EPOLL / KQUEUE transport.
  */
 @Deprecated
 public class OioServerSocketChannel extends AbstractOioMessageChannel
-                                    implements ServerSocketChannel {
+        implements ServerSocketChannel {
 
     private static final InternalLogger logger =
-        InternalLoggerFactory.getInstance(OioServerSocketChannel.class);
+            InternalLoggerFactory.getInstance(OioServerSocketChannel.class);
 
     private static final ChannelMetadata METADATA = new ChannelMetadata(false, 1);
 
@@ -70,7 +70,7 @@ public class OioServerSocketChannel extends AbstractOioMessageChannel
     /**
      * Create a new instance from the given {@link ServerSocket}
      *
-     * @param socket    the {@link ServerSocket} which is used by this instance
+     * @param socket the {@link ServerSocket} which is used by this instance
      */
     public OioServerSocketChannel(ServerSocket socket) {
         super(null);

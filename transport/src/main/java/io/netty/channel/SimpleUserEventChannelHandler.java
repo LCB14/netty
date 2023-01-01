@@ -20,7 +20,7 @@ import io.netty.util.internal.TypeParameterMatcher;
 
 /**
  * {@link ChannelInboundHandlerAdapter} which allows to conveniently only handle a specific type of user events.
- *
+ * <p>
  * For example, here is an implementation which only handle {@link String} user events.
  *
  * <pre>
@@ -34,7 +34,7 @@ import io.netty.util.internal.TypeParameterMatcher;
  *         }
  *     }
  * </pre>
- *
+ * <p>
  * Be aware that depending of the constructor parameters it will release all handled events by passing them to
  * {@link ReferenceCountUtil#release(Object)}. In this case you may need to use
  * {@link ReferenceCountUtil#retain(Object)} if you pass the object to the next handler in the {@link ChannelPipeline}.
@@ -54,8 +54,8 @@ public abstract class SimpleUserEventChannelHandler<I> extends ChannelInboundHan
     /**
      * Create a new instance which will try to detect the types to match out of the type parameter of the class.
      *
-     * @param autoRelease   {@code true} if handled events should be released automatically by passing them to
-     *                      {@link ReferenceCountUtil#release(Object)}.
+     * @param autoRelease {@code true} if handled events should be released automatically by passing them to
+     *                    {@link ReferenceCountUtil#release(Object)}.
      */
     protected SimpleUserEventChannelHandler(boolean autoRelease) {
         matcher = TypeParameterMatcher.find(this, SimpleUserEventChannelHandler.class, "I");
@@ -72,9 +72,9 @@ public abstract class SimpleUserEventChannelHandler<I> extends ChannelInboundHan
     /**
      * Create a new instance
      *
-     * @param eventType      The type of events to match
-     * @param autoRelease    {@code true} if handled events should be released automatically by passing them to
-     *                       {@link ReferenceCountUtil#release(Object)}.
+     * @param eventType   The type of events to match
+     * @param autoRelease {@code true} if handled events should be released automatically by passing them to
+     *                    {@link ReferenceCountUtil#release(Object)}.
      */
     protected SimpleUserEventChannelHandler(Class<? extends I> eventType, boolean autoRelease) {
         matcher = TypeParameterMatcher.get(eventType);
@@ -113,7 +113,6 @@ public abstract class SimpleUserEventChannelHandler<I> extends ChannelInboundHan
      *
      * @param ctx the {@link ChannelHandlerContext} which this {@link SimpleUserEventChannelHandler} belongs to
      * @param evt the user event to handle
-     *
      * @throws Exception is thrown if an error occurred
      */
     protected abstract void eventReceived(ChannelHandlerContext ctx, I evt) throws Exception;

@@ -209,7 +209,7 @@ public class IpSubnetFilterTest {
         return new EmbeddedChannel(handlers) {
             @Override
             protected SocketAddress remoteAddress0() {
-                return isActive()? SocketUtils.socketAddress(ipAddress, 5421) : null;
+                return isActive() ? SocketUtils.socketAddress(ipAddress, 5421) : null;
             }
         };
     }

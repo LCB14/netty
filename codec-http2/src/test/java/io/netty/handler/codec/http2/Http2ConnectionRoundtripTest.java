@@ -293,20 +293,20 @@ public class Http2ConnectionRoundtripTest {
             public void run() throws Http2Exception {
                 http2Client.encoder().writeHeaders(ctx(), 3, headers, 0, false, newPromise())
                         .addListener(new ChannelFutureListener() {
-                    @Override
-                    public void operationComplete(ChannelFuture future) throws Exception {
-                        clientHeadersWriteException.set(future.cause());
-                    }
-                });
+                            @Override
+                            public void operationComplete(ChannelFuture future) throws Exception {
+                                clientHeadersWriteException.set(future.cause());
+                            }
+                        });
                 // It is expected that this write should fail locally and the remote peer will never see this.
                 http2Client.encoder().writeData(ctx(), 3, Unpooled.buffer(), 0, true, newPromise())
-                    .addListener(new ChannelFutureListener() {
-                        @Override
-                        public void operationComplete(ChannelFuture future) throws Exception {
-                            clientDataWriteException.set(future.cause());
-                            clientDataWrite.countDown();
-                        }
-                });
+                        .addListener(new ChannelFutureListener() {
+                            @Override
+                            public void operationComplete(ChannelFuture future) throws Exception {
+                                clientDataWriteException.set(future.cause());
+                                clientDataWrite.countDown();
+                            }
+                        });
                 http2Client.flush(ctx());
             }
         });
@@ -368,7 +368,7 @@ public class Http2ConnectionRoundtripTest {
         final CountDownLatch serverSettingsAckLatch2 = new CountDownLatch(2);
         final CountDownLatch serverDataLatch = new CountDownLatch(1);
         final CountDownLatch clientWriteDataLatch = new CountDownLatch(1);
-        final byte[] data = new byte[] {1, 2, 3, 4, 5};
+        final byte[] data = new byte[]{1, 2, 3, 4, 5};
         final ByteArrayOutputStream out = new ByteArrayOutputStream(data.length);
 
         doAnswer(new Answer<Void>() {
@@ -973,9 +973,9 @@ public class Http2ConnectionRoundtripTest {
             @Override
             public void run() throws Http2Exception {
                 http2Client.encoder().writeHeaders(ctx(), 1, headers, 0, (short) 16, false, 0,
-                    false, newPromise());
+                        false, newPromise());
                 http2Client.encoder().writeHeaders(ctx(), 3, headers, 0, (short) 16, false, 0,
-                    false, newPromise());
+                        false, newPromise());
                 http2Client.flush(ctx());
             }
         });
@@ -996,7 +996,7 @@ public class Http2ConnectionRoundtripTest {
         // wait for the client to receive the GO_AWAY.
         assertTrue(clientGoAwayLatch.await(DEFAULT_AWAIT_TIMEOUT_SECONDS, SECONDS));
         verify(clientListener).onGoAwayRead(any(ChannelHandlerContext.class), eq(1), eq(NO_ERROR.code()),
-            any(ByteBuf.class));
+                any(ByteBuf.class));
         assertEquals(Http2Stream.State.OPEN, clientStream3State.get());
 
         // Make sure that stream 3 has been closed which is true if it's gone.
@@ -1019,7 +1019,7 @@ public class Http2ConnectionRoundtripTest {
         // Wait for the server to receive a GO_AWAY, but this is expected to timeout!
         assertFalse(goAwayLatch.await(1, SECONDS));
         verify(serverListener, never()).onGoAwayRead(any(ChannelHandlerContext.class), anyInt(), anyLong(),
-            any(ByteBuf.class));
+                any(ByteBuf.class));
 
         // Shutdown shouldn't wait for the server to close streams
         setClientGracefulShutdownTime(0);
@@ -1133,7 +1133,7 @@ public class Http2ConnectionRoundtripTest {
         }).when(serverListener).onDataRead(any(ChannelHandlerContext.class), anyInt(),
                 any(ByteBuf.class), anyInt(), anyBoolean());
         try {
-            bootstrapEnv(numStreams * length, 1, numStreams * 4 + 1 , numStreams);
+            bootstrapEnv(numStreams * length, 1, numStreams * 4 + 1, numStreams);
             runInChannel(clientChannel, new Http2Runnable() {
                 @Override
                 public void run() throws Http2Exception {
@@ -1145,7 +1145,7 @@ public class Http2ConnectionRoundtripTest {
                         http2Client.encoder().writePing(ctx(), false, pingData,
                                 newPromise());
                         http2Client.encoder().writeData(ctx(), streamId, data.retainedSlice(), 0,
-                                                        false, newPromise());
+                                false, newPromise());
                         // Write trailers.
                         http2Client.encoder().writeHeaders(ctx(), streamId, headers, 0, (short) 16,
                                 false, 0, true, newPromise());
@@ -1178,12 +1178,12 @@ public class Http2ConnectionRoundtripTest {
     }
 
     private void bootstrapEnv(int dataCountDown, int settingsAckCount,
-            int requestCountDown, int trailersCountDown) throws Exception {
+                              int requestCountDown, int trailersCountDown) throws Exception {
         bootstrapEnv(dataCountDown, settingsAckCount, requestCountDown, trailersCountDown, -1);
     }
 
     private void bootstrapEnv(int dataCountDown, int settingsAckCount,
-            int requestCountDown, int trailersCountDown, int goAwayCountDown) throws Exception {
+                              int requestCountDown, int trailersCountDown, int goAwayCountDown) throws Exception {
         final CountDownLatch prefaceWrittenLatch = new CountDownLatch(1);
         requestLatch = new CountDownLatch(requestCountDown);
         serverSettingsAckLatch = new CountDownLatch(settingsAckCount);
@@ -1268,8 +1268,8 @@ public class Http2ConnectionRoundtripTest {
 
     private static Http2Headers dummyHeaders() {
         return new DefaultHttp2Headers(false).method(new AsciiString("GET")).scheme(new AsciiString("https"))
-        .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource2"))
-        .add(randomString(), randomString());
+                .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource2"))
+                .add(randomString(), randomString());
     }
 
     private static void mockFlowControl(Http2FrameListener listener) throws Http2Exception {

@@ -45,7 +45,7 @@ final class Utf8Validator implements ByteProcessor {
     private static final int UTF8_ACCEPT = 0;
     private static final int UTF8_REJECT = 12;
 
-    private static final byte[] TYPES = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    private static final byte[] TYPES = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -54,14 +54,14 @@ final class Utf8Validator implements ByteProcessor {
             7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8,
             8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
             2, 2, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 11, 6, 6, 6, 5, 8, 8, 8, 8, 8,
-            8, 8, 8, 8, 8, 8 };
+            8, 8, 8, 8, 8, 8};
 
-    private static final byte[] STATES = { 0, 12, 24, 36, 60, 96, 84, 12, 12, 12, 48, 72, 12, 12,
+    private static final byte[] STATES = {0, 12, 24, 36, 60, 96, 84, 12, 12, 12, 48, 72, 12, 12,
             12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 0, 12, 12, 12, 12, 12, 0, 12, 0, 12, 12,
             12, 24, 12, 12, 12, 12, 12, 24, 12, 24, 12, 12, 12, 12, 12, 12, 12, 12, 12, 24, 12, 12,
             12, 12, 12, 24, 12, 12, 12, 12, 12, 12, 12, 24, 12, 12, 12, 12, 12, 12, 12, 12, 12, 36,
             12, 36, 12, 12, 12, 36, 12, 12, 12, 12, 12, 36, 12, 36, 12, 12, 12, 36, 12, 12, 12, 12,
-            12, 12, 12, 12, 12, 12 };
+            12, 12, 12, 12, 12, 12};
 
     @SuppressWarnings("RedundantFieldInitialization")
     private int state = UTF8_ACCEPT;
@@ -84,7 +84,7 @@ final class Utf8Validator implements ByteProcessor {
         if (state != UTF8_ACCEPT) {
             state = UTF8_ACCEPT;
             throw new CorruptedWebSocketFrameException(
-                WebSocketCloseStatus.INVALID_PAYLOAD_DATA, "bytes are not UTF-8");
+                    WebSocketCloseStatus.INVALID_PAYLOAD_DATA, "bytes are not UTF-8");
         }
     }
 
@@ -99,7 +99,7 @@ final class Utf8Validator implements ByteProcessor {
         if (state == UTF8_REJECT) {
             checking = false;
             throw new CorruptedWebSocketFrameException(
-                WebSocketCloseStatus.INVALID_PAYLOAD_DATA, "bytes are not UTF-8");
+                    WebSocketCloseStatus.INVALID_PAYLOAD_DATA, "bytes are not UTF-8");
         }
         return true;
     }

@@ -135,7 +135,7 @@ public class EpollSpliceTest {
         cb.handler(ch);
         Channel cc = cb.connect(pc.localAddress()).syncUninterruptibly().channel();
 
-        for (int i = 0; i < data.length;) {
+        for (int i = 0; i < data.length; ) {
             int length = Math.min(random.nextInt(1024 * 64), data.length - i);
             ByteBuf buf = Unpooled.wrappedBuffer(data, i, length);
             cc.writeAndFlush(buf);
@@ -204,7 +204,7 @@ public class EpollSpliceTest {
         cb.handler(new ChannelInboundHandlerAdapter());
         Channel cc = cb.connect(sc.localAddress()).syncUninterruptibly().channel();
 
-        for (int i = 0; i < data.length;) {
+        for (int i = 0; i < data.length; ) {
             int length = Math.min(random.nextInt(1024 * 64), data.length - i);
             ByteBuf buf = Unpooled.wrappedBuffer(data, i, length);
             cc.writeAndFlush(buf);
@@ -254,7 +254,7 @@ public class EpollSpliceTest {
             in.readBytes(actual);
 
             int lastIdx = counter;
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(data[i + lastIdx], actual[i]);
             }
 

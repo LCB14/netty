@@ -203,7 +203,7 @@ public final class KQueueSocketChannelConfig extends KQueueChannelConfig impleme
         }
     }
 
-    public void setSndLowAt(int sndLowAt)  {
+    public void setSndLowAt(int sndLowAt) {
         try {
             ((KQueueSocketChannel) channel).socket.setSndLowAt(sndLowAt);
         } catch (IOException e) {
@@ -219,7 +219,7 @@ public final class KQueueSocketChannelConfig extends KQueueChannelConfig impleme
         }
     }
 
-    public void setTcpNoPush(boolean tcpNoPush)  {
+    public void setTcpNoPush(boolean tcpNoPush) {
         try {
             ((KQueueSocketChannel) channel).socket.setTcpNoPush(tcpNoPush);
         } catch (IOException e) {

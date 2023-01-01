@@ -25,7 +25,7 @@ import io.netty.util.internal.UnstableApi;
  */
 @UnstableApi
 public class DefaultFullBinaryMemcacheRequest extends DefaultBinaryMemcacheRequest
-    implements FullBinaryMemcacheRequest {
+        implements FullBinaryMemcacheRequest {
 
     private final ByteBuf content;
 

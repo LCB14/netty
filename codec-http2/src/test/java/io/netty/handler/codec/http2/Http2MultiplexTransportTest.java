@@ -225,20 +225,20 @@ public class Http2MultiplexTransportTest {
                                     public void run() {
                                         ctx.writeAndFlush(new DefaultHttp2HeadersFrame(
                                                 new DefaultHttp2Headers(), false)).addListener(
-                                                        new ChannelFutureListener() {
-                                            @Override
-                                            public void operationComplete(ChannelFuture future) {
-                                                ctx.write(new DefaultHttp2DataFrame(
-                                                        Unpooled.copiedBuffer("Hello World", CharsetUtil.US_ASCII),
-                                                        true));
-                                                ctx.channel().eventLoop().execute(new Runnable() {
+                                                new ChannelFutureListener() {
                                                     @Override
-                                                    public void run() {
-                                                        ctx.flush();
+                                                    public void operationComplete(ChannelFuture future) {
+                                                        ctx.write(new DefaultHttp2DataFrame(
+                                                                Unpooled.copiedBuffer("Hello World", CharsetUtil.US_ASCII),
+                                                                true));
+                                                        ctx.channel().eventLoop().execute(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                ctx.flush();
+                                                            }
+                                                        });
                                                     }
                                                 });
-                                            }
-                                        });
                                     }
                                 }, 500, MILLISECONDS);
                             }
@@ -419,14 +419,14 @@ public class Http2MultiplexTransportTest {
                                         }
                                     });
                                     h2Bootstrap.open().addListener(new FutureListener<Channel>() {
-                                                @Override
-                                                public void operationComplete(Future<Channel> future) {
-                                                    if (future.isSuccess()) {
-                                                        future.getNow().writeAndFlush(new DefaultHttp2HeadersFrame(
-                                                                new DefaultHttp2Headers(), false));
-                                                    }
-                                                }
-                                            });
+                                        @Override
+                                        public void operationComplete(Future<Channel> future) {
+                                            if (future.isSuccess()) {
+                                                future.getNow().writeAndFlush(new DefaultHttp2HeadersFrame(
+                                                        new DefaultHttp2Headers(), false));
+                                            }
+                                        }
+                                    });
 
                                 } else if (handshakeCompletionEvent.cause() instanceof SSLException) {
                                     // In case of TLSv1.2 we should never see the handshake succeed as the alert for
@@ -503,15 +503,15 @@ public class Http2MultiplexTransportTest {
                                 public void channelRead(final ChannelHandlerContext ctx, Object msg) {
                                     if (msg instanceof Http2HeadersFrame && ((Http2HeadersFrame) msg).isEndStream()) {
                                         ctx.writeAndFlush(new DefaultHttp2HeadersFrame(
-                                                new DefaultHttp2Headers(), false))
-                                           .addListener(new ChannelFutureListener() {
-                                               @Override
-                                               public void operationComplete(ChannelFuture future) {
-                                                   ctx.writeAndFlush(new DefaultHttp2DataFrame(
-                                                           Unpooled.copiedBuffer("Hello World", CharsetUtil.US_ASCII),
-                                                           true));
-                                               }
-                                           });
+                                                        new DefaultHttp2Headers(), false))
+                                                .addListener(new ChannelFutureListener() {
+                                                    @Override
+                                                    public void operationComplete(ChannelFuture future) {
+                                                        ctx.writeAndFlush(new DefaultHttp2DataFrame(
+                                                                Unpooled.copiedBuffer("Hello World", CharsetUtil.US_ASCII),
+                                                                true));
+                                                    }
+                                                });
                                     }
                                     ReferenceCountUtil.release(msg);
                                 }

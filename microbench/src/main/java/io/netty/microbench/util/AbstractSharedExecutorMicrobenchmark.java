@@ -39,8 +39,8 @@ public class AbstractSharedExecutorMicrobenchmark extends AbstractMicrobenchmark
 
     static {
         final String[] customArgs = {
-        "-Xms2g", "-Xmx2g", "-XX:MaxDirectMemorySize=2g", "-Djmh.executor=CUSTOM",
-        "-Djmh.executor.class=io.netty.microbench.util.AbstractSharedExecutorMicrobenchmark$DelegateHarnessExecutor" };
+                "-Xms2g", "-Xmx2g", "-XX:MaxDirectMemorySize=2g", "-Djmh.executor=CUSTOM",
+                "-Djmh.executor.class=io.netty.microbench.util.AbstractSharedExecutorMicrobenchmark$DelegateHarnessExecutor"};
 
         JVM_ARGS = new String[BASE_JVM_ARGS.length + customArgs.length];
         System.arraycopy(BASE_JVM_ARGS, 0, JVM_ARGS, 0, BASE_JVM_ARGS.length);
@@ -51,6 +51,7 @@ public class AbstractSharedExecutorMicrobenchmark extends AbstractMicrobenchmark
      * Set the executor (in the form of an {@link EventLoop}) which JMH will use.
      * <p>
      * This must be called before JMH requires an executor to execute objects.
+     *
      * @param eventLoop Used as an executor by JMH to run benchmarks.
      */
     public static void executor(EventLoop eventLoop) {
@@ -74,6 +75,7 @@ public class AbstractSharedExecutorMicrobenchmark extends AbstractMicrobenchmark
          * Set the executor (in the form of an {@link EventLoop}) which JMH will use.
          * <p>
          * This must be called before JMH requires an executor to execute objects.
+         *
          * @param service Used as an executor by JMH to run benchmarks.
          */
         public static void executor(EventLoop service) {

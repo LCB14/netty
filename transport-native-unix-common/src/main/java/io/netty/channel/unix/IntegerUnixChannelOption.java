@@ -22,9 +22,9 @@ public final class IntegerUnixChannelOption extends GenericUnixChannelOption<Int
     /**
      * Creates a new instance.
      *
-     * @param name      the name that is used.
-     * @param level     the level.
-     * @param optname   the optname.
+     * @param name    the name that is used.
+     * @param level   the level.
+     * @param optname the optname.
      */
     public IntegerUnixChannelOption(String name, int level, int optname) {
         super(name, level, optname);

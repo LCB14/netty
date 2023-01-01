@@ -286,7 +286,7 @@ abstract class AbstractKQueueChannel extends AbstractChannel implements UnixChan
                 return 1;
             }
         } else {
-            final ByteBuffer nioBuf = buf.nioBufferCount() == 1?
+            final ByteBuffer nioBuf = buf.nioBufferCount() == 1 ?
                     buf.internalNioBuffer(buf.readerIndex(), buf.readableBytes()) : buf.nioBuffer();
             int localFlushedAmount = socket.write(nioBuf, nioBuf.position(), nioBuf.limit());
             if (localFlushedAmount > 0) {
@@ -330,7 +330,7 @@ abstract class AbstractKQueueChannel extends AbstractChannel implements UnixChan
                     }
                 });
             }
-        } else  {
+        } else {
             // The EventLoop is not registered atm so just update the flags so the correct value
             // will be used once the channel is registered
             readFilterEnabled = false;
@@ -424,7 +424,7 @@ abstract class AbstractKQueueChannel extends AbstractChannel implements UnixChan
                 ChannelPromise connectPromise = AbstractKQueueChannel.this.connectPromise;
                 AbstractKQueueChannel.this.connectPromise = null;
                 if (connectPromise.tryFailure((cause instanceof ConnectException) ? cause
-                                : new ConnectException("failed to connect").initCause(cause))) {
+                        : new ConnectException("failed to connect").initCause(cause))) {
                     closeIfClosed();
                     return true;
                 }
@@ -711,7 +711,7 @@ abstract class AbstractKQueueChannel extends AbstractChannel implements UnixChan
 
         boolean connected = doConnect0(remoteAddress, localAddress);
         if (connected) {
-            remote = remoteSocketAddr == null?
+            remote = remoteSocketAddr == null ?
                     remoteAddress : computeRemoteAddr(remoteSocketAddr, socket.remoteAddress());
         }
         // We always need to set the localAddress even if not connected yet as the bind already took place.

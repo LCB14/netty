@@ -52,9 +52,9 @@ final class DefaultChannelGroupFuture extends DefaultPromise<Void> implements Ch
             boolean callSetDone;
             synchronized (DefaultChannelGroupFuture.this) {
                 if (success) {
-                    successCount ++;
+                    successCount++;
                 } else {
-                    failureCount ++;
+                    failureCount++;
                 }
 
                 callSetDone = successCount + failureCount == futures.size();
@@ -65,7 +65,7 @@ final class DefaultChannelGroupFuture extends DefaultPromise<Void> implements Ch
                 if (failureCount > 0) {
                     List<Map.Entry<Channel, Throwable>> failed =
                             new ArrayList<Map.Entry<Channel, Throwable>>(failureCount);
-                    for (ChannelFuture f: futures.values()) {
+                    for (ChannelFuture f : futures.values()) {
                         if (!f.isSuccess()) {
                             failed.add(new DefaultEntry<Channel, Throwable>(f.channel(), f.cause()));
                         }
@@ -81,19 +81,19 @@ final class DefaultChannelGroupFuture extends DefaultPromise<Void> implements Ch
     /**
      * Creates a new instance.
      */
-    DefaultChannelGroupFuture(ChannelGroup group, Collection<ChannelFuture> futures,  EventExecutor executor) {
+    DefaultChannelGroupFuture(ChannelGroup group, Collection<ChannelFuture> futures, EventExecutor executor) {
         super(executor);
         this.group = ObjectUtil.checkNotNull(group, "group");
         ObjectUtil.checkNotNull(futures, "futures");
 
         Map<Channel, ChannelFuture> futureMap = new LinkedHashMap<Channel, ChannelFuture>();
-        for (ChannelFuture f: futures) {
+        for (ChannelFuture f : futures) {
             futureMap.put(f.channel(), f);
         }
 
         this.futures = Collections.unmodifiableMap(futureMap);
 
-        for (ChannelFuture f: this.futures.values()) {
+        for (ChannelFuture f : this.futures.values()) {
             f.addListener(childListener);
         }
 
@@ -107,7 +107,7 @@ final class DefaultChannelGroupFuture extends DefaultPromise<Void> implements Ch
         super(executor);
         this.group = group;
         this.futures = Collections.unmodifiableMap(futures);
-        for (ChannelFuture f: this.futures.values()) {
+        for (ChannelFuture f : this.futures.values()) {
             f.addListener(childListener);
         }
 

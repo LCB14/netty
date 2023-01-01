@@ -52,7 +52,7 @@ public class HpackDecoderULE128Benchmark extends AbstractMicrobenchmark {
     @Setup
     public void setup() {
         byte[] longMax = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
-                          (byte) 0xFF, (byte) 0x7F};
+                (byte) 0xFF, (byte) 0x7F};
         longMaxBuf = Unpooled.wrappedBuffer(longMax);
         byte[] intMax = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x07};
         intMaxBuf = Unpooled.wrappedBuffer(intMax);

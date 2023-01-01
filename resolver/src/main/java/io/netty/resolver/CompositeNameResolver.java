@@ -28,7 +28,7 @@ import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 /**
  * A composite {@link SimpleNameResolver} that resolves a host name against a sequence of {@link NameResolver}s.
- *
+ * <p>
  * In case of a failure, only the last one will be reported.
  */
 public final class CompositeNameResolver<T> extends SimpleNameResolver<T> {
@@ -36,8 +36,8 @@ public final class CompositeNameResolver<T> extends SimpleNameResolver<T> {
     private final NameResolver<T>[] resolvers;
 
     /**
-     * @param executor the {@link EventExecutor} which is used to notify the listeners of the {@link Future} returned
-     *                 by {@link #resolve(String)}
+     * @param executor  the {@link EventExecutor} which is used to notify the listeners of the {@link Future} returned
+     *                  by {@link #resolve(String)}
      * @param resolvers the {@link NameResolver}s to be tried sequentially
      */
     public CompositeNameResolver(EventExecutor executor, NameResolver<T>... resolvers) {
@@ -85,9 +85,9 @@ public final class CompositeNameResolver<T> extends SimpleNameResolver<T> {
     }
 
     private void doResolveAllRec(final String inetHost,
-                              final Promise<List<T>> promise,
-                              final int resolverIndex,
-                              Throwable lastFailure) throws Exception {
+                                 final Promise<List<T>> promise,
+                                 final int resolverIndex,
+                                 Throwable lastFailure) throws Exception {
         if (resolverIndex >= resolvers.length) {
             promise.setFailure(lastFailure);
         } else {

@@ -103,6 +103,7 @@ final class Crc32 {
 
     /**
      * Update the CRC with a single byte.
+     *
      * @param value The value to update the CRC with
      */
     public void updateCRC(final int value) {
@@ -112,6 +113,7 @@ final class Crc32 {
 
     /**
      * Update the CRC with a sequence of identical bytes.
+     *
      * @param value The value to update the CRC with
      * @param count The number of bytes
      */

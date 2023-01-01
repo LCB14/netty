@@ -87,7 +87,7 @@ final class NetUtilInitializations {
             Collection<NetworkInterface> networkInterfaces, Inet4Address localhost4, Inet6Address localhost6) {
         // Retrieve the list of available network interfaces.
         List<NetworkInterface> ifaces = new ArrayList<NetworkInterface>();
-        for (NetworkInterface iface: networkInterfaces) {
+        for (NetworkInterface iface : networkInterfaces) {
             // Use the interface with proper INET addresses only.
             if (SocketUtils.addressesFromNetworkInterface(iface).hasMoreElements()) {
                 ifaces.add(iface);
@@ -99,8 +99,9 @@ final class NetUtilInitializations {
         // on a certain environment. (e.g. Windows with -Djava.net.preferIPv4Stack=true)
         NetworkInterface loopbackIface = null;
         InetAddress loopbackAddr = null;
-        loop: for (NetworkInterface iface: ifaces) {
-            for (Enumeration<InetAddress> i = SocketUtils.addressesFromNetworkInterface(iface); i.hasMoreElements();) {
+        loop:
+        for (NetworkInterface iface : ifaces) {
+            for (Enumeration<InetAddress> i = SocketUtils.addressesFromNetworkInterface(iface); i.hasMoreElements(); ) {
                 InetAddress addr = i.nextElement();
                 if (addr.isLoopbackAddress()) {
                     // Found
@@ -114,7 +115,7 @@ final class NetUtilInitializations {
         // If failed to find the loopback interface from its INET address, fall back to isLoopback().
         if (loopbackIface == null) {
             try {
-                for (NetworkInterface iface: ifaces) {
+                for (NetworkInterface iface : ifaces) {
                     if (iface.isLoopback()) {
                         Enumeration<InetAddress> i = SocketUtils.addressesFromNetworkInterface(iface);
                         if (i.hasMoreElements()) {

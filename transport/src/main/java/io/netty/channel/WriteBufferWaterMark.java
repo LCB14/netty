@@ -44,7 +44,7 @@ public final class WriteBufferWaterMark {
     /**
      * Create a new instance.
      *
-     * @param low low water mark for write buffer.
+     * @param low  low water mark for write buffer.
      * @param high high water mark for write buffer
      */
     public WriteBufferWaterMark(int low, int high) {
@@ -85,11 +85,11 @@ public final class WriteBufferWaterMark {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(55)
-            .append("WriteBufferWaterMark(low: ")
-            .append(low)
-            .append(", high: ")
-            .append(high)
-            .append(")");
+                .append("WriteBufferWaterMark(low: ")
+                .append(low)
+                .append(", high: ")
+                .append(high)
+                .append(")");
         return builder.toString();
     }
 

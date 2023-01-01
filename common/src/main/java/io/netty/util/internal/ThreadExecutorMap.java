@@ -28,7 +28,8 @@ public final class ThreadExecutorMap {
 
     private static final FastThreadLocal<EventExecutor> mappings = new FastThreadLocal<EventExecutor>();
 
-    private ThreadExecutorMap() { }
+    private ThreadExecutorMap() {
+    }
 
     /**
      * Returns the current {@link EventExecutor} that uses the {@link Thread}, or {@code null} if none / unknown.

@@ -63,11 +63,11 @@ public class ReferenceCountedOpenSslEngineTest extends OpenSslEngineTest {
     @ParameterizedTest
     public void testNotLeakOnException(SSLEngineTestParam param) throws Exception {
         clientSslCtx = wrapContext(param, SslContextBuilder.forClient()
-                                        .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                                        .sslProvider(sslClientProvider())
-                                        .protocols(param.protocols())
-                                        .ciphers(param.ciphers())
-                                        .build());
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .sslProvider(sslClientProvider())
+                .protocols(param.protocols())
+                .ciphers(param.ciphers())
+                .build());
 
         assertThrows(NullPointerException.class, new Executable() {
             @Override
@@ -94,11 +94,11 @@ public class ReferenceCountedOpenSslEngineTest extends OpenSslEngineTest {
     @ParameterizedTest
     public void parentContextIsRetainedByChildEngines(SSLEngineTestParam param) throws Exception {
         SslContext clientSslCtx = wrapContext(param, SslContextBuilder.forClient()
-            .trustManager(InsecureTrustManagerFactory.INSTANCE)
-            .sslProvider(sslClientProvider())
-            .protocols(param.protocols())
-            .ciphers(param.ciphers())
-            .build());
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .sslProvider(sslClientProvider())
+                .protocols(param.protocols())
+                .ciphers(param.ciphers())
+                .build());
 
         SSLEngine engine = clientSslCtx.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertEquals(ReferenceCountUtil.refCnt(clientSslCtx), 2);

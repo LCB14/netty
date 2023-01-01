@@ -42,7 +42,7 @@ public class IntObjectHashMapBenchmark extends AbstractMicrobenchmark {
         RANDOM
     }
 
-    @Param({ "10", "100", "1000", "10000", "100000" })
+    @Param({"10", "100", "1000", "10000", "100000"})
     public int size;
 
     @Param
@@ -55,7 +55,7 @@ public class IntObjectHashMapBenchmark extends AbstractMicrobenchmark {
 
     @Setup(Level.Trial)
     public void setup() {
-        switch(mapType) {
+        switch (mapType) {
             case AGRONA: {
                 environment = new AgronaEnvironment();
                 break;
@@ -90,9 +90,10 @@ public class IntObjectHashMapBenchmark extends AbstractMicrobenchmark {
 
     private abstract class Environment {
         final int[] keys;
+
         Environment() {
             keys = new int[size];
-            switch(keyDistribution) {
+            switch (keyDistribution) {
                 case HTTP2:
                     for (int index = 0, key = 3; index < size; ++index, key += 2) {
                         keys[index] = key;
@@ -117,8 +118,11 @@ public class IntObjectHashMapBenchmark extends AbstractMicrobenchmark {
                 }
             }
         }
+
         abstract void put(Blackhole bh);
+
         abstract void lookup(Blackhole bh);
+
         abstract void remove(Blackhole bh);
     }
 

@@ -41,9 +41,9 @@ public class AutobahnServer {
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-             .childHandler(new AutobahnServerInitializer());
+                    .channel(NioServerSocketChannel.class)
+                    .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                    .childHandler(new AutobahnServerInitializer());
 
             ChannelFuture f = b.bind(port).sync();
             System.out.println("Web Socket Server started at port " + port);

@@ -25,7 +25,7 @@ public class LittleEndianUnsafeNoCleanerDirectByteBufTest extends LittleEndianDi
     @Override
     public void init() {
         Assumptions.assumeTrue(PlatformDependent.useDirectBufferNoCleaner(),
-          "java.nio.DirectByteBuffer.<init>(long, int) not found, skip tests");
+                "java.nio.DirectByteBuffer.<init>(long, int) not found, skip tests");
         super.init();
     }
 

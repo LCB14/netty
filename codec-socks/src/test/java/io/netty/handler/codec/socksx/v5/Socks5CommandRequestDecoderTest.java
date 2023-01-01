@@ -38,7 +38,7 @@ public class Socks5CommandRequestDecoderTest {
             Socks5CommandType type, Socks5AddressType dstAddrType, String dstAddr, int dstPort) {
         logger.debug(
                 "Testing type: " + type + " dstAddrType: " + dstAddrType +
-                " dstAddr: " + dstAddr + " dstPort: " + dstPort);
+                        " dstAddr: " + dstAddr + " dstPort: " + dstPort);
 
         Socks5CommandRequest msg =
                 new DefaultSocks5CommandRequest(type, dstAddrType, dstAddr, dstPort);
@@ -54,11 +54,11 @@ public class Socks5CommandRequestDecoderTest {
 
     @Test
     public void testCmdRequestDecoderIPv4() {
-        String[] hosts = {"127.0.0.1", };
-        int[] ports = {1, 32769, 65535 };
-        for (Socks5CommandType cmdType: Arrays.asList(Socks5CommandType.BIND,
-                                                      Socks5CommandType.CONNECT,
-                                                      Socks5CommandType.UDP_ASSOCIATE)) {
+        String[] hosts = {"127.0.0.1",};
+        int[] ports = {1, 32769, 65535};
+        for (Socks5CommandType cmdType : Arrays.asList(Socks5CommandType.BIND,
+                Socks5CommandType.CONNECT,
+                Socks5CommandType.UDP_ASSOCIATE)) {
             for (String host : hosts) {
                 for (int port : ports) {
                     test(cmdType, Socks5AddressType.IPv4, host, port);
@@ -70,11 +70,11 @@ public class Socks5CommandRequestDecoderTest {
     @Test
     public void testCmdRequestDecoderIPv6() throws UnknownHostException {
         String[] hosts = {
-                NetUtil.bytesToIpAddress(SocketUtils.addressByName("::1").getAddress()) };
+                NetUtil.bytesToIpAddress(SocketUtils.addressByName("::1").getAddress())};
         int[] ports = {1, 32769, 65535};
-        for (Socks5CommandType cmdType: Arrays.asList(Socks5CommandType.BIND,
-                                                      Socks5CommandType.CONNECT,
-                                                      Socks5CommandType.UDP_ASSOCIATE)) {
+        for (Socks5CommandType cmdType : Arrays.asList(Socks5CommandType.BIND,
+                Socks5CommandType.CONNECT,
+                Socks5CommandType.UDP_ASSOCIATE)) {
             for (String host : hosts) {
                 for (int port : ports) {
                     test(cmdType, Socks5AddressType.IPv6, host, port);
@@ -85,22 +85,22 @@ public class Socks5CommandRequestDecoderTest {
 
     @Test
     public void testCmdRequestDecoderDomain() {
-        String[] hosts = {"google.com" ,
-                          "مثال.إختبار",
-                          "παράδειγμα.δοκιμή",
-                          "مثال.آزمایشی",
-                          "пример.испытание",
-                          "בײַשפּיל.טעסט",
-                          "例子.测试",
-                          "例子.測試",
-                          "उदाहरण.परीक्षा",
-                          "例え.テスト",
-                          "실례.테스트",
-                          "உதாரணம்.பரிட்சை"};
+        String[] hosts = {"google.com",
+                "مثال.إختبار",
+                "παράδειγμα.δοκιμή",
+                "مثال.آزمایشی",
+                "пример.испытание",
+                "בײַשפּיל.טעסט",
+                "例子.测试",
+                "例子.測試",
+                "उदाहरण.परीक्षा",
+                "例え.テスト",
+                "실례.테스트",
+                "உதாரணம்.பரிட்சை"};
         int[] ports = {1, 32769, 65535};
-        for (Socks5CommandType cmdType: Arrays.asList(Socks5CommandType.BIND,
-                                                      Socks5CommandType.CONNECT,
-                                                      Socks5CommandType.UDP_ASSOCIATE)) {
+        for (Socks5CommandType cmdType : Arrays.asList(Socks5CommandType.BIND,
+                Socks5CommandType.CONNECT,
+                Socks5CommandType.UDP_ASSOCIATE)) {
             for (String host : hosts) {
                 for (int port : ports) {
                     test(cmdType, Socks5AddressType.DOMAIN, host, port);

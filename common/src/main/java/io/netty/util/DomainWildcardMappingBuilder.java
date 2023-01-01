@@ -23,6 +23,7 @@ import static io.netty.util.internal.ObjectUtil.checkNotNull;
 /**
  * Builder that allows to build {@link Mapping}s that support
  * <a href="https://tools.ietf.org/search/rfc6125#section-6.4">DNS wildcard</a> matching.
+ *
  * @param <V> the type of the value that we map to.
  */
 public class DomainWildcardMappingBuilder<V> {
@@ -58,11 +59,11 @@ public class DomainWildcardMappingBuilder<V> {
      * <p>
      * <a href="https://tools.ietf.org/search/rfc6125#section-6.4">DNS wildcard</a> is supported as hostname. The
      * wildcard will only match one sub-domain deep and only when wildcard is used as the most-left label.
-     *
+     * <p>
      * For example:
      *
      * <p>
-     *  *.netty.io will match xyz.netty.io but NOT abc.xyz.netty.io
+     * *.netty.io will match xyz.netty.io but NOT abc.xyz.netty.io
      * </p>
      *
      * @param hostname the host name (optionally wildcard)
@@ -89,6 +90,7 @@ public class DomainWildcardMappingBuilder<V> {
         }
         return hostname;
     }
+
     /**
      * Creates a new instance of an immutable {@link Mapping}.
      *

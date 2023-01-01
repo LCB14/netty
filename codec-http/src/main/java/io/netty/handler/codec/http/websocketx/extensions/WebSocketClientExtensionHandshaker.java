@@ -32,8 +32,7 @@ public interface WebSocketClientExtensionHandshaker {
      * Handshake based on server response. It should always succeed because server response
      * should be a request acknowledge.
      *
-     * @param extensionData
-     *          the extension configuration sent by the server.
+     * @param extensionData the extension configuration sent by the server.
      * @return an initialized extension if handshake phase succeed or null if failed.
      */
     WebSocketClientExtension handshakeExtension(WebSocketExtensionData extensionData);

@@ -76,11 +76,11 @@ final class JdkAlpnSslUtils {
 
             setHandshakeApplicationProtocolSelector =
                     AccessController.doPrivileged(new PrivilegedExceptionAction<Method>() {
-                @Override
-                public Method run() throws Exception {
-                    return SSLEngine.class.getMethod("setHandshakeApplicationProtocolSelector", BiFunction.class);
-                }
-            });
+                        @Override
+                        public Method run() throws Exception {
+                            return SSLEngine.class.getMethod("setHandshakeApplicationProtocolSelector", BiFunction.class);
+                        }
+                    });
             setHandshakeApplicationProtocolSelector.invoke(engine, new BiFunction<SSLEngine, List<String>, String>() {
                 @Override
                 public String apply(SSLEngine sslEngine, List<String> strings) {
@@ -90,11 +90,11 @@ final class JdkAlpnSslUtils {
 
             getHandshakeApplicationProtocolSelector =
                     AccessController.doPrivileged(new PrivilegedExceptionAction<Method>() {
-                @Override
-                public Method run() throws Exception {
-                    return SSLEngine.class.getMethod("getHandshakeApplicationProtocolSelector");
-                }
-            });
+                        @Override
+                        public Method run() throws Exception {
+                            return SSLEngine.class.getMethod("getHandshakeApplicationProtocolSelector");
+                        }
+                    });
             getHandshakeApplicationProtocolSelector.invoke(engine);
         } catch (Throwable t) {
             int version = PlatformDependent.javaVersion();

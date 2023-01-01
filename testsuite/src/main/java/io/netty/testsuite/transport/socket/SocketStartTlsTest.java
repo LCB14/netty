@@ -93,17 +93,17 @@ public class SocketStartTlsTest extends AbstractSocketTest {
         boolean hasOpenSsl = OpenSsl.isAvailable();
         if (hasOpenSsl) {
             serverContexts.add(SslContextBuilder.forServer(CERT_FILE, KEY_FILE)
-                                                .sslProvider(SslProvider.OPENSSL).build());
+                    .sslProvider(SslProvider.OPENSSL).build());
             clientContexts.add(SslContextBuilder.forClient().sslProvider(SslProvider.OPENSSL)
-                                                .trustManager(CERT_FILE).build());
+                    .trustManager(CERT_FILE).build());
         } else {
             logger.warn("OpenSSL is unavailable and thus will not be tested.", OpenSsl.unavailabilityCause());
         }
 
         List<Object[]> params = new ArrayList<Object[]>();
-        for (SslContext sc: serverContexts) {
-            for (SslContext cc: clientContexts) {
-                params.add(new Object[] { sc, cc });
+        for (SslContext sc : serverContexts) {
+            for (SslContext cc : clientContexts) {
+                params.add(new Object[]{sc, cc});
             }
         }
         return params;
@@ -275,7 +275,7 @@ public class SocketStartTlsTest extends AbstractSocketTest {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx,
-                Throwable cause) throws Exception {
+                                    Throwable cause) throws Exception {
             if (logger.isWarnEnabled()) {
                 logger.warn("Unexpected exception from the client side", cause);
             }

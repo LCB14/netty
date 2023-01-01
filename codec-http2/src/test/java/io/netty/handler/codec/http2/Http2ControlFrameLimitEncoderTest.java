@@ -104,7 +104,7 @@ public class Http2ControlFrameLimitEncoderTest {
                     public ChannelFuture answer(InvocationOnMock invocationOnMock) {
                         return handlePromise(invocationOnMock, 1);
                     }
-        });
+                });
         when(writer.writePing(any(ChannelHandlerContext.class), anyBoolean(), anyLong(), any(ChannelPromise.class)))
                 .thenAnswer(new Answer<ChannelFuture>() {
                     @Override
@@ -178,7 +178,7 @@ public class Http2ControlFrameLimitEncoderTest {
 
         // Notify all goAway ChannelPromise instances now as these will also release the retained ByteBuf for the
         // debugData.
-        for (;;) {
+        for (; ; ) {
             ChannelPromise promise = goAwayPromises.poll();
             if (promise == null) {
                 break;

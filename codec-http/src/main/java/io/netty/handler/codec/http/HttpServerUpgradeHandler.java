@@ -68,13 +68,13 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
          * the {@code upgradeHeaders} so that they are added to the 101 Switching protocols response.
          */
         boolean prepareUpgradeResponse(ChannelHandlerContext ctx, FullHttpRequest upgradeRequest,
-                                    HttpHeaders upgradeHeaders);
+                                       HttpHeaders upgradeHeaders);
 
         /**
          * Performs an HTTP protocol upgrade from the source codec. This method is responsible for
          * adding all handlers required for the new protocol.
          *
-         * @param ctx the context for the current handler.
+         * @param ctx            the context for the current handler.
          * @param upgradeRequest the request that triggered the upgrade to this protocol.
          */
         void upgradeTo(ChannelHandlerContext ctx, FullHttpRequest upgradeRequest);
@@ -182,7 +182,7 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
      * length of the content of an upgrade request.
      * </p>
      *
-     * @param sourceCodec the codec that is being used initially
+     * @param sourceCodec         the codec that is being used initially
      * @param upgradeCodecFactory the factory that creates a new upgrade codec
      *                            for one of the requested upgrade protocols
      */
@@ -193,10 +193,10 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
     /**
      * Constructs the upgrader with the supported codecs.
      *
-     * @param sourceCodec the codec that is being used initially
+     * @param sourceCodec         the codec that is being used initially
      * @param upgradeCodecFactory the factory that creates a new upgrade codec
      *                            for one of the requested upgrade protocols
-     * @param maxContentLength the maximum length of the content of an upgrade request
+     * @param maxContentLength    the maximum length of the content of an upgrade request
      */
     public HttpServerUpgradeHandler(
             SourceCodec sourceCodec, UpgradeCodecFactory upgradeCodecFactory, int maxContentLength) {
@@ -206,11 +206,11 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
     /**
      * Constructs the upgrader with the supported codecs.
      *
-     * @param sourceCodec the codec that is being used initially
+     * @param sourceCodec         the codec that is being used initially
      * @param upgradeCodecFactory the factory that creates a new upgrade codec
      *                            for one of the requested upgrade protocols
-     * @param maxContentLength the maximum length of the content of an upgrade request
-     * @param validateHeaders validate the header names and values of the upgrade response.
+     * @param maxContentLength    the maximum length of the content of an upgrade request
+     * @param validateHeaders     validate the header names and values of the upgrade response.
      */
     public HttpServerUpgradeHandler(SourceCodec sourceCodec, UpgradeCodecFactory upgradeCodecFactory,
                                     int maxContentLength, boolean validateHeaders) {
@@ -230,7 +230,7 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
             if (msg instanceof HttpRequest) {
                 HttpRequest req = (HttpRequest) msg;
                 if (req.headers().contains(HttpHeaderNames.UPGRADE) &&
-                    shouldHandleUpgradeRequest(req)) {
+                        shouldHandleUpgradeRequest(req)) {
                     handlingUpgrade = true;
                 } else {
                     ReferenceCountUtil.retain(msg);
@@ -295,7 +295,7 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
      * Attempts to upgrade to the protocol(s) identified by the {@link HttpHeaderNames#UPGRADE} header (if provided
      * in the request).
      *
-     * @param ctx the context for this handler.
+     * @param ctx     the context for this handler.
      * @param request the HTTP request.
      * @return {@code true} if the upgrade occurred, otherwise {@code false}.
      */
@@ -305,7 +305,7 @@ public class HttpServerUpgradeHandler extends HttpObjectAggregator {
         final int numRequestedProtocols = requestedProtocols.size();
         UpgradeCodec upgradeCodec = null;
         CharSequence upgradeProtocol = null;
-        for (int i = 0; i < numRequestedProtocols; i ++) {
+        for (int i = 0; i < numRequestedProtocols; i++) {
             final CharSequence p = requestedProtocols.get(i);
             final UpgradeCodec c = upgradeCodecFactory.newUpgradeCodec(p);
             if (c != null) {

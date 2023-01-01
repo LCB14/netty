@@ -25,9 +25,9 @@ import java.util.List;
 
 /**
  * A Codec for on-the-fly encoding/decoding of message.
- *
+ * <p>
  * This can be thought of as a combination of {@link MessageToMessageDecoder} and {@link MessageToMessageEncoder}.
- *
+ * <p>
  * Here is an example of a {@link MessageToMessageCodec} which just decode from {@link Integer} to {@link Long}
  * and encode from {@link Long} to {@link Integer}.
  *
@@ -47,7 +47,7 @@ import java.util.List;
  *         }
  *     }
  * </pre>
- *
+ * <p>
  * Be aware that you need to call {@link ReferenceCounted#retain()} on messages that are just passed through if they
  * are of type {@link ReferenceCounted}. This is needed as the {@link MessageToMessageCodec} will call
  * {@link ReferenceCounted#release()} on encoded / decoded messages.
@@ -97,8 +97,8 @@ public abstract class MessageToMessageCodec<INBOUND_IN, OUTBOUND_IN> extends Cha
     /**
      * Create a new instance.
      *
-     * @param inboundMessageType    The type of messages to decode
-     * @param outboundMessageType   The type of messages to encode
+     * @param inboundMessageType  The type of messages to decode
+     * @param outboundMessageType The type of messages to encode
      */
     protected MessageToMessageCodec(
             Class<? extends INBOUND_IN> inboundMessageType, Class<? extends OUTBOUND_IN> outboundMessageType) {

@@ -32,7 +32,7 @@ public class Http2ClientUpgradeCodecTest {
     @Test
     public void testUpgradeToHttp2ConnectionHandler() throws Exception {
         testUpgrade(new Http2ConnectionHandlerBuilder().server(false).frameListener(
-            new Http2FrameAdapter()).build(), null);
+                new Http2FrameAdapter()).build(), null);
     }
 
     @Test
@@ -43,13 +43,13 @@ public class Http2ClientUpgradeCodecTest {
     @Test
     public void testUpgradeToHttp2MultiplexCodec() throws Exception {
         testUpgrade(Http2MultiplexCodecBuilder.forClient(new HttpInboundHandler())
-            .withUpgradeStreamHandler(new ChannelInboundHandlerAdapter()).build(), null);
+                .withUpgradeStreamHandler(new ChannelInboundHandlerAdapter()).build(), null);
     }
 
     @Test
     public void testUpgradeToHttp2FrameCodecWithMultiplexer() throws Exception {
         testUpgrade(Http2FrameCodecBuilder.forClient().build(),
-            new Http2MultiplexHandler(new HttpInboundHandler(), new HttpInboundHandler()));
+                new Http2MultiplexHandler(new HttpInboundHandler(), new HttpInboundHandler()));
     }
 
     private static void testUpgrade(Http2ConnectionHandler handler, Http2MultiplexHandler multiplexer)
@@ -82,5 +82,6 @@ public class Http2ClientUpgradeCodecTest {
     }
 
     @ChannelHandler.Sharable
-    private static final class HttpInboundHandler extends ChannelInboundHandlerAdapter { }
+    private static final class HttpInboundHandler extends ChannelInboundHandlerAdapter {
+    }
 }

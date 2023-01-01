@@ -23,8 +23,8 @@ import io.netty.util.ReferenceCounted;
 /**
  * Client exception during handshaking process.
  *
- *  <p><b>IMPORTANT</b>: This exception does not contain any {@link ReferenceCounted} fields
- *  e.g. {@link FullHttpResponse}, so no special treatment is needed.
+ * <p><b>IMPORTANT</b>: This exception does not contain any {@link ReferenceCounted} fields
+ * e.g. {@link FullHttpResponse}, so no special treatment is needed.
  */
 public final class WebSocketClientHandshakeException extends WebSocketHandshakeException {
 
@@ -40,7 +40,7 @@ public final class WebSocketClientHandshakeException extends WebSocketHandshakeE
         super(message);
         if (httpResponse != null) {
             response = new DefaultHttpResponse(httpResponse.protocolVersion(),
-                                               httpResponse.status(), httpResponse.headers());
+                    httpResponse.status(), httpResponse.headers());
         } else {
             response = null;
         }

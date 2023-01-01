@@ -48,15 +48,15 @@ public class AbstractChannelPoolMapTest {
         final Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         AbstractChannelPoolMap<EventLoop, SimpleChannelPool> poolMap =
                 new AbstractChannelPoolMap<EventLoop, SimpleChannelPool>() {
-            @Override
-            protected SimpleChannelPool newPool(EventLoop key) {
-                return new SimpleChannelPool(cb.clone(key), new TestChannelPoolHandler());
-            }
-        };
+                    @Override
+                    protected SimpleChannelPool newPool(EventLoop key) {
+                        return new SimpleChannelPool(cb.clone(key), new TestChannelPoolHandler());
+                    }
+                };
 
         EventLoop loop = group.next();
 
@@ -90,7 +90,7 @@ public class AbstractChannelPoolMapTest {
         final Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         AbstractChannelPoolMap<EventLoop, TestPool> poolMap =
                 new AbstractChannelPoolMap<EventLoop, TestPool>() {
@@ -118,7 +118,7 @@ public class AbstractChannelPoolMapTest {
         final Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         AbstractChannelPoolMap<EventLoop, TestPool> poolMap =
                 new AbstractChannelPoolMap<EventLoop, TestPool>() {

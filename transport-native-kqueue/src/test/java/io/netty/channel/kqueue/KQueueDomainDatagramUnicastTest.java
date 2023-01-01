@@ -55,7 +55,7 @@ class KQueueDomainDatagramUnicastTest extends DatagramUnicastTest {
         Channel channel = null;
         try {
             channel = cb.handler(new ChannelInboundHandlerAdapter())
-                        .bind(newSocketAddress()).sync().channel();
+                    .bind(newSocketAddress()).sync().channel();
             assertThat(channel.localAddress()).isNotNull()
                     .isInstanceOf(DomainSocketAddress.class);
         } finally {

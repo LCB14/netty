@@ -22,6 +22,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.EncoderException;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.util.internal.ObjectUtil;
+
 import java.nio.ByteBuffer;
 
 import static io.netty.handler.codec.compression.ZstdConstants.DEFAULT_COMPRESSION_LEVEL;
@@ -30,8 +31,8 @@ import static io.netty.handler.codec.compression.ZstdConstants.MAX_BLOCK_SIZE;
 import static io.netty.handler.codec.compression.ZstdConstants.MAX_COMPRESSION_LEVEL;
 
 /**
- *  Compresses a {@link ByteBuf} using the Zstandard algorithm.
- *  See <a href="https://facebook.github.io/zstd">Zstandard</a>.
+ * Compresses a {@link ByteBuf} using the Zstandard algorithm.
+ * See <a href="https://facebook.github.io/zstd">Zstandard</a>.
  */
 public final class ZstdEncoder extends MessageToByteEncoder<ByteBuf> {
 
@@ -42,7 +43,7 @@ public final class ZstdEncoder extends MessageToByteEncoder<ByteBuf> {
 
     /**
      * Creates a new Zstd encoder.
-     *
+     * <p>
      * Please note that if you use the default constructor, the default BLOCK_SIZE and MAX_BLOCK_SIZE
      * will be used. If you want to specify BLOCK_SIZE and MAX_BLOCK_SIZE yourself,
      * please use {@link ZstdEncoder(int,int)} constructor
@@ -53,8 +54,8 @@ public final class ZstdEncoder extends MessageToByteEncoder<ByteBuf> {
 
     /**
      * Creates a new Zstd encoder.
-     *  @param  compressionLevel
-     *            specifies the level of the compression
+     *
+     * @param compressionLevel specifies the level of the compression
      */
     public ZstdEncoder(int compressionLevel) {
         this(compressionLevel, DEFAULT_BLOCK_SIZE, MAX_BLOCK_SIZE);
@@ -62,22 +63,18 @@ public final class ZstdEncoder extends MessageToByteEncoder<ByteBuf> {
 
     /**
      * Creates a new Zstd encoder.
-     *  @param  blockSize
-     *            is used to calculate the compressionLevel
-     *  @param  maxEncodeSize
-     *            specifies the size of the largest compressed object
+     *
+     * @param blockSize     is used to calculate the compressionLevel
+     * @param maxEncodeSize specifies the size of the largest compressed object
      */
     public ZstdEncoder(int blockSize, int maxEncodeSize) {
         this(DEFAULT_COMPRESSION_LEVEL, blockSize, maxEncodeSize);
     }
 
     /**
-     * @param  blockSize
-     *           is used to calculate the compressionLevel
-     * @param  maxEncodeSize
-     *           specifies the size of the largest compressed object
-     * @param  compressionLevel
-     *           specifies the level of the compression
+     * @param blockSize        is used to calculate the compressionLevel
+     * @param maxEncodeSize    specifies the size of the largest compressed object
+     * @param compressionLevel specifies the level of the compression
      */
     public ZstdEncoder(int compressionLevel, int blockSize, int maxEncodeSize) {
         super(true);

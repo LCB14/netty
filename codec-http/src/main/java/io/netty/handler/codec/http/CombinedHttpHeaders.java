@@ -251,8 +251,7 @@ public class CombinedHttpHeaders extends DefaultHttpHeaders {
 
         private static <T> CharSequence commaSeparate(CharSequence name, CsvValueEscaper<T> escaper,
                                                       Iterable<? extends T> values) {
-            @SuppressWarnings("rawtypes")
-            final StringBuilder sb = values instanceof Collection
+            @SuppressWarnings("rawtypes") final StringBuilder sb = values instanceof Collection
                     ? new StringBuilder(((Collection) values).size() * VALUE_LENGTH_ESTIMATE) : new StringBuilder();
             Iterator<? extends T> iterator = values.iterator();
             if (iterator.hasNext()) {
@@ -282,7 +281,7 @@ public class CombinedHttpHeaders extends DefaultHttpHeaders {
             /**
              * Appends the value to the specified {@link StringBuilder}, escaping if necessary.
              *
-             * @param name the name of the header for the value being escaped
+             * @param name  the name of the header for the value being escaped
              * @param value the value to be appended, escaped if necessary
              */
             CharSequence escape(CharSequence name, T value);

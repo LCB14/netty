@@ -58,7 +58,7 @@ public final class SpdyServer {
         // Configure SSL.
         SelfSignedCertificate ssc = new SelfSignedCertificate();
         SslContext sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
-            .applicationProtocolConfig(new ApplicationProtocolConfig(
+                .applicationProtocolConfig(new ApplicationProtocolConfig(
                         Protocol.NPN,
                         // NO_ADVERTISE is currently the only mode supported by both OpenSsl and JDK providers.
                         SelectorFailureBehavior.NO_ADVERTISE,
@@ -66,7 +66,7 @@ public final class SpdyServer {
                         SelectedListenerFailureBehavior.ACCEPT,
                         ApplicationProtocolNames.SPDY_3_1,
                         ApplicationProtocolNames.HTTP_1_1))
-            .build();
+                .build();
 
         // Configure the server.
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -75,9 +75,9 @@ public final class SpdyServer {
             ServerBootstrap b = new ServerBootstrap();
             b.option(ChannelOption.SO_BACKLOG, 1024);
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new SpdyServerInitializer(sslCtx));
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new SpdyServerInitializer(sslCtx));
 
             Channel ch = b.bind(PORT).sync().channel();
 

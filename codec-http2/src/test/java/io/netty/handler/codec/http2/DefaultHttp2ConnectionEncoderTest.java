@@ -153,25 +153,25 @@ public class DefaultHttp2ConnectionEncoderTest {
         writtenPadding = new ArrayList<Integer>();
         when(writer.writeData(eq(ctx), anyInt(), any(ByteBuf.class), anyInt(), anyBoolean(),
                 any(ChannelPromise.class))).then(new Answer<ChannelFuture>() {
-                    @Override
-                    public ChannelFuture answer(InvocationOnMock in) throws Throwable {
-                        // Make sure we only receive stream closure on the last frame and that void promises
-                        // are used for all writes except the last one.
-                        ChannelPromise promise = (ChannelPromise) in.getArguments()[5];
-                        if (streamClosed) {
-                            fail("Stream already closed");
-                        } else {
-                            streamClosed = (Boolean) in.getArguments()[4];
-                        }
-                        writtenPadding.add((Integer) in.getArguments()[3]);
-                        ByteBuf data = (ByteBuf) in.getArguments()[2];
-                        writtenData.add(data.toString(UTF_8));
-                        // Release the buffer just as DefaultHttp2FrameWriter does
-                        data.release();
-                        // Let the promise succeed to trigger listeners.
-                        return promise.setSuccess();
-                    }
-                });
+            @Override
+            public ChannelFuture answer(InvocationOnMock in) throws Throwable {
+                // Make sure we only receive stream closure on the last frame and that void promises
+                // are used for all writes except the last one.
+                ChannelPromise promise = (ChannelPromise) in.getArguments()[5];
+                if (streamClosed) {
+                    fail("Stream already closed");
+                } else {
+                    streamClosed = (Boolean) in.getArguments()[4];
+                }
+                writtenPadding.add((Integer) in.getArguments()[3]);
+                ByteBuf data = (ByteBuf) in.getArguments()[2];
+                writtenData.add(data.toString(UTF_8));
+                // Release the buffer just as DefaultHttp2FrameWriter does
+                data.release();
+                // Let the promise succeed to trigger listeners.
+                return promise.setSuccess();
+            }
+        });
         when(writer.writeHeaders(eq(ctx), anyInt(), any(Http2Headers.class), anyInt(), anyShort(), anyBoolean(),
                 anyInt(), anyBoolean(), any(ChannelPromise.class)))
                 .then(new Answer<ChannelFuture>() {
@@ -355,7 +355,7 @@ public class DefaultHttp2ConnectionEncoderTest {
     public void writeHeadersUsingVoidPromise() throws Exception {
         final Throwable cause = new RuntimeException("fake exception");
         when(writer.writeHeaders(eq(ctx), eq(STREAM_ID), any(Http2Headers.class),
-                                 anyInt(), anyBoolean(), any(ChannelPromise.class)))
+                anyInt(), anyBoolean(), any(ChannelPromise.class)))
                 .then(new Answer<ChannelFuture>() {
                     @Override
                     public ChannelFuture answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -369,7 +369,7 @@ public class DefaultHttp2ConnectionEncoderTest {
         encoder.writeHeaders(ctx, STREAM_ID, EmptyHttp2Headers.INSTANCE, 0, true, newVoidPromise(channel));
 
         verify(writer).writeHeaders(eq(ctx), eq(STREAM_ID), any(Http2Headers.class),
-                                    anyInt(), anyBoolean(), any(ChannelPromise.class));
+                anyInt(), anyBoolean(), any(ChannelPromise.class));
         // When using a void promise, the error should be propagated via the channel pipeline.
         verify(pipeline).fireExceptionCaught(cause);
     }
@@ -772,13 +772,13 @@ public class DefaultHttp2ConnectionEncoderTest {
         final Throwable ex = new RuntimeException();
         // Fake an encoding error, like HPACK's HeaderListSizeException
         when(writer.writeHeaders(eq(ctx), eq(STREAM_ID), eq(EmptyHttp2Headers.INSTANCE), eq(0), eq(true), eq(promise)))
-            .thenAnswer(new Answer<ChannelFuture>() {
-                @Override
-                public ChannelFuture answer(InvocationOnMock invocation) {
-                    promise.setFailure(ex);
-                    return promise;
-                }
-            });
+                .thenAnswer(new Answer<ChannelFuture>() {
+                    @Override
+                    public ChannelFuture answer(InvocationOnMock invocation) {
+                        promise.setFailure(ex);
+                        return promise;
+                    }
+                });
 
         writeAllFlowControlledFrames();
         Http2Stream stream = createStream(STREAM_ID, false);
@@ -798,13 +798,13 @@ public class DefaultHttp2ConnectionEncoderTest {
         final Throwable ex = new RuntimeException();
         // Fake an encoding error, like HPACK's HeaderListSizeException
         when(writer.writeHeaders(eq(ctx), eq(STREAM_ID), eq(EmptyHttp2Headers.INSTANCE), eq(0), eq(true), eq(promise)))
-            .thenAnswer(new Answer<ChannelFuture>() {
-                @Override
-                public ChannelFuture answer(InvocationOnMock invocation) {
-                    promise.setFailure(ex);
-                    return promise;
-                }
-            });
+                .thenAnswer(new Answer<ChannelFuture>() {
+                    @Override
+                    public ChannelFuture answer(InvocationOnMock invocation) {
+                        promise.setFailure(ex);
+                        return promise;
+                    }
+                });
 
         writeAllFlowControlledFrames();
         encoder.writeHeaders(ctx, STREAM_ID, EmptyHttp2Headers.INSTANCE, 0, true, promise);

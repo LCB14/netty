@@ -44,7 +44,7 @@ class PerMessageDeflateDecoder extends DeflateDecoder {
     /**
      * Constructor
      *
-     * @param noContext true to disable context takeover.
+     * @param noContext              true to disable context takeover.
      * @param extensionDecoderFilter extension decoder for per message deflate decoder.
      */
     PerMessageDeflateDecoder(boolean noContext, WebSocketExtensionFilter extensionDecoderFilter) {
@@ -67,12 +67,12 @@ class PerMessageDeflateDecoder extends DeflateDecoder {
 
         return ((wsFrame instanceof TextWebSocketFrame || wsFrame instanceof BinaryWebSocketFrame) &&
                 (wsFrame.rsv() & WebSocketExtension.RSV1) > 0) ||
-               (wsFrame instanceof ContinuationWebSocketFrame && compressing);
+                (wsFrame instanceof ContinuationWebSocketFrame && compressing);
     }
 
     @Override
     protected int newRsv(WebSocketFrame msg) {
-        return (msg.rsv() & WebSocketExtension.RSV1) > 0?
+        return (msg.rsv() & WebSocketExtension.RSV1) > 0 ?
                 msg.rsv() ^ WebSocketExtension.RSV1 : msg.rsv();
     }
 

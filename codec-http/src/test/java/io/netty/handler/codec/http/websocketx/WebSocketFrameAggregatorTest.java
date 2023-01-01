@@ -35,6 +35,7 @@ public class WebSocketFrameAggregatorTest {
     private static final byte[] content2 = "Content2".getBytes(CharsetUtil.UTF_8);
     private static final byte[] content3 = "Content3".getBytes(CharsetUtil.UTF_8);
     private static final byte[] aggregatedContent = new byte[content1.length + content2.length + content3.length];
+
     static {
         System.arraycopy(content1, 0, aggregatedContent, 0, content1.length);
         System.arraycopy(content2, 0, aggregatedContent, content1.length, content2.length);
@@ -135,7 +136,7 @@ public class WebSocketFrameAggregatorTest {
         }
         channel.writeInbound(new ContinuationWebSocketFrame(false, 0, Unpooled.wrappedBuffer(content2)));
         channel.writeInbound(new ContinuationWebSocketFrame(true, 0, Unpooled.wrappedBuffer(content2)));
-        for (;;) {
+        for (; ; ) {
             Object msg = channel.readInbound();
             if (msg == null) {
                 break;

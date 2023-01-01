@@ -54,7 +54,7 @@ public final class EpollDatagramChannelConfig extends EpollChannelConfig impleme
                 EpollChannelOption.UDP_GRO);
     }
 
-    @SuppressWarnings({ "unchecked", "deprecation" })
+    @SuppressWarnings({"unchecked", "deprecation"})
     @Override
     public <T> T getOption(ChannelOption<T> option) {
         if (option == ChannelOption.SO_BROADCAST) {
@@ -424,7 +424,7 @@ public final class EpollDatagramChannelConfig extends EpollChannelConfig impleme
     /**
      * Set the SO_REUSEPORT option on the underlying Channel. This will allow to bind multiple
      * {@link EpollSocketChannel}s to the same port and so accept connections with multiple threads.
-     *
+     * <p>
      * Be aware this method needs be called before {@link EpollDatagramChannel#bind(java.net.SocketAddress)} to have
      * any affect.
      */
@@ -536,6 +536,7 @@ public final class EpollDatagramChannelConfig extends EpollChannelConfig impleme
 
     /**
      * Enable / disable <a href="https://lwn.net/Articles/768995/">UDP_GRO</a>.
+     *
      * @param gro {@code true} if {@code UDP_GRO} should be enabled, {@code false} otherwise.
      * @return this.
      */
@@ -551,6 +552,7 @@ public final class EpollDatagramChannelConfig extends EpollChannelConfig impleme
 
     /**
      * Returns if {@code UDP_GRO} is enabled.
+     *
      * @return {@code true} if enabled, {@code false} otherwise.
      */
     public boolean isUdpGro() {

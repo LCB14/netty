@@ -53,20 +53,20 @@ public class ServerBootstrapTest {
         try {
             ServerBootstrap sb = new ServerBootstrap();
             sb.channel(LocalServerChannel.class)
-              .group(group)
-              .childHandler(new ChannelInboundHandlerAdapter())
-              .handler(new ChannelHandlerAdapter() {
-                  @Override
-                  public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-                      try {
-                          assertTrue(ctx.executor().inEventLoop());
-                      } catch (Throwable cause) {
-                          error.set(cause);
-                      } finally {
-                          latch.countDown();
-                      }
-                  }
-              });
+                    .group(group)
+                    .childHandler(new ChannelInboundHandlerAdapter())
+                    .handler(new ChannelHandlerAdapter() {
+                        @Override
+                        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+                            try {
+                                assertTrue(ctx.executor().inEventLoop());
+                            } catch (Throwable cause) {
+                                error.set(cause);
+                            } finally {
+                                latch.countDown();
+                            }
+                        }
+                    });
             sb.register().syncUninterruptibly();
             latch.await();
             assertNull(error.get());

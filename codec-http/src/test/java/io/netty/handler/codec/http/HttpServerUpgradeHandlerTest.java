@@ -63,7 +63,7 @@ public class HttpServerUpgradeHandlerTest {
 
             // Add a marker handler to signal that the upgrade has happened
             ctx.pipeline().addAfter(ctx.name(), "marker", new ChannelInboundHandlerAdapter());
-          }
+        }
     }
 
     @Test
@@ -127,10 +127,10 @@ public class HttpServerUpgradeHandlerTest {
         EmbeddedChannel channel = new EmbeddedChannel(testInStackFrame, httpServerCodec, upgradeHandler);
 
         String upgradeString = "GET / HTTP/1.1\r\n" +
-            "Host: example.com\r\n" +
-            "Connection: Upgrade, HTTP2-Settings\r\n" +
-            "Upgrade: nextprotocol\r\n" +
-            "HTTP2-Settings: AAMAAABkAAQAAP__\r\n\r\n";
+                "Host: example.com\r\n" +
+                "Connection: Upgrade, HTTP2-Settings\r\n" +
+                "Upgrade: nextprotocol\r\n" +
+                "HTTP2-Settings: AAMAAABkAAQAAP__\r\n\r\n";
         ByteBuf upgrade = Unpooled.copiedBuffer(upgradeString, CharsetUtil.US_ASCII);
 
         assertFalse(channel.writeInbound(upgrade));
@@ -140,8 +140,8 @@ public class HttpServerUpgradeHandlerTest {
         channel.flushOutbound();
         ByteBuf upgradeMessage = channel.readOutbound();
         String expectedHttpResponse = "HTTP/1.1 101 Switching Protocols\r\n" +
-            "connection: upgrade\r\n" +
-            "upgrade: nextprotocol\r\n\r\n";
+                "connection: upgrade\r\n" +
+                "upgrade: nextprotocol\r\n\r\n";
         assertEquals(expectedHttpResponse, upgradeMessage.toString(CharsetUtil.US_ASCII));
         assertTrue(upgradeMessage.release());
         assertFalse(channel.finishAndReleaseAll());
@@ -168,9 +168,9 @@ public class HttpServerUpgradeHandlerTest {
         EmbeddedChannel channel = new EmbeddedChannel(httpServerCodec, upgradeHandler);
 
         String upgradeString = "GET / HTTP/1.1\r\n" +
-                               "Host: example.com\r\n" +
-                               "Connection: Upgrade\r\n" +
-                               "Upgrade: do-not-upgrade\r\n\r\n";
+                "Host: example.com\r\n" +
+                "Connection: Upgrade\r\n" +
+                "Upgrade: do-not-upgrade\r\n\r\n";
         ByteBuf upgrade = Unpooled.copiedBuffer(upgradeString, CharsetUtil.US_ASCII);
 
         // The upgrade request should not be passed to the next handler without any processing.
@@ -207,8 +207,8 @@ public class HttpServerUpgradeHandlerTest {
 
         // Build a h2c upgrade request, but without connection header.
         String upgradeString = "GET / HTTP/1.1\r\n" +
-                               "Host: example.com\r\n" +
-                               "Upgrade: h2c\r\n\r\n";
+                "Host: example.com\r\n" +
+                "Upgrade: h2c\r\n\r\n";
         ByteBuf upgrade = Unpooled.copiedBuffer(upgradeString, CharsetUtil.US_ASCII);
 
         assertTrue(channel.writeInbound(upgrade));

@@ -85,6 +85,7 @@ public final class RedisArrayAggregator extends MessageToMessageDecoder<RedisMes
     private static final class AggregateState {
         private final int length;
         private final List<RedisMessage> children;
+
         AggregateState(int length) {
             this.length = length;
             this.children = new ArrayList<RedisMessage>(length);

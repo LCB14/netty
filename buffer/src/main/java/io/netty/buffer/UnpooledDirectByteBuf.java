@@ -74,7 +74,7 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
     }
 
     UnpooledDirectByteBuf(ByteBufAllocator alloc, ByteBuffer initialBuffer,
-            int maxCapacity, boolean doFree, boolean slice) {
+                          int maxCapacity, boolean doFree, boolean slice) {
         super(maxCapacity);
         ObjectUtil.checkNotNull(alloc, "alloc");
         ObjectUtil.checkNotNull(initialBuffer, "initialBuffer");
@@ -231,16 +231,16 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
 
     @Override
     protected int _getUnsignedMedium(int index) {
-        return (getByte(index) & 0xff)     << 16 |
-               (getByte(index + 1) & 0xff) << 8  |
-               getByte(index + 2) & 0xff;
+        return (getByte(index) & 0xff) << 16 |
+                (getByte(index + 1) & 0xff) << 8 |
+                getByte(index + 2) & 0xff;
     }
 
     @Override
     protected int _getUnsignedMediumLE(int index) {
-        return getByte(index) & 0xff             |
-               (getByte(index + 1) & 0xff) << 8  |
-               (getByte(index + 2) & 0xff) << 16;
+        return getByte(index) & 0xff |
+                (getByte(index + 1) & 0xff) << 8 |
+                (getByte(index + 2) & 0xff) << 16;
     }
 
     @Override
@@ -281,7 +281,7 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
         if (dst.hasArray()) {
             getBytes(index, dst.array(), dst.arrayOffset() + dstIndex, length);
         } else if (dst.nioBufferCount() > 0) {
-            for (ByteBuffer bb: dst.nioBuffers(dstIndex, length)) {
+            for (ByteBuffer bb : dst.nioBuffers(dstIndex, length)) {
                 int bbLen = bb.remaining();
                 getBytes(index, bb);
                 index += bbLen;
@@ -435,7 +435,7 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
     public ByteBuf setBytes(int index, ByteBuf src, int srcIndex, int length) {
         checkSrcIndex(index, length, srcIndex, src.capacity());
         if (src.nioBufferCount() > 0) {
-            for (ByteBuffer bb: src.nioBuffers(srcIndex, length)) {
+            for (ByteBuffer bb : src.nioBuffers(srcIndex, length)) {
                 int bbLen = bb.remaining();
                 setBytes(index, bb);
                 index += bbLen;
@@ -592,7 +592,7 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
 
     @Override
     public ByteBuffer[] nioBuffers(int index, int length) {
-        return new ByteBuffer[] { nioBuffer(index, length) };
+        return new ByteBuffer[]{nioBuffer(index, length)};
     }
 
     @Override

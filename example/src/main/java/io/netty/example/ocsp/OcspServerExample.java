@@ -126,7 +126,7 @@ public class OcspServerExample {
         }
 
         ReferenceCountedOpenSslContext context
-            = (ReferenceCountedOpenSslContext) SslContextBuilder.forServer(privateKey, keyCertChain)
+                = (ReferenceCountedOpenSslContext) SslContextBuilder.forServer(privateKey, keyCertChain)
                 .sslProvider(SslProvider.OPENSSL)
                 .enableOcsp(true)
                 .build();
@@ -142,7 +142,7 @@ public class OcspServerExample {
     }
 
     private static ChannelInitializer<Channel> newServerHandler(final ReferenceCountedOpenSslContext context,
-            final OCSPResp response) {
+                                                                final OCSPResp response) {
         return new ChannelInitializer<Channel>() {
             @Override
             protected void initChannel(Channel ch) throws Exception {
@@ -150,7 +150,7 @@ public class OcspServerExample {
 
                 if (response != null) {
                     ReferenceCountedOpenSslEngine engine
-                        = (ReferenceCountedOpenSslEngine) sslHandler.engine();
+                            = (ReferenceCountedOpenSslEngine) sslHandler.engine();
 
                     engine.setOcspResponse(response.getEncoded());
                 }
@@ -190,16 +190,16 @@ public class OcspServerExample {
 
         PEMParser parser = new PEMParser(reader);
         try {
-          X509CertificateHolder holder = null;
+            X509CertificateHolder holder = null;
 
-          while ((holder = (X509CertificateHolder) parser.readObject()) != null) {
-            X509Certificate certificate = converter.getCertificate(holder);
-            if (certificate == null) {
-              continue;
+            while ((holder = (X509CertificateHolder) parser.readObject()) != null) {
+                X509Certificate certificate = converter.getCertificate(holder);
+                if (certificate == null) {
+                    continue;
+                }
+
+                dst.add(certificate);
             }
-
-            dst.add(certificate);
-          }
         } finally {
             parser.close();
         }

@@ -76,7 +76,7 @@ final class TCPPacket {
                 flags |= tcpFlag.value;
             }
 
-            return  flags;
+            return flags;
         }
     }
 }

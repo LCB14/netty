@@ -56,7 +56,7 @@ public class HaProxyMessageEncoderTest {
         ByteBuf byteBuf = ch.readOutbound();
 
         assertEquals("PROXY TCP4 192.168.0.1 192.168.0.11 56324 443\r\n",
-                     byteBuf.toString(CharsetUtil.US_ASCII));
+                byteBuf.toString(CharsetUtil.US_ASCII));
 
         byteBuf.release();
         assertFalse(ch.finish());
@@ -74,7 +74,7 @@ public class HaProxyMessageEncoderTest {
         ByteBuf byteBuf = ch.readOutbound();
 
         assertEquals("PROXY TCP6 2001:0db8:85a3:0000:0000:8a2e:0370:7334 1050:0:0:0:5:600:300c:326b 56324 443\r\n",
-                     byteBuf.toString(CharsetUtil.US_ASCII));
+                byteBuf.toString(CharsetUtil.US_ASCII));
 
         byteBuf.release();
         assertFalse(ch.finish());
@@ -111,11 +111,11 @@ public class HaProxyMessageEncoderTest {
 
         // source address
         byte[] sourceAddr = ByteBufUtil.getBytes(byteBuf, 16, 4);
-        assertArrayEquals(new byte[] { (byte) 0xc0, (byte) 0xa8, 0x00, 0x01 }, sourceAddr);
+        assertArrayEquals(new byte[]{(byte) 0xc0, (byte) 0xa8, 0x00, 0x01}, sourceAddr);
 
         // destination address
         byte[] destAddr = ByteBufUtil.getBytes(byteBuf, 20, 4);
-        assertArrayEquals(new byte[] { (byte) 0xc0, (byte) 0xa8, 0x00, 0x0b }, destAddr);
+        assertArrayEquals(new byte[]{(byte) 0xc0, (byte) 0xa8, 0x00, 0x0b}, destAddr);
 
         // source port
         int sourcePort = byteBuf.getUnsignedShort(24);
@@ -160,7 +160,7 @@ public class HaProxyMessageEncoderTest {
 
         // source address
         byte[] sourceAddr = ByteBufUtil.getBytes(byteBuf, 16, 16);
-        assertArrayEquals(new byte[] {
+        assertArrayEquals(new byte[]{
                 (byte) 0x20, (byte) 0x01, 0x0d, (byte) 0xb8,
                 (byte) 0x85, (byte) 0xa3, 0x00, 0x00, 0x00, 0x00, (byte) 0x8a, 0x2e,
                 0x03, 0x70, 0x73, 0x34
@@ -168,7 +168,7 @@ public class HaProxyMessageEncoderTest {
 
         // destination address
         byte[] destAddr = ByteBufUtil.getBytes(byteBuf, 32, 16);
-        assertArrayEquals(new byte[] {
+        assertArrayEquals(new byte[]{
                 (byte) 0x10, (byte) 0x50, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x05, 0x06, 0x00, 0x30, 0x0c, 0x32, 0x6b
         }, destAddr);
@@ -217,12 +217,12 @@ public class HaProxyMessageEncoderTest {
         // source address
         int srcAddrEnd = byteBuf.forEachByte(16, 108, ByteProcessor.FIND_NUL);
         assertEquals("/var/run/src.sock",
-                     byteBuf.slice(16, srcAddrEnd - 16).toString(CharsetUtil.US_ASCII));
+                byteBuf.slice(16, srcAddrEnd - 16).toString(CharsetUtil.US_ASCII));
 
         // destination address
         int dstAddrEnd = byteBuf.forEachByte(124, 108, ByteProcessor.FIND_NUL);
         assertEquals("/var/run/dst.sock",
-                     byteBuf.slice(124, dstAddrEnd - 124).toString(CharsetUtil.US_ASCII));
+                byteBuf.slice(124, dstAddrEnd - 124).toString(CharsetUtil.US_ASCII));
 
         byteBuf.release();
         assertFalse(ch.finish());

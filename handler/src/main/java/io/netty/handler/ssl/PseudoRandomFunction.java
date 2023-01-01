@@ -27,10 +27,10 @@ import java.util.Arrays;
 /**
  * This pseudorandom function (PRF) takes as input a secret, a seed, and
  * an identifying label and produces an output of arbitrary length.
- *
+ * <p>
  * This is used by the TLS RFC to construct/deconstruct an array of bytes into
  * composite secrets.
- *
+ * <p>
  * {@link <a href="https://tools.ietf.org/html/rfc5246">rfc5246</a>}
  */
 final class PseudoRandomFunction {
@@ -44,19 +44,20 @@ final class PseudoRandomFunction {
     /**
      * Use a single hash function to expand a secret and seed into an
      * arbitrary quantity of output.
-     *
+     * <p>
      * P_hash(secret, seed) = HMAC_hash(secret, A(1) + seed) +
-     *                        HMAC_hash(secret, A(2) + seed) +
-     *                        HMAC_hash(secret, A(3) + seed) + ...
+     * HMAC_hash(secret, A(2) + seed) +
+     * HMAC_hash(secret, A(3) + seed) + ...
      * where + indicates concatenation.
      * A() is defined as:
-     *       A(0) = seed
-     *       A(i) = HMAC_hash(secret, A(i-1))
+     * A(0) = seed
+     * A(i) = HMAC_hash(secret, A(i-1))
+     *
      * @param secret The starting secret to use for expansion
-     * @param label An ascii string without a length byte or trailing null character.
-     * @param seed The seed of the hash
+     * @param label  An ascii string without a length byte or trailing null character.
+     * @param seed   The seed of the hash
      * @param length The number of bytes to return
-     * @param algo the hmac algorithm to use
+     * @param algo   the hmac algorithm to use
      * @return The expanded secrets
      * @throws IllegalArgumentException if the algo could not be found.
      */

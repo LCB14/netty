@@ -64,9 +64,8 @@ public final class DefaultDnsServerAddressStreamProvider implements DnsServerAdd
                 Method nameservers = configClass.getMethod("nameservers");
                 Object instance = open.invoke(null);
 
-                @SuppressWarnings("unchecked")
-                final List<String> list = (List<String>) nameservers.invoke(instance);
-                for (String a: list) {
+                @SuppressWarnings("unchecked") final List<String> list = (List<String>) nameservers.invoke(instance);
+                for (String a : list) {
                     if (a != null) {
                         defaultNameServers.add(new InetSocketAddress(SocketUtils.addressByName(a), DNS_PORT));
                     }

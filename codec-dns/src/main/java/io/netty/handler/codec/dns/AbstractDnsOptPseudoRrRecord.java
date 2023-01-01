@@ -20,9 +20,9 @@ import io.netty.util.internal.UnstableApi;
 
 /**
  * An <a href="https://tools.ietf.org/html/rfc6891#section-6.1">OPT RR</a> record.
- *
+ * <p>
  * This is used for <a href="https://tools.ietf.org/html/rfc6891#section-6.1.3">
- *     Extension Mechanisms for DNS (EDNS(0))</a>.
+ * Extension Mechanisms for DNS (EDNS(0))</a>.
  */
 @UnstableApi
 public abstract class AbstractDnsOptPseudoRrRecord extends AbstractDnsRecord implements DnsOptPseudoRecord {
@@ -53,7 +53,7 @@ public abstract class AbstractDnsOptPseudoRrRecord extends AbstractDnsRecord imp
 
     @Override
     public int flags() {
-       return (short) ((short) timeToLive() & 0xff);
+        return (short) ((short) timeToLive() & 0xff);
     }
 
     @Override

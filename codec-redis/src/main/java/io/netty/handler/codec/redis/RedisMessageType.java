@@ -82,18 +82,18 @@ public enum RedisMessageType {
 
     private static RedisMessageType valueOf(byte value) {
         switch (value) {
-        case '+':
-            return SIMPLE_STRING;
-        case '-':
-            return ERROR;
-        case ':':
-            return INTEGER;
-        case '$':
-            return BULK_STRING;
-        case '*':
-            return ARRAY_HEADER;
-        default:
-            return INLINE_COMMAND;
+            case '+':
+                return SIMPLE_STRING;
+            case '-':
+                return ERROR;
+            case ':':
+                return INTEGER;
+            case '$':
+                return BULK_STRING;
+            case '*':
+                return ARRAY_HEADER;
+            default:
+                return INLINE_COMMAND;
         }
     }
 }

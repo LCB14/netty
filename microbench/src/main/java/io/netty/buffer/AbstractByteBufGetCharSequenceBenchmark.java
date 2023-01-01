@@ -68,13 +68,14 @@ public class AbstractByteBufGetCharSequenceBenchmark extends AbstractMicrobenchm
                 return buffer;
             }
         };
+
         abstract ByteBuf newBuffer(byte[] bytes, int length);
     }
 
-    @Param({ "8", "64", "1024", "10240", "1073741824" })
+    @Param({"8", "64", "1024", "10240", "1073741824"})
     public int size;
 
-    @Param({ "US-ASCII", "ISO_8859_1" })
+    @Param({"US-ASCII", "ISO_8859_1"})
     public String charsetName;
 
     @Param
@@ -86,7 +87,7 @@ public class AbstractByteBufGetCharSequenceBenchmark extends AbstractMicrobenchm
     @Override
     protected String[] jvmArgs() {
         // Ensure we minimize the GC overhead by sizing the heap big enough.
-        return new String[] { "-XX:MaxDirectMemorySize=2g", "-Xmx8g", "-Xms8g", "-Xmn6g" };
+        return new String[]{"-XX:MaxDirectMemorySize=2g", "-Xmx8g", "-Xms8g", "-Xmn6g"};
     }
 
     @Setup

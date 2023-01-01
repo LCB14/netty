@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Special {@link Comparator} implementation to sort the nameservers to use when follow redirects.
- *
+ * <p>
  * This implementation follows all the semantics listed in the
  * <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator apidocs</a>
  * with the limitation that {@link InetSocketAddress#equals(Object)} will not result in the same return value as

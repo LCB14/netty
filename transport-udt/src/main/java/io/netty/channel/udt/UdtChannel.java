@@ -38,6 +38,7 @@ public interface UdtChannel extends Channel {
 
     @Override
     InetSocketAddress localAddress();
+
     @Override
     InetSocketAddress remoteAddress();
 

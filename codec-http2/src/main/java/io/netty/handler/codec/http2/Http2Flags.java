@@ -137,7 +137,8 @@ public final class Http2Flags {
 
     /**
      * Generic method to set any flag.
-     * @param on if the flag should be enabled or disabled.
+     *
+     * @param on   if the flag should be enabled or disabled.
      * @param mask the mask that identifies the bit for the flag.
      * @return this instance.
      */
@@ -152,6 +153,7 @@ public final class Http2Flags {
 
     /**
      * Indicates whether or not a particular flag is set.
+     *
      * @param mask the mask identifying the bit for the particular flag being tested
      * @return {@code true} if the flag is set
      */

@@ -79,5 +79,6 @@ public final class UnixTestUtils {
         }
     }
 
-    private UnixTestUtils() { }
+    private UnixTestUtils() {
+    }
 }

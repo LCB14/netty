@@ -166,7 +166,7 @@ public class UDTClientServerConnectionTest {
 
         @Override
         public void exceptionCaught(final ChannelHandlerContext ctx,
-                final Throwable cause) throws Exception {
+                                    final Throwable cause) throws Exception {
             log.warn("Client unexpected exception from downstream.", cause);
             ctx.close();
         }
@@ -317,7 +317,7 @@ public class UDTClientServerConnectionTest {
 
         @Override
         public void exceptionCaught(final ChannelHandlerContext ctx,
-                final Throwable cause) {
+                                    final Throwable cause) {
             log.warn("Server close on exception.", cause);
             ctx.close();
         }
@@ -327,6 +327,7 @@ public class UDTClientServerConnectionTest {
             log.info("Server received: " + msg);
         }
     }
+
     static final Logger log = LoggerFactory
             .getLogger(UDTClientServerConnectionTest.class);
 

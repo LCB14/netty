@@ -51,7 +51,8 @@ final class ReplayingDecoderByteBuf extends ByteBuf {
         EMPTY_BUFFER.terminate();
     }
 
-    ReplayingDecoderByteBuf() { }
+    ReplayingDecoderByteBuf() {
+    }
 
     ReplayingDecoderByteBuf(ByteBuf buffer) {
         setCumulation(buffer);
@@ -919,12 +920,12 @@ final class ReplayingDecoderByteBuf extends ByteBuf {
     @Override
     public String toString() {
         return StringUtil.simpleClassName(this) + '(' +
-               "ridx=" +
-               readerIndex() +
-               ", " +
-               "widx=" +
-               writerIndex() +
-               ')';
+                "ridx=" +
+                readerIndex() +
+                ", " +
+                "widx=" +
+                writerIndex() +
+                ')';
     }
 
     @Override

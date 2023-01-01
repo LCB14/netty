@@ -84,7 +84,7 @@ public final class GlobalEventExecutor extends AbstractScheduledEventExecutor im
      */
     Runnable takeTask() {
         BlockingQueue<Runnable> taskQueue = this.taskQueue;
-        for (;;) {
+        for (; ; ) {
             ScheduledFutureTask<?> scheduledTask = peekScheduledTask();
             if (scheduledTask == null) {
                 Runnable task = null;
@@ -244,7 +244,7 @@ public final class GlobalEventExecutor extends AbstractScheduledEventExecutor im
     final class TaskRunner implements Runnable {
         @Override
         public void run() {
-            for (;;) {
+            for (; ; ) {
                 Runnable task = takeTask();
                 if (task != null) {
                     try {

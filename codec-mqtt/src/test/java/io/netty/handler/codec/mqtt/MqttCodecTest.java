@@ -431,7 +431,7 @@ public class MqttCodecTest {
 
         validateFixedHeaders(message.fixedHeader(), decodedMessage.fixedHeader());
         validateConnectVariableHeader(message.variableHeader(),
-            (MqttConnectVariableHeader) decodedMessage.variableHeader());
+                (MqttConnectVariableHeader) decodedMessage.variableHeader());
         validateDecoderExceptionTooLargeMessage(decodedMessage);
     }
 
@@ -450,7 +450,7 @@ public class MqttCodecTest {
 
         validateFixedHeaders(message.fixedHeader(), decodedMessage.fixedHeader());
         validateConnectVariableHeader(message.variableHeader(),
-            (MqttConnectVariableHeader) decodedMessage.variableHeader());
+                (MqttConnectVariableHeader) decodedMessage.variableHeader());
         validateDecoderExceptionTooLargeMessage(decodedMessage);
     }
 
@@ -485,7 +485,7 @@ public class MqttCodecTest {
 
         validateFixedHeaders(message.fixedHeader(), decodedMessage.fixedHeader());
         validatePublishVariableHeader(message.variableHeader(),
-            (MqttPublishVariableHeader) decodedMessage.variableHeader());
+                (MqttPublishVariableHeader) decodedMessage.variableHeader());
         validateDecoderExceptionTooLargeMessage(decodedMessage);
     }
 
@@ -503,7 +503,7 @@ public class MqttCodecTest {
         final MqttMessage decodedMessage = (MqttMessage) out.get(0);
         validateFixedHeaders(message.fixedHeader(), decodedMessage.fixedHeader());
         validateMessageIdVariableHeader(message.variableHeader(),
-            (MqttMessageIdVariableHeader) decodedMessage.variableHeader());
+                (MqttMessageIdVariableHeader) decodedMessage.variableHeader());
         validateDecoderExceptionTooLargeMessage(decodedMessage);
     }
 
@@ -521,7 +521,7 @@ public class MqttCodecTest {
         final MqttMessage decodedMessage = (MqttMessage) out.get(0);
         validateFixedHeaders(message.fixedHeader(), decodedMessage.fixedHeader());
         validateMessageIdVariableHeader(message.variableHeader(),
-            (MqttMessageIdVariableHeader) decodedMessage.variableHeader());
+                (MqttMessageIdVariableHeader) decodedMessage.variableHeader());
         validateDecoderExceptionTooLargeMessage(decodedMessage);
     }
 
@@ -539,7 +539,7 @@ public class MqttCodecTest {
         final MqttMessage decodedMessage = (MqttMessage) out.get(0);
         validateFixedHeaders(message.fixedHeader(), decodedMessage.fixedHeader());
         validateMessageIdVariableHeader(message.variableHeader(),
-            (MqttMessageIdVariableHeader) decodedMessage.variableHeader());
+                (MqttMessageIdVariableHeader) decodedMessage.variableHeader());
         validateDecoderExceptionTooLargeMessage(decodedMessage);
     }
 
@@ -651,7 +651,7 @@ public class MqttCodecTest {
     public void testSubAckMessageForMqtt5() throws Exception {
         MqttProperties props = new MqttProperties();
         props.add(new MqttProperties.IntegerProperty(PAYLOAD_FORMAT_INDICATOR.value(), 6));
-        final MqttSubAckMessage message = createSubAckMessage(props, new int[] {1, 2, 0, 0x87 /* not authorized */});
+        final MqttSubAckMessage message = createSubAckMessage(props, new int[]{1, 2, 0, 0x87 /* not authorized */});
         ByteBuf byteBuf = MqttEncoder.doEncode(ctx, message);
 
         mqttDecoder.channelRead(ctx, byteBuf);
@@ -664,7 +664,7 @@ public class MqttCodecTest {
                 (MqttMessageIdAndPropertiesVariableHeader) message.variableHeader(),
                 (MqttMessageIdAndPropertiesVariableHeader) decodedMessage.variableHeader());
         validateSubAckPayload(message.payload(), decodedMessage.payload());
-        assertArrayEquals(new Integer[] {1, 2, 0, 0x80},
+        assertArrayEquals(new Integer[]{1, 2, 0, 0x80},
                 decodedMessage.payload().grantedQoSLevels().toArray());
     }
 
@@ -965,7 +965,7 @@ public class MqttCodecTest {
     }
 
     private static MqttSubAckMessage createSubAckMessage() {
-        return createSubAckMessage(MqttProperties.NO_PROPERTIES, new int[] {1, 2, 0});
+        return createSubAckMessage(MqttProperties.NO_PROPERTIES, new int[]{1, 2, 0});
     }
 
     private static MqttSubAckMessage createSubAckMessage(MqttProperties properties, int[] reasonCodes) {
@@ -1063,7 +1063,7 @@ public class MqttCodecTest {
         assertArrayEquals(expected.grantedQoSLevels().toArray(), actual.grantedQoSLevels().toArray());
     }
 
-   private static void validateDecoderExceptionTooLargeMessage(MqttMessage message) {
+    private static void validateDecoderExceptionTooLargeMessage(MqttMessage message) {
         assertNull(message.payload());
         assertTrue(message.decoderResult().isFailure());
         Throwable cause = message.decoderResult().cause();
@@ -1084,7 +1084,7 @@ public class MqttCodecTest {
     }
 
     private void validatePacketIdAndPropertiesVariableHeader(MqttMessageIdAndPropertiesVariableHeader expected,
-                                                              MqttMessageIdAndPropertiesVariableHeader actual) {
+                                                             MqttMessageIdAndPropertiesVariableHeader actual) {
         assertEquals(expected.messageId(), actual.messageId());
         final MqttProperties expectedProps = expected.properties();
         final MqttProperties actualProps = actual.properties();
@@ -1092,7 +1092,7 @@ public class MqttCodecTest {
     }
 
     private void validateReasonCodeAndPropertiesVariableHeader(MqttReasonCodeAndPropertiesVariableHeader expected,
-                                                             MqttReasonCodeAndPropertiesVariableHeader actual) {
+                                                               MqttReasonCodeAndPropertiesVariableHeader actual) {
         assertEquals(expected.reasonCode(), actual.reasonCode());
         final MqttProperties expectedProps = expected.properties();
         final MqttProperties actualProps = actual.properties();

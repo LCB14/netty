@@ -36,7 +36,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
     /**
      * Set the maxSize for this HttpData. When limit will be reached, an exception will be raised.
      * Setting it to (-1) means no limitation.
-     *
+     * <p>
      * By default, to be set from the HttpDataFactory.
      */
     void setMaxSize(long maxSize);
@@ -51,8 +51,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
      * Set the content from the ChannelBuffer (erase any previous data)
      * <p>{@link ByteBuf#release()} ownership of {@code buffer} is transferred to this {@link HttpData}.
      *
-     * @param buffer
-     *            must be not null
+     * @param buffer must be not null
      * @throws IOException
      */
     void setContent(ByteBuf buffer) throws IOException;
@@ -61,10 +60,8 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
      * Add the content from the ChannelBuffer
      * <p>{@link ByteBuf#release()} ownership of {@code buffer} is transferred to this {@link HttpData}.
      *
-     * @param buffer
-     *            must be not null except if last is set to False
-     * @param last
-     *            True of the buffer is the last one
+     * @param buffer must be not null except if last is set to False
+     * @param last   True of the buffer is the last one
      * @throws IOException
      */
     void addContent(ByteBuf buffer, boolean last) throws IOException;
@@ -72,8 +69,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
     /**
      * Set the content from the file (erase any previous data)
      *
-     * @param file
-     *            must be not null
+     * @param file must be not null
      * @throws IOException
      */
     void setContent(File file) throws IOException;
@@ -81,14 +77,12 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
     /**
      * Set the content from the inputStream (erase any previous data)
      *
-     * @param inputStream
-     *            must be not null
+     * @param inputStream must be not null
      * @throws IOException
      */
     void setContent(InputStream inputStream) throws IOException;
 
     /**
-     *
      * @return True if the InterfaceHttpData is completed (all data are stored)
      */
     boolean isCompleted();
@@ -102,13 +96,13 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
 
     /**
      * Returns the defined length of the HttpData.
-     *
+     * <p>
      * If no Content-Length is provided in the request, the defined length is
      * always 0 (whatever during decoding or in final state).
-     *
+     * <p>
      * If Content-Length is provided in the request, this is this given defined length.
      * This value does not change, whatever during decoding or in the final state.
-     *
+     * <p>
      * This method could be used for instance to know the amount of bytes transmitted for
      * one particular HttpData, for example one {@link FileUpload} or any known big {@link Attribute}.
      *
@@ -147,7 +141,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
      * resets the current position to 0.
      *
      * @return a ChannelBuffer for the content from the current position or an
-     *         EMPTY_BUFFER if there is no more data to return
+     * EMPTY_BUFFER if there is no more data to return
      */
     ByteBuf getChunk(int length) throws IOException;
 
@@ -156,7 +150,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
      * character encoding.
      *
      * @return the contents of the file item as a String, using the default
-     *         character encoding.
+     * character encoding.
      * @throws IOException
      */
     String getString() throws IOException;
@@ -165,10 +159,9 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
      * Returns the contents of the file item as a String, using the specified
      * charset.
      *
-     * @param encoding
-     *            the charset to use
+     * @param encoding the charset to use
      * @return the contents of the file item as a String, using the specified
-     *         charset.
+     * charset.
      * @throws IOException
      */
     String getString(Charset encoding) throws IOException;
@@ -176,8 +169,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
     /**
      * Set the Charset passed by the browser if defined
      *
-     * @param charset
-     *            Charset to set - must be not null
+     * @param charset Charset to set - must be not null
      */
     void setCharset(Charset charset);
 
@@ -194,8 +186,7 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
      * the new file will be out of the cleaner of the factory that creates the
      * original InterfaceHttpData object.
      *
-     * @param dest
-     *            destination file - must be not null
+     * @param dest destination file - must be not null
      * @return True if the write is successful
      * @throws IOException
      */
@@ -210,10 +201,8 @@ public interface HttpData extends InterfaceHttpData, ByteBufHolder {
     boolean isInMemory();
 
     /**
-     *
      * @return the associated File if this data is represented in a file
-     * @exception IOException
-     *                if this data is not represented by a file
+     * @throws IOException if this data is not represented by a file
      */
     File getFile() throws IOException;
 

@@ -48,7 +48,7 @@ public final class SniCompletionEvent extends SslCompletionEvent {
     @Override
     public String toString() {
         final Throwable cause = cause();
-        return cause == null ? getClass().getSimpleName() + "(SUCCESS='"  + hostname + "'\")":
-                getClass().getSimpleName() +  '(' + cause + ')';
+        return cause == null ? getClass().getSimpleName() + "(SUCCESS='" + hostname + "'\")" :
+                getClass().getSimpleName() + '(' + cause + ')';
     }
 }

@@ -36,7 +36,7 @@ public class EpollTest {
     // Testcase for https://github.com/netty/netty/issues/8444
     @Test
     @Timeout(value = 5000, unit = TimeUnit.MILLISECONDS)
-    public void testEpollWaitWithTimeOutMinusOne() throws Exception  {
+    public void testEpollWaitWithTimeOutMinusOne() throws Exception {
         final EpollEventArray eventArray = new EpollEventArray(8);
         try {
             final FileDescriptor epoll = Native.newEpollCreate();

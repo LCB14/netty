@@ -76,10 +76,10 @@ public abstract class AbstractSocketReuseFdTest extends AbstractSocketTest {
             @Override
             public void initChannel(Channel sch) {
                 ReuseFdHandler sh = new ReuseFdHandler(
-                    false,
-                    globalException,
-                    serverRemaining,
-                    serverDonePromise);
+                        false,
+                        globalException,
+                        serverRemaining,
+                        serverDonePromise);
                 sch.pipeline().addLast("handler", sh);
             }
         });
@@ -88,10 +88,10 @@ public abstract class AbstractSocketReuseFdTest extends AbstractSocketTest {
             @Override
             public void initChannel(Channel sch) {
                 ReuseFdHandler ch = new ReuseFdHandler(
-                    true,
-                    globalException,
-                    clientRemaining,
-                    clientDonePromise);
+                        true,
+                        globalException,
+                        clientRemaining,
+                        clientDonePromise);
                 sch.pipeline().addLast("handler", ch);
             }
         });
@@ -131,10 +131,10 @@ public abstract class AbstractSocketReuseFdTest extends AbstractSocketTest {
         final StringBuilder received = new StringBuilder();
 
         ReuseFdHandler(
-            boolean client,
-            AtomicReference<Throwable> globalException,
-            AtomicInteger remaining,
-            Promise<Void> donePromise) {
+                boolean client,
+                AtomicReference<Throwable> globalException,
+                AtomicInteger remaining,
+                Promise<Void> donePromise) {
             this.client = client;
             this.globalException = globalException;
             this.remaining = remaining;

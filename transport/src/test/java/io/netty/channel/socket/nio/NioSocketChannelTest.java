@@ -60,7 +60,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 
-
 public class NioSocketChannelTest extends AbstractNioChannelTest<NioSocketChannel> {
 
     /**
@@ -94,7 +93,7 @@ public class NioSocketChannelTest extends AbstractNioChannelTest<NioSocketChanne
 
             InputStream in = s.getInputStream();
             byte[] buf = new byte[8192];
-            for (;;) {
+            for (; ; ) {
                 if (in.read(buf) == -1) {
                     break;
                 }
@@ -133,8 +132,8 @@ public class NioSocketChannelTest extends AbstractNioChannelTest<NioSocketChanne
                 @Override
                 public void channelActive(final ChannelHandlerContext ctx) throws Exception {
                     // Trigger a gathering write by writing two buffers.
-                    ctx.write(Unpooled.wrappedBuffer(new byte[] { 'a' }));
-                    ChannelFuture f = ctx.write(Unpooled.wrappedBuffer(new byte[] { 'b' }));
+                    ctx.write(Unpooled.wrappedBuffer(new byte[]{'a'}));
+                    ChannelFuture f = ctx.write(Unpooled.wrappedBuffer(new byte[]{'b'}));
                     f.addListener(new ChannelFutureListener() {
                         @Override
                         public void operationComplete(ChannelFuture future) throws Exception {
@@ -188,50 +187,50 @@ public class NioSocketChannelTest extends AbstractNioChannelTest<NioSocketChanne
         ServerBootstrap b = new ServerBootstrap();
         try {
             b.group(group)
-             .channel(NioServerSocketChannel.class)
-             .childOption(ChannelOption.SO_KEEPALIVE, true)
-             .childHandler(new ChannelInitializer<Channel>() {
-                 @Override
-                 protected void initChannel(Channel ch) throws Exception {
-                     ChannelPipeline pipeline = ch.pipeline();
-                     pipeline.addLast(new SimpleChannelInboundHandler<ByteBuf>() {
-                         @Override
-                         protected void channelRead0(ChannelHandlerContext ctx, ByteBuf byteBuf) {
-                             // We was able to read something from the Channel after reregister.
-                             latch.countDown();
-                         }
+                    .channel(NioServerSocketChannel.class)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childHandler(new ChannelInitializer<Channel>() {
+                        @Override
+                        protected void initChannel(Channel ch) throws Exception {
+                            ChannelPipeline pipeline = ch.pipeline();
+                            pipeline.addLast(new SimpleChannelInboundHandler<ByteBuf>() {
+                                @Override
+                                protected void channelRead0(ChannelHandlerContext ctx, ByteBuf byteBuf) {
+                                    // We was able to read something from the Channel after reregister.
+                                    latch.countDown();
+                                }
 
-                         @Override
-                         public void channelActive(final ChannelHandlerContext ctx) throws Exception {
-                             final EventLoop loop = group.next();
-                             if (sameEventLoop) {
-                                 deregister(ctx, loop);
-                             } else {
-                                 loop.execute(new Runnable() {
-                                     @Override
-                                     public void run() {
-                                         deregister(ctx, loop);
-                                     }
-                                 });
-                             }
-                         }
+                                @Override
+                                public void channelActive(final ChannelHandlerContext ctx) throws Exception {
+                                    final EventLoop loop = group.next();
+                                    if (sameEventLoop) {
+                                        deregister(ctx, loop);
+                                    } else {
+                                        loop.execute(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                deregister(ctx, loop);
+                                            }
+                                        });
+                                    }
+                                }
 
-                         private void deregister(ChannelHandlerContext ctx, final EventLoop loop) {
-                             // As soon as the channel becomes active re-register it to another
-                             // EventLoop. After this is done we should still receive the data that
-                             // was written to the channel.
-                             ctx.deregister().addListener(new ChannelFutureListener() {
-                                 @Override
-                                 public void operationComplete(ChannelFuture cf) {
-                                     Channel channel = cf.channel();
-                                     assertNotSame(loop, channel.eventLoop());
-                                     group.next().register(channel);
-                                 }
-                             });
-                         }
-                     });
-                 }
-             });
+                                private void deregister(ChannelHandlerContext ctx, final EventLoop loop) {
+                                    // As soon as the channel becomes active re-register it to another
+                                    // EventLoop. After this is done we should still receive the data that
+                                    // was written to the channel.
+                                    ctx.deregister().addListener(new ChannelFutureListener() {
+                                        @Override
+                                        public void operationComplete(ChannelFuture cf) {
+                                            Channel channel = cf.channel();
+                                            assertNotSame(loop, channel.eventLoop());
+                                            group.next().register(channel);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
 
             sc = b.bind(0).syncUninterruptibly().channel();
 

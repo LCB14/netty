@@ -19,7 +19,8 @@ import java.lang.reflect.AccessibleObject;
 
 public final class ReflectionUtil {
 
-    private ReflectionUtil() { }
+    private ReflectionUtil() {
+    }
 
     /**
      * Try to call {@link AccessibleObject#setAccessible(boolean)} but will catch any {@link SecurityException} and

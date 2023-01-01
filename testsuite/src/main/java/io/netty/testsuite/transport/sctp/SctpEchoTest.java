@@ -33,6 +33,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.junit.jupiter.api.TestInfo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -105,7 +106,7 @@ public class SctpEchoTest extends AbstractSctpTest {
         Channel sc = sb.bind().sync().channel();
         Channel cc = cb.connect(sc.localAddress()).sync().channel();
 
-        for (int i = 0; i < data.length;) {
+        for (int i = 0; i < data.length; ) {
             int length = Math.min(random.nextInt(1024 * 64), data.length - i);
             cc.writeAndFlush(Unpooled.wrappedBuffer(data, i, length));
             i += length;

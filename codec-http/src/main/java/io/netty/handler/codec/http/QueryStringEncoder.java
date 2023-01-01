@@ -123,7 +123,7 @@ public class QueryStringEncoder {
         //Don't allocate memory until needed
         char[] buf = null;
 
-        for (int i = 0, len = s.length(); i < len;) {
+        for (int i = 0, len = s.length(); i < len; ) {
             char c = s.charAt(i);
             if (dontNeedEncoding(c)) {
                 uriBuilder.append(c);

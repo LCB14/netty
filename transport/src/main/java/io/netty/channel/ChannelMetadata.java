@@ -30,9 +30,9 @@ public final class ChannelMetadata {
     /**
      * Create a new instance
      *
-     * @param hasDisconnect     {@code true} if and only if the channel has the {@code disconnect()} operation
-     *                          that allows a user to disconnect and then call {@link Channel#connect(SocketAddress)}
-     *                          again, such as UDP/IP.
+     * @param hasDisconnect {@code true} if and only if the channel has the {@code disconnect()} operation
+     *                      that allows a user to disconnect and then call {@link Channel#connect(SocketAddress)}
+     *                      again, such as UDP/IP.
      */
     public ChannelMetadata(boolean hasDisconnect) {
         this(hasDisconnect, 1);
@@ -41,11 +41,11 @@ public final class ChannelMetadata {
     /**
      * Create a new instance
      *
-     * @param hasDisconnect     {@code true} if and only if the channel has the {@code disconnect()} operation
-     *                          that allows a user to disconnect and then call {@link Channel#connect(SocketAddress)}
-     *                          again, such as UDP/IP.
+     * @param hasDisconnect             {@code true} if and only if the channel has the {@code disconnect()} operation
+     *                                  that allows a user to disconnect and then call {@link Channel#connect(SocketAddress)}
+     *                                  again, such as UDP/IP.
      * @param defaultMaxMessagesPerRead If a {@link MaxMessagesRecvByteBufAllocator} is in use, then this value will be
-     * set for {@link MaxMessagesRecvByteBufAllocator#maxMessagesPerRead()}. Must be {@code > 0}.
+     *                                  set for {@link MaxMessagesRecvByteBufAllocator#maxMessagesPerRead()}. Must be {@code > 0}.
      */
     public ChannelMetadata(boolean hasDisconnect, int defaultMaxMessagesPerRead) {
         checkPositive(defaultMaxMessagesPerRead, "defaultMaxMessagesPerRead");

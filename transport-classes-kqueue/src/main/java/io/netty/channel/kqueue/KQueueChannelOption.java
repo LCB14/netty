@@ -33,7 +33,7 @@ public final class KQueueChannelOption<T> extends UnixChannelOption<T> {
     public static final ChannelOption<Boolean> RCV_ALLOC_TRANSPORT_PROVIDES_GUESS =
             valueOf(KQueueChannelOption.class, "RCV_ALLOC_TRANSPORT_PROVIDES_GUESS");
 
-    @SuppressWarnings({ "unused", "deprecation" })
+    @SuppressWarnings({"unused", "deprecation"})
     private KQueueChannelOption() {
     }
 }

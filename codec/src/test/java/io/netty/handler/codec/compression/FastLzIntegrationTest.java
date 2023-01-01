@@ -66,7 +66,7 @@ public class FastLzIntegrationTest extends AbstractIntegrationTest {
     @Override   // test batched flow of data
     protected void testIdentity(final byte[] data, boolean heapBuffer) {
         initChannels();
-        final ByteBuf original = heapBuffer? Unpooled.wrappedBuffer(data) :
+        final ByteBuf original = heapBuffer ? Unpooled.wrappedBuffer(data) :
                 Unpooled.directBuffer(data.length).writeBytes(data);
         final CompositeByteBuf compressed = Unpooled.compositeBuffer();
         final CompositeByteBuf decompressed = Unpooled.compositeBuffer();

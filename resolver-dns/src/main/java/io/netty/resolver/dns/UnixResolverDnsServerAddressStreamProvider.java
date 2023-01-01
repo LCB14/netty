@@ -72,7 +72,7 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
             UnixResolverDnsServerAddressStreamProvider nameServerCache =
                     new UnixResolverDnsServerAddressStreamProvider(ETC_RESOLV_CONF_FILE, ETC_RESOLVER_DIR);
             return nameServerCache.mayOverrideNameServers() ? nameServerCache
-                                                            : DefaultDnsServerAddressStreamProvider.INSTANCE;
+                    : DefaultDnsServerAddressStreamProvider.INSTANCE;
         } catch (Exception e) {
             if (logger.isDebugEnabled()) {
                 logger.debug("failed to parse {} and/or {}", ETC_RESOLV_CONF_FILE, ETC_RESOLVER_DIR, e);
@@ -87,11 +87,12 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
      * <a href="
      * https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/resolver.5.html">
      * /etc/resolver</a> which may contain multiple files to override the name servers used for multiple domains.
-     * @param etcResolvConf <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a>.
+     *
+     * @param etcResolvConf    <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a>.
      * @param etcResolverFiles List of files of the format defined in
-     * <a href="
-     * https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/resolver.5.html">
-     * /etc/resolver</a>.
+     *                         <a href="
+     *                         https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/resolver.5.html">
+     *                         /etc/resolver</a>.
      * @throws IOException If an error occurs while parsing the input files.
      */
     public UnixResolverDnsServerAddressStreamProvider(File etcResolvConf, File... etcResolverFiles) throws IOException {
@@ -122,21 +123,22 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
      * <a href="
      * https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/resolver.5.html">
      * /etc/resolver</a> which may contain multiple files to override the name servers used for multiple domains.
-     * @param etcResolvConf <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a>.
+     *
+     * @param etcResolvConf  <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a>.
      * @param etcResolverDir Directory containing files of the format defined in
-     * <a href="
-     * https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/resolver.5.html">
-     * /etc/resolver</a>.
+     *                       <a href="
+     *                       https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man5/resolver.5.html">
+     *                       /etc/resolver</a>.
      * @throws IOException If an error occurs while parsing the input files.
      */
     public UnixResolverDnsServerAddressStreamProvider(String etcResolvConf, String etcResolverDir) throws IOException {
         this(etcResolvConf == null ? null : new File(etcResolvConf),
-             etcResolverDir == null ? null : new File(etcResolverDir).listFiles());
+                etcResolverDir == null ? null : new File(etcResolverDir).listFiles());
     }
 
     @Override
     public DnsServerAddressStream nameServerAddressStream(String hostname) {
-        for (;;) {
+        for (; ; ) {
             int i = hostname.indexOf('.', 1);
             if (i < 0 || i == hostname.length() - 1) {
                 return defaultNameServerAddresses.stream();
@@ -257,8 +259,8 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
                                     boolean rotate) {
         // TODO(scott): sortlist is being ignored.
         DnsServerAddresses addrs = rotate
-            ? DnsServerAddresses.rotational(addresses)
-            : DnsServerAddresses.sequential(addresses);
+                ? DnsServerAddresses.rotational(addresses)
+                : DnsServerAddresses.sequential(addresses);
         putIfAbsent(domainToNameServerStreamMap, domainName, addrs);
     }
 
@@ -278,6 +280,7 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
     /**
      * Parse <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a> and return options of interest, namely:
      * timeout, attempts and ndots.
+     *
      * @return The options values provided by /etc/resolve.conf.
      * @throws IOException If a failure occurs parsing the file.
      */
@@ -288,6 +291,7 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
     /**
      * Parse a file of the format <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a> and return options
      * of interest, namely: timeout, attempts and ndots.
+     *
      * @param etcResolvConf a file of the format <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a>.
      * @return The options values provided by /etc/resolve.conf.
      * @throws IOException If a failure occurs parsing the file.
@@ -347,6 +351,7 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
     /**
      * Parse a file of the format <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a> and return the
      * list of search domains found in it or an empty list if not found.
+     *
      * @return List of search domains.
      * @throws IOException If a failure occurs parsing the file.
      */
@@ -357,6 +362,7 @@ public final class UnixResolverDnsServerAddressStreamProvider implements DnsServ
     /**
      * Parse a file of the format <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a> and return the
      * list of search domains found in it or an empty list if not found.
+     *
      * @param etcResolvConf a file of the format <a href="https://linux.die.net/man/5/resolver">/etc/resolv.conf</a>.
      * @return List of search domains.
      * @throws IOException If a failure occurs parsing the file.

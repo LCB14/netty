@@ -284,7 +284,7 @@ public class DefaultHttpHeadersTest {
                 .names();
 
         String[] namesArray = nettyHeaders.toArray(EmptyArrays.EMPTY_STRINGS);
-        assertArrayEquals(namesArray, new String[] { HttpHeaderNames.CONTENT_LENGTH.toString() });
+        assertArrayEquals(namesArray, new String[]{HttpHeaderNames.CONTENT_LENGTH.toString()});
     }
 
     private static void assertDefaultValues(final DefaultHttpHeaders headers, final HeaderValue headerValue) {

@@ -148,8 +148,7 @@ public class EpollServerChannelConfig extends EpollChannelConfig implements Serv
      * effect. This has to be set before doing listen on the socket otherwise this takes no effect.
      *
      * @param pendingFastOpenRequestsThreshold number of requests to be pending for fastopen at a given point in time
-     * for security.
-     *
+     *                                         for security.
      * @see <a href="https://tools.ietf.org/html/rfc7413#appendix-A.2">RFC 7413 Passive Open</a>
      */
     public EpollServerChannelConfig setTcpFastopen(int pendingFastOpenRequestsThreshold) {

@@ -51,19 +51,19 @@ final class Socks4ProxyServer extends ProxyServer {
     protected void configure(SocketChannel ch) throws Exception {
         ChannelPipeline p = ch.pipeline();
         switch (testMode) {
-        case INTERMEDIARY:
-            p.addLast(new Socks4ServerDecoder());
-            p.addLast(Socks4ServerEncoder.INSTANCE);
-            p.addLast(new Socks4IntermediaryHandler());
-            break;
-        case TERMINAL:
-            p.addLast(new Socks4ServerDecoder());
-            p.addLast(Socks4ServerEncoder.INSTANCE);
-            p.addLast(new Socks4TerminalHandler());
-            break;
-        case UNRESPONSIVE:
-            p.addLast(UnresponsiveHandler.INSTANCE);
-            break;
+            case INTERMEDIARY:
+                p.addLast(new Socks4ServerDecoder());
+                p.addLast(Socks4ServerEncoder.INSTANCE);
+                p.addLast(new Socks4IntermediaryHandler());
+                break;
+            case TERMINAL:
+                p.addLast(new Socks4ServerDecoder());
+                p.addLast(Socks4ServerEncoder.INSTANCE);
+                p.addLast(new Socks4TerminalHandler());
+                break;
+            case UNRESPONSIVE:
+                p.addLast(UnresponsiveHandler.INSTANCE);
+                break;
         }
     }
 
@@ -124,7 +124,7 @@ final class Socks4ProxyServer extends ProxyServer {
             if (!authzSuccess) {
                 res = new DefaultSocks4CommandResponse(Socks4CommandStatus.IDENTD_AUTH_FAILURE);
             } else if (!req.dstAddr().equals(destination.getHostString()) ||
-                       req.dstPort() != destination.getPort()) {
+                    req.dstPort() != destination.getPort()) {
                 res = new DefaultSocks4CommandResponse(Socks4CommandStatus.REJECTED_OR_FAILED);
             } else {
                 res = new DefaultSocks4CommandResponse(Socks4CommandStatus.SUCCESS);

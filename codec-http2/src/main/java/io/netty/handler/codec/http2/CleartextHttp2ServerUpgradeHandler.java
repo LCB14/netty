@@ -49,10 +49,10 @@ public final class CleartextHttp2ServerUpgradeHandler extends ByteToMessageDecod
      * Creates the channel handler provide cleartext HTTP/2 upgrade from HTTP
      * upgrade or prior knowledge
      *
-     * @param httpServerCodec the http server codec
+     * @param httpServerCodec          the http server codec
      * @param httpServerUpgradeHandler the http server upgrade handler for HTTP/2
-     * @param http2ServerHandler the http2 server handler, will be added into pipeline
-     *                           when starting HTTP/2 by prior knowledge
+     * @param http2ServerHandler       the http2 server handler, will be added into pipeline
+     *                                 when starting HTTP/2 by prior knowledge
      */
     public CleartextHttp2ServerUpgradeHandler(HttpServerCodec httpServerCodec,
                                               HttpServerUpgradeHandler httpServerUpgradeHandler,

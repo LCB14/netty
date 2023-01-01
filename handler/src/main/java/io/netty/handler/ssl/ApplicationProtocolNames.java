@@ -55,5 +55,6 @@ public final class ApplicationProtocolNames {
      */
     public static final String SPDY_1 = "spdy/1";
 
-    private ApplicationProtocolNames() { }
+    private ApplicationProtocolNames() {
+    }
 }

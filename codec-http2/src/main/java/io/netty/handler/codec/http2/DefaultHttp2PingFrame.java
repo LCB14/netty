@@ -58,7 +58,7 @@ public class DefaultHttp2PingFrame implements Http2PingFrame {
             return false;
         }
         Http2PingFrame other = (Http2PingFrame) o;
-        return ack == other.ack() &&  content == other.content();
+        return ack == other.ack() && content == other.content();
     }
 
     @Override

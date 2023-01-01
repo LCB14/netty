@@ -74,7 +74,7 @@ public class DnsResponseTest {
     @Test
     public void readResponseTest() {
         EmbeddedChannel embedder = new EmbeddedChannel(new DatagramDnsResponseDecoder());
-        for (byte[] p: packets) {
+        for (byte[] p : packets) {
             ByteBuf packet = embedder.alloc().buffer(512).writeBytes(p);
             embedder.writeInbound(new DatagramPacket(packet, null, new InetSocketAddress(0)));
             AddressedEnvelope<DnsResponse, InetSocketAddress> envelope = embedder.readInbound();

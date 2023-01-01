@@ -35,7 +35,8 @@ final class ThreadLocalInsecureRandom extends SecureRandom {
         return INSTANCE;
     }
 
-    private ThreadLocalInsecureRandom() { }
+    private ThreadLocalInsecureRandom() {
+    }
 
     @Override
     public String getAlgorithm() {
@@ -43,10 +44,12 @@ final class ThreadLocalInsecureRandom extends SecureRandom {
     }
 
     @Override
-    public void setSeed(byte[] seed) { }
+    public void setSeed(byte[] seed) {
+    }
 
     @Override
-    public void setSeed(long seed) { }
+    public void setSeed(long seed) {
+    }
 
     @Override
     public void nextBytes(byte[] bytes) {

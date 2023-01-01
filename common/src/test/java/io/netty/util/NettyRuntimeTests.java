@@ -36,7 +36,7 @@ public class NettyRuntimeTests {
     @Test
     public void testIllegalSet() {
         final NettyRuntime.AvailableProcessorsHolder holder = new NettyRuntime.AvailableProcessorsHolder();
-        for (final int i : new int[] { -1, 0 }) {
+        for (final int i : new int[]{-1, 0}) {
             try {
                 holder.setAvailableProcessors(i);
                 fail();

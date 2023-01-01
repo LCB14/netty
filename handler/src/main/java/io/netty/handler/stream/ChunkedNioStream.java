@@ -105,7 +105,7 @@ public class ChunkedNioStream implements ChunkedInput<ByteBuf> {
         }
         // buffer cannot be not be empty from there
         int readBytes = byteBuffer.position();
-        for (;;) {
+        for (; ; ) {
             int localReadBytes = in.read(byteBuffer);
             if (localReadBytes < 0) {
                 break;

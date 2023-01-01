@@ -135,5 +135,6 @@ public final class HttpHeadersTestUtils {
         return s;
     }
 
-    private HttpHeadersTestUtils() { }
+    private HttpHeadersTestUtils() {
+    }
 }

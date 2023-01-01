@@ -63,13 +63,13 @@ public class HttpRequestEncoderBenchmark extends AbstractMicrobenchmark {
     private ByteBuf content;
     private ChannelHandlerContext context;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean pooledAllocator;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean voidPromise;
 
-    @Param({ "false", "true" })
+    @Param({"false", "true"})
     public boolean typePollution;
 
     @Setup(Level.Trial)

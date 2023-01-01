@@ -141,10 +141,10 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.add(of("foo2"), of("goo2"));
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET")).path(new AsciiString("/example"))
-                .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("http"))
-                .add(new AsciiString("foo"), new AsciiString("goo"))
-                .add(new AsciiString("foo"), new AsciiString("goo2"))
-                .add(new AsciiString("foo2"), new AsciiString("goo2"));
+                        .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("http"))
+                        .add(new AsciiString("foo"), new AsciiString("goo"))
+                        .add(new AsciiString("foo"), new AsciiString("goo2"))
+                        .add(new AsciiString("foo2"), new AsciiString("goo2"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -185,10 +185,10 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpHeaderNames.COOKIE, "a=b; c=d; e=f");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET")).path(new AsciiString("/example"))
-                .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("http"))
-                .add(HttpHeaderNames.COOKIE, "a=b")
-                .add(HttpHeaderNames.COOKIE, "c=d")
-                .add(HttpHeaderNames.COOKIE, "e=f");
+                        .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("http"))
+                        .add(HttpHeaderNames.COOKIE, "a=b")
+                        .add(HttpHeaderNames.COOKIE, "c=d")
+                        .add(HttpHeaderNames.COOKIE, "e=f");
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -203,8 +203,8 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "http");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET"))
-                .path(new AsciiString("/where?q=now&f=then#section1"))
-                .scheme(new AsciiString("http"));
+                        .path(new AsciiString("/where?q=now&f=then#section1"))
+                        .scheme(new AsciiString("http"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -220,8 +220,8 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "http");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET"))
-                                         .path(new AsciiString("/where%2B0?q=now%2B0&f=then%2B0#section1%2B0"))
-                                         .scheme(new AsciiString("http"));
+                        .path(new AsciiString("/where%2B0?q=now%2B0&f=then%2B0#section1%2B0"))
+                        .scheme(new AsciiString("http"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -238,8 +238,8 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "https");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET"))
-                .path(new AsciiString("/pub/WWW/TheProject.html"))
-                .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("https"));
+                        .path(new AsciiString("/pub/WWW/TheProject.html"))
+                        .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("https"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -254,8 +254,8 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.setInt(HttpConversionUtil.ExtensionHeaderNames.STREAM_ID.text(), 5);
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET"))
-                .path(new AsciiString("/pub/WWW/TheProject.html"))
-                .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("http"));
+                        .path(new AsciiString("/pub/WWW/TheProject.html"))
+                        .authority(new AsciiString("www.example.org:5555")).scheme(new AsciiString("http"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -269,7 +269,7 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.setInt(HttpConversionUtil.ExtensionHeaderNames.STREAM_ID.text(), 5);
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("CONNECT")).path(new AsciiString("/"))
-                .scheme(new AsciiString("http")).authority(new AsciiString("www.example.com:80"));
+                        .scheme(new AsciiString("http")).authority(new AsciiString("www.example.com:80"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -285,7 +285,7 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "http");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("OPTIONS")).path(new AsciiString("*"))
-                .scheme(new AsciiString("http")).authority(new AsciiString("www.example.com:80"));
+                        .scheme(new AsciiString("http")).authority(new AsciiString("www.example.com:80"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -303,7 +303,7 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "http");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET")).path(new AsciiString("/"))
-                .scheme(new AsciiString("http")).authority(new AsciiString("[::1]:80"));
+                        .scheme(new AsciiString("http")).authority(new AsciiString("[::1]:80"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -319,7 +319,7 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "http");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET")).path(new AsciiString("/"))
-                .scheme(new AsciiString("http")).authority(new AsciiString("localhost:80"));
+                        .scheme(new AsciiString("http")).authority(new AsciiString("localhost:80"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -335,7 +335,7 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.set(HttpConversionUtil.ExtensionHeaderNames.SCHEME.text(), "http");
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("GET")).path(new AsciiString("/"))
-                .scheme(new AsciiString("http")).authority(new AsciiString("1.2.3.4:80"));
+                        .scheme(new AsciiString("http")).authority(new AsciiString("1.2.3.4:80"));
 
         ChannelPromise writePromise = newPromise();
         verifyHeadersOnly(http2Headers, writePromise, clientChannel.writeAndFlush(request, writePromise));
@@ -405,10 +405,10 @@ public class HttpToHttp2ConnectionHandlerTest {
         httpHeaders.add(of("foo2"), of("goo2"));
         final Http2Headers http2Headers =
                 new DefaultHttp2Headers().method(new AsciiString("POST")).path(new AsciiString("/example"))
-                .authority(new AsciiString("www.example-origin.org:5555")).scheme(new AsciiString("http"))
-                .add(new AsciiString("foo"), new AsciiString("goo"))
-                .add(new AsciiString("foo"), new AsciiString("goo2"))
-                .add(new AsciiString("foo2"), new AsciiString("goo2"));
+                        .authority(new AsciiString("www.example-origin.org:5555")).scheme(new AsciiString("http"))
+                        .add(new AsciiString("foo"), new AsciiString("goo"))
+                        .add(new AsciiString("foo"), new AsciiString("goo2"))
+                        .add(new AsciiString("foo2"), new AsciiString("goo2"));
         ChannelPromise writePromise = newPromise();
         ChannelFuture writeFuture = clientChannel.writeAndFlush(request, writePromise);
 
@@ -568,10 +568,10 @@ public class HttpToHttp2ConnectionHandlerTest {
                 serverFrameCountDown =
                         new FrameCountDown(serverListener, serverSettingsAckLatch, requestLatch, null, trailersLatch);
                 p.addLast(new HttpToHttp2ConnectionHandlerBuilder()
-                           .server(true)
-                           .frameListener(serverFrameCountDown)
-                           .httpScheme(HttpScheme.HTTP)
-                           .build());
+                        .server(true)
+                        .frameListener(serverFrameCountDown)
+                        .httpScheme(HttpScheme.HTTP)
+                        .build());
                 serverChannelLatch.countDown();
             }
         });

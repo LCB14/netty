@@ -419,7 +419,7 @@ public class DefaultPromiseTest {
 
     private static void testStackOverFlowChainedFuturesA(EventExecutor executor, final Promise<Void>[] p,
                                                          final CountDownLatch latch) {
-        for (int i = 0; i < p.length; i ++) {
+        for (int i = 0; i < p.length; i++) {
             final int finalI = i;
             p[i] = new DefaultPromise<Void>(executor);
             p[i].addListener(new FutureListener<Void>() {
@@ -461,7 +461,7 @@ public class DefaultPromiseTest {
 
     private static void testStackOverFlowChainedFuturesB(EventExecutor executor, final Promise<Void>[] p,
                                                          final CountDownLatch latch) {
-        for (int i = 0; i < p.length; i ++) {
+        for (int i = 0; i < p.length; i++) {
             final int finalI = i;
             p[i] = new DefaultPromise<Void>(executor);
             p[i].addListener(new FutureListener<Void>() {
@@ -612,7 +612,7 @@ public class DefaultPromiseTest {
         });
 
         assertTrue(latch.await(5, TimeUnit.SECONDS),
-            "Should have notified " + expectedCount + " listeners");
+                "Should have notified " + expectedCount + " listeners");
         executor.shutdownGracefully().sync();
     }
 
@@ -623,7 +623,7 @@ public class DefaultPromiseTest {
 
         @Override
         protected void run() {
-            for (;;) {
+            for (; ; ) {
                 Runnable task = takeTask();
                 if (task != null) {
                     task.run();

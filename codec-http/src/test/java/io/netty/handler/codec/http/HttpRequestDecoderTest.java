@@ -63,7 +63,7 @@ public class HttpRequestDecoderTest {
                 "Sec-WebSocket-Key1: 10  28 8V7 8 48     0" + lineDelimiter2 +
                 "Sec-WebSocket-Key2: 8 Xt754O3Q3QW 0   _60" + lineDelimiter +
                 "Content-Length: " + CONTENT_LENGTH + lineDelimiter2 +
-                "\r\n"  +
+                "\r\n" +
                 "12345678").getBytes(CharsetUtil.US_ASCII);
     }
 
@@ -142,10 +142,10 @@ public class HttpRequestDecoderTest {
         int headerLength = content.length - CONTENT_LENGTH;
 
         // split up the header
-        for (int a = 0; a < headerLength;) {
+        for (int a = 0; a < headerLength; ) {
             int amount = fragmentSize;
             if (a + amount > headerLength) {
-                amount = headerLength -  a;
+                amount = headerLength - a;
             }
 
             // if header is done it should produce an HttpRequest
@@ -153,7 +153,7 @@ public class HttpRequestDecoderTest {
             a += amount;
         }
 
-        for (int i = CONTENT_LENGTH; i > 0; i --) {
+        for (int i = CONTENT_LENGTH; i > 0; i--) {
             // Should produce HttpContent
             channel.writeInbound(Unpooled.copiedBuffer(content, content.length - i, 1));
         }
@@ -162,7 +162,7 @@ public class HttpRequestDecoderTest {
         assertNotNull(req);
         checkHeaders(req.headers());
 
-        for (int i = CONTENT_LENGTH; i > 1; i --) {
+        for (int i = CONTENT_LENGTH; i > 1; i--) {
             HttpContent c = channel.readInbound();
             assertEquals(1, c.content().readableBytes());
             assertEquals(content[content.length - i], c.content().readByte());
@@ -182,7 +182,7 @@ public class HttpRequestDecoderTest {
     public void testMultiLineHeader() {
         EmbeddedChannel channel = new EmbeddedChannel(new HttpRequestDecoder());
         String crlf = "\r\n";
-        String request =  "GET /some/path HTTP/1.1" + crlf +
+        String request = "GET /some/path HTTP/1.1" + crlf +
                 "Host: localhost" + crlf +
                 "MyTestHeader: part1" + crlf +
                 "              newLinePart2" + crlf +
@@ -205,7 +205,7 @@ public class HttpRequestDecoderTest {
     public void testEmptyHeaderValue() {
         EmbeddedChannel channel = new EmbeddedChannel(new HttpRequestDecoder());
         String crlf = "\r\n";
-        String request =  "GET /some/path HTTP/1.1" + crlf +
+        String request = "GET /some/path HTTP/1.1" + crlf +
                 "Host: localhost" + crlf +
                 "EmptyHeader:" + crlf + crlf;
         channel.writeInbound(Unpooled.copiedBuffer(request, CharsetUtil.US_ASCII));
@@ -219,8 +219,8 @@ public class HttpRequestDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(decoder);
         String oversized =
                 "PUT /file HTTP/1.1\r\n" +
-                "Expect: 100-continue\r\n" +
-                "Content-Length: 1048576000\r\n\r\n";
+                        "Expect: 100-continue\r\n" +
+                        "Content-Length: 1048576000\r\n\r\n";
 
         channel.writeInbound(Unpooled.copiedBuffer(oversized, CharsetUtil.US_ASCII));
         assertThat(channel.readInbound(), is(instanceOf(HttpRequest.class)));
@@ -243,9 +243,9 @@ public class HttpRequestDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(decoder);
         String oversized =
                 "PUT /file HTTP/1.1\r\n" +
-                "Expect: 100-continue\r\n" +
-                "Content-Length: 1048576000\r\n\r\n" +
-                "WAY_TOO_LARGE_DATA_BEGINS";
+                        "Expect: 100-continue\r\n" +
+                        "Content-Length: 1048576000\r\n\r\n" +
+                        "WAY_TOO_LARGE_DATA_BEGINS";
 
         channel.writeInbound(Unpooled.copiedBuffer(oversized, CharsetUtil.US_ASCII));
         assertThat(channel.readInbound(), is(instanceOf(HttpRequest.class)));
@@ -337,7 +337,7 @@ public class HttpRequestDecoderTest {
     public void testInitialLineWithLeadingControlChars() {
         EmbeddedChannel channel = new EmbeddedChannel(new HttpRequestDecoder());
         String crlf = "\r\n";
-        String request =  crlf + "GET /some/path HTTP/1.1" + crlf +
+        String request = crlf + "GET /some/path HTTP/1.1" + crlf +
                 "Host: localhost" + crlf + crlf;
         assertTrue(channel.writeInbound(Unpooled.copiedBuffer(request, CharsetUtil.US_ASCII)));
         HttpRequest req = channel.readInbound();

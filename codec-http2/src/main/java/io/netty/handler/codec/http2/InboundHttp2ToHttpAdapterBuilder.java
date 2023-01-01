@@ -60,6 +60,6 @@ public final class InboundHttp2ToHttpAdapterBuilder
                                               boolean propagateSettings) throws Exception {
 
         return new InboundHttp2ToHttpAdapter(connection, maxContentLength,
-                                             validateHttpHeaders, propagateSettings);
+                validateHttpHeaders, propagateSettings);
     }
 }

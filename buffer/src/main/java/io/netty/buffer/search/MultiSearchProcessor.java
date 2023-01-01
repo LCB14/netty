@@ -16,6 +16,7 @@ package io.netty.buffer.search;
 
 /**
  * Interface for {@link SearchProcessor} that implements simultaneous search for multiple strings.
+ *
  * @see MultiSearchProcessorFactory
  */
 public interface MultiSearchProcessor extends SearchProcessor {

@@ -30,11 +30,11 @@ public final class Zstd {
 
         try {
             Class.forName("com.github.luben.zstd.Zstd", false,
-                PlatformDependent.getClassLoader(Zstd.class));
+                    PlatformDependent.getClassLoader(Zstd.class));
         } catch (ClassNotFoundException e) {
             t = e;
             logger.debug(
-                "zstd-jni not in the classpath; Zstd support will be unavailable.");
+                    "zstd-jni not in the classpath; Zstd support will be unavailable.");
         } catch (Throwable e) {
             t = e;
             logger.debug("Failed to load zstd-jni; Zstd support will be unavailable.", t);
@@ -44,7 +44,6 @@ public final class Zstd {
     }
 
     /**
-     *
      * @return true when zstd-jni is in the classpath
      * and native library is available on this platform and could be loaded
      */
@@ -54,8 +53,9 @@ public final class Zstd {
 
     /**
      * Throws when zstd support is missing from the classpath or is unavailable on this platform
+     *
      * @throws Throwable a ClassNotFoundException if zstd-jni is missing
-     * or a ExceptionInInitializerError if zstd native lib can't be loaded
+     *                   or a ExceptionInInitializerError if zstd native lib can't be loaded
      */
     public static void ensureAvailability() throws Throwable {
         if (cause != null) {

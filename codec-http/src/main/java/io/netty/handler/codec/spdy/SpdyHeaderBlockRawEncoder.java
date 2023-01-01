@@ -54,13 +54,13 @@ public class SpdyHeaderBlockRawEncoder extends SpdyHeaderBlockEncoder {
         }
         ByteBuf headerBlock = alloc.heapBuffer();
         writeLengthField(headerBlock, numHeaders);
-        for (CharSequence name: names) {
+        for (CharSequence name : names) {
             writeLengthField(headerBlock, name.length());
             ByteBufUtil.writeAscii(headerBlock, name);
             int savedIndex = headerBlock.writerIndex();
             int valueLength = 0;
             writeLengthField(headerBlock, valueLength);
-            for (CharSequence value: frame.headers().getAll(name)) {
+            for (CharSequence value : frame.headers().getAll(name)) {
                 int length = value.length();
                 if (length > 0) {
                     ByteBufUtil.writeAscii(headerBlock, value);
@@ -69,7 +69,7 @@ public class SpdyHeaderBlockRawEncoder extends SpdyHeaderBlockEncoder {
                 }
             }
             if (valueLength != 0) {
-                valueLength --;
+                valueLength--;
             }
             if (valueLength > SPDY_MAX_NV_LENGTH) {
                 throw new IllegalArgumentException(

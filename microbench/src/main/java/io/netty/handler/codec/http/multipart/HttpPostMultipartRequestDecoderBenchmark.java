@@ -52,14 +52,14 @@ public class HttpPostMultipartRequestDecoderBenchmark
         String data = stringBuilder.toString();
 
         byte[] bodyStartBytes = ("--" + BOUNDARY + "\n" +
-                                 "Content-Disposition: form-data; name=\"msg_id\"\n\n15200\n--" +
-                                 BOUNDARY +
-                                 "\nContent-Disposition: form-data; name=\"msg1\"; filename=\"file1.txt\"\n\n" +
-                                 data).getBytes(CharsetUtil.UTF_8);
+                "Content-Disposition: form-data; name=\"msg_id\"\n\n15200\n--" +
+                BOUNDARY +
+                "\nContent-Disposition: form-data; name=\"msg1\"; filename=\"file1.txt\"\n\n" +
+                data).getBytes(CharsetUtil.UTF_8);
         byte[] bodyPartBigBytes = data.getBytes(CharsetUtil.UTF_8);
         byte[] intermediaryBytes = ("\n--" + BOUNDARY +
-                                    "\nContent-Disposition: form-data; name=\"msg2\"; filename=\"file2.txt\"\n\n" +
-                                    data).getBytes(CharsetUtil.UTF_8);
+                "\nContent-Disposition: form-data; name=\"msg2\"; filename=\"file2.txt\"\n\n" +
+                data).getBytes(CharsetUtil.UTF_8);
         byte[] finalBigBytes = ("\n" + "--" + BOUNDARY + "--\n").getBytes(CharsetUtil.UTF_8);
         ByteBuf firstBuf = Unpooled.wrappedBuffer(bodyStartBytes);
         ByteBuf finalBuf = Unpooled.wrappedBuffer(finalBigBytes);
@@ -72,12 +72,12 @@ public class HttpPostMultipartRequestDecoderBenchmark
         DefaultHttpRequest req =
                 new DefaultHttpRequest(HttpVersion.HTTP_1_0, HttpMethod.POST, "/up");
         req.headers().add(HttpHeaderNames.CONTENT_TYPE,
-                          "multipart/form-data; boundary=" + BOUNDARY);
+                "multipart/form-data; boundary=" + BOUNDARY);
 
         long start = System.nanoTime();
 
         DefaultHttpDataFactory defaultHttpDataFactory =
-                new DefaultHttpDataFactory(noDisk? 1024 * 1024 : 16 * 1024);
+                new DefaultHttpDataFactory(noDisk ? 1024 * 1024 : 16 * 1024);
         HttpPostRequestDecoder decoder =
                 new HttpPostRequestDecoder(defaultHttpDataFactory, req);
         firstBuf.retain();

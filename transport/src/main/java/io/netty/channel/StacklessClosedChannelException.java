@@ -26,7 +26,8 @@ final class StacklessClosedChannelException extends ClosedChannelException {
 
     private static final long serialVersionUID = -2214806025529435136L;
 
-    private StacklessClosedChannelException() { }
+    private StacklessClosedChannelException() {
+    }
 
     @Override
     public Throwable fillInStackTrace() {

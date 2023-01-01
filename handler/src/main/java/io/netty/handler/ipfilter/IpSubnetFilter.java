@@ -42,14 +42,13 @@ import java.util.List;
  * </p>
  *
  * <p>
- *     Few Points to keep in mind:
+ * Few Points to keep in mind:
  *     <ol>
  *         <li> Since {@link IpSubnetFilter} uses Binary search algorithm, it's a good
  *         idea to insert IP addresses in incremental order. </li>
  *         <li> Remove any over-lapping CIDR.  </li>
  *     </ol>
  * </p>
- *
  */
 @Sharable
 public class IpSubnetFilter extends AbstractRemoteAddressFilter<InetSocketAddress> {

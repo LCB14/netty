@@ -40,16 +40,12 @@ public class WebSocketServerHandshaker07 extends WebSocketServerHandshaker {
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param subprotocols
-     *            CSV of supported protocols
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                              Subsequent web socket frames will be sent to this URL.
+     * @param subprotocols          CSV of supported protocols
+     * @param allowExtensions       Allow extensions to be used in the reserved bits of the web socket frame
+     * @param maxFramePayloadLength Maximum allowable frame payload length. Setting this value to your application's
+     *                              requirement may reduce denial of service attacks using long data frames.
      */
     public WebSocketServerHandshaker07(
             String webSocketURL, String subprotocols, boolean allowExtensions, int maxFramePayloadLength) {
@@ -59,35 +55,29 @@ public class WebSocketServerHandshaker07 extends WebSocketServerHandshaker {
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param subprotocols
-     *            CSV of supported protocols
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                              Subsequent web socket frames will be sent to this URL.
+     * @param subprotocols          CSV of supported protocols
+     * @param allowExtensions       Allow extensions to be used in the reserved bits of the web socket frame
+     * @param maxFramePayloadLength Maximum allowable frame payload length. Setting this value to your application's
+     *                              requirement may reduce denial of service attacks using long data frames.
+     * @param allowMaskMismatch     When set to true, frames which are not masked properly according to the standard will still be
+     *                              accepted.
      */
     public WebSocketServerHandshaker07(
             String webSocketURL, String subprotocols, boolean allowExtensions, int maxFramePayloadLength,
             boolean allowMaskMismatch) {
         this(webSocketURL, subprotocols, WebSocketDecoderConfig.newBuilder()
-            .allowExtensions(allowExtensions)
-            .maxFramePayloadLength(maxFramePayloadLength)
-            .allowMaskMismatch(allowMaskMismatch)
-            .build());
+                .allowExtensions(allowExtensions)
+                .maxFramePayloadLength(maxFramePayloadLength)
+                .allowMaskMismatch(allowMaskMismatch)
+                .build());
     }
 
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param decoderConfig
-     *            Frames decoder configuration.
+     * @param decoderConfig Frames decoder configuration.
      */
     public WebSocketServerHandshaker07(String webSocketURL, String subprotocols, WebSocketDecoderConfig decoderConfig) {
         super(WebSocketVersion.V07, webSocketURL, subprotocols, decoderConfig);
@@ -150,8 +140,8 @@ public class WebSocketServerHandshaker07 extends WebSocketServerHandshaker {
         }
 
         res.headers().set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
-                     .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
-                     .set(HttpHeaderNames.SEC_WEBSOCKET_ACCEPT, accept);
+                .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_ACCEPT, accept);
 
         String subprotocols = req.headers().get(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL);
         if (subprotocols != null) {

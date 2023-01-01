@@ -31,10 +31,10 @@ final class DefaultFutureListeners {
         listeners[1] = second;
         size = 2;
         if (first instanceof GenericProgressiveFutureListener) {
-            progressiveSize ++;
+            progressiveSize++;
         }
         if (second instanceof GenericProgressiveFutureListener) {
-            progressiveSize ++;
+            progressiveSize++;
         }
     }
 
@@ -48,24 +48,24 @@ final class DefaultFutureListeners {
         this.size = size + 1;
 
         if (l instanceof GenericProgressiveFutureListener) {
-            progressiveSize ++;
+            progressiveSize++;
         }
     }
 
     public void remove(GenericFutureListener<? extends Future<?>> l) {
         final GenericFutureListener<? extends Future<?>>[] listeners = this.listeners;
         int size = this.size;
-        for (int i = 0; i < size; i ++) {
+        for (int i = 0; i < size; i++) {
             if (listeners[i] == l) {
                 int listenersToMove = size - i - 1;
                 if (listenersToMove > 0) {
                     System.arraycopy(listeners, i + 1, listeners, i, listenersToMove);
                 }
-                listeners[-- size] = null;
+                listeners[--size] = null;
                 this.size = size;
 
                 if (l instanceof GenericProgressiveFutureListener) {
-                    progressiveSize --;
+                    progressiveSize--;
                 }
                 return;
             }

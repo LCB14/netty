@@ -68,7 +68,7 @@ public class IdleStateHandlerTest {
     }
 
     private static void anyIdle(TestableIdleStateHandler idleStateHandler, Object... expected) throws Exception {
-        assertThat(expected.length,  greaterThanOrEqualTo(1));
+        assertThat(expected.length, greaterThanOrEqualTo(1));
 
         final List<Object> events = new ArrayList<Object>();
         ChannelInboundHandlerAdapter handler = new ChannelInboundHandlerAdapter() {
@@ -232,9 +232,9 @@ public class IdleStateHandlerTest {
         ObservableChannel channel = new ObservableChannel(idleStateHandler, handler);
         try {
             // We're writing 3 messages that will be consumed at different rates!
-            channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[] { 1 }));
-            channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[] { 2 }));
-            channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[] { 3 }));
+            channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{1}));
+            channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{2}));
+            channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{3}));
             channel.writeAndFlush(Unpooled.wrappedBuffer(new byte[5 * 1024]));
 
             // Establish a baseline. We're not consuming anything and let it idle once.
@@ -342,8 +342,8 @@ public class IdleStateHandlerTest {
         private long ticksInNanos;
 
         TestableIdleStateHandler(boolean observeOutput,
-                long readerIdleTime, long writerIdleTime, long allIdleTime,
-                TimeUnit unit) {
+                                 long readerIdleTime, long writerIdleTime, long allIdleTime,
+                                 TimeUnit unit) {
             super(observeOutput, readerIdleTime, writerIdleTime, allIdleTime, unit);
         }
 

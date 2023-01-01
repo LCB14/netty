@@ -294,7 +294,7 @@ public class HttpHeaderValidationUtilTest {
             if (i == 0x7F || i < 0x21 && (i != ' ' || i != '\t')) {
                 continue;
             }
-            list.add(new AsciiString(new byte[] {'a', (byte) i}));
+            list.add(new AsciiString(new byte[]{'a', (byte) i}));
         }
 
         return list;
@@ -562,7 +562,7 @@ public class HttpHeaderValidationUtilTest {
     @ParameterizedTest
     @MethodSource("validTokenChars")
     void allTokenCharsAreValidFirstCharHeaderName(char tokenChar) {
-        AsciiString asciiString = new AsciiString(new byte[] {(byte) tokenChar, 'a'});
+        AsciiString asciiString = new AsciiString(new byte[]{(byte) tokenChar, 'a'});
         CharSequence charSequence = asCharSequence(asciiString);
         String string = tokenChar + "a";
 
@@ -574,7 +574,7 @@ public class HttpHeaderValidationUtilTest {
     @ParameterizedTest
     @MethodSource("validTokenChars")
     void allTokenCharsAreValidSecondCharHeaderName(char tokenChar) {
-        AsciiString asciiString = new AsciiString(new byte[] {'a', (byte) tokenChar});
+        AsciiString asciiString = new AsciiString(new byte[]{'a', (byte) tokenChar});
         CharSequence charSequence = asCharSequence(asciiString);
         String string = "a" + tokenChar;
 

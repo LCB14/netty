@@ -22,5 +22,6 @@ final class StompConstants {
     static final byte NUL = 0;
     static final byte COLON = 58;
 
-    private StompConstants() { }
+    private StompConstants() {
+    }
 }

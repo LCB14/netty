@@ -54,20 +54,20 @@ public class WebSocketFrame08DecoderBenchmark extends AbstractMicrobenchmark {
     private ChannelHandlerContext context;
 
     private ByteBuf websocketFrame;
-    @Param({ "0", "2", "4", "8", "32", "100", "1000", "3000" })
+    @Param({"0", "2", "4", "8", "32", "100", "1000", "3000"})
     public int contentLength;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean pooledAllocator;
 
-    @Param({ "true" })
+    @Param({"true"})
     public boolean masking;
 
     @Setup(Level.Trial)
     public void setUp() {
         byte[] bytes = new byte[contentLength];
         ThreadLocalRandom.current().nextBytes(bytes);
-        ByteBufAllocator allocator = pooledAllocator? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT;
+        ByteBufAllocator allocator = pooledAllocator ? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT;
         ByteBuf testContent = allocator.buffer(contentLength).writeBytes(bytes);
 
         EmbeddedChannel channel = new EmbeddedChannel(new WebSocket08FrameEncoder(masking));

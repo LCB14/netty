@@ -27,10 +27,10 @@ public class Socks4CommandType implements Comparable<Socks4CommandType> {
 
     public static Socks4CommandType valueOf(byte b) {
         switch (b) {
-        case 0x01:
-            return CONNECT;
-        case 0x02:
-            return BIND;
+            case 0x01:
+                return CONNECT;
+            case 0x02:
+                return BIND;
         }
 
         return new Socks4CommandType(b);

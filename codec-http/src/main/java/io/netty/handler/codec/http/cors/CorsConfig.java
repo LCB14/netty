@@ -101,7 +101,7 @@ public final class CorsConfig {
     /**
      * Web browsers may set the 'Origin' request header to 'null' if a resource is loaded
      * from the local file system.
-     *
+     * <p>
      * If isNullOriginAllowed is true then the server will response with the wildcard for
      * the CORS response header 'Access-Control-Allow-Origin'.
      *
@@ -115,7 +115,7 @@ public final class CorsConfig {
      * Web browsers may set the 'Access-Control-Request-Private-Network' request header if a resource is loaded
      * from a local network.
      * By default direct access to private network endpoints from public websites is not allowed.
-     *
+     * <p>
      * If isPrivateNetworkAllowed is true the server will response with the CORS response header
      * 'Access-Control-Request-Private-Network'.
      *
@@ -127,7 +127,7 @@ public final class CorsConfig {
 
     /**
      * Returns a set of headers to be exposed to calling clients.
-     *
+     * <p>
      * During a simple CORS request only certain response headers are made available by the
      * browser, for example using:
      * <pre>
@@ -153,11 +153,11 @@ public final class CorsConfig {
 
     /**
      * Determines if cookies are supported for CORS requests.
-     *
+     * <p>
      * By default cookies are not included in CORS requests but if isCredentialsAllowed returns
      * true cookies will be added to CORS requests. Setting this value to true will set the
      * CORS 'Access-Control-Allow-Credentials' response header to true.
-     *
+     * <p>
      * Please note that cookie support needs to be enabled on the client side as well.
      * The client needs to opt-in to send cookies by calling:
      * <pre>
@@ -174,7 +174,7 @@ public final class CorsConfig {
 
     /**
      * Gets the maxAge setting.
-     *
+     * <p>
      * When making a preflight request the client has to perform two request with can be inefficient.
      * This setting will set the CORS 'Access-Control-Max-Age' response header and enables the
      * caching of the preflight response for the specified time. During this time no preflight
@@ -198,7 +198,7 @@ public final class CorsConfig {
 
     /**
      * Returns the allowed set of Request Headers.
-     *
+     * <p>
      * The header names returned from this method will be used to set the CORS
      * 'Access-Control-Allow-Headers' response header.
      *
@@ -232,7 +232,7 @@ public final class CorsConfig {
     /**
      * Determines whether a CORS request should be rejected if it's invalid before being
      * further processing.
-     *
+     * <p>
      * CORS headers are set after a request is processed. This may not always be desired
      * and this setting will check that the Origin is valid and if it is not valid no
      * further processing will take place, and an error will be returned to the calling client.

@@ -64,14 +64,14 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  */
 @UnstableApi
 public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http2LifecycleManager,
-                                                                            ChannelOutboundHandler {
+        ChannelOutboundHandler {
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(Http2ConnectionHandler.class);
 
     private static final Http2Headers HEADERS_TOO_LARGE_HEADERS = ReadOnlyHttp2Headers.serverHeaders(false,
             HttpResponseStatus.REQUEST_HEADER_FIELDS_TOO_LARGE.codeAsText());
     private static final ByteBuf HTTP_1_X_BUF = Unpooled.unreleasableBuffer(
-        Unpooled.wrappedBuffer(new byte[] {'H', 'T', 'T', 'P', '/', '1', '.'})).asReadOnly();
+            Unpooled.wrappedBuffer(new byte[]{'H', 'T', 'T', 'P', '/', '1', '.'})).asReadOnly();
 
     private final Http2ConnectionDecoder decoder;
     private final Http2ConnectionEncoder encoder;
@@ -117,13 +117,14 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
     /**
      * Set the amount of time (in milliseconds) this endpoint will wait for all streams to be closed before closing
      * the connection during the graceful shutdown process.
+     *
      * @param gracefulShutdownTimeoutMillis the amount of time (in milliseconds) this endpoint will wait for all
-     * streams to be closed before closing the connection during the graceful shutdown process.
+     *                                      streams to be closed before closing the connection during the graceful shutdown process.
      */
     public void gracefulShutdownTimeoutMillis(long gracefulShutdownTimeoutMillis) {
         if (gracefulShutdownTimeoutMillis < -1) {
             throw new IllegalArgumentException("gracefulShutdownTimeoutMillis: " + gracefulShutdownTimeoutMillis +
-                                               " (expected: -1 for indefinite or >= 0)");
+                    " (expected: -1 for indefinite or >= 0)");
         }
         this.gracefulShutdownTimeoutMillis = gracefulShutdownTimeoutMillis;
     }
@@ -167,6 +168,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
 
     /**
      * Handles the server-side (cleartext) upgrade from HTTP to HTTP/2.
+     *
      * @param settings the settings for the remote endpoint.
      */
     public void onHttpServerUpgrade(Http2Settings settings) throws Http2Exception {
@@ -204,8 +206,12 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
 
     private abstract class BaseDecoder {
         public abstract void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception;
-        public void handlerRemoved(ChannelHandlerContext ctx) throws Exception { }
-        public void channelActive(ChannelHandlerContext ctx) throws Exception { }
+
+        public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        }
+
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        }
 
         public void channelInactive(ChannelHandlerContext ctx) throws Exception {
             // Connection has terminated, close the encoder and decoder.
@@ -295,7 +301,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
          * Decodes the client connection preface string from the input buffer.
          *
          * @return {@code true} if processing of the client preface string is complete. Since client preface strings can
-         *         only be received by servers, returns true immediately for client endpoints.
+         * only be received by servers, returns true immediately for client endpoints.
          */
         private boolean readClientPrefaceString(ByteBuf in) throws Http2Exception {
             if (clientPrefaceString == null) {
@@ -307,19 +313,19 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
 
             // If the input so far doesn't match the preface, break the connection.
             if (bytesRead == 0 || !ByteBufUtil.equals(in, in.readerIndex(),
-                                                      clientPrefaceString, clientPrefaceString.readerIndex(),
-                                                      bytesRead)) {
+                    clientPrefaceString, clientPrefaceString.readerIndex(),
+                    bytesRead)) {
                 int maxSearch = 1024; // picked because 512 is too little, and 2048 too much
                 int http1Index =
-                    ByteBufUtil.indexOf(HTTP_1_X_BUF, in.slice(in.readerIndex(), min(in.readableBytes(), maxSearch)));
+                        ByteBufUtil.indexOf(HTTP_1_X_BUF, in.slice(in.readerIndex(), min(in.readableBytes(), maxSearch)));
                 if (http1Index != -1) {
                     String chunk = in.toString(in.readerIndex(), http1Index - in.readerIndex(), CharsetUtil.US_ASCII);
                     throw connectionError(PROTOCOL_ERROR, "Unexpected HTTP/1.x request: %s", chunk);
                 }
                 String receivedBytes = hexDump(in, in.readerIndex(),
-                                               min(in.readableBytes(), clientPrefaceString.readableBytes()));
+                        min(in.readableBytes(), clientPrefaceString.readableBytes()));
                 throw connectionError(PROTOCOL_ERROR, "HTTP/2 client preface string missing or corrupt. " +
-                                                      "Hex dump for received bytes: %s", receivedBytes);
+                        "Hex dump for received bytes: %s", receivedBytes);
             }
             in.skipBytes(bytesRead);
             clientPrefaceString.skipBytes(bytesRead);
@@ -351,8 +357,8 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
             short flags = in.getUnsignedByte(in.readerIndex() + 4);
             if (frameType != SETTINGS || (flags & Http2Flags.ACK) != 0) {
                 throw connectionError(PROTOCOL_ERROR, "First received frame was not SETTINGS. " +
-                                                      "Hex dump for first 5 bytes: %s",
-                                      hexDump(in, in.readerIndex(), 5));
+                                "Hex dump for first 5 bytes: %s",
+                        hexDump(in, in.readerIndex(), 5));
             }
             return true;
         }
@@ -671,11 +677,11 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
      * Handler for a connection error. Sends a GO_AWAY frame to the remote endpoint. Once all
      * streams are closed, the connection is shut down.
      *
-     * @param ctx the channel context
+     * @param ctx      the channel context
      * @param outbound {@code true} if the error was caused by an outbound operation.
-     * @param cause the exception that was caught
-     * @param http2Ex the {@link Http2Exception} that is embedded in the causality chain. This may
-     *            be {@code null} if it's an unknown exception.
+     * @param cause    the exception that was caught
+     * @param http2Ex  the {@link Http2Exception} that is embedded in the causality chain. This may
+     *                 be {@code null} if it's an unknown exception.
      */
     protected void onConnectionError(ChannelHandlerContext ctx, boolean outbound,
                                      Throwable cause, Http2Exception http2Ex) {
@@ -696,10 +702,10 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
      * Handler for a stream error. Sends a {@code RST_STREAM} frame to the remote endpoint and closes the
      * stream.
      *
-     * @param ctx the channel context
+     * @param ctx      the channel context
      * @param outbound {@code true} if the error was caused by an outbound operation.
-     * @param cause the exception that was caught
-     * @param http2Ex the {@link StreamException} that is embedded in the causality chain.
+     * @param cause    the exception that was caught
+     * @param http2Ex  the {@link StreamException} that is embedded in the causality chain.
      */
     protected void onStreamError(ChannelHandlerContext ctx, boolean outbound,
                                  @SuppressWarnings("unused") Throwable cause, StreamException http2Ex) {
@@ -708,8 +714,8 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
 
         //if this is caused by reading headers that are too large, send a header with status 431
         if (http2Ex instanceof Http2Exception.HeaderListSizeException &&
-            ((Http2Exception.HeaderListSizeException) http2Ex).duringDecode() &&
-            connection().isServer()) {
+                ((Http2Exception.HeaderListSizeException) http2Ex).duringDecode() &&
+                connection().isServer()) {
 
             // NOTE We have to check to make sure that a stream exists before we send our reply.
             // We likely always create the stream below as the stream isn't created until the
@@ -749,7 +755,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
      * Notifies client that this server has received headers that are larger than what it is
      * willing to accept. Override to change behavior.
      *
-     * @param ctx the channel context
+     * @param ctx    the channel context
      * @param stream the Http2Stream on which the header was received
      */
     protected void handleServerHeaderDecodeSizeError(ChannelHandlerContext ctx, Http2Stream stream) {
@@ -789,7 +795,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
             return resetUnknownStream(ctx, streamId, errorCode, promise.unvoid());
         }
 
-       return resetStream(ctx, stream, errorCode, promise);
+        return resetStream(ctx, stream, errorCode, promise);
     }
 
     private ChannelFuture resetStream(final ChannelHandlerContext ctx, final Http2Stream stream,
@@ -810,7 +816,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
         // If the remote peer is not aware of the steam, then we are not allowed to send a RST_STREAM
         // https://tools.ietf.org/html/rfc7540#section-6.4.
         if (stream.state() == IDLE ||
-            connection().local().created(stream) && !stream.isHeadersSent() && !stream.isPushPromiseSent()) {
+                connection().local().created(stream) && !stream.isHeadersSent() && !stream.isPushPromiseSent()) {
             future = promise.setSuccess();
         } else {
             future = frameWriter().writeRstStream(ctx, stream.id(), errorCode, promise);
@@ -867,6 +873,7 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
 
     /**
      * Closes the connection if the graceful shutdown process has completed.
+     *
      * @param future Represents the status that will be passed to the {@link #closeListener}.
      */
     private void checkCloseConnection(ChannelFuture future) {
@@ -933,16 +940,16 @@ public class Http2ConnectionHandler extends ByteToMessageDecoder implements Http
                 if (errorCode != NO_ERROR.code()) {
                     if (logger.isDebugEnabled()) {
                         logger.debug("{} Sent GOAWAY: lastStreamId '{}', errorCode '{}', " +
-                                     "debugData '{}'. Forcing shutdown of the connection.",
-                                     ctx.channel(), lastStreamId, errorCode, debugData.toString(UTF_8), future.cause());
+                                        "debugData '{}'. Forcing shutdown of the connection.",
+                                ctx.channel(), lastStreamId, errorCode, debugData.toString(UTF_8), future.cause());
                     }
                     ctx.close();
                 }
             } else {
                 if (logger.isDebugEnabled()) {
                     logger.debug("{} Sending GOAWAY failed: lastStreamId '{}', errorCode '{}', " +
-                                 "debugData '{}'. Forcing shutdown of the connection.",
-                                 ctx.channel(), lastStreamId, errorCode, debugData.toString(UTF_8), future.cause());
+                                    "debugData '{}'. Forcing shutdown of the connection.",
+                            ctx.channel(), lastStreamId, errorCode, debugData.toString(UTF_8), future.cause());
                 }
                 ctx.close();
             }

@@ -61,7 +61,7 @@ public class CustomReporter extends AbstractPollingReporter implements
      * it to print to STDOUT with the specified period and unrestricted output.
      */
     public static void enable(final MetricsRegistry metricsRegistry,
-            final long period, final TimeUnit unit) {
+                              final long period, final TimeUnit unit) {
         final CustomReporter reporter = new CustomReporter(
                 metricsRegistry, System.out, MetricPredicate.ALL);
         reporter.start(period, unit);
@@ -85,7 +85,7 @@ public class CustomReporter extends AbstractPollingReporter implements
      * Creates a new {@link CustomReporter} for a given metrics registry.
      */
     public CustomReporter(final MetricsRegistry metricsRegistry,
-            final PrintStream out, final MetricPredicate predicate) {
+                          final PrintStream out, final MetricPredicate predicate) {
         this(metricsRegistry, out, predicate, Clock.defaultClock(), TimeZone
                 .getDefault());
     }
@@ -94,8 +94,8 @@ public class CustomReporter extends AbstractPollingReporter implements
      * Creates a new {@link CustomReporter} for a given metrics registry.
      */
     public CustomReporter(final MetricsRegistry metricsRegistry,
-            final PrintStream out, final MetricPredicate predicate,
-            final Clock clock, final TimeZone timeZone) {
+                          final PrintStream out, final MetricPredicate predicate,
+                          final Clock clock, final TimeZone timeZone) {
         this(metricsRegistry, out, predicate, clock, timeZone, Locale
                 .getDefault());
     }
@@ -104,8 +104,8 @@ public class CustomReporter extends AbstractPollingReporter implements
      * Creates a new {@link CustomReporter} for a given metrics registry.
      */
     public CustomReporter(final MetricsRegistry metricsRegistry,
-            final PrintStream out, final MetricPredicate predicate,
-            final Clock clock, final TimeZone timeZone, final Locale locale) {
+                          final PrintStream out, final MetricPredicate predicate,
+                          final Clock clock, final TimeZone timeZone, final Locale locale) {
         super(metricsRegistry, "console-reporter");
         this.out = out;
         this.predicate = predicate;
@@ -151,19 +151,19 @@ public class CustomReporter extends AbstractPollingReporter implements
 
     @Override
     public void processGauge(final MetricName name, final Gauge<?> gauge,
-            final PrintStream stream) {
+                             final PrintStream stream) {
         stream.printf(locale, "    value = %s\n", gauge.value());
     }
 
     @Override
     public void processCounter(final MetricName name, final Counter counter,
-            final PrintStream stream) {
+                               final PrintStream stream) {
         stream.printf(locale, "    count = %,d\n", counter.count());
     }
 
     @Override
     public void processMeter(final MetricName name, final Metered meter,
-            final PrintStream stream) {
+                             final PrintStream stream) {
         final String unit = abbrev(meter.rateUnit());
         stream.printf(locale, "             count = %,d\n", meter.count());
         stream.printf(locale, "         mean rate = %,2.2f %s/%s\n",
@@ -178,7 +178,7 @@ public class CustomReporter extends AbstractPollingReporter implements
 
     @Override
     public void processHistogram(final MetricName name,
-            final Histogram histogram, final PrintStream stream) {
+                                 final Histogram histogram, final PrintStream stream) {
         final Snapshot snapshot = histogram.getSnapshot();
         stream.printf(locale, "               min = %,2.2f\n", histogram.min());
         stream.printf(locale, "               max = %,2.2f\n", histogram.max());
@@ -201,7 +201,7 @@ public class CustomReporter extends AbstractPollingReporter implements
 
     @Override
     public void processTimer(final MetricName name, final Timer timer,
-            final PrintStream stream) {
+                             final PrintStream stream) {
         processMeter(name, timer, stream);
         final String durationUnit = abbrev(timer.durationUnit());
         final Snapshot snapshot = timer.getSnapshot();
@@ -229,22 +229,22 @@ public class CustomReporter extends AbstractPollingReporter implements
 
     private static String abbrev(final TimeUnit unit) {
         switch (unit) {
-        case NANOSECONDS:
-            return "ns";
-        case MICROSECONDS:
-            return "us";
-        case MILLISECONDS:
-            return "ms";
-        case SECONDS:
-            return "s";
-        case MINUTES:
-            return "m";
-        case HOURS:
-            return "h";
-        case DAYS:
-            return "d";
-        default:
-            throw new IllegalArgumentException("Unrecognized TimeUnit: " + unit);
+            case NANOSECONDS:
+                return "ns";
+            case MICROSECONDS:
+                return "us";
+            case MILLISECONDS:
+                return "ms";
+            case SECONDS:
+                return "s";
+            case MINUTES:
+                return "m";
+            case HOURS:
+                return "h";
+            case DAYS:
+                return "d";
+            default:
+                throw new IllegalArgumentException("Unrecognized TimeUnit: " + unit);
         }
     }
 }

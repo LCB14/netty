@@ -162,7 +162,7 @@ public class HpackHuffmanTest {
         });
     }
 
-    private static byte[] makeBuf(int ... bytes) {
+    private static byte[] makeBuf(int... bytes) {
         byte[] buf = new byte[bytes.length];
         for (int i = 0; i < buf.length; i++) {
             buf[i] = (byte) bytes[i];

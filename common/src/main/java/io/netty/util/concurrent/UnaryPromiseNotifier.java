@@ -20,7 +20,6 @@ import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 
 /**
- *
  * @deprecated use {@link PromiseNotifier#cascade(boolean, Future, Promise)}.
  */
 @Deprecated
@@ -49,7 +48,7 @@ public final class UnaryPromiseNotifier<T> implements FutureListener<T> {
         } else {
             if (!promise.tryFailure(completedFuture.cause())) {
                 logger.warn("Failed to mark a promise as failure because it's done already: {}", promise,
-                            completedFuture.cause());
+                        completedFuture.cause());
             }
         }
     }

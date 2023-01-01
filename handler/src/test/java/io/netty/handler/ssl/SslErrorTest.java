@@ -90,11 +90,11 @@ public class SslErrorTest {
         exceptions.add(newCertificateException(CertPathValidatorException.BasicReason.REVOKED));
 
         List<Object[]> params = new ArrayList<Object[]>();
-        for (SslProvider serverProvider: serverProviders) {
-            for (SslProvider clientProvider: clientProviders) {
-                for (CertificateException exception: exceptions) {
-                    params.add(new Object[] { serverProvider, clientProvider, exception, true });
-                    params.add(new Object[] { serverProvider, clientProvider, exception, false });
+        for (SslProvider serverProvider : serverProviders) {
+            for (SslProvider clientProvider : clientProviders) {
+                for (CertificateException exception : exceptions) {
+                    params.add(new Object[]{serverProvider, clientProvider, exception, true});
+                    params.add(new Object[]{serverProvider, clientProvider, exception, false});
                 }
             }
         }
@@ -122,7 +122,7 @@ public class SslErrorTest {
         SslContextBuilder sslServerCtxBuilder = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
                 .sslProvider(serverProvider)
                 .clientAuth(ClientAuth.REQUIRE);
-        SslContextBuilder sslClientCtxBuilder =  SslContextBuilder.forClient()
+        SslContextBuilder sslClientCtxBuilder = SslContextBuilder.forClient()
                 .keyManager(new File(getClass().getResource("test.crt").getFile()),
                         new File(getClass().getResource("test_unencrypted.pem").getFile()))
                 .sslProvider(clientProvider);
@@ -207,13 +207,16 @@ public class SslErrorTest {
         }
 
         @Override
-        protected void engineInit(KeyStore keyStore) { }
+        protected void engineInit(KeyStore keyStore) {
+        }
+
         @Override
-        protected void engineInit(ManagerFactoryParameters managerFactoryParameters) { }
+        protected void engineInit(ManagerFactoryParameters managerFactoryParameters) {
+        }
 
         @Override
         protected TrustManager[] engineGetTrustManagers() {
-            return new TrustManager[] { new X509TrustManager() {
+            return new TrustManager[]{new X509TrustManager() {
 
                 @Override
                 public void checkClientTrusted(X509Certificate[] x509Certificates, String s)
@@ -231,7 +234,7 @@ public class SslErrorTest {
                 public X509Certificate[] getAcceptedIssuers() {
                     return EmptyArrays.EMPTY_X509_CERTIFICATES;
                 }
-            } };
+            }};
         }
     }
 
@@ -266,7 +269,7 @@ public class SslErrorTest {
                         verifyException(clientProvider, serverProduceError, unwrappedCause, promise, "revoked");
                     }
                 } else if (exception instanceof CertificateExpiredException) {
-                    verifyException(clientProvider, serverProduceError, unwrappedCause, promise,  "expired");
+                    verifyException(clientProvider, serverProduceError, unwrappedCause, promise, "expired");
                 } else if (exception instanceof CertificateNotYetValidException) {
                     // BoringSSL may use "expired" in this case while others use "bad"
                     verifyException(clientProvider, serverProduceError, unwrappedCause, promise, "expired", "bad");
@@ -280,7 +283,7 @@ public class SslErrorTest {
     // Its a bit hacky to verify against the message that is part of the exception but there is no other way
     // at the moment as there are no different exceptions for the different alerts.
     private static void verifyException(SslProvider clientProvider, boolean serverProduceError,
-                                 Throwable cause, Promise<Void> promise, String... messageParts) {
+                                        Throwable cause, Promise<Void> promise, String... messageParts) {
         String message = cause.getMessage();
         // When the error is produced on the client side and the client side uses JDK as provider it will always
         // use "certificate unknown".
@@ -290,7 +293,7 @@ public class SslErrorTest {
             return;
         }
 
-        for (String m: messageParts) {
+        for (String m : messageParts) {
             if (message.toLowerCase(Locale.UK).contains(m.toLowerCase(Locale.UK))) {
                 promise.setSuccess(null);
                 return;

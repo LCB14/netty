@@ -39,7 +39,7 @@ public class FastThreadLocalSlowPathBenchmark extends AbstractMicrobenchmark {
     private static final FastThreadLocal<Integer>[] fastThreadLocals = new FastThreadLocal[jdkThreadLocals.length];
 
     static {
-        for (int i = 0; i < jdkThreadLocals.length; i ++) {
+        for (int i = 0; i < jdkThreadLocals.length; i++) {
             final int num = rand.nextInt();
             jdkThreadLocals[i] = new ThreadLocal<Integer>() {
                 @Override
@@ -62,14 +62,14 @@ public class FastThreadLocalSlowPathBenchmark extends AbstractMicrobenchmark {
 
     @Benchmark
     public void jdkThreadLocalGet(Blackhole bh) {
-        for (ThreadLocal<Integer> i: jdkThreadLocals) {
+        for (ThreadLocal<Integer> i : jdkThreadLocals) {
             bh.consume(i.get());
         }
     }
 
     @Benchmark
     public void fastThreadLocal(Blackhole bh) {
-        for (FastThreadLocal<Integer> i: fastThreadLocals) {
+        for (FastThreadLocal<Integer> i : fastThreadLocals) {
             bh.consume(i.get());
         }
     }

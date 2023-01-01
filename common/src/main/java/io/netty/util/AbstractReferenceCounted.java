@@ -30,15 +30,16 @@ public abstract class AbstractReferenceCounted implements ReferenceCounted {
 
     private static final ReferenceCountUpdater<AbstractReferenceCounted> updater =
             new ReferenceCountUpdater<AbstractReferenceCounted>() {
-        @Override
-        protected AtomicIntegerFieldUpdater<AbstractReferenceCounted> updater() {
-            return AIF_UPDATER;
-        }
-        @Override
-        protected long unsafeOffset() {
-            return REFCNT_FIELD_OFFSET;
-        }
-    };
+                @Override
+                protected AtomicIntegerFieldUpdater<AbstractReferenceCounted> updater() {
+                    return AIF_UPDATER;
+                }
+
+                @Override
+                protected long unsafeOffset() {
+                    return REFCNT_FIELD_OFFSET;
+                }
+            };
 
     // Value might not equal "real" reference count, all access should be via the updater
     @SuppressWarnings({"unused", "FieldMayBeFinal"})

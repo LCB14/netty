@@ -35,17 +35,12 @@ public final class WebSocketClientHandshakerFactory {
     /**
      * Creates a new handshaker.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server. Null if no sub-protocol support is required.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param customHeaders
-     *            Custom HTTP headers to send during the handshake
+     * @param webSocketURL    URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                        Subsequent web socket frames will be sent to this URL.
+     * @param version         Version of web socket specification to use to connect to the server
+     * @param subprotocol     Sub protocol request sent to the server. Null if no sub-protocol support is required.
+     * @param allowExtensions Allow extensions to be used in the reserved bits of the web socket frame
+     * @param customHeaders   Custom HTTP headers to send during the handshake
      */
     public static WebSocketClientHandshaker newHandshaker(
             URI webSocketURL, WebSocketVersion version, String subprotocol,
@@ -56,52 +51,38 @@ public final class WebSocketClientHandshakerFactory {
     /**
      * Creates a new handshaker.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server. Null if no sub-protocol support is required.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param customHeaders
-     *            Custom HTTP headers to send during the handshake
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                              Subsequent web socket frames will be sent to this URL.
+     * @param version               Version of web socket specification to use to connect to the server
+     * @param subprotocol           Sub protocol request sent to the server. Null if no sub-protocol support is required.
+     * @param allowExtensions       Allow extensions to be used in the reserved bits of the web socket frame
+     * @param customHeaders         Custom HTTP headers to send during the handshake
+     * @param maxFramePayloadLength Maximum allowable frame payload length. Setting this value to your application's
+     *                              requirement may reduce denial of service attacks using long data frames.
      */
     public static WebSocketClientHandshaker newHandshaker(
             URI webSocketURL, WebSocketVersion version, String subprotocol,
             boolean allowExtensions, HttpHeaders customHeaders, int maxFramePayloadLength) {
         return newHandshaker(webSocketURL, version, subprotocol, allowExtensions, customHeaders,
-                             maxFramePayloadLength, true, false);
+                maxFramePayloadLength, true, false);
     }
 
     /**
      * Creates a new handshaker.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server. Null if no sub-protocol support is required.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param customHeaders
-     *            Custom HTTP headers to send during the handshake
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
-     * @param performMasking
-     *            Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
-     *            with the websocket specifications. Client applications that communicate with a non-standard server
-     *            which doesn't require masking might set this to false to achieve a higher performance.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                              Subsequent web socket frames will be sent to this URL.
+     * @param version               Version of web socket specification to use to connect to the server
+     * @param subprotocol           Sub protocol request sent to the server. Null if no sub-protocol support is required.
+     * @param allowExtensions       Allow extensions to be used in the reserved bits of the web socket frame
+     * @param customHeaders         Custom HTTP headers to send during the handshake
+     * @param maxFramePayloadLength Maximum allowable frame payload length. Setting this value to your application's
+     *                              requirement may reduce denial of service attacks using long data frames.
+     * @param performMasking        Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
+     *                              with the websocket specifications. Client applications that communicate with a non-standard server
+     *                              which doesn't require masking might set this to false to achieve a higher performance.
+     * @param allowMaskMismatch     When set to true, frames which are not masked properly according to the standard will still be
+     *                              accepted.
      */
     public static WebSocketClientHandshaker newHandshaker(
             URI webSocketURL, WebSocketVersion version, String subprotocol,
@@ -114,29 +95,20 @@ public final class WebSocketClientHandshakerFactory {
     /**
      * Creates a new handshaker.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server. Null if no sub-protocol support is required.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param customHeaders
-     *            Custom HTTP headers to send during the handshake
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
-     * @param performMasking
-     *            Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
-     *            with the websocket specifications. Client applications that communicate with a non-standard server
-     *            which doesn't require masking might set this to false to achieve a higher performance.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
+     * @param webSocketURL            URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                                Subsequent web socket frames will be sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server. Null if no sub-protocol support is required.
+     * @param allowExtensions         Allow extensions to be used in the reserved bits of the web socket frame
+     * @param customHeaders           Custom HTTP headers to send during the handshake
+     * @param maxFramePayloadLength   Maximum allowable frame payload length. Setting this value to your application's
+     *                                requirement may reduce denial of service attacks using long data frames.
+     * @param performMasking          Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
+     *                                with the websocket specifications. Client applications that communicate with a non-standard server
+     *                                which doesn't require masking might set this to false to achieve a higher performance.
+     * @param allowMaskMismatch       When set to true, frames which are not masked properly according to the standard will still be
+     *                                accepted.
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
      */
     public static WebSocketClientHandshaker newHandshaker(
             URI webSocketURL, WebSocketVersion version, String subprotocol,
@@ -168,56 +140,46 @@ public final class WebSocketClientHandshakerFactory {
     /**
      * Creates a new handshaker.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server. Null if no sub-protocol support is required.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param customHeaders
-     *            Custom HTTP headers to send during the handshake
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
-     * @param performMasking
-     *            Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
-     *            with the websocket specifications. Client applications that communicate with a non-standard server
-     *            which doesn't require masking might set this to false to achieve a higher performance.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
-     * @param  absoluteUpgradeUrl
-     *            Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
-     *            clear HTTP
+     * @param webSocketURL            URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                                Subsequent web socket frames will be sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server. Null if no sub-protocol support is required.
+     * @param allowExtensions         Allow extensions to be used in the reserved bits of the web socket frame
+     * @param customHeaders           Custom HTTP headers to send during the handshake
+     * @param maxFramePayloadLength   Maximum allowable frame payload length. Setting this value to your application's
+     *                                requirement may reduce denial of service attacks using long data frames.
+     * @param performMasking          Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
+     *                                with the websocket specifications. Client applications that communicate with a non-standard server
+     *                                which doesn't require masking might set this to false to achieve a higher performance.
+     * @param allowMaskMismatch       When set to true, frames which are not masked properly according to the standard will still be
+     *                                accepted.
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
+     * @param absoluteUpgradeUrl      Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
+     *                                clear HTTP
      */
     public static WebSocketClientHandshaker newHandshaker(
-        URI webSocketURL, WebSocketVersion version, String subprotocol,
-        boolean allowExtensions, HttpHeaders customHeaders, int maxFramePayloadLength,
-        boolean performMasking, boolean allowMaskMismatch, long forceCloseTimeoutMillis, boolean absoluteUpgradeUrl) {
+            URI webSocketURL, WebSocketVersion version, String subprotocol,
+            boolean allowExtensions, HttpHeaders customHeaders, int maxFramePayloadLength,
+            boolean performMasking, boolean allowMaskMismatch, long forceCloseTimeoutMillis, boolean absoluteUpgradeUrl) {
         if (version == V13) {
             return new WebSocketClientHandshaker13(
-                webSocketURL, V13, subprotocol, allowExtensions, customHeaders,
-                maxFramePayloadLength, performMasking, allowMaskMismatch, forceCloseTimeoutMillis, absoluteUpgradeUrl);
+                    webSocketURL, V13, subprotocol, allowExtensions, customHeaders,
+                    maxFramePayloadLength, performMasking, allowMaskMismatch, forceCloseTimeoutMillis, absoluteUpgradeUrl);
         }
         if (version == V08) {
             return new WebSocketClientHandshaker08(
-                webSocketURL, V08, subprotocol, allowExtensions, customHeaders,
-                maxFramePayloadLength, performMasking, allowMaskMismatch, forceCloseTimeoutMillis, absoluteUpgradeUrl);
+                    webSocketURL, V08, subprotocol, allowExtensions, customHeaders,
+                    maxFramePayloadLength, performMasking, allowMaskMismatch, forceCloseTimeoutMillis, absoluteUpgradeUrl);
         }
         if (version == V07) {
             return new WebSocketClientHandshaker07(
-                webSocketURL, V07, subprotocol, allowExtensions, customHeaders,
-                maxFramePayloadLength, performMasking, allowMaskMismatch, forceCloseTimeoutMillis, absoluteUpgradeUrl);
+                    webSocketURL, V07, subprotocol, allowExtensions, customHeaders,
+                    maxFramePayloadLength, performMasking, allowMaskMismatch, forceCloseTimeoutMillis, absoluteUpgradeUrl);
         }
         if (version == V00) {
             return new WebSocketClientHandshaker00(
-                webSocketURL, V00, subprotocol, customHeaders,
-                maxFramePayloadLength, forceCloseTimeoutMillis, absoluteUpgradeUrl);
+                    webSocketURL, V00, subprotocol, customHeaders,
+                    maxFramePayloadLength, forceCloseTimeoutMillis, absoluteUpgradeUrl);
         }
 
         throw new WebSocketClientHandshakeException("Protocol version " + version + " not supported.");
@@ -226,35 +188,24 @@ public final class WebSocketClientHandshakerFactory {
     /**
      * Creates a new handshaker.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server. Null if no sub-protocol support is required.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param customHeaders
-     *            Custom HTTP headers to send during the handshake
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
-     * @param performMasking
-     *            Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
-     *            with the websocket specifications. Client applications that communicate with a non-standard server
-     *            which doesn't require masking might set this to false to achieve a higher performance.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
-     * @param  absoluteUpgradeUrl
-     *            Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
-     *            clear HTTP
-     * @param generateOriginHeader
-     *            Allows to generate the `Origin`|`Sec-WebSocket-Origin` header value for handshake request
-     *            according to the given webSocketURL
+     * @param webSocketURL            URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                                Subsequent web socket frames will be sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server. Null if no sub-protocol support is required.
+     * @param allowExtensions         Allow extensions to be used in the reserved bits of the web socket frame
+     * @param customHeaders           Custom HTTP headers to send during the handshake
+     * @param maxFramePayloadLength   Maximum allowable frame payload length. Setting this value to your application's
+     *                                requirement may reduce denial of service attacks using long data frames.
+     * @param performMasking          Whether to mask all written websocket frames. This must be set to true in order to be fully compatible
+     *                                with the websocket specifications. Client applications that communicate with a non-standard server
+     *                                which doesn't require masking might set this to false to achieve a higher performance.
+     * @param allowMaskMismatch       When set to true, frames which are not masked properly according to the standard will still be
+     *                                accepted.
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
+     * @param absoluteUpgradeUrl      Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
+     *                                clear HTTP
+     * @param generateOriginHeader    Allows to generate the `Origin`|`Sec-WebSocket-Origin` header value for handshake request
+     *                                according to the given webSocketURL
      */
     public static WebSocketClientHandshaker newHandshaker(
             URI webSocketURL, WebSocketVersion version, String subprotocol,

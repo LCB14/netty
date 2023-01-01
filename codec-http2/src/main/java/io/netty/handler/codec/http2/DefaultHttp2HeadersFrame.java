@@ -51,10 +51,10 @@ public final class DefaultHttp2HeadersFrame extends AbstractHttp2StreamFrame imp
     /**
      * Construct a new headers message.
      *
-     * @param headers the non-{@code null} headers to send
+     * @param headers   the non-{@code null} headers to send
      * @param endStream whether these headers should terminate the stream
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
+     * @param padding   additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                  256 (inclusive).
      */
     public DefaultHttp2HeadersFrame(Http2Headers headers, boolean endStream, int padding) {
         this.headers = checkNotNull(headers, "headers");
@@ -92,7 +92,7 @@ public final class DefaultHttp2HeadersFrame extends AbstractHttp2StreamFrame imp
     @Override
     public String toString() {
         return StringUtil.simpleClassName(this) + "(stream=" + stream() + ", headers=" + headers
-               + ", endStream=" + endStream + ", padding=" + padding + ')';
+                + ", endStream=" + endStream + ", padding=" + padding + ')';
     }
 
     @Override

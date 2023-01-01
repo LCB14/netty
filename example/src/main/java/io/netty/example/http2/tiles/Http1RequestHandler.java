@@ -49,7 +49,7 @@ public final class Http1RequestHandler extends Http2RequestHandler {
 
     @Override
     protected void sendResponse(final ChannelHandlerContext ctx, String streamId, int latency,
-            final FullHttpResponse response, final FullHttpRequest request) {
+                                final FullHttpResponse response, final FullHttpRequest request) {
         HttpUtil.setContentLength(response, response.content().readableBytes());
         ctx.executor().schedule(new Runnable() {
             @Override

@@ -27,6 +27,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
+
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
@@ -36,6 +37,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.Timeout;
 
@@ -200,7 +202,7 @@ public class SocketEchoTest extends AbstractSocketTest {
         Channel sc = sb.bind().sync().channel();
         Channel cc = cb.connect(sc.localAddress()).sync().channel();
 
-        for (int i = 0; i < data.length;) {
+        for (int i = 0; i < data.length; ) {
             int length = Math.min(random.nextInt(1024 * 64), data.length - i);
             ByteBuf buf = Unpooled.wrappedBuffer(data, i, length);
             if (voidPromise) {
@@ -276,7 +278,7 @@ public class SocketEchoTest extends AbstractSocketTest {
             in.readBytes(actual);
 
             int lastIdx = counter;
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(data[i + lastIdx], actual[i]);
             }
 
@@ -300,7 +302,7 @@ public class SocketEchoTest extends AbstractSocketTest {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx,
-                Throwable cause) throws Exception {
+                                    Throwable cause) throws Exception {
             if (exception.compareAndSet(null, cause)) {
                 cause.printStackTrace();
                 ctx.close();

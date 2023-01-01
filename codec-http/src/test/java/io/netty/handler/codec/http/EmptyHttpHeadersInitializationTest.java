@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * A test to validate that either order of initialization of the {@link EmptyHttpHeaders#INSTANCE} and
  * {@link HttpHeaders#EMPTY_HEADERS} field results in both fields being non-null.
- *
+ * <p>
  * Since this is testing static initialization, the tests might not actually test anything, except
  * when run in isolation.
  */

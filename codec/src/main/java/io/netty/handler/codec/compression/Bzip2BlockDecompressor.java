@@ -22,7 +22,7 @@ import static io.netty.handler.codec.compression.Bzip2Constants.MAX_BLOCK_LENGTH
 
 /**
  * Reads and decompresses a single Bzip2 block.<br><br>
- *
+ * <p>
  * Block decoding consists of the following stages:<br>
  * 1. Read block header<br>
  * 2. Read Huffman tables<br>
@@ -93,8 +93,8 @@ final class Bzip2BlockDecompressor {
     /* Inverse Burrows-Wheeler Transform stage */
     /**
      * At each position contains the union of :-
-     *   An output character (8 bits)
-     *   A pointer from each position to its successor (24 bits, left shifted 8 bits)
+     * An output character (8 bits)
+     * A pointer from each position to its successor (24 bits, left shifted 8 bits)
      * As the pointer cannot exceed the maximum block size of 900k, 24 bits is more than enough to
      * hold it; Folding the character data into the spare bits while performing the inverse BWT,
      * when both pieces of information are available, saves a large number of memory accesses in
@@ -185,7 +185,7 @@ final class Bzip2BlockDecompressor {
         int repeatIncrement = this.repeatIncrement;
         int mtfValue = this.mtfValue;
 
-        for (;;) {
+        for (; ; ) {
             if (!reader.hasReadableBits(HUFFMAN_DECODE_MAX_CODE_LENGTH)) {
                 this.bwtBlockLength = bwtBlockLength;
                 this.repeatCount = repeatCount;
@@ -246,7 +246,7 @@ final class Bzip2BlockDecompressor {
      */
     private void initialiseInverseBWT() {
         final int bwtStartPointer = this.bwtStartPointer;
-        final byte[] bwtBlock  = this.bwtBlock;
+        final byte[] bwtBlock = this.bwtBlock;
         final int[] bwtMergedPointers = new int[bwtBlockLength];
         final int[] characterBase = new int[256];
 
@@ -276,6 +276,7 @@ final class Bzip2BlockDecompressor {
     /**
      * Decodes a byte from the final Run-Length Encoding stage, pulling a new byte from the
      * Burrows-Wheeler Transform stage when required.
+     *
      * @return The decoded byte, or -1 if there are no more bytes
      */
     public int read() {
@@ -312,11 +313,12 @@ final class Bzip2BlockDecompressor {
     /**
      * Decodes a byte from the Burrows-Wheeler Transform stage. If the block has randomisation
      * applied, reverses the randomisation.
+     *
      * @return The decoded byte
      */
     private int decodeNextBWTByte() {
         int mergedPointer = bwtCurrentMergedPointer;
-        int nextDecodedByte =  mergedPointer & 0xff;
+        int nextDecodedByte = mergedPointer & 0xff;
         bwtCurrentMergedPointer = bwtMergedPointers[mergedPointer >>> 8];
 
         if (blockRandomised) {
@@ -338,6 +340,7 @@ final class Bzip2BlockDecompressor {
     /**
      * Verify and return the block CRC. This method may only be called
      * after all of the block's bytes have been read.
+     *
      * @return The block CRC
      */
     int checkCRC() {

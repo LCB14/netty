@@ -28,12 +28,13 @@ public class LocalEventLoopGroup extends DefaultEventLoopGroup {
     /**
      * Create a new instance with the default number of threads.
      */
-    public LocalEventLoopGroup() { }
+    public LocalEventLoopGroup() {
+    }
 
     /**
      * Create a new instance
      *
-     * @param nThreads          the number of threads to use
+     * @param nThreads the number of threads to use
      */
     public LocalEventLoopGroup(int nThreads) {
         super(nThreads);
@@ -42,7 +43,7 @@ public class LocalEventLoopGroup extends DefaultEventLoopGroup {
     /**
      * Create a new instance with the default number of threads and the given {@link ThreadFactory}.
      *
-     * @param threadFactory     the {@link ThreadFactory} or {@code null} to use the default
+     * @param threadFactory the {@link ThreadFactory} or {@code null} to use the default
      */
     public LocalEventLoopGroup(ThreadFactory threadFactory) {
         super(0, threadFactory);
@@ -51,8 +52,8 @@ public class LocalEventLoopGroup extends DefaultEventLoopGroup {
     /**
      * Create a new instance
      *
-     * @param nThreads          the number of threads to use
-     * @param threadFactory     the {@link ThreadFactory} or {@code null} to use the default
+     * @param nThreads      the number of threads to use
+     * @param threadFactory the {@link ThreadFactory} or {@code null} to use the default
      */
     public LocalEventLoopGroup(int nThreads, ThreadFactory threadFactory) {
         super(nThreads, threadFactory);

@@ -58,7 +58,7 @@ public final class TcpDnsServer {
 
     public static void main(String[] args) throws Exception {
         ServerBootstrap bootstrap = new ServerBootstrap().group(new NioEventLoopGroup(1),
-                new NioEventLoopGroup())
+                        new NioEventLoopGroup())
                 .channel(NioServerSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<Channel>() {

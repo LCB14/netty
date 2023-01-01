@@ -45,19 +45,22 @@ import java.util.List;
 public interface DnsQueryLifecycleObserver {
     /**
      * The query has been written.
+     *
      * @param dnsServerAddress The DNS server address which the query was sent to.
-     * @param future The future which represents the status of the write operation for the DNS query.
+     * @param future           The future which represents the status of the write operation for the DNS query.
      */
     void queryWritten(InetSocketAddress dnsServerAddress, ChannelFuture future);
 
     /**
      * The query may have been written but it was cancelled at some point.
+     *
      * @param queriesRemaining The number of queries remaining.
      */
     void queryCancelled(int queriesRemaining);
 
     /**
      * The query has been redirected to another list of DNS servers.
+     *
      * @param nameServers The name servers the query has been redirected to.
      * @return An observer for the new query which we may issue.
      */
@@ -68,6 +71,7 @@ public interface DnsQueryLifecycleObserver {
      * <p>
      * Note that multiple queries may be encountering a CNAME. For example a if both {@link DnsRecordType#AAAA} and
      * {@link DnsRecordType#A} are supported we may query for both.
+     *
      * @param cnameQuestion the question we would use if we issue a new query.
      * @return An observer for the new query which we may issue.
      */
@@ -76,6 +80,7 @@ public interface DnsQueryLifecycleObserver {
     /**
      * The response to the query didn't provide the expected response code, but it didn't return
      * {@link DnsResponseCode#NXDOMAIN} so we may try to query again.
+     *
      * @param code the unexpected response code.
      * @return An observer for the new query which we may issue.
      */
@@ -88,6 +93,7 @@ public interface DnsQueryLifecycleObserver {
      *     <li>Server responded with an invalid DNS response</li>
      *     <li>Server responded with a valid DNS response, but it didn't progress the resolution</li>
      * </ul>
+     *
      * @param cause The cause which for the failure.
      */
     void queryFailed(Throwable cause);

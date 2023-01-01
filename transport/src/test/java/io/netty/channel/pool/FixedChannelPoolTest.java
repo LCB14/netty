@@ -69,17 +69,17 @@ public class FixedChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -121,23 +121,23 @@ public class FixedChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
         ChannelPoolHandler handler = new TestChannelPoolHandler();
         ChannelPool pool = new FixedChannelPool(cb, handler, ChannelHealthChecker.ACTIVE,
-                                                AcquireTimeoutAction.FAIL, timeoutMillis, 1, Integer.MAX_VALUE);
+                AcquireTimeoutAction.FAIL, timeoutMillis, 1, Integer.MAX_VALUE);
 
         Channel channel = pool.acquire().syncUninterruptibly().getNow();
         final Future<Channel> future = pool.acquire();
@@ -158,17 +158,17 @@ public class FixedChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -187,6 +187,7 @@ public class FixedChannelPoolTest {
 
     /**
      * Tests that the acquiredChannelCount is not added up several times for the same channel acquire request.
+     *
      * @throws Exception
      */
     @Test
@@ -195,17 +196,17 @@ public class FixedChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -229,17 +230,17 @@ public class FixedChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -267,17 +268,17 @@ public class FixedChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -416,13 +417,13 @@ public class FixedChannelPoolTest {
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-              .channel(LocalServerChannel.class)
-              .childHandler(new ChannelInitializer<LocalChannel>() {
-                  @Override
-                  public void initChannel(LocalChannel ch) throws Exception {
-                      ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-                  }
-              });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -431,10 +432,12 @@ public class FixedChannelPoolTest {
             @Override
             public void channelReleased(Channel ch) {
             }
+
             @Override
             public void channelAcquired(Channel ch) {
                 throw exception;
             }
+
             @Override
             public void channelCreated(Channel ch) {
             }

@@ -49,8 +49,9 @@ public class SearchBenchmark extends AbstractMicrobenchmark {
         RANDOM_256B {
             @Override
             byte[] getNeedle(Random rnd) {
-                return new byte[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+                return new byte[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
             }
+
             @Override
             byte[] getHaystack(Random rnd) {
                 return randomBytes(rnd, 256, ' ', 127);
@@ -59,8 +60,9 @@ public class SearchBenchmark extends AbstractMicrobenchmark {
         RANDOM_2KB {
             @Override
             byte[] getNeedle(Random rnd) {
-                return new byte[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+                return new byte[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
             }
+
             @Override
             byte[] getHaystack(Random rnd) {
                 return randomBytes(rnd, 2048, ' ', 127);
@@ -72,6 +74,7 @@ public class SearchBenchmark extends AbstractMicrobenchmark {
                 // all 0s
                 return new byte[64];
             }
+
             @Override
             byte[] getHaystack(Random rnd) {
                 // no 0s except in the very end
@@ -85,12 +88,14 @@ public class SearchBenchmark extends AbstractMicrobenchmark {
             byte[] getNeedle(Random rnd) {
                 return randomBytes(rnd, 64, 0, 1);
             }
+
             @Override
             byte[] getHaystack(Random rnd) {
                 return randomBytes(rnd, 2048, 0, 1);
             }
         },
         WORST_CASE { // Bitap will fail on it because the needle is >64 bytes long
+
             @Override
             byte[] getNeedle(Random rnd) {
                 // aa(...)aab
@@ -99,6 +104,7 @@ public class SearchBenchmark extends AbstractMicrobenchmark {
                 needle[needle.length - 1] = 'b';
                 return needle;
             }
+
             @Override
             byte[] getHaystack(Random rnd) {
                 // aa(...)aaa
@@ -109,6 +115,7 @@ public class SearchBenchmark extends AbstractMicrobenchmark {
         };
 
         abstract byte[] getNeedle(Random rnd);
+
         abstract byte[] getHaystack(Random rnd);
     }
 

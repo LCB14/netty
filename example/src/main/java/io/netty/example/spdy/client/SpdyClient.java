@@ -58,8 +58,8 @@ public final class SpdyClient {
     public static void main(String[] args) throws Exception {
         // Configure SSL.
         final SslContext sslCtx = SslContextBuilder.forClient()
-            .trustManager(InsecureTrustManagerFactory.INSTANCE)
-            .applicationProtocolConfig(new ApplicationProtocolConfig(
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .applicationProtocolConfig(new ApplicationProtocolConfig(
                         Protocol.NPN,
                         // NO_ADVERTISE is currently the only mode supported by both OpenSsl and JDK providers.
                         SelectorFailureBehavior.NO_ADVERTISE,
@@ -67,7 +67,7 @@ public final class SpdyClient {
                         SelectedListenerFailureBehavior.ACCEPT,
                         ApplicationProtocolNames.SPDY_3_1,
                         ApplicationProtocolNames.HTTP_1_1))
-            .build();
+                .build();
 
         HttpResponseClientHandler httpResponseHandler = new HttpResponseClientHandler();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

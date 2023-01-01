@@ -42,11 +42,11 @@ public class StompWebSocketProtocolCodec extends MessageToMessageCodec<WebSocket
             StompVersion stompVersion = StompVersion.findBySubProtocol(((HandshakeComplete) evt).selectedSubprotocol());
             ctx.channel().attr(StompVersion.CHANNEL_ATTRIBUTE_KEY).set(stompVersion);
             ctx.pipeline()
-               .addLast(new WebSocketFrameAggregator(65536))
-               .addLast(new StompSubframeDecoder())
-               .addLast(new StompSubframeAggregator(65536))
-               .addLast(stompChatHandler)
-               .remove(StompWebSocketClientPageHandler.INSTANCE);
+                    .addLast(new WebSocketFrameAggregator(65536))
+                    .addLast(new StompSubframeDecoder())
+                    .addLast(new StompSubframeAggregator(65536))
+                    .addLast(stompChatHandler)
+                    .remove(StompWebSocketClientPageHandler.INSTANCE);
         } else {
             super.userEventTriggered(ctx, evt);
         }

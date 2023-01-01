@@ -87,7 +87,7 @@ public abstract class AbstractMultiSearchProcessorFactory implements MultiSearch
      * @param needles a varargs array of arrays of bytes to search for
      * @return a new instance of {@link AhoCorasicSearchProcessorFactory} precomputed for the given {@code needles}
      */
-    public static AhoCorasicSearchProcessorFactory newAhoCorasicSearchProcessorFactory(byte[] ...needles) {
+    public static AhoCorasicSearchProcessorFactory newAhoCorasicSearchProcessorFactory(byte[]... needles) {
         return new AhoCorasicSearchProcessorFactory(needles);
     }
 

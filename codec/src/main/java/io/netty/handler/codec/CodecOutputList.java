@@ -125,7 +125,7 @@ final class CodecOutputList extends AbstractList<Object> implements RandomAccess
             expandArray();
             insert(size, element);
         }
-        ++ size;
+        ++size;
         return true;
     }
 
@@ -153,7 +153,7 @@ final class CodecOutputList extends AbstractList<Object> implements RandomAccess
         }
 
         insert(index, element);
-        ++ size;
+        ++size;
     }
 
     @Override
@@ -165,7 +165,7 @@ final class CodecOutputList extends AbstractList<Object> implements RandomAccess
         if (len > 0) {
             System.arraycopy(array, index + 1, array, index, len);
         }
-        array[-- size] = null;
+        array[--size] = null;
 
         return old;
     }
@@ -188,7 +188,7 @@ final class CodecOutputList extends AbstractList<Object> implements RandomAccess
      * Recycle the array which will clear it and null out all entries in the internal storage.
      */
     void recycle() {
-        for (int i = 0 ; i < size; i ++) {
+        for (int i = 0; i < size; i++) {
             array[i] = null;
         }
         size = 0;

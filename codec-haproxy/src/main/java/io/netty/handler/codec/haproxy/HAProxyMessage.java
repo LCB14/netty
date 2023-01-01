@@ -64,32 +64,34 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
 
     /**
      * Creates a new instance of HAProxyMessage.
-     * @param protocolVersion the protocol version.
-     * @param command the command.
-     * @param proxiedProtocol the protocol containing the address family and transport protocol.
-     * @param sourceAddress the source address.
+     *
+     * @param protocolVersion    the protocol version.
+     * @param command            the command.
+     * @param proxiedProtocol    the protocol containing the address family and transport protocol.
+     * @param sourceAddress      the source address.
      * @param destinationAddress the destination address.
-     * @param sourcePort the source port. This value must be 0 for unix, unspec addresses.
-     * @param destinationPort the destination port. This value must be 0 for unix, unspec addresses.
+     * @param sourcePort         the source port. This value must be 0 for unix, unspec addresses.
+     * @param destinationPort    the destination port. This value must be 0 for unix, unspec addresses.
      */
     public HAProxyMessage(
             HAProxyProtocolVersion protocolVersion, HAProxyCommand command, HAProxyProxiedProtocol proxiedProtocol,
             String sourceAddress, String destinationAddress, int sourcePort, int destinationPort) {
 
         this(protocolVersion, command, proxiedProtocol,
-             sourceAddress, destinationAddress, sourcePort, destinationPort, Collections.<HAProxyTLV>emptyList());
+                sourceAddress, destinationAddress, sourcePort, destinationPort, Collections.<HAProxyTLV>emptyList());
     }
 
     /**
      * Creates a new instance of HAProxyMessage.
-     * @param protocolVersion the protocol version.
-     * @param command the command.
-     * @param proxiedProtocol the protocol containing the address family and transport protocol.
-     * @param sourceAddress the source address.
+     *
+     * @param protocolVersion    the protocol version.
+     * @param command            the command.
+     * @param proxiedProtocol    the protocol containing the address family and transport protocol.
+     * @param sourceAddress      the source address.
      * @param destinationAddress the destination address.
-     * @param sourcePort the source port. This value must be 0 for unix, unspec addresses.
-     * @param destinationPort the destination port. This value must be 0 for unix, unspec addresses.
-     * @param tlvs the list of tlvs.
+     * @param sourcePort         the source port. This value must be 0 for unix, unspec addresses.
+     * @param destinationPort    the destination port. This value must be 0 for unix, unspec addresses.
+     * @param tlvs               the list of tlvs.
      */
     public HAProxyMessage(
             HAProxyProtocolVersion protocolVersion, HAProxyCommand command, HAProxyProxiedProtocol proxiedProtocol,
@@ -121,9 +123,9 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
     /**
      * Decodes a version 2, binary proxy protocol header.
      *
-     * @param header                     a version 2 proxy protocol header
-     * @return                           {@link HAProxyMessage} instance
-     * @throws HAProxyProtocolException  if any portion of the header is invalid
+     * @param header a version 2 proxy protocol header
+     * @return {@link HAProxyMessage} instance
+     * @throws HAProxyProtocolException if any portion of the header is invalid
      */
     static HAProxyMessage decodeHeader(ByteBuf header) {
         ObjectUtil.checkNotNull(header, "header");
@@ -185,8 +187,8 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
             // unix sockets require 216 bytes for address information
             if (addressInfoLen < 216 || header.readableBytes() < 216) {
                 throw new HAProxyProtocolException(
-                    "incomplete UNIX socket address information: " +
-                            Math.min(addressInfoLen, header.readableBytes()) + " bytes (expected: 216+ bytes)");
+                        "incomplete UNIX socket address information: " +
+                                Math.min(addressInfoLen, header.readableBytes()) + " bytes (expected: 216+ bytes)");
             }
             int startIdx = header.readerIndex();
             int addressEnd = header.forEachByte(startIdx, 108, ByteProcessor.FIND_NUL);
@@ -214,21 +216,21 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
                 // IPv4 requires 12 bytes for address information
                 if (addressInfoLen < 12 || header.readableBytes() < 12) {
                     throw new HAProxyProtocolException(
-                        "incomplete IPv4 address information: " +
-                                Math.min(addressInfoLen, header.readableBytes()) + " bytes (expected: 12+ bytes)");
+                            "incomplete IPv4 address information: " +
+                                    Math.min(addressInfoLen, header.readableBytes()) + " bytes (expected: 12+ bytes)");
                 }
                 addressLen = 4;
             } else if (addressFamily == AddressFamily.AF_IPv6) {
                 // IPv6 requires 36 bytes for address information
                 if (addressInfoLen < 36 || header.readableBytes() < 36) {
                     throw new HAProxyProtocolException(
-                        "incomplete IPv6 address information: " +
-                                Math.min(addressInfoLen, header.readableBytes()) + " bytes (expected: 36+ bytes)");
+                            "incomplete IPv6 address information: " +
+                                    Math.min(addressInfoLen, header.readableBytes()) + " bytes (expected: 36+ bytes)");
                 }
                 addressLen = 16;
             } else {
                 throw new HAProxyProtocolException(
-                    "unable to parse address information (unknown address family: " + addressFamily + ')');
+                        "unable to parse address information (unknown address family: " + addressFamily + ')');
             }
 
             // Per spec, the src address begins at the 17th byte
@@ -275,45 +277,45 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
 
         final int length = header.readUnsignedShort();
         switch (type) {
-        case PP2_TYPE_SSL:
-            final ByteBuf rawContent = header.retainedSlice(header.readerIndex(), length);
-            final ByteBuf byteBuf = header.readSlice(length);
-            final byte client = byteBuf.readByte();
-            final int verify = byteBuf.readInt();
+            case PP2_TYPE_SSL:
+                final ByteBuf rawContent = header.retainedSlice(header.readerIndex(), length);
+                final ByteBuf byteBuf = header.readSlice(length);
+                final byte client = byteBuf.readByte();
+                final int verify = byteBuf.readInt();
 
-            if (byteBuf.readableBytes() >= 4) {
+                if (byteBuf.readableBytes() >= 4) {
 
-                final List<HAProxyTLV> encapsulatedTlvs = new ArrayList<HAProxyTLV>(4);
-                do {
-                    final HAProxyTLV haProxyTLV = readNextTLV(byteBuf, nestingLevel + 1);
-                    if (haProxyTLV == null) {
-                        break;
-                    }
-                    encapsulatedTlvs.add(haProxyTLV);
-                } while (byteBuf.readableBytes() >= 4);
+                    final List<HAProxyTLV> encapsulatedTlvs = new ArrayList<HAProxyTLV>(4);
+                    do {
+                        final HAProxyTLV haProxyTLV = readNextTLV(byteBuf, nestingLevel + 1);
+                        if (haProxyTLV == null) {
+                            break;
+                        }
+                        encapsulatedTlvs.add(haProxyTLV);
+                    } while (byteBuf.readableBytes() >= 4);
 
-                return new HAProxySSLTLV(verify, client, encapsulatedTlvs, rawContent);
-            }
-            return new HAProxySSLTLV(verify, client, Collections.<HAProxyTLV>emptyList(), rawContent);
-        // If we're not dealing with an SSL Type, we can use the same mechanism
-        case PP2_TYPE_ALPN:
-        case PP2_TYPE_AUTHORITY:
-        case PP2_TYPE_SSL_VERSION:
-        case PP2_TYPE_SSL_CN:
-        case PP2_TYPE_NETNS:
-        case OTHER:
-            return new HAProxyTLV(type, typeAsByte, header.readRetainedSlice(length));
-        default:
-            return null;
+                    return new HAProxySSLTLV(verify, client, encapsulatedTlvs, rawContent);
+                }
+                return new HAProxySSLTLV(verify, client, Collections.<HAProxyTLV>emptyList(), rawContent);
+            // If we're not dealing with an SSL Type, we can use the same mechanism
+            case PP2_TYPE_ALPN:
+            case PP2_TYPE_AUTHORITY:
+            case PP2_TYPE_SSL_VERSION:
+            case PP2_TYPE_SSL_CN:
+            case PP2_TYPE_NETNS:
+            case OTHER:
+                return new HAProxyTLV(type, typeAsByte, header.readRetainedSlice(length));
+            default:
+                return null;
         }
     }
 
     /**
      * Decodes a version 1, human-readable proxy protocol header.
      *
-     * @param header                     a version 1 proxy protocol header
-     * @return                           {@link HAProxyMessage} instance
-     * @throws HAProxyProtocolException  if any portion of the header is invalid
+     * @param header a version 1 proxy protocol header
+     * @return {@link HAProxyMessage} instance
+     * @throws HAProxyProtocolException if any portion of the header is invalid
      */
     static HAProxyMessage decodeHeader(String header) {
         if (header == null) {
@@ -375,7 +377,7 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
      *
      * @param header     buffer containing ip address bytes
      * @param addressLen number of bytes to read (4 bytes for IPv4, 16 bytes for IPv6)
-     * @return           string representation of the ip address
+     * @return string representation of the ip address
      */
     private static String ipBytesToString(ByteBuf header, int addressLen) {
         StringBuilder sb = new StringBuilder();
@@ -399,9 +401,9 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
     /**
      * Convert port to integer
      *
-     * @param value                      the port
-     * @return                           port as an integer
-     * @throws IllegalArgumentException  if port is not a valid integer
+     * @param value the port
+     * @return port as an integer
+     * @throws IllegalArgumentException if port is not a valid integer
      */
     private static int portStringToInt(String value) {
         int port;
@@ -421,9 +423,9 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
     /**
      * Validate an address (IPv4, IPv6, Unix Socket)
      *
-     * @param address                    human-readable address
-     * @param addrFamily                 the {@link AddressFamily} to check the address against
-     * @throws IllegalArgumentException  if the address is invalid
+     * @param address    human-readable address
+     * @param addrFamily the {@link AddressFamily} to check the address against
+     * @throws IllegalArgumentException if the address is invalid
      */
     private static void checkAddress(String address, AddressFamily addrFamily) {
         ObjectUtil.checkNotNull(addrFamily, "addrFamily");
@@ -463,25 +465,25 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
     /**
      * Validate the port depending on the addrFamily.
      *
-     * @param port                       the UDP/TCP port
-     * @throws IllegalArgumentException  if the port is out of range (0-65535 inclusive)
+     * @param port the UDP/TCP port
+     * @throws IllegalArgumentException if the port is out of range (0-65535 inclusive)
      */
     private static void checkPort(int port, AddressFamily addrFamily) {
         switch (addrFamily) {
-        case AF_IPv6:
-        case AF_IPv4:
-            if (port < 0 || port > 65535) {
-                throw new IllegalArgumentException("invalid port: " + port + " (expected: 0 ~ 65535)");
-            }
-            break;
-        case AF_UNIX:
-        case AF_UNSPEC:
-            if (port != 0) {
-                throw new IllegalArgumentException("port cannot be specified with addrFamily: " + addrFamily);
-            }
-            break;
-        default:
-            throw new IllegalArgumentException("unexpected addrFamily: " + addrFamily);
+            case AF_IPv6:
+            case AF_IPv4:
+                if (port < 0 || port > 65535) {
+                    throw new IllegalArgumentException("invalid port: " + port + " (expected: 0 ~ 65535)");
+                }
+                break;
+            case AF_UNIX:
+            case AF_UNSPEC:
+                if (port != 0) {
+                    throw new IllegalArgumentException("port cannot be specified with addrFamily: " + addrFamily);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("unexpected addrFamily: " + addrFamily);
         }
     }
 
@@ -624,7 +626,7 @@ public final class HAProxyMessage extends AbstractReferenceCounted {
                 .append(", destinationPort: ").append(destinationPort)
                 .append(", tlvs: [");
         if (!tlvs.isEmpty()) {
-            for (HAProxyTLV tlv: tlvs) {
+            for (HAProxyTLV tlv : tlvs) {
                 sb.append(tlv).append(", ");
             }
             sb.setLength(sb.length() - 2);

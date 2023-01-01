@@ -68,11 +68,11 @@ public class SocketConnectTest extends AbstractSocketTest {
         try {
             final Promise<InetSocketAddress> localAddressPromise = ImmediateEventExecutor.INSTANCE.newPromise();
             serverChannel = sb.childHandler(new ChannelInboundHandlerAdapter() {
-                        @Override
-                        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                            localAddressPromise.setSuccess((InetSocketAddress) ctx.channel().localAddress());
-                        }
-                    }).bind().syncUninterruptibly().channel();
+                @Override
+                public void channelActive(ChannelHandlerContext ctx) throws Exception {
+                    localAddressPromise.setSuccess((InetSocketAddress) ctx.channel().localAddress());
+                }
+            }).bind().syncUninterruptibly().channel();
 
             clientChannel = cb.handler(new ChannelInboundHandlerAdapter()).register().syncUninterruptibly().channel();
 

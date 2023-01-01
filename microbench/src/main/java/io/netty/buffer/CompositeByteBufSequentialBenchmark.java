@@ -49,10 +49,11 @@ public class CompositeByteBufSequentialBenchmark extends AbstractMicrobenchmark 
                 return newBufferLargeChunks(length);
             }
         };
+
         abstract ByteBuf newBuffer(int length);
     }
 
-    @Param({ "8", "64", "1024", "10240", "102400", "1024000" })
+    @Param({"8", "64", "1024", "10240", "102400", "1024000"})
     public int size;
 
     @Param

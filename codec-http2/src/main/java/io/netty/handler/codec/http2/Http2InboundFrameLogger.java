@@ -17,6 +17,7 @@ package io.netty.handler.codec.http2;
 
 import static io.netty.handler.codec.http2.Http2FrameLogger.Direction.INBOUND;
 import static io.netty.util.internal.ObjectUtil.checkNotNull;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.internal.UnstableApi;
@@ -42,7 +43,7 @@ public class Http2InboundFrameLogger implements Http2FrameReader {
 
             @Override
             public int onDataRead(ChannelHandlerContext ctx, int streamId, ByteBuf data,
-                    int padding, boolean endOfStream)
+                                  int padding, boolean endOfStream)
                     throws Http2Exception {
                 logger.logData(INBOUND, ctx, streamId, data, padding, endOfStream);
                 return listener.onDataRead(ctx, streamId, data, padding, endOfStream);
@@ -50,7 +51,7 @@ public class Http2InboundFrameLogger implements Http2FrameReader {
 
             @Override
             public void onHeadersRead(ChannelHandlerContext ctx, int streamId,
-                    Http2Headers headers, int padding, boolean endStream)
+                                      Http2Headers headers, int padding, boolean endStream)
                     throws Http2Exception {
                 logger.logHeaders(INBOUND, ctx, streamId, headers, padding, endStream);
                 listener.onHeadersRead(ctx, streamId, headers, padding, endStream);
@@ -58,8 +59,8 @@ public class Http2InboundFrameLogger implements Http2FrameReader {
 
             @Override
             public void onHeadersRead(ChannelHandlerContext ctx, int streamId,
-                    Http2Headers headers, int streamDependency, short weight, boolean exclusive,
-                    int padding, boolean endStream) throws Http2Exception {
+                                      Http2Headers headers, int streamDependency, short weight, boolean exclusive,
+                                      int padding, boolean endStream) throws Http2Exception {
                 logger.logHeaders(INBOUND, ctx, streamId, headers, streamDependency, weight, exclusive,
                         padding, endStream);
                 listener.onHeadersRead(ctx, streamId, headers, streamDependency, weight, exclusive,
@@ -68,7 +69,7 @@ public class Http2InboundFrameLogger implements Http2FrameReader {
 
             @Override
             public void onPriorityRead(ChannelHandlerContext ctx, int streamId,
-                    int streamDependency, short weight, boolean exclusive) throws Http2Exception {
+                                       int streamDependency, short weight, boolean exclusive) throws Http2Exception {
                 logger.logPriority(INBOUND, ctx, streamId, streamDependency, weight, exclusive);
                 listener.onPriorityRead(ctx, streamId, streamDependency, weight, exclusive);
             }
@@ -107,14 +108,14 @@ public class Http2InboundFrameLogger implements Http2FrameReader {
 
             @Override
             public void onPushPromiseRead(ChannelHandlerContext ctx, int streamId,
-                    int promisedStreamId, Http2Headers headers, int padding) throws Http2Exception {
+                                          int promisedStreamId, Http2Headers headers, int padding) throws Http2Exception {
                 logger.logPushPromise(INBOUND, ctx, streamId, promisedStreamId, headers, padding);
                 listener.onPushPromiseRead(ctx, streamId, promisedStreamId, headers, padding);
             }
 
             @Override
             public void onGoAwayRead(ChannelHandlerContext ctx, int lastStreamId, long errorCode,
-                    ByteBuf debugData) throws Http2Exception {
+                                     ByteBuf debugData) throws Http2Exception {
                 logger.logGoAway(INBOUND, ctx, lastStreamId, errorCode, debugData);
                 listener.onGoAwayRead(ctx, lastStreamId, errorCode, debugData);
             }
@@ -128,7 +129,7 @@ public class Http2InboundFrameLogger implements Http2FrameReader {
 
             @Override
             public void onUnknownFrame(ChannelHandlerContext ctx, byte frameType, int streamId,
-                    Http2Flags flags, ByteBuf payload) throws Http2Exception {
+                                       Http2Flags flags, ByteBuf payload) throws Http2Exception {
                 logger.logUnknownFrame(INBOUND, ctx, frameType, streamId, flags, payload);
                 listener.onUnknownFrame(ctx, frameType, streamId, flags, payload);
             }

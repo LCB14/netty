@@ -184,7 +184,7 @@ public abstract class DnsServerAddresses {
         checkNotNull(addresses, "addresses");
 
         List<InetSocketAddress> list = new ArrayList<InetSocketAddress>(addresses.length);
-        for (InetSocketAddress a: addresses) {
+        for (InetSocketAddress a : addresses) {
             if (a == null) {
                 break;
             }

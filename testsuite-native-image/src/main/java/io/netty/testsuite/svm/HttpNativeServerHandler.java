@@ -31,7 +31,7 @@ import static io.netty.handler.codec.http.HttpResponseStatus.*;
 import static io.netty.handler.codec.http.HttpVersion.*;
 
 public class HttpNativeServerHandler extends SimpleChannelInboundHandler<HttpObject> {
-    private static final byte[] CONTENT = { 'H', 'e', 'l', 'l', 'o', ' ', 'N', 'a', 't', 'i', 'v', 'e' };
+    private static final byte[] CONTENT = {'H', 'e', 'l', 'l', 'o', ' ', 'N', 'a', 't', 'i', 'v', 'e'};
 
     private static final AsciiString KEEP_ALIVE = AsciiString.cached("keep-alive");
 

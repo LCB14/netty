@@ -65,7 +65,7 @@ import static io.netty.handler.codec.http.HttpVersion.*;
  * <a href="https://tools.ietf.org/html/rfc2616#section-14.25">RFC 2616</a>.
  *
  * <h3>How Browser Caching Works</h3>
- *
+ * <p>
  * Web browser caching works with HTTP headers as illustrated by the following
  * sample:
  * <ol>
@@ -288,7 +288,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 
         File[] files = dir.listFiles();
         if (files != null) {
-            for (File f: files) {
+            for (File f : files) {
                 if (f.isHidden() || !f.canRead()) {
                     continue;
                 }
@@ -335,8 +335,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * When file timestamp is the same as what the browser is sending up, send a "304 Not Modified"
      *
-     * @param ctx
-     *            Context
+     * @param ctx Context
      */
     private void sendNotModified(ChannelHandlerContext ctx) {
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, NOT_MODIFIED, Unpooled.EMPTY_BUFFER);
@@ -372,8 +371,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * Sets the Date header for the HTTP response
      *
-     * @param response
-     *            HTTP response
+     * @param response HTTP response
      */
     private static void setDateHeader(FullHttpResponse response) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(HTTP_DATE_FORMAT, Locale.US);
@@ -386,10 +384,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * Sets the Date and Cache headers for the HTTP Response
      *
-     * @param response
-     *            HTTP response
-     * @param fileToCache
-     *            file to extract content type
+     * @param response    HTTP response
+     * @param fileToCache file to extract content type
      */
     private static void setDateAndCacheHeaders(HttpResponse response, File fileToCache) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(HTTP_DATE_FORMAT, Locale.US);
@@ -410,10 +406,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * Sets the content type header for the HTTP Response
      *
-     * @param response
-     *            HTTP response
-     * @param file
-     *            file to extract content type
+     * @param response HTTP response
+     * @param file     file to extract content type
      */
     private static void setContentTypeHeader(HttpResponse response, File file) {
         MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();

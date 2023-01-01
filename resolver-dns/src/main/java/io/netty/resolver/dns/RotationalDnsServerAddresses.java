@@ -34,7 +34,7 @@ final class RotationalDnsServerAddresses extends DefaultDnsServerAddresses {
 
     @Override
     public DnsServerAddressStream stream() {
-        for (;;) {
+        for (; ; ) {
             int curStartIdx = startIdx;
             int nextStartIdx = curStartIdx + 1;
             if (nextStartIdx >= addresses.size()) {

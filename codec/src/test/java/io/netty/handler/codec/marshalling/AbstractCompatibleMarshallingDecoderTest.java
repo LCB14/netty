@@ -131,6 +131,7 @@ public abstract class AbstractCompatibleMarshallingDecoderTest extends AbstractM
     }
 
     protected abstract MarshallerFactory createMarshallerFactory();
+
     protected abstract MarshallingConfiguration createMarshallingConfig();
 
 }

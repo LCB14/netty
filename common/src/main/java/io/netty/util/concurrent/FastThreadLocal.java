@@ -63,7 +63,7 @@ public class FastThreadLocal<V> {
                 Set<FastThreadLocal<?>> variablesToRemove = (Set<FastThreadLocal<?>>) v;
                 FastThreadLocal<?>[] variablesToRemoveArray =
                         variablesToRemove.toArray(new FastThreadLocal[0]);
-                for (FastThreadLocal<?> tlv: variablesToRemoveArray) {
+                for (FastThreadLocal<?> tlv : variablesToRemoveArray) {
                     tlv.remove(threadLocalMap);
                 }
             }
@@ -233,6 +233,7 @@ public class FastThreadLocal<V> {
     public final boolean isSet(InternalThreadLocalMap threadLocalMap) {
         return threadLocalMap != null && threadLocalMap.isIndexedVariableSet(index);
     }
+
     /**
      * Sets the value to uninitialized for the specified thread local map.
      * After this, any subsequent call to get() will trigger a new call to initialValue().
@@ -275,5 +276,6 @@ public class FastThreadLocal<V> {
      * is not guaranteed to be called when the `Thread` completes which means you can not depend on this for
      * cleanup of the resources in the case of `Thread` completion.
      */
-    protected void onRemoval(@SuppressWarnings("UnusedParameters") V value) throws Exception { }
+    protected void onRemoval(@SuppressWarnings("UnusedParameters") V value) throws Exception {
+    }
 }

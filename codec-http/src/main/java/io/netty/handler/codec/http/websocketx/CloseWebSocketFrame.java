@@ -35,9 +35,8 @@ public class CloseWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new empty close frame with closing status code and reason text
      *
-     * @param status
-     *            Status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
-     *            example, <tt>1000</tt> indicates normal closure.
+     * @param status Status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
+     *               example, <tt>1000</tt> indicates normal closure.
      */
     public CloseWebSocketFrame(WebSocketCloseStatus status) {
         this(requireValidStatusCode(status.code()), status.reasonText());
@@ -46,11 +45,9 @@ public class CloseWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new empty close frame with closing status code and reason text
      *
-     * @param status
-     *            Status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
-     *            example, <tt>1000</tt> indicates normal closure.
-     * @param reasonText
-     *            Reason text. Set to null if no text.
+     * @param status     Status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
+     *                   example, <tt>1000</tt> indicates normal closure.
+     * @param reasonText Reason text. Set to null if no text.
      */
     public CloseWebSocketFrame(WebSocketCloseStatus status, String reasonText) {
         this(requireValidStatusCode(status.code()), reasonText);
@@ -59,11 +56,9 @@ public class CloseWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new empty close frame with closing status code and reason text
      *
-     * @param statusCode
-     *            Integer status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
-     *            example, <tt>1000</tt> indicates normal closure.
-     * @param reasonText
-     *            Reason text. Set to null if no text.
+     * @param statusCode Integer status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
+     *                   example, <tt>1000</tt> indicates normal closure.
+     * @param reasonText Reason text. Set to null if no text.
      */
     public CloseWebSocketFrame(int statusCode, String reasonText) {
         this(true, 0, requireValidStatusCode(statusCode), reasonText);
@@ -72,10 +67,8 @@ public class CloseWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new close frame with no losing status code and no reason text
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions.
      */
     public CloseWebSocketFrame(boolean finalFragment, int rsv) {
         this(finalFragment, rsv, Unpooled.buffer(0));
@@ -84,15 +77,11 @@ public class CloseWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new close frame with closing status code and reason text
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions
-     * @param statusCode
-     *            Integer status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
-     *            example, <tt>1000</tt> indicates normal closure.
-     * @param reasonText
-     *            Reason text. Set to null if no text.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions
+     * @param statusCode    Integer status code as per <a href="https://tools.ietf.org/html/rfc6455#section-7.4">RFC 6455</a>. For
+     *                      example, <tt>1000</tt> indicates normal closure.
+     * @param reasonText    Reason text. Set to null if no text.
      */
     public CloseWebSocketFrame(boolean finalFragment, int rsv, int statusCode, String reasonText) {
         super(finalFragment, rsv, newBinaryData(requireValidStatusCode(statusCode), reasonText));
@@ -114,12 +103,9 @@ public class CloseWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new close frame
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions
-     * @param binaryData
-     *            the content of the frame. Must be 2 byte integer followed by optional UTF-8 encoded string.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions
+     * @param binaryData    the content of the frame. Must be 2 byte integer followed by optional UTF-8 encoded string.
      */
     public CloseWebSocketFrame(boolean finalFragment, int rsv, ByteBuf binaryData) {
         super(finalFragment, rsv, binaryData);

@@ -17,7 +17,8 @@ package io.netty.handler.codec.http.multipart;
 
 final class FileUploadUtil {
 
-    private FileUploadUtil() { }
+    private FileUploadUtil() {
+    }
 
     static int hashCode(FileUpload upload) {
         return upload.getName().hashCode();

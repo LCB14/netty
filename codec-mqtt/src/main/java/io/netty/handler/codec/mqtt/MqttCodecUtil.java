@@ -60,7 +60,7 @@ final class MqttCodecUtil {
     static boolean isValidClientId(MqttVersion mqttVersion, int maxClientIdLength, String clientId) {
         if (mqttVersion == MqttVersion.MQTT_3_1) {
             return clientId != null && clientId.length() >= MIN_CLIENT_ID_LENGTH &&
-                clientId.length() <= maxClientIdLength;
+                    clientId.length() <= maxClientIdLength;
         }
         if (mqttVersion == MqttVersion.MQTT_3_1_1 || mqttVersion == MqttVersion.MQTT_5) {
             // In 3.1.3.1 Client Identifier of MQTT 3.1.1 and 5.0 specifications, The Server MAY allow ClientId’s
@@ -129,5 +129,6 @@ final class MqttCodecUtil {
         }
     }
 
-    private MqttCodecUtil() { }
+    private MqttCodecUtil() {
+    }
 }

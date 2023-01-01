@@ -136,7 +136,7 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
     @Override
     public boolean add(Channel channel) {
         ConcurrentMap<ChannelId, Channel> map =
-            channel instanceof ServerChannel? serverChannels : nonServerChannels;
+                channel instanceof ServerChannel ? serverChannels : nonServerChannels;
 
         boolean added = map.putIfAbsent(channel.id(), channel) == null;
         if (added) {
@@ -260,7 +260,7 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
 
         final ChannelGroupFuture future;
         if (voidPromise) {
-            for (Channel c: nonServerChannels.values()) {
+            for (Channel c : nonServerChannels.values()) {
                 if (matcher.matches(c)) {
                     c.write(safeDuplicate(message), c.voidPromise());
                 }
@@ -268,7 +268,7 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
             future = voidFuture;
         } else {
             Map<Channel, ChannelFuture> futures = new LinkedHashMap<Channel, ChannelFuture>(nonServerChannels.size());
-            for (Channel c: nonServerChannels.values()) {
+            for (Channel c : nonServerChannels.values()) {
                 if (matcher.matches(c)) {
                     futures.put(c, c.write(safeDuplicate(message)));
                 }
@@ -301,12 +301,12 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
         Map<Channel, ChannelFuture> futures =
                 new LinkedHashMap<Channel, ChannelFuture>(size());
 
-        for (Channel c: serverChannels.values()) {
+        for (Channel c : serverChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.disconnect());
             }
         }
-        for (Channel c: nonServerChannels.values()) {
+        for (Channel c : nonServerChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.disconnect());
             }
@@ -332,12 +332,12 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
             closed = true;
         }
 
-        for (Channel c: serverChannels.values()) {
+        for (Channel c : serverChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.close());
             }
         }
-        for (Channel c: nonServerChannels.values()) {
+        for (Channel c : nonServerChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.close());
             }
@@ -353,12 +353,12 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
         Map<Channel, ChannelFuture> futures =
                 new LinkedHashMap<Channel, ChannelFuture>(size());
 
-        for (Channel c: serverChannels.values()) {
+        for (Channel c : serverChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.deregister());
             }
         }
-        for (Channel c: nonServerChannels.values()) {
+        for (Channel c : nonServerChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.deregister());
             }
@@ -369,7 +369,7 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
 
     @Override
     public ChannelGroup flush(ChannelMatcher matcher) {
-        for (Channel c: nonServerChannels.values()) {
+        for (Channel c : nonServerChannels.values()) {
             if (matcher.matches(c)) {
                 c.flush();
             }
@@ -393,7 +393,7 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
 
         final ChannelGroupFuture future;
         if (voidPromise) {
-            for (Channel c: nonServerChannels.values()) {
+            for (Channel c : nonServerChannels.values()) {
                 if (matcher.matches(c)) {
                     c.writeAndFlush(safeDuplicate(message), c.voidPromise());
                 }
@@ -401,7 +401,7 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
             future = voidFuture;
         } else {
             Map<Channel, ChannelFuture> futures = new LinkedHashMap<Channel, ChannelFuture>(nonServerChannels.size());
-            for (Channel c: nonServerChannels.values()) {
+            for (Channel c : nonServerChannels.values()) {
                 if (matcher.matches(c)) {
                     futures.put(c, c.writeAndFlush(safeDuplicate(message)));
                 }
@@ -422,12 +422,12 @@ public class DefaultChannelGroup extends AbstractSet<Channel> implements Channel
         Map<Channel, ChannelFuture> futures =
                 new LinkedHashMap<Channel, ChannelFuture>(size());
 
-        for (Channel c: serverChannels.values()) {
+        for (Channel c : serverChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.closeFuture());
             }
         }
-        for (Channel c: nonServerChannels.values()) {
+        for (Channel c : nonServerChannels.values()) {
             if (matcher.matches(c)) {
                 futures.put(c, c.closeFuture());
             }

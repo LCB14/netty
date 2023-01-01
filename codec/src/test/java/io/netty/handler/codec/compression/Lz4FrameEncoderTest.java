@@ -32,7 +32,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.EncoderException;
+
 import java.util.concurrent.TimeUnit;
+
 import net.jpountz.lz4.LZ4BlockInputStream;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.xxhash.XXHashFactory;
@@ -183,9 +185,9 @@ public class Lz4FrameEncoderTest extends AbstractEncoderTest {
     private Lz4FrameEncoder newEncoder(int blockSize, int maxEncodeSize) {
         Checksum checksum = XXHashFactory.fastestInstance().newStreamingHash32(DEFAULT_SEED).asChecksum();
         Lz4FrameEncoder encoder = new Lz4FrameEncoder(LZ4Factory.fastestInstance(), true,
-                                                      blockSize,
-                                                      checksum,
-                                                      maxEncodeSize);
+                blockSize,
+                checksum,
+                maxEncodeSize);
         encoder.handlerAdded(ctx);
         return encoder;
     }
@@ -292,15 +294,15 @@ public class Lz4FrameEncoderTest extends AbstractEncoderTest {
                     ByteBuf buf = ByteBufAllocator.DEFAULT.buffer(size, size);
                     finalClientChannel.writeAndFlush(buf.writerIndex(buf.writerIndex() + size))
                             .addListener(new ChannelFutureListener() {
-                        @Override
-                        public void operationComplete(ChannelFuture future) throws Exception {
-                            try {
-                                writeFailCauseRef.set(future.cause());
-                            } finally {
-                                latch.countDown();
-                            }
-                        }
-                    });
+                                @Override
+                                public void operationComplete(ChannelFuture future) throws Exception {
+                                    try {
+                                        writeFailCauseRef.set(future.cause());
+                                    } finally {
+                                        latch.countDown();
+                                    }
+                                }
+                            });
                 }
             });
             latch.await();

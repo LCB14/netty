@@ -39,7 +39,7 @@ final class DnsAddressResolveContext extends DnsResolveContext<InetAddress> {
                              AuthoritativeDnsServerCache authoritativeDnsServerCache,
                              boolean completeEarlyIfPossible) {
         super(parent, originalPromise, hostname, DnsRecord.CLASS_IN,
-              parent.resolveRecordTypes(), additionals, nameServerAddrs, allowedQueries);
+                parent.resolveRecordTypes(), additionals, nameServerAddrs, allowedQueries);
         this.resolveCache = resolveCache;
         this.authoritativeDnsServerCache = authoritativeDnsServerCache;
         this.completeEarlyIfPossible = completeEarlyIfPossible;

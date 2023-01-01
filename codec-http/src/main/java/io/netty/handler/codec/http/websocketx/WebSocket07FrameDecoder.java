@@ -61,53 +61,45 @@ public class WebSocket07FrameDecoder extends WebSocket08FrameDecoder {
     /**
      * Constructor
      *
-     * @param expectMaskedFrames
-     *            Web socket servers must set this to true processed incoming masked payload. Client implementations
-     *            must set this to false.
-     * @param allowExtensions
-     *            Flag to allow reserved extension bits to be used or not
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload. Setting this to an appropriate value for you application
-     *            helps check for denial of services attacks.
+     * @param expectMaskedFrames    Web socket servers must set this to true processed incoming masked payload. Client implementations
+     *                              must set this to false.
+     * @param allowExtensions       Flag to allow reserved extension bits to be used or not
+     * @param maxFramePayloadLength Maximum length of a frame's payload. Setting this to an appropriate value for you application
+     *                              helps check for denial of services attacks.
      */
     public WebSocket07FrameDecoder(boolean expectMaskedFrames, boolean allowExtensions, int maxFramePayloadLength) {
         this(WebSocketDecoderConfig.newBuilder()
-            .expectMaskedFrames(expectMaskedFrames)
-            .allowExtensions(allowExtensions)
-            .maxFramePayloadLength(maxFramePayloadLength)
-            .build());
+                .expectMaskedFrames(expectMaskedFrames)
+                .allowExtensions(allowExtensions)
+                .maxFramePayloadLength(maxFramePayloadLength)
+                .build());
     }
 
     /**
      * Constructor
      *
-     * @param expectMaskedFrames
-     *            Web socket servers must set this to true processed incoming masked payload. Client implementations
-     *            must set this to false.
-     * @param allowExtensions
-     *            Flag to allow reserved extension bits to be used or not
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload. Setting this to an appropriate value for you application
-     *            helps check for denial of services attacks.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
+     * @param expectMaskedFrames    Web socket servers must set this to true processed incoming masked payload. Client implementations
+     *                              must set this to false.
+     * @param allowExtensions       Flag to allow reserved extension bits to be used or not
+     * @param maxFramePayloadLength Maximum length of a frame's payload. Setting this to an appropriate value for you application
+     *                              helps check for denial of services attacks.
+     * @param allowMaskMismatch     When set to true, frames which are not masked properly according to the standard will still be
+     *                              accepted.
      */
     public WebSocket07FrameDecoder(boolean expectMaskedFrames, boolean allowExtensions, int maxFramePayloadLength,
                                    boolean allowMaskMismatch) {
         this(WebSocketDecoderConfig.newBuilder()
-            .expectMaskedFrames(expectMaskedFrames)
-            .allowExtensions(allowExtensions)
-            .maxFramePayloadLength(maxFramePayloadLength)
-            .allowMaskMismatch(allowMaskMismatch)
-            .build());
+                .expectMaskedFrames(expectMaskedFrames)
+                .allowExtensions(allowExtensions)
+                .maxFramePayloadLength(maxFramePayloadLength)
+                .allowMaskMismatch(allowMaskMismatch)
+                .build());
     }
 
     /**
      * Constructor
      *
-     * @param decoderConfig
-     *            Frames decoder configuration.
+     * @param decoderConfig Frames decoder configuration.
      */
     public WebSocket07FrameDecoder(WebSocketDecoderConfig decoderConfig) {
         super(decoderConfig);

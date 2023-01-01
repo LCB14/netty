@@ -57,19 +57,19 @@ final class HttpProxyServer extends ProxyServer {
     protected void configure(SocketChannel ch) throws Exception {
         ChannelPipeline p = ch.pipeline();
         switch (testMode) {
-        case INTERMEDIARY:
-            p.addLast(new HttpServerCodec());
-            p.addLast(new HttpObjectAggregator(1));
-            p.addLast(new HttpIntermediaryHandler());
-            break;
-        case TERMINAL:
-            p.addLast(new HttpServerCodec());
-            p.addLast(new HttpObjectAggregator(1));
-            p.addLast(new HttpTerminalHandler());
-            break;
-        case UNRESPONSIVE:
-            p.addLast(UnresponsiveHandler.INSTANCE);
-            break;
+            case INTERMEDIARY:
+                p.addLast(new HttpServerCodec());
+                p.addLast(new HttpObjectAggregator(1));
+                p.addLast(new HttpIntermediaryHandler());
+                break;
+            case TERMINAL:
+                p.addLast(new HttpServerCodec());
+                p.addLast(new HttpObjectAggregator(1));
+                p.addLast(new HttpTerminalHandler());
+                break;
+            case UNRESPONSIVE:
+                p.addLast(UnresponsiveHandler.INSTANCE);
+                break;
         }
     }
 
@@ -93,7 +93,7 @@ final class HttpProxyServer extends ProxyServer {
 
                 String expectedAuthz = username + ':' + password;
                 authzSuccess = "Basic".equals(authzParts[0]) &&
-                               expectedAuthz.equals(authzBuf.toString(CharsetUtil.US_ASCII));
+                        expectedAuthz.equals(authzBuf.toString(CharsetUtil.US_ASCII));
 
                 authzBuf64.release();
                 authzBuf.release();

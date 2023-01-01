@@ -28,7 +28,7 @@ import javax.net.ssl.SSLException;
 @Threads(1)
 public class SslEngineWrapBenchmark extends AbstractSslEngineThroughputBenchmark {
 
-    @Param({ "1", "2", "5", "10" })
+    @Param({"1", "2", "5", "10"})
     public int numWraps;
 
     @Benchmark

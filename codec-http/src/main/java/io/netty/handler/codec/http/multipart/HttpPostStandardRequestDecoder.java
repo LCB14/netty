@@ -42,9 +42,8 @@ import static io.netty.util.internal.ObjectUtil.*;
 
 /**
  * This decoder will decode Body and can handle POST BODY.
- *
+ * <p>
  * You <strong>MUST</strong> call {@link #destroy()} after completion to release all resources.
- *
  */
 public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestDecoder {
 
@@ -104,48 +103,33 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
     private int discardThreshold = HttpPostRequestDecoder.DEFAULT_DISCARD_THRESHOLD;
 
     /**
-     *
-     * @param request
-     *            the request to decode
-     * @throws NullPointerException
-     *             for request
-     * @throws ErrorDataDecoderException
-     *             if the default charset was wrong when decoding or other
-     *             errors
+     * @param request the request to decode
+     * @throws NullPointerException      for request
+     * @throws ErrorDataDecoderException if the default charset was wrong when decoding or other
+     *                                   errors
      */
     public HttpPostStandardRequestDecoder(HttpRequest request) {
         this(new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE), request, HttpConstants.DEFAULT_CHARSET);
     }
 
     /**
-     *
-     * @param factory
-     *            the factory used to create InterfaceHttpData
-     * @param request
-     *            the request to decode
-     * @throws NullPointerException
-     *             for request or factory
-     * @throws ErrorDataDecoderException
-     *             if the default charset was wrong when decoding or other
-     *             errors
+     * @param factory the factory used to create InterfaceHttpData
+     * @param request the request to decode
+     * @throws NullPointerException      for request or factory
+     * @throws ErrorDataDecoderException if the default charset was wrong when decoding or other
+     *                                   errors
      */
     public HttpPostStandardRequestDecoder(HttpDataFactory factory, HttpRequest request) {
         this(factory, request, HttpConstants.DEFAULT_CHARSET);
     }
 
     /**
-     *
-     * @param factory
-     *            the factory used to create InterfaceHttpData
-     * @param request
-     *            the request to decode
-     * @param charset
-     *            the charset to use as default
-     * @throws NullPointerException
-     *             for request or charset or factory
-     * @throws ErrorDataDecoderException
-     *             if the default charset was wrong when decoding or other
-     *             errors
+     * @param factory the factory used to create InterfaceHttpData
+     * @param request the request to decode
+     * @param charset the charset to use as default
+     * @throws NullPointerException      for request or charset or factory
+     * @throws ErrorDataDecoderException if the default charset was wrong when decoding or other
+     *                                   errors
      */
     public HttpPostStandardRequestDecoder(HttpDataFactory factory, HttpRequest request, Charset charset) {
         this.request = checkNotNull(request, "request");
@@ -203,13 +187,12 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
 
     /**
      * This getMethod returns a List of all HttpDatas from body.<br>
-     *
+     * <p>
      * If chunked, all chunks must have been offered using offer() getMethod. If
      * not, NotEnoughDataDecoderException will be raised.
      *
      * @return the list of HttpDatas from Body part for POST getMethod
-     * @throws NotEnoughDataDecoderException
-     *             Need more chunks
+     * @throws NotEnoughDataDecoderException Need more chunks
      */
     @Override
     public List<InterfaceHttpData> getBodyHttpDatas() {
@@ -224,13 +207,12 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
     /**
      * This getMethod returns a List of all HttpDatas with the given name from
      * body.<br>
-     *
+     * <p>
      * If chunked, all chunks must have been offered using offer() getMethod. If
      * not, NotEnoughDataDecoderException will be raised.
      *
      * @return All Body HttpDatas with the given name (ignore case)
-     * @throws NotEnoughDataDecoderException
-     *             need more chunks
+     * @throws NotEnoughDataDecoderException need more chunks
      */
     @Override
     public List<InterfaceHttpData> getBodyHttpDatas(String name) {
@@ -245,14 +227,13 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
     /**
      * This getMethod returns the first InterfaceHttpData with the given name from
      * body.<br>
-     *
+     * <p>
      * If chunked, all chunks must have been offered using offer() getMethod. If
      * not, NotEnoughDataDecoderException will be raised.
      *
      * @return The first Body InterfaceHttpData with the given name (ignore
-     *         case)
-     * @throws NotEnoughDataDecoderException
-     *             need more chunks
+     * case)
+     * @throws NotEnoughDataDecoderException need more chunks
      */
     @Override
     public InterfaceHttpData getBodyHttpData(String name) {
@@ -271,11 +252,9 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
     /**
      * Initialized the internals from a new chunk
      *
-     * @param content
-     *            the new received chunk
-     * @throws ErrorDataDecoderException
-     *             if there is a problem with the charset decoding or other
-     *             errors
+     * @param content the new received chunk
+     * @throws ErrorDataDecoderException if there is a problem with the charset decoding or other
+     *                                   errors
      */
     @Override
     public HttpPostStandardRequestDecoder offer(HttpContent content) {
@@ -316,12 +295,11 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
     /**
      * True if at current getStatus, there is an available decoded
      * InterfaceHttpData from the Body.
-     *
+     * <p>
      * This getMethod works for chunked and not chunked request.
      *
      * @return True if at current getStatus, there is a decoded InterfaceHttpData
-     * @throws EndOfDataDecoderException
-     *             No more data will be available
+     * @throws EndOfDataDecoderException No more data will be available
      */
     @Override
     public boolean hasNext() {
@@ -340,13 +318,12 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
      * Returns the next available InterfaceHttpData or null if, at the time it
      * is called, there is no more available InterfaceHttpData. A subsequent
      * call to offer(httpChunk) could enable more data.
-     *
+     * <p>
      * Be sure to call {@link InterfaceHttpData#release()} after you are done
      * with processing to make sure to not leak any resources
      *
      * @return the next available InterfaceHttpData or null if none
-     * @throws EndOfDataDecoderException
-     *             No more data will be available
+     * @throws EndOfDataDecoderException No more data will be available
      */
     @Override
     public InterfaceHttpData next() {
@@ -366,9 +343,8 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
     /**
      * This getMethod will parse as much as possible data and fill the list and map
      *
-     * @throws ErrorDataDecoderException
-     *             if there is a problem with the charset decoding or other
-     *             errors
+     * @throws ErrorDataDecoderException if there is a problem with the charset decoding or other
+     *                                   errors
      */
     private void parseBody() {
         if (currentStatus == MultiPartStatus.PREEPILOGUE || currentStatus == MultiPartStatus.EPILOGUE) {
@@ -400,9 +376,8 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
      * This getMethod fill the map and list with as much Attribute as possible from
      * Body in not Multipart mode.
      *
-     * @throws ErrorDataDecoderException
-     *             if there is a problem with the charset decoding or other
-     *             errors
+     * @throws ErrorDataDecoderException if there is a problem with the charset decoding or other
+     *                                   errors
      */
     private void parseBodyAttributesStandard() {
         int firstpos = undecodedChunk.readerIndex();
@@ -418,68 +393,68 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
                 char read = (char) undecodedChunk.readUnsignedByte();
                 currentpos++;
                 switch (currentStatus) {
-                case DISPOSITION:// search '='
-                    if (read == '=') {
-                        currentStatus = MultiPartStatus.FIELD;
-                        equalpos = currentpos - 1;
-                        String key = decodeAttribute(undecodedChunk.toString(firstpos, equalpos - firstpos, charset),
-                                charset);
-                        currentAttribute = factory.createAttribute(request, key);
-                        firstpos = currentpos;
-                    } else if (read == '&') { // special empty FIELD
-                        currentStatus = MultiPartStatus.DISPOSITION;
-                        ampersandpos = currentpos - 1;
-                        String key = decodeAttribute(
-                                undecodedChunk.toString(firstpos, ampersandpos - firstpos, charset), charset);
-                        // Some weird request bodies start with an '&' character, eg: &name=J&age=17.
-                        // In that case, key would be "", will get exception:
-                        // java.lang.IllegalArgumentException: Param 'name' must not be empty;
-                        // Just check and skip empty key.
-                        if (!key.isEmpty()) {
+                    case DISPOSITION:// search '='
+                        if (read == '=') {
+                            currentStatus = MultiPartStatus.FIELD;
+                            equalpos = currentpos - 1;
+                            String key = decodeAttribute(undecodedChunk.toString(firstpos, equalpos - firstpos, charset),
+                                    charset);
                             currentAttribute = factory.createAttribute(request, key);
-                            currentAttribute.setValue(""); // empty
-                            addHttpData(currentAttribute);
-                        }
-                        currentAttribute = null;
-                        firstpos = currentpos;
-                        contRead = true;
-                    }
-                    break;
-                case FIELD:// search '&' or end of line
-                    if (read == '&') {
-                        currentStatus = MultiPartStatus.DISPOSITION;
-                        ampersandpos = currentpos - 1;
-                        setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
-                        firstpos = currentpos;
-                        contRead = true;
-                    } else if (read == HttpConstants.CR) {
-                        if (undecodedChunk.isReadable()) {
-                            read = (char) undecodedChunk.readUnsignedByte();
-                            currentpos++;
-                            if (read == HttpConstants.LF) {
-                                currentStatus = MultiPartStatus.PREEPILOGUE;
-                                ampersandpos = currentpos - 2;
-                                setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
-                                firstpos = currentpos;
-                                contRead = false;
-                            } else {
-                                // Error
-                                throw new ErrorDataDecoderException("Bad end of line");
+                            firstpos = currentpos;
+                        } else if (read == '&') { // special empty FIELD
+                            currentStatus = MultiPartStatus.DISPOSITION;
+                            ampersandpos = currentpos - 1;
+                            String key = decodeAttribute(
+                                    undecodedChunk.toString(firstpos, ampersandpos - firstpos, charset), charset);
+                            // Some weird request bodies start with an '&' character, eg: &name=J&age=17.
+                            // In that case, key would be "", will get exception:
+                            // java.lang.IllegalArgumentException: Param 'name' must not be empty;
+                            // Just check and skip empty key.
+                            if (!key.isEmpty()) {
+                                currentAttribute = factory.createAttribute(request, key);
+                                currentAttribute.setValue(""); // empty
+                                addHttpData(currentAttribute);
                             }
-                        } else {
-                            currentpos--;
+                            currentAttribute = null;
+                            firstpos = currentpos;
+                            contRead = true;
                         }
-                    } else if (read == HttpConstants.LF) {
-                        currentStatus = MultiPartStatus.PREEPILOGUE;
-                        ampersandpos = currentpos - 1;
-                        setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
-                        firstpos = currentpos;
+                        break;
+                    case FIELD:// search '&' or end of line
+                        if (read == '&') {
+                            currentStatus = MultiPartStatus.DISPOSITION;
+                            ampersandpos = currentpos - 1;
+                            setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
+                            firstpos = currentpos;
+                            contRead = true;
+                        } else if (read == HttpConstants.CR) {
+                            if (undecodedChunk.isReadable()) {
+                                read = (char) undecodedChunk.readUnsignedByte();
+                                currentpos++;
+                                if (read == HttpConstants.LF) {
+                                    currentStatus = MultiPartStatus.PREEPILOGUE;
+                                    ampersandpos = currentpos - 2;
+                                    setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
+                                    firstpos = currentpos;
+                                    contRead = false;
+                                } else {
+                                    // Error
+                                    throw new ErrorDataDecoderException("Bad end of line");
+                                }
+                            } else {
+                                currentpos--;
+                            }
+                        } else if (read == HttpConstants.LF) {
+                            currentStatus = MultiPartStatus.PREEPILOGUE;
+                            ampersandpos = currentpos - 1;
+                            setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
+                            firstpos = currentpos;
+                            contRead = false;
+                        }
+                        break;
+                    default:
+                        // just stop
                         contRead = false;
-                    }
-                    break;
-                default:
-                    // just stop
-                    contRead = false;
                 }
             }
             if (isLastChunk && currentAttribute != null) {
@@ -495,7 +470,7 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
             } else if (contRead && currentAttribute != null && currentStatus == MultiPartStatus.FIELD) {
                 // reset index except if to continue in case of FIELD getStatus
                 currentAttribute.addContent(undecodedChunk.retainedSlice(firstpos, currentpos - firstpos),
-                                            false);
+                        false);
                 firstpos = currentpos;
             }
             undecodedChunk.readerIndex(firstpos);
@@ -518,9 +493,8 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
      * This getMethod fill the map and list with as much Attribute as possible from
      * Body in not Multipart mode.
      *
-     * @throws ErrorDataDecoderException
-     *             if there is a problem with the charset decoding or other
-     *             errors
+     * @throws ErrorDataDecoderException if there is a problem with the charset decoding or other
+     *                                   errors
      */
     private void parseBodyAttributes() {
         if (undecodedChunk == null) {
@@ -540,81 +514,82 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
         }
         boolean contRead = true;
         try {
-            loop: while (sao.pos < sao.limit) {
+            loop:
+            while (sao.pos < sao.limit) {
                 char read = (char) (sao.bytes[sao.pos++] & 0xFF);
                 currentpos++;
                 switch (currentStatus) {
-                case DISPOSITION:// search '='
-                    if (read == '=') {
-                        currentStatus = MultiPartStatus.FIELD;
-                        equalpos = currentpos - 1;
-                        String key = decodeAttribute(undecodedChunk.toString(firstpos, equalpos - firstpos, charset),
-                                charset);
-                        currentAttribute = factory.createAttribute(request, key);
-                        firstpos = currentpos;
-                    } else if (read == '&') { // special empty FIELD
-                        currentStatus = MultiPartStatus.DISPOSITION;
-                        ampersandpos = currentpos - 1;
-                        String key = decodeAttribute(
-                                undecodedChunk.toString(firstpos, ampersandpos - firstpos, charset), charset);
-                        // Some weird request bodies start with an '&' char, eg: &name=J&age=17.
-                        // In that case, key would be "", will get exception:
-                        // java.lang.IllegalArgumentException: Param 'name' must not be empty;
-                        // Just check and skip empty key.
-                        if (!key.isEmpty()) {
+                    case DISPOSITION:// search '='
+                        if (read == '=') {
+                            currentStatus = MultiPartStatus.FIELD;
+                            equalpos = currentpos - 1;
+                            String key = decodeAttribute(undecodedChunk.toString(firstpos, equalpos - firstpos, charset),
+                                    charset);
                             currentAttribute = factory.createAttribute(request, key);
-                            currentAttribute.setValue(""); // empty
-                            addHttpData(currentAttribute);
+                            firstpos = currentpos;
+                        } else if (read == '&') { // special empty FIELD
+                            currentStatus = MultiPartStatus.DISPOSITION;
+                            ampersandpos = currentpos - 1;
+                            String key = decodeAttribute(
+                                    undecodedChunk.toString(firstpos, ampersandpos - firstpos, charset), charset);
+                            // Some weird request bodies start with an '&' char, eg: &name=J&age=17.
+                            // In that case, key would be "", will get exception:
+                            // java.lang.IllegalArgumentException: Param 'name' must not be empty;
+                            // Just check and skip empty key.
+                            if (!key.isEmpty()) {
+                                currentAttribute = factory.createAttribute(request, key);
+                                currentAttribute.setValue(""); // empty
+                                addHttpData(currentAttribute);
+                            }
+                            currentAttribute = null;
+                            firstpos = currentpos;
+                            contRead = true;
                         }
-                        currentAttribute = null;
-                        firstpos = currentpos;
-                        contRead = true;
-                    }
-                    break;
-                case FIELD:// search '&' or end of line
-                    if (read == '&') {
-                        currentStatus = MultiPartStatus.DISPOSITION;
-                        ampersandpos = currentpos - 1;
-                        setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
-                        firstpos = currentpos;
-                        contRead = true;
-                    } else if (read == HttpConstants.CR) {
-                        if (sao.pos < sao.limit) {
-                            read = (char) (sao.bytes[sao.pos++] & 0xFF);
-                            currentpos++;
-                            if (read == HttpConstants.LF) {
-                                currentStatus = MultiPartStatus.PREEPILOGUE;
-                                ampersandpos = currentpos - 2;
-                                sao.setReadPosition(0);
-                                setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
-                                firstpos = currentpos;
-                                contRead = false;
-                                break loop;
+                        break;
+                    case FIELD:// search '&' or end of line
+                        if (read == '&') {
+                            currentStatus = MultiPartStatus.DISPOSITION;
+                            ampersandpos = currentpos - 1;
+                            setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
+                            firstpos = currentpos;
+                            contRead = true;
+                        } else if (read == HttpConstants.CR) {
+                            if (sao.pos < sao.limit) {
+                                read = (char) (sao.bytes[sao.pos++] & 0xFF);
+                                currentpos++;
+                                if (read == HttpConstants.LF) {
+                                    currentStatus = MultiPartStatus.PREEPILOGUE;
+                                    ampersandpos = currentpos - 2;
+                                    sao.setReadPosition(0);
+                                    setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
+                                    firstpos = currentpos;
+                                    contRead = false;
+                                    break loop;
+                                } else {
+                                    // Error
+                                    sao.setReadPosition(0);
+                                    throw new ErrorDataDecoderException("Bad end of line");
+                                }
                             } else {
-                                // Error
-                                sao.setReadPosition(0);
-                                throw new ErrorDataDecoderException("Bad end of line");
+                                if (sao.limit > 0) {
+                                    currentpos--;
+                                }
                             }
-                        } else {
-                            if (sao.limit > 0) {
-                                currentpos--;
-                            }
+                        } else if (read == HttpConstants.LF) {
+                            currentStatus = MultiPartStatus.PREEPILOGUE;
+                            ampersandpos = currentpos - 1;
+                            sao.setReadPosition(0);
+                            setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
+                            firstpos = currentpos;
+                            contRead = false;
+                            break loop;
                         }
-                    } else if (read == HttpConstants.LF) {
-                        currentStatus = MultiPartStatus.PREEPILOGUE;
-                        ampersandpos = currentpos - 1;
+                        break;
+                    default:
+                        // just stop
                         sao.setReadPosition(0);
-                        setFinalBuffer(undecodedChunk.retainedSlice(firstpos, ampersandpos - firstpos));
-                        firstpos = currentpos;
                         contRead = false;
                         break loop;
-                    }
-                    break;
-                default:
-                    // just stop
-                    sao.setReadPosition(0);
-                    contRead = false;
-                    break loop;
                 }
             }
             if (isLastChunk && currentAttribute != null) {
@@ -630,7 +605,7 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
             } else if (contRead && currentAttribute != null && currentStatus == MultiPartStatus.FIELD) {
                 // reset index except if to continue in case of FIELD getStatus
                 currentAttribute.addContent(undecodedChunk.retainedSlice(firstpos, currentpos - firstpos),
-                                            false);
+                        false);
                 firstpos = currentpos;
             }
             undecodedChunk.readerIndex(firstpos);
@@ -688,7 +663,7 @@ public class HttpPostStandardRequestDecoder implements InterfaceHttpPostRequestD
             idx -= urlDecode.nextEscapedIdx - 1;
             buf.release();
             throw new ErrorDataDecoderException(
-                String.format("Invalid hex byte at index '%d' in string: '%s'", idx, b.toString(charset)));
+                    String.format("Invalid hex byte at index '%d' in string: '%s'", idx, b.toString(charset)));
         }
 
         return buf;

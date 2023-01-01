@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import static io.netty.handler.codec.http.HttpHeadersTestUtils.of;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -44,6 +45,7 @@ public class HttpResponseDecoderTest {
 
     /**
      * The size of headers should be calculated correctly even if a single header is split into multiple fragments.
+     *
      * @see <a href="https://github.com/netty/netty/issues/3445">#3445</a>
      */
     @Test
@@ -150,19 +152,19 @@ public class HttpResponseDecoderTest {
     @Test
     public void testResponseDisallowPartialChunks() {
         HttpResponseDecoder decoder = new HttpResponseDecoder(
-            HttpObjectDecoder.DEFAULT_MAX_INITIAL_LINE_LENGTH,
-            HttpObjectDecoder.DEFAULT_MAX_HEADER_SIZE,
-            HttpObjectDecoder.DEFAULT_MAX_CHUNK_SIZE,
-            HttpObjectDecoder.DEFAULT_VALIDATE_HEADERS,
-            HttpObjectDecoder.DEFAULT_INITIAL_BUFFER_SIZE,
-            HttpObjectDecoder.DEFAULT_ALLOW_DUPLICATE_CONTENT_LENGTHS,
-            false);
+                HttpObjectDecoder.DEFAULT_MAX_INITIAL_LINE_LENGTH,
+                HttpObjectDecoder.DEFAULT_MAX_HEADER_SIZE,
+                HttpObjectDecoder.DEFAULT_MAX_CHUNK_SIZE,
+                HttpObjectDecoder.DEFAULT_VALIDATE_HEADERS,
+                HttpObjectDecoder.DEFAULT_INITIAL_BUFFER_SIZE,
+                HttpObjectDecoder.DEFAULT_ALLOW_DUPLICATE_CONTENT_LENGTHS,
+                false);
         EmbeddedChannel ch = new EmbeddedChannel(decoder);
 
         String headers = "HTTP/1.1 200 OK\r\n"
-            + "Transfer-Encoding: chunked\r\n"
-            + "\r\n";
-       assertTrue(ch.writeInbound(Unpooled.copiedBuffer(headers, CharsetUtil.US_ASCII)));
+                + "Transfer-Encoding: chunked\r\n"
+                + "\r\n";
+        assertTrue(ch.writeInbound(Unpooled.copiedBuffer(headers, CharsetUtil.US_ASCII)));
 
         HttpResponse res = ch.readInbound();
         assertThat(res.protocolVersion(), sameInstance(HttpVersion.HTTP_1_1));
@@ -177,7 +179,7 @@ public class HttpResponseDecoderTest {
         ByteBuf partialChunk2 = chunk.retainedSlice(5, 5);
 
         assertFalse(ch.writeInbound(Unpooled.copiedBuffer(Integer.toHexString(chunkSize)
-                                                          + "\r\n", CharsetUtil.US_ASCII)));
+                + "\r\n", CharsetUtil.US_ASCII)));
         assertFalse(ch.writeInbound(partialChunk1));
         assertTrue(ch.writeInbound(partialChunk2));
 
@@ -426,10 +428,10 @@ public class HttpResponseDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(new HttpResponseDecoder());
         assertTrue(ch.writeInbound(Unpooled.copiedBuffer(
                 "HTTP/1.1 205 Reset Content\r\n" +
-                "Transfer-Encoding: chunked\r\n" +
-                "\r\n" +
-                "0\r\n" +
-                "\r\n",
+                        "Transfer-Encoding: chunked\r\n" +
+                        "\r\n" +
+                        "0\r\n" +
+                        "\r\n",
                 CharsetUtil.US_ASCII)));
 
         HttpResponse res = ch.readInbound();
@@ -493,10 +495,10 @@ public class HttpResponseDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(new HttpResponseDecoder());
         int headerLength = 47;
         // split up the header
-        for (int a = 0; a < headerLength;) {
+        for (int a = 0; a < headerLength; ) {
             int amount = fragmentSize;
             if (a + amount > headerLength) {
-                amount = headerLength -  a;
+                amount = headerLength - a;
             }
 
             // if header is done it should produce an HttpRequest
@@ -571,10 +573,10 @@ public class HttpResponseDecoderTest {
     private static void testResponseWithContentLengthFragmented(byte[] header, int fragmentSize) {
         EmbeddedChannel ch = new EmbeddedChannel(new HttpResponseDecoder());
         // split up the header
-        for (int a = 0; a < header.length;) {
+        for (int a = 0; a < header.length; ) {
             int amount = fragmentSize;
             if (a + amount > header.length) {
-                amount = header.length -  a;
+                amount = header.length - a;
             }
 
             ch.writeInbound(Unpooled.copiedBuffer(header, a, amount));
@@ -723,8 +725,8 @@ public class HttpResponseDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(new HttpResponseDecoder());
         String responseWithIllegalChunk =
                 "HTTP/1.1 200 OK\r\n" +
-                "Transfer-Encoding: chunked\r\n\r\n" +
-                "NOT_A_CHUNK_LENGTH\r\n";
+                        "Transfer-Encoding: chunked\r\n\r\n" +
+                        "NOT_A_CHUNK_LENGTH\r\n";
 
         channel.writeInbound(Unpooled.copiedBuffer(responseWithIllegalChunk, CharsetUtil.US_ASCII));
         assertThat(channel.readInbound(), is(instanceOf(HttpResponse.class)));

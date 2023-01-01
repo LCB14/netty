@@ -87,7 +87,7 @@ public abstract class Http2ChannelDuplexHandler extends ChannelDuplexHandler {
         ChannelHandlerContext frameCodecCtx = ctx.pipeline().context(Http2FrameCodec.class);
         if (frameCodecCtx == null) {
             throw new IllegalArgumentException(Http2FrameCodec.class.getSimpleName()
-                                               + " was not found in the channel pipeline.");
+                    + " was not found in the channel pipeline.");
         }
         return (Http2FrameCodec) frameCodecCtx.handler();
     }

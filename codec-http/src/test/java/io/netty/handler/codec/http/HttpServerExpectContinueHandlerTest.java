@@ -55,18 +55,18 @@ public class HttpServerExpectContinueHandlerTest {
     @Test
     public void shouldAllowCustomResponses() {
         EmbeddedChannel channel = new EmbeddedChannel(
-            new HttpServerExpectContinueHandler() {
-                @Override
-                protected HttpResponse acceptMessage(HttpRequest request) {
-                    return null;
-                }
+                new HttpServerExpectContinueHandler() {
+                    @Override
+                    protected HttpResponse acceptMessage(HttpRequest request) {
+                        return null;
+                    }
 
-                @Override
-                protected HttpResponse rejectResponse(HttpRequest request) {
-                    return new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
-                            HttpResponseStatus.REQUEST_ENTITY_TOO_LARGE);
+                    @Override
+                    protected HttpResponse rejectResponse(HttpRequest request) {
+                        return new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
+                                HttpResponseStatus.REQUEST_ENTITY_TOO_LARGE);
+                    }
                 }
-            }
         );
 
         HttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/");

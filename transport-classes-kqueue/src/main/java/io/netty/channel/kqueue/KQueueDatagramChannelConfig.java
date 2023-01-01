@@ -61,7 +61,7 @@ public final class KQueueDatagramChannelConfig extends KQueueChannelConfig imple
                 IP_TOS, DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION, SO_REUSEPORT);
     }
 
-    @SuppressWarnings({ "unchecked", "deprecation" })
+    @SuppressWarnings({"unchecked", "deprecation"})
     @Override
     public <T> T getOption(ChannelOption<T> option) {
         if (option == SO_BROADCAST) {
@@ -159,7 +159,7 @@ public final class KQueueDatagramChannelConfig extends KQueueChannelConfig imple
     /**
      * Set the SO_REUSEPORT option on the underlying Channel. This will allow to bind multiple
      * {@link KQueueSocketChannel}s to the same port and so accept connections with multiple threads.
-     *
+     * <p>
      * Be aware this method needs be called before {@link KQueueDatagramChannel#bind(java.net.SocketAddress)} to have
      * any affect.
      */

@@ -57,7 +57,7 @@ class EpollRecvByteAllocatorHandle extends DelegatingHandle implements ExtendedH
          * It is assumed RDHUP is handled externally by checking {@link #isReceivedRdHup()}.
          */
         return (isEdgeTriggered && lastBytesRead() > 0) ||
-               (!isEdgeTriggered && lastBytesRead() == attemptedBytesRead());
+                (!isEdgeTriggered && lastBytesRead() == attemptedBytesRead());
     }
 
     final void edgeTriggered(boolean edgeTriggered) {

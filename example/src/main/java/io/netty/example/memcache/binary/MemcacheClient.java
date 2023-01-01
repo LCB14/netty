@@ -47,7 +47,7 @@ public final class MemcacheClient {
         final SslContext sslCtx;
         if (SSL) {
             sslCtx = SslContextBuilder.forClient()
-                .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+                    .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
         } else {
             sslCtx = null;
         }
@@ -79,7 +79,7 @@ public final class MemcacheClient {
             System.out.println("set <key> <value>");
             ChannelFuture lastWriteFuture = null;
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            for (;;) {
+            for (; ; ) {
                 String line = in.readLine();
                 if (line == null) {
                     break;

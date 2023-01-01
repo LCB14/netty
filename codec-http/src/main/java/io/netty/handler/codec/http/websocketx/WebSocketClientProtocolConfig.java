@@ -53,21 +53,21 @@ public final class WebSocketClientProtocolConfig {
     private final boolean generateOriginHeader;
 
     private WebSocketClientProtocolConfig(
-        URI webSocketUri,
-        String subprotocol,
-        WebSocketVersion version,
-        boolean allowExtensions,
-        HttpHeaders customHeaders,
-        int maxFramePayloadLength,
-        boolean performMasking,
-        boolean allowMaskMismatch,
-        boolean handleCloseFrames,
-        WebSocketCloseStatus sendCloseFrame,
-        boolean dropPongFrames,
-        long handshakeTimeoutMillis,
-        long forceCloseTimeoutMillis,
-        boolean absoluteUpgradeUrl,
-        boolean generateOriginHeader
+            URI webSocketUri,
+            String subprotocol,
+            WebSocketVersion version,
+            boolean allowExtensions,
+            HttpHeaders customHeaders,
+            int maxFramePayloadLength,
+            boolean performMasking,
+            boolean allowMaskMismatch,
+            boolean handleCloseFrames,
+            WebSocketCloseStatus sendCloseFrame,
+            boolean dropPongFrames,
+            long handshakeTimeoutMillis,
+            long forceCloseTimeoutMillis,
+            boolean absoluteUpgradeUrl,
+            boolean generateOriginHeader
     ) {
         this.webSocketUri = webSocketUri;
         this.subprotocol = subprotocol;
@@ -149,22 +149,22 @@ public final class WebSocketClientProtocolConfig {
     @Override
     public String toString() {
         return "WebSocketClientProtocolConfig" +
-               " {webSocketUri=" + webSocketUri +
-               ", subprotocol=" + subprotocol +
-               ", version=" + version +
-               ", allowExtensions=" + allowExtensions +
-               ", customHeaders=" + customHeaders +
-               ", maxFramePayloadLength=" + maxFramePayloadLength +
-               ", performMasking=" + performMasking +
-               ", allowMaskMismatch=" + allowMaskMismatch +
-               ", handleCloseFrames=" + handleCloseFrames +
-               ", sendCloseFrame=" + sendCloseFrame +
-               ", dropPongFrames=" + dropPongFrames +
-               ", handshakeTimeoutMillis=" + handshakeTimeoutMillis +
-               ", forceCloseTimeoutMillis=" + forceCloseTimeoutMillis +
-               ", absoluteUpgradeUrl=" + absoluteUpgradeUrl +
-               ", generateOriginHeader=" + generateOriginHeader +
-               "}";
+                " {webSocketUri=" + webSocketUri +
+                ", subprotocol=" + subprotocol +
+                ", version=" + version +
+                ", allowExtensions=" + allowExtensions +
+                ", customHeaders=" + customHeaders +
+                ", maxFramePayloadLength=" + maxFramePayloadLength +
+                ", performMasking=" + performMasking +
+                ", allowMaskMismatch=" + allowMaskMismatch +
+                ", handleCloseFrames=" + handleCloseFrames +
+                ", sendCloseFrame=" + sendCloseFrame +
+                ", dropPongFrames=" + dropPongFrames +
+                ", handshakeTimeoutMillis=" + handshakeTimeoutMillis +
+                ", forceCloseTimeoutMillis=" + forceCloseTimeoutMillis +
+                ", absoluteUpgradeUrl=" + absoluteUpgradeUrl +
+                ", generateOriginHeader=" + generateOriginHeader +
+                "}";
     }
 
     public Builder toBuilder() {
@@ -209,20 +209,20 @@ public final class WebSocketClientProtocolConfig {
 
         private Builder(WebSocketClientProtocolConfig clientConfig) {
             this(ObjectUtil.checkNotNull(clientConfig, "clientConfig").webSocketUri(),
-                 clientConfig.subprotocol(),
-                 clientConfig.version(),
-                 clientConfig.allowExtensions(),
-                 clientConfig.customHeaders(),
-                 clientConfig.maxFramePayloadLength(),
-                 clientConfig.performMasking(),
-                 clientConfig.allowMaskMismatch(),
-                 clientConfig.handleCloseFrames(),
-                 clientConfig.sendCloseFrame(),
-                 clientConfig.dropPongFrames(),
-                 clientConfig.handshakeTimeoutMillis(),
-                 clientConfig.forceCloseTimeoutMillis(),
-                 clientConfig.absoluteUpgradeUrl(),
-                 clientConfig.generateOriginHeader());
+                    clientConfig.subprotocol(),
+                    clientConfig.version(),
+                    clientConfig.allowExtensions(),
+                    clientConfig.customHeaders(),
+                    clientConfig.maxFramePayloadLength(),
+                    clientConfig.performMasking(),
+                    clientConfig.allowMaskMismatch(),
+                    clientConfig.handleCloseFrames(),
+                    clientConfig.sendCloseFrame(),
+                    clientConfig.dropPongFrames(),
+                    clientConfig.handshakeTimeoutMillis(),
+                    clientConfig.forceCloseTimeoutMillis(),
+                    clientConfig.absoluteUpgradeUrl(),
+                    clientConfig.generateOriginHeader());
         }
 
         private Builder(URI webSocketUri,
@@ -396,21 +396,21 @@ public final class WebSocketClientProtocolConfig {
          */
         public WebSocketClientProtocolConfig build() {
             return new WebSocketClientProtocolConfig(
-                webSocketUri,
-                subprotocol,
-                version,
-                allowExtensions,
-                customHeaders,
-                maxFramePayloadLength,
-                performMasking,
-                allowMaskMismatch,
-                handleCloseFrames,
-                sendCloseFrame,
-                dropPongFrames,
-                handshakeTimeoutMillis,
-                forceCloseTimeoutMillis,
-                absoluteUpgradeUrl,
-                generateOriginHeader
+                    webSocketUri,
+                    subprotocol,
+                    version,
+                    allowExtensions,
+                    customHeaders,
+                    maxFramePayloadLength,
+                    performMasking,
+                    allowMaskMismatch,
+                    handleCloseFrames,
+                    sendCloseFrame,
+                    dropPongFrames,
+                    handshakeTimeoutMillis,
+                    forceCloseTimeoutMillis,
+                    absoluteUpgradeUrl,
+                    generateOriginHeader
             );
         }
     }

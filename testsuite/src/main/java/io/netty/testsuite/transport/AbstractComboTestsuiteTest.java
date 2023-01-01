@@ -40,15 +40,15 @@ public abstract class AbstractComboTestsuiteTest<SB extends AbstractBootstrap<?,
     protected void run(TestInfo testInfo, Runner<SB, CB> runner) throws Throwable {
         List<TestsuitePermutation.BootstrapComboFactory<SB, CB>> combos = newFactories();
         String methodName = TestUtils.testMethodName(testInfo);
-        for (ByteBufAllocator allocator: newAllocators()) {
+        for (ByteBufAllocator allocator : newAllocators()) {
             int i = 0;
-            for (TestsuitePermutation.BootstrapComboFactory<SB, CB> e: combos) {
+            for (TestsuitePermutation.BootstrapComboFactory<SB, CB> e : combos) {
                 sb = e.newServerInstance();
                 cb = e.newClientInstance();
                 configure(sb, cb, allocator);
                 logger.info(String.format(
                         "Running: %s %d of %d (%s + %s) with %s",
-                        methodName, ++ i, combos.size(), sb, cb, StringUtil.simpleClassName(allocator)));
+                        methodName, ++i, combos.size(), sb, cb, StringUtil.simpleClassName(allocator)));
                 runner.run(sb, cb);
             }
         }

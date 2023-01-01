@@ -58,7 +58,7 @@ abstract class AbstractWeightedFairQueueByteDistributorDependencyTest {
     }
 
     void initState(final int streamId, final long pendingBytes, final boolean hasFrame,
-                              final boolean isWriteAllowed) {
+                   final boolean isWriteAllowed) {
         final Http2Stream stream = stream(streamId);
         TestStreamByteDistributorStreamState state = new TestStreamByteDistributorStreamState(stream, pendingBytes,
                 hasFrame, isWriteAllowed);

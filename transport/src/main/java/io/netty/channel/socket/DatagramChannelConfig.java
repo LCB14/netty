@@ -30,7 +30,7 @@ import java.net.StandardSocketOptions;
  * A {@link ChannelConfig} for a {@link DatagramChannel}.
  *
  * <h3>Available options</h3>
- *
+ * <p>
  * In addition to the options provided by {@link ChannelConfig},
  * {@link DatagramChannelConfig} allows the following options in the option map:
  *
@@ -122,8 +122,7 @@ public interface DatagramChannelConfig extends ChannelConfig {
     /**
      * Sets the {@link StandardSocketOptions#IP_MULTICAST_LOOP} option.
      *
-     * @param loopbackModeDisabled
-     *        {@code true} if and only if the loopback mode has been disabled
+     * @param loopbackModeDisabled {@code true} if and only if the loopback mode has been disabled
      */
     DatagramChannelConfig setLoopbackModeDisabled(boolean loopbackModeDisabled);
 

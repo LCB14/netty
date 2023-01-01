@@ -116,7 +116,8 @@ public class CombinedChannelDuplexHandlerTest {
     @Test
     public void testInitNotCalledBeforeAdded() {
         final CombinedChannelDuplexHandler<ChannelInboundHandler, ChannelOutboundHandler> handler =
-                new CombinedChannelDuplexHandler<ChannelInboundHandler, ChannelOutboundHandler>() { };
+                new CombinedChannelDuplexHandler<ChannelInboundHandler, ChannelOutboundHandler>() {
+                };
         assertThrows(IllegalStateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -171,7 +172,7 @@ public class CombinedChannelDuplexHandlerTest {
 
         CombinedChannelDuplexHandler<ChannelInboundHandler, ChannelOutboundHandler> handler =
                 new CombinedChannelDuplexHandler<ChannelInboundHandler, ChannelOutboundHandler>(
-                inboundHandler, new ChannelOutboundHandlerAdapter());
+                        inboundHandler, new ChannelOutboundHandlerAdapter());
 
         EmbeddedChannel channel = new EmbeddedChannel();
         channel.pipeline().addLast(handler);

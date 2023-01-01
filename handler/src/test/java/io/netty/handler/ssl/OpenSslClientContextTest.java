@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeAll;
 import javax.net.ssl.SSLException;
 import java.io.File;
 
-public class OpenSslClientContextTest extends SslContextTest  {
+public class OpenSslClientContextTest extends SslContextTest {
 
     @BeforeAll
     public static void checkOpenSsl() {

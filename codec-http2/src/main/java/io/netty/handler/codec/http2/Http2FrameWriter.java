@@ -48,13 +48,13 @@ public interface Http2FrameWriter extends Http2DataWriter, Closeable {
     /**
      * Writes a HEADERS frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param streamId the stream for which to send the frame.
-     * @param headers the headers to be sent.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
+     * @param ctx       the context to use for writing.
+     * @param streamId  the stream for which to send the frame.
+     * @param headers   the headers to be sent.
+     * @param padding   additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                  256 (inclusive).
      * @param endStream indicates if this is the last frame to be sent for the stream.
-     * @param promise the promise for the write.
+     * @param promise   the promise for the write.
      * @return the future for the write.
      * <a href="https://tools.ietf.org/html/rfc7540#section-10.5.1">Section 10.5.1</a> states the following:
      * <pre>
@@ -70,17 +70,17 @@ public interface Http2FrameWriter extends Http2DataWriter, Closeable {
     /**
      * Writes a HEADERS frame with priority specified to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param streamId the stream for which to send the frame.
-     * @param headers the headers to be sent.
+     * @param ctx              the context to use for writing.
+     * @param streamId         the stream for which to send the frame.
+     * @param headers          the headers to be sent.
      * @param streamDependency the stream on which this stream should depend, or 0 if it should
-     *            depend on the connection.
-     * @param weight the weight for this stream.
-     * @param exclusive whether this stream should be the exclusive dependant of its parent.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
-     * @param endStream indicates if this is the last frame to be sent for the stream.
-     * @param promise the promise for the write.
+     *                         depend on the connection.
+     * @param weight           the weight for this stream.
+     * @param exclusive        whether this stream should be the exclusive dependant of its parent.
+     * @param padding          additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                         256 (inclusive).
+     * @param endStream        indicates if this is the last frame to be sent for the stream.
+     * @param promise          the promise for the write.
      * @return the future for the write.
      * <a href="https://tools.ietf.org/html/rfc7540#section-10.5.1">Section 10.5.1</a> states the following:
      * <pre>
@@ -97,45 +97,45 @@ public interface Http2FrameWriter extends Http2DataWriter, Closeable {
     /**
      * Writes a PRIORITY frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param streamId the stream for which to send the frame.
+     * @param ctx              the context to use for writing.
+     * @param streamId         the stream for which to send the frame.
      * @param streamDependency the stream on which this stream should depend, or 0 if it should
-     *            depend on the connection.
-     * @param weight the weight for this stream.
-     * @param exclusive whether this stream should be the exclusive dependant of its parent.
-     * @param promise the promise for the write.
+     *                         depend on the connection.
+     * @param weight           the weight for this stream.
+     * @param exclusive        whether this stream should be the exclusive dependant of its parent.
+     * @param promise          the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writePriority(ChannelHandlerContext ctx, int streamId, int streamDependency,
-            short weight, boolean exclusive, ChannelPromise promise);
+                                short weight, boolean exclusive, ChannelPromise promise);
 
     /**
      * Writes a RST_STREAM frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param streamId the stream for which to send the frame.
+     * @param ctx       the context to use for writing.
+     * @param streamId  the stream for which to send the frame.
      * @param errorCode the error code indicating the nature of the failure.
-     * @param promise the promise for the write.
+     * @param promise   the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writeRstStream(ChannelHandlerContext ctx, int streamId, long errorCode,
-            ChannelPromise promise);
+                                 ChannelPromise promise);
 
     /**
      * Writes a SETTINGS frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
+     * @param ctx      the context to use for writing.
      * @param settings the settings to be sent.
-     * @param promise the promise for the write.
+     * @param promise  the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writeSettings(ChannelHandlerContext ctx, Http2Settings settings,
-            ChannelPromise promise);
+                                ChannelPromise promise);
 
     /**
      * Writes a SETTINGS acknowledgment to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
+     * @param ctx     the context to use for writing.
      * @param promise the promise for the write.
      * @return the future for the write.
      */
@@ -144,26 +144,26 @@ public interface Http2FrameWriter extends Http2DataWriter, Closeable {
     /**
      * Writes a PING frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param ack indicates whether this is an ack of a PING frame previously received from the
-     *            remote endpoint.
-     * @param data the payload of the frame.
+     * @param ctx     the context to use for writing.
+     * @param ack     indicates whether this is an ack of a PING frame previously received from the
+     *                remote endpoint.
+     * @param data    the payload of the frame.
      * @param promise the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writePing(ChannelHandlerContext ctx, boolean ack, long data,
-            ChannelPromise promise);
+                            ChannelPromise promise);
 
     /**
      * Writes a PUSH_PROMISE frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param streamId the stream for which to send the frame.
+     * @param ctx              the context to use for writing.
+     * @param streamId         the stream for which to send the frame.
      * @param promisedStreamId the ID of the promised stream.
-     * @param headers the headers to be sent.
-     * @param padding additional bytes that should be added to obscure the true content size. Must be between 0 and
-     *                256 (inclusive).
-     * @param promise the promise for the write.
+     * @param headers          the headers to be sent.
+     * @param padding          additional bytes that should be added to obscure the true content size. Must be between 0 and
+     *                         256 (inclusive).
+     * @param promise          the promise for the write.
      * @return the future for the write.
      * <a href="https://tools.ietf.org/html/rfc7540#section-10.5.1">Section 10.5.1</a> states the following:
      * <pre>
@@ -179,42 +179,42 @@ public interface Http2FrameWriter extends Http2DataWriter, Closeable {
     /**
      * Writes a GO_AWAY frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
+     * @param ctx          the context to use for writing.
      * @param lastStreamId the last known stream of this endpoint.
-     * @param errorCode the error code, if the connection was abnormally terminated.
-     * @param debugData application-defined debug data. This will be released by this method.
-     * @param promise the promise for the write.
+     * @param errorCode    the error code, if the connection was abnormally terminated.
+     * @param debugData    application-defined debug data. This will be released by this method.
+     * @param promise      the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writeGoAway(ChannelHandlerContext ctx, int lastStreamId, long errorCode,
-            ByteBuf debugData, ChannelPromise promise);
+                              ByteBuf debugData, ChannelPromise promise);
 
     /**
      * Writes a WINDOW_UPDATE frame to the remote endpoint.
      *
-     * @param ctx the context to use for writing.
-     * @param streamId the stream for which to send the frame.
+     * @param ctx                 the context to use for writing.
+     * @param streamId            the stream for which to send the frame.
      * @param windowSizeIncrement the number of bytes by which the local inbound flow control window
-     *            is increasing.
-     * @param promise the promise for the write.
+     *                            is increasing.
+     * @param promise             the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writeWindowUpdate(ChannelHandlerContext ctx, int streamId,
-            int windowSizeIncrement, ChannelPromise promise);
+                                    int windowSizeIncrement, ChannelPromise promise);
 
     /**
      * Generic write method for any HTTP/2 frame. This allows writing of non-standard frames.
      *
-     * @param ctx the context to use for writing.
+     * @param ctx       the context to use for writing.
      * @param frameType the frame type identifier.
-     * @param streamId the stream for which to send the frame.
-     * @param flags the flags to write for this frame.
-     * @param payload the payload to write for this frame. This will be released by this method.
-     * @param promise the promise for the write.
+     * @param streamId  the stream for which to send the frame.
+     * @param flags     the flags to write for this frame.
+     * @param payload   the payload to write for this frame. This will be released by this method.
+     * @param promise   the promise for the write.
      * @return the future for the write.
      */
     ChannelFuture writeFrame(ChannelHandlerContext ctx, byte frameType, int streamId,
-            Http2Flags flags, ByteBuf payload, ChannelPromise promise);
+                             Http2Flags flags, ByteBuf payload, ChannelPromise promise);
 
     /**
      * Get the configuration related elements for this {@link Http2FrameWriter}

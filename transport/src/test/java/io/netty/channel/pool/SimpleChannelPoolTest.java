@@ -52,17 +52,17 @@ public class SimpleChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).sync().channel();
@@ -103,17 +103,17 @@ public class SimpleChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).sync().channel();
@@ -167,17 +167,17 @@ public class SimpleChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -214,17 +214,17 @@ public class SimpleChannelPoolTest {
         Bootstrap cb = new Bootstrap();
         cb.remoteAddress(addr);
         cb.group(group)
-          .channel(LocalChannel.class);
+                .channel(LocalChannel.class);
 
         ServerBootstrap sb = new ServerBootstrap();
         sb.group(group)
-          .channel(LocalServerChannel.class)
-          .childHandler(new ChannelInitializer<LocalChannel>() {
-              @Override
-              public void initChannel(LocalChannel ch) throws Exception {
-                  ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-              }
-          });
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    public void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
 
         // Start server
         Channel sc = sb.bind(addr).syncUninterruptibly().channel();
@@ -361,28 +361,30 @@ public class SimpleChannelPoolTest {
 
         // Start server
         final ServerBootstrap sb = new ServerBootstrap()
-              .group(group)
-              .channel(LocalServerChannel.class)
-              .childHandler(new ChannelInitializer<LocalChannel>() {
-                  @Override
-                  protected void initChannel(LocalChannel ch) throws Exception {
-                      ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
-                  }
-              });
+                .group(group)
+                .channel(LocalServerChannel.class)
+                .childHandler(new ChannelInitializer<LocalChannel>() {
+                    @Override
+                    protected void initChannel(LocalChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter());
+                    }
+                });
         final Channel sc = sb.bind(addr).syncUninterruptibly().channel();
 
         // Create pool, acquire and return channels
         final Bootstrap bootstrap = new Bootstrap()
-              .channel(LocalChannel.class).group(group).remoteAddress(addr);
+                .channel(LocalChannel.class).group(group).remoteAddress(addr);
         final NullPointerException exception = new NullPointerException();
         final SimpleChannelPool pool = new SimpleChannelPool(bootstrap, new ChannelPoolHandler() {
             @Override
             public void channelReleased(Channel ch) {
             }
+
             @Override
             public void channelAcquired(Channel ch) {
                 throw exception;
             }
+
             @Override
             public void channelCreated(Channel ch) {
             }

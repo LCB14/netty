@@ -99,8 +99,8 @@ public class AbstractSslHandlerBenchmark extends AbstractMicrobenchmark {
         abstract SslProvider sslProvider();
 
         static SSLEngine configureEngine(SSLEngine engine, String cipher) {
-            engine.setEnabledProtocols(new String[]{ PROTOCOL_TLS_V1_2 });
-            engine.setEnabledCipherSuites(new String[]{ cipher });
+            engine.setEnabledProtocols(new String[]{PROTOCOL_TLS_V1_2});
+            engine.setEnabledCipherSuites(new String[]{cipher});
             return engine;
         }
     }
@@ -109,7 +109,7 @@ public class AbstractSslHandlerBenchmark extends AbstractMicrobenchmark {
     public SslEngineProvider sslProvider;
 
     // Includes cipher required by HTTP/2
-    @Param({ "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256" })
+    @Param({"TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256", "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"})
     public String cipher;
 
     protected SslHandler clientSslHandler;
@@ -164,7 +164,7 @@ public class AbstractSslHandlerBenchmark extends AbstractMicrobenchmark {
     private static final class SslThroughputBenchmarkHandlerContext extends
             EmbeddedChannelWriteAccumulatingHandlerContext {
         SslThroughputBenchmarkHandlerContext(ByteBufAllocator alloc, ChannelHandler handler,
-                                                    ByteToMessageDecoder.Cumulator writeCumulator) {
+                                             ByteToMessageDecoder.Cumulator writeCumulator) {
             super(alloc, handler, writeCumulator);
         }
 

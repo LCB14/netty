@@ -1,18 +1,18 @@
 /*
-* Copyright 2014 The Netty Project
-*
-* The Netty Project licenses this file to you under the Apache License,
-* version 2.0 (the "License"); you may not use this file except in compliance
-* with the License. You may obtain a copy of the License at:
-*
-*   https://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations
-* under the License.
-*/
+ * Copyright 2014 The Netty Project
+ *
+ * The Netty Project licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package io.netty.testsuite.transport.socket;
 
 import io.netty.bootstrap.Bootstrap;
@@ -89,18 +89,18 @@ public class SocketSslGreetingTest extends AbstractSocketTest {
         boolean hasOpenSsl = OpenSsl.isAvailable();
         if (hasOpenSsl) {
             serverContexts.add(SslContextBuilder.forServer(CERT_FILE, KEY_FILE)
-                                                .sslProvider(SslProvider.OPENSSL).build());
+                    .sslProvider(SslProvider.OPENSSL).build());
             clientContexts.add(SslContextBuilder.forClient().sslProvider(SslProvider.OPENSSL)
-                                                .trustManager(CERT_FILE).build());
+                    .trustManager(CERT_FILE).build());
         } else {
             logger.warn("OpenSSL is unavailable and thus will not be tested.", OpenSsl.unavailabilityCause());
         }
 
         List<Object[]> params = new ArrayList<Object[]>();
-        for (SslContext sc: serverContexts) {
-            for (SslContext cc: clientContexts) {
-                params.add(new Object[] { sc, cc, true });
-                params.add(new Object[] { sc, cc, false });
+        for (SslContext sc : serverContexts) {
+            for (SslContext cc : clientContexts) {
+                params.add(new Object[]{sc, cc, true});
+                params.add(new Object[]{sc, cc, false});
             }
         }
         return params;

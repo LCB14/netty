@@ -32,8 +32,8 @@ public class DefaultDnsRawRecord extends AbstractDnsRecord implements DnsRawReco
     /**
      * Creates a new {@link #CLASS_IN IN-class} record.
      *
-     * @param name the domain name
-     * @param type the type of the record
+     * @param name       the domain name
+     * @param type       the type of the record
      * @param timeToLive the TTL value of the record
      */
     public DefaultDnsRawRecord(String name, DnsRecordType type, long timeToLive, ByteBuf content) {
@@ -43,17 +43,17 @@ public class DefaultDnsRawRecord extends AbstractDnsRecord implements DnsRawReco
     /**
      * Creates a new record.
      *
-     * @param name the domain name
-     * @param type the type of the record
-     * @param dnsClass the class of the record, usually one of the following:
-     *                 <ul>
-     *                     <li>{@link #CLASS_IN}</li>
-     *                     <li>{@link #CLASS_CSNET}</li>
-     *                     <li>{@link #CLASS_CHAOS}</li>
-     *                     <li>{@link #CLASS_HESIOD}</li>
-     *                     <li>{@link #CLASS_NONE}</li>
-     *                     <li>{@link #CLASS_ANY}</li>
-     *                 </ul>
+     * @param name       the domain name
+     * @param type       the type of the record
+     * @param dnsClass   the class of the record, usually one of the following:
+     *                   <ul>
+     *                       <li>{@link #CLASS_IN}</li>
+     *                       <li>{@link #CLASS_CSNET}</li>
+     *                       <li>{@link #CLASS_CHAOS}</li>
+     *                       <li>{@link #CLASS_HESIOD}</li>
+     *                       <li>{@link #CLASS_NONE}</li>
+     *                       <li>{@link #CLASS_ANY}</li>
+     *                   </ul>
      * @param timeToLive the TTL value of the record
      */
     public DefaultDnsRawRecord(
@@ -131,24 +131,24 @@ public class DefaultDnsRawRecord extends AbstractDnsRecord implements DnsRawReco
         final StringBuilder buf = new StringBuilder(64).append(StringUtil.simpleClassName(this)).append('(');
         final DnsRecordType type = type();
         if (type != DnsRecordType.OPT) {
-            buf.append(name().isEmpty()? "<root>" : name())
-               .append(' ')
-               .append(timeToLive())
-               .append(' ');
+            buf.append(name().isEmpty() ? "<root>" : name())
+                    .append(' ')
+                    .append(timeToLive())
+                    .append(' ');
 
             DnsMessageUtil.appendRecordClass(buf, dnsClass())
-                          .append(' ')
-                          .append(type.name());
+                    .append(' ')
+                    .append(type.name());
         } else {
             buf.append("OPT flags:")
-               .append(timeToLive())
-               .append(" udp:")
-               .append(dnsClass());
+                    .append(timeToLive())
+                    .append(" udp:")
+                    .append(dnsClass());
         }
 
         buf.append(' ')
-           .append(content().readableBytes())
-           .append("B)");
+                .append(content().readableBytes())
+                .append("B)");
 
         return buf.toString();
     }

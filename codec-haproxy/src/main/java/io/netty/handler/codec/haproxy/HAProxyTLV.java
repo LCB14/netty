@@ -35,6 +35,7 @@ public class HAProxyTLV extends DefaultByteBufHolder {
 
     /**
      * The size of this tlv in bytes.
+     *
      * @return the number of bytes.
      */
     int totalNumBytes() {
@@ -66,25 +67,24 @@ public class HAProxyTLV extends DefaultByteBufHolder {
          * If the byte value is not an official one, it will return {@link Type#OTHER}.
          *
          * @param byteValue the byte for a type
-         *
          * @return the {@link Type} of a TLV
          */
         public static Type typeForByteValue(byte byteValue) {
             switch (byteValue) {
-            case 0x01:
-                return PP2_TYPE_ALPN;
-            case 0x02:
-                return PP2_TYPE_AUTHORITY;
-            case 0x20:
-                return PP2_TYPE_SSL;
-            case 0x21:
-                return PP2_TYPE_SSL_VERSION;
-            case 0x22:
-                return PP2_TYPE_SSL_CN;
-            case 0x30:
-                return PP2_TYPE_NETNS;
-            default:
-                return OTHER;
+                case 0x01:
+                    return PP2_TYPE_ALPN;
+                case 0x02:
+                    return PP2_TYPE_AUTHORITY;
+                case 0x20:
+                    return PP2_TYPE_SSL;
+                case 0x21:
+                    return PP2_TYPE_SSL_VERSION;
+                case 0x22:
+                    return PP2_TYPE_SSL_CN;
+                case 0x30:
+                    return PP2_TYPE_NETNS;
+                default:
+                    return OTHER;
             }
         }
 
@@ -92,25 +92,24 @@ public class HAProxyTLV extends DefaultByteBufHolder {
          * Returns the byte value for the {@link Type} as defined in the PROXY protocol 1.5 spec.
          *
          * @param type the {@link Type}
-         *
          * @return the byte value of the {@link Type}.
          */
         public static byte byteValueForType(Type type) {
             switch (type) {
-            case PP2_TYPE_ALPN:
-                return 0x01;
-            case PP2_TYPE_AUTHORITY:
-                return 0x02;
-            case PP2_TYPE_SSL:
-                return 0x20;
-            case PP2_TYPE_SSL_VERSION:
-                return 0x21;
-            case PP2_TYPE_SSL_CN:
-                return 0x22;
-            case PP2_TYPE_NETNS:
-                return 0x30;
-            default:
-                throw new IllegalArgumentException("unknown type: " + type);
+                case PP2_TYPE_ALPN:
+                    return 0x01;
+                case PP2_TYPE_AUTHORITY:
+                    return 0x02;
+                case PP2_TYPE_SSL:
+                    return 0x20;
+                case PP2_TYPE_SSL_VERSION:
+                    return 0x21;
+                case PP2_TYPE_SSL_CN:
+                    return 0x22;
+                case PP2_TYPE_NETNS:
+                    return 0x30;
+                default:
+                    throw new IllegalArgumentException("unknown type: " + type);
             }
         }
     }
@@ -119,7 +118,7 @@ public class HAProxyTLV extends DefaultByteBufHolder {
      * Creates a new HAProxyTLV
      *
      * @param typeByteValue the byteValue of the TLV. This is especially important if non-standard TLVs are used
-     * @param content the raw content of the TLV
+     * @param content       the raw content of the TLV
      */
     public HAProxyTLV(byte typeByteValue, ByteBuf content) {
         this(Type.typeForByteValue(typeByteValue), typeByteValue, content);
@@ -128,7 +127,7 @@ public class HAProxyTLV extends DefaultByteBufHolder {
     /**
      * Creates a new HAProxyTLV
      *
-     * @param type the {@link Type} of the TLV
+     * @param type    the {@link Type} of the TLV
      * @param content the raw content of the TLV
      */
     public HAProxyTLV(Type type, ByteBuf content) {
@@ -138,9 +137,9 @@ public class HAProxyTLV extends DefaultByteBufHolder {
     /**
      * Creates a new HAProxyTLV
      *
-     * @param type the {@link Type} of the TLV
+     * @param type          the {@link Type} of the TLV
      * @param typeByteValue the byteValue of the TLV. This is especially important if non-standard TLVs are used
-     * @param content the raw content of the TLV
+     * @param content       the raw content of the TLV
      */
     HAProxyTLV(final Type type, final byte typeByteValue, final ByteBuf content) {
         super(content);
@@ -209,8 +208,8 @@ public class HAProxyTLV extends DefaultByteBufHolder {
     @Override
     public String toString() {
         return StringUtil.simpleClassName(this) +
-               "(type: " + type() +
-               ", typeByteValue: " + typeByteValue() +
-               ", content: " + contentToString() + ')';
+                "(type: " + type() +
+                ", typeByteValue: " + typeByteValue() +
+                ", content: " + contentToString() + ')';
     }
 }

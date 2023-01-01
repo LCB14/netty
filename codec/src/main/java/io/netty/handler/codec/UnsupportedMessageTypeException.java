@@ -25,10 +25,11 @@ public class UnsupportedMessageTypeException extends CodecException {
     public UnsupportedMessageTypeException(
             Object message, Class<?>... expectedTypes) {
         super(message(
-                message == null? "null" : message.getClass().getName(), expectedTypes));
+                message == null ? "null" : message.getClass().getName(), expectedTypes));
     }
 
-    public UnsupportedMessageTypeException() { }
+    public UnsupportedMessageTypeException() {
+    }
 
     public UnsupportedMessageTypeException(String message, Throwable cause) {
         super(message, cause);
@@ -48,7 +49,7 @@ public class UnsupportedMessageTypeException extends CodecException {
 
         if (expectedTypes != null && expectedTypes.length > 0) {
             buf.append(" (expected: ").append(expectedTypes[0].getName());
-            for (int i = 1; i < expectedTypes.length; i ++) {
+            for (int i = 1; i < expectedTypes.length; i++) {
                 Class<?> t = expectedTypes[i];
                 if (t == null) {
                     break;

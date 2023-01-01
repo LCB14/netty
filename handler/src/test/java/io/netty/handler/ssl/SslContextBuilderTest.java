@@ -169,11 +169,11 @@ public class SslContextBuilderTest {
             }
         } catch (IllegalArgumentException e) {
             assumeFalse("Input stream not contain valid certificates.".equals(e.getMessage())
-                        && e.getCause() != null
-                        && "java.io.IOException: Unknown named curve: 1.3.132.0.39".equals(
-                                e.getCause().getMessage()),
-                        "Cannot test that SslProvider rejects certificates with curve " +
-                        "1.3.132.0.39 because the key manager does not know the curve either.");
+                            && e.getCause() != null
+                            && "java.io.IOException: Unknown named curve: 1.3.132.0.39".equals(
+                            e.getCause().getMessage()),
+                    "Cannot test that SslProvider rejects certificates with curve " +
+                            "1.3.132.0.39 because the key manager does not know the curve either.");
             throw e;
         }
         assertThrows(SSLException.class, new Executable() {
@@ -186,30 +186,30 @@ public class SslContextBuilderTest {
 
     private void testServerContextWithCombinedCertAndKeyInPem(SslProvider provider) throws SSLException {
         String pem = "-----BEGIN CERTIFICATE-----\n" +
-                     "MIIB1jCCAX0CCQDq4PSOirh7MDAJBgcqhkjOPQQBMHIxCzAJBgNVBAYTAlVTMQsw\n" +
-                     "CQYDVQQIDAJDQTEMMAoGA1UEBwwDRm9vMQwwCgYDVQQKDANCYXIxDDAKBgNVBAsM\n" +
-                     "A0JhejEQMA4GA1UEAwwHQmFyLmNvbTEaMBgGCSqGSIb3DQEJARYLZm9vQGJhci5j\n" +
-                     "b20wHhcNMjIxMDAyMTYzODAyWhcNMjIxMjAxMTYzODAyWjB2MQswCQYDVQQGEwJV\n" +
-                     "UzELMAkGA1UECAwCQ0ExDDAKBgNVBAcMA0ZvbzEMMAoGA1UECgwDQmFyMQwwCgYD\n" +
-                     "VQQLDANiYXoxFDASBgNVBAMMC2Jhci5iYXIuYmF6MRowGAYJKoZIhvcNAQkBFgtm\n" +
-                     "b29AYmFyLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABHiEmjPEqQbqXYMB\n" +
-                     "nAPOv24rJf6MhTwHB0QC1suZ9q9XFUkalnqGryqf/emHs81RsXWKz4sCsbIJkmHz\n" +
-                     "H8HYhmkwCQYHKoZIzj0EAQNIADBFAiBCgzxZ5qviemPdejt2WazSgwNJTbirzoQa\n" +
-                     "FMv2XFTTCwIhANS3fZ8BulbYkdRWVEFwm2FGotqLfC60JA/gg/brlWSP\n" +
-                     "-----END CERTIFICATE-----\n" +
-                     "-----BEGIN EC PRIVATE KEY-----\n" +
-                     "MHcCAQEEIF8RlaD0JX8u2Lryq1+AbYfDaTBPJnPSA8+N2L12YuuUoAoGCCqGSM49\n" +
-                     "AwEHoUQDQgAEeISaM8SpBupdgwGcA86/bisl/oyFPAcHRALWy5n2r1cVSRqWeoav\n" +
-                     "Kp/96YezzVGxdYrPiwKxsgmSYfMfwdiGaQ==\n" +
-                     "-----END EC PRIVATE KEY-----";
+                "MIIB1jCCAX0CCQDq4PSOirh7MDAJBgcqhkjOPQQBMHIxCzAJBgNVBAYTAlVTMQsw\n" +
+                "CQYDVQQIDAJDQTEMMAoGA1UEBwwDRm9vMQwwCgYDVQQKDANCYXIxDDAKBgNVBAsM\n" +
+                "A0JhejEQMA4GA1UEAwwHQmFyLmNvbTEaMBgGCSqGSIb3DQEJARYLZm9vQGJhci5j\n" +
+                "b20wHhcNMjIxMDAyMTYzODAyWhcNMjIxMjAxMTYzODAyWjB2MQswCQYDVQQGEwJV\n" +
+                "UzELMAkGA1UECAwCQ0ExDDAKBgNVBAcMA0ZvbzEMMAoGA1UECgwDQmFyMQwwCgYD\n" +
+                "VQQLDANiYXoxFDASBgNVBAMMC2Jhci5iYXIuYmF6MRowGAYJKoZIhvcNAQkBFgtm\n" +
+                "b29AYmFyLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABHiEmjPEqQbqXYMB\n" +
+                "nAPOv24rJf6MhTwHB0QC1suZ9q9XFUkalnqGryqf/emHs81RsXWKz4sCsbIJkmHz\n" +
+                "H8HYhmkwCQYHKoZIzj0EAQNIADBFAiBCgzxZ5qviemPdejt2WazSgwNJTbirzoQa\n" +
+                "FMv2XFTTCwIhANS3fZ8BulbYkdRWVEFwm2FGotqLfC60JA/gg/brlWSP\n" +
+                "-----END CERTIFICATE-----\n" +
+                "-----BEGIN EC PRIVATE KEY-----\n" +
+                "MHcCAQEEIF8RlaD0JX8u2Lryq1+AbYfDaTBPJnPSA8+N2L12YuuUoAoGCCqGSM49\n" +
+                "AwEHoUQDQgAEeISaM8SpBupdgwGcA86/bisl/oyFPAcHRALWy5n2r1cVSRqWeoav\n" +
+                "Kp/96YezzVGxdYrPiwKxsgmSYfMfwdiGaQ==\n" +
+                "-----END EC PRIVATE KEY-----";
 
         ByteArrayInputStream certStream = new ByteArrayInputStream(pem.getBytes(CharsetUtil.US_ASCII));
         ByteArrayInputStream keyStream = new ByteArrayInputStream(pem.getBytes(CharsetUtil.US_ASCII));
 
         SslContext context = SslContextBuilder.forServer(certStream, keyStream, null)
-                                              .sslProvider(provider)
-                                              .clientAuth(ClientAuth.OPTIONAL)
-                                              .build();
+                .sslProvider(provider)
+                .clientAuth(ClientAuth.OPTIONAL)
+                .build();
 
         SSLEngine engine = context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertTrue(engine.getWantClientAuth());
@@ -270,11 +270,11 @@ public class SslContextBuilderTest {
     private static void testClientContextFromFile(SslProvider provider) throws Exception {
         SelfSignedCertificate cert = new SelfSignedCertificate();
         SslContextBuilder builder = SslContextBuilder.forClient()
-                                                     .sslProvider(provider)
-                                                     .keyManager(cert.certificate(),
-                                                             cert.privateKey())
-                                                     .trustManager(cert.certificate())
-                                                     .clientAuth(ClientAuth.OPTIONAL);
+                .sslProvider(provider)
+                .keyManager(cert.certificate(),
+                        cert.privateKey())
+                .trustManager(cert.certificate())
+                .clientAuth(ClientAuth.OPTIONAL);
         SslContext context = builder.build();
         SSLEngine engine = context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertFalse(engine.getWantClientAuth());
@@ -286,10 +286,10 @@ public class SslContextBuilderTest {
     private static void testClientContext(SslProvider provider) throws Exception {
         SelfSignedCertificate cert = new SelfSignedCertificate();
         SslContextBuilder builder = SslContextBuilder.forClient()
-                                                     .sslProvider(provider)
-                                                     .keyManager(cert.key(), cert.cert())
-                                                     .trustManager(cert.cert())
-                                                     .clientAuth(ClientAuth.OPTIONAL);
+                .sslProvider(provider)
+                .keyManager(cert.key(), cert.cert())
+                .trustManager(cert.cert())
+                .clientAuth(ClientAuth.OPTIONAL);
         SslContext context = builder.build();
         SSLEngine engine = context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertFalse(engine.getWantClientAuth());
@@ -301,9 +301,9 @@ public class SslContextBuilderTest {
     private static void testServerContextFromFile(SslProvider provider) throws Exception {
         SelfSignedCertificate cert = new SelfSignedCertificate();
         SslContextBuilder builder = SslContextBuilder.forServer(cert.certificate(), cert.privateKey())
-                                                     .sslProvider(provider)
-                                                     .trustManager(cert.certificate())
-                                                     .clientAuth(ClientAuth.OPTIONAL);
+                .sslProvider(provider)
+                .trustManager(cert.certificate())
+                .clientAuth(ClientAuth.OPTIONAL);
         SslContext context = builder.build();
         SSLEngine engine = context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertTrue(engine.getWantClientAuth());
@@ -315,9 +315,9 @@ public class SslContextBuilderTest {
     private static void testServerContext(SslProvider provider) throws Exception {
         SelfSignedCertificate cert = new SelfSignedCertificate();
         SslContextBuilder builder = SslContextBuilder.forServer(cert.key(), cert.cert())
-                                                     .sslProvider(provider)
-                                                     .trustManager(cert.cert())
-                                                     .clientAuth(ClientAuth.REQUIRE);
+                .sslProvider(provider)
+                .trustManager(cert.cert())
+                .clientAuth(ClientAuth.REQUIRE);
         SslContext context = builder.build();
         SSLEngine engine = context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertFalse(engine.getWantClientAuth());
@@ -371,32 +371,38 @@ public class SslContextBuilderTest {
             @Override
             public void checkClientTrusted(
                     X509Certificate[] x509Certificates, String s,
-                    Socket socket) throws CertificateException { }
+                    Socket socket) throws CertificateException {
+            }
 
             @Override
             public void checkServerTrusted(
                     X509Certificate[] x509Certificates, String s,
-                    Socket socket) throws CertificateException { }
+                    Socket socket) throws CertificateException {
+            }
 
             @Override
             public void checkClientTrusted(
                     X509Certificate[] x509Certificates, String s,
-                    SSLEngine sslEngine) throws CertificateException { }
+                    SSLEngine sslEngine) throws CertificateException {
+            }
 
             @Override
             public void checkServerTrusted(
                     X509Certificate[] x509Certificates, String s,
-                    SSLEngine sslEngine) throws CertificateException { }
+                    SSLEngine sslEngine) throws CertificateException {
+            }
 
             @Override
             public void checkClientTrusted(
                     X509Certificate[] x509Certificates, String s)
-                    throws CertificateException { }
+                    throws CertificateException {
+            }
 
             @Override
             public void checkServerTrusted(
                     X509Certificate[] x509Certificates, String s)
-                    throws CertificateException { }
+                    throws CertificateException {
+            }
 
             @Override
             public X509Certificate[] getAcceptedIssuers() {
@@ -404,10 +410,10 @@ public class SslContextBuilderTest {
             }
         };
         SslContextBuilder client_builder = SslContextBuilder.forClient()
-                                                     .sslProvider(provider)
-                                                     .keyManager(customKeyManager)
-                                                     .trustManager(customTrustManager)
-                                                     .clientAuth(ClientAuth.OPTIONAL);
+                .sslProvider(provider)
+                .keyManager(customKeyManager)
+                .trustManager(customTrustManager)
+                .clientAuth(ClientAuth.OPTIONAL);
         SslContext client_context = client_builder.build();
         SSLEngine client_engine = client_context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertFalse(client_engine.getWantClientAuth());
@@ -415,9 +421,9 @@ public class SslContextBuilderTest {
         client_engine.closeInbound();
         client_engine.closeOutbound();
         SslContextBuilder server_builder = SslContextBuilder.forServer(customKeyManager)
-                                                     .sslProvider(provider)
-                                                     .trustManager(customTrustManager)
-                                                     .clientAuth(ClientAuth.REQUIRE);
+                .sslProvider(provider)
+                .trustManager(customTrustManager)
+                .clientAuth(ClientAuth.REQUIRE);
         SslContext server_context = server_builder.build();
         SSLEngine server_engine = server_context.newEngine(UnpooledByteBufAllocator.DEFAULT);
         assertFalse(server_engine.getWantClientAuth());

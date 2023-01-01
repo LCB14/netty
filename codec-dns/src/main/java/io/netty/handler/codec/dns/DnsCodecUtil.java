@@ -119,6 +119,7 @@ final class DnsCodecUtil {
 
     /**
      * Decompress pointer data.
+     *
      * @param compression compressed data
      * @return decompressed data
      */

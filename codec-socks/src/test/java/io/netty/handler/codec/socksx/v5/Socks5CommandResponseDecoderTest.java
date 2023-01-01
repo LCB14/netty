@@ -65,10 +65,10 @@ public class Socks5CommandResponseDecoderTest {
      */
     @Test
     public void testSocksCmdResponseDecoder() {
-        for (Socks5CommandStatus cmdStatus: STATUSES) {
+        for (Socks5CommandStatus cmdStatus : STATUSES) {
             for (Socks5AddressType addressType : Arrays.asList(Socks5AddressType.DOMAIN,
-                                                               Socks5AddressType.IPv4,
-                                                               Socks5AddressType.IPv6)) {
+                    Socks5AddressType.IPv4,
+                    Socks5AddressType.IPv6)) {
                 test(cmdStatus, addressType, null, 0);
             }
         }
@@ -94,13 +94,13 @@ public class Socks5CommandResponseDecoderTest {
     public void testSocksCmdResponseDecoderIncludingHost() {
         for (Socks5CommandStatus cmdStatus : STATUSES) {
             test(cmdStatus, Socks5AddressType.IPv4,
-                 "127.0.0.1", 80);
+                    "127.0.0.1", 80);
             test(cmdStatus, Socks5AddressType.DOMAIN,
-                 "testDomain.com", 80);
+                    "testDomain.com", 80);
             test(cmdStatus, Socks5AddressType.IPv6,
-                 "2001:db8:85a3:42:1000:8a2e:370:7334", 80);
+                    "2001:db8:85a3:42:1000:8a2e:370:7334", 80);
             test(cmdStatus, Socks5AddressType.IPv6,
-                 "1111:111:11:1::1", 80);
+                    "1111:111:11:1::1", 80);
         }
     }
 }

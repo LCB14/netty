@@ -200,7 +200,7 @@ class TestDnsServer extends DnsServer {
                 public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws IOException {
                     DnsMessage message = decoder.decode(in);
                     if (dropAAAArecords) {
-                        for (QuestionRecord record: message.getQuestionRecords()) {
+                        for (QuestionRecord record : message.getQuestionRecords()) {
                             if (record.getRecordType() == RecordType.AAAA) {
                                 return;
                             }

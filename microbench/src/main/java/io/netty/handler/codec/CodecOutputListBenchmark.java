@@ -34,7 +34,7 @@ public class CodecOutputListBenchmark extends AbstractMicrobenchmark {
     private RecyclableArrayList recycleableArrayList;
     private List<Object> arrayList;
 
-    @Param({ "1", "4" })
+    @Param({"1", "4"})
     public int elements;
 
     @TearDown

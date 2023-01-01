@@ -62,16 +62,19 @@ public final class InsecureTrustManagerFactory extends SimpleTrustManagerFactory
         }
     };
 
-    private InsecureTrustManagerFactory() { }
+    private InsecureTrustManagerFactory() {
+    }
 
     @Override
-    protected void engineInit(KeyStore keyStore) throws Exception { }
+    protected void engineInit(KeyStore keyStore) throws Exception {
+    }
 
     @Override
-    protected void engineInit(ManagerFactoryParameters managerFactoryParameters) throws Exception { }
+    protected void engineInit(ManagerFactoryParameters managerFactoryParameters) throws Exception {
+    }
 
     @Override
     protected TrustManager[] engineGetTrustManagers() {
-        return new TrustManager[] { tm };
+        return new TrustManager[]{tm};
     }
 }

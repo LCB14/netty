@@ -59,8 +59,8 @@ public abstract class OioByteStreamChannel extends AbstractOioByteChannel {
     /**
      * Create a new instance
      *
-     * @param parent    the parent {@link Channel} which was used to create this instance. This can be null if the
-     *                  {@link} has no parent as it was created by your self.
+     * @param parent the parent {@link Channel} which was used to create this instance. This can be null if the
+     *               {@link} has no parent as it was created by your self.
      */
     protected OioByteStreamChannel(Channel parent) {
         super(parent);
@@ -131,7 +131,7 @@ public abstract class OioByteStreamChannel extends AbstractOioByteChannel {
         }
 
         long written = 0;
-        for (;;) {
+        for (; ; ) {
             long localWritten = region.transferTo(outChannel, written);
             if (localWritten == -1) {
                 checkEOF(region);
@@ -148,7 +148,7 @@ public abstract class OioByteStreamChannel extends AbstractOioByteChannel {
     private static void checkEOF(FileRegion region) throws IOException {
         if (region.transferred() < region.count()) {
             throw new EOFException("Expected to be able to write " + region.count() + " bytes, " +
-                                   "but only wrote " + region.transferred());
+                    "but only wrote " + region.transferred());
         }
     }
 

@@ -97,7 +97,7 @@ public abstract class AbstractByteBufAllocatorTest<T extends AbstractByteBufAllo
 
     @Test
     public void testUsedDirectMemory() {
-        T allocator =  newAllocator(true);
+        T allocator = newAllocator(true);
         ByteBufAllocatorMetric metric = ((ByteBufAllocatorMetricProvider) allocator).metric();
         assertEquals(0, metric.usedDirectMemory());
         ByteBuf buffer = allocator.directBuffer(1024, 4096);
@@ -115,7 +115,7 @@ public abstract class AbstractByteBufAllocatorTest<T extends AbstractByteBufAllo
 
     @Test
     public void testUsedHeapMemory() {
-        T allocator =  newAllocator(true);
+        T allocator = newAllocator(true);
         ByteBufAllocatorMetric metric = ((ByteBufAllocatorMetricProvider) allocator).metric();
 
         assertEquals(0, metric.usedHeapMemory());

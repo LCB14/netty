@@ -43,9 +43,9 @@ public final class HttpHeaderValidationUtil {
      *     <li><tt>Upgrade</tt></li>
      * </ul>
      *
-     * @param name the name of the header to check. The check is case-insensitive.
+     * @param name           the name of the header to check. The check is case-insensitive.
      * @param ignoreTeHeader {@code true} if the <tt>TE</tt> header should be ignored by this check.
-     * This is relevant for HTTP/2 header validation, where the <tt>TE</tt> header has special rules.
+     *                       This is relevant for HTTP/2 header validation, where the <tt>TE</tt> header has special rules.
      * @return {@code true} if the given header name is one of the specified connection-related headers.
      */
     @SuppressWarnings("deprecation") // We need to check for deprecated headers as well.
@@ -64,12 +64,17 @@ public final class HttpHeaderValidationUtil {
         // We scan for these based on the length, then double-check any matching name.
         int len = name.length();
         switch (len) {
-            case 2: return ignoreTeHeader? false : contentEqualsIgnoreCase(name, HttpHeaderNames.TE);
-            case 7: return contentEqualsIgnoreCase(name, HttpHeaderNames.UPGRADE);
-            case 10: return contentEqualsIgnoreCase(name, HttpHeaderNames.CONNECTION) ||
-                    contentEqualsIgnoreCase(name, HttpHeaderNames.KEEP_ALIVE);
-            case 16: return contentEqualsIgnoreCase(name, HttpHeaderNames.PROXY_CONNECTION);
-            case 17: return contentEqualsIgnoreCase(name, HttpHeaderNames.TRANSFER_ENCODING);
+            case 2:
+                return ignoreTeHeader ? false : contentEqualsIgnoreCase(name, HttpHeaderNames.TE);
+            case 7:
+                return contentEqualsIgnoreCase(name, HttpHeaderNames.UPGRADE);
+            case 10:
+                return contentEqualsIgnoreCase(name, HttpHeaderNames.CONNECTION) ||
+                        contentEqualsIgnoreCase(name, HttpHeaderNames.KEEP_ALIVE);
+            case 16:
+                return contentEqualsIgnoreCase(name, HttpHeaderNames.PROXY_CONNECTION);
+            case 17:
+                return contentEqualsIgnoreCase(name, HttpHeaderNames.TRANSFER_ENCODING);
             default:
                 return false;
         }
@@ -83,7 +88,7 @@ public final class HttpHeaderValidationUtil {
      * <p>
      * This check is important for HTTP/2 header validation.
      *
-     * @param name the header name to check if it is <tt>TE</tt> or not.
+     * @param name  the header name to check if it is <tt>TE</tt> or not.
      * @param value the header value to check if it is something other than <tt>TRAILERS</tt>.
      * @return {@code true} only if the header name is <tt>TE</tt>, and the header value is <em>not</em>
      * <tt>TRAILERS</tt>. Otherwise, {@code false}.
@@ -218,6 +223,7 @@ public final class HttpHeaderValidationUtil {
 
     private static final long TOKEN_CHARS_HIGH;
     private static final long TOKEN_CHARS_LOW;
+
     static {
         // HEADER
         // header-field   = field-name ":" OWS field-value OWS

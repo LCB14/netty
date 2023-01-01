@@ -24,11 +24,11 @@ package io.netty.handler.codec.compression;
  */
 final class Bzip2HuffmanAllocator {
     /**
-     * @param array The code length array
-     * @param i The input position
+     * @param array       The code length array
+     * @param i           The input position
      * @param nodesToMove The number of internal nodes to be relocated
      * @return The smallest {@code k} such that {@code nodesToMove <= k <= i} and
-     *         {@code i <= (array[k] % array.length)}
+     * {@code i <= (array[k] % array.length)}
      */
     private static int first(final int[] array, int i, final int nodesToMove) {
         final int length = array.length;
@@ -54,6 +54,7 @@ final class Bzip2HuffmanAllocator {
 
     /**
      * Fills the code array with extended parent pointers.
+     *
      * @param array The code length array
      */
     private static void setExtendedParentPointers(final int[] array) {
@@ -81,20 +82,22 @@ final class Bzip2HuffmanAllocator {
 
     /**
      * Finds the number of nodes to relocate in order to achieve a given code length limit.
-     * @param array The code length array
+     *
+     * @param array         The code length array
      * @param maximumLength The maximum bit length for the generated codes
      * @return The number of nodes to relocate
      */
     private static int findNodesToRelocate(final int[] array, final int maximumLength) {
         int currentNode = array.length - 2;
         for (int currentDepth = 1; currentDepth < maximumLength - 1 && currentNode > 1; currentDepth++) {
-            currentNode =  first(array, currentNode - 1, 0);
+            currentNode = first(array, currentNode - 1, 0);
         }
         return currentNode;
     }
 
     /**
      * A final allocation pass with no code length limit.
+     *
      * @param array The code length array
      */
     private static void allocateNodeLengths(final int[] array) {
@@ -115,12 +118,13 @@ final class Bzip2HuffmanAllocator {
 
     /**
      * A final allocation pass that relocates nodes in order to achieve a maximum code length limit.
-     * @param array The code length array
+     *
+     * @param array       The code length array
      * @param nodesToMove The number of internal nodes to be relocated
      * @param insertDepth The depth at which to insert relocated nodes
      */
     private static void allocateNodeLengthsWithRelocation(final int[] array,
-                                                           final int nodesToMove, final int insertDepth) {
+                                                          final int nodesToMove, final int insertDepth) {
         int firstNode = array.length - 2;
         int nextNode = array.length - 1;
         int currentDepth = insertDepth == 1 ? 2 : 1;
@@ -151,8 +155,9 @@ final class Bzip2HuffmanAllocator {
 
     /**
      * Allocates Canonical Huffman code lengths in place based on a sorted frequency array.
-     * @param array On input, a sorted array of symbol frequencies; On output, an array of Canonical
-     *              Huffman code lengths
+     *
+     * @param array         On input, a sorted array of symbol frequencies; On output, an array of Canonical
+     *                      Huffman code lengths
      * @param maximumLength The maximum code length. Must be at least {@code ceil(log2(array.length))}
      */
     static void allocateHuffmanCodeLengths(final int[] array, final int maximumLength) {
@@ -180,5 +185,6 @@ final class Bzip2HuffmanAllocator {
         }
     }
 
-    private Bzip2HuffmanAllocator() { }
+    private Bzip2HuffmanAllocator() {
+    }
 }

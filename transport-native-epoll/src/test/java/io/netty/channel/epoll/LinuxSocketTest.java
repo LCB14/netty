@@ -18,13 +18,16 @@ package io.netty.channel.epoll;
 import io.netty.channel.unix.DomainSocketAddress;
 import io.netty.channel.unix.Errors.NativeIoException;
 import io.netty.channel.unix.Socket;
+
 import java.util.UUID;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -80,7 +83,7 @@ public class LinuxSocketTest {
         }
 
         final DomainSocketAddress domainSocketAddress = new DomainSocketAddress(
-            socketPath.toString());
+                socketPath.toString());
         final Socket socket = Socket.newSocketDomain();
         try {
             Exception exception = Assertions.assertThrows(NativeIoException.class, new Executable() {

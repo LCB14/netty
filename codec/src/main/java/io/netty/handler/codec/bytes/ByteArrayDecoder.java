@@ -52,7 +52,7 @@ import java.util.List;
 public class ByteArrayDecoder extends MessageToMessageDecoder<ByteBuf> {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
-         // copy the ByteBuf content to a byte array
+        // copy the ByteBuf content to a byte array
         out.add(ByteBufUtil.getBytes(msg));
     }
 }

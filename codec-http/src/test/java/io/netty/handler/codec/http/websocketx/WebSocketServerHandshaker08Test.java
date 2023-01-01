@@ -38,7 +38,7 @@ public class WebSocketServerHandshaker08Test extends WebSocketServerHandshakerTe
 
     @Override
     protected WebSocketServerHandshaker newHandshaker(String webSocketURL, String subprotocols,
-            WebSocketDecoderConfig decoderConfig) {
+                                                      WebSocketDecoderConfig decoderConfig) {
         return new WebSocketServerHandshaker08(webSocketURL, subprotocols, decoderConfig);
     }
 

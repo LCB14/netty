@@ -33,7 +33,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
 
 /**
  * The {@link FlowControlHandler} ensures that only one message per {@code read()} is sent downstream.
- *
+ * <p>
  * Classes such as {@link ByteToMessageDecoder} or {@link MessageToByteEncoder} are free to emit as
  * many events as they like for any given input. A channel's auto reading configuration doesn't usually
  * apply in these scenarios. This is causing problems in downstream {@link ChannelHandler}s that would
@@ -177,7 +177,7 @@ public class FlowControlHandler extends ChannelDuplexHandler {
      * Dequeues one or many (or none) messages depending on the channel's auto
      * reading state and returns the number of messages that were consumed from
      * the internal queue.
-     *
+     * <p>
      * The {@code minConsume} argument is used to force {@code dequeue()} into
      * consuming that number of messages regardless of the channel's auto
      * reading configuration.
@@ -229,11 +229,11 @@ public class FlowControlHandler extends ChannelDuplexHandler {
 
         private static final ObjectPool<RecyclableArrayDeque> RECYCLER = ObjectPool.newPool(
                 new ObjectCreator<RecyclableArrayDeque>() {
-            @Override
-            public RecyclableArrayDeque newObject(Handle<RecyclableArrayDeque> handle) {
-                return new RecyclableArrayDeque(DEFAULT_NUM_ELEMENTS, handle);
-            }
-        });
+                    @Override
+                    public RecyclableArrayDeque newObject(Handle<RecyclableArrayDeque> handle) {
+                        return new RecyclableArrayDeque(DEFAULT_NUM_ELEMENTS, handle);
+                    }
+                });
 
         public static RecyclableArrayDeque newInstance() {
             return RECYCLER.get();

@@ -28,7 +28,8 @@ public final class MqttUnacceptableProtocolVersionException extends DecoderExcep
     /**
      * Creates a new instance
      */
-    public MqttUnacceptableProtocolVersionException() { }
+    public MqttUnacceptableProtocolVersionException() {
+    }
 
     /**
      * Creates a new instance

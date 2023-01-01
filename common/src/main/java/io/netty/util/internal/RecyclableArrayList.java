@@ -35,11 +35,11 @@ public final class RecyclableArrayList extends ArrayList<Object> {
 
     private static final ObjectPool<RecyclableArrayList> RECYCLER = ObjectPool.newPool(
             new ObjectCreator<RecyclableArrayList>() {
-        @Override
-        public RecyclableArrayList newObject(Handle<RecyclableArrayList> handle) {
-            return new RecyclableArrayList(handle);
-        }
-    });
+                @Override
+                public RecyclableArrayList newObject(Handle<RecyclableArrayList> handle) {
+                    return new RecyclableArrayList(handle);
+                }
+            });
 
     private boolean insertSinceRecycled;
 
@@ -95,13 +95,13 @@ public final class RecyclableArrayList extends ArrayList<Object> {
             // produce less garbage
             List<?> list = (List<?>) c;
             int size = list.size();
-            for (int i = 0; i  < size; i++) {
+            for (int i = 0; i < size; i++) {
                 if (list.get(i) == null) {
                     throw new IllegalArgumentException("c contains null values");
                 }
             }
         } else {
-            for (Object element: c) {
+            for (Object element : c) {
                 if (element == null) {
                     throw new IllegalArgumentException("c contains null values");
                 }

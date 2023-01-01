@@ -59,11 +59,10 @@ public class CompatibleObjectEncoder extends MessageToByteEncoder<Serializable> 
     /**
      * Creates a new instance.
      *
-     * @param resetInterval
-     *        the number of objects between {@link ObjectOutputStream#reset()}.
-     *        {@code 0} will disable resetting the stream, but the remote
-     *        peer will be at the risk of getting {@link OutOfMemoryError} in
-     *        the long term.
+     * @param resetInterval the number of objects between {@link ObjectOutputStream#reset()}.
+     *                      {@code 0} will disable resetting the stream, but the remote
+     *                      peer will be at the risk of getting {@link OutOfMemoryError} in
+     *                      the long term.
      */
     public CompatibleObjectEncoder(int resetInterval) {
         this.resetInterval = checkPositiveOrZero(resetInterval, "resetInterval");
@@ -86,7 +85,7 @@ public class CompatibleObjectEncoder extends MessageToByteEncoder<Serializable> 
         try {
             if (resetInterval != 0) {
                 // Resetting will prevent OOM on the receiving side.
-                writtenObjects ++;
+                writtenObjects++;
                 if (writtenObjects % resetInterval == 0) {
                     oos.reset();
                 }

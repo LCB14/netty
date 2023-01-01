@@ -52,6 +52,7 @@ public class TestChannelInitializer extends ChannelInitializer<Channel> {
      */
     static final class TestNumReadsRecvByteBufAllocator implements RecvByteBufAllocator {
         private final AtomicInteger numReads;
+
         private TestNumReadsRecvByteBufAllocator(AtomicInteger numReads) {
             this.numReads = numReads;
         }
@@ -62,6 +63,7 @@ public class TestChannelInitializer extends ChannelInitializer<Channel> {
                 private int attemptedBytesRead;
                 private int lastBytesRead;
                 private int numMessagesRead;
+
                 @Override
                 public ByteBuf allocate(ByteBufAllocator alloc) {
                     return alloc.ioBuffer(guess(), guess());

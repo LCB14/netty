@@ -573,44 +573,44 @@ public class DefaultHttp2ConnectionTest {
         // such that clientListener2 will verify that is is set or fail the test.
         int methodIndex = 0;
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onStreamAdded(any(Http2Stream.class));
+                .when(clientListener).onStreamAdded(any(Http2Stream.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onStreamAdded(any(Http2Stream.class));
+                .when(clientListener2).onStreamAdded(any(Http2Stream.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onStreamActive(any(Http2Stream.class));
+                .when(clientListener).onStreamActive(any(Http2Stream.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onStreamActive(any(Http2Stream.class));
+                .when(clientListener2).onStreamActive(any(Http2Stream.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onStreamHalfClosed(any(Http2Stream.class));
+                .when(clientListener).onStreamHalfClosed(any(Http2Stream.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onStreamHalfClosed(any(Http2Stream.class));
+                .when(clientListener2).onStreamHalfClosed(any(Http2Stream.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onStreamClosed(any(Http2Stream.class));
+                .when(clientListener).onStreamClosed(any(Http2Stream.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onStreamClosed(any(Http2Stream.class));
+                .when(clientListener2).onStreamClosed(any(Http2Stream.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onStreamRemoved(any(Http2Stream.class));
+                .when(clientListener).onStreamRemoved(any(Http2Stream.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onStreamRemoved(any(Http2Stream.class));
+                .when(clientListener2).onStreamRemoved(any(Http2Stream.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onGoAwaySent(anyInt(), anyLong(), any(ByteBuf.class));
+                .when(clientListener).onGoAwaySent(anyInt(), anyLong(), any(ByteBuf.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onGoAwaySent(anyInt(), anyLong(), any(ByteBuf.class));
+                .when(clientListener2).onGoAwaySent(anyInt(), anyLong(), any(ByteBuf.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onGoAwayReceived(anyInt(), anyLong(), any(ByteBuf.class));
+                .when(clientListener).onGoAwayReceived(anyInt(), anyLong(), any(ByteBuf.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onGoAwayReceived(anyInt(), anyLong(), any(ByteBuf.class));
+                .when(clientListener2).onGoAwayReceived(anyInt(), anyLong(), any(ByteBuf.class));
 
         doAnswer(new ListenerExceptionThrower(calledArray, methodIndex))
-            .when(clientListener).onStreamAdded(any(Http2Stream.class));
+                .when(clientListener).onStreamAdded(any(Http2Stream.class));
         doAnswer(new ListenerVerifyCallAnswer(calledArray, methodIndex++))
-            .when(clientListener2).onStreamAdded(any(Http2Stream.class));
+                .when(clientListener2).onStreamAdded(any(Http2Stream.class));
 
         // Now we add clientListener2 and exercise all listener functionality
         try {

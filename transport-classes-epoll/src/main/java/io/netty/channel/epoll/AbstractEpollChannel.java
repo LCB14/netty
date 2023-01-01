@@ -266,7 +266,7 @@ abstract class AbstractEpollChannel extends AbstractChannel implements UnixChann
                     }
                 });
             }
-        } else  {
+        } else {
             // The EventLoop is not registered atm so just update the flags so the correct value
             // will be used once the channel is registered
             flags &= ~Native.EPOLLIN;
@@ -542,6 +542,7 @@ abstract class AbstractEpollChannel extends AbstractChannel implements UnixChann
 
         /**
          * Create a new {@link EpollRecvByteAllocatorHandle} instance.
+         *
          * @param handle The handle to wrap with EPOLL specific logic.
          */
         EpollRecvByteAllocatorHandle newEpollHandle(RecvByteBufAllocator.ExtendedHandle handle) {

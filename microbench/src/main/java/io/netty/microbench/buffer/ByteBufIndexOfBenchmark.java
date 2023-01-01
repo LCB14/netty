@@ -43,13 +43,13 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 8, time = 1)
 public class ByteBufIndexOfBenchmark extends AbstractMicrobenchmark {
 
-    @Param({ "7", "16", "23", "32" })
+    @Param({"7", "16", "23", "32"})
     int size;
 
-    @Param({ "4", "11" })
+    @Param({"4", "11"})
     int logPermutations;
 
-    @Param({ "1" })
+    @Param({"1"})
     int seed;
 
     int permutations;
@@ -57,15 +57,15 @@ public class ByteBufIndexOfBenchmark extends AbstractMicrobenchmark {
     ByteBuf[] data;
     private int i;
 
-    @Param({ "0" })
+    @Param({"0"})
     private byte needleByte;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     private boolean direct;
-    @Param({ "false", "true" })
+    @Param({"false", "true"})
     private boolean noUnsafe;
 
-    @Param({ "false", "true" })
+    @Param({"false", "true"})
     private boolean pooled;
 
     @Setup(Level.Trial)
@@ -75,9 +75,9 @@ public class ByteBufIndexOfBenchmark extends AbstractMicrobenchmark {
         SplittableRandom random = new SplittableRandom(seed);
         permutations = 1 << logPermutations;
         this.data = new ByteBuf[permutations];
-        final ByteBufAllocator allocator = pooled? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT;
+        final ByteBufAllocator allocator = pooled ? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT;
         for (int i = 0; i < permutations; ++i) {
-            data[i] = direct? allocator.directBuffer(size, size) : allocator.heapBuffer(size, size);
+            data[i] = direct ? allocator.directBuffer(size, size) : allocator.heapBuffer(size, size);
             for (int j = 0; j < size; j++) {
                 int value = random.nextInt(Byte.MIN_VALUE, Byte.MAX_VALUE + 1);
                 // turn any found value into something different

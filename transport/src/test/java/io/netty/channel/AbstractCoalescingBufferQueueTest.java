@@ -49,7 +49,8 @@ public class AbstractCoalescingBufferQueueTest {
                 ReferenceCountUtil.release(msg);
                 promise.setSuccess();
             }
-        }, new ChannelHandlerAdapter() { });
+        }, new ChannelHandlerAdapter() {
+        });
         final AbstractCoalescingBufferQueue queue = new AbstractCoalescingBufferQueue(channel, 128) {
             @Override
             protected ByteBuf compose(ByteBufAllocator alloc, ByteBuf cumulation, ByteBuf next) {

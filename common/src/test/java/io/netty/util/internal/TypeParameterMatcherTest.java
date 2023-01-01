@@ -53,7 +53,8 @@ public class TypeParameterMatcherTest {
 
     @Test
     public void testAnonymousClass() throws Exception {
-        TypeParameterMatcher m = TypeParameterMatcher.find(new TypeQ<BBB>() { }, TypeX.class, "B");
+        TypeParameterMatcher m = TypeParameterMatcher.find(new TypeQ<BBB>() {
+        }, TypeX.class, "B");
         assertFalse(m.match(new Object()));
         assertFalse(m.match(new A()));
         assertFalse(m.match(new AA()));
@@ -85,48 +86,72 @@ public class TypeParameterMatcherTest {
         C c;
     }
 
-    public static class TypeY<D extends C, E extends A, F extends B> extends TypeX<E, F, D> { }
+    public static class TypeY<D extends C, E extends A, F extends B> extends TypeX<E, F, D> {
+    }
 
-    public abstract static class TypeZ<G extends AA, H extends BB> extends TypeY<CC, G, H> { }
+    public abstract static class TypeZ<G extends AA, H extends BB> extends TypeY<CC, G, H> {
+    }
 
-    public static class TypeQ<I extends BBB> extends TypeZ<AAA, I> { }
+    public static class TypeQ<I extends BBB> extends TypeZ<AAA, I> {
+    }
 
-    public static class A { }
-    public static class AA extends A { }
-    public static class AAA extends AA { }
+    public static class A {
+    }
 
-    public static class B { }
-    public static class BB extends B { }
-    public static class BBB extends BB { }
+    public static class AA extends A {
+    }
 
-    public static class C { }
-    public static class CC extends C { }
+    public static class AAA extends AA {
+    }
+
+    public static class B {
+    }
+
+    public static class BB extends B {
+    }
+
+    public static class BBB extends BB {
+    }
+
+    public static class C {
+    }
+
+    public static class CC extends C {
+    }
 
     @Test
     public void testInaccessibleClass() throws Exception {
-        TypeParameterMatcher m = TypeParameterMatcher.find(new U<T>() { }, U.class, "E");
+        TypeParameterMatcher m = TypeParameterMatcher.find(new U<T>() {
+        }, U.class, "E");
         assertFalse(m.match(new Object()));
         assertTrue(m.match(new T()));
     }
 
-    private static class T { }
-    private static class U<E> { E a; }
+    private static class T {
+    }
+
+    private static class U<E> {
+        E a;
+    }
 
     @Test
     public void testArrayAsTypeParam() throws Exception {
-        TypeParameterMatcher m = TypeParameterMatcher.find(new U<byte[]>() { }, U.class, "E");
+        TypeParameterMatcher m = TypeParameterMatcher.find(new U<byte[]>() {
+        }, U.class, "E");
         assertFalse(m.match(new Object()));
         assertTrue(m.match(new byte[1]));
     }
 
     @Test
     public void testRawType() throws Exception {
-        TypeParameterMatcher m = TypeParameterMatcher.find(new U() { }, U.class, "E");
+        TypeParameterMatcher m = TypeParameterMatcher.find(new U() {
+        }, U.class, "E");
         assertTrue(m.match(new Object()));
     }
 
     private static class V<E> {
-        U<E> u = new U<E>() { };
+        U<E> u = new U<E>() {
+        };
     }
 
     @Test

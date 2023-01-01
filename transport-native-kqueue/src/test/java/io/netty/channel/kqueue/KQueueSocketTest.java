@@ -45,7 +45,7 @@ public class KQueueSocketTest extends SocketTest<BsdSocket> {
             s1.listen(1);
 
             assertTrue(s2.connect(dsa));
-            byte [] addr = new byte[64];
+            byte[] addr = new byte[64];
             s1.accept(addr);
             PeerCredentials pc = s1.getPeerCredentials();
             assertNotEquals(pc.uid(), -1);
@@ -68,7 +68,7 @@ public class KQueueSocketTest extends SocketTest<BsdSocket> {
             // PID of client socket is expected to be 0 before connection
             assertEquals(0, s2.getPeerCredentials().pid());
             assertTrue(s2.connect(dsa));
-            byte [] addr = new byte[64];
+            byte[] addr = new byte[64];
             int clientFd = s1.accept(addr);
             assertNotEquals(-1, clientFd);
             PeerCredentials pc = new BsdSocket(clientFd).getPeerCredentials();

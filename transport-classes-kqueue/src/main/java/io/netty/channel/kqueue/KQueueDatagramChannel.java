@@ -445,8 +445,8 @@ public final class KQueueDatagramChannel extends AbstractKQueueDatagramChannel i
 
                         byteBuf = null;
 
-                    // We use the TRUE_SUPPLIER as it is also ok to read less then what we did try to read (as long
-                    // as we read anything).
+                        // We use the TRUE_SUPPLIER as it is also ok to read less then what we did try to read (as long
+                        // as we read anything).
                     } while (allocHandle.continueReading(UncheckedBooleanSupplier.TRUE_SUPPLIER));
                 } catch (Throwable t) {
                     if (byteBuf != null) {

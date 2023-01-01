@@ -35,24 +35,33 @@ import java.util.List;
  */
 public class LineBasedFrameDecoder extends ByteToMessageDecoder {
 
-    /** Maximum length of a frame we're willing to decode.  */
+    /**
+     * Maximum length of a frame we're willing to decode.
+     */
     private final int maxLength;
-    /** Whether or not to throw an exception as soon as we exceed maxLength. */
+    /**
+     * Whether or not to throw an exception as soon as we exceed maxLength.
+     */
     private final boolean failFast;
     private final boolean stripDelimiter;
 
-    /** True if we're discarding input because we're already over maxLength.  */
+    /**
+     * True if we're discarding input because we're already over maxLength.
+     */
     private boolean discarding;
     private int discardedBytes;
 
-    /** Last scan position. */
+    /**
+     * Last scan position.
+     */
     private int offset;
 
     /**
      * Creates a new decoder.
-     * @param maxLength  the maximum length of the decoded frame.
-     *                   A {@link TooLongFrameException} is thrown if
-     *                   the length of the frame exceeds this value.
+     *
+     * @param maxLength the maximum length of the decoded frame.
+     *                  A {@link TooLongFrameException} is thrown if
+     *                  the length of the frame exceeds this value.
      */
     public LineBasedFrameDecoder(final int maxLength) {
         this(maxLength, true, false);
@@ -60,18 +69,19 @@ public class LineBasedFrameDecoder extends ByteToMessageDecoder {
 
     /**
      * Creates a new decoder.
-     * @param maxLength  the maximum length of the decoded frame.
-     *                   A {@link TooLongFrameException} is thrown if
-     *                   the length of the frame exceeds this value.
-     * @param stripDelimiter  whether the decoded frame should strip out the
-     *                        delimiter or not
-     * @param failFast  If <tt>true</tt>, a {@link TooLongFrameException} is
-     *                  thrown as soon as the decoder notices the length of the
-     *                  frame will exceed <tt>maxFrameLength</tt> regardless of
-     *                  whether the entire frame has been read.
-     *                  If <tt>false</tt>, a {@link TooLongFrameException} is
-     *                  thrown after the entire frame that exceeds
-     *                  <tt>maxFrameLength</tt> has been read.
+     *
+     * @param maxLength      the maximum length of the decoded frame.
+     *                       A {@link TooLongFrameException} is thrown if
+     *                       the length of the frame exceeds this value.
+     * @param stripDelimiter whether the decoded frame should strip out the
+     *                       delimiter or not
+     * @param failFast       If <tt>true</tt>, a {@link TooLongFrameException} is
+     *                       thrown as soon as the decoder notices the length of the
+     *                       frame will exceed <tt>maxFrameLength</tt> regardless of
+     *                       whether the entire frame has been read.
+     *                       If <tt>false</tt>, a {@link TooLongFrameException} is
+     *                       thrown after the entire frame that exceeds
+     *                       <tt>maxFrameLength</tt> has been read.
      */
     public LineBasedFrameDecoder(final int maxLength, final boolean stripDelimiter, final boolean failFast) {
         this.maxLength = maxLength;
@@ -90,10 +100,10 @@ public class LineBasedFrameDecoder extends ByteToMessageDecoder {
     /**
      * Create a frame out of the {@link ByteBuf} and return it.
      *
-     * @param   ctx             the {@link ChannelHandlerContext} which this {@link ByteToMessageDecoder} belongs to
-     * @param   buffer          the {@link ByteBuf} from which to read data
-     * @return  frame           the {@link ByteBuf} which represent the frame or {@code null} if no frame could
-     *                          be created.
+     * @param ctx    the {@link ChannelHandlerContext} which this {@link ByteToMessageDecoder} belongs to
+     * @param buffer the {@link ByteBuf} from which to read data
+     * @return frame           the {@link ByteBuf} which represent the frame or {@code null} if no frame could
+     * be created.
      */
     protected Object decode(ChannelHandlerContext ctx, ByteBuf buffer) throws Exception {
         final int eol = findEndOfLine(buffer);
@@ -101,7 +111,7 @@ public class LineBasedFrameDecoder extends ByteToMessageDecoder {
             if (eol >= 0) {
                 final ByteBuf frame;
                 final int length = eol - buffer.readerIndex();
-                final int delimLength = buffer.getByte(eol) == '\r'? 2 : 1;
+                final int delimLength = buffer.getByte(eol) == '\r' ? 2 : 1;
 
                 if (length > maxLength) {
                     buffer.readerIndex(eol + delimLength);
@@ -133,7 +143,7 @@ public class LineBasedFrameDecoder extends ByteToMessageDecoder {
         } else {
             if (eol >= 0) {
                 final int length = discardedBytes + eol - buffer.readerIndex();
-                final int delimLength = buffer.getByte(eol) == '\r'? 2 : 1;
+                final int delimLength = buffer.getByte(eol) == '\r' ? 2 : 1;
                 buffer.readerIndex(eol + delimLength);
                 discardedBytes = 0;
                 discarding = false;

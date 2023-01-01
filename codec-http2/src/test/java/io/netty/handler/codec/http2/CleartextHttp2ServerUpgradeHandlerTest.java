@@ -175,7 +175,7 @@ public class CleartextHttp2ServerUpgradeHandlerTest {
         setUpServerChannel();
 
         String requestString = "GET / HTTP/1.1\r\n" +
-                         "Host: example.com\r\n\r\n";
+                "Host: example.com\r\n\r\n";
         ByteBuf inbound = Unpooled.buffer().writeBytes(requestString.getBytes(CharsetUtil.US_ASCII));
 
         assertTrue(channel.writeInbound(inbound));

@@ -88,7 +88,7 @@ public class DefaultAttributeMap implements AttributeMap {
     public <T> Attribute<T> attr(AttributeKey<T> key) {
         ObjectUtil.checkNotNull(key, "key");
         DefaultAttribute newAttribute = null;
-        for (;;) {
+        for (; ; ) {
             final DefaultAttribute[] attributes = this.attributes;
             final int index = searchAttributeByKey(attributes, key);
             final DefaultAttribute[] newAttributes;
@@ -126,7 +126,7 @@ public class DefaultAttributeMap implements AttributeMap {
     }
 
     private <T> void removeAttributeIfMatch(AttributeKey<T> key, DefaultAttribute<T> value) {
-        for (;;) {
+        for (; ; ) {
             final DefaultAttribute[] attributes = this.attributes;
             final int index = searchAttributeByKey(attributes, key);
             if (index < 0) {
@@ -140,7 +140,7 @@ public class DefaultAttributeMap implements AttributeMap {
             final int count = attributes.length;
             final int newCount = count - 1;
             final DefaultAttribute[] newAttributes =
-                    newCount == 0? EMPTY_ATTRIBUTES : new DefaultAttribute[newCount];
+                    newCount == 0 ? EMPTY_ATTRIBUTES : new DefaultAttribute[newCount];
             // perform 2 bulk copies
             System.arraycopy(attributes, 0, newAttributes, 0, index);
             final int remaining = count - index - 1;
@@ -158,7 +158,7 @@ public class DefaultAttributeMap implements AttributeMap {
 
         private static final AtomicReferenceFieldUpdater<DefaultAttribute, DefaultAttributeMap> MAP_UPDATER =
                 AtomicReferenceFieldUpdater.newUpdater(DefaultAttribute.class,
-                                                       DefaultAttributeMap.class, "attributeMap");
+                        DefaultAttributeMap.class, "attributeMap");
         private static final long serialVersionUID = -2661411462200283011L;
 
         private volatile DefaultAttributeMap attributeMap;

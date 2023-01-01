@@ -91,7 +91,7 @@ public class FlushConsolidationHandler extends ChannelDuplexHandler {
     /**
      * Create new instance.
      *
-     * @param explicitFlushAfterFlushes the number of flushes after which an explicit flush will be done.
+     * @param explicitFlushAfterFlushes       the number of flushes after which an explicit flush will be done.
      * @param consolidateWhenNoReadInProgress whether to consolidate flushes even when no read loop is currently
      *                                        ongoing.
      */

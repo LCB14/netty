@@ -23,6 +23,7 @@ import io.netty.channel.ChannelPromise;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.util.internal.StringUtil;
+
 import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 import java.net.InetSocketAddress;
@@ -37,7 +38,7 @@ import java.util.List;
  * {@link ChannelPipeline} pipeline = ...;
  * pipeline.addLast("udpEncoder", new {@link DatagramPacketEncoder}(new {@link ProtobufEncoder}(...));
  * </code></pre>
- *
+ * <p>
  * Note: As UDP packets are out-of-order, you should make sure the encoded message size are not greater than
  * the max safe packet size in your particular network path which guarantees no packet fragmentation.
  *

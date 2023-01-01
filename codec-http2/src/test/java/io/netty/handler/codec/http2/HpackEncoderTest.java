@@ -71,6 +71,7 @@ public class HpackEncoderTest {
     /**
      * The encoder should not impose an arbitrary limit on the header size if
      * the server has not specified any limit.
+     *
      * @throws Http2Exception
      */
     @Test
@@ -108,17 +109,17 @@ public class HpackEncoderTest {
     @Test
     public void testEncodeUsingBothStaticAndDynamicTable() throws Http2Exception {
         final Http2Headers headers = new DefaultHttp2Headers()
-          // :method -> POST is found in the static table.
-          .add(":method", "POST")
+                // :method -> POST is found in the static table.
+                .add(":method", "POST")
 
-          // ":path" is found in the static table but only matches "/" and "/index.html".
-          .add(":path", "/dev/null")
+                // ":path" is found in the static table but only matches "/" and "/index.html".
+                .add(":path", "/dev/null")
 
-          // "accept-language" is found in the static table, but with no matching value.
-          .add("accept-language", "fr")
+                // "accept-language" is found in the static table, but with no matching value.
+                .add("accept-language", "fr")
 
-          // k -> x is not in the static table.
-          .add("k", "x");
+                // k -> x is not in the static table.
+                .add("k", "x");
 
         // :method -> POST gets encoded by reference.
         // :path -> /dev/null
@@ -128,7 +129,7 @@ public class HpackEncoderTest {
         // k -> x
         //      both k and x get encoded literally.
         verifyEncoding(headers,
-          -125, 68, 9, 47, 100, 101, 118, 47, 110, 117, 108, 108, 81, 2, 102, 114, 64, 1, 107, 1, 120);
+                -125, 68, 9, 47, 100, 101, 118, 47, 110, 117, 108, 108, 81, 2, 102, 114, 64, 1, 107, 1, 120);
 
         // encoded using references to previous headers.
         verifyEncoding(headers, -125, -64, -65, -66);
@@ -137,8 +138,8 @@ public class HpackEncoderTest {
     @Test
     public void testSameHeaderNameMultipleValues() throws Http2Exception {
         final Http2Headers headers = new DefaultHttp2Headers()
-          .add("k", "x")
-          .add("k", "y");
+                .add("k", "x")
+                .add("k", "y");
 
         // k -> x encoded literally, k -> y encoded by referencing k of the k -> x header,
         // y gets encoded literally.
@@ -195,10 +196,10 @@ public class HpackEncoderTest {
                 setMaxTableSize(r.nextBoolean() ? 0 : r.nextInt(4096));
             }
             verifyRoundTrip(new DefaultHttp2Headers()
-              .add("k" + r.nextInt(20), "x" + r.nextInt(500))
-              .add(":method", r.nextBoolean() ? "GET" : "POST")
-              .add(":path", "/dev/null")
-              .add("accept-language", String.valueOf(r.nextBoolean()))
+                    .add("k" + r.nextInt(20), "x" + r.nextInt(500))
+                    .add(":method", r.nextBoolean() ? "GET" : "POST")
+                    .add(":path", "/dev/null")
+                    .add("accept-language", String.valueOf(r.nextBoolean()))
             );
             buf.clear();
         }

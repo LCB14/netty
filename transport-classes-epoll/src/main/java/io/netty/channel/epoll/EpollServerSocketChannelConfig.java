@@ -42,7 +42,7 @@ public final class EpollServerSocketChannelConfig extends EpollServerChannelConf
     @Override
     public Map<ChannelOption<?>, Object> getOptions() {
         return getOptions(super.getOptions(), EpollChannelOption.SO_REUSEPORT, EpollChannelOption.IP_FREEBIND,
-            EpollChannelOption.IP_TRANSPARENT, EpollChannelOption.TCP_DEFER_ACCEPT);
+                EpollChannelOption.IP_TRANSPARENT, EpollChannelOption.TCP_DEFER_ACCEPT);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,8 +74,7 @@ public final class EpollServerSocketChannelConfig extends EpollServerChannelConf
         } else if (option == EpollChannelOption.IP_TRANSPARENT) {
             setIpTransparent((Boolean) value);
         } else if (option == EpollChannelOption.TCP_MD5SIG) {
-            @SuppressWarnings("unchecked")
-            final Map<InetAddress, byte[]> m = (Map<InetAddress, byte[]>) value;
+            @SuppressWarnings("unchecked") final Map<InetAddress, byte[]> m = (Map<InetAddress, byte[]>) value;
             setTcpMd5Sig(m);
         } else if (option == EpollChannelOption.TCP_DEFER_ACCEPT) {
             setTcpDeferAccept((Integer) value);
@@ -200,7 +199,7 @@ public final class EpollServerSocketChannelConfig extends EpollServerChannelConf
     /**
      * Set the SO_REUSEPORT option on the underlying Channel. This will allow to bind multiple
      * {@link EpollSocketChannel}s to the same port and so accept connections with multiple threads.
-     *
+     * <p>
      * Be aware this method needs be called before {@link EpollSocketChannel#bind(java.net.SocketAddress)} to have
      * any affect.
      */

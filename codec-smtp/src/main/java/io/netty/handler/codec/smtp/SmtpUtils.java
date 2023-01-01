@@ -28,5 +28,6 @@ final class SmtpUtils {
         return Collections.unmodifiableList(Arrays.asList(sequences));
     }
 
-    private SmtpUtils() { }
+    private SmtpUtils() {
+    }
 }

@@ -107,14 +107,14 @@ public class DiskAttribute extends AbstractDiskHttpData implements Attribute {
 
     @Override
     public String getValue() throws IOException {
-        byte [] bytes = get();
+        byte[] bytes = get();
         return new String(bytes, getCharset());
     }
 
     @Override
     public void setValue(String value) throws IOException {
         ObjectUtil.checkNotNull(value, "value");
-        byte [] bytes = value.getBytes(getCharset());
+        byte[] bytes = value.getBytes(getCharset());
         checkSize(bytes.length);
         ByteBuf buffer = wrappedBuffer(bytes);
         if (definedSize > 0) {

@@ -76,7 +76,7 @@ public final class OpenSsl {
     // Use default that is supported in java 11 and earlier and also in OpenSSL / BoringSSL.
     // See https://github.com/netty/netty-tcnative/issues/567
     // See https://www.java.com/en/configure_crypto.html for ordering
-    private static final String[] DEFAULT_NAMED_GROUPS = { "x25519", "secp256r1", "secp384r1", "secp521r1" };
+    private static final String[] DEFAULT_NAMED_GROUPS = {"x25519", "secp256r1", "secp384r1", "secp521r1"};
 
     // self-signed certificate for netty.io and the matching private-key
     private static final String CERT = "-----BEGIN CERTIFICATE-----\n" +
@@ -201,17 +201,17 @@ public final class OpenSsl {
 
             IS_BORINGSSL = "BoringSSL".equals(versionString());
             if (IS_BORINGSSL) {
-                EXTRA_SUPPORTED_TLS_1_3_CIPHERS = new String [] { "TLS_AES_128_GCM_SHA256",
-                        "TLS_AES_256_GCM_SHA384" ,
-                        "TLS_CHACHA20_POLY1305_SHA256" };
+                EXTRA_SUPPORTED_TLS_1_3_CIPHERS = new String[]{"TLS_AES_128_GCM_SHA256",
+                        "TLS_AES_256_GCM_SHA384",
+                        "TLS_CHACHA20_POLY1305_SHA256"};
 
                 StringBuilder ciphersBuilder = new StringBuilder(128);
-                for (String cipher: EXTRA_SUPPORTED_TLS_1_3_CIPHERS) {
+                for (String cipher : EXTRA_SUPPORTED_TLS_1_3_CIPHERS) {
                     ciphersBuilder.append(cipher).append(":");
                 }
                 ciphersBuilder.setLength(ciphersBuilder.length() - 1);
                 EXTRA_SUPPORTED_TLS_1_3_CIPHERS_STRING = ciphersBuilder.toString();
-            }  else {
+            } else {
                 EXTRA_SUPPORTED_TLS_1_3_CIPHERS = EmptyArrays.EMPTY_STRINGS;
                 EXTRA_SUPPORTED_TLS_1_3_CIPHERS_STRING = StringUtil.EMPTY_STRING;
             }
@@ -252,11 +252,11 @@ public final class OpenSsl {
 
                     final long ssl = SSL.newSSL(sslCtx, true);
                     try {
-                        for (String c: SSL.getCiphers(ssl)) {
+                        for (String c : SSL.getCiphers(ssl)) {
                             // Filter out bad input.
                             if (c == null || c.isEmpty() || availableOpenSslCipherSuites.contains(c) ||
-                                // Filter out TLSv1.3 ciphers if not supported.
-                                !tlsv13Supported && isTLSv13Cipher(c)) {
+                                    // Filter out TLSv1.3 ciphers if not supported.
+                                    !tlsv13Supported && isTLSv13Cipher(c)) {
                                 continue;
                             }
                             availableOpenSslCipherSuites.add(c);
@@ -266,9 +266,9 @@ public final class OpenSsl {
                             // are supported.
                             Collections.addAll(availableOpenSslCipherSuites, EXTRA_SUPPORTED_TLS_1_3_CIPHERS);
                             Collections.addAll(availableOpenSslCipherSuites,
-                                               "AEAD-AES128-GCM-SHA256",
-                                               "AEAD-AES256-GCM-SHA384",
-                                               "AEAD-CHACHA20-POLY1305-SHA256");
+                                    "AEAD-AES128-GCM-SHA256",
+                                    "AEAD-AES256-GCM-SHA384",
+                                    "AEAD-CHACHA20-POLY1305-SHA256");
                         }
 
                         PemEncoded privateKey = PemPrivateKey.valueOf(KEY.getBytes(CharsetUtil.US_ASCII));
@@ -363,7 +363,7 @@ public final class OpenSsl {
                                         Arrays.toString(groupArray),
                                         Arrays.toString(unsupportedNamedGroups.toArray(EmptyArrays.EMPTY_STRINGS)));
                             }
-                            namedGroups =  supportedConvertedNamedGroups.toArray(EmptyArrays.EMPTY_STRINGS);
+                            namedGroups = supportedConvertedNamedGroups.toArray(EmptyArrays.EMPTY_STRINGS);
                         }
                     } else {
                         namedGroups = defaultConvertedNamedGroups;
@@ -378,7 +378,7 @@ public final class OpenSsl {
             AVAILABLE_OPENSSL_CIPHER_SUITES = Collections.unmodifiableSet(availableOpenSslCipherSuites);
             final Set<String> availableJavaCipherSuites = new LinkedHashSet<String>(
                     AVAILABLE_OPENSSL_CIPHER_SUITES.size() * 2);
-            for (String cipher: AVAILABLE_OPENSSL_CIPHER_SUITES) {
+            for (String cipher : AVAILABLE_OPENSSL_CIPHER_SUITES) {
                 // Included converted but also openssl cipher name
                 if (!isTLSv13Cipher(cipher)) {
                     availableJavaCipherSuites.add(CipherSuiteConverter.toJava(cipher, "TLS"));
@@ -465,7 +465,7 @@ public final class OpenSsl {
             Set<String> boringsslTlsv13Ciphers = new HashSet<String>(EXTRA_SUPPORTED_TLS_1_3_CIPHERS.length);
             Collections.addAll(boringsslTlsv13Ciphers, EXTRA_SUPPORTED_TLS_1_3_CIPHERS);
             boolean ciphersNotMatch = false;
-            for (String cipher: ciphers.split(":")) {
+            for (String cipher : ciphers.split(":")) {
                 if (boringsslTlsv13Ciphers.isEmpty()) {
                     ciphersNotMatch = true;
                     break;
@@ -529,6 +529,7 @@ public final class OpenSsl {
         }
         return supportsOcsp;
     }
+
     private static boolean doesSupportProtocol(int protocol, int opt) {
         if (opt == 0) {
             // If the opt is 0 the protocol is not supported. This is for example the case with BoringSSL and SSLv2.
@@ -571,7 +572,7 @@ public final class OpenSsl {
      * Returns {@code true} if the used version of OpenSSL supports OCSP stapling.
      */
     public static boolean isOcspSupported() {
-      return SUPPORTS_OCSP;
+        return SUPPORTS_OCSP;
     }
 
     /**
@@ -678,7 +679,8 @@ public final class OpenSsl {
                 Buffer.address(buf.internalNioBuffer(0, buf.readableBytes()));
     }
 
-    private OpenSsl() { }
+    private OpenSsl() {
+    }
 
     private static void loadTcNative() throws Exception {
         String os = PlatformDependent.normalizedOs();
@@ -708,7 +710,7 @@ public final class OpenSsl {
         libNames.add(staticLibName);
 
         NativeLibraryLoader.loadFirstAvailable(PlatformDependent.getClassLoader(SSLContext.class),
-            libNames.toArray(new String[0]));
+                libNames.toArray(new String[0]));
     }
 
     private static boolean initializeTcNative(String engine) throws Exception {

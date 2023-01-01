@@ -70,7 +70,7 @@ public class DefaultDatagramChannelConfig extends DefaultChannelConfig implement
     }
 
     @Override
-    @SuppressWarnings({ "unchecked", "deprecation" })
+    @SuppressWarnings({"unchecked", "deprecation"})
     public <T> T getOption(ChannelOption<T> option) {
         if (option == SO_BROADCAST) {
             return (T) Boolean.valueOf(isBroadcast());
@@ -158,15 +158,15 @@ public class DefaultDatagramChannelConfig extends DefaultChannelConfig implement
         try {
             // See: https://github.com/netty/netty/issues/576
             if (broadcast &&
-                !javaSocket.getLocalAddress().isAnyLocalAddress() &&
-                !PlatformDependent.isWindows() && !PlatformDependent.maybeSuperUser()) {
+                    !javaSocket.getLocalAddress().isAnyLocalAddress() &&
+                    !PlatformDependent.isWindows() && !PlatformDependent.maybeSuperUser()) {
                 // Warn a user about the fact that a non-root user can't receive a
                 // broadcast packet on *nix if the socket is bound on non-wildcard address.
                 logger.warn(
                         "A non-root user can't receive a broadcast packet if the socket " +
-                        "is not bound to a wildcard address; setting the SO_BROADCAST flag " +
-                        "anyway as requested on the socket which is bound to " +
-                        javaSocket.getLocalSocketAddress() + '.');
+                                "is not bound to a wildcard address; setting the SO_BROADCAST flag " +
+                                "anyway as requested on the socket which is bound to " +
+                                javaSocket.getLocalSocketAddress() + '.');
             }
 
             javaSocket.setBroadcast(broadcast);

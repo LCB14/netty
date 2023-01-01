@@ -36,7 +36,7 @@ public class WorldClockServerHandler extends SimpleChannelInboundHandler<Locatio
         long currentTime = System.currentTimeMillis();
 
         LocalTimes.Builder builder = LocalTimes.newBuilder();
-        for (Location l: locations.getLocationList()) {
+        for (Location l : locations.getLocationList()) {
             TimeZone tz = TimeZone.getTimeZone(
                     toString(l.getContinent()) + '/' + l.getCity());
             Calendar calendar = getInstance(tz);

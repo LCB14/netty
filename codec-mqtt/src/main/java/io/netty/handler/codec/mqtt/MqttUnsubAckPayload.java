@@ -43,7 +43,7 @@ public final class MqttUnsubAckPayload {
         ObjectUtil.checkNotNull(unsubscribeReasonCodes, "unsubscribeReasonCodes");
 
         List<Short> list = new ArrayList<Short>(unsubscribeReasonCodes.length);
-        for (Short v: unsubscribeReasonCodes) {
+        for (Short v : unsubscribeReasonCodes) {
             list.add(v);
         }
         this.unsubscribeReasonCodes = Collections.unmodifiableList(list);
@@ -53,7 +53,7 @@ public final class MqttUnsubAckPayload {
         ObjectUtil.checkNotNull(unsubscribeReasonCodes, "unsubscribeReasonCodes");
 
         List<Short> list = new ArrayList<Short>();
-        for (Short v: unsubscribeReasonCodes) {
+        for (Short v : unsubscribeReasonCodes) {
             ObjectUtil.checkNotNull(v, "unsubscribeReasonCode");
             list.add(v);
         }

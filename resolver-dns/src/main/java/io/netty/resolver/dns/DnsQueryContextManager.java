@@ -46,7 +46,7 @@ final class DnsQueryContextManager {
         int tries = 0;
 
         synchronized (contexts) {
-            for (;;) {
+            for (; ; ) {
                 if (!contexts.containsKey(id)) {
                     contexts.put(id, qCtx);
                     return id;
@@ -82,7 +82,7 @@ final class DnsQueryContextManager {
         }
 
         synchronized (contexts) {
-            return  contexts.remove(id);
+            return contexts.remove(id);
         }
     }
 
@@ -128,7 +128,7 @@ final class DnsQueryContextManager {
 
     private static Inet6Address toCompactAddress(Inet4Address a4) {
         byte[] b4 = a4.getAddress();
-        byte[] b6 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, b4[0], b4[1], b4[2], b4[3] };
+        byte[] b6 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, b4[0], b4[1], b4[2], b4[3]};
         try {
             return (Inet6Address) InetAddress.getByAddress(b6);
         } catch (UnknownHostException e) {
@@ -138,7 +138,7 @@ final class DnsQueryContextManager {
 
     private static Inet4Address toIPv4Address(Inet6Address a6) {
         byte[] b6 = a6.getAddress();
-        byte[] b4 = { b6[12], b6[13], b6[14], b6[15] };
+        byte[] b4 = {b6[12], b6[13], b6[14], b6[15]};
         try {
             return (Inet4Address) InetAddress.getByAddress(b4);
         } catch (UnknownHostException e) {

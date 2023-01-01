@@ -73,7 +73,7 @@ public class SocketShutdownOutputBySelfTest extends AbstractClientSocketTest {
             assertFalse(ch.isOutputShutdown());
 
             s = ss.accept();
-            ch.writeAndFlush(Unpooled.wrappedBuffer(new byte[] { 1 })).sync();
+            ch.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{1})).sync();
             assertEquals(1, s.getInputStream().read());
 
             assertTrue(h.ch.isOpen());
@@ -91,7 +91,7 @@ public class SocketShutdownOutputBySelfTest extends AbstractClientSocketTest {
             assertTrue(h.ch.isOutputShutdown());
 
             // If half-closed, the peer should be able to write something.
-            s.getOutputStream().write(new byte[] { 1 });
+            s.getOutputStream().write(new byte[]{1});
             assertEquals(1, (int) h.queue.take());
         } finally {
             if (s != null) {
@@ -173,7 +173,7 @@ public class SocketShutdownOutputBySelfTest extends AbstractClientSocketTest {
 
             s = ss.accept();
 
-            byte[] expectedBytes = new byte[]{ 1, 2, 3, 4, 5, 6 };
+            byte[] expectedBytes = new byte[]{1, 2, 3, 4, 5, 6};
             ChannelFuture writeFuture = ch.write(Unpooled.wrappedBuffer(expectedBytes));
             h.assertWritability(false);
             ch.flush();
@@ -199,7 +199,7 @@ public class SocketShutdownOutputBySelfTest extends AbstractClientSocketTest {
 
             try {
                 // If half-closed, the local endpoint shouldn't be able to write
-                ch.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{ 2 })).sync();
+                ch.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{2})).sync();
                 fail();
             } catch (Throwable cause) {
                 checkThrowable(cause);
@@ -274,6 +274,7 @@ public class SocketShutdownOutputBySelfTest extends AbstractClientSocketTest {
             ss.close();
         }
     }
+
     private static void checkThrowable(Throwable cause) throws Throwable {
         // Depending on OIO / NIO both are ok
         if (!(cause instanceof ClosedChannelException) && !(cause instanceof SocketException)) {

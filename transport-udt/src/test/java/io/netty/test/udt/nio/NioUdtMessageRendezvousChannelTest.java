@@ -53,7 +53,7 @@ public class NioUdtMessageRendezvousChannelTest extends AbstractUdtTest {
 
     /**
      * verify basic echo message rendezvous
-     *
+     * <p>
      * FIXME: Re-enable after making it pass on Windows without unncessary tight loop.
      *        https://github.com/netty/netty/issues/2853
      */
@@ -84,13 +84,13 @@ public class NioUdtMessageRendezvousChannelTest extends AbstractUdtTest {
 
         final Bootstrap boot1 = new Bootstrap();
         boot1.group(group1)
-             .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
-             .localAddress(addr1).remoteAddress(addr2).handler(handler1);
+                .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
+                .localAddress(addr1).remoteAddress(addr2).handler(handler1);
 
         final Bootstrap boot2 = new Bootstrap();
         boot2.group(group2)
-             .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
-             .localAddress(addr2).remoteAddress(addr1).handler(handler2);
+                .channelFactory(NioUdtProvider.MESSAGE_RENDEZVOUS)
+                .localAddress(addr2).remoteAddress(addr1).handler(handler2);
 
         final ChannelFuture connectFuture1 = boot1.connect();
         final ChannelFuture connectFuture2 = boot2.connect();

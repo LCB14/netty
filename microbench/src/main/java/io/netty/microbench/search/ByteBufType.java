@@ -48,5 +48,6 @@ public enum ByteBufType {
             return Unpooled.directBuffer(bytes.length).writeBytes(bytes);
         }
     };
+
     abstract ByteBuf newBuffer(byte[] bytes);
 }

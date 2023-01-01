@@ -36,5 +36,6 @@ final class ZstdConstants {
      */
     static final int DEFAULT_BLOCK_SIZE = 1 << 16;  // 64 KB
 
-    private ZstdConstants() { }
+    private ZstdConstants() {
+    }
 }

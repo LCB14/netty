@@ -35,6 +35,7 @@ public final class HeadersUtils {
 
     /**
      * {@link Headers#get(Object)} and convert each element of {@link List} to a {@link String}.
+     *
      * @param name the name of the header to retrieve
      * @return a {@link List} of header values or an empty {@link List} if no values are found.
      */
@@ -56,8 +57,9 @@ public final class HeadersUtils {
 
     /**
      * {@link Headers#get(Object)} and convert the result to a {@link String}.
+     *
      * @param headers the headers to get the {@code name} from
-     * @param name the name of the header to retrieve
+     * @param name    the name of the header to retrieve
      * @return the first header value if the header is found. {@code null} if there's no such entry.
      */
     public static <K, V> String getAsString(Headers<K, V, ?> headers, K name) {
@@ -75,9 +77,10 @@ public final class HeadersUtils {
 
     /**
      * Helper for implementing toString for {@link DefaultHeaders} and wrappers such as DefaultHttpHeaders.
+     *
      * @param headersClass the class of headers
-     * @param headersIt the iterator on the actual headers
-     * @param size the size of the iterator
+     * @param headersIt    the iterator on the actual headers
+     * @param size         the size of the iterator
      * @return a String representation of the headers
      */
     public static <K, V> String toString(Class<?> headersClass, Iterator<Entry<K, V>> headersIt, int size) {
@@ -100,6 +103,7 @@ public final class HeadersUtils {
 
     /**
      * {@link Headers#names()} and convert each element of {@link Set} to a {@link String}.
+     *
      * @param headers the headers to get the names from
      * @return a {@link Set} of header values or an empty {@link Set} if no values are found.
      */

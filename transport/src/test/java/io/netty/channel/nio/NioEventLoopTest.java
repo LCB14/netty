@@ -217,7 +217,7 @@ public class NioEventLoopTest extends AbstractEventLoopTest {
                 @Override
                 public void run() {
                     try {
-                        for (;;) {
+                        for (; ; ) {
                             loop.execute(task);
                         }
                     } catch (Throwable cause) {
@@ -256,7 +256,7 @@ public class NioEventLoopTest extends AbstractEventLoopTest {
         };
 
         EventLoopGroup group = new NioEventLoopGroup(1, new DefaultThreadFactory("ioPool"),
-                                                     SelectorProvider.provider(), selectStrategyFactory);
+                SelectorProvider.provider(), selectStrategyFactory);
         final NioEventLoop loop = (NioEventLoop) group.next();
         try {
             Channel channel = new NioServerSocketChannel();
@@ -316,7 +316,7 @@ public class NioEventLoopTest extends AbstractEventLoopTest {
     }
 
     @Test
-    public void testCustomQueue()  {
+    public void testCustomQueue() {
         final AtomicBoolean called = new AtomicBoolean();
         NioEventLoopGroup group = new NioEventLoopGroup(1,
                 new ThreadPerTaskExecutor(new DefaultThreadFactory(NioEventLoopGroup.class)),
@@ -328,7 +328,7 @@ public class NioEventLoopTest extends AbstractEventLoopTest {
                         called.set(true);
                         return new LinkedBlockingQueue<Runnable>(maxCapacity);
                     }
-        });
+                });
 
         final NioEventLoop loop = (NioEventLoop) group.next();
 

@@ -31,53 +31,49 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class SslContextTrustManagerTest {
     @Test
     public void testUsingAllCAs() throws Exception {
-        runTests(new String[] { "tm_test_ca_1a.pem", "tm_test_ca_1b.pem",
-                "tm_test_ca_2.pem" }, new String[] { "tm_test_eec_1.pem",
-                "tm_test_eec_2.pem", "tm_test_eec_3.pem" }, new boolean[] {
-                true, true, true });
+        runTests(new String[]{"tm_test_ca_1a.pem", "tm_test_ca_1b.pem",
+                "tm_test_ca_2.pem"}, new String[]{"tm_test_eec_1.pem",
+                "tm_test_eec_2.pem", "tm_test_eec_3.pem"}, new boolean[]{
+                true, true, true});
     }
 
     @Test
     public void testUsingAllCAsWithDuplicates() throws Exception {
-        runTests(new String[] { "tm_test_ca_1a.pem", "tm_test_ca_1b.pem",
-                "tm_test_ca_2.pem", "tm_test_ca_2.pem" },
-                new String[] { "tm_test_eec_1.pem", "tm_test_eec_2.pem",
-                        "tm_test_eec_3.pem" },
-                new boolean[] { true, true, true });
+        runTests(new String[]{"tm_test_ca_1a.pem", "tm_test_ca_1b.pem",
+                        "tm_test_ca_2.pem", "tm_test_ca_2.pem"},
+                new String[]{"tm_test_eec_1.pem", "tm_test_eec_2.pem",
+                        "tm_test_eec_3.pem"},
+                new boolean[]{true, true, true});
     }
 
     @Test
     public void testUsingCAsOneAandB() throws Exception {
-        runTests(new String[] { "tm_test_ca_1a.pem", "tm_test_ca_1b.pem", },
-                new String[] { "tm_test_eec_1.pem", "tm_test_eec_2.pem",
-                        "tm_test_eec_3.pem" }, new boolean[] { true, true,
-                        false });
+        runTests(new String[]{"tm_test_ca_1a.pem", "tm_test_ca_1b.pem",},
+                new String[]{"tm_test_eec_1.pem", "tm_test_eec_2.pem",
+                        "tm_test_eec_3.pem"}, new boolean[]{true, true,
+                        false});
     }
 
     @Test
     public void testUsingCAsOneAandTwo() throws Exception {
-        runTests(new String[] { "tm_test_ca_1a.pem", "tm_test_ca_2.pem" },
-                new String[] { "tm_test_eec_1.pem", "tm_test_eec_2.pem",
-                        "tm_test_eec_3.pem" }, new boolean[] { true, false,
-                        true });
+        runTests(new String[]{"tm_test_ca_1a.pem", "tm_test_ca_2.pem"},
+                new String[]{"tm_test_eec_1.pem", "tm_test_eec_2.pem",
+                        "tm_test_eec_3.pem"}, new boolean[]{true, false,
+                        true});
     }
 
     /**
-     *
-     * @param caResources
-     *            an array of paths to CA Certificates in PEM format to load
-     *            from the classpath (relative to this class).
-     * @param eecResources
-     *            an array of paths to Server Certificates in PEM format in to
-     *            load from the classpath (relative to this class).
-     * @param expectations
-     *            an array of expecting results for each EEC Server Certificate
-     *            (the array is expected to have the same length the previous
-     *            argument, and be arrange in matching order: true means
-     *            expected to be valid, false otherwise.
+     * @param caResources  an array of paths to CA Certificates in PEM format to load
+     *                     from the classpath (relative to this class).
+     * @param eecResources an array of paths to Server Certificates in PEM format in to
+     *                     load from the classpath (relative to this class).
+     * @param expectations an array of expecting results for each EEC Server Certificate
+     *                     (the array is expected to have the same length the previous
+     *                     argument, and be arrange in matching order: true means
+     *                     expected to be valid, false otherwise.
      */
     private static void runTests(String[] caResources, String[] eecResources,
-            boolean[] expectations) throws Exception {
+                                 boolean[] expectations) throws Exception {
         X509TrustManager tm = getTrustManager(caResources);
 
         X509Certificate[] eecCerts = loadCertCollection(eecResources);
@@ -86,7 +82,7 @@ public class SslContextTrustManagerTest {
             X509Certificate eecCert = eecCerts[i];
             assertNotNull(eecCert, "Cannot use cert " + eecResources[i]);
             try {
-                tm.checkServerTrusted(new X509Certificate[] { eecCert }, "RSA");
+                tm.checkServerTrusted(new X509Certificate[]{eecCert}, "RSA");
                 if (!expectations[i]) {
                     fail(String.format(
                             "Certificate %s was expected not to be valid when using CAs %s, but its "

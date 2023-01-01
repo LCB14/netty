@@ -208,7 +208,8 @@ public class PendingWriteQueueTest {
 
     private static EmbeddedChannel newChannel() {
         // Add a handler so we can access a ChannelHandlerContext via the ChannelPipeline.
-        return new EmbeddedChannel(new ChannelHandlerAdapter() { });
+        return new EmbeddedChannel(new ChannelHandlerAdapter() {
+        });
     }
 
     @Test

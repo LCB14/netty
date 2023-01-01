@@ -33,17 +33,17 @@ public class SctpOutboundByteStreamHandler extends MessageToMessageEncoder<ByteB
     private final boolean unordered;
 
     /**
-     * @param streamIdentifier      stream number, this should be >=0 or <= max stream number of the association.
-     * @param protocolIdentifier    supported application protocol id.
+     * @param streamIdentifier   stream number, this should be >=0 or <= max stream number of the association.
+     * @param protocolIdentifier supported application protocol id.
      */
     public SctpOutboundByteStreamHandler(int streamIdentifier, int protocolIdentifier) {
         this(streamIdentifier, protocolIdentifier, false);
     }
 
     /**
-     * @param streamIdentifier      stream number, this should be >=0 or <= max stream number of the association.
-     * @param protocolIdentifier    supported application protocol id.
-     * @param unordered             if {@literal true}, SCTP Data Chunks will be sent with the U (unordered) flag set.
+     * @param streamIdentifier   stream number, this should be >=0 or <= max stream number of the association.
+     * @param protocolIdentifier supported application protocol id.
+     * @param unordered          if {@literal true}, SCTP Data Chunks will be sent with the U (unordered) flag set.
      */
     public SctpOutboundByteStreamHandler(int streamIdentifier, int protocolIdentifier, boolean unordered) {
         this.streamIdentifier = streamIdentifier;

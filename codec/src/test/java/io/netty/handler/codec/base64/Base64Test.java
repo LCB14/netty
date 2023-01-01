@@ -152,8 +152,8 @@ public class Base64Test {
         ByteBuf expectedBuf = Unpooled.wrappedBuffer(bytes);
         try {
             assertEquals(expectedBuf, decoded,
-                        StringUtil.NEWLINE + "expected: " + ByteBufUtil.hexDump(expectedBuf) +
-                         StringUtil.NEWLINE + "actual--: " + ByteBufUtil.hexDump(decoded));
+                    StringUtil.NEWLINE + "expected: " + ByteBufUtil.hexDump(expectedBuf) +
+                            StringUtil.NEWLINE + "actual--: " + ByteBufUtil.hexDump(decoded));
         } finally {
             src.release();
             encoded.release();

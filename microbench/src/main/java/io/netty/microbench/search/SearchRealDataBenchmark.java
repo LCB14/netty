@@ -68,6 +68,7 @@ public class SearchRealDataBenchmark extends AbstractMicrobenchmark {
                 return AbstractSearchProcessorFactory.newBitapSearchProcessorFactory(needle);
             }
         };
+
         abstract SearchProcessorFactory newFactory(byte[] needle);
     }
 
@@ -154,7 +155,7 @@ public class SearchRealDataBenchmark extends AbstractMicrobenchmark {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             try {
                 byte[] buf = new byte[8192];
-                for (;;) {
+                for (; ; ) {
                     int ret = in.read(buf);
                     if (ret < 0) {
                         break;
@@ -173,13 +174,15 @@ public class SearchRealDataBenchmark extends AbstractMicrobenchmark {
     private static void safeClose(InputStream in) {
         try {
             in.close();
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
     }
 
     private static void safeClose(OutputStream out) {
         try {
             out.close();
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
     }
 
 }

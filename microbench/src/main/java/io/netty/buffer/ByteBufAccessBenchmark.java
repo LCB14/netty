@@ -1,18 +1,18 @@
 /*
-* Copyright 2019 The Netty Project
-*
-* The Netty Project licenses this file to you under the Apache License,
-* version 2.0 (the "License"); you may not use this file except in compliance
-* with the License. You may obtain a copy of the License at:
-*
-*   https://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations
-* under the License.
-*/
+ * Copyright 2019 The Netty Project
+ *
+ * The Netty Project licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package io.netty.buffer;
 
 import java.nio.ByteBuffer;
@@ -41,29 +41,35 @@ public class ByteBufAccessBenchmark extends AbstractMicrobenchmark {
 
     static final class NioFacade extends WrappedByteBuf {
         private final ByteBuffer byteBuffer;
+
         NioFacade(ByteBuffer byteBuffer) {
             super(Unpooled.EMPTY_BUFFER);
             this.byteBuffer = byteBuffer;
         }
+
         @Override
         public ByteBuf setLong(int index, long value) {
             byteBuffer.putLong(index, value);
             return this;
         }
+
         @Override
         public long getLong(int index) {
             return byteBuffer.getLong(index);
         }
+
         @Override
         public byte readByte() {
             return byteBuffer.get();
         }
+
         @Override
         public ByteBuf touch() {
             // hack since WrappedByteBuf.readerIndex(int) is final
             byteBuffer.position(0);
             return this;
         }
+
         @Override
         public boolean release() {
             PlatformDependent.freeDirectBuffer(byteBuffer);
@@ -89,7 +95,7 @@ public class ByteBufAccessBenchmark extends AbstractMicrobenchmark {
             @Override
             ByteBuf newBuffer() {
                 return new UnpooledUnsafeHeapByteBuf(
-                        UnpooledByteBufAllocator.DEFAULT, 64, 64).setIndex(0,  64);
+                        UnpooledByteBufAllocator.DEFAULT, 64, 64).setIndex(0, 64);
             }
         },
         COMPOSITE {
@@ -104,19 +110,20 @@ public class ByteBufAccessBenchmark extends AbstractMicrobenchmark {
                 return new NioFacade(ByteBuffer.allocateDirect(64));
             }
         };
+
         abstract ByteBuf newBuffer();
     }
 
     @Param
     public ByteBufType bufferType;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public String checkAccessible;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public String checkBounds;
 
-    @Param({ "8" })
+    @Param({"8"})
     public int batchSize; // applies only to readBatch benchmark
 
     @Setup

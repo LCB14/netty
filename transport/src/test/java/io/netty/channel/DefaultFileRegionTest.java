@@ -49,7 +49,7 @@ public class DefaultFileRegionTest {
     }
 
     @Test
-    public void testCreateFromFile() throws IOException  {
+    public void testCreateFromFile() throws IOException {
         File file = newFile();
         try {
             testFileRegion(new DefaultFileRegion(file, 0, data.length));
@@ -59,7 +59,7 @@ public class DefaultFileRegionTest {
     }
 
     @Test
-    public void testCreateFromFileChannel() throws IOException  {
+    public void testCreateFromFileChannel() throws IOException {
         File file = newFile();
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         try {
@@ -70,7 +70,7 @@ public class DefaultFileRegionTest {
         }
     }
 
-    private static void testFileRegion(FileRegion region) throws IOException  {
+    private static void testFileRegion(FileRegion region) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         WritableByteChannel channel = Channels.newChannel(outputStream);
 
@@ -87,7 +87,7 @@ public class DefaultFileRegionTest {
     }
 
     @Test
-    public void testTruncated() throws IOException  {
+    public void testTruncated() throws IOException {
         File file = newFile();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         WritableByteChannel channel = Channels.newChannel(outputStream);

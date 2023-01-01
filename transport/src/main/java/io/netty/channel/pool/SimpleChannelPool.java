@@ -36,13 +36,12 @@ import static io.netty.util.internal.ObjectUtil.*;
 /**
  * Simple {@link ChannelPool} implementation which will create new {@link Channel}s if someone tries to acquire
  * a {@link Channel} but none is in the pool atm. No limit on the maximal concurrent {@link Channel}s is enforced.
- *
+ * <p>
  * This implementation uses LIFO order for {@link Channel}s in the {@link ChannelPool}.
- *
  */
 public class SimpleChannelPool implements ChannelPool {
     private static final AttributeKey<SimpleChannelPool> POOL_KEY =
-        AttributeKey.newInstance("io.netty.channel.pool.SimpleChannelPool");
+            AttributeKey.newInstance("io.netty.channel.pool.SimpleChannelPool");
     private final Deque<Channel> deque = PlatformDependent.newConcurrentDeque();
     private final ChannelPoolHandler handler;
     private final ChannelHealthChecker healthCheck;
@@ -53,8 +52,8 @@ public class SimpleChannelPool implements ChannelPool {
     /**
      * Creates a new instance using the {@link ChannelHealthChecker#ACTIVE}.
      *
-     * @param bootstrap         the {@link Bootstrap} that is used for connections
-     * @param handler           the {@link ChannelPoolHandler} that will be notified for the different pool actions
+     * @param bootstrap the {@link Bootstrap} that is used for connections
+     * @param handler   the {@link ChannelPoolHandler} that will be notified for the different pool actions
      */
     public SimpleChannelPool(Bootstrap bootstrap, final ChannelPoolHandler handler) {
         this(bootstrap, handler, ChannelHealthChecker.ACTIVE);
@@ -63,10 +62,10 @@ public class SimpleChannelPool implements ChannelPool {
     /**
      * Creates a new instance.
      *
-     * @param bootstrap         the {@link Bootstrap} that is used for connections
-     * @param handler           the {@link ChannelPoolHandler} that will be notified for the different pool actions
-     * @param healthCheck       the {@link ChannelHealthChecker} that will be used to check if a {@link Channel} is
-     *                          still healthy when obtain from the {@link ChannelPool}
+     * @param bootstrap   the {@link Bootstrap} that is used for connections
+     * @param handler     the {@link ChannelPoolHandler} that will be notified for the different pool actions
+     * @param healthCheck the {@link ChannelHealthChecker} that will be used to check if a {@link Channel} is
+     *                    still healthy when obtain from the {@link ChannelPool}
      */
     public SimpleChannelPool(Bootstrap bootstrap, final ChannelPoolHandler handler, ChannelHealthChecker healthCheck) {
         this(bootstrap, handler, healthCheck, true);
@@ -96,7 +95,7 @@ public class SimpleChannelPool implements ChannelPool {
      *                           still healthy when obtain from the {@link ChannelPool}
      * @param releaseHealthCheck will check channel health before offering back if this parameter set to {@code true};
      *                           otherwise, channel health is only checked at acquisition time
-     * @param lastRecentUsed    {@code true} {@link Channel} selection will be LIFO, if {@code false} FIFO.
+     * @param lastRecentUsed     {@code true} {@link Channel} selection will be LIFO, if {@code false} FIFO.
      */
     public SimpleChannelPool(Bootstrap bootstrap, final ChannelPoolHandler handler, ChannelHealthChecker healthCheck,
                              boolean releaseHealthCheck, boolean lastRecentUsed) {
@@ -164,6 +163,7 @@ public class SimpleChannelPool implements ChannelPool {
 
     /**
      * Tries to retrieve healthy channel from the pool if any or creates a new channel otherwise.
+     *
      * @param promise the promise to provide acquire result.
      * @return future for acquiring a channel.
      */
@@ -300,10 +300,10 @@ public class SimpleChannelPool implements ChannelPool {
             // Remove the POOL_KEY attribute from the Channel and check if it was acquired from this pool, if not fail.
             if (channel.attr(POOL_KEY).getAndSet(null) != this) {
                 closeAndFail(channel,
-                             // Better include a stacktrace here as this is an user error.
-                             new IllegalArgumentException(
-                                     "Channel " + channel + " was not acquired from this ChannelPool"),
-                             promise);
+                        // Better include a stacktrace here as this is an user error.
+                        new IllegalArgumentException(
+                                "Channel " + channel + " was not acquired from this ChannelPool"),
+                        promise);
             } else {
                 if (releaseHealthCheck) {
                     doHealthCheckOnRelease(channel, promise);
@@ -332,9 +332,10 @@ public class SimpleChannelPool implements ChannelPool {
 
     /**
      * Adds the channel back to the pool only if the channel is healthy.
+     *
      * @param channel the channel to put back to the pool
      * @param promise offer operation promise.
-     * @param future the future that contains information fif channel is healthy or not.
+     * @param future  the future that contains information fif channel is healthy or not.
      * @throws Exception in case when failed to notify handler about release operation.
      */
     private void releaseAndOfferIfHealthy(Channel channel, Promise<Void> promise, Future<Boolean> future) {
@@ -378,7 +379,7 @@ public class SimpleChannelPool implements ChannelPool {
     /**
      * Poll a {@link Channel} out of the internal storage to reuse it. This will return {@code null} if no
      * {@link Channel} is ready to be reused.
-     *
+     * <p>
      * Sub-classes may override {@link #pollChannel()} and {@link #offerChannel(Channel)}. Be aware that
      * implementations of these methods needs to be thread-safe!
      */
@@ -389,7 +390,7 @@ public class SimpleChannelPool implements ChannelPool {
     /**
      * Offer a {@link Channel} back to the internal storage. This will return {@code true} if the {@link Channel}
      * could be added, {@code false} otherwise.
-     *
+     * <p>
      * Sub-classes may override {@link #pollChannel()} and {@link #offerChannel(Channel)}. Be aware that
      * implementations of these methods needs to be thread-safe!
      */
@@ -399,7 +400,7 @@ public class SimpleChannelPool implements ChannelPool {
 
     @Override
     public void close() {
-        for (;;) {
+        for (; ; ) {
             Channel channel = pollChannel();
             if (channel == null) {
                 break;

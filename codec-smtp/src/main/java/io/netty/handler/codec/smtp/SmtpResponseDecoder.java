@@ -61,34 +61,34 @@ public final class SmtpResponseDecoder extends LineBasedFrameDecoder {
             List<CharSequence> details = this.details;
 
             switch (separator) {
-            case ' ':
-                // Marks the end of a response.
-                this.details = null;
-                if (details != null) {
+                case ' ':
+                    // Marks the end of a response.
+                    this.details = null;
+                    if (details != null) {
+                        if (detail != null) {
+                            details.add(detail);
+                        }
+                    } else {
+                        if (detail == null) {
+                            details = Collections.emptyList();
+                        } else {
+                            details = Collections.singletonList(detail);
+                        }
+                    }
+                    return new DefaultSmtpResponse(code, details);
+                case '-':
+                    // Multi-line response.
                     if (detail != null) {
+                        if (details == null) {
+                            // Using initial capacity as it is very unlikely that we will receive a multi-line response
+                            // with more then 3 lines.
+                            this.details = details = new ArrayList<CharSequence>(4);
+                        }
                         details.add(detail);
                     }
-                } else {
-                    if (detail == null) {
-                        details = Collections.emptyList();
-                    } else {
-                        details = Collections.singletonList(detail);
-                    }
-                }
-                return new DefaultSmtpResponse(code, details);
-            case '-':
-                // Multi-line response.
-                if (detail != null) {
-                    if (details == null) {
-                        // Using initial capacity as it is very unlikely that we will receive a multi-line response
-                        // with more then 3 lines.
-                        this.details = details = new ArrayList<CharSequence>(4);
-                    }
-                    details.add(detail);
-                }
-                break;
-            default:
-                throw newDecoderException(buffer, readerIndex, readable);
+                    break;
+                default:
+                    throw newDecoderException(buffer, readerIndex, readable);
             }
         } finally {
             frame.release();

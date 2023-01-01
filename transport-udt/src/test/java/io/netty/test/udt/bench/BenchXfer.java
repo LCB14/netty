@@ -27,7 +27,9 @@ import java.util.List;
  */
 public abstract class BenchXfer extends CaliperBench {
 
-    /** introduce network latency */
+    /**
+     * introduce network latency
+     */
     protected static List<String> latencyList() {
         if (TrafficControl.isAvailable()) {
             return CaliperRunner.valueList("0,10,30");
@@ -36,13 +38,17 @@ public abstract class BenchXfer extends CaliperBench {
         }
     }
 
-    /** verify different message sizes */
+    /**
+     * verify different message sizes
+     */
     protected static List<String> messageList() {
         return CaliperRunner
                 .valueList("500,1500,3000,5000,10000,20000,50000,100000");
     }
 
-    /** benchmark run time per each configuration */
+    /**
+     * benchmark run time per each configuration
+     */
     protected static List<String> durationList() {
         return CaliperRunner.valueList("30000");
     }

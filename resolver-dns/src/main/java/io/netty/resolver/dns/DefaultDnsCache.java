@@ -66,8 +66,9 @@ public class DefaultDnsCache implements DnsCache {
 
     /**
      * Create a cache.
-     * @param minTtl the minimum TTL
-     * @param maxTtl the maximum TTL
+     *
+     * @param minTtl      the minimum TTL
+     * @param maxTtl      the maximum TTL
      * @param negativeTtl the TTL for failed queries
      */
     public DefaultDnsCache(int minTtl, int maxTtl, int negativeTtl) {

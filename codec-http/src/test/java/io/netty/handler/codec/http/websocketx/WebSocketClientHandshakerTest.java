@@ -185,7 +185,7 @@ public abstract class WebSocketClientHandshakerTest {
     public void testSetOriginFromCustomHeaders() {
         HttpHeaders customHeaders = new DefaultHttpHeaders().set(getOriginHeaderName(), "http://example.com");
         WebSocketClientHandshaker handshaker = newHandshaker(URI.create("ws://server.example.com/chat"), null,
-                                                             customHeaders, false, true);
+                customHeaders, false, true);
         FullHttpRequest request = handshaker.newHandshakeRequest();
         try {
             assertEquals("http://example.com", request.headers().get(getOriginHeaderName()));
@@ -217,7 +217,7 @@ public abstract class WebSocketClientHandshakerTest {
         assertFalse(handshakeFuture.isSuccess());
         assertInstanceOf(IllegalArgumentException.class, handshakeFuture.cause());
         assertEquals("Cannot generate the 'host' header value, webSocketURI should contain host" +
-                     " or passed through customHeaders", handshakeFuture.cause().getMessage());
+                " or passed through customHeaders", handshakeFuture.cause().getMessage());
         assertFalse(channel.finish());
     }
 
@@ -233,8 +233,8 @@ public abstract class WebSocketClientHandshakerTest {
         assertFalse(handshakeFuture.isSuccess());
         assertInstanceOf(IllegalArgumentException.class, handshakeFuture.cause());
         assertEquals("Cannot generate the '" + getOriginHeaderName() + "' header value," +
-                     " webSocketURI should contain host or disable generateOriginHeader" +
-                     " or pass value through customHeaders", handshakeFuture.cause().getMessage());
+                " webSocketURI should contain host or disable generateOriginHeader" +
+                " or pass value through customHeaders", handshakeFuture.cause().getMessage());
         assertFalse(channel.finish());
     }
 
@@ -370,11 +370,11 @@ public abstract class WebSocketClientHandshakerTest {
         assertTrue(websocketChannel.writeOutbound(new BinaryWebSocketFrame(Unpooled.wrappedBuffer(data))));
 
         byte[] bytes = ("HTTP/1.1 101 Switching Protocols\r\nSec-Websocket-Accept: not-verify\r\n" +
-                        "Upgrade: websocket\r\n\r\n").getBytes(CharsetUtil.US_ASCII);
+                "Upgrade: websocket\r\n\r\n").getBytes(CharsetUtil.US_ASCII);
 
         CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
         compositeByteBuf.addComponent(true, Unpooled.wrappedBuffer(bytes));
-        for (;;) {
+        for (; ; ) {
             ByteBuf frameBytes = websocketChannel.readOutbound();
             if (frameBytes == null) {
                 break;
@@ -398,7 +398,7 @@ public abstract class WebSocketClientHandshakerTest {
         // We need to first write the request as HttpClientCodec will fail if we receive a response before a request
         // was written.
         shaker.handshake(ch).syncUninterruptibly();
-        for (;;) {
+        for (; ; ) {
             // Just consume the bytes, we are not interested in these.
             ByteBuf buf = ch.readOutbound();
             if (buf == null) {
@@ -469,7 +469,7 @@ public abstract class WebSocketClientHandshakerTest {
             assertEquals("Invalid handshake response getStatus: 401 Unauthorized", exception.getMessage());
             assertEquals(HttpResponseStatus.UNAUTHORIZED, exception.response().status());
             assertTrue(exception.response().headers().contains(HttpHeaderNames.WWW_AUTHENTICATE,
-                                                               "realm = access token required", false));
+                    "realm = access token required", false));
         } finally {
             response.release();
         }
@@ -486,7 +486,7 @@ public abstract class WebSocketClientHandshakerTest {
         String accept = "";
         if (clientHandshaker.version() != WebSocketVersion.V00) {
             String acceptSeed = handshakeRequest.headers().get(HttpHeaderNames.SEC_WEBSOCKET_KEY)
-                                + WEBSOCKET_13_ACCEPT_GUID;
+                    + WEBSOCKET_13_ACCEPT_GUID;
             byte[] sha1 = WebSocketUtil.sha1(acceptSeed.getBytes(CharsetUtil.US_ASCII));
             accept = WebSocketUtil.base64(sha1);
         }

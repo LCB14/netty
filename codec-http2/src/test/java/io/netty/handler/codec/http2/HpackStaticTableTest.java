@@ -55,7 +55,7 @@ public class HpackStaticTableTest {
     @Test
     public void testExistingHeaderNameAndValueSecondMatch() {
         assertEquals(7, HpackStaticTable.getIndexInsensitive(
-          AsciiString.cached(":scheme"), AsciiString.cached("https")));
+                AsciiString.cached(":scheme"), AsciiString.cached("https")));
     }
 
     @Test

@@ -34,7 +34,7 @@ public class MqttSubAckPayload {
         ObjectUtil.checkNotNull(reasonCodes, "reasonCodes");
 
         List<Integer> list = new ArrayList<Integer>(reasonCodes.length);
-        for (int v: reasonCodes) {
+        for (int v : reasonCodes) {
             list.add(v);
         }
         this.reasonCodes = Collections.unmodifiableList(list);
@@ -43,7 +43,7 @@ public class MqttSubAckPayload {
     public MqttSubAckPayload(Iterable<Integer> reasonCodes) {
         ObjectUtil.checkNotNull(reasonCodes, "reasonCodes");
         List<Integer> list = new ArrayList<Integer>();
-        for (Integer v: reasonCodes) {
+        for (Integer v : reasonCodes) {
             if (v == null) {
                 break;
             }
@@ -54,7 +54,7 @@ public class MqttSubAckPayload {
 
     public List<Integer> grantedQoSLevels() {
         List<Integer> qosLevels = new ArrayList<Integer>(reasonCodes.size());
-        for (int code: reasonCodes) {
+        for (int code : reasonCodes) {
             if (code > MqttQoS.EXACTLY_ONCE.value()) {
                 qosLevels.add(MqttQoS.FAILURE.value());
             } else {
@@ -71,9 +71,9 @@ public class MqttSubAckPayload {
     @Override
     public String toString() {
         return new StringBuilder(StringUtil.simpleClassName(this))
-            .append('[')
-            .append("reasonCodes=").append(reasonCodes)
-            .append(']')
-            .toString();
+                .append('[')
+                .append("reasonCodes=").append(reasonCodes)
+                .append(']')
+                .toString();
     }
 }

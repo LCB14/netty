@@ -26,7 +26,7 @@ import java.nio.charset.Charset;
 
 /**
  * Default FileUpload implementation that stores file into memory.<br><br>
- *
+ * <p>
  * Warning: be aware of the memory limitation.
  */
 public class MemoryFileUpload extends AbstractMemoryHttpData implements FileUpload {
@@ -38,7 +38,7 @@ public class MemoryFileUpload extends AbstractMemoryHttpData implements FileUplo
     private String contentTransferEncoding;
 
     public MemoryFileUpload(String name, String filename, String contentType,
-            String contentTransferEncoding, Charset charset, long size) {
+                            String contentTransferEncoding, Charset charset, long size) {
         super(name, charset, size);
         setFilename(filename);
         setContentType(contentType);
@@ -106,13 +106,13 @@ public class MemoryFileUpload extends AbstractMemoryHttpData implements FileUplo
     @Override
     public String toString() {
         return HttpHeaderNames.CONTENT_DISPOSITION + ": " +
-               HttpHeaderValues.FORM_DATA + "; " + HttpHeaderValues.NAME + "=\"" + getName() +
-            "\"; " + HttpHeaderValues.FILENAME + "=\"" + filename + "\"\r\n" +
-            HttpHeaderNames.CONTENT_TYPE + ": " + contentType +
-            (getCharset() != null? "; " + HttpHeaderValues.CHARSET + '=' + getCharset().name() + "\r\n" : "\r\n") +
-            HttpHeaderNames.CONTENT_LENGTH + ": " + length() + "\r\n" +
-            "Completed: " + isCompleted() +
-            "\r\nIsInMemory: " + isInMemory();
+                HttpHeaderValues.FORM_DATA + "; " + HttpHeaderValues.NAME + "=\"" + getName() +
+                "\"; " + HttpHeaderValues.FILENAME + "=\"" + filename + "\"\r\n" +
+                HttpHeaderNames.CONTENT_TYPE + ": " + contentType +
+                (getCharset() != null ? "; " + HttpHeaderValues.CHARSET + '=' + getCharset().name() + "\r\n" : "\r\n") +
+                HttpHeaderNames.CONTENT_LENGTH + ": " + length() + "\r\n" +
+                "Completed: " + isCompleted() +
+                "\r\nIsInMemory: " + isInMemory();
     }
 
     @Override

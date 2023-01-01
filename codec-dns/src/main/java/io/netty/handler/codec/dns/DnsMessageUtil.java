@@ -42,27 +42,27 @@ final class DnsMessageUtil {
     static StringBuilder appendRecordClass(StringBuilder buf, int dnsClass) {
         final String name;
         switch (dnsClass &= 0xFFFF) {
-        case DnsRecord.CLASS_IN:
-            name = "IN";
-            break;
-        case DnsRecord.CLASS_CSNET:
-            name = "CSNET";
-            break;
-        case DnsRecord.CLASS_CHAOS:
-            name = "CHAOS";
-            break;
-        case DnsRecord.CLASS_HESIOD:
-            name = "HESIOD";
-            break;
-        case DnsRecord.CLASS_NONE:
-            name = "NONE";
-            break;
-        case DnsRecord.CLASS_ANY:
-            name = "ANY";
-            break;
-        default:
-            name = null;
-            break;
+            case DnsRecord.CLASS_IN:
+                name = "IN";
+                break;
+            case DnsRecord.CLASS_CSNET:
+                name = "CSNET";
+                break;
+            case DnsRecord.CLASS_CHAOS:
+                name = "CHAOS";
+                break;
+            case DnsRecord.CLASS_HESIOD:
+                name = "HESIOD";
+                break;
+            case DnsRecord.CLASS_NONE:
+                name = "NONE";
+                break;
+            case DnsRecord.CLASS_ANY:
+                name = "ANY";
+                break;
+            default:
+                name = null;
+                break;
         }
 
         if (name != null) {
@@ -76,34 +76,34 @@ final class DnsMessageUtil {
 
     private static void appendQueryHeader(StringBuilder buf, DnsQuery msg) {
         buf.append(StringUtil.simpleClassName(msg))
-           .append('(');
+                .append('(');
 
         appendAddresses(buf, msg)
-           .append(msg.id())
-           .append(", ")
-           .append(msg.opCode());
+                .append(msg.id())
+                .append(", ")
+                .append(msg.opCode());
 
         if (msg.isRecursionDesired()) {
             buf.append(", RD");
         }
         if (msg.z() != 0) {
             buf.append(", Z: ")
-               .append(msg.z());
+                    .append(msg.z());
         }
         buf.append(')');
     }
 
     private static void appendResponseHeader(StringBuilder buf, DnsResponse msg) {
         buf.append(StringUtil.simpleClassName(msg))
-           .append('(');
+                .append('(');
 
         appendAddresses(buf, msg)
-           .append(msg.id())
-           .append(", ")
-           .append(msg.opCode())
-           .append(", ")
-           .append(msg.code())
-           .append(',');
+                .append(msg.id())
+                .append(", ")
+                .append(msg.opCode())
+                .append(", ")
+                .append(msg.code())
+                .append(',');
 
         boolean hasComma = true;
         if (msg.isRecursionDesired()) {
@@ -127,7 +127,7 @@ final class DnsMessageUtil {
                 buf.append(',');
             }
             buf.append(" Z: ")
-               .append(msg.z());
+                    .append(msg.z());
         }
 
         if (hasComma) {
@@ -149,15 +149,15 @@ final class DnsMessageUtil {
         SocketAddress addr = envelope.sender();
         if (addr != null) {
             buf.append("from: ")
-               .append(addr)
-               .append(", ");
+                    .append(addr)
+                    .append(", ");
         }
 
         addr = envelope.recipient();
         if (addr != null) {
             buf.append("to: ")
-               .append(addr)
-               .append(", ");
+                    .append(addr)
+                    .append(", ");
         }
 
         return buf;
@@ -172,10 +172,10 @@ final class DnsMessageUtil {
 
     private static void appendRecords(StringBuilder buf, DnsMessage message, DnsSection section) {
         final int count = message.count(section);
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             buf.append(StringUtil.NEWLINE)
-               .append(StringUtil.TAB)
-               .append(message.<DnsRecord>recordAt(section, i));
+                    .append(StringUtil.TAB)
+                    .append(message.<DnsRecord>recordAt(section, i));
         }
     }
 

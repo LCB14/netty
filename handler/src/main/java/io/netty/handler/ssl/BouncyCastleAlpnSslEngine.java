@@ -26,8 +26,8 @@ import java.util.function.BiFunction;
 final class BouncyCastleAlpnSslEngine extends JdkAlpnSslEngine {
 
     BouncyCastleAlpnSslEngine(SSLEngine engine,
-                     @SuppressWarnings("deprecation") JdkApplicationProtocolNegotiator applicationNegotiator,
-                     boolean isServer) {
+                              @SuppressWarnings("deprecation") JdkApplicationProtocolNegotiator applicationNegotiator,
+                              boolean isServer) {
         super(engine, applicationNegotiator, isServer,
                 new BiConsumer<SSLEngine, AlpnSelector>() {
                     @Override

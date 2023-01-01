@@ -27,7 +27,8 @@ public final class NoopAddressResolverGroup extends AddressResolverGroup<SocketA
 
     public static final NoopAddressResolverGroup INSTANCE = new NoopAddressResolverGroup();
 
-    private NoopAddressResolverGroup() { }
+    private NoopAddressResolverGroup() {
+    }
 
     @Override
     protected AddressResolver<SocketAddress> newResolver(EventExecutor executor) throws Exception {

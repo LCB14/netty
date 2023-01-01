@@ -64,8 +64,7 @@ abstract class AbstractPooledDerivedByteBuf extends AbstractReferenceCountedByte
             setIndex0(readerIndex, writerIndex); // It is assumed the bounds checking is done by the caller.
             resetRefCnt();
 
-            @SuppressWarnings("unchecked")
-            final U castThis = (U) this;
+            @SuppressWarnings("unchecked") final U castThis = (U) this;
             wrapped = null;
             return castThis;
         } finally {

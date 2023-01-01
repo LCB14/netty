@@ -30,7 +30,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 /**
  * Please refer to the {@link CorsConfig} javadocs for information about all the
  * configuration options available.
- *
+ * <p>
  * Below are some of configuration discussed in this example:
  * <h3>Support only a specific origin</h3>
  * To support a single origin instead of the wildcard use the following:

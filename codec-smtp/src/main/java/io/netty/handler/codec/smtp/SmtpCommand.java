@@ -44,6 +44,7 @@ public final class SmtpCommand {
     public static final SmtpCommand EMPTY = new SmtpCommand(AsciiString.cached(""));
 
     private static final Map<String, SmtpCommand> COMMANDS = new HashMap<String, SmtpCommand>();
+
     static {
         COMMANDS.put(EHLO.name().toString(), EHLO);
         COMMANDS.put(HELO.name().toString(), HELO);

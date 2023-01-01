@@ -85,7 +85,7 @@ public class SpdyHeaderBlockRawDecoder extends SpdyHeaderBlockDecoder {
     protected void decodeHeaderBlock(ByteBuf headerBlock, SpdyHeadersFrame frame) throws Exception {
         int skipLength;
         while (headerBlock.isReadable()) {
-            switch(state) {
+            switch (state) {
                 case READ_NUM_HEADERS:
                     if (headerBlock.readableBytes() < LENGTH_FIELD_SIZE) {
                         return;
@@ -208,7 +208,7 @@ public class SpdyHeaderBlockRawDecoder extends SpdyHeaderBlockDecoder {
 
                     while (index < length) {
                         while (index < valueBytes.length && valueBytes[index] != (byte) 0) {
-                            index ++;
+                            index++;
                         }
                         if (index < valueBytes.length) {
                             // Received NULL character
@@ -231,7 +231,7 @@ public class SpdyHeaderBlockRawDecoder extends SpdyHeaderBlockDecoder {
                             frame.setInvalid();
                             break;
                         }
-                        index ++;
+                        index++;
                         offset = index;
                     }
 

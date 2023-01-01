@@ -26,28 +26,32 @@ public class AbstractDnsRecordTest {
     @Test
     public void testValidDomainName() {
         String name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) { };
+        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) {
+        };
         assertEquals(name + '.', record.name());
     }
 
     @Test
     public void testValidDomainNameUmlaut() {
         String name = "ä";
-        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) { };
+        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) {
+        };
         assertEquals("xn--4ca.", record.name());
     }
 
     @Test
     public void testValidDomainNameTrailingDot() {
         String name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.";
-        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) { };
+        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) {
+        };
         assertEquals(name, record.name());
     }
 
     @Test
     public void testValidDomainNameUmlautTrailingDot() {
         String name = "ä.";
-        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) { };
+        AbstractDnsRecord record = new AbstractDnsRecord(name, DnsRecordType.A, 0) {
+        };
         assertEquals("xn--4ca.", record.name());
     }
 
@@ -57,7 +61,8 @@ public class AbstractDnsRecordTest {
         assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() {
-                new AbstractDnsRecord(name, DnsRecordType.A, 0) { };
+                new AbstractDnsRecord(name, DnsRecordType.A, 0) {
+                };
             }
         });
     }
@@ -68,7 +73,8 @@ public class AbstractDnsRecordTest {
         assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() {
-                new AbstractDnsRecord(name, DnsRecordType.A, 0) { };
+                new AbstractDnsRecord(name, DnsRecordType.A, 0) {
+                };
             }
         });
     }

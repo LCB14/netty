@@ -27,6 +27,7 @@ public interface Http2RemoteFlowController extends Http2FlowController {
      * Get the {@link ChannelHandlerContext} for which to apply flow control on.
      * <p>
      * This is intended for us by {@link FlowControlled} implementations only. Use with caution.
+     *
      * @return The {@link ChannelHandlerContext} for which to apply flow control on.
      */
     ChannelHandlerContext channelHandlerContext();
@@ -38,13 +39,14 @@ public interface Http2RemoteFlowController extends Http2FlowController {
      * <p>
      * Writes do not actually occur until {@link #writePendingBytes()} is called.
      *
-     * @param stream the subject stream. Must not be the connection stream object.
+     * @param stream  the subject stream. Must not be the connection stream object.
      * @param payload payload to write subject to flow-control accounting and ordering rules.
      */
     void addFlowControlled(Http2Stream stream, FlowControlled payload);
 
     /**
      * Determine if {@code stream} has any {@link FlowControlled} frames currently queued.
+     *
      * @param stream the stream to check if it has flow controlled frames.
      * @return {@code true} if {@code stream} has any {@link FlowControlled} frames currently queued.
      */
@@ -78,18 +80,20 @@ public interface Http2RemoteFlowController extends Http2FlowController {
 
     /**
      * Notification that the writability of {@link #channelHandlerContext()} has changed.
+     *
      * @throws Http2Exception If any writes occur as a result of this call and encounter errors.
      */
     void channelWritabilityChanged() throws Http2Exception;
 
     /**
      * Explicitly update the dependency tree. This method is called independently of stream state changes.
-     * @param childStreamId The stream identifier associated with the child stream.
+     *
+     * @param childStreamId  The stream identifier associated with the child stream.
      * @param parentStreamId The stream identifier associated with the parent stream. May be {@code 0},
      *                       to make {@code childStreamId} and immediate child of the connection.
-     * @param weight The weight which is used relative to other child streams for {@code parentStreamId}. This value
-     *               must be between 1 and 256 (inclusive).
-     * @param exclusive If {@code childStreamId} should be the exclusive dependency of {@code parentStreamId}.
+     * @param weight         The weight which is used relative to other child streams for {@code parentStreamId}. This value
+     *                       must be between 1 and 256 (inclusive).
+     * @param exclusive      If {@code childStreamId} should be the exclusive dependency of {@code parentStreamId}.
      */
     void updateDependencyTree(int childStreamId, int parentStreamId, short weight, boolean exclusive);
 
@@ -115,8 +119,8 @@ public interface Http2RemoteFlowController extends Http2FlowController {
          * this method or {@link #writeComplete()}.
          * </p>
          *
-         * @param ctx The context to use if any communication needs to occur as a result of the error.
-         * This may be {@code null} if an exception occurs when the connection has not been established yet.
+         * @param ctx   The context to use if any communication needs to occur as a result of the error.
+         *              This may be {@code null} if an exception occurs when the connection has not been established yet.
          * @param cause of the error.
          */
         void error(ChannelHandlerContext ctx, Throwable cause);
@@ -140,7 +144,7 @@ public interface Http2RemoteFlowController extends Http2FlowController {
          * {@link #error(ChannelHandlerContext, Throwable)}.
          * </p>
          *
-         * @param ctx The context to use for writing.
+         * @param ctx          The context to use for writing.
          * @param allowedBytes an upper bound on the number of bytes the payload can write at this time.
          */
         void write(ChannelHandlerContext ctx, int allowedBytes);
@@ -150,7 +154,7 @@ public interface Http2RemoteFlowController extends Http2FlowController {
          * This allows many small messages to be written as a single DATA frame.
          *
          * @return {@code true} if {@code next} was successfully merged and does not need to be enqueued,
-         *     {@code false} otherwise.
+         * {@code false} otherwise.
          */
         boolean merge(ChannelHandlerContext ctx, FlowControlled next);
     }
@@ -163,6 +167,7 @@ public interface Http2RemoteFlowController extends Http2FlowController {
          * Notification that {@link Http2RemoteFlowController#isWritable(Http2Stream)} has changed for {@code stream}.
          * <p>
          * This method should not throw. Any thrown exceptions are considered a programming error and are ignored.
+         *
          * @param stream The stream which writability has changed for.
          */
         void writabilityChanged(Http2Stream stream);

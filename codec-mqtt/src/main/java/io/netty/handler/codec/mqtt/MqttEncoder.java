@@ -44,7 +44,8 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
 
     public static final MqttEncoder INSTANCE = new MqttEncoder();
 
-    private MqttEncoder() { }
+    private MqttEncoder() {
+    }
 
     @Override
     protected void encode(ChannelHandlerContext ctx, MqttMessage msg, List<Object> out) throws Exception {
@@ -59,7 +60,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
      * @return ByteBuf with encoded bytes
      */
     static ByteBuf doEncode(ChannelHandlerContext ctx,
-                     MqttMessage message) {
+                            MqttMessage message) {
 
         switch (message.fixedHeader().messageType()) {
             case CONNECT:
@@ -75,7 +76,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
                 return encodeSubscribeMessage(ctx, (MqttSubscribeMessage) message);
 
             case UNSUBSCRIBE:
-                return encodeUnsubscribeMessage(ctx,  (MqttUnsubscribeMessage) message);
+                return encodeUnsubscribeMessage(ctx, (MqttUnsubscribeMessage) message);
 
             case SUBACK:
                 return encodeSubAckMessage(ctx, (MqttSubAckMessage) message);
@@ -373,7 +374,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
             writeVariableLengthInt(buf, variablePartSize);
             buf.writeShort(message.variableHeader().messageId());
             buf.writeBytes(propertiesBuf);
-            for (int code: message.payload().reasonCodes()) {
+            for (int code : message.payload().reasonCodes()) {
                 buf.writeByte(code);
             }
 
@@ -386,7 +387,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
     private static ByteBuf encodeUnsubAckMessage(
             ChannelHandlerContext ctx,
             MqttUnsubAckMessage message) {
-        if (message.variableHeader() instanceof  MqttMessageIdAndPropertiesVariableHeader) {
+        if (message.variableHeader() instanceof MqttMessageIdAndPropertiesVariableHeader) {
             MqttVersion mqttVersion = getMqttVersion(ctx);
             ByteBuf propertiesBuf = encodePropertiesIfNeeded(mqttVersion,
                     ctx.alloc(),
@@ -457,7 +458,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
     }
 
     private static ByteBuf encodePubReplyMessage(ChannelHandlerContext ctx,
-                                          MqttMessage message) {
+                                                 MqttMessage message) {
         if (message.variableHeader() instanceof MqttPubReplyMessageVariableHeader) {
             MqttFixedHeader mqttFixedHeader = message.fixedHeader();
             MqttPubReplyMessageVariableHeader variableHeader =
@@ -572,8 +573,8 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
     }
 
     private static ByteBuf encodePropertiesIfNeeded(MqttVersion mqttVersion,
-                                             ByteBufAllocator byteBufAllocator,
-                                             MqttProperties mqttProperties) {
+                                                    ByteBufAllocator byteBufAllocator,
+                                                    MqttProperties mqttProperties) {
         if (mqttVersion == MqttVersion.MQTT_5) {
             return encodeProperties(byteBufAllocator, mqttProperties);
         }
@@ -694,11 +695,11 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
     }
 
     private static int nullableUtf8Bytes(String s) {
-        return s == null? 0 : utf8Bytes(s);
+        return s == null ? 0 : utf8Bytes(s);
     }
 
     private static int nullableMaxUtf8Bytes(String s) {
-        return s == null? 0 : utf8MaxBytes(s);
+        return s == null ? 0 : utf8MaxBytes(s);
     }
 
     private static void writeExactUTF8String(ByteBuf buf, String s, int utf8Length) {
@@ -716,7 +717,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
         final int writerIndex = buf.writerIndex();
         final int startUtf8String = writerIndex + 2;
         buf.writerIndex(startUtf8String);
-        final int utf8Length = s != null? reserveAndWriteUtf8(buf, s, maxUtf8Length) : 0;
+        final int utf8Length = s != null ? reserveAndWriteUtf8(buf, s, maxUtf8Length) : 0;
         buf.setShort(writerIndex, utf8Length);
     }
 
@@ -725,7 +726,7 @@ public final class MqttEncoder extends MessageToMessageEncoder<MqttMessage> {
         final int startUtf8String = writerIndex + 2;
         // no need to reserve any capacity here, already done earlier: that's why is Unsafe
         buf.writerIndex(startUtf8String);
-        final int utf8Length = s != null? reserveAndWriteUtf8(buf, s, 0) : 0;
+        final int utf8Length = s != null ? reserveAndWriteUtf8(buf, s, 0) : 0;
         buf.setShort(writerIndex, utf8Length);
     }
 

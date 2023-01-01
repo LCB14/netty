@@ -41,7 +41,7 @@ public class WebSocketServerHandshaker00Test extends WebSocketServerHandshakerTe
 
     @Override
     protected WebSocketServerHandshaker newHandshaker(String webSocketURL, String subprotocols,
-            WebSocketDecoderConfig decoderConfig) {
+                                                      WebSocketDecoderConfig decoderConfig) {
         return new WebSocketServerHandshaker00(webSocketURL, subprotocols, decoderConfig);
     }
 
@@ -63,10 +63,10 @@ public class WebSocketServerHandshaker00Test extends WebSocketServerHandshakerTe
     @Test
     public void testPerformHandshakeWithoutOriginHeader() {
         EmbeddedChannel ch = new EmbeddedChannel(
-            new HttpObjectAggregator(42), new HttpRequestDecoder(), new HttpResponseEncoder());
+                new HttpObjectAggregator(42), new HttpRequestDecoder(), new HttpResponseEncoder());
 
         FullHttpRequest req = new DefaultFullHttpRequest(
-            HTTP_1_1, HttpMethod.GET, "/chat", Unpooled.copiedBuffer("^n:ds[4U", CharsetUtil.US_ASCII));
+                HTTP_1_1, HttpMethod.GET, "/chat", Unpooled.copiedBuffer("^n:ds[4U", CharsetUtil.US_ASCII));
 
         req.headers().set(HttpHeaderNames.HOST, "server.example.com");
         req.headers().set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET);
@@ -75,14 +75,14 @@ public class WebSocketServerHandshaker00Test extends WebSocketServerHandshakerTe
         req.headers().set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat");
 
         WebSocketServerHandshaker00 handshaker00 = new WebSocketServerHandshaker00(
-            "ws://example.com/chat", "chat", Integer.MAX_VALUE);
+                "ws://example.com/chat", "chat", Integer.MAX_VALUE);
         try {
             handshaker00.handshake(ch, req);
             fail("Expecting WebSocketHandshakeException");
         } catch (WebSocketHandshakeException e) {
             assertEquals("Missing origin header, got only "
-                    + "[host, upgrade, connection, sec-websocket-key1, sec-websocket-protocol]",
-                e.getMessage());
+                            + "[host, upgrade, connection, sec-websocket-key1, sec-websocket-protocol]",
+                    e.getMessage());
         } finally {
             req.release();
         }

@@ -28,7 +28,7 @@ public final class ResourcesUtil {
      * Returns a {@link File} named {@code fileName} associated with {@link Class} {@code resourceClass} .
      *
      * @param resourceClass The associated class
-     * @param fileName The file name
+     * @param fileName      The file name
      * @return The file named {@code fileName} associated with {@link Class} {@code resourceClass} .
      */
     public static File getFile(Class resourceClass, String fileName) {
@@ -39,5 +39,6 @@ public final class ResourcesUtil {
         }
     }
 
-    private ResourcesUtil() { }
+    private ResourcesUtil() {
+    }
 }

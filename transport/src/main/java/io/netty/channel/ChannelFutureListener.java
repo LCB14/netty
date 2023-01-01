@@ -25,7 +25,7 @@ import io.netty.util.concurrent.GenericFutureListener;
  * is added by calling {@link ChannelFuture#addListener(GenericFutureListener)}.
  *
  * <h3>Return the control to the caller quickly</h3>
- *
+ * <p>
  * {@link #operationComplete(Future)} is directly called by an I/O
  * thread.  Therefore, performing a time consuming task or a blocking operation
  * in the handler method can cause an unexpected pause during I/O.  If you need

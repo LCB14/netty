@@ -95,7 +95,7 @@ public class SocketFixedLengthEchoTest extends AbstractSocketTest {
 
         Channel sc = sb.bind().sync().channel();
         Channel cc = cb.connect(sc.localAddress()).sync().channel();
-        for (int i = 0; i < data.length;) {
+        for (int i = 0; i < data.length; ) {
             int length = Math.min(random.nextInt(1024 * 3), data.length - i);
             cc.writeAndFlush(Unpooled.wrappedBuffer(data, i, length));
             i += length;
@@ -167,7 +167,7 @@ public class SocketFixedLengthEchoTest extends AbstractSocketTest {
             msg.getBytes(0, actual);
 
             int lastIdx = counter;
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(data[i + lastIdx], actual[i]);
             }
 

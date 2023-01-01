@@ -35,12 +35,11 @@ final class DnsAddressDecoder {
     /**
      * Decodes an {@link InetAddress} from an A or AAAA {@link DnsRawRecord}.
      *
-     * @param record the {@link DnsRecord}, most likely a {@link DnsRawRecord}
-     * @param name the host name of the decoded address
+     * @param record    the {@link DnsRecord}, most likely a {@link DnsRawRecord}
+     * @param name      the host name of the decoded address
      * @param decodeIdn whether to convert {@code name} to a unicode host name
-     *
      * @return the {@link InetAddress}, or {@code null} if {@code record} is not a {@link DnsRawRecord} or
-     *         its content is malformed
+     * its content is malformed
      */
     static InetAddress decodeAddress(DnsRecord record, String name, boolean decodeIdn) {
         if (!(record instanceof DnsRawRecord)) {
@@ -63,5 +62,6 @@ final class DnsAddressDecoder {
         }
     }
 
-    private DnsAddressDecoder() { }
+    private DnsAddressDecoder() {
+    }
 }

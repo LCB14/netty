@@ -46,6 +46,7 @@ public final class HostsFileEntries {
 
     /**
      * The IPv4 entries
+     *
      * @return the IPv4 entries
      */
     public Map<String, Inet4Address> inet4Entries() {
@@ -54,6 +55,7 @@ public final class HostsFileEntries {
 
     /**
      * The IPv6 entries
+     *
      * @return the IPv6 entries
      */
     public Map<String, Inet6Address> inet6Entries() {

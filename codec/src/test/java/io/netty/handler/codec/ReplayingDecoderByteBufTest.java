@@ -37,7 +37,7 @@ public class ReplayingDecoderByteBufTest {
         boolean error;
         int i = 0;
         try {
-            for (;;) {
+            for (; ; ) {
                 buffer.getUnsignedByte(i);
                 i++;
             }
@@ -62,7 +62,7 @@ public class ReplayingDecoderByteBufTest {
         boolean error;
         int i = 0;
         try {
-            for (;;) {
+            for (; ; ) {
                 buffer.getByte(i);
                 i++;
             }
@@ -90,7 +90,7 @@ public class ReplayingDecoderByteBufTest {
         boolean error;
         int i = 0;
         try {
-            for (;;) {
+            for (; ; ) {
                 buffer.getBoolean(i);
                 i++;
             }

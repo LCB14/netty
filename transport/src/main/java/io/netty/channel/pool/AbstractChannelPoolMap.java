@@ -51,17 +51,18 @@ public abstract class AbstractChannelPoolMap<K, P extends ChannelPool>
         }
         return pool;
     }
+
     /**
      * Remove the {@link ChannelPool} from this {@link AbstractChannelPoolMap}. Returns {@code true} if removed,
      * {@code false} otherwise.
-     *
+     * <p>
      * If the removed pool extends {@link SimpleChannelPool} it will be closed asynchronously to avoid blocking in
      * this method.
-     *
+     * <p>
      * Please note that {@code null} keys are not allowed.
      */
     public final boolean remove(K key) {
-        P pool =  map.remove(checkNotNull(key, "key"));
+        P pool = map.remove(checkNotNull(key, "key"));
         if (pool != null) {
             poolCloseAsyncIfSupported(pool);
             return true;
@@ -72,12 +73,12 @@ public abstract class AbstractChannelPoolMap<K, P extends ChannelPool>
     /**
      * Remove the {@link ChannelPool} from this {@link AbstractChannelPoolMap}. Returns a future that comletes with a
      * {@code true} result if the pool has been removed by this call, otherwise the result is {@code false}.
-     *
+     * <p>
      * If the removed pool extends {@link SimpleChannelPool} it will be closed asynchronously to avoid blocking in
      * this method. The returned future will be completed once this asynchronous pool close operation completes.
      */
     private Future<Boolean> removeAsyncIfSupported(K key) {
-        P pool =  map.remove(checkNotNull(key, "key"));
+        P pool = map.remove(checkNotNull(key, "key"));
         if (pool != null) {
             final Promise<Boolean> removePromise = GlobalEventExecutor.INSTANCE.newPromise();
             poolCloseAsyncIfSupported(pool).addListener(new GenericFutureListener<Future<? super Void>>() {
@@ -145,7 +146,7 @@ public abstract class AbstractChannelPoolMap<K, P extends ChannelPool>
 
     @Override
     public final void close() {
-        for (K key: map.keySet()) {
+        for (K key : map.keySet()) {
             // Wait for remove to finish to ensure that resources are released before returning from close
             removeAsyncIfSupported(key).syncUninterruptibly();
         }

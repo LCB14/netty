@@ -34,7 +34,7 @@ import java.util.IdentityHashMap;
 @State(Scope.Benchmark)
 public class DefaultAttributeMapBenchmark extends AbstractMicrobenchmark {
 
-    @Param({ "8", "32", "128" })
+    @Param({"8", "32", "128"})
     private int keyCount;
     private AttributeKey<Integer>[] keys;
     private IdentityHashMap<AttributeKey<Integer>, Attribute<Integer>> identityHashMap;

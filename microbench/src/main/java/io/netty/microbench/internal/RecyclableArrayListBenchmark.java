@@ -32,7 +32,7 @@ import org.openjdk.jmh.annotations.Threads;
 @Measurement(iterations = 10, batchSize = 100)
 public class RecyclableArrayListBenchmark extends AbstractMicrobenchmark {
 
-    @Param({ "00000", "00256", "01024", "04096", "16384", "65536" })
+    @Param({"00000", "00256", "01024", "04096", "16384", "65536"})
     public int size;
 
     @Benchmark

@@ -18,8 +18,10 @@ package io.netty.handler.codec.stomp;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
+
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -72,22 +74,22 @@ public class StompCommandDecodeTest {
     }
 
     public static Collection<Object[]> stompCommands() {
-        return Arrays.asList(new Object[][] {
-                { "STOMP", StompCommand.STOMP, true },
-                { "CONNECT", StompCommand.CONNECT, true },
-                { "SEND", StompCommand.SEND, true },
-                { "SUBSCRIBE", StompCommand.SUBSCRIBE, true },
-                { "UNSUBSCRIBE", StompCommand.UNSUBSCRIBE, true },
-                { "ACK", StompCommand.ACK, true },
-                { "NACK", StompCommand.NACK, true },
-                { "BEGIN", StompCommand.BEGIN, true },
-                { "ABORT", StompCommand.ABORT, true },
-                { "COMMIT", StompCommand.COMMIT, true },
-                { "DISCONNECT", StompCommand.DISCONNECT, true },
+        return Arrays.asList(new Object[][]{
+                {"STOMP", StompCommand.STOMP, true},
+                {"CONNECT", StompCommand.CONNECT, true},
+                {"SEND", StompCommand.SEND, true},
+                {"SUBSCRIBE", StompCommand.SUBSCRIBE, true},
+                {"UNSUBSCRIBE", StompCommand.UNSUBSCRIBE, true},
+                {"ACK", StompCommand.ACK, true},
+                {"NACK", StompCommand.NACK, true},
+                {"BEGIN", StompCommand.BEGIN, true},
+                {"ABORT", StompCommand.ABORT, true},
+                {"COMMIT", StompCommand.COMMIT, true},
+                {"DISCONNECT", StompCommand.DISCONNECT, true},
 
                 // invalid commands
-                { "INVALID", StompCommand.UNKNOWN, false },
-                { "disconnect", StompCommand.UNKNOWN , false }
+                {"INVALID", StompCommand.UNKNOWN, false},
+                {"disconnect", StompCommand.UNKNOWN, false}
         });
     }
 }

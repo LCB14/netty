@@ -30,9 +30,9 @@ public interface Http2FrameStreamVisitor {
      * <p>If an {@link Exception} is thrown, the loop is stopped.
      *
      * @return <ul>
-     *         <li>{@code true} if the visitor wants to continue the loop and handle the stream.</li>
-     *         <li>{@code false} if the visitor wants to stop handling the stream and abort the loop.</li>
-     *         </ul>
+     * <li>{@code true} if the visitor wants to continue the loop and handle the stream.</li>
+     * <li>{@code false} if the visitor wants to stop handling the stream and abort the loop.</li>
+     * </ul>
      */
     boolean visit(Http2FrameStream stream);
 }

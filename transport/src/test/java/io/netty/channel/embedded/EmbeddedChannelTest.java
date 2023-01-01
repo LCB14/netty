@@ -128,7 +128,7 @@ public class EmbeddedChannelTest {
         assertNull(channel.readInbound());
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testScheduling() throws Exception {
         EmbeddedChannel ch = new EmbeddedChannel(new ChannelInboundHandlerAdapter());
@@ -159,7 +159,8 @@ public class EmbeddedChannelTest {
         EmbeddedChannel ch = new EmbeddedChannel(new ChannelInboundHandlerAdapter());
         Future<?> future = ch.eventLoop().schedule(new Runnable() {
             @Override
-            public void run() { }
+            public void run() {
+            }
         }, 1, TimeUnit.DAYS);
         ch.finish();
         assertTrue(future.isCancelled());
@@ -678,7 +679,8 @@ public class EmbeddedChannelTest {
     }
 
     @Test
-    @Timeout(30) // generous timeout, just make sure we don't actually wait for the full 10 mins...
+    @Timeout(30)
+        // generous timeout, just make sure we don't actually wait for the full 10 mins...
     void testAdvanceTime() {
         EmbeddedChannel channel = new EmbeddedChannel();
         Runnable runnable = new Runnable() {
@@ -700,7 +702,8 @@ public class EmbeddedChannelTest {
     }
 
     @Test
-    @Timeout(30) // generous timeout, just make sure we don't actually wait for the full 10 mins...
+    @Timeout(30)
+        // generous timeout, just make sure we don't actually wait for the full 10 mins...
     void testFreezeTime() {
         EmbeddedChannel channel = new EmbeddedChannel();
         Runnable runnable = new Runnable() {

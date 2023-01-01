@@ -76,7 +76,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 final class SniClientJava8TestUtil {
 
-    private SniClientJava8TestUtil() { }
+    private SniClientJava8TestUtil() {
+    }
 
     static void testSniClient(SslProvider sslClientProvider, SslProvider sslServerProvider, final boolean match)
             throws Exception {
@@ -214,7 +215,7 @@ final class SniClientJava8TestUtil {
 
         @Override
         protected TrustManager[] engineGetTrustManagers() {
-            return new TrustManager[] { new X509ExtendedTrustManager() {
+            return new TrustManager[]{new X509ExtendedTrustManager() {
                 @Override
                 public void checkClientTrusted(X509Certificate[] x509Certificates, String s, Socket socket)
                         throws CertificateException {
@@ -255,16 +256,16 @@ final class SniClientJava8TestUtil {
                 public X509Certificate[] getAcceptedIssuers() {
                     return EmptyArrays.EMPTY_X509_CERTIFICATES;
                 }
-            } };
+            }};
         }
     }
 
     static KeyManagerFactory newSniX509KeyManagerFactory(SelfSignedCertificate cert, String hostname)
             throws NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException,
-                   IOException, CertificateException {
+            IOException, CertificateException {
         return new SniX509KeyManagerFactory(
                 new SNIHostName(hostname), SslContext.buildKeyManagerFactory(
-                new X509Certificate[] { cert.cert() }, null,  cert.key(), null, null, null));
+                new X509Certificate[]{cert.cert()}, null, cert.key(), null, null, null));
     }
 
     private static final class SniX509KeyManagerFactory extends KeyManagerFactory {
@@ -286,7 +287,7 @@ final class SniClientJava8TestUtil {
                 @Override
                 protected KeyManager[] engineGetKeyManagers() {
                     List<KeyManager> managers = new ArrayList<KeyManager>();
-                    for (final KeyManager km: factory.getKeyManagers()) {
+                    for (final KeyManager km : factory.getKeyManagers()) {
                         if (km instanceof X509ExtendedKeyManager) {
                             managers.add(new X509ExtendedKeyManager() {
                                 @Override

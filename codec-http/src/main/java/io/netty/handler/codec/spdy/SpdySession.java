@@ -29,7 +29,7 @@ import static io.netty.handler.codec.spdy.SpdyCodecUtil.*;
 
 final class SpdySession {
 
-    private final AtomicInteger activeLocalStreams  = new AtomicInteger();
+    private final AtomicInteger activeLocalStreams = new AtomicInteger();
     private final AtomicInteger activeRemoteStreams = new AtomicInteger();
     private final Map<Integer, StreamState> activeStreams = PlatformDependent.newConcurrentHashMap();
     private final StreamComparator streamComparator = new StreamComparator();
@@ -188,13 +188,13 @@ final class SpdySession {
     }
 
     void updateAllSendWindowSizes(int deltaWindowSize) {
-        for (StreamState state: activeStreams.values()) {
+        for (StreamState state : activeStreams.values()) {
             state.updateSendWindowSize(deltaWindowSize);
         }
     }
 
     void updateAllReceiveWindowSizes(int deltaWindowSize) {
-        for (StreamState state: activeStreams.values()) {
+        for (StreamState state : activeStreams.values()) {
             state.updateReceiveWindowSize(deltaWindowSize);
             if (deltaWindowSize < 0) {
                 state.setReceiveWindowSizeLowerBound(deltaWindowSize);
@@ -209,7 +209,7 @@ final class SpdySession {
 
     PendingWrite getPendingWrite(int streamId) {
         if (streamId == SPDY_SESSION_STREAM_ID) {
-            for (Map.Entry<Integer, StreamState> e: activeStreams().entrySet()) {
+            for (Map.Entry<Integer, StreamState> e : activeStreams().entrySet()) {
                 StreamState state = e.getValue();
                 if (state.getSendWindowSize() > 0) {
                     PendingWrite pendingWrite = state.getPendingWrite();
@@ -312,7 +312,7 @@ final class SpdySession {
         }
 
         void clearPendingWrites(Throwable cause) {
-            for (;;) {
+            for (; ; ) {
                 PendingWrite pendingWrite = pendingWriteQueue.poll();
                 if (pendingWrite == null) {
                     break;
@@ -324,7 +324,8 @@ final class SpdySession {
 
     private final class StreamComparator implements Comparator<Integer> {
 
-        StreamComparator() { }
+        StreamComparator() {
+        }
 
         @Override
         public int compare(Integer id1, Integer id2) {

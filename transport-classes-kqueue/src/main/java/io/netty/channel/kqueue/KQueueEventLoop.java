@@ -226,7 +226,7 @@ final class KQueueEventLoop extends SingleThreadEventLoop {
 
     @Override
     protected void run() {
-        for (;;) {
+        for (; ; ) {
             try {
                 int strategy = selectStrategy.calculateStrategy(selectNowSupplier, hasTasks());
                 switch (strategy) {
@@ -391,7 +391,7 @@ final class KQueueEventLoop extends SingleThreadEventLoop {
         // In the `close()` method, the channel is deleted from `channels` map.
         AbstractKQueueChannel[] localChannels = channels.values().toArray(new AbstractKQueueChannel[0]);
 
-        for (AbstractKQueueChannel ch: localChannels) {
+        for (AbstractKQueueChannel ch : localChannels) {
             ch.unsafe().close(ch.unsafe().voidPromise());
         }
     }

@@ -38,8 +38,8 @@ public class DefaultDnsCacheTest {
 
     @Test
     public void testExpire() throws Throwable {
-        InetAddress addr1 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 1 });
-        InetAddress addr2 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 2 });
+        InetAddress addr1 = InetAddress.getByAddress(new byte[]{10, 0, 0, 1});
+        InetAddress addr2 = InetAddress.getByAddress(new byte[]{10, 0, 0, 2});
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -101,8 +101,8 @@ public class DefaultDnsCacheTest {
 
     @Test
     public void testAddMultipleAddressesForSameHostname() throws Exception {
-        InetAddress addr1 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 1 });
-        InetAddress addr2 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 2 });
+        InetAddress addr1 = InetAddress.getByAddress(new byte[]{10, 0, 0, 1});
+        InetAddress addr2 = InetAddress.getByAddress(new byte[]{10, 0, 0, 2});
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -122,7 +122,7 @@ public class DefaultDnsCacheTest {
 
     @Test
     public void testAddSameAddressForSameHostname() throws Exception {
-        InetAddress addr1 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 1 });
+        InetAddress addr1 = InetAddress.getByAddress(new byte[]{10, 0, 0, 1});
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -146,8 +146,8 @@ public class DefaultDnsCacheTest {
 
     @Test
     public void testCacheFailed() throws Exception {
-        InetAddress addr1 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 1 });
-        InetAddress addr2 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 2 });
+        InetAddress addr1 = InetAddress.getByAddress(new byte[]{10, 0, 0, 1});
+        InetAddress addr2 = InetAddress.getByAddress(new byte[]{10, 0, 0, 2});
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -175,8 +175,8 @@ public class DefaultDnsCacheTest {
 
     @Test
     public void testDotHandling() throws Exception {
-        InetAddress addr1 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 1 });
-        InetAddress addr2 = InetAddress.getByAddress(new byte[] { 10, 0, 0, 2 });
+        InetAddress addr1 = InetAddress.getByAddress(new byte[]{10, 0, 0, 1});
+        InetAddress addr2 = InetAddress.getByAddress(new byte[]{10, 0, 0, 2});
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {

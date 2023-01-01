@@ -53,13 +53,13 @@ public class RedisEncoderBenchmark extends AbstractMicrobenchmark {
     private ChannelHandlerContext context;
     private ArrayRedisMessage redisArray;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean pooledAllocator;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean voidPromise;
 
-    @Param({ "50", "200", "1000" })
+    @Param({"50", "200", "1000"})
     public int arraySize;
 
     @Setup(Level.Trial)

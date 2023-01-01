@@ -46,8 +46,7 @@ public class WebSocket00FrameDecoder extends ReplayingDecoder<Void> implements W
      * Creates a new instance of {@code WebSocketFrameDecoder} with the specified {@code maxFrameSize}. If the client
      * sends a frame size larger than {@code maxFrameSize}, the channel will be closed.
      *
-     * @param maxFrameSize
-     *            the maximum frame size to decode
+     * @param maxFrameSize the maximum frame size to decode
      */
     public WebSocket00FrameDecoder(int maxFrameSize) {
         this.maxFrameSize = maxFrameSize;
@@ -57,8 +56,7 @@ public class WebSocket00FrameDecoder extends ReplayingDecoder<Void> implements W
      * Creates a new instance of {@code WebSocketFrameDecoder} with the specified {@code maxFrameSize}. If the client
      * sends a frame size larger than {@code maxFrameSize}, the channel will be closed.
      *
-     * @param decoderConfig
-     *            Frames decoder configuration.
+     * @param decoderConfig Frames decoder configuration.
      */
     public WebSocket00FrameDecoder(WebSocketDecoderConfig decoderConfig) {
         this.maxFrameSize = ObjectUtil.checkNotNull(decoderConfig, "decoderConfig").maxFramePayloadLength();

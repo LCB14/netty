@@ -44,10 +44,10 @@ public class SocketStringEchoTest extends AbstractSocketTest {
     static final String[] data = new String[1024];
 
     static {
-        for (int i = 0; i < data.length; i ++) {
+        for (int i = 0; i < data.length; i++) {
             int eLen = random.nextInt(512);
             char[] e = new char[eLen];
-            for (int j = 0; j < eLen; j ++) {
+            for (int j = 0; j < eLen; j++) {
                 e[j] = (char) ('a' + random.nextInt(26));
             }
 

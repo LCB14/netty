@@ -72,7 +72,7 @@ public class EchoByteHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx,
-            final Throwable e) {
+                                final Throwable e) {
 
         log.error("exception : {}", e.getMessage());
 

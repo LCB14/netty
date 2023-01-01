@@ -42,12 +42,9 @@ public class ZstdOptions implements CompressionOptions {
     /**
      * Create a new {@link ZstdOptions}
      *
-     * @param  blockSize
-     *           is used to calculate the compressionLevel
-     * @param  maxEncodeSize
-     *           specifies the size of the largest compressed object
-     * @param  compressionLevel
-     *           specifies the level of the compression
+     * @param blockSize        is used to calculate the compressionLevel
+     * @param maxEncodeSize    specifies the size of the largest compressed object
+     * @param compressionLevel specifies the level of the compression
      */
     ZstdOptions(int compressionLevel, int blockSize, int maxEncodeSize) {
         if (!Zstd.isAvailable()) {

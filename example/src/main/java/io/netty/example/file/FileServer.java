@@ -41,7 +41,7 @@ public final class FileServer {
 
     static final boolean SSL = System.getProperty("ssl") != null;
     // Use the same default port with the telnet example so that we can use the telnet client example to access it.
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8992" : "8023"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8992" : "8023"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.
@@ -53,24 +53,24 @@ public final class FileServer {
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .option(ChannelOption.SO_BACKLOG, 100)
-             .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new ChannelInitializer<SocketChannel>() {
-                 @Override
-                 public void initChannel(SocketChannel ch) throws Exception {
-                     ChannelPipeline p = ch.pipeline();
-                     if (sslCtx != null) {
-                         p.addLast(sslCtx.newHandler(ch.alloc()));
-                     }
-                     p.addLast(
-                             new StringEncoder(CharsetUtil.UTF_8),
-                             new LineBasedFrameDecoder(8192),
-                             new StringDecoder(CharsetUtil.UTF_8),
-                             new ChunkedWriteHandler(),
-                             new FileServerHandler());
-                 }
-             });
+                    .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_BACKLOG, 100)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ChannelPipeline p = ch.pipeline();
+                            if (sslCtx != null) {
+                                p.addLast(sslCtx.newHandler(ch.alloc()));
+                            }
+                            p.addLast(
+                                    new StringEncoder(CharsetUtil.UTF_8),
+                                    new LineBasedFrameDecoder(8192),
+                                    new StringDecoder(CharsetUtil.UTF_8),
+                                    new ChunkedWriteHandler(),
+                                    new FileServerHandler());
+                        }
+                    });
 
             // Start the server.
             ChannelFuture f = b.bind(PORT).sync();

@@ -38,7 +38,7 @@ public class HttpRequestDecoderBenchmark extends AbstractMicrobenchmark {
     private static final byte[] CONTENT_MIXED_DELIMITERS = createContent("\r\n", "\n");
     private static final int CONTENT_LENGTH = 120;
 
-    @Param({ "2", "4", "8", "16", "32" })
+    @Param({"2", "4", "8", "16", "32"})
     public int step;
 
     private static byte[] createContent(String... lineDelimiters) {
@@ -67,7 +67,7 @@ public class HttpRequestDecoderBenchmark extends AbstractMicrobenchmark {
                 "Sec-WebSocket-Key2: 8 Xt754O3Q3QW 0   _60" + lineDelimiter +
                 "Content-Type: application/x-www-form-urlencoded" + lineDelimiter2 +
                 "Content-Length: " + CONTENT_LENGTH + lineDelimiter +
-                "\r\n"  +
+                "\r\n" +
                 "1234567890\r\n" +
                 "1234567890\r\n" +
                 "1234567890\r\n" +
@@ -92,10 +92,10 @@ public class HttpRequestDecoderBenchmark extends AbstractMicrobenchmark {
         final int headerLength = content.length - CONTENT_LENGTH;
 
         // split up the header
-        for (int a = 0; a < headerLength;) {
+        for (int a = 0; a < headerLength; ) {
             int amount = fragmentSize;
             if (a + amount > headerLength) {
-                amount = headerLength -  a;
+                amount = headerLength - a;
             }
 
             // if header is done it should produce an HttpRequest
@@ -103,7 +103,7 @@ public class HttpRequestDecoderBenchmark extends AbstractMicrobenchmark {
             a += amount;
         }
 
-        for (int i = CONTENT_LENGTH; i > 0; i --) {
+        for (int i = CONTENT_LENGTH; i > 0; i--) {
             // Should produce HttpContent
             channel.writeInbound(Unpooled.wrappedBuffer(content, content.length - i, 1).asReadOnly());
         }

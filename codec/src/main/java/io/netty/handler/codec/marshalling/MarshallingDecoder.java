@@ -23,12 +23,12 @@ import org.jboss.marshalling.ByteInput;
 import org.jboss.marshalling.Unmarshaller;
 
 import java.io.StreamCorruptedException;
+
 /**
  * Decoder which MUST be used with {@link MarshallingEncoder}.
- *
+ * <p>
  * A {@link LengthFieldBasedFrameDecoder} which use an {@link Unmarshaller} to read the Object out
  * of the {@link ByteBuf}.
- *
  */
 public class MarshallingDecoder extends LengthFieldBasedFrameDecoder {
 
@@ -39,7 +39,6 @@ public class MarshallingDecoder extends LengthFieldBasedFrameDecoder {
      * bytes.  If the size of the received object is greater than
      * {@code 1048576} bytes, a {@link StreamCorruptedException} will be
      * raised.
-     *
      */
     public MarshallingDecoder(UnmarshallerProvider provider) {
         this(provider, 1048576);
@@ -48,10 +47,10 @@ public class MarshallingDecoder extends LengthFieldBasedFrameDecoder {
     /**
      * Creates a new decoder with the specified maximum object size.
      *
-     * @param maxObjectSize  the maximum byte length of the serialized object.
-     *                       if the length of the received object is greater
-     *                       than this value, {@link TooLongFrameException}
-     *                       will be raised.
+     * @param maxObjectSize the maximum byte length of the serialized object.
+     *                      if the length of the received object is greater
+     *                      than this value, {@link TooLongFrameException}
+     *                      will be raised.
      */
     public MarshallingDecoder(UnmarshallerProvider provider, int maxObjectSize) {
         super(maxObjectSize, 0, 4, 0, 4);

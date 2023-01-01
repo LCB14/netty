@@ -17,7 +17,7 @@
 /**
  * This package is intended for use with testing against the Python
  * <a href="http://www.tavendo.de/autobahn/testsuite.html">AutoBahn test suite</a>.
- *
+ * <p>
  * Autobahn installation documentation can be found <a href="http://autobahn.ws/testsuite/installation">here</a>.
  *
  * <h3>How to run the tests on Ubuntu.</h3>
@@ -38,18 +38,18 @@
  * <p>07. Create <tt>fuzzing_clinet_spec.json</tt> in the above directory
  * {@code
  * {
- *    "options": {"failByDrop": false},
- *    "outdir": "./reports/servers",
- *
- *    "servers": [
- *                 {"agent": "Netty4",
- *                  "url": "ws://localhost:9000",
- *                  "options": {"version": 18}}
- *               ],
- *
- *    "cases": ["*"],
- *    "exclude-cases": [],
- *    "exclude-agent-cases": {}
+ * "options": {"failByDrop": false},
+ * "outdir": "./reports/servers",
+ * <p>
+ * "servers": [
+ * {"agent": "Netty4",
+ * "url": "ws://localhost:9000",
+ * "options": {"version": 18}}
+ * ],
+ * <p>
+ * "cases": ["*"],
+ * "exclude-cases": [],
+ * "exclude-agent-cases": {}
  * }
  * }
  *

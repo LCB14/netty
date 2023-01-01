@@ -35,9 +35,9 @@ public abstract class SpdyHeaderBlockDecoder {
      * If the header block is malformed, the Headers frame will be marked as invalid.
      * A stream error with status code PROTOCOL_ERROR must be issued in response to an invalid frame.
      *
-     * @param alloc the {@link ByteBufAllocator} which can be used to allocate new {@link ByteBuf}s
+     * @param alloc       the {@link ByteBufAllocator} which can be used to allocate new {@link ByteBuf}s
      * @param headerBlock the HeaderBlock to decode
-     * @param frame the Headers frame that receives the Name/Value pairs
+     * @param frame       the Headers frame that receives the Name/Value pairs
      * @throws Exception If the header block is malformed in a way that prevents any future
      *                   decoding of any other header blocks, an exception will be thrown.
      *                   A session error with status code PROTOCOL_ERROR must be issued.

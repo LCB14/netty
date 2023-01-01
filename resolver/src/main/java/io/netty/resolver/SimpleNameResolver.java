@@ -94,5 +94,6 @@ public abstract class SimpleNameResolver<T> implements NameResolver<T> {
     protected abstract void doResolveAll(String inetHost, Promise<List<T>> promise) throws Exception;
 
     @Override
-    public void close() { }
+    public void close() {
+    }
 }

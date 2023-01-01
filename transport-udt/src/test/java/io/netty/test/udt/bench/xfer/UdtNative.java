@@ -118,7 +118,9 @@ public class UdtNative extends BenchXfer {
         log.info("done");
     }
 
-    /** benchmark invocation */
+    /**
+     * benchmark invocation
+     */
     public void timeMain(final int reps) throws Exception {
 
         final int threadCount = 4;
@@ -211,7 +213,7 @@ public class UdtNative extends BenchXfer {
                 if (count != message) {
                     throw new Exception("count");
                 }
-                if (sequence ++ != buffer.getLong(0)) {
+                if (sequence++ != buffer.getLong(0)) {
                     throw new Exception("sequence");
                 }
             }
@@ -242,7 +244,7 @@ public class UdtNative extends BenchXfer {
                 if (count != message) {
                     throw new Exception("count");
                 }
-                if (sequence ++ != buffer.getLong(0)) {
+                if (sequence++ != buffer.getLong(0)) {
                     throw new Exception("sequence");
                 }
             }

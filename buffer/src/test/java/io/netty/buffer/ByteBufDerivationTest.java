@@ -170,24 +170,24 @@ public class ByteBufDerivationTest {
         ByteBuf buf = Unpooled.buffer(10000);
         ByteBuf derived = buf;
         Random rnd = new Random();
-        for (int i = 0; i < buf.capacity(); i ++) {
+        for (int i = 0; i < buf.capacity(); i++) {
             ByteBuf newDerived;
             switch (rnd.nextInt(4)) {
-            case 0:
-                newDerived = derived.slice(1, derived.capacity() - 1);
-                break;
-            case 1:
-                newDerived = derived.duplicate();
-                break;
-            case 2:
-                newDerived = derived.order(
-                        derived.order() == ByteOrder.BIG_ENDIAN ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN);
-                break;
-            case 3:
-                newDerived = Unpooled.unmodifiableBuffer(derived);
-                break;
-            default:
-                throw new Error();
+                case 0:
+                    newDerived = derived.slice(1, derived.capacity() - 1);
+                    break;
+                case 1:
+                    newDerived = derived.duplicate();
+                    break;
+                case 2:
+                    newDerived = derived.order(
+                            derived.order() == ByteOrder.BIG_ENDIAN ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN);
+                    break;
+                case 3:
+                    newDerived = Unpooled.unmodifiableBuffer(derived);
+                    break;
+                default:
+                    throw new Error();
             }
 
             assertThat("nest level of " + newDerived, nestLevel(newDerived), is(lessThanOrEqualTo(3)));
@@ -201,11 +201,11 @@ public class ByteBufDerivationTest {
 
     private static int nestLevel(ByteBuf buf) {
         int depth = 0;
-        for (ByteBuf b = buf.order(ByteOrder.BIG_ENDIAN);;) {
+        for (ByteBuf b = buf.order(ByteOrder.BIG_ENDIAN); ; ) {
             if (b.unwrap() == null && !(b instanceof SwappedByteBuf)) {
                 break;
             }
-            depth ++;
+            depth++;
             if (b instanceof SwappedByteBuf) {
                 b = b.order(ByteOrder.BIG_ENDIAN);
             } else {

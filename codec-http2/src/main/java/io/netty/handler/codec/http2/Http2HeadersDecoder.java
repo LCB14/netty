@@ -45,9 +45,10 @@ public interface Http2HeadersDecoder {
          * Configure the maximum allowed size in bytes of each set of headers.
          * <p>
          * This method should only be called by Netty (not users) as a result of a receiving a {@code SETTINGS} frame.
-         * @param max <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a>.
-         *      If this limit is exceeded the implementation should attempt to keep the HPACK header tables up to date
-         *      by processing data from the peer, but a {@code RST_STREAM} frame will be sent for the offending stream.
+         *
+         * @param max       <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a>.
+         *                  If this limit is exceeded the implementation should attempt to keep the HPACK header tables up to date
+         *                  by processing data from the peer, but a {@code RST_STREAM} frame will be sent for the offending stream.
          * @param goAwayMax Must be {@code >= max}. A {@code GO_AWAY} frame will be generated if this limit is exceeded
          *                  for any particular stream.
          * @throws Http2Exception if limits exceed the RFC's boundaries or {@code max > goAwayMax}.

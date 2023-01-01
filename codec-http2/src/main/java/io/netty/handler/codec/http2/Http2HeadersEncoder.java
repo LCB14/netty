@@ -65,7 +65,7 @@ public interface Http2HeadersEncoder {
          * Determine if a header {@code name}/{@code value} pair should be treated as
          * <a href="https://tools.ietf.org/html/rfc7541#section-7.1.3">sensitive</a>.
          *
-         * @param name The name for the header.
+         * @param name  The name for the header.
          * @param value The value of the header.
          * @return {@code true} if a header {@code name}/{@code value} pair should be treated as
          * <a href="https://tools.ietf.org/html/rfc7541#section-7.1.3">sensitive</a>.
@@ -77,9 +77,9 @@ public interface Http2HeadersEncoder {
     /**
      * Encodes the given headers and writes the output headers block to the given output buffer.
      *
-     * @param streamId  the identifier of the stream for which the headers are encoded.
-     * @param headers the headers to be encoded.
-     * @param buffer the buffer to receive the encoded headers.
+     * @param streamId the identifier of the stream for which the headers are encoded.
+     * @param headers  the headers to be encoded.
+     * @param buffer   the buffer to receive the encoded headers.
      */
     void encodeHeaders(int streamId, Http2Headers headers, ByteBuf buffer) throws Http2Exception;
 

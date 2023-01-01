@@ -28,10 +28,10 @@ public class Socks5PasswordAuthStatus implements Comparable<Socks5PasswordAuthSt
 
     public static Socks5PasswordAuthStatus valueOf(byte b) {
         switch (b) {
-        case 0x00:
-            return SUCCESS;
-        case (byte) 0xFF:
-            return FAILURE;
+            case 0x00:
+                return SUCCESS;
+            case (byte) 0xFF:
+                return FAILURE;
         }
 
         return new Socks5PasswordAuthStatus(b);

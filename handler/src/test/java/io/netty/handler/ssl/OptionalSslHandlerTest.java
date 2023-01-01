@@ -100,7 +100,7 @@ public class OptionalSslHandlerTest {
                 return SSL_HANDLER_NAME;
             }
         };
-        final ByteBuf payload = Unpooled.wrappedBuffer(new byte[] { 22, 3, 1, 0, 5 });
+        final ByteBuf payload = Unpooled.wrappedBuffer(new byte[]{22, 3, 1, 0, 5});
         try {
             handler.decode(context, payload, null);
             verify(pipeline).replace(handler, SSL_HANDLER_NAME, sslHandler);
@@ -112,7 +112,7 @@ public class OptionalSslHandlerTest {
     @Test
     public void decodeBuffered() throws Exception {
         OptionalSslHandler handler = new OptionalSslHandler(sslContext);
-        final ByteBuf payload = Unpooled.wrappedBuffer(new byte[] { 22, 3 });
+        final ByteBuf payload = Unpooled.wrappedBuffer(new byte[]{22, 3});
         try {
             handler.decode(context, payload, null);
             verifyZeroInteractions(pipeline);

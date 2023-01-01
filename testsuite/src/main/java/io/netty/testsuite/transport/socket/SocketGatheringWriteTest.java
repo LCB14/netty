@@ -153,13 +153,13 @@ public class SocketGatheringWriteTest extends AbstractSocketTest {
         Channel sc = sb.bind().sync().channel();
         Channel cc = cb.connect(sc.localAddress()).sync().channel();
 
-        for (int i = 0; i < data.length;) {
+        for (int i = 0; i < data.length; ) {
             int length = Math.min(random.nextInt(1024 * 8), data.length - i);
             if (composite && i % 2 == 0) {
                 int firstBufLength = length / 2;
                 CompositeByteBuf comp = compositeBuffer();
                 comp.addComponent(true, wrappedBuffer(data, i, firstBufLength))
-                    .addComponent(true, wrappedBuffer(data, i + firstBufLength, length - firstBufLength));
+                        .addComponent(true, wrappedBuffer(data, i + firstBufLength, length - firstBufLength));
                 cc.write(comp);
             } else {
                 cc.write(wrappedBuffer(data, i, length));

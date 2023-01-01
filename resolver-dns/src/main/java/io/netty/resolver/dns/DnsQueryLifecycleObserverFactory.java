@@ -23,6 +23,7 @@ import io.netty.handler.codec.dns.DnsQuestion;
 public interface DnsQueryLifecycleObserverFactory {
     /**
      * Create a new instance of a {@link DnsQueryLifecycleObserver}. This will be called at the start of a new query.
+     *
      * @param question The question being asked.
      * @return a new instance of a {@link DnsQueryLifecycleObserver}.
      */

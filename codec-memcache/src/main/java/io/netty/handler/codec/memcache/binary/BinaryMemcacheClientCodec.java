@@ -95,7 +95,7 @@ public final class BinaryMemcacheClientCodec extends
 
             if (failOnMissingResponse) {
                 final int size = out.size();
-                for (int i = oldSize; i < size; i ++) {
+                for (int i = oldSize; i < size; i++) {
                     Object msg = out.get(i);
                     if (msg instanceof LastMemcacheContent) {
                         requestResponseCounter.decrementAndGet();
@@ -112,8 +112,8 @@ public final class BinaryMemcacheClientCodec extends
                 long missingResponses = requestResponseCounter.get();
                 if (missingResponses > 0) {
                     ctx.fireExceptionCaught(new PrematureChannelClosureException(
-                        "channel gone inactive with " + missingResponses +
-                            " missing response(s)"));
+                            "channel gone inactive with " + missingResponses +
+                                    " missing response(s)"));
                 }
             }
         }

@@ -36,15 +36,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BinaryMemcacheObjectAggregatorTest {
 
     private static final byte[] SET_REQUEST_WITH_CONTENT = {
-        (byte) 0x80, 0x01, 0x00, 0x03,
-        0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x0B,
-        0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00,
-        0x66, 0x6f, 0x6f,
-        0x01, 0x02, 0x03, 0x04,
-        0x05, 0x06, 0x07, 0x08
+            (byte) 0x80, 0x01, 0x00, 0x03,
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x0B,
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00,
+            0x66, 0x6f, 0x6f,
+            0x01, 0x02, 0x03, 0x04,
+            0x05, 0x06, 0x07, 0x08
     };
 
     public static final int MAX_CONTENT_SIZE = 2 << 10;
@@ -55,8 +55,8 @@ public class BinaryMemcacheObjectAggregatorTest {
     public void shouldAggregateChunksOnDecode() {
         int smallBatchSize = 2;
         channel = new EmbeddedChannel(
-            new BinaryMemcacheRequestDecoder(smallBatchSize),
-            new BinaryMemcacheObjectAggregator(MAX_CONTENT_SIZE));
+                new BinaryMemcacheRequestDecoder(smallBatchSize),
+                new BinaryMemcacheObjectAggregator(MAX_CONTENT_SIZE));
 
         ByteBuf incoming = Unpooled.buffer();
         incoming.writeBytes(SET_REQUEST_WITH_CONTENT);

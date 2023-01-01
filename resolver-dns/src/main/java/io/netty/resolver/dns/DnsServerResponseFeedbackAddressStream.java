@@ -19,7 +19,7 @@ import java.net.InetSocketAddress;
 
 /**
  * An infinite stream of DNS server addresses, that requests feedback to be returned to it.
- *
+ * <p>
  * If query is successful timing information is provided, else a failure notification is given.
  */
 public interface DnsServerResponseFeedbackAddressStream extends DnsServerAddressStream {
@@ -27,10 +27,10 @@ public interface DnsServerResponseFeedbackAddressStream extends DnsServerAddress
     /**
      * A way to provide success feedback to {@link DnsServerAddressStream} so that {@link #next()} can be tuned
      * to return the best performing DNS server address
-     *
+     * <p>
      * NOTE: This is called regardless of the RCode returned by the DNS server
      *
-     * @param address The address returned by {@link #next()} that feedback needs to be applied to
+     * @param address                The address returned by {@link #next()} that feedback needs to be applied to
      * @param queryResponseTimeNanos The response time of a query against the given DNS server
      */
     void feedbackSuccess(InetSocketAddress address, long queryResponseTimeNanos);
@@ -39,8 +39,8 @@ public interface DnsServerResponseFeedbackAddressStream extends DnsServerAddress
      * A way to provide failure feedback to {@link DnsServerAddressStream} so that {@link #next()} cab be tuned
      * to return the best performing DNS server address
      *
-     * @param address The address returned by {@link #next()} that feedback needs to be applied to
-     * @param failureCause The reason the DNS query failed, can be used to penalize failures differently
+     * @param address                The address returned by {@link #next()} that feedback needs to be applied to
+     * @param failureCause           The reason the DNS query failed, can be used to penalize failures differently
      * @param queryResponseTimeNanos The response time of a query against the given DNS server
      */
     void feedbackFailure(InetSocketAddress address, Throwable failureCause, long queryResponseTimeNanos);

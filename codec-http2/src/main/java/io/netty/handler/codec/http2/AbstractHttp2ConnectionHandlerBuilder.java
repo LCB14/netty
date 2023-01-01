@@ -73,7 +73,7 @@ import static io.netty.util.internal.ObjectUtil.checkPositiveOrZero;
  */
 @UnstableApi
 public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2ConnectionHandler,
-                                                            B extends AbstractHttp2ConnectionHandlerBuilder<T, B>> {
+        B extends AbstractHttp2ConnectionHandlerBuilder<T, B>> {
 
     private static final SensitivityDetector DEFAULT_HEADER_SENSITIVITY_DETECTOR = Http2HeadersEncoder.NEVER_SENSITIVE;
 
@@ -157,7 +157,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
     protected B gracefulShutdownTimeoutMillis(long gracefulShutdownTimeoutMillis) {
         if (gracefulShutdownTimeoutMillis < -1) {
             throw new IllegalArgumentException("gracefulShutdownTimeoutMillis: " + gracefulShutdownTimeoutMillis +
-                                               " (expected: -1 for indefinite or >= 0)");
+                    " (expected: -1 for indefinite or >= 0)");
         }
         this.gracefulShutdownTimeoutMillis = gracefulShutdownTimeoutMillis;
         return self();
@@ -331,7 +331,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
      * Returns the maximum number of queued control frames that are allowed before the connection is closed.
      * This allows to protected against various attacks that can lead to high CPU / memory usage if the remote-peer
      * floods us with frames that would have us produce control frames, but stops to read from the underlying socket.
-     *
+     * <p>
      * {@code 0} means no protection is in place.
      */
     protected int encoderEnforceMaxQueuedControlFrames() {
@@ -342,7 +342,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
      * Sets the maximum number of queued control frames that are allowed before the connection is closed.
      * This allows to protected against various attacks that can lead to high CPU / memory usage if the remote-peer
      * floods us with frames that would have us produce control frames, but stops to read from the underlying socket.
-     *
+     * <p>
      * {@code 0} means no protection should be applied.
      */
     protected B encoderEnforceMaxQueuedControlFrames(int maxQueuedControlFrames) {
@@ -370,8 +370,9 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
     /**
      * Sets if the <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a>
      * should be ignored when encoding headers.
+     *
      * @param ignoreMaxHeaderListSize {@code true} to ignore
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a>.
+     *                                <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a>.
      * @return this.
      */
     protected B encoderIgnoreMaxHeaderListSize(boolean ignoreMaxHeaderListSize) {
@@ -392,6 +393,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Set the {@link Http2PromisedRequestVerifier} to use.
+     *
      * @return this.
      */
     protected B promisedRequestVerifier(Http2PromisedRequestVerifier promisedRequestVerifier) {
@@ -402,6 +404,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Get the {@link Http2PromisedRequestVerifier} to use.
+     *
      * @return the {@link Http2PromisedRequestVerifier} to use.
      */
     protected Http2PromisedRequestVerifier promisedRequestVerifier() {
@@ -412,7 +415,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
      * Returns the maximum number of consecutive empty DATA frames (without end_of_stream flag) that are allowed before
      * the connection is closed. This allows to protected against the remote peer flooding us with such frames and
      * so use up a lot of CPU. There is no valid use-case for empty DATA frames without end_of_stream flag.
-     *
+     * <p>
      * {@code 0} means no protection is in place.
      */
     protected int decoderEnforceMaxConsecutiveEmptyDataFrames() {
@@ -423,7 +426,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
      * Sets the maximum number of consecutive empty DATA frames (without end_of_stream flag) that are allowed before
      * the connection is closed. This allows to protected against the remote peer flooding us with such frames and
      * so use up a lot of CPU. There is no valid use-case for empty DATA frames without end_of_stream flag.
-     *
+     * <p>
      * {@code 0} means no protection should be applied.
      */
     protected B decoderEnforceMaxConsecutiveEmptyDataFrames(int maxConsecutiveEmptyFrames) {
@@ -435,6 +438,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Determine if settings frame should automatically be acknowledged and applied.
+     *
      * @return this.
      */
     protected B autoAckSettingsFrame(boolean autoAckSettings) {
@@ -445,6 +449,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Determine if the SETTINGS frames should be automatically acknowledged and applied.
+     *
      * @return {@code true} if the SETTINGS frames should be automatically acknowledged and applied.
      */
     protected boolean isAutoAckSettingsFrame() {
@@ -453,6 +458,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Determine if PING frame should automatically be acknowledged or not.
+     *
      * @return this.
      */
     protected B autoAckPingFrame(boolean autoAckPingFrame) {
@@ -463,6 +469,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Determine if the PING frames should be automatically acknowledged or not.
+     *
      * @return {@code true} if the PING frames should be automatically acknowledged.
      */
     protected boolean isAutoAckPingFrame() {
@@ -471,8 +478,9 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
 
     /**
      * Determine if the {@link Channel#close()} should be coupled with goaway and graceful close.
+     *
      * @param decoupleCloseAndGoAway {@code true} to make {@link Channel#close()} directly close the underlying
-     *   transport, and not attempt graceful closure via GOAWAY.
+     *                               transport, and not attempt graceful closure via GOAWAY.
      * @return {@code this}.
      */
     protected B decoupleCloseAndGoAway(boolean decoupleCloseAndGoAway) {
@@ -560,7 +568,7 @@ public abstract class AbstractHttp2ConnectionHandlerBuilder<T extends Http2Conne
                 reader.close();
                 throw new IllegalArgumentException(
                         "encoderEnforceMaxConcurrentStreams: " + encoderEnforceMaxConcurrentStreams +
-                        " not supported for server");
+                                " not supported for server");
             }
             encoder = new StreamBufferingEncoder(encoder);
         }

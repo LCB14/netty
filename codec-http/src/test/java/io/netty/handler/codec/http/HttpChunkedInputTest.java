@@ -136,7 +136,7 @@ public class HttpChunkedInputTest {
         int i = 0;
         int read = 0;
         HttpContent lastHttpContent = null;
-        for (;;) {
+        for (; ; ) {
             HttpContent httpContent = ch.readOutbound();
             if (httpContent == null) {
                 break;

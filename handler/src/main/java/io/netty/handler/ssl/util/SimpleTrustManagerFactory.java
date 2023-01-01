@@ -46,7 +46,7 @@ public abstract class SimpleTrustManagerFactory extends TrustManagerFactory {
      * to delegate its callbacks back to {@link SimpleTrustManagerFactory}.  However, it is impossible to do so,
      * because {@link TrustManagerFactory} requires {@link TrustManagerFactorySpi} at construction time and
      * does not provide a way to access it later.
-     *
+     * <p>
      * To work around this issue, we use an ugly hack which uses a {@link ThreadLocal}.
      */
     private static final FastThreadLocal<SimpleTrustManagerFactorySpi> CURRENT_SPI =

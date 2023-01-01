@@ -51,7 +51,7 @@ public class ReadOnlyHttp2HeadersBenchmark extends AbstractMicrobenchmark {
     private AsciiString[] headerNames;
     private AsciiString[] headerValues;
 
-    @Param({ "1", "5", "10", "20" })
+    @Param({"1", "5", "10", "20"})
     public int headerCount;
 
     private final AsciiString path = new AsciiString("/BigDynamicPayload");
@@ -101,7 +101,7 @@ public class ReadOnlyHttp2HeadersBenchmark extends AbstractMicrobenchmark {
     @BenchmarkMode(Mode.AverageTime)
     public void readOnlyClientHeaders(Blackhole bh) {
         iterate(ReadOnlyHttp2Headers.clientHeaders(false, HttpMethod.POST.asciiName(), path,
-                                                          HttpScheme.HTTPS.name(), authority, buildPairs()), bh);
+                HttpScheme.HTTPS.name(), authority, buildPairs()), bh);
     }
 
     @Benchmark

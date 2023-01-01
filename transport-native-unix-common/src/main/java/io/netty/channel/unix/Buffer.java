@@ -24,7 +24,8 @@ import java.nio.ByteOrder;
 @UnstableApi
 public final class Buffer {
 
-    private Buffer() { }
+    private Buffer() {
+    }
 
     /**
      * Free the direct {@link ByteBuffer}.
@@ -64,5 +65,6 @@ public final class Buffer {
 
     // If Unsafe can not be used we will need to do JNI calls.
     private static native int addressSize0();
+
     private static native long memoryAddress0(ByteBuffer buffer);
 }

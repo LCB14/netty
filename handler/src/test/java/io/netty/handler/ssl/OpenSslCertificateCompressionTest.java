@@ -165,11 +165,11 @@ public class OpenSslCertificateCompressionTest {
         assumeTrue(OpenSsl.isBoringSSL());
         TestCertCompressionAlgo badZlibAlgoClient =
                 new TestCertCompressionAlgo(CertificateCompressionAlgo.TLS_EXT_CERT_COMPRESSION_ZLIB) {
-            @Override
-            public byte[] decompress(SSLEngine engine, int uncompressed_len, byte[] input) {
-                return input;
-            }
-        };
+                    @Override
+                    public byte[] decompress(SSLEngine engine, int uncompressed_len, byte[] input) {
+                        return input;
+                    }
+                };
         final SslContext clientSslContext = buildClientContext(
                 OpenSslCertificateCompressionConfig.newBuilder()
                         .addAlgorithm(badZlibAlgoClient, OpenSslCertificateCompressionConfig.AlgorithmMode.Decompress)
@@ -222,24 +222,24 @@ public class OpenSslCertificateCompressionTest {
     public void testTlsLessThan13() throws Throwable {
         assumeTrue(OpenSsl.isBoringSSL());
         final SslContext clientSslContext = SslContextBuilder.forClient()
-             .sslProvider(SslProvider.OPENSSL)
-             .protocols(SslProtocols.TLS_v1_2)
-             .trustManager(InsecureTrustManagerFactory.INSTANCE)
-             .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
-                     OpenSslCertificateCompressionConfig.newBuilder()
-                             .addAlgorithm(testBrotliAlgoClient,
-                                     OpenSslCertificateCompressionConfig.AlgorithmMode.Decompress)
-                             .build())
-             .build();
+                .sslProvider(SslProvider.OPENSSL)
+                .protocols(SslProtocols.TLS_v1_2)
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
+                        OpenSslCertificateCompressionConfig.newBuilder()
+                                .addAlgorithm(testBrotliAlgoClient,
+                                        OpenSslCertificateCompressionConfig.AlgorithmMode.Decompress)
+                                .build())
+                .build();
         final SslContext serverSslContext = SslContextBuilder.forServer(cert.key(), cert.cert())
-               .sslProvider(SslProvider.OPENSSL)
-               .protocols(SslProtocols.TLS_v1_2)
-               .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
-                       OpenSslCertificateCompressionConfig.newBuilder()
-                               .addAlgorithm(testBrotliAlgoServer,
-                                       OpenSslCertificateCompressionConfig.AlgorithmMode.Compress)
-                               .build())
-               .build();
+                .sslProvider(SslProvider.OPENSSL)
+                .protocols(SslProtocols.TLS_v1_2)
+                .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
+                        OpenSslCertificateCompressionConfig.newBuilder()
+                                .addAlgorithm(testBrotliAlgoServer,
+                                        OpenSslCertificateCompressionConfig.AlgorithmMode.Compress)
+                                .build())
+                .build();
 
         runCertCompressionTest(clientSslContext, serverSslContext);
 
@@ -332,7 +332,7 @@ public class OpenSslCertificateCompressionTest {
             serverPromise.sync();
             clientChannel.close().syncUninterruptibly();
             serverChannel.close().syncUninterruptibly();
-        } finally  {
+        } finally {
             group.shutdownGracefully();
         }
     }
@@ -341,8 +341,8 @@ public class OpenSslCertificateCompressionTest {
         return SslContextBuilder.forServer(cert.key(), cert.cert())
                 .sslProvider(SslProvider.OPENSSL)
                 .protocols(SslProtocols.TLS_v1_3)
-            .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
-                    compressionConfig)
+                .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
+                        compressionConfig)
                 .build();
     }
 
@@ -351,8 +351,8 @@ public class OpenSslCertificateCompressionTest {
                 .sslProvider(SslProvider.OPENSSL)
                 .protocols(SslProtocols.TLS_v1_3)
                 .trustManager(InsecureTrustManagerFactory.INSTANCE)
-            .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
-                    compressionConfig)
+                .option(OpenSslContextOption.CERTIFICATE_COMPRESSION_ALGORITHMS,
+                        compressionConfig)
                 .build();
     }
 

@@ -23,7 +23,8 @@ import io.netty.util.internal.logging.InternalLogger;
  */
 public final class PromiseNotificationUtil {
 
-    private PromiseNotificationUtil() { }
+    private PromiseNotificationUtil() {
+    }
 
     /**
      * Try to cancel the {@link Promise} and log if {@code logger} is not {@code null} in case this fails.

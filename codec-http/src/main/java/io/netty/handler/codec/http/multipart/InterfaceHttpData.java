@@ -31,7 +31,6 @@ public interface InterfaceHttpData extends Comparable<InterfaceHttpData>, Refere
     String getName();
 
     /**
-     *
      * @return The HttpDataType
      */
     HttpDataType getHttpDataType();

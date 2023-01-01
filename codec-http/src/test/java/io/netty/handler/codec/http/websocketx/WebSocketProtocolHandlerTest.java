@@ -45,7 +45,8 @@ public class WebSocketProtocolHandlerTest {
     @Test
     public void testPingFrame() {
         ByteBuf pingData = Unpooled.copiedBuffer("Hello, world", UTF_8);
-        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler() { });
+        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler() {
+        });
 
         PingWebSocketFrame inputMessage = new PingWebSocketFrame(pingData);
         assertFalse(channel.writeInbound(inputMessage)); // the message was not propagated inbound
@@ -68,14 +69,15 @@ public class WebSocketProtocolHandlerTest {
         EmbeddedChannel channel = new EmbeddedChannel();
         channel.config().setAutoRead(false);
         channel.pipeline().addLast(new FlowControlHandler());
-        channel.pipeline().addLast(new WebSocketProtocolHandler() { });
+        channel.pipeline().addLast(new WebSocketProtocolHandler() {
+        });
 
         // When
         assertFalse(channel.writeInbound(
-            new PingWebSocketFrame(Unpooled.copiedBuffer(text1, UTF_8)),
-            new TextWebSocketFrame(text2),
-            new TextWebSocketFrame(text3),
-            new PingWebSocketFrame(Unpooled.copiedBuffer(text4, UTF_8))
+                new PingWebSocketFrame(Unpooled.copiedBuffer(text1, UTF_8)),
+                new TextWebSocketFrame(text2),
+                new TextWebSocketFrame(text3),
+                new PingWebSocketFrame(Unpooled.copiedBuffer(text4, UTF_8))
         ));
 
         // Then - no messages were handled or propagated
@@ -119,7 +121,8 @@ public class WebSocketProtocolHandlerTest {
 
     @Test
     public void testPongFrameDropFrameFalse() {
-        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler(false) { });
+        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler(false) {
+        });
 
         PongWebSocketFrame pingResponse = new PongWebSocketFrame();
         assertTrue(channel.writeInbound(pingResponse));
@@ -132,7 +135,8 @@ public class WebSocketProtocolHandlerTest {
 
     @Test
     public void testPongFrameDropFrameTrue() {
-        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler(true) { });
+        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler(true) {
+        });
 
         PongWebSocketFrame pingResponse = new PongWebSocketFrame();
         assertFalse(channel.writeInbound(pingResponse)); // message was not propagated inbound
@@ -140,7 +144,8 @@ public class WebSocketProtocolHandlerTest {
 
     @Test
     public void testTextFrame() {
-        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler() { });
+        EmbeddedChannel channel = new EmbeddedChannel(new WebSocketProtocolHandler() {
+        });
 
         TextWebSocketFrame textFrame = new TextWebSocketFrame();
         assertTrue(channel.writeInbound(textFrame));
@@ -155,7 +160,8 @@ public class WebSocketProtocolHandlerTest {
     public void testTimeout() throws Exception {
         final AtomicReference<ChannelPromise> ref = new AtomicReference<ChannelPromise>();
         WebSocketProtocolHandler handler = new WebSocketProtocolHandler(
-                false, WebSocketCloseStatus.NORMAL_CLOSURE, 1) { };
+                false, WebSocketCloseStatus.NORMAL_CLOSURE, 1) {
+        };
         EmbeddedChannel channel = new EmbeddedChannel(new ChannelOutboundHandlerAdapter() {
             @Override
             public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {

@@ -123,42 +123,42 @@ public class SocketSslEchoTest extends AbstractSocketTest {
     public static Collection<Object[]> data() throws Exception {
         List<SslContext> serverContexts = new ArrayList<SslContext>();
         serverContexts.add(SslContextBuilder.forServer(CERT_FILE, KEY_FILE)
-                                            .sslProvider(SslProvider.JDK)
-                                            // As we test renegotiation we should use a protocol that support it.
-                                            .protocols("TLSv1.2")
-                                            .build());
+                .sslProvider(SslProvider.JDK)
+                // As we test renegotiation we should use a protocol that support it.
+                .protocols("TLSv1.2")
+                .build());
 
         List<SslContext> clientContexts = new ArrayList<SslContext>();
         clientContexts.add(SslContextBuilder.forClient()
-                                            .sslProvider(SslProvider.JDK)
-                                            .trustManager(CERT_FILE)
-                                            // As we test renegotiation we should use a protocol that support it.
-                                            .protocols("TLSv1.2")
-                                            .build());
+                .sslProvider(SslProvider.JDK)
+                .trustManager(CERT_FILE)
+                // As we test renegotiation we should use a protocol that support it.
+                .protocols("TLSv1.2")
+                .build());
 
         boolean hasOpenSsl = OpenSsl.isAvailable();
         if (hasOpenSsl) {
             serverContexts.add(SslContextBuilder.forServer(CERT_FILE, KEY_FILE)
-                                                .sslProvider(SslProvider.OPENSSL)
-                                                // As we test renegotiation we should use a protocol that support it.
-                                                .protocols("TLSv1.2")
-                                                .build());
+                    .sslProvider(SslProvider.OPENSSL)
+                    // As we test renegotiation we should use a protocol that support it.
+                    .protocols("TLSv1.2")
+                    .build());
             clientContexts.add(SslContextBuilder.forClient()
-                                                .sslProvider(SslProvider.OPENSSL)
-                                                .trustManager(CERT_FILE)
-                                                // As we test renegotiation we should use a protocol that support it.
-                                                .protocols("TLSv1.2")
-                                                .build());
+                    .sslProvider(SslProvider.OPENSSL)
+                    .trustManager(CERT_FILE)
+                    // As we test renegotiation we should use a protocol that support it.
+                    .protocols("TLSv1.2")
+                    .build());
         } else {
             logger.warn("OpenSSL is unavailable and thus will not be tested.", OpenSsl.unavailabilityCause());
         }
 
         List<Object[]> params = new ArrayList<Object[]>();
-        for (SslContext sc: serverContexts) {
-            for (SslContext cc: clientContexts) {
-                for (RenegotiationType rt: RenegotiationType.values()) {
+        for (SslContext sc : serverContexts) {
+            for (SslContext cc : clientContexts) {
+                for (RenegotiationType rt : RenegotiationType.values()) {
                     if (rt != RenegotiationType.NONE &&
-                        (sc instanceof OpenSslContext || cc instanceof OpenSslContext)) {
+                            (sc instanceof OpenSslContext || cc instanceof OpenSslContext)) {
                         // TODO: OpenSslEngine does not support renegotiation yet.
                         continue;
                     }
@@ -179,9 +179,9 @@ public class SocketSslEchoTest extends AbstractSocketTest {
                     }
 
                     for (int i = 0; i < 32; i++) {
-                        params.add(new Object[] {
+                        params.add(new Object[]{
                                 sc, cc, r,
-                                (i & 16) != 0, (i & 8) != 0, (i & 4) != 0, (i & 2) != 0, (i & 1) != 0 });
+                                (i & 16) != 0, (i & 8) != 0, (i & 4) != 0, (i & 2) != 0, (i & 1) != 0});
                     }
                 }
             }
@@ -227,8 +227,8 @@ public class SocketSslEchoTest extends AbstractSocketTest {
 
     @ParameterizedTest(name =
             "{index}: serverEngine = {0}, clientEngine = {1}, renegotiation = {2}, " +
-            "serverUsesDelegatedTaskExecutor = {3}, clientUsesDelegatedTaskExecutor = {4}, " +
-            "autoRead = {5}, useChunkedWriteHandler = {6}, useCompositeByteBuf = {7}")
+                    "serverUsesDelegatedTaskExecutor = {3}, clientUsesDelegatedTaskExecutor = {4}, " +
+                    "autoRead = {5}, useChunkedWriteHandler = {6}, useCompositeByteBuf = {7}")
     @MethodSource("data")
     @Timeout(value = 30000, unit = TimeUnit.MILLISECONDS)
     public void testSslEcho(
@@ -339,7 +339,7 @@ public class SocketSslEchoTest extends AbstractSocketTest {
 
             if (needsRenegotiation && clientSendCounterVal >= data.length / 2) {
                 needsRenegotiation = false;
-                clientSslHandler.engine().setEnabledCipherSuites(new String[] { renegotiation.cipherSuite });
+                clientSslHandler.engine().setEnabledCipherSuites(new String[]{renegotiation.cipherSuite});
                 renegoFuture = clientSslHandler.renegotiate();
                 logStats("CLIENT RENEGOTIATES");
                 assertThat(renegoFuture, is(not(sameInstance(clientHandshakeFuture))));
@@ -398,19 +398,19 @@ public class SocketSslEchoTest extends AbstractSocketTest {
         // When renegotiation is done, at least the initiating side should be notified.
         try {
             switch (renegotiation.type) {
-            case SERVER_INITIATED:
-                assertThat(serverSslHandler.engine().getSession().getCipherSuite(), is(renegotiation.cipherSuite));
-                assertThat(serverNegoCounter.get(), is(2));
-                assertThat(clientNegoCounter.get(), anyOf(is(1), is(2)));
-                break;
-            case CLIENT_INITIATED:
-                assertThat(serverNegoCounter.get(), anyOf(is(1), is(2)));
-                assertThat(clientSslHandler.engine().getSession().getCipherSuite(), is(renegotiation.cipherSuite));
-                assertThat(clientNegoCounter.get(), is(2));
-                break;
-            case NONE:
-                assertThat(serverNegoCounter.get(), is(1));
-                assertThat(clientNegoCounter.get(), is(1));
+                case SERVER_INITIATED:
+                    assertThat(serverSslHandler.engine().getSession().getCipherSuite(), is(renegotiation.cipherSuite));
+                    assertThat(serverNegoCounter.get(), is(2));
+                    assertThat(clientNegoCounter.get(), anyOf(is(1), is(2)));
+                    break;
+                case CLIENT_INITIATED:
+                    assertThat(serverNegoCounter.get(), anyOf(is(1), is(2)));
+                    assertThat(clientSslHandler.engine().getSession().getCipherSuite(), is(renegotiation.cipherSuite));
+                    assertThat(clientNegoCounter.get(), is(2));
+                    break;
+                case NONE:
+                    assertThat(serverNegoCounter.get(), is(1));
+                    assertThat(clientNegoCounter.get(), is(1));
             }
         } finally {
             logStats("STATS");
@@ -438,8 +438,8 @@ public class SocketSslEchoTest extends AbstractSocketTest {
     void logStats(String message) {
         logger.debug(
                 "{}:\n" +
-                "\tclient { sent: {}, rcvd: {}, nego: {}, cipher: {} },\n" +
-                "\tserver { rcvd: {}, nego: {}, cipher: {} }",
+                        "\tclient { sent: {}, rcvd: {}, nego: {}, cipher: {} },\n" +
+                        "\tserver { rcvd: {}, nego: {}, cipher: {} }",
                 message,
                 clientSendCounter, clientRecvCounter, clientNegoCounter,
                 clientSslHandler.engine().getSession().getCipherSuite(),
@@ -526,7 +526,7 @@ public class SocketSslEchoTest extends AbstractSocketTest {
             in.readBytes(actual);
 
             int lastIdx = recvCounter.get();
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(data[i + lastIdx], actual[i]);
             }
 
@@ -563,7 +563,7 @@ public class SocketSslEchoTest extends AbstractSocketTest {
             in.readBytes(actual);
 
             int lastIdx = recvCounter.get();
-            for (int i = 0; i < actual.length; i ++) {
+            for (int i = 0; i < actual.length; i++) {
                 assertEquals(data[i + lastIdx], actual[i]);
             }
 
@@ -577,14 +577,14 @@ public class SocketSslEchoTest extends AbstractSocketTest {
 
             // Perform server-initiated renegotiation if necessary.
             if (renegotiation.type == RenegotiationType.SERVER_INITIATED &&
-                recvCounter.get() > data.length / 2 && renegoFuture == null) {
+                    recvCounter.get() > data.length / 2 && renegoFuture == null) {
 
                 SslHandler sslHandler = ctx.pipeline().get(SslHandler.class);
 
                 Future<Channel> hf = sslHandler.handshakeFuture();
                 assertThat(hf.isDone(), is(true));
 
-                sslHandler.engine().setEnabledCipherSuites(new String[] { renegotiation.cipherSuite });
+                sslHandler.engine().setEnabledCipherSuites(new String[]{renegotiation.cipherSuite});
                 logStats("SERVER RENEGOTIATES");
                 renegoFuture = sslHandler.renegotiate();
                 assertThat(renegoFuture, is(not(sameInstance(hf))));

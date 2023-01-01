@@ -306,13 +306,13 @@ public class ChunkedWriteHandlerTest {
     @Test
     public void testSkipAfterFailedChunkedStream() throws IOException {
         checkSkipFailed(new ChunkedStream(new ByteArrayInputStream(BYTES)),
-                        new ChunkedStream(new ByteArrayInputStream(BYTES)));
+                new ChunkedStream(new ByteArrayInputStream(BYTES)));
     }
 
     @Test
     public void testSkipAfterFailedChunkedNioStream() throws IOException {
         checkSkipFailed(new ChunkedNioStream(Channels.newChannel(new ByteArrayInputStream(BYTES))),
-                        new ChunkedNioStream(Channels.newChannel(new ByteArrayInputStream(BYTES))));
+                new ChunkedNioStream(Channels.newChannel(new ByteArrayInputStream(BYTES))));
     }
 
     @Test
@@ -351,7 +351,7 @@ public class ChunkedWriteHandlerTest {
 
         // 3 out of 4 chunks were already written
         int read = 0;
-        for (;;) {
+        for (; ; ) {
             ByteBuf buffer = ch.readOutbound();
             if (buffer == null) {
                 break;
@@ -672,7 +672,7 @@ public class ChunkedWriteHandlerTest {
     private static void check(Object... inputs) {
         EmbeddedChannel ch = new EmbeddedChannel(new ChunkedWriteHandler());
 
-        for (Object input: inputs) {
+        for (Object input : inputs) {
             ch.writeOutbound(input);
         }
 
@@ -680,7 +680,7 @@ public class ChunkedWriteHandlerTest {
 
         int i = 0;
         int read = 0;
-        for (;;) {
+        for (; ; ) {
             ByteBuf buffer = ch.readOutbound();
             if (buffer == null) {
                 break;
@@ -743,7 +743,7 @@ public class ChunkedWriteHandlerTest {
         // we expect to see the second message, chunk by chunk
         int i = 0;
         int read = 0;
-        for (;;) {
+        for (; ; ) {
             ByteBuf buffer = ch.readOutbound();
             if (buffer == null) {
                 break;

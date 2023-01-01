@@ -49,7 +49,8 @@ class ReadOnlyByteBufferBuf extends AbstractReferenceCountedByteBuf {
     }
 
     @Override
-    protected void deallocate() { }
+    protected void deallocate() {
+    }
 
     @Override
     public boolean isWritable() {
@@ -112,9 +113,9 @@ class ReadOnlyByteBufferBuf extends AbstractReferenceCountedByteBuf {
 
     @Override
     protected int _getUnsignedMedium(int index) {
-        return (getByte(index) & 0xff)     << 16 |
-               (getByte(index + 1) & 0xff) << 8  |
-               getByte(index + 2) & 0xff;
+        return (getByte(index) & 0xff) << 16 |
+                (getByte(index + 1) & 0xff) << 8 |
+                getByte(index + 2) & 0xff;
     }
 
     @Override
@@ -125,9 +126,9 @@ class ReadOnlyByteBufferBuf extends AbstractReferenceCountedByteBuf {
 
     @Override
     protected int _getUnsignedMediumLE(int index) {
-        return getByte(index)      & 0xff       |
-               (getByte(index + 1) & 0xff) << 8 |
-               (getByte(index + 2) & 0xff) << 16;
+        return getByte(index) & 0xff |
+                (getByte(index + 1) & 0xff) << 8 |
+                (getByte(index + 2) & 0xff) << 16;
     }
 
     @Override
@@ -180,7 +181,7 @@ class ReadOnlyByteBufferBuf extends AbstractReferenceCountedByteBuf {
         if (dst.hasArray()) {
             getBytes(index, dst.array(), dst.arrayOffset() + dstIndex, length);
         } else if (dst.nioBufferCount() > 0) {
-            for (ByteBuffer bb: dst.nioBuffers(dstIndex, length)) {
+            for (ByteBuffer bb : dst.nioBuffers(dstIndex, length)) {
                 int bbLen = bb.remaining();
                 getBytes(index, bb);
                 index += bbLen;
@@ -439,7 +440,7 @@ class ReadOnlyByteBufferBuf extends AbstractReferenceCountedByteBuf {
 
     @Override
     public ByteBuffer[] nioBuffers(int index, int length) {
-        return new ByteBuffer[] { nioBuffer(index, length) };
+        return new ByteBuffer[]{nioBuffer(index, length)};
     }
 
     @Override

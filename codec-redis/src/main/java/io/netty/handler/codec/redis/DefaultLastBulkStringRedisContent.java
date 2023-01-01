@@ -27,6 +27,7 @@ public final class DefaultLastBulkStringRedisContent extends DefaultBulkStringRe
 
     /**
      * Creates a {@link DefaultLastBulkStringRedisContent} for the given {@code content}.
+     *
      * @param content the content, can be {@code null}.
      */
     public DefaultLastBulkStringRedisContent(ByteBuf content) {

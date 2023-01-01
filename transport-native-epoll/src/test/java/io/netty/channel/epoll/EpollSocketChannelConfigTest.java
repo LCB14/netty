@@ -79,11 +79,11 @@ public class EpollSocketChannelConfigTest {
     private static long nextLong(long n) {
         long bits, val;
         do {
-           bits = (rand.nextLong() << 1) >>> 1;
-           val = bits % n;
+            bits = (rand.nextLong() << 1) >>> 1;
+            val = bits % n;
         } while (bits - val + (n - 1) < 0L);
         return val;
-     }
+    }
 
     @Test
     public void testRandomTcpNotSentLowAt() {

@@ -146,7 +146,7 @@ public class AbstractReferenceCountedTest {
                 }
                 retainLatch.countDown();
 
-                for (;;) {
+                for (; ; ) {
                     Future<?> f = futures.poll();
                     if (f == null) {
                         break;
@@ -198,7 +198,7 @@ public class AbstractReferenceCountedTest {
                 }
                 releaseLatch.countDown();
 
-                for (;;) {
+                for (; ; ) {
                     Future<?> f = futures.poll();
                     if (f == null) {
                         break;

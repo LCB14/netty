@@ -36,11 +36,11 @@ public class Http2SecurityUtilTest {
     }
 
     @Test
-    public void testTLSv12CiphersIncluded() throws SSLException  {
+    public void testTLSv12CiphersIncluded() throws SSLException {
         testCiphersIncluded("TLSv1.2");
     }
 
-    private static void testCiphersIncluded(String protocol) throws SSLException  {
+    private static void testCiphersIncluded(String protocol) throws SSLException {
         SslContext context = SslContextBuilder.forClient().sslProvider(SslProvider.JDK).protocols(protocol)
                 .ciphers(Http2SecurityUtil.CIPHERS, SupportedCipherSuiteFilter.INSTANCE).build();
         SSLEngine engine = context.newEngine(UnpooledByteBufAllocator.DEFAULT);

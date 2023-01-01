@@ -33,6 +33,7 @@ import java.util.TimeZone;
  * <li>Sunday, 06-Nov-94 08:49:37 GMT: obsolete specification</li>
  * <li>Sun Nov  6 08:49:37 1994: obsolete specification</li>
  * </ul>
+ *
  * @deprecated Use {@link DateFormatter} instead
  */
 @Deprecated

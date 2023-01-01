@@ -53,50 +53,39 @@ public final class PerMessageDeflateClientExtensionHandshaker implements WebSock
     /**
      * Constructor with custom configuration.
      *
-     * @param compressionLevel
-     *            Compression level between 0 and 9 (default is 6).
-     * @param allowClientWindowSize
-     *            allows WebSocket server to customize the client inflater window size
-     *            (default is false).
-     * @param requestedServerWindowSize
-     *            indicates the requested sever window size to use if server inflater is customizable.
-     * @param allowClientNoContext
-     *            allows WebSocket server to activate client_no_context_takeover
-     *            (default is false).
-     * @param requestedServerNoContext
-     *            indicates if client needs to activate server_no_context_takeover
-     *            if server is compatible with (default is false).
+     * @param compressionLevel          Compression level between 0 and 9 (default is 6).
+     * @param allowClientWindowSize     allows WebSocket server to customize the client inflater window size
+     *                                  (default is false).
+     * @param requestedServerWindowSize indicates the requested sever window size to use if server inflater is customizable.
+     * @param allowClientNoContext      allows WebSocket server to activate client_no_context_takeover
+     *                                  (default is false).
+     * @param requestedServerNoContext  indicates if client needs to activate server_no_context_takeover
+     *                                  if server is compatible with (default is false).
      */
     public PerMessageDeflateClientExtensionHandshaker(int compressionLevel,
-            boolean allowClientWindowSize, int requestedServerWindowSize,
-            boolean allowClientNoContext, boolean requestedServerNoContext) {
+                                                      boolean allowClientWindowSize, int requestedServerWindowSize,
+                                                      boolean allowClientNoContext, boolean requestedServerNoContext) {
         this(compressionLevel, allowClientWindowSize, requestedServerWindowSize,
-             allowClientNoContext, requestedServerNoContext, WebSocketExtensionFilterProvider.DEFAULT);
+                allowClientNoContext, requestedServerNoContext, WebSocketExtensionFilterProvider.DEFAULT);
     }
 
     /**
      * Constructor with custom configuration.
      *
-     * @param compressionLevel
-     *            Compression level between 0 and 9 (default is 6).
-     * @param allowClientWindowSize
-     *            allows WebSocket server to customize the client inflater window size
-     *            (default is false).
-     * @param requestedServerWindowSize
-     *            indicates the requested sever window size to use if server inflater is customizable.
-     * @param allowClientNoContext
-     *            allows WebSocket server to activate client_no_context_takeover
-     *            (default is false).
-     * @param requestedServerNoContext
-     *            indicates if client needs to activate server_no_context_takeover
-     *            if server is compatible with (default is false).
-     * @param extensionFilterProvider
-     *            provides client extension filters for per message deflate encoder and decoder.
+     * @param compressionLevel          Compression level between 0 and 9 (default is 6).
+     * @param allowClientWindowSize     allows WebSocket server to customize the client inflater window size
+     *                                  (default is false).
+     * @param requestedServerWindowSize indicates the requested sever window size to use if server inflater is customizable.
+     * @param allowClientNoContext      allows WebSocket server to activate client_no_context_takeover
+     *                                  (default is false).
+     * @param requestedServerNoContext  indicates if client needs to activate server_no_context_takeover
+     *                                  if server is compatible with (default is false).
+     * @param extensionFilterProvider   provides client extension filters for per message deflate encoder and decoder.
      */
     public PerMessageDeflateClientExtensionHandshaker(int compressionLevel,
-            boolean allowClientWindowSize, int requestedServerWindowSize,
-            boolean allowClientNoContext, boolean requestedServerNoContext,
-            WebSocketExtensionFilterProvider extensionFilterProvider) {
+                                                      boolean allowClientWindowSize, int requestedServerWindowSize,
+                                                      boolean allowClientNoContext, boolean requestedServerNoContext,
+                                                      WebSocketExtensionFilterProvider extensionFilterProvider) {
 
         if (requestedServerWindowSize > MAX_WINDOW_SIZE || requestedServerWindowSize < MIN_WINDOW_SIZE) {
             throw new IllegalArgumentException(
@@ -208,8 +197,8 @@ public final class PerMessageDeflateClientExtensionHandshaker implements WebSock
         }
 
         PermessageDeflateExtension(boolean serverNoContext, int serverWindowSize,
-                boolean clientNoContext, int clientWindowSize,
-                WebSocketExtensionFilterProvider extensionFilterProvider) {
+                                   boolean clientNoContext, int clientWindowSize,
+                                   WebSocketExtensionFilterProvider extensionFilterProvider) {
             this.serverNoContext = serverNoContext;
             this.serverWindowSize = serverWindowSize;
             this.clientNoContext = clientNoContext;
@@ -220,7 +209,7 @@ public final class PerMessageDeflateClientExtensionHandshaker implements WebSock
         @Override
         public WebSocketExtensionEncoder newExtensionEncoder() {
             return new PerMessageDeflateEncoder(compressionLevel, clientWindowSize, clientNoContext,
-                                                extensionFilterProvider.encoderFilter());
+                    extensionFilterProvider.encoderFilter());
         }
 
         @Override

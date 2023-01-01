@@ -45,12 +45,12 @@ public final class MqttConnectPayload {
             String userName,
             String password) {
         this(
-          clientIdentifier,
-          MqttProperties.NO_PROPERTIES,
-          willTopic,
-          willMessage.getBytes(CharsetUtil.UTF_8),
-          userName,
-          password.getBytes(CharsetUtil.UTF_8));
+                clientIdentifier,
+                MqttProperties.NO_PROPERTIES,
+                willTopic,
+                willMessage.getBytes(CharsetUtil.UTF_8),
+                userName,
+                password.getBytes(CharsetUtil.UTF_8));
     }
 
     public MqttConnectPayload(
@@ -125,13 +125,13 @@ public final class MqttConnectPayload {
     @Override
     public String toString() {
         return new StringBuilder(StringUtil.simpleClassName(this))
-            .append('[')
-            .append("clientIdentifier=").append(clientIdentifier)
-            .append(", willTopic=").append(willTopic)
-            .append(", willMessage=").append(Arrays.toString(willMessage))
-            .append(", userName=").append(userName)
-            .append(", password=").append(Arrays.toString(password))
-            .append(']')
-            .toString();
+                .append('[')
+                .append("clientIdentifier=").append(clientIdentifier)
+                .append(", willTopic=").append(willTopic)
+                .append(", willMessage=").append(Arrays.toString(willMessage))
+                .append(", userName=").append(userName)
+                .append(", password=").append(Arrays.toString(password))
+                .append(']')
+                .toString();
     }
 }

@@ -40,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
+ *
  */
 public class HttpRequestEncoderTest {
 
@@ -194,14 +195,14 @@ public class HttpRequestEncoderTest {
         }
 
         CustomFullHttpRequest(HttpVersion httpVersion, HttpMethod method, String uri,
-                                     ByteBuf content, boolean validateHeaders) {
+                              ByteBuf content, boolean validateHeaders) {
             super(httpVersion, method, uri, validateHeaders);
             this.content = checkNotNull(content, "content");
             trailingHeader = new DefaultHttpHeaders(validateHeaders);
         }
 
         private CustomFullHttpRequest(HttpVersion httpVersion, HttpMethod method, String uri,
-                                     ByteBuf content, HttpHeaders headers, HttpHeaders trailingHeader) {
+                                      ByteBuf content, HttpHeaders headers, HttpHeaders trailingHeader) {
             super(httpVersion, method, uri, headers);
             this.content = checkNotNull(content, "content");
             this.trailingHeader = checkNotNull(trailingHeader, "trailingHeader");

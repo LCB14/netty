@@ -51,9 +51,8 @@ public class ObjectEncoderOutputStream extends OutputStream implements
      * Creates a new {@link ObjectOutput} with the estimated length of 512
      * bytes.
      *
-     * @param out
-     *        the {@link OutputStream} where the serialized form will be
-     *        written out
+     * @param out the {@link OutputStream} where the serialized form will be
+     *            written out
      */
     public ObjectEncoderOutputStream(OutputStream out) {
         this(out, 512);
@@ -62,17 +61,14 @@ public class ObjectEncoderOutputStream extends OutputStream implements
     /**
      * Creates a new {@link ObjectOutput}.
      *
-     * @param out
-     *        the {@link OutputStream} where the serialized form will be
-     *        written out
-     *
-     * @param estimatedLength
-     *        the estimated byte length of the serialized form of an object.
-     *        If the length of the serialized form exceeds this value, the
-     *        internal buffer will be expanded automatically at the cost of
-     *        memory bandwidth.  If this value is too big, it will also waste
-     *        memory bandwidth.  To avoid unnecessary memory copy or allocation
-     *        cost, please specify the properly estimated value.
+     * @param out             the {@link OutputStream} where the serialized form will be
+     *                        written out
+     * @param estimatedLength the estimated byte length of the serialized form of an object.
+     *                        If the length of the serialized form exceeds this value, the
+     *                        internal buffer will be expanded automatically at the cost of
+     *                        memory bandwidth.  If this value is too big, it will also waste
+     *                        memory bandwidth.  To avoid unnecessary memory copy or allocation
+     *                        cost, please specify the properly estimated value.
      */
     public ObjectEncoderOutputStream(OutputStream out, int estimatedLength) {
         ObjectUtil.checkNotNull(out, "out");

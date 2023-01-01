@@ -56,23 +56,23 @@ public class WebSocketFrame08EncoderBenchmark extends AbstractMicrobenchmark {
     private ByteBuf content;
 
     private BinaryWebSocketFrame webSocketFrame;
-    @Param({ "0", "2", "4", "8", "32", "100", "1000", "3000" })
+    @Param({"0", "2", "4", "8", "32", "100", "1000", "3000"})
     public int contentLength;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean pooledAllocator;
 
-    @Param({ "true" })
+    @Param({"true"})
     public boolean masking;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean voidPromise;
 
     @Setup(Level.Trial)
     public void setUp() {
         byte[] bytes = new byte[contentLength];
         ThreadLocalRandom.current().nextBytes(bytes);
-        ByteBufAllocator allocator = pooledAllocator? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT;
+        ByteBufAllocator allocator = pooledAllocator ? PooledByteBufAllocator.DEFAULT : UnpooledByteBufAllocator.DEFAULT;
         content = allocator.buffer(contentLength).writeBytes(bytes);
         ByteBuf testContent = Unpooled.unreleasableBuffer(content.asReadOnly());
 
@@ -100,7 +100,7 @@ public class WebSocketFrame08EncoderBenchmark extends AbstractMicrobenchmark {
     }
 
     private ChannelPromise newPromise() {
-        return voidPromise? context.voidPromise() : context.newPromise();
+        return voidPromise ? context.voidPromise() : context.newPromise();
     }
 
     @Override

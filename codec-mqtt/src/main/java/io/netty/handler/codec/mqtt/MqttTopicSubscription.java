@@ -52,10 +52,10 @@ public final class MqttTopicSubscription {
     @Override
     public String toString() {
         return new StringBuilder(StringUtil.simpleClassName(this))
-            .append('[')
-            .append("topicFilter=").append(topicFilter)
-            .append(", option=").append(this.option)
-            .append(']')
-            .toString();
+                .append('[')
+                .append("topicFilter=").append(topicFilter)
+                .append(", option=").append(this.option)
+                .append(']')
+                .toString();
     }
 }

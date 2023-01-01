@@ -18,7 +18,7 @@ package io.netty.util;
 /**
  * An attribute which allows to store a value reference. It may be updated atomically and so is thread-safe.
  *
- * @param <T>   the type of the value it holds.
+ * @param <T> the type of the value it holds.
  */
 public interface Attribute<T> {
 
@@ -38,20 +38,20 @@ public interface Attribute<T> {
     void set(T value);
 
     /**
-     *  Atomically sets to the given value and returns the old value which may be {@code null} if non was set before.
+     * Atomically sets to the given value and returns the old value which may be {@code null} if non was set before.
      */
     T getAndSet(T value);
 
     /**
-     *  Atomically sets to the given value if this {@link Attribute}'s value is {@code null}.
-     *  If it was not possible to set the value as it contains a value it will just return the current value.
+     * Atomically sets to the given value if this {@link Attribute}'s value is {@code null}.
+     * If it was not possible to set the value as it contains a value it will just return the current value.
      */
     T setIfAbsent(T value);
 
     /**
      * Removes this attribute from the {@link AttributeMap} and returns the old value. Subsequent {@link #get()}
      * calls will return {@code null}.
-     *
+     * <p>
      * If you only want to return the old value and clear the {@link Attribute} while still keep it in the
      * {@link AttributeMap} use {@link #getAndSet(Object)} with a value of {@code null}.
      *
@@ -75,7 +75,7 @@ public interface Attribute<T> {
 
     /**
      * Removes this attribute from the {@link AttributeMap}. Subsequent {@link #get()} calls will return @{code null}.
-     *
+     * <p>
      * If you only want to remove the value and clear the {@link Attribute} while still keep it in
      * {@link AttributeMap} use {@link #set(Object)} with a value of {@code null}.
      *

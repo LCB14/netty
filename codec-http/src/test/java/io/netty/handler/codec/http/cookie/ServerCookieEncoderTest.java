@@ -92,8 +92,8 @@ public class ServerCookieEncoderTest {
         }
         illegalChars.add((char) 0x7F);
         // separators
-        for (char c : new char[] { '(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', '/', '[', ']',
-                '?', '=', '{', '}', ' ', '\t' }) {
+        for (char c : new char[]{'(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', '/', '[', ']',
+                '?', '=', '{', '}', ' ', '\t'}) {
             illegalChars.add(c);
         }
 
@@ -119,7 +119,7 @@ public class ServerCookieEncoderTest {
         }
         illegalChars.add((char) 0x7F);
         // whitespace, DQUOTE, comma, semicolon, and backslash
-        for (char c : new char[] { ' ', '"', ',', ';', '\\' }) {
+        for (char c : new char[]{' ', '"', ',', ';', '\\'}) {
             illegalChars.add(c);
         }
 

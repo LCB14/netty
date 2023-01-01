@@ -158,7 +158,7 @@ public class OcspTest {
                     assertThrows(IllegalStateException.class, new Executable() {
                         @Override
                         public void execute() {
-                            engine.setOcspResponse(new byte[] { 1, 2, 3 });
+                            engine.setOcspResponse(new byte[]{1, 2, 3});
                         }
                     });
                 } finally {
@@ -326,7 +326,7 @@ public class OcspTest {
 
     /**
      * Testing what happens if the {@link OcspClientCallback} throws an {@link Exception}.
-     *
+     * <p>
      * The exception should bubble up on the client side and the connection should get closed.
      */
     private static void testClientException(SslProvider sslProvider) throws Exception {
@@ -359,7 +359,7 @@ public class OcspTest {
     }
 
     private static void handshake(SslProvider sslProvider, CountDownLatch latch, ChannelHandler serverHandler,
-            byte[] response, ChannelHandler clientHandler, OcspClientCallback callback) throws Exception {
+                                  byte[] response, ChannelHandler clientHandler, OcspClientCallback callback) throws Exception {
 
         SelfSignedCertificate ssc = new SelfSignedCertificate();
         try {
@@ -402,7 +402,7 @@ public class OcspTest {
     }
 
     private static Channel newServer(EventLoopGroup group, SocketAddress address,
-            SslContext context, byte[] response, ChannelHandler handler) {
+                                     SslContext context, byte[] response, ChannelHandler handler) {
 
         ServerBootstrap bootstrap = new ServerBootstrap()
                 .channel(LocalServerChannel.class)
@@ -415,7 +415,7 @@ public class OcspTest {
     }
 
     private static Channel newClient(EventLoopGroup group, SocketAddress address,
-            SslContext context, OcspClientCallback callback, ChannelHandler handler) {
+                                     SslContext context, OcspClientCallback callback, ChannelHandler handler) {
 
         Bootstrap bootstrap = new Bootstrap()
                 .channel(LocalChannel.class)
@@ -428,7 +428,7 @@ public class OcspTest {
     }
 
     private static ChannelHandler newServerHandler(final SslContext context,
-            final byte[] response, final ChannelHandler handler) {
+                                                   final byte[] response, final ChannelHandler handler) {
         return new ChannelInitializer<Channel>() {
             @Override
             protected void initChannel(Channel ch) throws Exception {
@@ -450,7 +450,7 @@ public class OcspTest {
     }
 
     private static ChannelHandler newClientHandler(final SslContext context,
-            final OcspClientCallback callback, final ChannelHandler handler) {
+                                                   final OcspClientCallback callback, final ChannelHandler handler) {
         return new ChannelInitializer<Channel>() {
             @Override
             protected void initChannel(Channel ch) throws Exception {

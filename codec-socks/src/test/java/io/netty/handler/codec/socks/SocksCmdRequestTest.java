@@ -72,9 +72,9 @@ public class SocksCmdRequestTest {
         try {
             new SocksCmdRequest(SocksCmdType.BIND, SocksAddressType.DOMAIN,
                     "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή" +
-                    "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή" +
-                    "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή" +
-                    "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή", 1);
+                            "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή" +
+                            "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή" +
+                            "παράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμήπαράδειγμα.δοκιμή", 1);
         } catch (Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
@@ -120,7 +120,7 @@ public class SocksCmdRequestTest {
         assertEquals(SocksAddressType.DOMAIN.byteValue(), buffer.readByte());
         assertEquals((byte) asciiHost.length(), buffer.readUnsignedByte());
         assertEquals(asciiHost,
-            CharBuffer.wrap(buffer.readCharSequence(asciiHost.length(), CharsetUtil.US_ASCII)));
+                CharBuffer.wrap(buffer.readCharSequence(asciiHost.length(), CharsetUtil.US_ASCII)));
         assertEquals(port, buffer.readUnsignedShort());
 
         buffer.release();

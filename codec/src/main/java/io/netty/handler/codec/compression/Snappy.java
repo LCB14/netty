@@ -20,7 +20,7 @@ import io.netty.buffer.ByteBuf;
 /**
  * Uncompresses an input {@link ByteBuf} encoded with Snappy compression into an
  * output {@link ByteBuf}.
- *
+ * <p>
  * See <a href="https://github.com/google/snappy/blob/master/format_description.txt">snappy format</a>.
  */
 public final class Snappy {
@@ -57,7 +57,7 @@ public final class Snappy {
 
     public void encode(final ByteBuf in, final ByteBuf out, final int length) {
         // Write the preamble length to the output buffer
-        for (int i = 0;; i ++) {
+        for (int i = 0; ; i++) {
             int b = length >>> i * 7;
             if ((b & 0xFFFFFF80) != 0) {
                 out.writeByte(b & 0x7f | 0x80);
@@ -77,7 +77,8 @@ public final class Snappy {
 
         if (length - inIndex >= MIN_COMPRESSIBLE_BYTES) {
             int nextHash = hash(in, ++inIndex, shift);
-            outer: while (true) {
+            outer:
+            while (true) {
                 int skip = 32;
 
                 int candidate;
@@ -140,10 +141,10 @@ public final class Snappy {
      * Hashes the 4 bytes located at index, shifting the resulting hash into
      * the appropriate range for our hash table.
      *
-     * @param in The input buffer to read 4 bytes from
+     * @param in    The input buffer to read 4 bytes from
      * @param index The index to read at
      * @param shift The shift value, for ensuring that the resulting value is
-     *     within the range of our hash table size
+     *              within the range of our hash table size
      * @return A 32-bit hash of 4 bytes located at index
      */
     private static int hash(ByteBuf in, int index, int shift) {
@@ -169,9 +170,9 @@ public final class Snappy {
      * maxIndex to find how long our matched copy overlaps with an already-written
      * literal value.
      *
-     * @param in The input buffer to scan over
+     * @param in       The input buffer to scan over
      * @param minIndex The index in the input buffer to start scanning from
-     * @param inIndex The index of the start of our copy
+     * @param inIndex  The index of the start of our copy
      * @param maxIndex The length of our input buffer
      * @return The number of bytes for which our candidate copy is a repeat of
      */
@@ -215,8 +216,8 @@ public final class Snappy {
      * the input buffer.  The literal is taken from the current readerIndex
      * up to the supplied length.
      *
-     * @param in The input buffer to copy from
-     * @param out The output buffer to copy to
+     * @param in     The input buffer to copy from
+     * @param out    The output buffer to copy to
      * @param length The length of the literal to copy
      */
     static void encodeLiteral(ByteBuf in, ByteBuf out, int length) {
@@ -248,7 +249,7 @@ public final class Snappy {
     /**
      * Encodes a series of copies, each at most 64 bytes in length.
      *
-     * @param out The output buffer to write the copy pointer to
+     * @param out    The output buffer to write the copy pointer to
      * @param offset The offset at which the original instance lies
      * @param length The length of the original instance
      */
@@ -269,79 +270,79 @@ public final class Snappy {
     public void decode(ByteBuf in, ByteBuf out) {
         while (in.isReadable()) {
             switch (state) {
-            case READING_PREAMBLE:
-                int uncompressedLength = readPreamble(in);
-                if (uncompressedLength == PREAMBLE_NOT_FULL) {
-                    // We've not yet read all of the preamble, so wait until we can
-                    return;
-                }
-                if (uncompressedLength == 0) {
-                    // Should never happen, but it does mean we have nothing further to do
-                    return;
-                }
-                out.ensureWritable(uncompressedLength);
-                state = State.READING_TAG;
-                // fall through
-            case READING_TAG:
-                if (!in.isReadable()) {
-                    return;
-                }
-                tag = in.readByte();
-                switch (tag & 0x03) {
-                case LITERAL:
-                    state = State.READING_LITERAL;
-                    break;
-                case COPY_1_BYTE_OFFSET:
-                case COPY_2_BYTE_OFFSET:
-                case COPY_4_BYTE_OFFSET:
-                    state = State.READING_COPY;
-                    break;
-                }
-                break;
-            case READING_LITERAL:
-                int literalWritten = decodeLiteral(tag, in, out);
-                if (literalWritten != NOT_ENOUGH_INPUT) {
+                case READING_PREAMBLE:
+                    int uncompressedLength = readPreamble(in);
+                    if (uncompressedLength == PREAMBLE_NOT_FULL) {
+                        // We've not yet read all of the preamble, so wait until we can
+                        return;
+                    }
+                    if (uncompressedLength == 0) {
+                        // Should never happen, but it does mean we have nothing further to do
+                        return;
+                    }
+                    out.ensureWritable(uncompressedLength);
                     state = State.READING_TAG;
-                    written += literalWritten;
-                } else {
-                    // Need to wait for more data
-                    return;
-                }
-                break;
-            case READING_COPY:
-                int decodeWritten;
-                switch (tag & 0x03) {
-                case COPY_1_BYTE_OFFSET:
-                    decodeWritten = decodeCopyWith1ByteOffset(tag, in, out, written);
-                    if (decodeWritten != NOT_ENOUGH_INPUT) {
+                    // fall through
+                case READING_TAG:
+                    if (!in.isReadable()) {
+                        return;
+                    }
+                    tag = in.readByte();
+                    switch (tag & 0x03) {
+                        case LITERAL:
+                            state = State.READING_LITERAL;
+                            break;
+                        case COPY_1_BYTE_OFFSET:
+                        case COPY_2_BYTE_OFFSET:
+                        case COPY_4_BYTE_OFFSET:
+                            state = State.READING_COPY;
+                            break;
+                    }
+                    break;
+                case READING_LITERAL:
+                    int literalWritten = decodeLiteral(tag, in, out);
+                    if (literalWritten != NOT_ENOUGH_INPUT) {
                         state = State.READING_TAG;
-                        written += decodeWritten;
+                        written += literalWritten;
                     } else {
                         // Need to wait for more data
                         return;
                     }
                     break;
-                case COPY_2_BYTE_OFFSET:
-                    decodeWritten = decodeCopyWith2ByteOffset(tag, in, out, written);
-                    if (decodeWritten != NOT_ENOUGH_INPUT) {
-                        state = State.READING_TAG;
-                        written += decodeWritten;
-                    } else {
-                        // Need to wait for more data
-                        return;
+                case READING_COPY:
+                    int decodeWritten;
+                    switch (tag & 0x03) {
+                        case COPY_1_BYTE_OFFSET:
+                            decodeWritten = decodeCopyWith1ByteOffset(tag, in, out, written);
+                            if (decodeWritten != NOT_ENOUGH_INPUT) {
+                                state = State.READING_TAG;
+                                written += decodeWritten;
+                            } else {
+                                // Need to wait for more data
+                                return;
+                            }
+                            break;
+                        case COPY_2_BYTE_OFFSET:
+                            decodeWritten = decodeCopyWith2ByteOffset(tag, in, out, written);
+                            if (decodeWritten != NOT_ENOUGH_INPUT) {
+                                state = State.READING_TAG;
+                                written += decodeWritten;
+                            } else {
+                                // Need to wait for more data
+                                return;
+                            }
+                            break;
+                        case COPY_4_BYTE_OFFSET:
+                            decodeWritten = decodeCopyWith4ByteOffset(tag, in, out, written);
+                            if (decodeWritten != NOT_ENOUGH_INPUT) {
+                                state = State.READING_TAG;
+                                written += decodeWritten;
+                            } else {
+                                // Need to wait for more data
+                                return;
+                            }
+                            break;
                     }
-                    break;
-                case COPY_4_BYTE_OFFSET:
-                    decodeWritten = decodeCopyWith4ByteOffset(tag, in, out, written);
-                    if (decodeWritten != NOT_ENOUGH_INPUT) {
-                        state = State.READING_TAG;
-                        written += decodeWritten;
-                    } else {
-                        // Need to wait for more data
-                        return;
-                    }
-                    break;
-                }
             }
         }
     }
@@ -353,7 +354,7 @@ public final class Snappy {
      *
      * @param in The input buffer to read the preamble from
      * @return The calculated length based on the input buffer, or 0 if
-     *   no preamble is able to be calculated
+     * no preamble is able to be calculated
      */
     private static int readPreamble(ByteBuf in) {
         int length = 0;
@@ -380,7 +381,7 @@ public final class Snappy {
      *
      * @param in The input buffer to get the preamble from
      * @return The calculated length based on the input buffer, or 0 if
-     *   no preamble is able to be calculated
+     * no preamble is able to be calculated
      */
     int getPreamble(ByteBuf in) {
         if (state == State.READING_PREAMBLE) {
@@ -401,40 +402,40 @@ public final class Snappy {
      *
      * @param tag The tag that identified this segment as a literal is also
      *            used to encode part of the length of the data
-     * @param in The input buffer to read the literal from
+     * @param in  The input buffer to read the literal from
      * @param out The output buffer to write the literal to
      * @return The number of bytes appended to the output buffer, or -1 to indicate "try again later"
      */
     static int decodeLiteral(byte tag, ByteBuf in, ByteBuf out) {
         in.markReaderIndex();
         int length;
-        switch(tag >> 2 & 0x3F) {
-        case 60:
-            if (!in.isReadable()) {
-                return NOT_ENOUGH_INPUT;
-            }
-            length = in.readUnsignedByte();
-            break;
-        case 61:
-            if (in.readableBytes() < 2) {
-                return NOT_ENOUGH_INPUT;
-            }
-            length = in.readUnsignedShortLE();
-            break;
-        case 62:
-            if (in.readableBytes() < 3) {
-                return NOT_ENOUGH_INPUT;
-            }
-            length = in.readUnsignedMediumLE();
-            break;
-        case 63:
-            if (in.readableBytes() < 4) {
-                return NOT_ENOUGH_INPUT;
-            }
-            length = in.readIntLE();
-            break;
-        default:
-            length = tag >> 2 & 0x3F;
+        switch (tag >> 2 & 0x3F) {
+            case 60:
+                if (!in.isReadable()) {
+                    return NOT_ENOUGH_INPUT;
+                }
+                length = in.readUnsignedByte();
+                break;
+            case 61:
+                if (in.readableBytes() < 2) {
+                    return NOT_ENOUGH_INPUT;
+                }
+                length = in.readUnsignedShortLE();
+                break;
+            case 62:
+                if (in.readableBytes() < 3) {
+                    return NOT_ENOUGH_INPUT;
+                }
+                length = in.readUnsignedMediumLE();
+                break;
+            case 63:
+                if (in.readableBytes() < 4) {
+                    return NOT_ENOUGH_INPUT;
+                }
+                length = in.readIntLE();
+                break;
+            default:
+                length = tag >> 2 & 0x3F;
         }
         length += 1;
 
@@ -453,11 +454,11 @@ public final class Snappy {
      * writes the found data to the supplied output stream.
      *
      * @param tag The tag used to identify this as a copy is also used to encode
-     *     the length and part of the offset
-     * @param in The input buffer to read from
+     *            the length and part of the offset
+     * @param in  The input buffer to read from
      * @param out The output buffer to write to
      * @return The number of bytes appended to the output buffer, or -1 to indicate
-     *     "try again later"
+     * "try again later"
      * @throws DecompressionException If the read offset is invalid
      */
     private static int decodeCopyWith1ByteOffset(byte tag, ByteBuf in, ByteBuf out, int writtenSoFar) {
@@ -497,12 +498,12 @@ public final class Snappy {
      * writes the found data to the supplied output stream.
      *
      * @param tag The tag used to identify this as a copy is also used to encode
-     *     the length and part of the offset
-     * @param in The input buffer to read from
+     *            the length and part of the offset
+     * @param in  The input buffer to read from
      * @param out The output buffer to write to
-     * @throws DecompressionException If the read offset is invalid
      * @return The number of bytes appended to the output buffer, or -1 to indicate
-     *     "try again later"
+     * "try again later"
+     * @throws DecompressionException If the read offset is invalid
      */
     private static int decodeCopyWith2ByteOffset(byte tag, ByteBuf in, ByteBuf out, int writtenSoFar) {
         if (in.readableBytes() < 2) {
@@ -541,11 +542,11 @@ public final class Snappy {
      * writes the found data to the supplied output stream.
      *
      * @param tag The tag used to identify this as a copy is also used to encode
-     *     the length and part of the offset
-     * @param in The input buffer to read from
+     *            the length and part of the offset
+     * @param in  The input buffer to read from
      * @param out The output buffer to write to
      * @return The number of bytes appended to the output buffer, or -1 to indicate
-     *     "try again later"
+     * "try again later"
      * @throws DecompressionException If the read offset is invalid
      */
     private static int decodeCopyWith4ByteOffset(byte tag, ByteBuf in, ByteBuf out, int writtenSoFar) {
@@ -584,7 +585,7 @@ public final class Snappy {
      * the permissible bounds of an offset (0 < offset < Integer.MAX_VALUE), and does not
      * exceed the length of the chunk currently read so far.
      *
-     * @param offset The offset extracted from the compressed reference
+     * @param offset         The offset extracted from the compressed reference
      * @param chunkSizeSoFar The number of bytes read so far from this chunk
      * @throws DecompressionException if the offset is invalid
      */
@@ -635,7 +636,7 @@ public final class Snappy {
      * supplied checksum.
      *
      * @param expectedChecksum The checksum decoded from the stream to compare against
-     * @param data The input data to calculate the CRC32C checksum of
+     * @param data             The input data to calculate the CRC32C checksum of
      * @throws DecompressionException If the calculated and supplied checksums do not match
      */
     static void validateChecksum(int expectedChecksum, ByteBuf data) {
@@ -648,7 +649,7 @@ public final class Snappy {
      * supplied checksum.
      *
      * @param expectedChecksum The checksum decoded from the stream to compare against
-     * @param data The input data to calculate the CRC32C checksum of
+     * @param data             The input data to calculate the CRC32C checksum of
      * @throws DecompressionException If the calculated and supplied checksums do not match
      */
     static void validateChecksum(int expectedChecksum, ByteBuf data, int offset, int length) {
@@ -662,7 +663,7 @@ public final class Snappy {
 
     /**
      * From the spec:
-     *
+     * <p>
      * "Checksums are not stored directly, but masked, as checksumming data and
      * then its own checksum can be problematic. The masking is the same as used
      * in Apache Hadoop: Rotate the checksum by 15 bits, then add the constant

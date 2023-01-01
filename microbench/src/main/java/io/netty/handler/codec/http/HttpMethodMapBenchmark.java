@@ -54,7 +54,7 @@ public class HttpMethodMapBenchmark extends AbstractMicrobenchmark {
         // We intentionally don't use HttpMethod.toString() here to avoid the equals(..) comparison method from being
         // able to short circuit due to reference equality checks and being biased toward the new approach. This
         // simulates the behavior of HttpObjectDecoder which will build new String objects during the decode operation.
-        KNOWN_METHODS = new String[] {
+        KNOWN_METHODS = new String[]{
                 "OPTIONS",
                 "GET",
                 "HEAD",
@@ -65,7 +65,7 @@ public class HttpMethodMapBenchmark extends AbstractMicrobenchmark {
                 "TRACE",
                 "CONNECT"
         };
-        MIXED_METHODS = new String[] {
+        MIXED_METHODS = new String[]{
                 "OPTIONS",
                 "FAKEMETHOD",
                 "GET",
@@ -80,7 +80,7 @@ public class HttpMethodMapBenchmark extends AbstractMicrobenchmark {
                 "CONNECT",
                 "WHATMETHOD"
         };
-        UNKNOWN_METHODS = new String[] {
+        UNKNOWN_METHODS = new String[]{
                 "FAKEMETHOD",
                 "UBERGET",
                 "MYMETHOD",

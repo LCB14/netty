@@ -55,7 +55,7 @@ import java.util.Set;
 /**
  * {@link io.netty.channel.sctp.SctpChannel} implementation which use non-blocking mode and allows to read /
  * write {@link SctpMessage}s to the underlying {@link SctpChannel}.
- *
+ * <p>
  * Be aware that not all operations systems support SCTP. Please refer to the documentation of your operation system,
  * to understand what you need to do to use it. Also this feature is only supported on Java 7+.
  */
@@ -93,9 +93,9 @@ public class NioSctpChannel extends AbstractNioMessageChannel implements io.nett
     /**
      * Create a new instance
      *
-     * @param parent        the {@link Channel} which is the parent of this {@link NioSctpChannel}
-     *                      or {@code null}.
-     * @param sctpChannel   the underlying {@link SctpChannel}
+     * @param parent      the {@link Channel} which is the parent of this {@link NioSctpChannel}
+     *                    or {@code null}.
+     * @param sctpChannel the underlying {@link SctpChannel}
      */
     public NioSctpChannel(Channel parent, SctpChannel sctpChannel) {
         super(parent, sctpChannel, SelectionKey.OP_READ);
@@ -283,7 +283,7 @@ public class NioSctpChannel extends AbstractNioMessageChannel implements io.nett
         } catch (Throwable cause) {
             PlatformDependent.throwException(cause);
             return -1;
-        }  finally {
+        } finally {
             if (free) {
                 buffer.release();
             }
@@ -330,12 +330,12 @@ public class NioSctpChannel extends AbstractNioMessageChannel implements io.nett
             }
 
             return new SctpMessage(m.protocolIdentifier(), m.streamIdentifier(), m.isUnordered(),
-                                   newDirectBuffer(m, buf));
+                    newDirectBuffer(m, buf));
         }
 
         throw new UnsupportedOperationException(
                 "unsupported message type: " + StringUtil.simpleClassName(msg) +
-                " (expected: " + StringUtil.simpleClassName(SctpMessage.class));
+                        " (expected: " + StringUtil.simpleClassName(SctpMessage.class));
     }
 
     @Override

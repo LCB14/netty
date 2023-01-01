@@ -29,7 +29,7 @@ import java.net.NetworkInterface;
  * of {@link ChannelConfig} and may depend on the nature of the transport it belongs
  * to.
  *
- * @param <T>   the type of the value which is valid for the {@link ChannelOption}
+ * @param <T> the type of the value which is valid for the {@link ChannelOption}
  */
 public class ChannelOption<T> extends AbstractConstant<ChannelOption<T>> {
 

@@ -62,11 +62,11 @@ public class DefaultFullHttpResponse extends DefaultHttpResponse implements Full
         super(version, status, validateHeaders, singleFieldHeaders);
         this.content = checkNotNull(content, "content");
         this.trailingHeaders = singleFieldHeaders ? new CombinedHttpHeaders(validateHeaders)
-                                                  : new DefaultHttpHeaders(validateHeaders);
+                : new DefaultHttpHeaders(validateHeaders);
     }
 
     public DefaultFullHttpResponse(HttpVersion version, HttpResponseStatus status,
-            ByteBuf content, HttpHeaders headers, HttpHeaders trailingHeaders) {
+                                   ByteBuf content, HttpHeaders headers, HttpHeaders trailingHeaders) {
         super(version, status, headers);
         this.content = checkNotNull(content, "content");
         this.trailingHeaders = checkNotNull(trailingHeaders, "trailingHeaders");
@@ -186,8 +186,8 @@ public class DefaultFullHttpResponse extends DefaultHttpResponse implements Full
         DefaultFullHttpResponse other = (DefaultFullHttpResponse) o;
 
         return super.equals(other) &&
-               content().equals(other.content()) &&
-               trailingHeaders().equals(other.trailingHeaders());
+                content().equals(other.content()) &&
+                trailingHeaders().equals(other.trailingHeaders());
     }
 
     @Override

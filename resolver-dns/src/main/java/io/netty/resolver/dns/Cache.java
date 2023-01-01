@@ -93,7 +93,7 @@ abstract class Cache<E> {
      */
     final void clear() {
         while (!resolveCache.isEmpty()) {
-            for (Iterator<Entry<String, Entries>> i = resolveCache.entrySet().iterator(); i.hasNext();) {
+            for (Iterator<Entry<String, Entries>> i = resolveCache.entrySet().iterator(); i.hasNext(); ) {
                 Map.Entry<String, Entries> e = i.next();
                 i.remove();
 
@@ -172,7 +172,7 @@ abstract class Cache<E> {
 
         void add(E e, int ttl, EventLoop loop) {
             if (!shouldReplaceAll(e)) {
-                for (;;) {
+                for (; ; ) {
                     List<E> entries = get();
                     if (!entries.isEmpty()) {
                         final E firstEntry = entries.get(0);
@@ -231,7 +231,7 @@ abstract class Cache<E> {
         }
 
         private void scheduleCacheExpirationIfNeeded(int ttl, EventLoop loop) {
-            for (;;) {
+            for (; ; ) {
                 // We currently don't calculate a new TTL when we need to retry the CAS as we don't expect this to
                 // be invoked very concurrently and also we use SECONDS anyway. If this ever becomes a problem
                 // we can reconsider.

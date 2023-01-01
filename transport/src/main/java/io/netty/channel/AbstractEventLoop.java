@@ -23,7 +23,8 @@ import io.netty.util.concurrent.AbstractEventExecutor;
  */
 public abstract class AbstractEventLoop extends AbstractEventExecutor implements EventLoop {
 
-    protected AbstractEventLoop() { }
+    protected AbstractEventLoop() {
+    }
 
     protected AbstractEventLoop(EventLoopGroup parent) {
         super(parent);

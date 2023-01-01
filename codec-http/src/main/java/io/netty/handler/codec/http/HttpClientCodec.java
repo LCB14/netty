@@ -43,7 +43,7 @@ import static io.netty.handler.codec.http.HttpObjectDecoder.DEFAULT_VALIDATE_HEA
  * {@link HttpResponseDecoder} to learn what additional state management needs
  * to be done for <tt>HEAD</tt> and <tt>CONNECT</tt> and why
  * {@link HttpResponseDecoder} can not handle it by itself.
- *
+ * <p>
  * If the {@link Channel} is closed and there are missing responses,
  * a {@link PrematureChannelClosureException} is thrown.
  *
@@ -54,11 +54,15 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
     public static final boolean DEFAULT_FAIL_ON_MISSING_RESPONSE = false;
     public static final boolean DEFAULT_PARSE_HTTP_AFTER_CONNECT_REQUEST = false;
 
-    /** A queue that is used for correlating a request and a response. */
+    /**
+     * A queue that is used for correlating a request and a response.
+     */
     private final Queue<HttpMethod> queue = new ArrayDeque<HttpMethod>();
     private final boolean parseHttpAfterConnectRequest;
 
-    /** If true, decoding stops (i.e. pass-through) */
+    /**
+     * If true, decoding stops (i.e. pass-through)
+     */
     private boolean done;
 
     private final AtomicLong requestResponseCounter = new AtomicLong();
@@ -71,7 +75,7 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
      */
     public HttpClientCodec() {
         this(DEFAULT_MAX_INITIAL_LINE_LENGTH, DEFAULT_MAX_HEADER_SIZE, DEFAULT_MAX_CHUNK_SIZE,
-             DEFAULT_FAIL_ON_MISSING_RESPONSE);
+                DEFAULT_FAIL_ON_MISSING_RESPONSE);
     }
 
     /**
@@ -96,7 +100,7 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
             int maxInitialLineLength, int maxHeaderSize, int maxChunkSize, boolean failOnMissingResponse,
             boolean validateHeaders) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, failOnMissingResponse, validateHeaders,
-             DEFAULT_PARSE_HTTP_AFTER_CONNECT_REQUEST);
+                DEFAULT_PARSE_HTTP_AFTER_CONNECT_REQUEST);
     }
 
     /**
@@ -117,7 +121,7 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
             int maxInitialLineLength, int maxHeaderSize, int maxChunkSize, boolean failOnMissingResponse,
             boolean validateHeaders, int initialBufferSize) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, failOnMissingResponse, validateHeaders,
-             initialBufferSize, DEFAULT_PARSE_HTTP_AFTER_CONNECT_REQUEST);
+                initialBufferSize, DEFAULT_PARSE_HTTP_AFTER_CONNECT_REQUEST);
     }
 
     /**
@@ -127,7 +131,7 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
             int maxInitialLineLength, int maxHeaderSize, int maxChunkSize, boolean failOnMissingResponse,
             boolean validateHeaders, int initialBufferSize, boolean parseHttpAfterConnectRequest) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, failOnMissingResponse, validateHeaders,
-             initialBufferSize, parseHttpAfterConnectRequest, DEFAULT_ALLOW_DUPLICATE_CONTENT_LENGTHS);
+                initialBufferSize, parseHttpAfterConnectRequest, DEFAULT_ALLOW_DUPLICATE_CONTENT_LENGTHS);
     }
 
     /**
@@ -138,8 +142,8 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
             boolean validateHeaders, int initialBufferSize, boolean parseHttpAfterConnectRequest,
             boolean allowDuplicateContentLengths) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, failOnMissingResponse, validateHeaders,
-            initialBufferSize, parseHttpAfterConnectRequest, allowDuplicateContentLengths,
-            DEFAULT_ALLOW_PARTIAL_CHUNKS);
+                initialBufferSize, parseHttpAfterConnectRequest, allowDuplicateContentLengths,
+                DEFAULT_ALLOW_PARTIAL_CHUNKS);
     }
 
     /**
@@ -150,8 +154,8 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
             boolean validateHeaders, int initialBufferSize, boolean parseHttpAfterConnectRequest,
             boolean allowDuplicateContentLengths, boolean allowPartialChunks) {
         init(new Decoder(maxInitialLineLength, maxHeaderSize, maxChunkSize, validateHeaders, initialBufferSize,
-                         allowDuplicateContentLengths, allowPartialChunks),
-             new Encoder());
+                        allowDuplicateContentLengths, allowPartialChunks),
+                new Encoder());
         this.parseHttpAfterConnectRequest = parseHttpAfterConnectRequest;
         this.failOnMissingResponse = failOnMissingResponse;
     }
@@ -220,7 +224,7 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
         Decoder(int maxInitialLineLength, int maxHeaderSize, int maxChunkSize, boolean validateHeaders,
                 int initialBufferSize, boolean allowDuplicateContentLengths, boolean allowPartialChunks) {
             super(maxInitialLineLength, maxHeaderSize, maxChunkSize, validateHeaders, initialBufferSize,
-                  allowDuplicateContentLengths, allowPartialChunks);
+                    allowDuplicateContentLengths, allowPartialChunks);
         }
 
         @Override
@@ -333,7 +337,7 @@ public final class HttpClientCodec extends CombinedChannelDuplexHandler<HttpResp
                 if (missingResponses > 0) {
                     ctx.fireExceptionCaught(new PrematureChannelClosureException(
                             "channel gone inactive with " + missingResponses +
-                            " missing response(s)"));
+                                    " missing response(s)"));
                 }
             }
         }

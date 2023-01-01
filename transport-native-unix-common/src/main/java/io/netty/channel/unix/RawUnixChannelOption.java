@@ -31,10 +31,10 @@ public final class RawUnixChannelOption extends GenericUnixChannelOption<ByteBuf
     /**
      * Creates a new instance.
      *
-     * @param name      the name that is used.
-     * @param level     the level.
-     * @param length    the expected length of the optvalue.
-     * @param optname   the optname.
+     * @param name    the name that is used.
+     * @param level   the level.
+     * @param length  the expected length of the optvalue.
+     * @param optname the optname.
      */
     public RawUnixChannelOption(String name, int level, int optname, int length) {
         super(name, level, optname);

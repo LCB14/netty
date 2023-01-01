@@ -188,7 +188,7 @@ public class StompSubframeEncoder extends MessageToMessageEncoder<StompSubframe>
             ByteBufUtil.writeUtf8(buf, headerKey);
             buf.writeByte(StompConstants.COLON);
 
-            CharSequence headerValue = shouldEscape? escape(entry.getValue()) : entry.getValue();
+            CharSequence headerValue = shouldEscape ? escape(entry.getValue()) : entry.getValue();
             ByteBufUtil.writeUtf8(buf, headerValue);
             buf.writeByte(StompConstants.LF);
         }
@@ -232,7 +232,7 @@ public class StompSubframeEncoder extends MessageToMessageEncoder<StompSubframe>
             }
         }
 
-        return builder != null? builder : input;
+        return builder != null ? builder : input;
     }
 
     private static AppendableCharSequence escapeBuilder(AppendableCharSequence builder, CharSequence input,

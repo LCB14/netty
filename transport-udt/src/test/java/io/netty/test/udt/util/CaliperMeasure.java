@@ -58,6 +58,7 @@ public class CaliperMeasure {
      * Default rate measurement units.
      */
     private static final Map<String, Integer> RATE_UNIT = new HashMap<String, Integer>();
+
     static {
         RATE_UNIT.put("Rate  B/s", 1);
         RATE_UNIT.put("Rate KB/s", 1024);
@@ -69,6 +70,7 @@ public class CaliperMeasure {
      * Default time measurement units.
      */
     private static final Map<String, Integer> TIME_UNIT = new HashMap<String, Integer>();
+
     static {
         TIME_UNIT.put("Time ns", 1);
         TIME_UNIT.put("Time us", 1000);
@@ -80,6 +82,7 @@ public class CaliperMeasure {
      * Default size measurement units.
      */
     private static final Map<String, Integer> SIZE_UNIT = new HashMap<String, Integer>();
+
     static {
         SIZE_UNIT.put("Size  B", 1);
         SIZE_UNIT.put("Size KB", 1024);
@@ -100,6 +103,7 @@ public class CaliperMeasure {
             TimeUnit.NANOSECONDS, TimeUnit.SECONDS);
 
     private final SizeGuage size = new SizeGuage();
+
     {
         metrics.newGauge(getClass(), "", size);
     }

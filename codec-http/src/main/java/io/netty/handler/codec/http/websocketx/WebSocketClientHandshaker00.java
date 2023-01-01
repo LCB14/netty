@@ -48,20 +48,15 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
     /**
      * Creates a new instance with the specified destination WebSocket location and version to initiate.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                              sent to this URL.
+     * @param version               Version of web socket specification to use to connect to the server
+     * @param subprotocol           Sub protocol request sent to the server.
+     * @param customHeaders         Map of custom headers to add to the client request
+     * @param maxFramePayloadLength Maximum length of a frame's payload
      */
     public WebSocketClientHandshaker00(URI webSocketURL, WebSocketVersion version, String subprotocol,
-            HttpHeaders customHeaders, int maxFramePayloadLength) {
+                                       HttpHeaders customHeaders, int maxFramePayloadLength) {
         this(webSocketURL, version, subprotocol, customHeaders, maxFramePayloadLength,
                 DEFAULT_FORCE_CLOSE_TIMEOUT_MILLIS);
     }
@@ -69,19 +64,13 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
     /**
      * Creates a new instance with the specified destination WebSocket location and version to initiate.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
+     * @param webSocketURL            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                                sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server.
+     * @param customHeaders           Map of custom headers to add to the client request
+     * @param maxFramePayloadLength   Maximum length of a frame's payload
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
      */
     public WebSocketClientHandshaker00(URI webSocketURL, WebSocketVersion version, String subprotocol,
                                        HttpHeaders customHeaders, int maxFramePayloadLength,
@@ -92,26 +81,19 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
     /**
      * Creates a new instance with the specified destination WebSocket location and version to initiate.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
-     * @param  absoluteUpgradeUrl
-     *            Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
-     *            clear HTTP
+     * @param webSocketURL            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                                sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server.
+     * @param customHeaders           Map of custom headers to add to the client request
+     * @param maxFramePayloadLength   Maximum length of a frame's payload
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
+     * @param absoluteUpgradeUrl      Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
+     *                                clear HTTP
      */
     WebSocketClientHandshaker00(URI webSocketURL, WebSocketVersion version, String subprotocol,
-            HttpHeaders customHeaders, int maxFramePayloadLength,
-            long forceCloseTimeoutMillis, boolean absoluteUpgradeUrl) {
+                                HttpHeaders customHeaders, int maxFramePayloadLength,
+                                long forceCloseTimeoutMillis, boolean absoluteUpgradeUrl) {
         this(webSocketURL, version, subprotocol, customHeaders, maxFramePayloadLength, forceCloseTimeoutMillis,
                 absoluteUpgradeUrl, true);
     }
@@ -119,25 +101,17 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
     /**
      * Creates a new instance with the specified destination WebSocket location and version to initiate.
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
-     * @param  absoluteUpgradeUrl
-     *            Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
-     *            clear HTTP
-     * @param generateOriginHeader
-     *            Allows to generate the `Origin` header value for handshake request
-     *            according to the given webSocketURL
+     * @param webSocketURL            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                                sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server.
+     * @param customHeaders           Map of custom headers to add to the client request
+     * @param maxFramePayloadLength   Maximum length of a frame's payload
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
+     * @param absoluteUpgradeUrl      Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
+     *                                clear HTTP
+     * @param generateOriginHeader    Allows to generate the `Origin` header value for handshake request
+     *                                according to the given webSocketURL
      */
     WebSocketClientHandshaker00(URI webSocketURL, WebSocketVersion version, String subprotocol,
                                 HttpHeaders customHeaders, int maxFramePayloadLength,
@@ -163,7 +137,6 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
      *
      * ^n:ds[4U
      * </pre>
-     *
      */
     @Override
     protected FullHttpRequest newHandshakeRequest() {
@@ -224,9 +197,9 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
         }
 
         headers.set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
-               .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY1, key1)
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY2, key2);
+                .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY1, key1)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY2, key2);
 
         if (generateOriginHeader && !headers.contains(HttpHeaderNames.ORIGIN)) {
             headers.set(HttpHeaderNames.ORIGIN, websocketOriginValue(wsURL));
@@ -259,8 +232,7 @@ public class WebSocketClientHandshaker00 extends WebSocketClientHandshaker {
      * 8jKS'y:G*Co,Wxa-
      * </pre>
      *
-     * @param response
-     *            HTTP response returned from the server for the request sent by beginOpeningHandshake00().
+     * @param response HTTP response returned from the server for the request sent by beginOpeningHandshake00().
      * @throws WebSocketHandshakeException
      */
     @Override

@@ -33,6 +33,7 @@ import static io.netty.util.internal.StringUtil.commonSuffixOfLength;
  * DNS wildcard is supported as hostname, so you can use {@code *.netty.io} to match both {@code netty.io}
  * and {@code downloads.netty.io}.
  * </p>
+ *
  * @deprecated Use {@link DomainWildcardMappingBuilder}}
  */
 @Deprecated
@@ -71,7 +72,7 @@ public class DomainNameMapping<V> implements Mapping<String, V> {
         this.defaultValue = checkNotNull(defaultValue, "defaultValue");
         this.map = map;
         unmodifiableMap = map != null ? Collections.unmodifiableMap(map)
-                                      : null;
+                : null;
     }
 
     /**
@@ -98,7 +99,7 @@ public class DomainNameMapping<V> implements Mapping<String, V> {
     static boolean matches(String template, String hostName) {
         if (template.startsWith("*.")) {
             return template.regionMatches(2, hostName, 0, hostName.length())
-                || commonSuffixOfLength(hostName, template, template.length() - 1);
+                    || commonSuffixOfLength(hostName, template, template.length() - 1);
         }
         return template.equals(hostName);
     }

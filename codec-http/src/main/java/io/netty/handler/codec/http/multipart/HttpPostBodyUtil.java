@@ -38,10 +38,10 @@ final class HttpPostBodyUtil {
     /**
      * Allowed mechanism for multipart
      * mechanism := "7bit"
-                  / "8bit"
-                  / "binary"
-       Not allowed: "quoted-printable"
-                  / "base64"
+     * / "8bit"
+     * / "binary"
+     * Not allowed: "quoted-printable"
+     * / "base64"
      */
     public enum TransferEncodingMechanism {
         /**
@@ -77,9 +77,9 @@ final class HttpPostBodyUtil {
     }
 
     /**
-    * This class intends to decrease the CPU in seeking ahead some bytes in
-    * HttpPostRequestDecoder
-    */
+     * This class intends to decrease the CPU in seeking ahead some bytes in
+     * HttpPostRequestDecoder
+     */
     static class SeekAheadOptimize {
         byte[] bytes;
         int readerIndex;
@@ -103,10 +103,9 @@ final class HttpPostBodyUtil {
         }
 
         /**
-        *
-        * @param minus this value will be used as (currentPos - minus) to set
-        * the current readerIndex in the buffer.
-        */
+         * @param minus this value will be used as (currentPos - minus) to set
+         *              the current readerIndex in the buffer.
+         */
         void setReadPosition(int minus) {
             pos -= minus;
             readerIndex = getReadPosition(pos);
@@ -114,10 +113,9 @@ final class HttpPostBodyUtil {
         }
 
         /**
-        *
-        * @param index raw index of the array (pos in general)
-        * @return the value equivalent of raw index to be used in readerIndex(value)
-        */
+         * @param index raw index of the array (pos in general)
+         * @return the value equivalent of raw index to be used in readerIndex(value)
+         */
         int getReadPosition(int index) {
             return index - origPos + readerIndex;
         }
@@ -125,11 +123,12 @@ final class HttpPostBodyUtil {
 
     /**
      * Find the first non whitespace
+     *
      * @return the rank of the first non whitespace
      */
     static int findNonWhitespace(String sb, int offset) {
         int result;
-        for (result = offset; result < sb.length(); result ++) {
+        for (result = offset; result < sb.length(); result++) {
             if (!Character.isWhitespace(sb.charAt(result))) {
                 break;
             }
@@ -139,11 +138,12 @@ final class HttpPostBodyUtil {
 
     /**
      * Find the end of String
+     *
      * @return the rank of the end of string
      */
     static int findEndOfString(String sb) {
         int result;
-        for (result = sb.length(); result > 0; result --) {
+        for (result = sb.length(); result > 0; result--) {
             if (!Character.isWhitespace(sb.charAt(result - 1))) {
                 break;
             }
@@ -155,9 +155,9 @@ final class HttpPostBodyUtil {
      * Try to find first LF or CRLF as Line Breaking
      *
      * @param buffer the buffer to search in
-     * @param index the index to start from in the buffer
+     * @param index  the index to start from in the buffer
      * @return a relative position from index > 0 if LF or CRLF is found
-     *         or < 0 if not found
+     * or < 0 if not found
      */
     static int findLineBreak(ByteBuf buffer, int index) {
         int toRead = buffer.readableBytes() - (index - buffer.readerIndex());
@@ -176,9 +176,9 @@ final class HttpPostBodyUtil {
      * Try to find last LF or CRLF as Line Breaking
      *
      * @param buffer the buffer to search in
-     * @param index the index to start from in the buffer
+     * @param index  the index to start from in the buffer
      * @return a relative position from index > 0 if LF or CRLF is found
-     *         or < 0 if not found
+     * or < 0 if not found
      */
     static int findLastLineBreak(ByteBuf buffer, int index) {
         int candidate = findLineBreak(buffer, index);
@@ -207,15 +207,14 @@ final class HttpPostBodyUtil {
     /**
      * Try to find the delimiter, with LF or CRLF in front of it (added as delimiters) if needed
      *
-     * @param buffer the buffer to search in
-     * @param index the index to start from in the buffer
-     * @param delimiter the delimiter as byte array
+     * @param buffer              the buffer to search in
+     * @param index               the index to start from in the buffer
+     * @param delimiter           the delimiter as byte array
      * @param precededByLineBreak true if it must be preceded by LF or CRLF, else false
      * @return a relative position from index > 0 if delimiter found designing the start of it
-     *         (including LF or CRLF is asked)
-     *         or a number < 0 if delimiter is not found
-     * @throws IndexOutOfBoundsException
-     *         if {@code offset + delimiter.length} is greater than {@code buffer.capacity}
+     * (including LF or CRLF is asked)
+     * or a number < 0 if delimiter is not found
+     * @throws IndexOutOfBoundsException if {@code offset + delimiter.length} is greater than {@code buffer.capacity}
      */
     static int findDelimiter(ByteBuf buffer, int index, byte[] delimiter, boolean precededByLineBreak) {
         final int delimiterLength = delimiter.length;

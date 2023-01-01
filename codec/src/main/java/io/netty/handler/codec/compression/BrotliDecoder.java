@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Decompresses a {@link ByteBuf} encoded with the brotli format.
- *
+ * <p>
  * See <a href="https://github.com/google/brotli">brotli</a>.
  */
 public final class BrotliDecoder extends ByteToMessageDecoder {
@@ -58,6 +58,7 @@ public final class BrotliDecoder extends ByteToMessageDecoder {
 
     /**
      * Creates a new BrotliDecoder
+     *
      * @param inputBufferSize desired size of the input buffer in bytes
      */
     public BrotliDecoder(int inputBufferSize) {
@@ -73,7 +74,7 @@ public final class BrotliDecoder extends ByteToMessageDecoder {
     }
 
     private State decompress(ByteBuf input, List<Object> output, ByteBufAllocator alloc) {
-        for (;;) {
+        for (; ; ) {
             switch (decoder.getStatus()) {
                 case DONE:
                     return State.DONE;

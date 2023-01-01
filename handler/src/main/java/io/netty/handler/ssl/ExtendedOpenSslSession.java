@@ -53,7 +53,7 @@ abstract class ExtendedOpenSslSession extends ExtendedSSLSession implements Open
 
     // Use rawtypes an unchecked override to be able to also work on java7.
     @Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public abstract List getRequestedServerNames();
 
     // Do not mark as override so we can compile on java8.
@@ -134,7 +134,7 @@ abstract class ExtendedOpenSslSession extends ExtendedSSLSession implements Open
 
     @Override
     public final Object getValue(String s) {
-        Object value =  wrapped.getValue(s);
+        Object value = wrapped.getValue(s);
         if (value instanceof SSLSessionBindingListenerDecorator) {
             // Unwrap as needed so we return the original value
             return ((SSLSessionBindingListenerDecorator) value).delegate;

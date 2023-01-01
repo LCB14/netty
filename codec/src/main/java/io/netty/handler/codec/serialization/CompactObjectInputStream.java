@@ -48,15 +48,15 @@ class CompactObjectInputStream extends ObjectInputStream {
             throw new EOFException();
         }
         switch (type) {
-        case CompactObjectOutputStream.TYPE_FAT_DESCRIPTOR:
-            return super.readClassDescriptor();
-        case CompactObjectOutputStream.TYPE_THIN_DESCRIPTOR:
-            String className = readUTF();
-            Class<?> clazz = classResolver.resolve(className);
-            return ObjectStreamClass.lookupAny(clazz);
-        default:
-            throw new StreamCorruptedException(
-                    "Unexpected class descriptor type: " + type);
+            case CompactObjectOutputStream.TYPE_FAT_DESCRIPTOR:
+                return super.readClassDescriptor();
+            case CompactObjectOutputStream.TYPE_THIN_DESCRIPTOR:
+                String className = readUTF();
+                Class<?> clazz = classResolver.resolve(className);
+                return ObjectStreamClass.lookupAny(clazz);
+            default:
+                throw new StreamCorruptedException(
+                        "Unexpected class descriptor type: " + type);
         }
     }
 

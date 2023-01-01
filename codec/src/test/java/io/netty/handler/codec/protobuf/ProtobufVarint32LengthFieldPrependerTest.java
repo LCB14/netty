@@ -168,7 +168,7 @@ public class ProtobufVarint32LengthFieldPrependerTest {
 
     @Test
     public void testTinyEncode() {
-        byte[] b = { 4, 1, 1, 1, 1 };
+        byte[] b = {4, 1, 1, 1, 1};
         assertTrue(ch.writeOutbound(wrappedBuffer(b, 1, b.length - 1)));
 
         ByteBuf expected = wrappedBuffer(b);
@@ -184,7 +184,7 @@ public class ProtobufVarint32LengthFieldPrependerTest {
     @Test
     public void testRegularDecode() {
         byte[] b = new byte[2048];
-        for (int i = 2; i < 2048; i ++) {
+        for (int i = 2; i < 2048; i++) {
             b[i] = 1;
         }
         b[0] = -2;

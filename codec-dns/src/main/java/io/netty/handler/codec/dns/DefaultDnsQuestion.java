@@ -37,8 +37,8 @@ public class DefaultDnsQuestion extends AbstractDnsRecord implements DnsQuestion
     /**
      * Creates a new question.
      *
-     * @param name the domain name of the DNS question
-     * @param type the type of the DNS question
+     * @param name     the domain name of the DNS question
+     * @param type     the type of the DNS question
      * @param dnsClass the class of the record, usually one of the following:
      *                 <ul>
      *                     <li>{@link #CLASS_IN}</li>
@@ -58,14 +58,14 @@ public class DefaultDnsQuestion extends AbstractDnsRecord implements DnsQuestion
         StringBuilder buf = new StringBuilder(64);
 
         buf.append(StringUtil.simpleClassName(this))
-           .append('(')
-           .append(name())
-           .append(' ');
+                .append('(')
+                .append(name())
+                .append(' ');
 
         DnsMessageUtil.appendRecordClass(buf, dnsClass())
-                      .append(' ')
-                      .append(type().name())
-                      .append(')');
+                .append(' ')
+                .append(type().name())
+                .append(')');
 
         return buf.toString();
     }

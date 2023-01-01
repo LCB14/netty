@@ -89,11 +89,11 @@ public class DefaultHttp2HeadersDecoderTest {
         final int streamId = 1;
         Http2Exception.HeaderListSizeException e =
                 assertThrows(Http2Exception.HeaderListSizeException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                decoder.decodeHeaders(streamId, buf);
-            }
-        });
+                    @Override
+                    public void execute() throws Throwable {
+                        decoder.decodeHeaders(streamId, buf);
+                    }
+                });
         assertEquals(streamId, e.streamId());
         buf.release();
     }
@@ -101,7 +101,7 @@ public class DefaultHttp2HeadersDecoderTest {
     @Test
     public void decodeLargerThanHeaderListSizeButLessThanGoAwayWithInitialDecoderSettings() throws Exception {
         final ByteBuf buf = encode(b(":method"), b("GET"), b("test_header"),
-            b(String.format("%09000d", 0).replace('0', 'A')));
+                b(String.format("%09000d", 0).replace('0', 'A')));
         final int streamId = 1;
         try {
             Http2Exception.HeaderListSizeException e = assertThrows(Http2Exception.HeaderListSizeException.class,
@@ -187,10 +187,10 @@ public class DefaultHttp2HeadersDecoderTest {
 
     @ParameterizedTest
     @MethodSource("illegalFirstChar")
-    void decodingInvalidHeaderValueMustFailValidationIfFirstCharIsIllegal(int illegalFirstChar)throws Exception {
+    void decodingInvalidHeaderValueMustFailValidationIfFirstCharIsIllegal(int illegalFirstChar) throws Exception {
         final DefaultHttp2HeadersDecoder decoder = new DefaultHttp2HeadersDecoder(true, true);
         verifyValidationFails(decoder, encode(b(":method"), b("GET"),
-                b("test_header"), new byte[]{ (byte) illegalFirstChar, (byte) 'a' }));
+                b("test_header"), new byte[]{(byte) illegalFirstChar, (byte) 'a'}));
     }
 
     public static List<Integer> illegalNotFirstChar() {
@@ -210,7 +210,7 @@ public class DefaultHttp2HeadersDecoderTest {
     void decodingInvalidHeaderValueMustFailValidationIfANotFirstCharIsIllegal(int illegalSecondChar) throws Exception {
         final DefaultHttp2HeadersDecoder decoder = new DefaultHttp2HeadersDecoder(true, true);
         verifyValidationFails(decoder, encode(b(":method"), b("GET"),
-                b("test_header"), new byte[]{ (byte) 'a', (byte) illegalSecondChar }));
+                b("test_header"), new byte[]{(byte) 'a', (byte) illegalSecondChar}));
     }
 
     @Test
@@ -299,7 +299,7 @@ public class DefaultHttp2HeadersDecoderTest {
         HpackEncoder hpackEncoder = newTestEncoder();
         ByteBuf out = Unpooled.buffer();
         Http2Headers http2Headers = new DefaultHttp2Headers(false);
-        for (int ix = 0; ix < entries.length;) {
+        for (int ix = 0; ix < entries.length; ) {
             http2Headers.add(new AsciiString(entries[ix++], false), new AsciiString(entries[ix++], false));
         }
         hpackEncoder.encodeHeaders(3 /* randomly chosen */, out, http2Headers, NEVER_SENSITIVE);

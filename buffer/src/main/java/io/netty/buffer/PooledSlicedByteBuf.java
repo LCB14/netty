@@ -35,11 +35,11 @@ final class PooledSlicedByteBuf extends AbstractPooledDerivedByteBuf {
 
     private static final ObjectPool<PooledSlicedByteBuf> RECYCLER = ObjectPool.newPool(
             new ObjectCreator<PooledSlicedByteBuf>() {
-        @Override
-        public PooledSlicedByteBuf newObject(Handle<PooledSlicedByteBuf> handle) {
-            return new PooledSlicedByteBuf(handle);
-        }
-    });
+                @Override
+                public PooledSlicedByteBuf newObject(Handle<PooledSlicedByteBuf> handle) {
+                    return new PooledSlicedByteBuf(handle);
+                }
+            });
 
     static PooledSlicedByteBuf newInstance(AbstractByteBuf unwrapped, ByteBuf wrapped,
                                            int index, int length) {

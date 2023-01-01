@@ -37,7 +37,7 @@ import java.security.cert.X509Certificate;
 /**
  * Utility which allows to wrap {@link X509TrustManager} implementations with the internal implementation used by
  * {@code SSLContextImpl} that provides extended verification.
- *
+ * <p>
  * This is really a "hack" until there is an official API as requested on the in
  * <a href="https://bugs.openjdk.java.net/projects/JDK/issues/JDK-8210843">JDK-8210843</a>.
  */
@@ -69,7 +69,7 @@ final class OpenSslX509TrustManagerWrapper {
                 // See:
                 // - https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/
                 //          cadea780bc76/src/share/classes/sun/security/ssl/SSLContextImpl.java#l127
-                context.init(null, new TrustManager[] {
+                context.init(null, new TrustManager[]{
                         new X509TrustManager() {
                             @Override
                             public void checkClientTrusted(X509Certificate[] x509Certificates, String s)
@@ -143,7 +143,8 @@ final class OpenSslX509TrustManagerWrapper {
         WRAPPER = wrapper;
     }
 
-    private OpenSslX509TrustManagerWrapper() { }
+    private OpenSslX509TrustManagerWrapper() {
+    }
 
     static X509TrustManager wrapIfNeeded(X509TrustManager trustManager) {
         return WRAPPER.wrapIfNeeded(trustManager);
@@ -174,7 +175,7 @@ final class OpenSslX509TrustManagerWrapper {
             if (!(manager instanceof X509ExtendedTrustManager)) {
                 try {
                     SSLContext ctx = newSSLContext();
-                    ctx.init(null, new TrustManager[] { manager }, null);
+                    ctx.init(null, new TrustManager[]{manager}, null);
                     Object spi = PlatformDependent.getObject(ctx, spiOffset);
                     if (spi != null) {
                         Object tm = PlatformDependent.getObject(spi, tmOffset);

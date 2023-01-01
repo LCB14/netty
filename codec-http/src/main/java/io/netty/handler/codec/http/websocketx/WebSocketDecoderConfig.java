@@ -23,7 +23,7 @@ import io.netty.util.internal.ObjectUtil;
 public final class WebSocketDecoderConfig {
 
     static final WebSocketDecoderConfig DEFAULT =
-        new WebSocketDecoderConfig(65536, true, false, false, true, true);
+            new WebSocketDecoderConfig(65536, true, false, false, true, true);
 
     private final int maxFramePayloadLength;
     private final boolean expectMaskedFrames;
@@ -35,27 +35,21 @@ public final class WebSocketDecoderConfig {
     /**
      * Constructor
      *
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload. Setting this to an appropriate value for you application
-     *            helps check for denial of services attacks.
-     * @param expectMaskedFrames
-     *            Web socket servers must set this to true processed incoming masked payload. Client implementations
-     *            must set this to false.
-     * @param allowMaskMismatch
-     *            Allows to loosen the masking requirement on received frames. When this is set to false then also
-     *            frames which are not masked properly according to the standard will still be accepted.
-     * @param allowExtensions
-     *            Flag to allow reserved extension bits to be used or not
-     * @param closeOnProtocolViolation
-     *            Flag to send close frame immediately on any protocol violation.ion.
-     * @param withUTF8Validator
-     *            Allows you to avoid adding of Utf8FrameValidator to the pipeline on the
-     *            WebSocketServerProtocolHandler creation. This is useful (less overhead)
-     *            when you use only BinaryWebSocketFrame within your web socket connection.
+     * @param maxFramePayloadLength    Maximum length of a frame's payload. Setting this to an appropriate value for you application
+     *                                 helps check for denial of services attacks.
+     * @param expectMaskedFrames       Web socket servers must set this to true processed incoming masked payload. Client implementations
+     *                                 must set this to false.
+     * @param allowMaskMismatch        Allows to loosen the masking requirement on received frames. When this is set to false then also
+     *                                 frames which are not masked properly according to the standard will still be accepted.
+     * @param allowExtensions          Flag to allow reserved extension bits to be used or not
+     * @param closeOnProtocolViolation Flag to send close frame immediately on any protocol violation.ion.
+     * @param withUTF8Validator        Allows you to avoid adding of Utf8FrameValidator to the pipeline on the
+     *                                 WebSocketServerProtocolHandler creation. This is useful (less overhead)
+     *                                 when you use only BinaryWebSocketFrame within your web socket connection.
      */
     private WebSocketDecoderConfig(int maxFramePayloadLength, boolean expectMaskedFrames, boolean allowMaskMismatch,
-                                  boolean allowExtensions, boolean closeOnProtocolViolation,
-                                  boolean withUTF8Validator) {
+                                   boolean allowExtensions, boolean closeOnProtocolViolation,
+                                   boolean withUTF8Validator) {
         this.maxFramePayloadLength = maxFramePayloadLength;
         this.expectMaskedFrames = expectMaskedFrames;
         this.allowMaskMismatch = allowMaskMismatch;
@@ -91,13 +85,13 @@ public final class WebSocketDecoderConfig {
     @Override
     public String toString() {
         return "WebSocketDecoderConfig" +
-            " [maxFramePayloadLength=" + maxFramePayloadLength +
-            ", expectMaskedFrames=" + expectMaskedFrames +
-            ", allowMaskMismatch=" + allowMaskMismatch +
-            ", allowExtensions=" + allowExtensions +
-            ", closeOnProtocolViolation=" + closeOnProtocolViolation +
-            ", withUTF8Validator=" + withUTF8Validator +
-            "]";
+                " [maxFramePayloadLength=" + maxFramePayloadLength +
+                ", expectMaskedFrames=" + expectMaskedFrames +
+                ", allowMaskMismatch=" + allowMaskMismatch +
+                ", allowExtensions=" + allowExtensions +
+                ", closeOnProtocolViolation=" + closeOnProtocolViolation +
+                ", withUTF8Validator=" + withUTF8Validator +
+                "]";
     }
 
     public Builder toBuilder() {

@@ -50,7 +50,7 @@ public final class UdtChannelOption<T> extends ChannelOption<T> {
     public static final ChannelOption<Integer> SYSTEM_SEND_BUFFER_SIZE =
             valueOf(UdtChannelOption.class, "SYSTEM_SEND_BUFFER_SIZE");
 
-    @SuppressWarnings({ "unused", "deprecation" })
+    @SuppressWarnings({"unused", "deprecation"})
     private UdtChannelOption() {
         super(null);
     }

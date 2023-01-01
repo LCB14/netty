@@ -94,9 +94,9 @@ public class ParameterizedSslHandlerTest {
 
         List<Object[]> params = new ArrayList<Object[]>();
 
-        for (SslProvider cp: providers) {
-            for (SslProvider sp: providers) {
-                params.add(new Object[] { cp, sp });
+        for (SslProvider cp : providers) {
+            for (SslProvider sp : providers) {
+                params.add(new Object[]{cp, sp});
             }
         }
         return params;
@@ -227,6 +227,7 @@ public class ParameterizedSslHandlerTest {
                             }
                             ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                                 private int bytesSeen;
+
                                 @Override
                                 public void channelRead(ChannelHandlerContext ctx, Object msg) {
                                     if (msg instanceof ByteBuf) {
@@ -289,13 +290,16 @@ public class ParameterizedSslHandlerTest {
                 .sslProvider(serverProvider)
                 .trustManager(new SimpleTrustManagerFactory() {
                     @Override
-                    protected void engineInit(KeyStore keyStore) { }
+                    protected void engineInit(KeyStore keyStore) {
+                    }
+
                     @Override
-                    protected void engineInit(ManagerFactoryParameters managerFactoryParameters) { }
+                    protected void engineInit(ManagerFactoryParameters managerFactoryParameters) {
+                    }
 
                     @Override
                     protected TrustManager[] engineGetTrustManagers() {
-                        return new TrustManager[] { new X509TrustManager() {
+                        return new TrustManager[]{new X509TrustManager() {
 
                             @Override
                             public void checkClientTrusted(X509Certificate[] x509Certificates, String s)
@@ -313,13 +317,13 @@ public class ParameterizedSslHandlerTest {
                             public X509Certificate[] getAcceptedIssuers() {
                                 return EmptyArrays.EMPTY_X509_CERTIFICATES;
                             }
-                        } };
+                        }};
                     }
                 }).clientAuth(ClientAuth.REQUIRE).build();
 
         final SslContext sslClientCtx = SslContextBuilder.forClient()
                 .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                .keyManager(ResourcesUtil.getFile(getClass(),  "test.crt"),
+                .keyManager(ResourcesUtil.getFile(getClass(), "test.crt"),
                         ResourcesUtil.getFile(getClass(), "test_unencrypted.pem"))
                 .sslProvider(clientProvider).build();
 
@@ -407,21 +411,21 @@ public class ParameterizedSslHandlerTest {
         SelfSignedCertificate ssc = new SelfSignedCertificate();
 
         final SslContext sslServerCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
-                                                         .sslProvider(serverProvider)
-                                                         // Use TLSv1.2 as we depend on the fact that the handshake
-                                                         // is done in an extra round trip in the test which
-                                                         // is not true in TLSv1.3
-                                                         .protocols(SslProtocols.TLS_v1_2)
-                                                         .build();
+                .sslProvider(serverProvider)
+                // Use TLSv1.2 as we depend on the fact that the handshake
+                // is done in an extra round trip in the test which
+                // is not true in TLSv1.3
+                .protocols(SslProtocols.TLS_v1_2)
+                .build();
 
         final SslContext sslClientCtx = SslContextBuilder.forClient()
-                                                         .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                                                         .sslProvider(clientProvider)
-                                                         // Use TLSv1.2 as we depend on the fact that the handshake
-                                                         // is done in an extra round trip in the test which
-                                                         // is not true in TLSv1.3
-                                                         .protocols(SslProtocols.TLS_v1_2)
-                                                         .build();
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .sslProvider(clientProvider)
+                // Use TLSv1.2 as we depend on the fact that the handshake
+                // is done in an extra round trip in the test which
+                // is not true in TLSv1.3
+                .protocols(SslProtocols.TLS_v1_2)
+                .build();
 
         EventLoopGroup group = new NioEventLoopGroup();
         Channel sc = null;

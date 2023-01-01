@@ -58,11 +58,9 @@ public class JZlibEncoder extends ZlibEncoder {
      * default window bits ({@code 15}), default memory level ({@code 8}),
      * and the default wrapper ({@link ZlibWrapper#ZLIB}).
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
      * @throws CompressionException if failed to initialize zlib
      */
     public JZlibEncoder(int compressionLevel) {
@@ -85,11 +83,9 @@ public class JZlibEncoder extends ZlibEncoder {
      * default window bits ({@code 15}), default memory level ({@code 8}),
      * and the specified wrapper.
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
      * @throws CompressionException if failed to initialize zlib
      */
     public JZlibEncoder(ZlibWrapper wrapper, int compressionLevel) {
@@ -101,21 +97,17 @@ public class JZlibEncoder extends ZlibEncoder {
      * the specified {@code windowBits}, the specified {@code memLevel}, and
      * the specified wrapper.
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     * @param windowBits
-     *        The base two logarithm of the size of the history buffer.  The
-     *        value should be in the range {@code 9} to {@code 15} inclusive.
-     *        Larger values result in better compression at the expense of
-     *        memory usage.  The default value is {@code 15}.
-     * @param memLevel
-     *        How much memory should be allocated for the internal compression
-     *        state.  {@code 1} uses minimum memory and {@code 9} uses maximum
-     *        memory.  Larger values result in better and faster compression
-     *        at the expense of memory usage.  The default value is {@code 8}
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
+     * @param windowBits       The base two logarithm of the size of the history buffer.  The
+     *                         value should be in the range {@code 9} to {@code 15} inclusive.
+     *                         Larger values result in better compression at the expense of
+     *                         memory usage.  The default value is {@code 15}.
+     * @param memLevel         How much memory should be allocated for the internal compression
+     *                         state.  {@code 1} uses minimum memory and {@code 9} uses maximum
+     *                         memory.  Larger values result in better and faster compression
+     *                         at the expense of memory usage.  The default value is {@code 8}
      * @throws CompressionException if failed to initialize zlib
      */
     public JZlibEncoder(ZlibWrapper wrapper, int compressionLevel, int windowBits, int memLevel) {
@@ -127,7 +119,7 @@ public class JZlibEncoder extends ZlibEncoder {
         if (wrapper == ZlibWrapper.ZLIB_OR_NONE) {
             throw new IllegalArgumentException(
                     "wrapper '" + ZlibWrapper.ZLIB_OR_NONE + "' is not " +
-                    "allowed for compression.");
+                            "allowed for compression.");
         }
 
         int resultCode = z.init(
@@ -147,8 +139,7 @@ public class JZlibEncoder extends ZlibEncoder {
      * {@link ZlibWrapper#ZLIB} because it is the only format that supports
      * the preset dictionary.
      *
-     * @param dictionary  the preset dictionary
-     *
+     * @param dictionary the preset dictionary
      * @throws CompressionException if failed to initialize zlib
      */
     public JZlibEncoder(byte[] dictionary) {
@@ -162,12 +153,10 @@ public class JZlibEncoder extends ZlibEncoder {
      * {@link ZlibWrapper#ZLIB} because it is the only format that supports
      * the preset dictionary.
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     * @param dictionary  the preset dictionary
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
+     * @param dictionary       the preset dictionary
      * @throws CompressionException if failed to initialize zlib
      */
     public JZlibEncoder(int compressionLevel, byte[] dictionary) {
@@ -181,22 +170,18 @@ public class JZlibEncoder extends ZlibEncoder {
      * {@link ZlibWrapper#ZLIB} because it is the only format that supports
      * the preset dictionary.
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     * @param windowBits
-     *        The base two logarithm of the size of the history buffer.  The
-     *        value should be in the range {@code 9} to {@code 15} inclusive.
-     *        Larger values result in better compression at the expense of
-     *        memory usage.  The default value is {@code 15}.
-     * @param memLevel
-     *        How much memory should be allocated for the internal compression
-     *        state.  {@code 1} uses minimum memory and {@code 9} uses maximum
-     *        memory.  Larger values result in better and faster compression
-     *        at the expense of memory usage.  The default value is {@code 8}
-     * @param dictionary  the preset dictionary
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
+     * @param windowBits       The base two logarithm of the size of the history buffer.  The
+     *                         value should be in the range {@code 9} to {@code 15} inclusive.
+     *                         Larger values result in better compression at the expense of
+     *                         memory usage.  The default value is {@code 15}.
+     * @param memLevel         How much memory should be allocated for the internal compression
+     *                         state.  {@code 1} uses minimum memory and {@code 9} uses maximum
+     *                         memory.  Larger values result in better and faster compression
+     *                         at the expense of memory usage.  The default value is {@code 8}
+     * @param dictionary       the preset dictionary
      * @throws CompressionException if failed to initialize zlib
      */
     public JZlibEncoder(int compressionLevel, int windowBits, int memLevel, byte[] dictionary) {

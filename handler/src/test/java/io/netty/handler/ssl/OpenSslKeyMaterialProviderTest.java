@@ -49,7 +49,7 @@ public class OpenSslKeyMaterialProviderTest {
     }
 
     protected KeyManagerFactory newKeyManagerFactory() throws Exception {
-       return newKeyManagerFactory(KeyManagerFactory.getDefaultAlgorithm());
+        return newKeyManagerFactory(KeyManagerFactory.getDefaultAlgorithm());
     }
 
     protected KeyManagerFactory newKeyManagerFactory(String algorithm) throws Exception {

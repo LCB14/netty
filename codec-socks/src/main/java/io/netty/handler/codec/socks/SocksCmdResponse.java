@@ -50,13 +50,13 @@ public final class SocksCmdResponse extends SocksResponse {
     /**
      * Constructs new response and includes provided host and port as part of it.
      *
-     * @param cmdStatus status of the response
+     * @param cmdStatus   status of the response
      * @param addressType type of host parameter
-     * @param host host (BND.ADDR field) is address that server used when connecting to the target host.
-     *             When null a value of 4/8 0x00 octets will be used for IPv4/IPv6 and a single 0x00 byte will be
-     *             used for domain addressType. Value is converted to ASCII using {@link IDN#toASCII(String)}.
-     * @param port port (BND.PORT field) that the server assigned to connect to the target host
-     * @throws NullPointerException in case cmdStatus or addressType are missing
+     * @param host        host (BND.ADDR field) is address that server used when connecting to the target host.
+     *                    When null a value of 4/8 0x00 octets will be used for IPv4/IPv6 and a single 0x00 byte will be
+     *                    used for domain addressType. Value is converted to ASCII using {@link IDN#toASCII(String)}.
+     * @param port        port (BND.PORT field) that the server assigned to connect to the target host
+     * @throws NullPointerException     in case cmdStatus or addressType are missing
      * @throws IllegalArgumentException in case host or port cannot be validated
      * @see IDN#toASCII(String)
      */
@@ -120,7 +120,7 @@ public final class SocksCmdResponse extends SocksResponse {
      * This is typically different from address which client uses to connect to the SOCKS server.
      *
      * @return host that is used as a parameter in {@link SocksCmdType}
-     *         or null when there was no host specified during response construction
+     * or null when there was no host specified during response construction
      */
     public String host() {
         return host != null && addressType == SocksAddressType.DOMAIN ? IDN.toUnicode(host) : host;

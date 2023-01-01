@@ -38,7 +38,7 @@ public class PromiseNotifier<V, F extends Future<V>> implements GenericFutureLis
     /**
      * Create a new instance.
      *
-     * @param promises  the {@link Promise}s to notify once this {@link GenericFutureListener} is notified.
+     * @param promises the {@link Promise}s to notify once this {@link GenericFutureListener} is notified.
      */
     @SafeVarargs
     public PromiseNotifier(Promise<? super V>... promises) {
@@ -49,12 +49,12 @@ public class PromiseNotifier<V, F extends Future<V>> implements GenericFutureLis
      * Create a new instance.
      *
      * @param logNotifyFailure {@code true} if logging should be done in case notification fails.
-     * @param promises  the {@link Promise}s to notify once this {@link GenericFutureListener} is notified.
+     * @param promises         the {@link Promise}s to notify once this {@link GenericFutureListener} is notified.
      */
     @SafeVarargs
     public PromiseNotifier(boolean logNotifyFailure, Promise<? super V>... promises) {
         checkNotNull(promises, "promises");
-        for (Promise<? super V> promise: promises) {
+        for (Promise<? super V> promise : promises) {
             checkNotNullWithIAE(promise, "promise");
         }
         this.promises = promises.clone();
@@ -66,11 +66,11 @@ public class PromiseNotifier<V, F extends Future<V>> implements GenericFutureLis
      * will be notified. Cancellation is propagated both ways such that if the {@link Future} is cancelled
      * the {@link Promise} is cancelled and vise-versa.
      *
-     * @param future    the {@link Future} which will be used to listen to for notifying the {@link Promise}.
-     * @param promise   the {@link Promise} which will be notified
-     * @param <V>       the type of the value.
-     * @param <F>       the type of the {@link Future}
-     * @return          the passed in {@link Future}
+     * @param future  the {@link Future} which will be used to listen to for notifying the {@link Promise}.
+     * @param promise the {@link Promise} which will be notified
+     * @param <V>     the type of the value.
+     * @param <F>     the type of the {@link Future}
+     * @return the passed in {@link Future}
      */
     public static <V, F extends Future<V>> F cascade(final F future, final Promise<? super V> promise) {
         return cascade(true, future, promise);
@@ -81,12 +81,12 @@ public class PromiseNotifier<V, F extends Future<V>> implements GenericFutureLis
      * will be notified. Cancellation is propagated both ways such that if the {@link Future} is cancelled
      * the {@link Promise} is cancelled and vise-versa.
      *
-     * @param logNotifyFailure  {@code true} if logging should be done in case notification fails.
-     * @param future            the {@link Future} which will be used to listen to for notifying the {@link Promise}.
-     * @param promise           the {@link Promise} which will be notified
-     * @param <V>               the type of the value.
-     * @param <F>               the type of the {@link Future}
-     * @return                  the passed in {@link Future}
+     * @param logNotifyFailure {@code true} if logging should be done in case notification fails.
+     * @param future           the {@link Future} which will be used to listen to for notifying the {@link Promise}.
+     * @param promise          the {@link Promise} which will be notified
+     * @param <V>              the type of the value.
+     * @param <F>              the type of the {@link Future}
+     * @return the passed in {@link Future}
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static <V, F extends Future<V>> F cascade(boolean logNotifyFailure, final F future,
@@ -117,16 +117,16 @@ public class PromiseNotifier<V, F extends Future<V>> implements GenericFutureLis
         InternalLogger internalLogger = logNotifyFailure ? logger : null;
         if (future.isSuccess()) {
             V result = future.get();
-            for (Promise<? super V> p: promises) {
+            for (Promise<? super V> p : promises) {
                 PromiseNotificationUtil.trySuccess(p, result, internalLogger);
             }
         } else if (future.isCancelled()) {
-            for (Promise<? super V> p: promises) {
+            for (Promise<? super V> p : promises) {
                 PromiseNotificationUtil.tryCancel(p, internalLogger);
             }
         } else {
             Throwable cause = future.cause();
-            for (Promise<? super V> p: promises) {
+            for (Promise<? super V> p : promises) {
                 PromiseNotificationUtil.tryFailure(p, cause, internalLogger);
             }
         }

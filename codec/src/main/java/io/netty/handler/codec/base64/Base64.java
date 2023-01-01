@@ -37,13 +37,19 @@ import java.nio.ByteOrder;
  */
 public final class Base64 {
 
-    /** Maximum line length (76) of Base64 output. */
+    /**
+     * Maximum line length (76) of Base64 output.
+     */
     private static final int MAX_LINE_LENGTH = 76;
 
-    /** The equals sign (=) as a byte. */
+    /**
+     * The equals sign (=) as a byte.
+     */
     private static final byte EQUALS_SIGN = (byte) '=';
 
-    /** The new line character (\n) as a byte. */
+    /**
+     * The new line character (\n) as a byte.
+     */
     private static final byte NEW_LINE = (byte) '\n';
 
     private static final byte WHITE_SPACE_ENC = -5; // Indicates white space in encoding
@@ -118,7 +124,7 @@ public final class Base64 {
 
             if (breakLines && lineLength == MAX_LINE_LENGTH) {
                 dest.setByte(e + 4, NEW_LINE);
-                e ++;
+                e++;
                 lineLength = 0;
             } // end if: end of line
         } // end for: each piece of array
@@ -220,22 +226,22 @@ public final class Base64 {
         // Packing bytes into an int to reduce bound and reference count checking.
         switch (numSigBytes) {
             case 3:
-                dest.setInt(destOffset, alphabet[inBuff >>> 18       ] << 24 |
-                                        alphabet[inBuff >>> 12 & 0x3f] << 16 |
-                                        alphabet[inBuff >>>  6 & 0x3f] << 8  |
-                                        alphabet[inBuff        & 0x3f]);
+                dest.setInt(destOffset, alphabet[inBuff >>> 18] << 24 |
+                        alphabet[inBuff >>> 12 & 0x3f] << 16 |
+                        alphabet[inBuff >>> 6 & 0x3f] << 8 |
+                        alphabet[inBuff & 0x3f]);
                 break;
             case 2:
-                dest.setInt(destOffset, alphabet[inBuff >>> 18       ] << 24 |
-                                        alphabet[inBuff >>> 12 & 0x3f] << 16 |
-                                        alphabet[inBuff >>> 6  & 0x3f] << 8  |
-                                        EQUALS_SIGN);
+                dest.setInt(destOffset, alphabet[inBuff >>> 18] << 24 |
+                        alphabet[inBuff >>> 12 & 0x3f] << 16 |
+                        alphabet[inBuff >>> 6 & 0x3f] << 8 |
+                        EQUALS_SIGN);
                 break;
             case 1:
-                dest.setInt(destOffset, alphabet[inBuff >>> 18       ] << 24 |
-                                        alphabet[inBuff >>> 12 & 0x3f] << 16 |
-                                        EQUALS_SIGN << 8                     |
-                                        EQUALS_SIGN);
+                dest.setInt(destOffset, alphabet[inBuff >>> 18] << 24 |
+                        alphabet[inBuff >>> 12 & 0x3f] << 16 |
+                        EQUALS_SIGN << 8 |
+                        EQUALS_SIGN);
                 break;
             default:
                 // NOOP
@@ -248,22 +254,22 @@ public final class Base64 {
         // Packing bytes into an int to reduce bound and reference count checking.
         switch (numSigBytes) {
             case 3:
-                dest.setInt(destOffset, alphabet[inBuff >>> 18       ]       |
-                                        alphabet[inBuff >>> 12 & 0x3f] << 8  |
-                                        alphabet[inBuff >>>  6 & 0x3f] << 16 |
-                                        alphabet[inBuff        & 0x3f] << 24);
+                dest.setInt(destOffset, alphabet[inBuff >>> 18] |
+                        alphabet[inBuff >>> 12 & 0x3f] << 8 |
+                        alphabet[inBuff >>> 6 & 0x3f] << 16 |
+                        alphabet[inBuff & 0x3f] << 24);
                 break;
             case 2:
-                dest.setInt(destOffset, alphabet[inBuff >>> 18       ]       |
-                                        alphabet[inBuff >>> 12 & 0x3f] << 8  |
-                                        alphabet[inBuff >>> 6  & 0x3f] << 16 |
-                                        EQUALS_SIGN << 24);
+                dest.setInt(destOffset, alphabet[inBuff >>> 18] |
+                        alphabet[inBuff >>> 12 & 0x3f] << 8 |
+                        alphabet[inBuff >>> 6 & 0x3f] << 16 |
+                        EQUALS_SIGN << 24);
                 break;
             case 1:
-                dest.setInt(destOffset, alphabet[inBuff >>> 18       ]      |
-                                        alphabet[inBuff >>> 12 & 0x3f] << 8 |
-                                        EQUALS_SIGN << 16                   |
-                                        EQUALS_SIGN << 24);
+                dest.setInt(destOffset, alphabet[inBuff >>> 18] |
+                        alphabet[inBuff >>> 12 & 0x3f] << 8 |
+                        EQUALS_SIGN << 16 |
+                        EQUALS_SIGN << 24);
                 break;
             default:
                 // NOOP
@@ -334,7 +340,7 @@ public final class Base64 {
                 byte sbiDecode = decodabet[value];
                 if (sbiDecode >= WHITE_SPACE_ENC) { // White space, Equals sign or better
                     if (sbiDecode >= EQUALS_SIGN_ENC) { // Equals sign or better
-                        b4[b4Posn ++] = value;
+                        b4[b4Posn++] = value;
                         if (b4Posn > 3) { // Quartet built
                             outBuffPosn += decode4to3(b4, dest, outBuffPosn, decodabet);
                             b4Posn = 0;
@@ -376,11 +382,11 @@ public final class Base64 {
                         // The decodabet bytes are meant to straddle byte boundaries and so we must carefully mask out
                         // the bits we care about.
                         decodedValue = ((decodabet[src0] & 0x3f) << 2 | (b1 & 0xf0) >> 4) << 8 |
-                                        (b1 & 0xf) << 4 | (decodabet[src2] & 0xfc) >>> 2;
+                                (b1 & 0xf) << 4 | (decodabet[src2] & 0xfc) >>> 2;
                     } else {
                         // This is just a simple byte swap of the operation above.
                         decodedValue = (decodabet[src0] & 0x3f) << 2 | (b1 & 0xf0) >> 4 |
-                                      ((b1 & 0xf) << 4 | (decodabet[src2] & 0xfc) >>> 2) << 8;
+                                ((b1 & 0xf) << 4 | (decodabet[src2] & 0xfc) >>> 2) << 8;
                     }
                 } catch (IndexOutOfBoundsException ignored) {
                     throw new IllegalArgumentException("not encoded in Base64");
@@ -393,9 +399,9 @@ public final class Base64 {
             try {
                 if (dest.order() == ByteOrder.BIG_ENDIAN) {
                     decodedValue = (decodabet[src0] & 0x3f) << 18 |
-                                   (decodabet[src1] & 0xff) << 12 |
-                                   (decodabet[src2] & 0xff) << 6 |
-                                    decodabet[src3] & 0xff;
+                            (decodabet[src1] & 0xff) << 12 |
+                            (decodabet[src2] & 0xff) << 6 |
+                            decodabet[src3] & 0xff;
                 } else {
                     final byte b1 = decodabet[src1];
                     final byte b2 = decodabet[src2];
@@ -405,15 +411,15 @@ public final class Base64 {
                     // 2. The contents straddles byte boundaries. This means bytes will be pulled apart during the byte
                     //    swapping process.
                     decodedValue = (decodabet[src0] & 0x3f) << 2 |
-                                   // The bottom half of b1 remains in the middle.
-                                   (b1 & 0xf) << 12 |
-                                   // The top half of b1 are the least significant bits after the swap.
-                                   (b1 & 0xf0) >>> 4 |
-                                   // The bottom 2 bits of b2 will be the most significant bits after the swap.
-                                   (b2 & 0x3) << 22 |
-                                   // The remaining 6 bits of b2 remain in the middle.
-                                   (b2 & 0xfc) << 6 |
-                                   (decodabet[src3] & 0xff) << 16;
+                            // The bottom half of b1 remains in the middle.
+                            (b1 & 0xf) << 12 |
+                            // The top half of b1 are the least significant bits after the swap.
+                            (b1 & 0xf0) >>> 4 |
+                            // The bottom 2 bits of b2 will be the most significant bits after the swap.
+                            (b2 & 0x3) << 22 |
+                            // The remaining 6 bits of b2 remain in the middle.
+                            (b2 & 0xfc) << 6 |
+                            (decodabet[src3] & 0xff) << 16;
                 }
             } catch (IndexOutOfBoundsException ignored) {
                 throw new IllegalArgumentException("not encoded in Base64");

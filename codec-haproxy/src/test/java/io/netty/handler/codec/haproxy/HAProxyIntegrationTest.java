@@ -47,27 +47,27 @@ public class HAProxyIntegrationTest {
         EventLoopGroup group = new DefaultEventLoopGroup();
         ServerBootstrap sb = new ServerBootstrap();
         sb.channel(LocalServerChannel.class)
-          .group(group)
-          .childHandler(new ChannelInitializer() {
-              @Override
-              protected void initChannel(Channel ch) throws Exception {
-                  ch.pipeline().addLast(new HAProxyMessageDecoder());
-                  ch.pipeline().addLast(new SimpleChannelInboundHandler<HAProxyMessage>() {
-                      @Override
-                      protected void channelRead0(ChannelHandlerContext ctx, HAProxyMessage msg) throws Exception {
-                          msgHolder.set(msg.retain());
-                          latch.countDown();
-                      }
-                  });
-              }
-          });
+                .group(group)
+                .childHandler(new ChannelInitializer() {
+                    @Override
+                    protected void initChannel(Channel ch) throws Exception {
+                        ch.pipeline().addLast(new HAProxyMessageDecoder());
+                        ch.pipeline().addLast(new SimpleChannelInboundHandler<HAProxyMessage>() {
+                            @Override
+                            protected void channelRead0(ChannelHandlerContext ctx, HAProxyMessage msg) throws Exception {
+                                msgHolder.set(msg.retain());
+                                latch.countDown();
+                            }
+                        });
+                    }
+                });
         Channel serverChannel = sb.bind(localAddress).sync().channel();
 
         Bootstrap b = new Bootstrap();
         Channel clientChannel = b.channel(LocalChannel.class)
-                                 .handler(HAProxyMessageEncoder.INSTANCE)
-                                 .group(group)
-                                 .connect(localAddress).sync().channel();
+                .handler(HAProxyMessageEncoder.INSTANCE)
+                .group(group)
+                .connect(localAddress).sync().channel();
 
         try {
             HAProxyMessage message = new HAProxyMessage(

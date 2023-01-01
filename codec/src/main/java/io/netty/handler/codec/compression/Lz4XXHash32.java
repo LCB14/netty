@@ -26,19 +26,19 @@ import java.util.zip.Checksum;
 /**
  * A special-purpose {@link ByteBufChecksum} implementation for use with
  * {@link Lz4FrameEncoder} and {@link Lz4FrameDecoder}.
- *
+ * <p>
  * {@link StreamingXXHash32#asChecksum()} has a particularly nasty implementation
  * of {@link Checksum#update(int)} that allocates a single-element byte array for
  * every invocation.
- *
+ * <p>
  * In addition to that, it doesn't implement an overload that accepts a {@link ByteBuffer}
  * as an argument.
- *
+ * <p>
  * Combined, this means that we can't use {@code ReflectiveByteBufChecksum} at all,
  * and can't use {@code SlowByteBufChecksum} because of its atrocious performance
  * with direct byte buffers (allocating an array and making a JNI call for every byte
  * checksummed might be considered sub-optimal by some).
- *
+ * <p>
  * Block version of xxHash32 ({@link XXHash32}), however, does provide
  * {@link XXHash32#hash(ByteBuffer, int)} method that is efficient and does exactly
  * what we need, with a caveat that we can only invoke it once before having to reset.

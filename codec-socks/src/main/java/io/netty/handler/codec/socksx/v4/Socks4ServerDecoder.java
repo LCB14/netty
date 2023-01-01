@@ -61,40 +61,40 @@ public class Socks4ServerDecoder extends ReplayingDecoder<State> {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         try {
             switch (state()) {
-            case START: {
-                final int version = in.readUnsignedByte();
-                if (version != SocksVersion.SOCKS4a.byteValue()) {
-                    throw new DecoderException("unsupported protocol version: " + version);
-                }
+                case START: {
+                    final int version = in.readUnsignedByte();
+                    if (version != SocksVersion.SOCKS4a.byteValue()) {
+                        throw new DecoderException("unsupported protocol version: " + version);
+                    }
 
-                type = Socks4CommandType.valueOf(in.readByte());
-                dstPort = in.readUnsignedShort();
-                dstAddr = NetUtil.intToIpAddress(in.readInt());
-                checkpoint(State.READ_USERID);
-            }
-            case READ_USERID: {
-                userId = readString("userid", in);
-                checkpoint(State.READ_DOMAIN);
-            }
-            case READ_DOMAIN: {
-                // Check for Socks4a protocol marker 0.0.0.x
-                if (!"0.0.0.0".equals(dstAddr) && dstAddr.startsWith("0.0.0.")) {
-                    dstAddr = readString("dstAddr", in);
+                    type = Socks4CommandType.valueOf(in.readByte());
+                    dstPort = in.readUnsignedShort();
+                    dstAddr = NetUtil.intToIpAddress(in.readInt());
+                    checkpoint(State.READ_USERID);
                 }
-                out.add(new DefaultSocks4CommandRequest(type, dstAddr, dstPort, userId));
-                checkpoint(State.SUCCESS);
-            }
-            case SUCCESS: {
-                int readableBytes = actualReadableBytes();
-                if (readableBytes > 0) {
-                    out.add(in.readRetainedSlice(readableBytes));
+                case READ_USERID: {
+                    userId = readString("userid", in);
+                    checkpoint(State.READ_DOMAIN);
                 }
-                break;
-            }
-            case FAILURE: {
-                in.skipBytes(actualReadableBytes());
-                break;
-            }
+                case READ_DOMAIN: {
+                    // Check for Socks4a protocol marker 0.0.0.x
+                    if (!"0.0.0.0".equals(dstAddr) && dstAddr.startsWith("0.0.0.")) {
+                        dstAddr = readString("dstAddr", in);
+                    }
+                    out.add(new DefaultSocks4CommandRequest(type, dstAddr, dstPort, userId));
+                    checkpoint(State.SUCCESS);
+                }
+                case SUCCESS: {
+                    int readableBytes = actualReadableBytes();
+                    if (readableBytes > 0) {
+                        out.add(in.readRetainedSlice(readableBytes));
+                    }
+                    break;
+                }
+                case FAILURE: {
+                    in.skipBytes(actualReadableBytes());
+                    break;
+                }
             }
         } catch (Exception e) {
             fail(out, e);
@@ -107,10 +107,10 @@ public class Socks4ServerDecoder extends ReplayingDecoder<State> {
         }
 
         Socks4CommandRequest m = new DefaultSocks4CommandRequest(
-                type != null? type : Socks4CommandType.CONNECT,
-                dstAddr != null? dstAddr : "",
-                dstPort != 0? dstPort : 65535,
-                userId != null? userId : "");
+                type != null ? type : Socks4CommandType.CONNECT,
+                dstAddr != null ? dstAddr : "",
+                dstPort != 0 ? dstPort : 65535,
+                userId != null ? userId : "");
 
         m.setDecoderResult(DecoderResult.failure(cause));
         out.add(m);

@@ -41,6 +41,7 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param protocols The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(Iterable<String> protocols) {
@@ -49,6 +50,7 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param protocols The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(String... protocols) {
@@ -57,8 +59,9 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param failIfNoCommonProtocols Fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols               The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(boolean failIfNoCommonProtocols, Iterable<String> protocols) {
         this(failIfNoCommonProtocols, failIfNoCommonProtocols, protocols);
@@ -66,8 +69,9 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param failIfNoCommonProtocols Fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols               The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(boolean failIfNoCommonProtocols, String... protocols) {
         this(failIfNoCommonProtocols, failIfNoCommonProtocols, protocols);
@@ -75,12 +79,13 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param clientFailIfNoCommonProtocols Client side fail with a fatal alert if not common protocols are detected.
      * @param serverFailIfNoCommonProtocols Server side fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols                     The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(boolean clientFailIfNoCommonProtocols,
-            boolean serverFailIfNoCommonProtocols, Iterable<String> protocols) {
+                                               boolean serverFailIfNoCommonProtocols, Iterable<String> protocols) {
         this(clientFailIfNoCommonProtocols ? FAIL_SELECTOR_FACTORY : NO_FAIL_SELECTOR_FACTORY,
                 serverFailIfNoCommonProtocols ? FAIL_SELECTION_LISTENER_FACTORY : NO_FAIL_SELECTION_LISTENER_FACTORY,
                 protocols);
@@ -88,12 +93,13 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param clientFailIfNoCommonProtocols Client side fail with a fatal alert if not common protocols are detected.
      * @param serverFailIfNoCommonProtocols Server side fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols                     The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(boolean clientFailIfNoCommonProtocols,
-            boolean serverFailIfNoCommonProtocols, String... protocols) {
+                                               boolean serverFailIfNoCommonProtocols, String... protocols) {
         this(clientFailIfNoCommonProtocols ? FAIL_SELECTOR_FACTORY : NO_FAIL_SELECTOR_FACTORY,
                 serverFailIfNoCommonProtocols ? FAIL_SELECTION_LISTENER_FACTORY : NO_FAIL_SELECTION_LISTENER_FACTORY,
                 protocols);
@@ -101,23 +107,25 @@ public final class JdkNpnApplicationProtocolNegotiator extends JdkBaseApplicatio
 
     /**
      * Create a new instance.
+     *
      * @param selectorFactory The factory which provides classes responsible for selecting the protocol.
      * @param listenerFactory The factory which provides to be notified of which protocol was selected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols       The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(ProtocolSelectorFactory selectorFactory,
-            ProtocolSelectionListenerFactory listenerFactory, Iterable<String> protocols) {
+                                               ProtocolSelectionListenerFactory listenerFactory, Iterable<String> protocols) {
         super(NPN_WRAPPER, selectorFactory, listenerFactory, protocols);
     }
 
     /**
      * Create a new instance.
+     *
      * @param selectorFactory The factory which provides classes responsible for selecting the protocol.
      * @param listenerFactory The factory which provides to be notified of which protocol was selected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols       The order of iteration determines the preference of support for protocols.
      */
     public JdkNpnApplicationProtocolNegotiator(ProtocolSelectorFactory selectorFactory,
-            ProtocolSelectionListenerFactory listenerFactory, String... protocols) {
+                                               ProtocolSelectionListenerFactory listenerFactory, String... protocols) {
         super(NPN_WRAPPER, selectorFactory, listenerFactory, protocols);
     }
 }

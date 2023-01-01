@@ -79,7 +79,7 @@ public class BinaryMemcacheMessageTest {
     }
 
     private static void testSettingLengths(BinaryMemcacheMessage message,
-                                    int initialKeyLength, int initialExtrasLength, int contentLength) {
+                                           int initialKeyLength, int initialExtrasLength, int contentLength) {
         ByteBuf key = Unpooled.copiedBuffer("netty", CharsetUtil.UTF_8);
         ByteBuf extras = Unpooled.copiedBuffer("extras", CharsetUtil.UTF_8);
         ByteBuf key2 = Unpooled.copiedBuffer("netty!", CharsetUtil.UTF_8);

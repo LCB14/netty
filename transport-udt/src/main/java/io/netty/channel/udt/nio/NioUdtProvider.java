@@ -101,8 +101,9 @@ public final class NioUdtProvider<T extends UdtChannel> implements ChannelFactor
     /**
      * Expose underlying {@link ChannelUDT} for debugging and monitoring.
      * <p>
+     *
      * @return underlying {@link ChannelUDT} or null, if parameter is not
-     *         {@link UdtChannel}
+     * {@link UdtChannel}
      */
     public static ChannelUDT channelUDT(final Channel channel) {
         // bytes
@@ -168,8 +169,9 @@ public final class NioUdtProvider<T extends UdtChannel> implements ChannelFactor
     /**
      * Expose underlying {@link SocketUDT} for debugging and monitoring.
      * <p>
+     *
      * @return underlying {@link SocketUDT} or null, if parameter is not
-     *         {@link UdtChannel}
+     * {@link UdtChannel}
      */
     public static SocketUDT socketUDT(final Channel channel) {
         final ChannelUDT channelUDT = channelUDT(channel);

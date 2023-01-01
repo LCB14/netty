@@ -47,8 +47,8 @@ public final class FixedRedisMessagePool implements RedisMessagePool {
         LOADING("LOADING Redis is loading the dataset in memory"),
         MASTERDOWN("MASTERDOWN Link with MASTER is down and slave-serve-stale-data is set to 'no'."),
         MISCONF("MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. " +
-            "Commands that may modify the data set are disabled. Please check Redis logs for details " +
-            "about the error."),
+                "Commands that may modify the data set are disabled. Please check Redis logs for details " +
+                "about the error."),
         NOREPLICAS("NOREPLICAS Not enough good slaves to write."),
         NOSCRIPT("NOSCRIPT No matching script. Please use EVAL."),
         OOM("OOM command not allowed when used memory > 'maxmemory'."),
@@ -99,9 +99,9 @@ public final class FixedRedisMessagePool implements RedisMessagePool {
         byteBufToSimpleStrings = new HashMap<ByteBuf, SimpleStringRedisMessage>(RedisReplyKey.values().length, 1.0f);
         for (RedisReplyKey value : RedisReplyKey.values()) {
             ByteBuf key = Unpooled.unreleasableBuffer(Unpooled.wrappedBuffer(
-                value.name().getBytes(CharsetUtil.UTF_8))).asReadOnly();
+                    value.name().getBytes(CharsetUtil.UTF_8))).asReadOnly();
             SimpleStringRedisMessage message = new SimpleStringRedisMessage(new String(Unpooled.unreleasableBuffer(
-                Unpooled.wrappedBuffer(value.name().getBytes(CharsetUtil.UTF_8))).array()));
+                    Unpooled.wrappedBuffer(value.name().getBytes(CharsetUtil.UTF_8))).array()));
             stringToSimpleStrings.put(value.name(), message);
             keyToSimpleStrings.put(value, message);
             byteBufToSimpleStrings.put(key, message);
@@ -112,9 +112,9 @@ public final class FixedRedisMessagePool implements RedisMessagePool {
         byteBufToErrors = new HashMap<ByteBuf, ErrorRedisMessage>(RedisErrorKey.values().length, 1.0f);
         for (RedisErrorKey value : RedisErrorKey.values()) {
             ByteBuf key = Unpooled.unreleasableBuffer(Unpooled.wrappedBuffer(
-                value.toString().getBytes(CharsetUtil.UTF_8))).asReadOnly();
+                    value.toString().getBytes(CharsetUtil.UTF_8))).asReadOnly();
             ErrorRedisMessage message = new ErrorRedisMessage(new String(Unpooled.unreleasableBuffer(
-                Unpooled.wrappedBuffer(value.toString().getBytes(CharsetUtil.UTF_8))).array()));
+                    Unpooled.wrappedBuffer(value.toString().getBytes(CharsetUtil.UTF_8))).array()));
             stringToErrors.put(value.toString(), message);
             keyToErrors.put(value, message);
             byteBufToErrors.put(key, message);

@@ -97,8 +97,8 @@ final class BouncyCastlePemReader {
      * Generates a new {@link PrivateKey}.
      *
      * @param keyInputStream an input stream for a PKCS#1 or PKCS#8 private key in PEM format.
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
+     * @param keyPassword    the password of the {@code keyFile}.
+     *                       {@code null} if it's not password-protected.
      * @return generated {@link PrivateKey}.
      */
     public static PrivateKey getPrivateKey(InputStream keyInputStream, String keyPassword) {
@@ -120,7 +120,7 @@ final class BouncyCastlePemReader {
     /**
      * Generates a new {@link PrivateKey}.
      *
-     * @param keyFile a PKCS#1 or PKCS#8 private key file in PEM format.
+     * @param keyFile     a PKCS#1 or PKCS#8 private key file in PEM format.
      * @param keyPassword the password of the {@code keyFile}.
      *                    {@code null} if it's not password-protected.
      * @return generated {@link PrivateKey}.
@@ -155,7 +155,7 @@ final class BouncyCastlePemReader {
             while (object != null && pk == null) {
                 if (logger.isDebugEnabled()) {
                     logger.debug("Parsed PEM object of type {} and assume " +
-                                 "key is {}encrypted", object.getClass().getName(), keyPassword == null? "not " : "");
+                            "key is {}encrypted", object.getClass().getName(), keyPassword == null ? "not " : "");
                 }
 
                 if (keyPassword == null) {
@@ -166,7 +166,7 @@ final class BouncyCastlePemReader {
                         pk = converter.getKeyPair((PEMKeyPair) object).getPrivate();
                     } else {
                         logger.debug("Unable to handle PEM object of type {} as a non encrypted key",
-                                     object.getClass());
+                                object.getClass());
                     }
                 } else {
                     // assume private key is encrypted
@@ -181,7 +181,7 @@ final class BouncyCastlePemReader {
                                         .setProvider(bcProvider)
                                         .build(keyPassword.toCharArray());
                         pk = converter.getPrivateKey(((PKCS8EncryptedPrivateKeyInfo) object)
-                                                             .decryptPrivateKeyInfo(pkcs8InputDecryptorProvider));
+                                .decryptPrivateKeyInfo(pkcs8InputDecryptorProvider));
                     } else {
                         logger.debug("Unable to handle PEM object of type {} as a encrypted key", object.getClass());
                     }
@@ -219,5 +219,6 @@ final class BouncyCastlePemReader {
         return new PEMParser(new InputStreamReader(keyInputStream, CharsetUtil.US_ASCII));
     }
 
-    private BouncyCastlePemReader() { }
+    private BouncyCastlePemReader() {
+    }
 }

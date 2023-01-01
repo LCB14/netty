@@ -78,15 +78,16 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
     /**
      * Create a new instance.
-     * @param connection The {@link Http2Connection} associated with this decoder.
-     * @param encoder The {@link Http2ConnectionEncoder} associated with this decoder.
-     * @param frameReader Responsible for reading/parsing the raw frames. As opposed to this object which applies
-     *                    h2 semantics on top of the frames.
+     *
+     * @param connection      The {@link Http2Connection} associated with this decoder.
+     * @param encoder         The {@link Http2ConnectionEncoder} associated with this decoder.
+     * @param frameReader     Responsible for reading/parsing the raw frames. As opposed to this object which applies
+     *                        h2 semantics on top of the frames.
      * @param requestVerifier Determines if push promised streams are valid.
      * @param autoAckSettings {@code false} to disable automatically applying and sending settings acknowledge frame.
-     *  The {@code Http2ConnectionEncoder} is expected to be an instance of {@link Http2SettingsReceivedConsumer} and
-     *  will apply the earliest received but not yet ACKed SETTINGS when writing the SETTINGS ACKs.
-     * {@code true} to enable automatically applying and sending settings acknowledge frame.
+     *                        The {@code Http2ConnectionEncoder} is expected to be an instance of {@link Http2SettingsReceivedConsumer} and
+     *                        will apply the earliest received but not yet ACKed SETTINGS when writing the SETTINGS ACKs.
+     *                        {@code true} to enable automatically applying and sending settings acknowledge frame.
      */
     public DefaultHttp2ConnectionDecoder(Http2Connection connection,
                                          Http2ConnectionEncoder encoder,
@@ -98,18 +99,19 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
     /**
      * Create a new instance.
-     * @param connection The {@link Http2Connection} associated with this decoder.
-     * @param encoder The {@link Http2ConnectionEncoder} associated with this decoder.
-     * @param frameReader Responsible for reading/parsing the raw frames. As opposed to this object which applies
-     *                    h2 semantics on top of the frames.
+     *
+     * @param connection      The {@link Http2Connection} associated with this decoder.
+     * @param encoder         The {@link Http2ConnectionEncoder} associated with this decoder.
+     * @param frameReader     Responsible for reading/parsing the raw frames. As opposed to this object which applies
+     *                        h2 semantics on top of the frames.
      * @param requestVerifier Determines if push promised streams are valid.
      * @param autoAckSettings {@code false} to disable automatically applying and sending settings acknowledge frame.
      *                        The {@code Http2ConnectionEncoder} is expected to be an instance of
      *                        {@link Http2SettingsReceivedConsumer} and will apply the earliest received but not yet
      *                        ACKed SETTINGS when writing the SETTINGS ACKs. {@code true} to enable automatically
      *                        applying and sending settings acknowledge frame.
-     * @param autoAckPing {@code false} to disable automatically sending ping acknowledge frame. {@code true} to enable
-     *                    automatically sending ping ack frame.
+     * @param autoAckPing     {@code false} to disable automatically sending ping acknowledge frame. {@code true} to enable
+     *                        automatically sending ping ack frame.
      */
     public DefaultHttp2ConnectionDecoder(Http2Connection connection,
                                          Http2ConnectionEncoder encoder,
@@ -198,9 +200,9 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
     /**
      * Calculate the threshold in bytes which should trigger a {@code GO_AWAY} if a set of headers exceeds this amount.
-     * @param maxHeaderListSize
-     *      <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a> for the local
-     *      endpoint.
+     *
+     * @param maxHeaderListSize <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_HEADER_LIST_SIZE</a> for the local
+     *                          endpoint.
      * @return the threshold in bytes which should trigger a {@code GO_AWAY} if a set of headers exceeds this amount.
      */
     protected long calculateMaxHeaderListSizeGoAway(long maxHeaderListSize) {
@@ -218,7 +220,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
     }
 
     void onUnknownFrame0(ChannelHandlerContext ctx, byte frameType, int streamId, Http2Flags flags,
-            ByteBuf payload) throws Http2Exception {
+                         ByteBuf payload) throws Http2Exception {
         listener.onUnknownFrame(ctx, frameType, streamId, flags, payload);
     }
 
@@ -281,11 +283,11 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
                 case HALF_CLOSED_REMOTE:
                 case CLOSED:
                     error = streamError(stream.id(), STREAM_CLOSED, "Stream %d in unexpected state: %s",
-                        stream.id(), stream.state());
+                            stream.id(), stream.state());
                     break;
                 default:
                     error = streamError(stream.id(), PROTOCOL_ERROR,
-                        "Stream %d in unexpected state: %s", stream.id(), stream.state());
+                            "Stream %d in unexpected state: %s", stream.id(), stream.state());
                     break;
             }
 
@@ -333,13 +335,13 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int padding,
-                boolean endOfStream) throws Http2Exception {
+                                  boolean endOfStream) throws Http2Exception {
             onHeadersRead(ctx, streamId, headers, 0, DEFAULT_PRIORITY_WEIGHT, false, padding, endOfStream);
         }
 
         @Override
         public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int streamDependency,
-                short weight, boolean exclusive, int padding, boolean endOfStream) throws Http2Exception {
+                                  short weight, boolean exclusive, int padding, boolean endOfStream) throws Http2Exception {
             Http2Stream stream = connection.stream(streamId);
             boolean allowHalfClosedRemote = false;
             boolean isTrailers = false;
@@ -359,8 +361,8 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
                     HttpStatusClass.valueOf(headers.status()) == INFORMATIONAL;
             if ((isInformational || !endOfStream) && stream.isHeadersReceived() || stream.isTrailersReceived()) {
                 throw streamError(streamId, PROTOCOL_ERROR,
-                                  "Stream %d received too many headers EOS: %s state: %s",
-                                  streamId, endOfStream, stream.state());
+                        "Stream %d received too many headers EOS: %s state: %s",
+                        streamId, endOfStream, stream.state());
             }
 
             switch (stream.state()) {
@@ -416,7 +418,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onPriorityRead(ChannelHandlerContext ctx, int streamId, int streamDependency, short weight,
-                boolean exclusive) throws Http2Exception {
+                                   boolean exclusive) throws Http2Exception {
             encoder.flowController().updateDependencyTree(streamId, streamDependency, weight, exclusive);
 
             listener.onPriorityRead(ctx, streamId, streamDependency, weight, exclusive);
@@ -430,13 +432,13 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
                 return;
             }
 
-            switch(stream.state()) {
-            case IDLE:
-                throw connectionError(PROTOCOL_ERROR, "RST_STREAM received for IDLE stream %d", streamId);
-            case CLOSED:
-                return; // RST_STREAM frames must be ignored for closed streams.
-            default:
-                break;
+            switch (stream.state()) {
+                case IDLE:
+                    throw connectionError(PROTOCOL_ERROR, "RST_STREAM received for IDLE stream %d", streamId);
+                case CLOSED:
+                    return; // RST_STREAM frames must be ignored for closed streams.
+                default:
+                    break;
             }
 
             listener.onRstStreamRead(ctx, streamId, errorCode);
@@ -531,7 +533,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onPushPromiseRead(ChannelHandlerContext ctx, int streamId, int promisedStreamId,
-                Http2Headers headers, int padding) throws Http2Exception {
+                                      Http2Headers headers, int padding) throws Http2Exception {
             // A client cannot push.
             if (connection().isServer()) {
                 throw connectionError(PROTOCOL_ERROR, "A client cannot push.");
@@ -544,15 +546,15 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
             }
 
             switch (parentStream.state()) {
-              case OPEN:
-              case HALF_CLOSED_LOCAL:
-                  // Allowed to receive push promise in these states.
-                  break;
-              default:
-                  // Connection error.
-                  throw connectionError(PROTOCOL_ERROR,
-                      "Stream %d in unexpected state for receiving push promise: %s",
-                      parentStream.id(), parentStream.state());
+                case OPEN:
+                case HALF_CLOSED_LOCAL:
+                    // Allowed to receive push promise in these states.
+                    break;
+                default:
+                    // Connection error.
+                    throw connectionError(PROTOCOL_ERROR,
+                            "Stream %d in unexpected state for receiving push promise: %s",
+                            parentStream.id(), parentStream.state());
             }
 
             if (!requestVerifier.isAuthoritative(ctx, headers)) {
@@ -601,7 +603,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onUnknownFrame(ChannelHandlerContext ctx, byte frameType, int streamId, Http2Flags flags,
-                ByteBuf payload) throws Http2Exception {
+                                   ByteBuf payload) throws Http2Exception {
             onUnknownFrame0(ctx, frameType, streamId, flags, payload);
         }
 
@@ -610,7 +612,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
          * {@code stream} (which may be {@code null}) associated with {@code streamId}.
          */
         private boolean shouldIgnoreHeadersOrDataFrame(ChannelHandlerContext ctx, int streamId, Http2Stream stream,
-                String frameName) throws Http2Exception {
+                                                       String frameName) throws Http2Exception {
             if (stream == null) {
                 if (streamCreatedAfterGoAwaySent(streamId)) {
                     logger.info("{} ignoring {} frame for stream {}. Stream sent after GOAWAY sent",
@@ -626,7 +628,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
                 // also possible that this frame is received on a CLOSED stream (STREAM_CLOSED after a RST_STREAM is
                 // sent). We don't have enough information to know for sure, so we choose the lesser of the two errors.
                 throw streamError(streamId, STREAM_CLOSED, "Received %s frame for an unknown stream %d",
-                                  frameName, streamId);
+                        frameName, streamId);
             }
             if (stream.isResetSent() || streamCreatedAfterGoAwaySent(streamId)) {
                 // If we have sent a reset stream it is assumed the stream will be closed after the write completes.
@@ -638,7 +640,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
                     logger.info("{} ignoring {} frame for stream {}", ctx.channel(), frameName,
                             stream.isResetSent() ? "RST_STREAM sent." :
                                     "Stream created after GOAWAY sent. Last known stream by peer " +
-                                     connection.remote().lastStreamKnownByPeer());
+                                            connection.remote().lastStreamKnownByPeer());
                 }
 
                 return true;
@@ -693,14 +695,14 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int padding,
-                boolean endOfStream) throws Http2Exception {
+                                  boolean endOfStream) throws Http2Exception {
             verifyPrefaceReceived();
             internalFrameListener.onHeadersRead(ctx, streamId, headers, padding, endOfStream);
         }
 
         @Override
         public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int streamDependency,
-                short weight, boolean exclusive, int padding, boolean endOfStream) throws Http2Exception {
+                                  short weight, boolean exclusive, int padding, boolean endOfStream) throws Http2Exception {
             verifyPrefaceReceived();
             internalFrameListener.onHeadersRead(ctx, streamId, headers, streamDependency, weight,
                     exclusive, padding, endOfStream);
@@ -708,7 +710,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onPriorityRead(ChannelHandlerContext ctx, int streamId, int streamDependency, short weight,
-                boolean exclusive) throws Http2Exception {
+                                   boolean exclusive) throws Http2Exception {
             verifyPrefaceReceived();
             internalFrameListener.onPriorityRead(ctx, streamId, streamDependency, weight, exclusive);
         }
@@ -749,7 +751,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onPushPromiseRead(ChannelHandlerContext ctx, int streamId, int promisedStreamId,
-                Http2Headers headers, int padding) throws Http2Exception {
+                                      Http2Headers headers, int padding) throws Http2Exception {
             verifyPrefaceReceived();
             internalFrameListener.onPushPromiseRead(ctx, streamId, promisedStreamId, headers, padding);
         }
@@ -769,7 +771,7 @@ public class DefaultHttp2ConnectionDecoder implements Http2ConnectionDecoder {
 
         @Override
         public void onUnknownFrame(ChannelHandlerContext ctx, byte frameType, int streamId, Http2Flags flags,
-                ByteBuf payload) throws Http2Exception {
+                                   ByteBuf payload) throws Http2Exception {
             onUnknownFrame0(ctx, frameType, streamId, flags, payload);
         }
     }

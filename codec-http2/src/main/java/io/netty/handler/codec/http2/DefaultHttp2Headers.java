@@ -108,24 +108,26 @@ public class DefaultHttp2Headers
 
     /**
      * Create a new instance.
+     *
      * @param validate {@code true} to validate header names according to
-     * <a href="https://tools.ietf.org/html/rfc7540">rfc7540</a>. {@code false} to not validate header names.
+     *                 <a href="https://tools.ietf.org/html/rfc7540">rfc7540</a>. {@code false} to not validate header names.
      */
     @SuppressWarnings("unchecked")
     public DefaultHttp2Headers(boolean validate) {
         // Case sensitive compare is used because it is cheaper, and header validation can be used to catch invalid
         // headers.
         super(CASE_SENSITIVE_HASHER,
-              CharSequenceValueConverter.INSTANCE,
-              validate ? HTTP2_NAME_VALIDATOR : NameValidator.NOT_NULL);
+                CharSequenceValueConverter.INSTANCE,
+                validate ? HTTP2_NAME_VALIDATOR : NameValidator.NOT_NULL);
     }
 
     /**
      * Create a new instance.
-     * @param validate {@code true} to validate header names according to
-     * <a href="https://tools.ietf.org/html/rfc7540">rfc7540</a>. {@code false} to not validate header names.
+     *
+     * @param validate      {@code true} to validate header names according to
+     *                      <a href="https://tools.ietf.org/html/rfc7540">rfc7540</a>. {@code false} to not validate header names.
      * @param arraySizeHint A hint as to how large the hash data structure should be.
-     * The next positive power of two will be used. An upper bound may be enforced.
+     *                      The next positive power of two will be used. An upper bound may be enforced.
      * @see DefaultHttp2Headers#DefaultHttp2Headers(boolean, boolean, int)
      */
     @SuppressWarnings("unchecked")
@@ -133,21 +135,22 @@ public class DefaultHttp2Headers
         // Case sensitive compare is used because it is cheaper, and header validation can be used to catch invalid
         // headers.
         super(CASE_SENSITIVE_HASHER,
-              CharSequenceValueConverter.INSTANCE,
-              validate ? HTTP2_NAME_VALIDATOR : NameValidator.NOT_NULL,
-              arraySizeHint);
+                CharSequenceValueConverter.INSTANCE,
+                validate ? HTTP2_NAME_VALIDATOR : NameValidator.NOT_NULL,
+                arraySizeHint);
     }
 
     /**
      * Create a new instance.
-     * @param validate {@code true} to validate header names according to
-     * <a href="https://tools.ietf.org/html/rfc7540">rfc7540</a>. {@code false} to not validate header names.
+     *
+     * @param validate       {@code true} to validate header names according to
+     *                       <a href="https://tools.ietf.org/html/rfc7540">rfc7540</a>. {@code false} to not validate header names.
      * @param validateValues {@code true} to validate header values according to
-     * <a href="https://datatracker.ietf.org/doc/html/rfc7230#section-3.2">rfc7230</a> and
-     * <a href="https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1">rfc5234</a>. Otherwise, {@code false}
-     * (the default) to not validate values.
-     * @param arraySizeHint A hint as to how large the hash data structure should be.
-     * The next positive power of two will be used. An upper bound may be enforced.
+     *                       <a href="https://datatracker.ietf.org/doc/html/rfc7230#section-3.2">rfc7230</a> and
+     *                       <a href="https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1">rfc5234</a>. Otherwise, {@code false}
+     *                       (the default) to not validate values.
+     * @param arraySizeHint  A hint as to how large the hash data structure should be.
+     *                       The next positive power of two will be used. An upper bound may be enforced.
      */
     @SuppressWarnings("unchecked")
     public DefaultHttp2Headers(boolean validate, boolean validateValues, int arraySizeHint) {
@@ -260,13 +263,13 @@ public class DefaultHttp2Headers
 
     @Override
     protected final HeaderEntry<CharSequence, CharSequence> newHeaderEntry(int h, CharSequence name, CharSequence value,
-                                                           HeaderEntry<CharSequence, CharSequence> next) {
+                                                                           HeaderEntry<CharSequence, CharSequence> next) {
         return new Http2HeaderEntry(h, name, value, next);
     }
 
     private final class Http2HeaderEntry extends HeaderEntry<CharSequence, CharSequence> {
         Http2HeaderEntry(int hash, CharSequence key, CharSequence value,
-                HeaderEntry<CharSequence, CharSequence> next) {
+                         HeaderEntry<CharSequence, CharSequence> next) {
             super(hash, key);
             this.value = value;
             this.next = next;

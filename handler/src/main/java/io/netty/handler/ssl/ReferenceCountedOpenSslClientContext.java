@@ -50,10 +50,10 @@ public final class ReferenceCountedOpenSslClientContext extends ReferenceCounted
 
     private static final Set<String> SUPPORTED_KEY_TYPES = Collections.unmodifiableSet(new LinkedHashSet<String>(
             Arrays.asList(OpenSslKeyMaterialManager.KEY_TYPE_RSA,
-                          OpenSslKeyMaterialManager.KEY_TYPE_DH_RSA,
-                          OpenSslKeyMaterialManager.KEY_TYPE_EC,
-                          OpenSslKeyMaterialManager.KEY_TYPE_EC_RSA,
-                          OpenSslKeyMaterialManager.KEY_TYPE_EC_EC)));
+                    OpenSslKeyMaterialManager.KEY_TYPE_DH_RSA,
+                    OpenSslKeyMaterialManager.KEY_TYPE_EC,
+                    OpenSslKeyMaterialManager.KEY_TYPE_EC_RSA,
+                    OpenSslKeyMaterialManager.KEY_TYPE_EC_EC)));
 
     private final OpenSslSessionContext sessionContext;
 
@@ -65,12 +65,12 @@ public final class ReferenceCountedOpenSslClientContext extends ReferenceCounted
                                          boolean enableOcsp, String keyStore,
                                          Map.Entry<SslContextOption<?>, Object>... options) throws SSLException {
         super(ciphers, cipherFilter, toNegotiator(apn), SSL.SSL_MODE_CLIENT, keyCertChain,
-              ClientAuth.NONE, protocols, false, enableOcsp, true, options);
+                ClientAuth.NONE, protocols, false, enableOcsp, true, options);
         boolean success = false;
         try {
             sessionContext = newSessionContext(this, ctx, engineMap, trustCertCollection, trustManagerFactory,
-                                               keyCertChain, key, keyPassword, keyManagerFactory, keyStore,
-                                               sessionCacheSize, sessionTimeout);
+                    keyCertChain, key, keyPassword, keyManagerFactory, keyStore,
+                    sessionCacheSize, sessionTimeout);
             success = true;
         } finally {
             if (!success) {
@@ -277,9 +277,9 @@ public final class ReferenceCountedOpenSslClientContext extends ReferenceCounted
          * Gets the supported key types for client certificates.
          *
          * @param clientCertificateTypes {@code ClientCertificateType} values provided by the server.
-         *        See https://www.ietf.org/assignments/tls-parameters/tls-parameters.xml.
+         *                               See https://www.ietf.org/assignments/tls-parameters/tls-parameters.xml.
          * @return supported key types that can be used in {@code X509KeyManager.chooseClientAlias} and
-         *         {@code X509ExtendedKeyManager.chooseEngineClientAlias}.
+         * {@code X509ExtendedKeyManager.chooseEngineClientAlias}.
          */
         private static Set<String> supportedClientKeyTypes(byte[] clientCertificateTypes) {
             if (clientCertificateTypes == null) {

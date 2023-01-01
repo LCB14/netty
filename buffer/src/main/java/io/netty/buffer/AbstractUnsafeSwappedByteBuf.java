@@ -163,9 +163,14 @@ abstract class AbstractUnsafeSwappedByteBuf extends SwappedByteBuf {
     }
 
     protected abstract short _getShort(AbstractByteBuf wrapped, int index);
+
     protected abstract int _getInt(AbstractByteBuf wrapped, int index);
+
     protected abstract long _getLong(AbstractByteBuf wrapped, int index);
+
     protected abstract void _setShort(AbstractByteBuf wrapped, int index, short value);
+
     protected abstract void _setInt(AbstractByteBuf wrapped, int index, int value);
+
     protected abstract void _setLong(AbstractByteBuf wrapped, int index, long value);
 }

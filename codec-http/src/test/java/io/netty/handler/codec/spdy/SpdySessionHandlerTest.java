@@ -84,7 +84,7 @@ public class SpdySessionHandlerTest {
         SpdyHeadersFrame spdyHeadersFrame = (SpdyHeadersFrame) msg;
         assertEquals(streamId, spdyHeadersFrame.streamId());
         assertEquals(last, spdyHeadersFrame.isLast());
-        for (CharSequence name: headers.names()) {
+        for (CharSequence name : headers.names()) {
             List<CharSequence> expectedValues = headers.getAll(name);
             List<CharSequence> receivedValues = spdyHeadersFrame.headers().getAll(name);
             assertTrue(receivedValues.containsAll(expectedValues));
@@ -360,7 +360,7 @@ public class SpdySessionHandlerTest {
                     int streamId = spdySynStreamFrame.streamId();
                     SpdySynReplyFrame spdySynReplyFrame = new DefaultSpdySynReplyFrame(streamId);
                     spdySynReplyFrame.setLast(spdySynStreamFrame.isLast());
-                    for (Map.Entry<CharSequence, CharSequence> entry: spdySynStreamFrame.headers()) {
+                    for (Map.Entry<CharSequence, CharSequence> entry : spdySynStreamFrame.headers()) {
                         spdySynReplyFrame.headers().add(entry.getKey(), entry.getValue());
                     }
 
@@ -374,8 +374,8 @@ public class SpdySessionHandlerTest {
             }
 
             if (msg instanceof SpdyDataFrame ||
-                msg instanceof SpdyPingFrame ||
-                msg instanceof SpdyHeadersFrame) {
+                    msg instanceof SpdyPingFrame ||
+                    msg instanceof SpdyHeadersFrame) {
 
                 ctx.writeAndFlush(msg);
                 return;

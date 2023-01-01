@@ -60,6 +60,7 @@ public class ByteBufInputStream extends InputStream implements DataInput {
      * Creates a new stream which reads data from the specified {@code buffer}
      * starting at the current {@code readerIndex} and ending at the current
      * {@code writerIndex}.
+     *
      * @param buffer The buffer which provides the content for this {@link InputStream}.
      */
     public ByteBufInputStream(ByteBuf buffer) {
@@ -70,11 +71,11 @@ public class ByteBufInputStream extends InputStream implements DataInput {
      * Creates a new stream which reads data from the specified {@code buffer}
      * starting at the current {@code readerIndex} and ending at
      * {@code readerIndex + length}.
+     *
      * @param buffer The buffer which provides the content for this {@link InputStream}.
      * @param length The length of the buffer to use for this {@link InputStream}.
-     * @throws IndexOutOfBoundsException
-     *         if {@code readerIndex + length} is greater than
-     *            {@code writerIndex}
+     * @throws IndexOutOfBoundsException if {@code readerIndex + length} is greater than
+     *                                   {@code writerIndex}
      */
     public ByteBufInputStream(ByteBuf buffer, int length) {
         this(buffer, length, false);
@@ -84,7 +85,8 @@ public class ByteBufInputStream extends InputStream implements DataInput {
      * Creates a new stream which reads data from the specified {@code buffer}
      * starting at the current {@code readerIndex} and ending at the current
      * {@code writerIndex}.
-     * @param buffer The buffer which provides the content for this {@link InputStream}.
+     *
+     * @param buffer         The buffer which provides the content for this {@link InputStream}.
      * @param releaseOnClose {@code true} means that when {@link #close()} is called then {@link ByteBuf#release()} will
      *                       be called on {@code buffer}.
      */
@@ -96,13 +98,13 @@ public class ByteBufInputStream extends InputStream implements DataInput {
      * Creates a new stream which reads data from the specified {@code buffer}
      * starting at the current {@code readerIndex} and ending at
      * {@code readerIndex + length}.
-     * @param buffer The buffer which provides the content for this {@link InputStream}.
-     * @param length The length of the buffer to use for this {@link InputStream}.
+     *
+     * @param buffer         The buffer which provides the content for this {@link InputStream}.
+     * @param length         The length of the buffer to use for this {@link InputStream}.
      * @param releaseOnClose {@code true} means that when {@link #close()} is called then {@link ByteBuf#release()} will
      *                       be called on {@code buffer}.
-     * @throws IndexOutOfBoundsException
-     *         if {@code readerIndex + length} is greater than
-     *            {@code writerIndex}
+     * @throws IndexOutOfBoundsException if {@code readerIndex + length} is greater than
+     *                                   {@code writerIndex}
      */
     public ByteBufInputStream(ByteBuf buffer, int length, boolean releaseOnClose) {
         ObjectUtil.checkNotNull(buffer, "buffer");
@@ -259,7 +261,8 @@ public class ByteBufInputStream extends InputStream implements DataInput {
             lineBuf.setLength(0);
         }
 
-        loop: do {
+        loop:
+        do {
             int c = buffer.readUnsignedByte();
             --available;
             switch (c) {

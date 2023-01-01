@@ -204,7 +204,7 @@ public class StompSubframeDecoder extends ReplayingDecoder<State> {
 
     private State readHeaders(ByteBuf buffer, StompHeadersSubframe headersSubframe) {
         StompHeaders headers = headersSubframe.headers();
-        for (;;) {
+        for (; ; ) {
             boolean headerRead = headerParser.parseHeader(headersSubframe, buffer);
             if (!headerRead) {
                 if (headers.contains(StompHeaders.CONTENT_LENGTH)) {
@@ -235,7 +235,7 @@ public class StompSubframeDecoder extends ReplayingDecoder<State> {
 
     private static void skipControlCharacters(ByteBuf buffer) {
         byte b;
-        for (;;) {
+        for (; ; ) {
             b = buffer.readByte();
             if (b != StompConstants.CR && b != StompConstants.LF) {
                 buffer.readerIndex(buffer.readerIndex() - 1);
@@ -362,7 +362,7 @@ public class StompSubframeDecoder extends ReplayingDecoder<State> {
                 }
                 String line = name + ':' + value;
                 throw new IllegalArgumentException("a header value or name contains a prohibited character ':'"
-                                                   + ", " + line);
+                        + ", " + line);
             }
             return true;
         }

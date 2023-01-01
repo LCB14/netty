@@ -21,7 +21,8 @@ import java.nio.ByteBuffer;
 
 final class CompressionUtil {
 
-    private CompressionUtil() { }
+    private CompressionUtil() {
+    }
 
     static void checkChecksum(ByteBufChecksum checksum, ByteBuf uncompressed, int currentChecksum) {
         checksum.reset();

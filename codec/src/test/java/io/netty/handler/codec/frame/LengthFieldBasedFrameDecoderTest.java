@@ -35,16 +35,16 @@ public class LengthFieldBasedFrameDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(
                 new LengthFieldBasedFrameDecoder(5, 0, 4, 0, 4, false));
 
-        for (int i = 0; i < 2; i ++) {
-            assertFalse(ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0, 0, 0, 2 })));
+        for (int i = 0; i < 2; i++) {
+            assertFalse(ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 0, 0, 2})));
             try {
-                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0, 0 })));
+                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 0})));
                 fail(DecoderException.class.getSimpleName() + " must be raised.");
             } catch (TooLongFrameException e) {
                 // Expected
             }
 
-            ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0, 0, 0, 1, 'A' }));
+            ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 0, 0, 1, 'A'}));
             ByteBuf buf = ch.readInbound();
             assertEquals("A", buf.toString(CharsetUtil.ISO_8859_1));
             buf.release();
@@ -56,15 +56,15 @@ public class LengthFieldBasedFrameDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(
                 new LengthFieldBasedFrameDecoder(5, 0, 4, 0, 4));
 
-        for (int i = 0; i < 2; i ++) {
+        for (int i = 0; i < 2; i++) {
             try {
-                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0, 0, 0, 2 })));
+                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 0, 0, 2})));
                 fail(DecoderException.class.getSimpleName() + " must be raised.");
             } catch (TooLongFrameException e) {
                 // Expected
             }
 
-            ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0, 0, 0, 0, 0, 1, 'A' }));
+            ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 0, 0, 0, 0, 1, 'A'}));
             ByteBuf buf = ch.readInbound();
             assertEquals("A", buf.toString(CharsetUtil.ISO_8859_1));
             buf.release();

@@ -64,13 +64,13 @@ public class HpackEncoderBenchmark extends AbstractMicrobenchmark {
     @Param
     public HpackHeadersSize size;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean sensitive;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean duplicates;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean limitToAscii;
 
     private Http2Headers http2Headers;

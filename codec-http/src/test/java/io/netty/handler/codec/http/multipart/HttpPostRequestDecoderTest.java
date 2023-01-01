@@ -731,14 +731,14 @@ public class HttpPostRequestDecoderTest {
         String BOUNDARY = "01f136d9282f";
 
         byte[] bodyBytes = ("--" + BOUNDARY + "\n" +
-            "Content-Disposition: form-data; name=\"msg_id\"\n" +
-            "\n" +
-            "15200\n" +
-            "--" + BOUNDARY + "\n" +
-            "Content-Disposition: form-data; name=\"msg\"\n" +
-            "\n" +
-            "test message\n" +
-            "--" + BOUNDARY + "--").getBytes();
+                "Content-Disposition: form-data; name=\"msg_id\"\n" +
+                "\n" +
+                "15200\n" +
+                "--" + BOUNDARY + "\n" +
+                "Content-Disposition: form-data; name=\"msg\"\n" +
+                "\n" +
+                "test message\n" +
+                "--" + BOUNDARY + "--").getBytes();
         ByteBuf byteBuf = Unpooled.directBuffer(bodyBytes.length);
         byteBuf.writeBytes(bodyBytes);
 
@@ -1019,10 +1019,10 @@ public class HttpPostRequestDecoderTest {
 
         FullHttpRequest req =
                 new DefaultFullHttpRequest(
-                HttpVersion.HTTP_1_1,
-                HttpMethod.POST,
-                "/",
-                content);
+                        HttpVersion.HTTP_1_1,
+                        HttpMethod.POST,
+                        "/",
+                        content);
         HttpPostStandardRequestDecoder decoder = null;
         try {
             decoder = new HttpPostStandardRequestDecoder(

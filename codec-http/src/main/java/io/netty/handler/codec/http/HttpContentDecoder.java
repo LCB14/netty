@@ -142,7 +142,7 @@ public abstract class HttpContentDecoder extends MessageToMessageDecoder<HttpObj
                         copy = new DefaultHttpResponse(r.protocolVersion(), r.status());
                     } else {
                         throw new CodecException("Object of class " + message.getClass().getName() +
-                                                 " is not an HttpRequest or HttpResponse");
+                                " is not an HttpRequest or HttpResponse");
                     }
                     copy.headers().set(message.headers());
                     copy.setDecoderResult(message.decoderResult());
@@ -205,8 +205,8 @@ public abstract class HttpContentDecoder extends MessageToMessageDecoder<HttpObj
      *
      * @param contentEncoding the value of the {@code "Content-Encoding"} header
      * @return a new {@link EmbeddedChannel} if the specified encoding is supported.
-     *         {@code null} otherwise (alternatively, you can throw an exception
-     *         to block unknown encoding).
+     * {@code null} otherwise (alternatively, you can throw an exception
+     * to block unknown encoding).
      */
     protected abstract EmbeddedChannel newContentDecoder(String contentEncoding) throws Exception;
 
@@ -273,7 +273,7 @@ public abstract class HttpContentDecoder extends MessageToMessageDecoder<HttpObj
     }
 
     private void fetchDecoderOutput(List<Object> out) {
-        for (;;) {
+        for (; ; ) {
             ByteBuf buf = decoder.readInbound();
             if (buf == null) {
                 break;

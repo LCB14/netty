@@ -54,7 +54,7 @@ public class ObjectDecoder extends LengthFieldBasedFrameDecoder {
      * {@code 1048576} bytes, a {@link StreamCorruptedException} will be
      * raised.
      *
-     * @param classResolver  the {@link ClassResolver} to use for this decoder
+     * @param classResolver the {@link ClassResolver} to use for this decoder
      */
     public ObjectDecoder(ClassResolver classResolver) {
         this(1048576, classResolver);
@@ -63,12 +63,12 @@ public class ObjectDecoder extends LengthFieldBasedFrameDecoder {
     /**
      * Creates a new decoder with the specified maximum object size.
      *
-     * @param maxObjectSize  the maximum byte length of the serialized object.
-     *                       if the length of the received object is greater
-     *                       than this value, {@link StreamCorruptedException}
-     *                       will be raised.
-     * @param classResolver    the {@link ClassResolver} which will load the class
-     *                       of the serialized object
+     * @param maxObjectSize the maximum byte length of the serialized object.
+     *                      if the length of the received object is greater
+     *                      than this value, {@link StreamCorruptedException}
+     *                      will be raised.
+     * @param classResolver the {@link ClassResolver} which will load the class
+     *                      of the serialized object
      */
     public ObjectDecoder(int maxObjectSize, ClassResolver classResolver) {
         super(maxObjectSize, 0, 4, 0, 4);

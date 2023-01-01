@@ -92,11 +92,9 @@ public class JdkZlibEncoder extends ZlibEncoder {
      * Creates a new zlib encoder with the specified {@code compressionLevel}
      * and the default wrapper ({@link ZlibWrapper#ZLIB}).
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
      * @throws CompressionException if failed to initialize zlib
      */
     public JdkZlibEncoder(int compressionLevel) {
@@ -117,11 +115,9 @@ public class JdkZlibEncoder extends ZlibEncoder {
      * Creates a new zlib encoder with the specified {@code compressionLevel}
      * and the specified wrapper.
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
      * @throws CompressionException if failed to initialize zlib
      */
     public JdkZlibEncoder(ZlibWrapper wrapper, int compressionLevel) {
@@ -131,7 +127,7 @@ public class JdkZlibEncoder extends ZlibEncoder {
         if (wrapper == ZlibWrapper.ZLIB_OR_NONE) {
             throw new IllegalArgumentException(
                     "wrapper '" + ZlibWrapper.ZLIB_OR_NONE + "' is not " +
-                    "allowed for compression.");
+                            "allowed for compression.");
         }
 
         this.wrapper = wrapper;
@@ -144,8 +140,7 @@ public class JdkZlibEncoder extends ZlibEncoder {
      * {@link ZlibWrapper#ZLIB} because it is the only format that supports
      * the preset dictionary.
      *
-     * @param dictionary  the preset dictionary
-     *
+     * @param dictionary the preset dictionary
      * @throws CompressionException if failed to initialize zlib
      */
     public JdkZlibEncoder(byte[] dictionary) {
@@ -158,12 +153,10 @@ public class JdkZlibEncoder extends ZlibEncoder {
      * {@link ZlibWrapper#ZLIB} because it is the only format that supports
      * the preset dictionary.
      *
-     * @param compressionLevel
-     *        {@code 1} yields the fastest compression and {@code 9} yields the
-     *        best compression.  {@code 0} means no compression.  The default
-     *        compression level is {@code 6}.
-     * @param dictionary  the preset dictionary
-     *
+     * @param compressionLevel {@code 1} yields the fastest compression and {@code 9} yields the
+     *                         best compression.  {@code 0} means no compression.  The default
+     *                         compression level is {@code 6}.
+     * @param dictionary       the preset dictionary
      * @throws CompressionException if failed to initialize zlib
      */
     public JdkZlibEncoder(int compressionLevel, byte[] dictionary) {
@@ -263,7 +256,7 @@ public class JdkZlibEncoder extends ZlibEncoder {
         }
 
         deflater.setInput(inAry, offset, len);
-        for (;;) {
+        for (; ; ) {
             deflate(out);
             if (!out.isWritable()) {
                 // The buffer is not writable anymore. Increase the capacity to make more room.

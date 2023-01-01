@@ -48,8 +48,7 @@ public final class DeflateFrameServerExtensionHandshaker implements WebSocketSer
     /**
      * Constructor with custom configuration.
      *
-     * @param compressionLevel
-     *            Compression level between 0 and 9 (default is 6).
+     * @param compressionLevel Compression level between 0 and 9 (default is 6).
      */
     public DeflateFrameServerExtensionHandshaker(int compressionLevel) {
         this(compressionLevel, WebSocketExtensionFilterProvider.DEFAULT);
@@ -58,13 +57,11 @@ public final class DeflateFrameServerExtensionHandshaker implements WebSocketSer
     /**
      * Constructor with custom configuration.
      *
-     * @param compressionLevel
-     *            Compression level between 0 and 9 (default is 6).
-     * @param extensionFilterProvider
-     *            provides server extension filters for per frame deflate encoder and decoder.
+     * @param compressionLevel        Compression level between 0 and 9 (default is 6).
+     * @param extensionFilterProvider provides server extension filters for per frame deflate encoder and decoder.
      */
     public DeflateFrameServerExtensionHandshaker(int compressionLevel,
-            WebSocketExtensionFilterProvider extensionFilterProvider) {
+                                                 WebSocketExtensionFilterProvider extensionFilterProvider) {
         if (compressionLevel < 0 || compressionLevel > 9) {
             throw new IllegalArgumentException(
                     "compressionLevel: " + compressionLevel + " (expected: 0-9)");
@@ -76,7 +73,7 @@ public final class DeflateFrameServerExtensionHandshaker implements WebSocketSer
     @Override
     public WebSocketServerExtension handshakeExtension(WebSocketExtensionData extensionData) {
         if (!X_WEBKIT_DEFLATE_FRAME_EXTENSION.equals(extensionData.name()) &&
-            !DEFLATE_FRAME_EXTENSION.equals(extensionData.name())) {
+                !DEFLATE_FRAME_EXTENSION.equals(extensionData.name())) {
             return null;
         }
 
@@ -94,7 +91,7 @@ public final class DeflateFrameServerExtensionHandshaker implements WebSocketSer
         private final WebSocketExtensionFilterProvider extensionFilterProvider;
 
         DeflateFrameServerExtension(int compressionLevel, String extensionName,
-                WebSocketExtensionFilterProvider extensionFilterProvider) {
+                                    WebSocketExtensionFilterProvider extensionFilterProvider) {
             this.extensionName = extensionName;
             this.compressionLevel = compressionLevel;
             this.extensionFilterProvider = extensionFilterProvider;
@@ -108,7 +105,7 @@ public final class DeflateFrameServerExtensionHandshaker implements WebSocketSer
         @Override
         public WebSocketExtensionEncoder newExtensionEncoder() {
             return new PerFrameDeflateEncoder(compressionLevel, 15, false,
-                                              extensionFilterProvider.encoderFilter());
+                    extensionFilterProvider.encoderFilter());
         }
 
         @Override

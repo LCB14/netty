@@ -43,7 +43,7 @@ import static io.netty.handler.codec.http.HttpConstants.LF;
  * a {@link ByteBuf}.
  *
  * <h3>Extensibility</h3>
- *
+ * <p>
  * Please note that this encoder is designed to be extended to implement
  * a protocol derived from HTTP, such as
  * <a href="https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol">RTSP</a> and
@@ -54,7 +54,7 @@ import static io.netty.handler.codec.http.HttpConstants.LF;
 public abstract class HttpObjectEncoder<H extends HttpMessage> extends MessageToMessageEncoder<Object> {
     static final int CRLF_SHORT = (CR << 8) | LF;
     private static final int ZERO_CRLF_MEDIUM = ('0' << 16) | CRLF_SHORT;
-    private static final byte[] ZERO_CRLF_CRLF = { '0', CR, LF, CR, LF };
+    private static final byte[] ZERO_CRLF_CRLF = {'0', CR, LF, CR, LF};
     private static final ByteBuf CRLF_BUF = unreleasableBuffer(
             directBuffer(2).writeByte(CR).writeByte(LF)).asReadOnly();
     private static final ByteBuf ZERO_CRLF_CRLF_BUF = unreleasableBuffer(
@@ -256,6 +256,7 @@ public abstract class HttpObjectEncoder<H extends HttpMessage> extends MessageTo
             httpContent.release();
         }
     }
+
     @SuppressWarnings("ConditionCoveredByFurtherCondition")
     private void encodeNotHttpMessageContentTypes(ChannelHandlerContext ctx, Object msg, List<Object> out) {
         assert !(msg instanceof HttpMessage);

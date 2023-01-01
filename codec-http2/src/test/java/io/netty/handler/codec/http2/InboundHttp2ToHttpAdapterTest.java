@@ -276,7 +276,7 @@ public class InboundHttp2ToHttpAdapterTest {
                 public void run() throws Http2Exception {
                     clientHandler.encoder().writeHeaders(ctxClient(), 3, http2Headers, 0, false, newPromiseClient());
                     clientHandler.encoder().writeData(ctxClient(), 3, content.retainedDuplicate(), 0, true,
-                                                      newPromiseClient());
+                            newPromiseClient());
                     clientChannel.flush();
                 }
             });
@@ -388,7 +388,7 @@ public class InboundHttp2ToHttpAdapterTest {
                 public void run() throws Http2Exception {
                     clientHandler.encoder().writeHeaders(ctxClient(), 3, http2Headers, 0, false, newPromiseClient());
                     clientHandler.encoder().writeData(ctxClient(), 3, content.retainedDuplicate(), 0, false,
-                                                      newPromiseClient());
+                            newPromiseClient());
                     clientHandler.encoder().writeHeaders(ctxClient(), 3, http2Headers2, 0, true, newPromiseClient());
                     clientChannel.flush();
                 }
@@ -436,9 +436,9 @@ public class InboundHttp2ToHttpAdapterTest {
                             false, newPromiseClient());
                     clientChannel.flush(); // Headers are queued in the flow controller and so flush them.
                     clientHandler.encoder().writeData(ctxClient(), 3, content.retainedDuplicate(), 0, true,
-                                                      newPromiseClient());
+                            newPromiseClient());
                     clientHandler.encoder().writeData(ctxClient(), 5, content2.retainedDuplicate(), 0, true,
-                                                      newPromiseClient());
+                            newPromiseClient());
                     clientChannel.flush();
                 }
             });
@@ -513,9 +513,9 @@ public class InboundHttp2ToHttpAdapterTest {
                     serverHandler.encoder().writeHeaders(ctxServer(), 3, http2Headers, 0, false, newPromiseServer());
                     serverHandler.encoder().writePushPromise(ctxServer(), 3, 2, http2Headers2, 0, newPromiseServer());
                     serverHandler.encoder().writeData(ctxServer(), 3, content.retainedDuplicate(), 0, true,
-                                                      newPromiseServer());
+                            newPromiseServer());
                     serverHandler.encoder().writeData(ctxServer(), 5, content2.retainedDuplicate(), 0, true,
-                                                      newPromiseServer());
+                            newPromiseServer());
                     serverConnectedChannel.flush();
                 }
             });
@@ -545,7 +545,7 @@ public class InboundHttp2ToHttpAdapterTest {
         final Http2Headers http2Headers = new DefaultHttp2Headers().method(new AsciiString("PUT"))
                 .path(new AsciiString("/info/test"))
                 .set(new AsciiString(HttpHeaderNames.EXPECT.toString()),
-                     new AsciiString(HttpHeaderValues.CONTINUE.toString()));
+                        new AsciiString(HttpHeaderValues.CONTINUE.toString()));
         final FullHttpMessage response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE);
         final String text = "a big payload";
         final ByteBuf payload = Unpooled.copiedBuffer(text.getBytes());
@@ -570,7 +570,7 @@ public class InboundHttp2ToHttpAdapterTest {
                 @Override
                 public void run() throws Http2Exception {
                     serverHandler.encoder().writeHeaders(ctxServer(), 3, http2HeadersResponse, 0, false,
-                                                         newPromiseServer());
+                            newPromiseServer());
                     serverConnectedChannel.flush();
                 }
             });
@@ -583,7 +583,7 @@ public class InboundHttp2ToHttpAdapterTest {
                 @Override
                 public void run() {
                     clientHandler.encoder().writeData(ctxClient(), 3, payload.retainedDuplicate(), 0, true,
-                                                      newPromiseClient());
+                            newPromiseClient());
                     clientChannel.flush();
                 }
             });
@@ -599,7 +599,7 @@ public class InboundHttp2ToHttpAdapterTest {
                 @Override
                 public void run() throws Http2Exception {
                     serverHandler.encoder().writeHeaders(ctxServer(), 3, http2HeadersResponse2, 0, true,
-                                                         newPromiseServer());
+                            newPromiseServer());
                     serverConnectedChannel.flush();
                 }
             });
@@ -647,12 +647,12 @@ public class InboundHttp2ToHttpAdapterTest {
     }
 
     private void boostrapEnv(int clientLatchCount, int serverLatchCount, int settingsLatchCount)
-                throws InterruptedException {
+            throws InterruptedException {
         boostrapEnv(clientLatchCount, clientLatchCount, serverLatchCount, serverLatchCount, settingsLatchCount);
     }
 
     private void boostrapEnv(int clientLatchCount, int clientLatchCount2, int serverLatchCount, int serverLatchCount2,
-            int settingsLatchCount) throws InterruptedException {
+                             int settingsLatchCount) throws InterruptedException {
         final CountDownLatch prefaceWrittenLatch = new CountDownLatch(1);
         clientDelegator = null;
         serverDelegator = null;
@@ -679,14 +679,14 @@ public class InboundHttp2ToHttpAdapterTest {
                 Http2Connection connection = new DefaultHttp2Connection(true);
 
                 serverHandler = new Http2ConnectionHandlerBuilder().frameListener(
-                        new InboundHttp2ToHttpAdapterBuilder(connection)
-                           .maxContentLength(maxContentLength)
-                           .validateHttpHeaders(true)
-                           .propagateSettings(true)
-                           .build())
-                   .connection(connection)
-                   .gracefulShutdownTimeoutMillis(0)
-                   .build();
+                                new InboundHttp2ToHttpAdapterBuilder(connection)
+                                        .maxContentLength(maxContentLength)
+                                        .validateHttpHeaders(true)
+                                        .propagateSettings(true)
+                                        .build())
+                        .connection(connection)
+                        .gracefulShutdownTimeoutMillis(0)
+                        .build();
                 p.addLast(serverHandler);
 
                 serverDelegator = new HttpResponseDelegator(serverListener, serverLatch, serverLatch2);
@@ -706,12 +706,12 @@ public class InboundHttp2ToHttpAdapterTest {
                 Http2Connection connection = new DefaultHttp2Connection(false);
 
                 clientHandler = new Http2ConnectionHandlerBuilder().frameListener(
-                        new InboundHttp2ToHttpAdapterBuilder(connection)
-                           .maxContentLength(maxContentLength)
-                           .build())
-                   .connection(connection)
-                   .gracefulShutdownTimeoutMillis(0)
-                   .build();
+                                new InboundHttp2ToHttpAdapterBuilder(connection)
+                                        .maxContentLength(maxContentLength)
+                                        .build())
+                        .connection(connection)
+                        .gracefulShutdownTimeoutMillis(0)
+                        .build();
                 p.addLast(clientHandler);
 
                 clientDelegator = new HttpResponseDelegator(clientListener, clientLatch, clientLatch2);

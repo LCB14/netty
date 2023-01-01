@@ -54,12 +54,12 @@ import java.util.Map;
 /**
  * Special {@link KeyManagerFactory} that pre-compute the keymaterial used when {@link SslProvider#OPENSSL} or
  * {@link SslProvider#OPENSSL_REFCNT} is used and so will improve handshake times and its performance.
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Because the keymaterial is pre-computed any modification to the {@link KeyStore} is ignored after
  * {@link #init(KeyStore, char[])} is called.
- *
+ * <p>
  * {@link #init(ManagerFactoryParameters)} is not supported by this implementation and so a call to it will always
  * result in an {@link InvalidAlgorithmParameterException}.
  */
@@ -149,7 +149,7 @@ public final class OpenSslX509KeyManagerFactory extends KeyManagerFactory {
             if (providerFactory == null) {
                 throw new IllegalStateException("engineInit(...) not called yet");
             }
-            return new KeyManager[] { providerFactory.keyManager };
+            return new KeyManager[]{providerFactory.keyManager};
         }
 
         OpenSslKeyMaterialProvider newProvider() {
@@ -189,7 +189,7 @@ public final class OpenSslX509KeyManagerFactory extends KeyManagerFactory {
                     materialMap = new HashMap<String, Object>();
                     boolean initComplete = false;
                     try {
-                        for (String alias: aliases) {
+                        for (String alias : aliases) {
                             if (alias != null && !materialMap.containsKey(alias)) {
                                 try {
                                     materialMap.put(alias, super.chooseKeyMaterial(
@@ -225,7 +225,7 @@ public final class OpenSslX509KeyManagerFactory extends KeyManagerFactory {
 
                 @Override
                 void destroy() {
-                    for (Object material: materialMap.values()) {
+                    for (Object material : materialMap.values()) {
                         ReferenceCountUtil.release(material);
                     }
                     materialMap.clear();
@@ -242,7 +242,7 @@ public final class OpenSslX509KeyManagerFactory extends KeyManagerFactory {
      */
     public static OpenSslX509KeyManagerFactory newEngineBased(File certificateChain, String password)
             throws CertificateException, IOException,
-                   KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
+            KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
         return newEngineBased(SslContext.toX509Certificates(certificateChain), password);
     }
 
@@ -254,7 +254,7 @@ public final class OpenSslX509KeyManagerFactory extends KeyManagerFactory {
      */
     public static OpenSslX509KeyManagerFactory newEngineBased(X509Certificate[] certificateChain, String password)
             throws CertificateException, IOException,
-                   KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
+            KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
         checkNotNull(certificateChain, "certificateChain");
         KeyStore store = new OpenSslKeyStore(certificateChain.clone(), false);
         store.load(null, null);
@@ -326,17 +326,17 @@ public final class OpenSslX509KeyManagerFactory extends KeyManagerFactory {
 
                 @Override
                 public Certificate[] engineGetCertificateChain(String alias) {
-                    return engineContainsAlias(alias)? certificateChain.clone() : null;
+                    return engineContainsAlias(alias) ? certificateChain.clone() : null;
                 }
 
                 @Override
                 public Certificate engineGetCertificate(String alias) {
-                    return engineContainsAlias(alias)? certificateChain[0] : null;
+                    return engineContainsAlias(alias) ? certificateChain[0] : null;
                 }
 
                 @Override
                 public Date engineGetCreationDate(String alias) {
-                    return engineContainsAlias(alias)? creationDate : null;
+                    return engineContainsAlias(alias) ? creationDate : null;
                 }
 
                 @Override

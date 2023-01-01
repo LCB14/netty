@@ -175,7 +175,9 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
 
     private Queue<Object> inboundBuffer;
 
-    /** {@code true} after the first HEADERS frame has been written **/
+    /**
+     * {@code true} after the first HEADERS frame has been written
+     **/
     private boolean firstFrameWritten;
     private boolean readCompletePending;
 
@@ -241,7 +243,7 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
     }
 
     private void setWritable(boolean invokeLater) {
-        for (;;) {
+        for (; ; ) {
             final int oldValue = unwritable;
             final int newValue = oldValue & ~1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
@@ -254,7 +256,7 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
     }
 
     private void setUnwritable(boolean invokeLater) {
-        for (;;) {
+        for (; ; ) {
             final int oldValue = unwritable;
             final int newValue = oldValue | 1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
@@ -283,6 +285,7 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
             pipeline.fireChannelWritabilityChanged();
         }
     }
+
     @Override
     public Http2FrameStream stream() {
         return stream;
@@ -684,7 +687,7 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
             }
 
             if (inboundBuffer != null) {
-                for (;;) {
+                for (; ; ) {
                     Object msg = inboundBuffer.poll();
                     if (msg == null) {
                         break;
@@ -937,8 +940,8 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
             if (!firstFrameWritten && !isStreamIdValid(stream().id()) && !(frame instanceof Http2HeadersFrame)) {
                 ReferenceCountUtil.release(frame);
                 promise.setFailure(
-                    new IllegalArgumentException("The first frame must be a headers frame. Was: "
-                        + frame.name()));
+                        new IllegalArgumentException("The first frame must be a headers frame. Was: "
+                                + frame.name()));
                 return;
             }
 
@@ -1101,6 +1104,8 @@ abstract class AbstractHttp2StreamChannel extends DefaultAttributeMap implements
     }
 
     protected abstract boolean isParentReadInProgress();
+
     protected abstract void addChannelToReadCompletePendingQueue();
+
     protected abstract ChannelHandlerContext parentContext();
 }

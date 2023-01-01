@@ -42,6 +42,7 @@ import io.netty.handler.proxy.HttpProxyHandler.HttpProxyConnectException;
 import io.netty.util.NetUtil;
 
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
@@ -185,35 +186,35 @@ public class HttpProxyHandlerTest {
             final LocalAddress addr = new LocalAddress("a");
             final AtomicReference<Throwable> exception = new AtomicReference<Throwable>();
             ChannelFuture sf =
-                new ServerBootstrap().channel(LocalServerChannel.class).group(group).childHandler(
-                    new ChannelInitializer<Channel>() {
+                    new ServerBootstrap().channel(LocalServerChannel.class).group(group).childHandler(
+                            new ChannelInitializer<Channel>() {
 
-                        @Override
-                        protected void initChannel(Channel ch) {
-                            ch.pipeline().addFirst(new HttpResponseEncoder());
-                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(
-                                HttpVersion.HTTP_1_1,
-                                HttpResponseStatus.BAD_GATEWAY);
-                            response.headers().add("name", "value");
-                            response.headers().add(HttpHeaderNames.CONTENT_LENGTH, "0");
-                            ch.writeAndFlush(response);
-                        }
-                    }).bind(addr);
+                                @Override
+                                protected void initChannel(Channel ch) {
+                                    ch.pipeline().addFirst(new HttpResponseEncoder());
+                                    DefaultFullHttpResponse response = new DefaultFullHttpResponse(
+                                            HttpVersion.HTTP_1_1,
+                                            HttpResponseStatus.BAD_GATEWAY);
+                                    response.headers().add("name", "value");
+                                    response.headers().add(HttpHeaderNames.CONTENT_LENGTH, "0");
+                                    ch.writeAndFlush(response);
+                                }
+                            }).bind(addr);
             serverChannel = sf.sync().channel();
             ChannelFuture cf = new Bootstrap().channel(LocalChannel.class).group(group).handler(
-                new ChannelInitializer<Channel>() {
-                    @Override
-                    protected void initChannel(Channel ch) {
-                        ch.pipeline().addFirst(new HttpProxyHandler(addr));
-                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
-                            @Override
-                            public void exceptionCaught(ChannelHandlerContext ctx,
-                                Throwable cause) {
-                                exception.set(cause);
-                            }
-                        });
-                    }
-                }).connect(new InetSocketAddress("localhost", 1234));
+                    new ChannelInitializer<Channel>() {
+                        @Override
+                        protected void initChannel(Channel ch) {
+                            ch.pipeline().addFirst(new HttpProxyHandler(addr));
+                            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                                @Override
+                                public void exceptionCaught(ChannelHandlerContext ctx,
+                                                            Throwable cause) {
+                                    exception.set(cause);
+                                }
+                            });
+                        }
+                    }).connect(new InetSocketAddress("localhost", 1234));
             clientChannel = cf.sync().channel();
             clientChannel.close().sync();
 

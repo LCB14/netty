@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class MqttConnectReturnCodeBench extends AbstractMicrobenchmark {
 
-    private static final byte[] DATASET = new byte[] {
+    private static final byte[] DATASET = new byte[]{
             -103, -105, -100, -116, 0, 2, -100, 5, -125, 4, -118, -103, -123, 3, 0, -128, -119, 3, -99, 5, 0, -118,
             -100, 5, -102, -127, -116,
             -103, 4, -128, 0, -122, -101, -116, -128, -112, -124, -127, -118, -116, -107, -126, -119, -100, -121, -103,
@@ -153,62 +153,62 @@ public class MqttConnectReturnCodeBench extends AbstractMicrobenchmark {
 
     public static MqttConnectReturnCode switchValueOf(byte b) {
         switch (b) {
-        case 0:
-            return MqttConnectReturnCode.CONNECTION_ACCEPTED;
-        case 1:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_UNACCEPTABLE_PROTOCOL_VERSION;
-        case 2:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_IDENTIFIER_REJECTED;
-        case 3:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_UNAVAILABLE;
-        case 4:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD;
-        case 5:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_NOT_AUTHORIZED;
-        case -128:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_UNSPECIFIED_ERROR;
-        case -127:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_MALFORMED_PACKET;
-        case -126:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_PROTOCOL_ERROR;
-        case -125:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_IMPLEMENTATION_SPECIFIC;
-        case -124:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_UNSUPPORTED_PROTOCOL_VERSION;
-        case -123:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_CLIENT_IDENTIFIER_NOT_VALID;
-        case -122:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_BAD_USERNAME_OR_PASSWORD;
-        case -121:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_NOT_AUTHORIZED_5;
-        case -120:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_UNAVAILABLE_5;
-        case -119:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_BUSY;
-        case -118:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_BANNED;
-        case -116:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_BAD_AUTHENTICATION_METHOD;
-        case -112:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_TOPIC_NAME_INVALID;
-        case -107:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_PACKET_TOO_LARGE;
-        case -105:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_QUOTA_EXCEEDED;
-        case -103:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_PAYLOAD_FORMAT_INVALID;
-        case -102:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_RETAIN_NOT_SUPPORTED;
-        case -101:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_QOS_NOT_SUPPORTED;
-        case -100:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_USE_ANOTHER_SERVER;
-        case -99:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_MOVED;
-        case -97:
-            return MqttConnectReturnCode.CONNECTION_REFUSED_CONNECTION_RATE_EXCEEDED;
-        default:
-            throw new IllegalArgumentException("unknown connect return code: " + (b & 0xFF));
+            case 0:
+                return MqttConnectReturnCode.CONNECTION_ACCEPTED;
+            case 1:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_UNACCEPTABLE_PROTOCOL_VERSION;
+            case 2:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_IDENTIFIER_REJECTED;
+            case 3:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_UNAVAILABLE;
+            case 4:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD;
+            case 5:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_NOT_AUTHORIZED;
+            case -128:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_UNSPECIFIED_ERROR;
+            case -127:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_MALFORMED_PACKET;
+            case -126:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_PROTOCOL_ERROR;
+            case -125:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_IMPLEMENTATION_SPECIFIC;
+            case -124:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_UNSUPPORTED_PROTOCOL_VERSION;
+            case -123:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_CLIENT_IDENTIFIER_NOT_VALID;
+            case -122:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_BAD_USERNAME_OR_PASSWORD;
+            case -121:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_NOT_AUTHORIZED_5;
+            case -120:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_UNAVAILABLE_5;
+            case -119:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_BUSY;
+            case -118:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_BANNED;
+            case -116:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_BAD_AUTHENTICATION_METHOD;
+            case -112:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_TOPIC_NAME_INVALID;
+            case -107:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_PACKET_TOO_LARGE;
+            case -105:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_QUOTA_EXCEEDED;
+            case -103:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_PAYLOAD_FORMAT_INVALID;
+            case -102:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_RETAIN_NOT_SUPPORTED;
+            case -101:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_QOS_NOT_SUPPORTED;
+            case -100:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_USE_ANOTHER_SERVER;
+            case -99:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_SERVER_MOVED;
+            case -97:
+                return MqttConnectReturnCode.CONNECTION_REFUSED_CONNECTION_RATE_EXCEEDED;
+            default:
+                throw new IllegalArgumentException("unknown connect return code: " + (b & 0xFF));
         }
     }
 }

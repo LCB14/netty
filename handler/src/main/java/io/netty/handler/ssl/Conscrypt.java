@@ -71,5 +71,6 @@ final class Conscrypt {
         }
     }
 
-    private Conscrypt() { }
+    private Conscrypt() {
+    }
 }

@@ -30,6 +30,7 @@ abstract class PendingBytesTracker implements MessageSizeEstimator.Handle {
     }
 
     public abstract void incrementPendingOutboundBytes(long bytes);
+
     public abstract void decrementPendingOutboundBytes(long bytes);
 
     static PendingBytesTracker newTracker(Channel channel) {

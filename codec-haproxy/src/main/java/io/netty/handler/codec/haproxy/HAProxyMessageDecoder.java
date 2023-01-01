@@ -143,7 +143,7 @@ public class HAProxyMessageDecoder extends ByteToMessageDecoder {
      * as we exceed maxLength.
      *
      * @param maxTlvSize maximum number of bytes allowed for additional data (Type-Length-Value vectors) in a v2 header
-     * @param failFast Whether or not to throw an exception as soon as we exceed maxLength
+     * @param failFast   Whether or not to throw an exception as soon as we exceed maxLength
      */
     public HAProxyMessageDecoder(int maxTlvSize, boolean failFast) {
         if (maxTlvSize < 1) {
@@ -265,10 +265,10 @@ public class HAProxyMessageDecoder extends ByteToMessageDecoder {
     /**
      * Create a frame out of the {@link ByteBuf} and return it.
      *
-     * @param ctx     the {@link ChannelHandlerContext} which this {@link HAProxyMessageDecoder} belongs to
-     * @param buffer  the {@link ByteBuf} from which to read data
+     * @param ctx    the {@link ChannelHandlerContext} which this {@link HAProxyMessageDecoder} belongs to
+     * @param buffer the {@link ByteBuf} from which to read data
      * @return frame  the {@link ByteBuf} which represent the frame or {@code null} if no frame could
-     *                be created
+     * be created
      */
     private ByteBuf decodeStruct(ChannelHandlerContext ctx, ByteBuf buffer) throws Exception {
         if (headerExtractor == null) {
@@ -280,10 +280,10 @@ public class HAProxyMessageDecoder extends ByteToMessageDecoder {
     /**
      * Create a frame out of the {@link ByteBuf} and return it.
      *
-     * @param ctx     the {@link ChannelHandlerContext} which this {@link HAProxyMessageDecoder} belongs to
-     * @param buffer  the {@link ByteBuf} from which to read data
+     * @param ctx    the {@link ChannelHandlerContext} which this {@link HAProxyMessageDecoder} belongs to
+     * @param buffer the {@link ByteBuf} from which to read data
      * @return frame  the {@link ByteBuf} which represent the frame or {@code null} if no frame could
-     *                be created
+     * be created
      */
     private ByteBuf decodeLine(ChannelHandlerContext ctx, ByteBuf buffer) throws Exception {
         if (headerExtractor == null) {
@@ -350,7 +350,9 @@ public class HAProxyMessageDecoder extends ByteToMessageDecoder {
      * HeaderExtractor create a header frame out of the {@link ByteBuf}.
      */
     private abstract class HeaderExtractor {
-        /** Header max size */
+        /**
+         * Header max size
+         */
         private final int maxHeaderSize;
 
         protected HeaderExtractor(int maxHeaderSize) {
@@ -360,10 +362,10 @@ public class HAProxyMessageDecoder extends ByteToMessageDecoder {
         /**
          * Create a frame out of the {@link ByteBuf} and return it.
          *
-         * @param ctx     the {@link ChannelHandlerContext} which this {@link HAProxyMessageDecoder} belongs to
-         * @param buffer  the {@link ByteBuf} from which to read data
+         * @param ctx    the {@link ChannelHandlerContext} which this {@link HAProxyMessageDecoder} belongs to
+         * @param buffer the {@link ByteBuf} from which to read data
          * @return frame  the {@link ByteBuf} which represent the frame or {@code null} if no frame could
-         *                be created
+         * be created
          * @throws Exception if exceed maxLength
          */
         public ByteBuf extract(ChannelHandlerContext ctx, ByteBuf buffer) throws Exception {
@@ -421,7 +423,7 @@ public class HAProxyMessageDecoder extends ByteToMessageDecoder {
          * Get the length of the header delimiter.
          *
          * @param buffer the buffer where delimiter is located
-         * @param eoh index of delimiter
+         * @param eoh    index of delimiter
          * @return length of the delimiter
          */
         protected abstract int delimiterLength(ByteBuf buffer, int eoh);

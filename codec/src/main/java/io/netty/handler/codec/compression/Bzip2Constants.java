@@ -104,5 +104,6 @@ final class Bzip2Constants {
      */
     static final int HUFFMAN_MAXIMUM_TABLES = 6;
 
-    private Bzip2Constants() { }
+    private Bzip2Constants() {
+    }
 }

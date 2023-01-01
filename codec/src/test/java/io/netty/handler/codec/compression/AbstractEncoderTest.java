@@ -55,14 +55,14 @@ public abstract class AbstractEncoderTest extends AbstractCompressionTest {
         ByteBuf heap = Unpooled.wrappedBuffer(BYTES_SMALL);
         ByteBuf direct = Unpooled.directBuffer(BYTES_SMALL.length);
         direct.writeBytes(BYTES_SMALL);
-        return new ByteBuf[] {heap, direct};
+        return new ByteBuf[]{heap, direct};
     }
 
     public static ByteBuf[] largeData() {
         ByteBuf heap = Unpooled.wrappedBuffer(BYTES_LARGE);
         ByteBuf direct = Unpooled.directBuffer(BYTES_LARGE.length);
         direct.writeBytes(BYTES_LARGE);
-        return new ByteBuf[] {heap, direct};
+        return new ByteBuf[]{heap, direct};
     }
 
     @ParameterizedTest

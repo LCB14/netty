@@ -96,11 +96,11 @@ public class SocketSslClientRenegotiateTest extends AbstractSocketTest {
         }
 
         List<Object[]> params = new ArrayList<Object[]>();
-        for (SslContext sc: serverContexts) {
-            for (SslContext cc: clientContexts) {
+        for (SslContext sc : serverContexts) {
+            for (SslContext cc : clientContexts) {
                 for (int i = 0; i < 32; i++) {
-                    params.add(new Object[] { sc, cc, true});
-                    params.add(new Object[] { sc, cc, false});
+                    params.add(new Object[]{sc, cc, true});
+                    params.add(new Object[]{sc, cc, false});
                 }
             }
         }
@@ -262,6 +262,7 @@ public class SocketSslClientRenegotiateTest extends AbstractSocketTest {
         }
 
         @Override
-        public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) throws Exception { }
+        public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
+        }
     }
 }

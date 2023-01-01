@@ -69,12 +69,12 @@ public class OpenSslKeyMaterialManagerTest {
 
         OpenSslKeyMaterialManager manager = new OpenSslKeyMaterialManager(
                 new OpenSslKeyMaterialProvider(keyManager, null) {
-            @Override
-            OpenSslKeyMaterial chooseKeyMaterial(ByteBufAllocator allocator, String alias) throws Exception {
-                fail("Should not be called when alias is null");
-                return null;
-            }
-        });
+                    @Override
+                    OpenSslKeyMaterial chooseKeyMaterial(ByteBufAllocator allocator, String alias) throws Exception {
+                        fail("Should not be called when alias is null");
+                        return null;
+                    }
+                });
         SslContext context = SslContextBuilder.forClient().sslProvider(SslProvider.OPENSSL).build();
         OpenSslEngine engine =
                 (OpenSslEngine) context.newEngine(UnpooledByteBufAllocator.DEFAULT);

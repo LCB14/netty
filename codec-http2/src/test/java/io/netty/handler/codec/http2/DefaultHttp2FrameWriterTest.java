@@ -170,11 +170,11 @@ public class DefaultHttp2FrameWriterTest {
         assertEquals(0, payloadByteBuf.refCnt());
 
         byte[] expectedFrameBytes = {
-            (byte) 0x00, (byte) 0x00, (byte) 0x02, // payload length
-            (byte) 0x00, // payload type
-            (byte) 0x09, // flags
-            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, // stream id
-            (byte) 0x01, (byte) 0x00, // padding
+                (byte) 0x00, (byte) 0x00, (byte) 0x02, // payload length
+                (byte) 0x00, // payload type
+                (byte) 0x09, // flags
+                (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, // stream id
+                (byte) 0x01, (byte) 0x00, // padding
         };
         expectedOutbound = Unpooled.copiedBuffer(expectedFrameBytes);
         assertEquals(expectedOutbound, outbound);
@@ -200,7 +200,7 @@ public class DefaultHttp2FrameWriterTest {
 
         // First frame: HEADER(length=0x4000, flags=0x01)
         assertEquals(Http2CodecUtil.MAX_FRAME_SIZE_LOWER_BOUND,
-                     outbound.readUnsignedMedium());
+                outbound.readUnsignedMedium());
         assertEquals(0x01, outbound.readByte());
         assertEquals(0x01, outbound.readByte());
         assertEquals(streamId, outbound.readInt());
@@ -219,10 +219,10 @@ public class DefaultHttp2FrameWriterTest {
         outbound.readBytes(secondPayload);
 
         assertArrayEquals(Arrays.copyOfRange(expectedPayload, 0, firstPayload.length),
-                          firstPayload);
+                firstPayload);
         assertArrayEquals(Arrays.copyOfRange(expectedPayload, firstPayload.length,
-                                             expectedPayload.length),
-                          secondPayload);
+                        expectedPayload.length),
+                secondPayload);
     }
 
     @Test
@@ -263,7 +263,7 @@ public class DefaultHttp2FrameWriterTest {
         assertArrayEquals(Arrays.copyOfRange(expectedPayload, 0, firstPayload.length),
                 firstPayload);
         assertArrayEquals(Arrays.copyOfRange(expectedPayload, firstPayload.length,
-                expectedPayload.length),
+                        expectedPayload.length),
                 secondPayload);
     }
 
@@ -303,9 +303,9 @@ public class DefaultHttp2FrameWriterTest {
     @Test
     public void writePriority() {
         frameWriter.writePriority(
-            ctx, /* streamId= */ 1, /* dependencyId= */ 2, /* weight= */ (short) 256, /* exclusive= */ true, promise);
+                ctx, /* streamId= */ 1, /* dependencyId= */ 2, /* weight= */ (short) 256, /* exclusive= */ true, promise);
 
-        expectedOutbound = Unpooled.copiedBuffer(new byte[] {
+        expectedOutbound = Unpooled.copiedBuffer(new byte[]{
                 (byte) 0x00, (byte) 0x00, (byte) 0x05, // payload length = 5
                 (byte) 0x02, // payload type = 2
                 (byte) 0x00, // flags = 0x00
@@ -319,9 +319,9 @@ public class DefaultHttp2FrameWriterTest {
     @Test
     public void writePriorityDefaults() {
         frameWriter.writePriority(
-            ctx, /* streamId= */ 1, /* dependencyId= */ 0, /* weight= */ (short) 16, /* exclusive= */ false, promise);
+                ctx, /* streamId= */ 1, /* dependencyId= */ 0, /* weight= */ (short) 16, /* exclusive= */ false, promise);
 
-        expectedOutbound = Unpooled.copiedBuffer(new byte[] {
+        expectedOutbound = Unpooled.copiedBuffer(new byte[]{
                 (byte) 0x00, (byte) 0x00, (byte) 0x05, // payload length = 5
                 (byte) 0x02, // payload type = 2
                 (byte) 0x00, // flags = 0x00

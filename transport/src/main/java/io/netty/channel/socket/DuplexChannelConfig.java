@@ -28,7 +28,7 @@ import io.netty.channel.WriteBufferWaterMark;
  * A {@link ChannelConfig} for a {@link DuplexChannel}.
  *
  * <h3>Available options</h3>
- *
+ * <p>
  * In addition to the options provided by {@link ChannelConfig},
  * {@link DuplexChannelConfig} allows the following options in the option map:
  *

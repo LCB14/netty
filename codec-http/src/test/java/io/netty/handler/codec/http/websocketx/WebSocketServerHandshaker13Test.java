@@ -52,7 +52,7 @@ public class WebSocketServerHandshaker13Test extends WebSocketServerHandshakerTe
 
     @Override
     protected WebSocketServerHandshaker newHandshaker(String webSocketURL, String subprotocols,
-            WebSocketDecoderConfig decoderConfig) {
+                                                      WebSocketDecoderConfig decoderConfig) {
         return new WebSocketServerHandshaker13(webSocketURL, subprotocols, decoderConfig);
     }
 
@@ -98,16 +98,16 @@ public class WebSocketServerHandshaker13Test extends WebSocketServerHandshakerTe
     @Test
     public void testHandshakeExceptionWhenConnectionHeaderIsAbsent() {
         final WebSocketServerHandshaker serverHandshaker = newHandshaker("ws://example.com/chat",
-                                                                         "chat", WebSocketDecoderConfig.DEFAULT);
+                "chat", WebSocketDecoderConfig.DEFAULT);
         final FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-                                                                   "ws://example.com/chat");
+                "ws://example.com/chat");
         request.headers()
-               .set(HttpHeaderNames.HOST, "server.example.com")
-               .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, "13");
+                .set(HttpHeaderNames.HOST, "server.example.com")
+                .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, "13");
         Throwable exception = assertThrows(WebSocketServerHandshakeException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -116,24 +116,24 @@ public class WebSocketServerHandshaker13Test extends WebSocketServerHandshakerTe
         });
 
         assertEquals("not a WebSocket request: a |Connection| header must includes a token 'Upgrade'",
-                     exception.getMessage());
+                exception.getMessage());
         assertTrue(request.release());
     }
 
     @Test
     public void testHandshakeExceptionWhenInvalidConnectionHeader() {
         final WebSocketServerHandshaker serverHandshaker = newHandshaker("ws://example.com/chat",
-                                                                         "chat", WebSocketDecoderConfig.DEFAULT);
+                "chat", WebSocketDecoderConfig.DEFAULT);
         final FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-                                                                   "ws://example.com/chat");
+                "ws://example.com/chat");
         request.headers()
-               .set(HttpHeaderNames.HOST, "server.example.com")
-               .set(HttpHeaderNames.CONNECTION, "close")
-               .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, "13");
+                .set(HttpHeaderNames.HOST, "server.example.com")
+                .set(HttpHeaderNames.CONNECTION, "close")
+                .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, "13");
         Throwable exception = assertThrows(WebSocketServerHandshakeException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -142,24 +142,24 @@ public class WebSocketServerHandshaker13Test extends WebSocketServerHandshakerTe
         });
 
         assertEquals("not a WebSocket request: a |Connection| header must includes a token 'Upgrade'",
-                     exception.getMessage());
+                exception.getMessage());
         assertTrue(request.release());
     }
 
     @Test
     public void testHandshakeExceptionWhenInvalidUpgradeHeader() {
         final WebSocketServerHandshaker serverHandshaker = newHandshaker("ws://example.com/chat",
-                                                                         "chat", WebSocketDecoderConfig.DEFAULT);
+                "chat", WebSocketDecoderConfig.DEFAULT);
         final FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-                                                                   "ws://example.com/chat");
+                "ws://example.com/chat");
         request.headers()
-               .set(HttpHeaderNames.HOST, "server.example.com")
-               .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
-               .set(HttpHeaderNames.UPGRADE, "my_websocket")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, "13");
+                .set(HttpHeaderNames.HOST, "server.example.com")
+                .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
+                .set(HttpHeaderNames.UPGRADE, "my_websocket")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, "13");
         Throwable exception = assertThrows(WebSocketServerHandshakeException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -168,7 +168,7 @@ public class WebSocketServerHandshaker13Test extends WebSocketServerHandshakerTe
         });
 
         assertEquals("not a WebSocket request: a |Upgrade| header must containing the value 'websocket'",
-                     exception.getMessage());
+                exception.getMessage());
         assertTrue(request.release());
     }
 

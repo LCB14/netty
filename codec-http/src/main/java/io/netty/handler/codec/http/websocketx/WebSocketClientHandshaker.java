@@ -90,17 +90,12 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Base constructor
      *
-     * @param uri
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
+     * @param uri                   URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                              sent to this URL.
+     * @param version               Version of web socket specification to use to connect to the server
+     * @param subprotocol           Sub protocol request sent to the server.
+     * @param customHeaders         Map of custom headers to add to the client request
+     * @param maxFramePayloadLength Maximum length of a frame's payload
      */
     protected WebSocketClientHandshaker(URI uri, WebSocketVersion version, String subprotocol,
                                         HttpHeaders customHeaders, int maxFramePayloadLength) {
@@ -110,19 +105,13 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Base constructor
      *
-     * @param uri
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
+     * @param uri                     URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                                sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server.
+     * @param customHeaders           Map of custom headers to add to the client request
+     * @param maxFramePayloadLength   Maximum length of a frame's payload
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
      */
     protected WebSocketClientHandshaker(URI uri, WebSocketVersion version, String subprotocol,
                                         HttpHeaders customHeaders, int maxFramePayloadLength,
@@ -133,22 +122,15 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Base constructor
      *
-     * @param uri
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
-     * @param  absoluteUpgradeUrl
-     *            Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
-     *            clear HTTP
+     * @param uri                     URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                                sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server.
+     * @param customHeaders           Map of custom headers to add to the client request
+     * @param maxFramePayloadLength   Maximum length of a frame's payload
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
+     * @param absoluteUpgradeUrl      Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
+     *                                clear HTTP
      */
     protected WebSocketClientHandshaker(URI uri, WebSocketVersion version, String subprotocol,
                                         HttpHeaders customHeaders, int maxFramePayloadLength,
@@ -160,29 +142,21 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Base constructor
      *
-     * @param uri
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
-     *            sent to this URL.
-     * @param version
-     *            Version of web socket specification to use to connect to the server
-     * @param subprotocol
-     *            Sub protocol request sent to the server.
-     * @param customHeaders
-     *            Map of custom headers to add to the client request
-     * @param maxFramePayloadLength
-     *            Maximum length of a frame's payload
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
-     * @param  absoluteUpgradeUrl
-     *            Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
-     *            clear HTTP
-     * @param generateOriginHeader
-     *            Allows to generate the `Origin`|`Sec-WebSocket-Origin` header value for handshake request
-     *            according to the given webSocketURL
+     * @param uri                     URL for web socket communications. e.g "ws://myhost.com/mypath". Subsequent web socket frames will be
+     *                                sent to this URL.
+     * @param version                 Version of web socket specification to use to connect to the server
+     * @param subprotocol             Sub protocol request sent to the server.
+     * @param customHeaders           Map of custom headers to add to the client request
+     * @param maxFramePayloadLength   Maximum length of a frame's payload
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
+     * @param absoluteUpgradeUrl      Use an absolute url for the Upgrade request, typically when connecting through an HTTP proxy over
+     *                                clear HTTP
+     * @param generateOriginHeader    Allows to generate the `Origin`|`Sec-WebSocket-Origin` header value for handshake request
+     *                                according to the given webSocketURL
      */
     protected WebSocketClientHandshaker(URI uri, WebSocketVersion version, String subprotocol,
-            HttpHeaders customHeaders, int maxFramePayloadLength,
-            long forceCloseTimeoutMillis, boolean absoluteUpgradeUrl, boolean generateOriginHeader) {
+                                        HttpHeaders customHeaders, int maxFramePayloadLength,
+                                        long forceCloseTimeoutMillis, boolean absoluteUpgradeUrl, boolean generateOriginHeader) {
         this.uri = uri;
         this.version = version;
         expectedSubprotocol = subprotocol;
@@ -259,8 +233,7 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Sets timeout to close the connection if it was not closed by the server.
      *
-     * @param forceCloseTimeoutMillis
-     *            Close the connection if it was not closed by the server after timeout specified
+     * @param forceCloseTimeoutMillis Close the connection if it was not closed by the server after timeout specified
      */
     public WebSocketClientHandshaker setForceCloseTimeoutMillis(long forceCloseTimeoutMillis) {
         this.forceCloseTimeoutMillis = forceCloseTimeoutMillis;
@@ -270,8 +243,7 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Begins the opening handshake
      *
-     * @param channel
-     *            Channel
+     * @param channel Channel
      */
     public ChannelFuture handshake(Channel channel) {
         ObjectUtil.checkNotNull(channel, "channel");
@@ -281,10 +253,8 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Begins the opening handshake
      *
-     * @param channel
-     *            Channel
-     * @param promise
-     *            the {@link ChannelPromise} to be notified when the opening handshake is sent
+     * @param channel Channel
+     * @param promise the {@link ChannelPromise} to be notified when the opening handshake is sent
      */
     public final ChannelFuture handshake(Channel channel, final ChannelPromise promise) {
         ChannelPipeline pipeline = channel.pipeline();
@@ -292,9 +262,9 @@ public abstract class WebSocketClientHandshaker {
         if (decoder == null) {
             HttpClientCodec codec = pipeline.get(HttpClientCodec.class);
             if (codec == null) {
-               promise.setFailure(new IllegalStateException("ChannelPipeline does not contain " +
-                       "an HttpResponseDecoder or HttpClientCodec"));
-               return promise;
+                promise.setFailure(new IllegalStateException("ChannelPipeline does not contain " +
+                        "an HttpResponseDecoder or HttpClientCodec"));
+                return promise;
             }
         }
 
@@ -355,10 +325,8 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Validates and finishes the opening handshake initiated by {@link #handshake}}.
      *
-     * @param channel
-     *            Channel
-     * @param response
-     *            HTTP response containing the closing handshake details
+     * @param channel  Channel
+     * @param response HTTP response containing the closing handshake details
      */
     public final void finishHandshake(Channel channel, FullHttpResponse response) {
         verify(response);
@@ -413,7 +381,7 @@ public abstract class WebSocketClientHandshaker {
                 throw new IllegalStateException("ChannelPipeline does not contain " +
                         "an HttpRequestEncoder or HttpClientCodec");
             }
-            final HttpClientCodec codec =  (HttpClientCodec) ctx.handler();
+            final HttpClientCodec codec = (HttpClientCodec) ctx.handler();
             // Remove the encoder part of the codec as the user may start writing frames after this method returns.
             codec.removeOutboundHandler();
 
@@ -451,12 +419,10 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Process the opening handshake initiated by {@link #handshake}}.
      *
-     * @param channel
-     *            Channel
-     * @param response
-     *            HTTP response containing the closing handshake details
+     * @param channel  Channel
+     * @param response HTTP response containing the closing handshake details
      * @return future
-     *            the {@link ChannelFuture} which is notified once the handshake completes.
+     * the {@link ChannelFuture} which is notified once the handshake completes.
      */
     public final ChannelFuture processHandshake(final Channel channel, HttpResponse response) {
         return processHandshake(channel, response, channel.newPromise());
@@ -465,14 +431,11 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Process the opening handshake initiated by {@link #handshake}}.
      *
-     * @param channel
-     *            Channel
-     * @param response
-     *            HTTP response containing the closing handshake details
-     * @param promise
-     *            the {@link ChannelPromise} to notify once the handshake completes.
+     * @param channel  Channel
+     * @param response HTTP response containing the closing handshake details
+     * @param promise  the {@link ChannelPromise} to notify once the handshake completes.
      * @return future
-     *            the {@link ChannelFuture} which is notified once the handshake completes.
+     * the {@link ChannelFuture} which is notified once the handshake completes.
      */
     public final ChannelFuture processHandshake(final Channel channel, HttpResponse response,
                                                 final ChannelPromise promise) {
@@ -568,8 +531,8 @@ public abstract class WebSocketClientHandshaker {
                     if (response instanceof HttpResponse) {
                         HttpResponse httpResponse = (HttpResponse) response;
                         fullHttpResponse = new DefaultFullHttpResponse(httpResponse.protocolVersion(),
-                            httpResponse.status(), Unpooled.EMPTY_BUFFER, httpResponse.headers(),
-                            EmptyHttpHeaders.INSTANCE);
+                                httpResponse.status(), Unpooled.EMPTY_BUFFER, httpResponse.headers(),
+                                EmptyHttpHeaders.INSTANCE);
                         if (httpResponse.decoderResult().isFailure()) {
                             fullHttpResponse.setDecoderResult(httpResponse.decoderResult());
                         }
@@ -618,14 +581,12 @@ public abstract class WebSocketClientHandshaker {
 
     /**
      * Performs the closing handshake.
-     *
+     * <p>
      * When called from within a {@link ChannelHandler} you most likely want to use
      * {@link #close(ChannelHandlerContext, CloseWebSocketFrame)}.
      *
-     * @param channel
-     *            Channel
-     * @param frame
-     *            Closing Frame that was received
+     * @param channel Channel
+     * @param frame   Closing Frame that was received
      */
     public ChannelFuture close(Channel channel, CloseWebSocketFrame frame) {
         ObjectUtil.checkNotNull(channel, "channel");
@@ -634,16 +595,13 @@ public abstract class WebSocketClientHandshaker {
 
     /**
      * Performs the closing handshake
-     *
+     * <p>
      * When called from within a {@link ChannelHandler} you most likely want to use
      * {@link #close(ChannelHandlerContext, CloseWebSocketFrame, ChannelPromise)}.
      *
-     * @param channel
-     *            Channel
-     * @param frame
-     *            Closing Frame that was received
-     * @param promise
-     *            the {@link ChannelPromise} to be notified when the closing handshake is done
+     * @param channel Channel
+     * @param frame   Closing Frame that was received
+     * @param promise the {@link ChannelPromise} to be notified when the closing handshake is done
      */
     public ChannelFuture close(Channel channel, CloseWebSocketFrame frame, ChannelPromise promise) {
         ObjectUtil.checkNotNull(channel, "channel");
@@ -653,10 +611,8 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Performs the closing handshake
      *
-     * @param ctx
-     *            the {@link ChannelHandlerContext} to use.
-     * @param frame
-     *            Closing Frame that was received
+     * @param ctx   the {@link ChannelHandlerContext} to use.
+     * @param frame Closing Frame that was received
      */
     public ChannelFuture close(ChannelHandlerContext ctx, CloseWebSocketFrame frame) {
         ObjectUtil.checkNotNull(ctx, "ctx");
@@ -666,12 +622,9 @@ public abstract class WebSocketClientHandshaker {
     /**
      * Performs the closing handshake
      *
-     * @param ctx
-     *            the {@link ChannelHandlerContext} to use.
-     * @param frame
-     *            Closing Frame that was received
-     * @param promise
-     *            the {@link ChannelPromise} to be notified when the closing handshake is done
+     * @param ctx     the {@link ChannelHandlerContext} to use.
+     * @param frame   Closing Frame that was received
+     * @param promise the {@link ChannelPromise} to be notified when the closing handshake is done
      */
     public ChannelFuture close(ChannelHandlerContext ctx, CloseWebSocketFrame frame, ChannelPromise promise) {
         ObjectUtil.checkNotNull(ctx, "ctx");
@@ -761,8 +714,8 @@ public abstract class WebSocketClientHandshaker {
         int port = wsURL.getPort();
         final int defaultPort;
         if (WebSocketScheme.WSS.name().contentEquals(scheme)
-            || HttpScheme.HTTPS.name().contentEquals(scheme)
-            || (scheme == null && port == WebSocketScheme.WSS.port())) {
+                || HttpScheme.HTTPS.name().contentEquals(scheme)
+                || (scheme == null && port == WebSocketScheme.WSS.port())) {
 
             schemePrefix = HTTPS_SCHEME_PREFIX;
             defaultPort = WebSocketScheme.WSS.port();

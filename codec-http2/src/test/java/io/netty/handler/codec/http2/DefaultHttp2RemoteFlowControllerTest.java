@@ -806,7 +806,7 @@ public abstract class DefaultHttp2RemoteFlowControllerTest {
         final Http2Stream stream = stream(STREAM_A);
         when(flowControlled.size()).thenReturn(100);
         doThrow(new RuntimeException("write failed"))
-            .when(flowControlled).write(any(ChannelHandlerContext.class), anyInt());
+                .when(flowControlled).write(any(ChannelHandlerContext.class), anyInt());
         doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocationOnMock) {

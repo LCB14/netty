@@ -17,7 +17,7 @@
 /**
  * Abstraction of a byte buffer - the fundamental data structure
  * to represent a low-level binary and text message.
- *
+ * <p>
  * Netty uses its own buffer API instead of NIO {@link java.nio.ByteBuffer} to
  * represent a sequence of bytes. This approach has significant advantage over
  * using {@link java.nio.ByteBuffer}.  Netty's new buffer type,
@@ -34,7 +34,7 @@
  * </ul>
  *
  * <h3>Extensibility</h3>
- *
+ * <p>
  * {@link io.netty.buffer.ByteBuf} has rich set of operations
  * optimized for rapid protocol implementation.  For example,
  * {@link io.netty.buffer.ByteBuf} provides various operations
@@ -45,7 +45,7 @@
  * introducing an incompatible type.
  *
  * <h3>Transparent Zero Copy</h3>
- *
+ * <p>
  * To lift up the performance of a network application to the extreme, you need
  * to reduce the number of memory copy operation.  You might have a set of
  * buffers that could be sliced and combined to compose a whole message.  Netty
@@ -90,7 +90,7 @@
  * </pre>
  *
  * <h3>Automatic Capacity Extension</h3>
- *
+ * <p>
  * Many protocols define variable length messages, which means there's no way to
  * determine the length of a message until you construct the message or it is
  * difficult and inconvenient to calculate the length precisely.  It is just
@@ -116,7 +116,7 @@
  * </pre>
  *
  * <h3>Better Performance</h3>
- *
+ * <p>
  * Most frequently used buffer implementation of
  * {@link io.netty.buffer.ByteBuf} is a very thin wrapper of a
  * byte array (i.e. {@code byte[]}).  Unlike {@link java.nio.ByteBuffer}, it has

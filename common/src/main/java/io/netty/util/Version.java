@@ -89,7 +89,7 @@ public final class Version {
 
         // Collect all artifactIds.
         Set<String> artifactIds = new HashSet<String>();
-        for (Object o: props.keySet()) {
+        for (Object o : props.keySet()) {
             String k = (String) o;
 
             int dotIndex = k.indexOf('.');
@@ -101,11 +101,11 @@ public final class Version {
 
             // Skip the entries without required information.
             if (!props.containsKey(artifactId + PROP_VERSION) ||
-                !props.containsKey(artifactId + PROP_BUILD_DATE) ||
-                !props.containsKey(artifactId + PROP_COMMIT_DATE) ||
-                !props.containsKey(artifactId + PROP_SHORT_COMMIT_HASH) ||
-                !props.containsKey(artifactId + PROP_LONG_COMMIT_HASH) ||
-                !props.containsKey(artifactId + PROP_REPO_STATUS)) {
+                    !props.containsKey(artifactId + PROP_BUILD_DATE) ||
+                    !props.containsKey(artifactId + PROP_COMMIT_DATE) ||
+                    !props.containsKey(artifactId + PROP_SHORT_COMMIT_HASH) ||
+                    !props.containsKey(artifactId + PROP_LONG_COMMIT_HASH) ||
+                    !props.containsKey(artifactId + PROP_REPO_STATUS)) {
                 continue;
             }
 
@@ -113,7 +113,7 @@ public final class Version {
         }
 
         Map<String, Version> versions = new TreeMap<String, Version>();
-        for (String artifactId: artifactIds) {
+        for (String artifactId : artifactIds) {
             versions.put(
                     artifactId,
                     new Version(
@@ -141,7 +141,7 @@ public final class Version {
      * Prints the version information to {@link System#err}.
      */
     public static void main(String[] args) {
-        for (Version v: identify().values()) {
+        for (Version v : identify().values()) {
             System.err.println(v);
         }
     }
@@ -198,6 +198,6 @@ public final class Version {
     @Override
     public String toString() {
         return artifactId + '-' + artifactVersion + '.' + shortCommitHash +
-               ("clean".equals(repositoryStatus)? "" : " (repository: " + repositoryStatus + ')');
+                ("clean".equals(repositoryStatus) ? "" : " (repository: " + repositoryStatus + ')');
     }
 }

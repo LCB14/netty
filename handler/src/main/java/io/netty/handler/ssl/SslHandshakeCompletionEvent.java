@@ -27,7 +27,8 @@ public final class SslHandshakeCompletionEvent extends SslCompletionEvent {
     /**
      * Creates a new event that indicates a successful handshake.
      */
-    private SslHandshakeCompletionEvent() { }
+    private SslHandshakeCompletionEvent() {
+    }
 
     /**
      * Creates a new event that indicates an unsuccessful handshake.

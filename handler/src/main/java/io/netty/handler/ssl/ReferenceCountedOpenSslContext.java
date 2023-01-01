@@ -109,7 +109,7 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
     static final boolean SERVER_ENABLE_SESSION_TICKET =
             SystemPropertyUtil.getBoolean("jdk.tls.server.enableSessionTicketExtension", false);
 
-     static final boolean SERVER_ENABLE_SESSION_TICKET_TLSV13 =
+    static final boolean SERVER_ENABLE_SESSION_TICKET_TLSV13 =
             SystemPropertyUtil.getBoolean("jdk.tls.server.enableSessionTicketExtension", true);
 
     static final boolean SERVER_ENABLE_SESSION_CACHE =
@@ -526,6 +526,7 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
 
     /**
      * {@deprecated Renegotiation is not supported}
+     *
      * @return {@code true} because renegotiation is not supported.
      */
     @Deprecated
@@ -583,12 +584,12 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
     /**
      * Set the {@link OpenSslPrivateKeyMethod} to use. This allows to offload private-key operations
      * if needed.
-     *
+     * <p>
      * This method is currently only supported when {@code BoringSSL} is used.
      *
-     * @param        method method to use.
-     * @deprecated   use {@link SslContextBuilder#option(SslContextOption, Object)} with
-     *              {@link OpenSslContextOption#PRIVATE_KEY_METHOD}.
+     * @param method method to use.
+     * @deprecated use {@link SslContextBuilder#option(SslContextOption, Object)} with
+     * {@link OpenSslContextOption#PRIVATE_KEY_METHOD}.
      */
     @Deprecated
     @UnstableApi
@@ -604,8 +605,8 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
     }
 
     /**
-     * @deprecated   use {@link SslContextBuilder#option(SslContextOption, Object)} with
-     *              {@link OpenSslContextOption#USE_TASKS}.
+     * @deprecated use {@link SslContextBuilder#option(SslContextOption, Object)} with
+     * {@link OpenSslContextOption#USE_TASKS}.
      */
     @Deprecated
     public final void setUseTasks(boolean useTasks) {
@@ -857,7 +858,7 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
 
     static void setKeyMaterial(long ctx, X509Certificate[] keyCertChain, PrivateKey key, String keyPassword)
             throws SSLException {
-         /* Load the certificate file and private key. */
+        /* Load the certificate file and private key. */
         long keyBio = 0;
         long keyCertChainBio = 0;
         long keyCertChainBio2 = 0;
@@ -1009,6 +1010,7 @@ public abstract class ReferenceCountedOpenSslContext extends SslContext implemen
 
         private final OpenSslEngineMap engineMap;
         private final OpenSslPrivateKeyMethod keyMethod;
+
         PrivateKeyMethod(OpenSslEngineMap engineMap, OpenSslPrivateKeyMethod keyMethod) {
             this.engineMap = engineMap;
             this.keyMethod = keyMethod;

@@ -53,6 +53,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class SniClientTest {
     private static final String PARAMETERIZED_NAME = "{index}: serverSslProvider = {0}, clientSslProvider = {1}";
+
     static Collection<Object[]> parameters() {
         List<SslProvider> providers = new ArrayList<SslProvider>(Arrays.asList(SslProvider.values()));
         if (!OpenSsl.isAvailable()) {
@@ -61,9 +62,9 @@ public class SniClientTest {
         }
 
         List<Object[]> params = new ArrayList<Object[]>();
-        for (SslProvider sp: providers) {
-            for (SslProvider cp: providers) {
-                params.add(new Object[] { sp, cp });
+        for (SslProvider sp : providers) {
+            for (SslProvider cp : providers) {
+                params.add(new Object[]{sp, cp});
             }
         }
         return params;
@@ -107,21 +108,21 @@ public class SniClientTest {
         Channel cc = null;
         try {
             if ((sslServerProvider == SslProvider.OPENSSL || sslServerProvider == SslProvider.OPENSSL_REFCNT)
-                && !OpenSsl.useKeyManagerFactory()) {
+                    && !OpenSsl.useKeyManagerFactory()) {
                 sslServerContext = SslContextBuilder.forServer(cert.certificate(), cert.privateKey())
-                                                    .sslProvider(sslServerProvider)
-                                                    .build();
+                        .sslProvider(sslServerProvider)
+                        .build();
             } else {
                 // The used OpenSSL version does support a KeyManagerFactory, so use it.
                 KeyManagerFactory kmf = PlatformDependent.javaVersion() >= 8 ?
                         SniClientJava8TestUtil.newSniX509KeyManagerFactory(cert, sniHostName) :
                         SslContext.buildKeyManagerFactory(
-                                new X509Certificate[] { cert.cert() }, null,
+                                new X509Certificate[]{cert.cert()}, null,
                                 cert.key(), null, null, null);
 
-               sslServerContext = SslContextBuilder.forServer(kmf)
-                                                   .sslProvider(sslServerProvider)
-                                                   .build();
+                sslServerContext = SslContextBuilder.forServer(kmf)
+                        .sslProvider(sslServerProvider)
+                        .build();
             }
 
             final SslContext finalContext = sslServerContext;
@@ -144,7 +145,7 @@ public class SniClientTest {
                     SniClientJava8TestUtil.newSniX509TrustmanagerFactory(sniHostName) :
                     InsecureTrustManagerFactory.INSTANCE;
             sslClientContext = SslContextBuilder.forClient().trustManager(tmf)
-                                                     .sslProvider(sslClientProvider).build();
+                    .sslProvider(sslClientProvider).build();
             Bootstrap cb = new Bootstrap();
 
             SslHandler handler = new SslHandler(

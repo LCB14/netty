@@ -42,7 +42,7 @@ public abstract class AbstractOioByteChannel extends AbstractOioChannel {
     private static final ChannelMetadata METADATA = new ChannelMetadata(false);
     private static final String EXPECTED_TYPES =
             " (expected: " + StringUtil.simpleClassName(ByteBuf.class) + ", " +
-            StringUtil.simpleClassName(FileRegion.class) + ')';
+                    StringUtil.simpleClassName(FileRegion.class) + ')';
 
     /**
      * @see AbstractOioByteChannel#AbstractOioByteChannel(Channel)
@@ -58,12 +58,14 @@ public abstract class AbstractOioByteChannel extends AbstractOioChannel {
 
     /**
      * Determine if the input side of this channel is shutdown.
+     *
      * @return {@code true} if the input side of this channel is shutdown.
      */
     protected abstract boolean isInputShutdown();
 
     /**
      * Shutdown the input side of this channel.
+     *
      * @return A channel future that will complete when the shutdown is complete.
      */
     protected abstract ChannelFuture shutdownInput();
@@ -81,7 +83,7 @@ public abstract class AbstractOioByteChannel extends AbstractOioChannel {
     }
 
     private void handleReadException(ChannelPipeline pipeline, ByteBuf byteBuf, Throwable cause, boolean close,
-            RecvByteBufAllocator.Handle allocHandle) {
+                                     RecvByteBufAllocator.Handle allocHandle) {
         if (byteBuf != null) {
             if (byteBuf.isReadable()) {
                 readPending = false;
@@ -198,7 +200,7 @@ public abstract class AbstractOioByteChannel extends AbstractOioChannel {
 
     @Override
     protected void doWrite(ChannelOutboundBuffer in) throws Exception {
-        for (;;) {
+        for (; ; ) {
             Object msg = in.current();
             if (msg == null) {
                 // nothing left to write
@@ -245,26 +247,26 @@ public abstract class AbstractOioByteChannel extends AbstractOioChannel {
     /**
      * Read bytes from the underlying Socket.
      *
-     * @param buf           the {@link ByteBuf} into which the read bytes will be written
+     * @param buf the {@link ByteBuf} into which the read bytes will be written
      * @return amount       the number of bytes read. This may return a negative amount if the underlying
-     *                      Socket was closed
-     * @throws Exception    is thrown if an error occurred
+     * Socket was closed
+     * @throws Exception is thrown if an error occurred
      */
     protected abstract int doReadBytes(ByteBuf buf) throws Exception;
 
     /**
      * Write the data which is hold by the {@link ByteBuf} to the underlying Socket.
      *
-     * @param buf           the {@link ByteBuf} which holds the data to transfer
-     * @throws Exception    is thrown if an error occurred
+     * @param buf the {@link ByteBuf} which holds the data to transfer
+     * @throws Exception is thrown if an error occurred
      */
     protected abstract void doWriteBytes(ByteBuf buf) throws Exception;
 
     /**
      * Write the data which is hold by the {@link FileRegion} to the underlying Socket.
      *
-     * @param region        the {@link FileRegion} which holds the data to transfer
-     * @throws Exception    is thrown if an error occurred
+     * @param region the {@link FileRegion} which holds the data to transfer
+     * @throws Exception is thrown if an error occurred
      */
     protected abstract void doWriteFileRegion(FileRegion region) throws Exception;
 }

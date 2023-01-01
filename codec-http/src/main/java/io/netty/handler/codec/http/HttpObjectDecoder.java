@@ -88,7 +88,7 @@ import java.util.List;
  * </table>
  *
  * <h3>Chunked Content</h3>
- *
+ * <p>
  * If the content of an HTTP message is greater than {@code maxChunkSize} or
  * the transfer encoding of the HTTP message is 'chunked', this decoder
  * generates one {@link HttpMessage} instance and its following
@@ -113,14 +113,14 @@ import java.util.List;
  * <li>The second {@link LastHttpContent} whose content is {@code '1234567890abcdef'}, which marks
  * the end of the content.</li>
  * </ol>
- *
+ * <p>
  * If you prefer not to handle {@link HttpContent}s by yourself for your
  * convenience, insert {@link HttpObjectAggregator} after this decoder in the
  * {@link ChannelPipeline}.  However, please note that your server might not
  * be as memory efficient as without the aggregator.
  *
  * <h3>Extensibility</h3>
- *
+ * <p>
  * Please note that this decoder is designed to be extended to implement
  * a protocol derived from HTTP, such as
  * <a href="https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol">RTSP</a> and
@@ -186,7 +186,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
      */
     protected HttpObjectDecoder() {
         this(DEFAULT_MAX_INITIAL_LINE_LENGTH, DEFAULT_MAX_HEADER_SIZE, DEFAULT_MAX_CHUNK_SIZE,
-             DEFAULT_CHUNKED_SUPPORTED);
+                DEFAULT_CHUNKED_SUPPORTED);
     }
 
     /**
@@ -204,7 +204,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
             int maxInitialLineLength, int maxHeaderSize, int maxChunkSize,
             boolean chunkedSupported, boolean validateHeaders) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, chunkedSupported, validateHeaders,
-             DEFAULT_INITIAL_BUFFER_SIZE);
+                DEFAULT_INITIAL_BUFFER_SIZE);
     }
 
     /**
@@ -214,7 +214,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
             int maxInitialLineLength, int maxHeaderSize, int maxChunkSize,
             boolean chunkedSupported, boolean validateHeaders, int initialBufferSize) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, chunkedSupported, validateHeaders, initialBufferSize,
-             DEFAULT_ALLOW_DUPLICATE_CONTENT_LENGTHS);
+                DEFAULT_ALLOW_DUPLICATE_CONTENT_LENGTHS);
     }
 
     /**
@@ -225,7 +225,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
             boolean chunkedSupported, boolean validateHeaders, int initialBufferSize,
             boolean allowDuplicateContentLengths) {
         this(maxInitialLineLength, maxHeaderSize, maxChunkSize, chunkedSupported, validateHeaders, initialBufferSize,
-            allowDuplicateContentLengths, DEFAULT_ALLOW_PARTIAL_CHUNKS);
+                allowDuplicateContentLengths, DEFAULT_ALLOW_PARTIAL_CHUNKS);
     }
 
     /**
@@ -256,203 +256,207 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
         }
 
         switch (currentState) {
-        case SKIP_CONTROL_CHARS:
-            // Fall-through
-        case READ_INITIAL: try {
-            AppendableCharSequence line = lineParser.parse(buffer);
-            if (line == null) {
-                return;
-            }
-            String[] initialLine = splitInitialLine(line);
-            if (initialLine.length < 3) {
-                // Invalid initial line - ignore.
-                currentState = State.SKIP_CONTROL_CHARS;
-                return;
-            }
-
-            message = createMessage(initialLine);
-            currentState = State.READ_HEADER;
-            // fall-through
-        } catch (Exception e) {
-            out.add(invalidMessage(buffer, e));
-            return;
-        }
-        case READ_HEADER: try {
-            State nextState = readHeaders(buffer);
-            if (nextState == null) {
-                return;
-            }
-            currentState = nextState;
-            switch (nextState) {
             case SKIP_CONTROL_CHARS:
-                // fast-path
-                // No content is expected.
-                out.add(message);
-                out.add(LastHttpContent.EMPTY_LAST_CONTENT);
-                resetNow();
-                return;
-            case READ_CHUNK_SIZE:
-                if (!chunkedSupported) {
-                    throw new IllegalArgumentException("Chunked messages not supported");
+                // Fall-through
+            case READ_INITIAL:
+                try {
+                    AppendableCharSequence line = lineParser.parse(buffer);
+                    if (line == null) {
+                        return;
+                    }
+                    String[] initialLine = splitInitialLine(line);
+                    if (initialLine.length < 3) {
+                        // Invalid initial line - ignore.
+                        currentState = State.SKIP_CONTROL_CHARS;
+                        return;
+                    }
+
+                    message = createMessage(initialLine);
+                    currentState = State.READ_HEADER;
+                    // fall-through
+                } catch (Exception e) {
+                    out.add(invalidMessage(buffer, e));
+                    return;
                 }
-                // Chunked encoding - generate HttpMessage first.  HttpChunks will follow.
-                out.add(message);
+            case READ_HEADER:
+                try {
+                    State nextState = readHeaders(buffer);
+                    if (nextState == null) {
+                        return;
+                    }
+                    currentState = nextState;
+                    switch (nextState) {
+                        case SKIP_CONTROL_CHARS:
+                            // fast-path
+                            // No content is expected.
+                            out.add(message);
+                            out.add(LastHttpContent.EMPTY_LAST_CONTENT);
+                            resetNow();
+                            return;
+                        case READ_CHUNK_SIZE:
+                            if (!chunkedSupported) {
+                                throw new IllegalArgumentException("Chunked messages not supported");
+                            }
+                            // Chunked encoding - generate HttpMessage first.  HttpChunks will follow.
+                            out.add(message);
+                            return;
+                        default:
+                            /**
+                             * <a href="https://tools.ietf.org/html/rfc7230#section-3.3.3">RFC 7230, 3.3.3</a> states that if a
+                             * request does not have either a transfer-encoding or a content-length header then the message body
+                             * length is 0. However for a response the body length is the number of octets received prior to the
+                             * server closing the connection. So we treat this as variable length chunked encoding.
+                             */
+                            long contentLength = contentLength();
+                            if (contentLength == 0 || contentLength == -1 && isDecodingRequest()) {
+                                out.add(message);
+                                out.add(LastHttpContent.EMPTY_LAST_CONTENT);
+                                resetNow();
+                                return;
+                            }
+
+                            assert nextState == State.READ_FIXED_LENGTH_CONTENT ||
+                                    nextState == State.READ_VARIABLE_LENGTH_CONTENT;
+
+                            out.add(message);
+
+                            if (nextState == State.READ_FIXED_LENGTH_CONTENT) {
+                                // chunkSize will be decreased as the READ_FIXED_LENGTH_CONTENT state reads data chunk by chunk.
+                                chunkSize = contentLength;
+                            }
+
+                            // We return here, this forces decode to be called again where we will decode the content
+                            return;
+                    }
+                } catch (Exception e) {
+                    out.add(invalidMessage(buffer, e));
+                    return;
+                }
+            case READ_VARIABLE_LENGTH_CONTENT: {
+                // Keep reading data as a chunk until the end of connection is reached.
+                int toRead = Math.min(buffer.readableBytes(), maxChunkSize);
+                if (toRead > 0) {
+                    ByteBuf content = buffer.readRetainedSlice(toRead);
+                    out.add(new DefaultHttpContent(content));
+                }
                 return;
-            default:
-                /**
-                 * <a href="https://tools.ietf.org/html/rfc7230#section-3.3.3">RFC 7230, 3.3.3</a> states that if a
-                 * request does not have either a transfer-encoding or a content-length header then the message body
-                 * length is 0. However for a response the body length is the number of octets received prior to the
-                 * server closing the connection. So we treat this as variable length chunked encoding.
-                 */
-                long contentLength = contentLength();
-                if (contentLength == 0 || contentLength == -1 && isDecodingRequest()) {
-                    out.add(message);
-                    out.add(LastHttpContent.EMPTY_LAST_CONTENT);
-                    resetNow();
+            }
+            case READ_FIXED_LENGTH_CONTENT: {
+                int readLimit = buffer.readableBytes();
+
+                // Check if the buffer is readable first as we use the readable byte count
+                // to create the HttpChunk. This is needed as otherwise we may end up with
+                // create an HttpChunk instance that contains an empty buffer and so is
+                // handled like it is the last HttpChunk.
+                //
+                // See https://github.com/netty/netty/issues/433
+                if (readLimit == 0) {
                     return;
                 }
 
-                assert nextState == State.READ_FIXED_LENGTH_CONTENT ||
-                        nextState == State.READ_VARIABLE_LENGTH_CONTENT;
-
-                out.add(message);
-
-                if (nextState == State.READ_FIXED_LENGTH_CONTENT) {
-                    // chunkSize will be decreased as the READ_FIXED_LENGTH_CONTENT state reads data chunk by chunk.
-                    chunkSize = contentLength;
+                int toRead = Math.min(readLimit, maxChunkSize);
+                if (toRead > chunkSize) {
+                    toRead = (int) chunkSize;
                 }
-
-                // We return here, this forces decode to be called again where we will decode the content
-                return;
-            }
-        } catch (Exception e) {
-            out.add(invalidMessage(buffer, e));
-            return;
-        }
-        case READ_VARIABLE_LENGTH_CONTENT: {
-            // Keep reading data as a chunk until the end of connection is reached.
-            int toRead = Math.min(buffer.readableBytes(), maxChunkSize);
-            if (toRead > 0) {
                 ByteBuf content = buffer.readRetainedSlice(toRead);
-                out.add(new DefaultHttpContent(content));
-            }
-            return;
-        }
-        case READ_FIXED_LENGTH_CONTENT: {
-            int readLimit = buffer.readableBytes();
+                chunkSize -= toRead;
 
-            // Check if the buffer is readable first as we use the readable byte count
-            // to create the HttpChunk. This is needed as otherwise we may end up with
-            // create an HttpChunk instance that contains an empty buffer and so is
-            // handled like it is the last HttpChunk.
-            //
-            // See https://github.com/netty/netty/issues/433
-            if (readLimit == 0) {
-                return;
-            }
-
-            int toRead = Math.min(readLimit, maxChunkSize);
-            if (toRead > chunkSize) {
-                toRead = (int) chunkSize;
-            }
-            ByteBuf content = buffer.readRetainedSlice(toRead);
-            chunkSize -= toRead;
-
-            if (chunkSize == 0) {
-                // Read all content.
-                out.add(new DefaultLastHttpContent(content, validateHeaders));
-                resetNow();
-            } else {
-                out.add(new DefaultHttpContent(content));
-            }
-            return;
-        }
-        /**
-         * everything else after this point takes care of reading chunked content. basically, read chunk size,
-         * read chunk, read and ignore the CRLF and repeat until 0
-         */
-        case READ_CHUNK_SIZE: try {
-            AppendableCharSequence line = lineParser.parse(buffer);
-            if (line == null) {
-                return;
-            }
-            int chunkSize = getChunkSize(line.toString());
-            this.chunkSize = chunkSize;
-            if (chunkSize == 0) {
-                currentState = State.READ_CHUNK_FOOTER;
-                return;
-            }
-            currentState = State.READ_CHUNKED_CONTENT;
-            // fall-through
-        } catch (Exception e) {
-            out.add(invalidChunk(buffer, e));
-            return;
-        }
-        case READ_CHUNKED_CONTENT: {
-            assert chunkSize <= Integer.MAX_VALUE;
-            int toRead = Math.min((int) chunkSize, maxChunkSize);
-            if (!allowPartialChunks && buffer.readableBytes() < toRead) {
-                return;
-            }
-            toRead = Math.min(toRead, buffer.readableBytes());
-            if (toRead == 0) {
-                return;
-            }
-            HttpContent chunk = new DefaultHttpContent(buffer.readRetainedSlice(toRead));
-            chunkSize -= toRead;
-
-            out.add(chunk);
-
-            if (chunkSize != 0) {
-                return;
-            }
-            currentState = State.READ_CHUNK_DELIMITER;
-            // fall-through
-        }
-        case READ_CHUNK_DELIMITER: {
-            final int wIdx = buffer.writerIndex();
-            int rIdx = buffer.readerIndex();
-            while (wIdx > rIdx) {
-                byte next = buffer.getByte(rIdx++);
-                if (next == HttpConstants.LF) {
-                    currentState = State.READ_CHUNK_SIZE;
-                    break;
+                if (chunkSize == 0) {
+                    // Read all content.
+                    out.add(new DefaultLastHttpContent(content, validateHeaders));
+                    resetNow();
+                } else {
+                    out.add(new DefaultHttpContent(content));
                 }
-            }
-            buffer.readerIndex(rIdx);
-            return;
-        }
-        case READ_CHUNK_FOOTER: try {
-            LastHttpContent trailer = readTrailingHeaders(buffer);
-            if (trailer == null) {
                 return;
             }
-            out.add(trailer);
-            resetNow();
-            return;
-        } catch (Exception e) {
-            out.add(invalidChunk(buffer, e));
-            return;
-        }
-        case BAD_MESSAGE: {
-            // Keep discarding until disconnection.
-            buffer.skipBytes(buffer.readableBytes());
-            break;
-        }
-        case UPGRADED: {
-            int readableBytes = buffer.readableBytes();
-            if (readableBytes > 0) {
-                // Keep on consuming as otherwise we may trigger an DecoderException,
-                // other handler will replace this codec with the upgraded protocol codec to
-                // take the traffic over at some point then.
-                // See https://github.com/netty/netty/issues/2173
-                out.add(buffer.readBytes(readableBytes));
+            /**
+             * everything else after this point takes care of reading chunked content. basically, read chunk size,
+             * read chunk, read and ignore the CRLF and repeat until 0
+             */
+            case READ_CHUNK_SIZE:
+                try {
+                    AppendableCharSequence line = lineParser.parse(buffer);
+                    if (line == null) {
+                        return;
+                    }
+                    int chunkSize = getChunkSize(line.toString());
+                    this.chunkSize = chunkSize;
+                    if (chunkSize == 0) {
+                        currentState = State.READ_CHUNK_FOOTER;
+                        return;
+                    }
+                    currentState = State.READ_CHUNKED_CONTENT;
+                    // fall-through
+                } catch (Exception e) {
+                    out.add(invalidChunk(buffer, e));
+                    return;
+                }
+            case READ_CHUNKED_CONTENT: {
+                assert chunkSize <= Integer.MAX_VALUE;
+                int toRead = Math.min((int) chunkSize, maxChunkSize);
+                if (!allowPartialChunks && buffer.readableBytes() < toRead) {
+                    return;
+                }
+                toRead = Math.min(toRead, buffer.readableBytes());
+                if (toRead == 0) {
+                    return;
+                }
+                HttpContent chunk = new DefaultHttpContent(buffer.readRetainedSlice(toRead));
+                chunkSize -= toRead;
+
+                out.add(chunk);
+
+                if (chunkSize != 0) {
+                    return;
+                }
+                currentState = State.READ_CHUNK_DELIMITER;
+                // fall-through
             }
-            break;
-        }
-        default:
-            break;
+            case READ_CHUNK_DELIMITER: {
+                final int wIdx = buffer.writerIndex();
+                int rIdx = buffer.readerIndex();
+                while (wIdx > rIdx) {
+                    byte next = buffer.getByte(rIdx++);
+                    if (next == HttpConstants.LF) {
+                        currentState = State.READ_CHUNK_SIZE;
+                        break;
+                    }
+                }
+                buffer.readerIndex(rIdx);
+                return;
+            }
+            case READ_CHUNK_FOOTER:
+                try {
+                    LastHttpContent trailer = readTrailingHeaders(buffer);
+                    if (trailer == null) {
+                        return;
+                    }
+                    out.add(trailer);
+                    resetNow();
+                    return;
+                } catch (Exception e) {
+                    out.add(invalidChunk(buffer, e));
+                    return;
+                }
+            case BAD_MESSAGE: {
+                // Keep discarding until disconnection.
+                buffer.skipBytes(buffer.readableBytes());
+                break;
+            }
+            case UPGRADED: {
+                int readableBytes = buffer.readableBytes();
+                if (readableBytes > 0) {
+                    // Keep on consuming as otherwise we may trigger an DecoderException,
+                    // other handler will replace this codec with the upgraded protocol codec to
+                    // take the traffic over at some point then.
+                    // See https://github.com/netty/netty/issues/2173
+                    out.add(buffer.readBytes(readableBytes));
+                }
+                break;
+            }
+            default:
+                break;
         }
     }
 
@@ -507,13 +511,13 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof HttpExpectationFailedEvent) {
             switch (currentState) {
-            case READ_FIXED_LENGTH_CONTENT:
-            case READ_VARIABLE_LENGTH_CONTENT:
-            case READ_CHUNK_SIZE:
-                reset();
-                break;
-            default:
-                break;
+                case READ_FIXED_LENGTH_CONTENT:
+                case READ_VARIABLE_LENGTH_CONTENT:
+                case READ_CHUNK_SIZE:
+                    reset();
+                    break;
+                default:
+                    break;
             }
         }
         super.userEventTriggered(ctx, evt);
@@ -534,14 +538,15 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
             if (statusClass == HttpStatusClass.INFORMATIONAL) {
                 // One exception: Hixie 76 websocket handshake response
                 return !(code == 101 && !res.headers().contains(HttpHeaderNames.SEC_WEBSOCKET_ACCEPT)
-                         && res.headers().contains(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET, true));
+                        && res.headers().contains(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET, true));
             }
 
             switch (code) {
-            case 204: case 304:
-                return true;
-            default:
-                return false;
+                case 204:
+                case 304:
+                    return true;
+                default:
+                    return false;
             }
         }
         return false;
@@ -558,7 +563,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
         String newProtocol = msg.headers().get(HttpHeaderNames.UPGRADE);
         return newProtocol == null ||
                 !newProtocol.contains(HttpVersion.HTTP_1_0.text()) &&
-                !newProtocol.contains(HttpVersion.HTTP_1_1.text());
+                        !newProtocol.contains(HttpVersion.HTTP_1_1.text());
     }
 
     /**
@@ -783,12 +788,14 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
     }
 
     protected abstract boolean isDecodingRequest();
+
     protected abstract HttpMessage createMessage(String[] initialLine) throws Exception;
+
     protected abstract HttpMessage createInvalidMessage();
 
     private static int getChunkSize(String hex) {
         hex = hex.trim();
-        for (int i = 0; i < hex.length(); i ++) {
+        for (int i = 0; i < hex.length(); i++) {
             char c = hex.charAt(i);
             if (c == ';' || Character.isWhitespace(c) || Character.isISOControl(c)) {
                 hex = hex.substring(0, i);
@@ -816,10 +823,10 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
         cStart = findNonSPLenient(sb, bEnd);
         cEnd = findEndOfString(sb);
 
-        return new String[] {
+        return new String[]{
                 sb.subStringUnsafe(aStart, aEnd),
                 sb.subStringUnsafe(bStart, bEnd),
-                cStart < cEnd? sb.subStringUnsafe(cStart, cEnd) : "" };
+                cStart < cEnd ? sb.subStringUnsafe(cStart, cEnd) : ""};
     }
 
     private void splitHeader(AppendableCharSequence sb) {
@@ -831,7 +838,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
         int valueEnd;
 
         nameStart = findNonWhitespace(sb, 0);
-        for (nameEnd = nameStart; nameEnd < length; nameEnd ++) {
+        for (nameEnd = nameStart; nameEnd < length; nameEnd++) {
             char ch = sb.charAtUnsafe(nameEnd);
             // https://tools.ietf.org/html/rfc7230#section-3.2.4
             //
@@ -857,9 +864,9 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
             throw new IllegalArgumentException("No colon found");
         }
 
-        for (colonEnd = nameEnd; colonEnd < length; colonEnd ++) {
+        for (colonEnd = nameEnd; colonEnd < length; colonEnd++) {
             if (sb.charAtUnsafe(colonEnd) == ':') {
-                colonEnd ++;
+                colonEnd++;
                 break;
             }
         }
@@ -964,7 +971,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
                 int len = seq.length();
                 // Drop CR if we had a CRLF pair
                 if (len >= 1 && seq.charAtUnsafe(len - 1) == HttpConstants.CR) {
-                    -- size;
+                    --size;
                     seq.setLength(len - 1);
                 }
                 return false;
@@ -977,7 +984,7 @@ public abstract class HttpObjectDecoder extends ByteToMessageDecoder {
         }
 
         protected final void increaseCount() {
-            if (++ size > maxLength) {
+            if (++size > maxLength) {
                 // TODO: Respond with Bad Request and discard the traffic
                 //    or close the connection.
                 //       No need to notify the upstream handlers - just log.

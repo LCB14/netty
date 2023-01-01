@@ -37,6 +37,7 @@ public interface StreamByteDistributor {
         /**
          * Get the amount of bytes this stream has pending to send. The actual amount written must not exceed
          * {@link #windowSize()}!
+         *
          * @return The amount of bytes this stream has pending to send.
          * @see Http2CodecUtil#streamableBytes(StreamState)
          */
@@ -53,6 +54,7 @@ public interface StreamByteDistributor {
          * if the window size is negative. The window size being {@code 0} may also be significant to determine when if
          * an stream has been given a chance to write an empty frame, and also enables optimizations like not writing
          * empty frames in some situations (don't write headers until data can also be written).
+         *
          * @return the size of the stream's flow control window.
          * @see Http2CodecUtil#streamableBytes(StreamState)
          */
@@ -68,7 +70,8 @@ public interface StreamByteDistributor {
          * <p>
          * Any {@link Throwable} thrown from this method is considered a programming error.
          * A {@code GOAWAY} frame will be sent and the will be connection closed.
-         * @param stream the stream for which to perform the write.
+         *
+         * @param stream   the stream for which to perform the write.
          * @param numBytes the number of bytes to write.
          */
         void write(Http2Stream stream, int numBytes);
@@ -83,12 +86,13 @@ public interface StreamByteDistributor {
 
     /**
      * Explicitly update the dependency tree. This method is called independently of stream state changes.
-     * @param childStreamId The stream identifier associated with the child stream.
+     *
+     * @param childStreamId  The stream identifier associated with the child stream.
      * @param parentStreamId The stream identifier associated with the parent stream. May be {@code 0},
      *                       to make {@code childStreamId} and immediate child of the connection.
-     * @param weight The weight which is used relative to other child streams for {@code parentStreamId}. This value
-     *               must be between 1 and 256 (inclusive).
-     * @param exclusive If {@code childStreamId} should be the exclusive dependency of {@code parentStreamId}.
+     * @param weight         The weight which is used relative to other child streams for {@code parentStreamId}. This value
+     *                       must be between 1 and 256 (inclusive).
+     * @param exclusive      If {@code childStreamId} should be the exclusive dependency of {@code parentStreamId}.
      */
     void updateDependencyTree(int childStreamId, int parentStreamId, short weight, boolean exclusive);
 
@@ -106,7 +110,7 @@ public interface StreamByteDistributor {
      * @return {@code true} if there are still streamable bytes that have not yet been written,
      * otherwise {@code false}.
      * @throws Http2Exception If an internal exception occurs and internal connection state would otherwise be
-     * corrupted.
+     *                        corrupted.
      */
     boolean distribute(int maxBytes, Writer writer) throws Http2Exception;
 }

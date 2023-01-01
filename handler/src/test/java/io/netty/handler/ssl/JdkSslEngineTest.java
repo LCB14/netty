@@ -22,6 +22,7 @@ import io.netty.handler.ssl.JdkApplicationProtocolNegotiator.ProtocolSelector;
 import io.netty.handler.ssl.JdkApplicationProtocolNegotiator.ProtocolSelectorFactory;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+
 import java.security.Provider;
 
 import io.netty.util.internal.EmptyArrays;
@@ -110,7 +111,7 @@ public class JdkSslEngineTest extends SSLEngineTest {
                 try {
                     if (provider == null) {
                         provider = (Provider) Class.forName("org.conscrypt.OpenSSLProvider")
-                            .getConstructor().newInstance();
+                                .getConstructor().newInstance();
                     }
                     return provider;
                 } catch (Exception e) {
@@ -120,7 +121,9 @@ public class JdkSslEngineTest extends SSLEngineTest {
         };
 
         abstract boolean isAvailable();
+
         abstract Protocol protocol();
+
         abstract Provider provider();
 
         final void activate(JdkSslEngineTest instance) {
@@ -148,8 +151,8 @@ public class JdkSslEngineTest extends SSLEngineTest {
         List<SSLEngineTestParam> params = newTestParams();
 
         List<JdkSSLEngineTestParam> jdkParams = new ArrayList<JdkSSLEngineTestParam>();
-        for (ProviderType providerType: ProviderType.values()) {
-            for (SSLEngineTestParam param: params) {
+        for (ProviderType providerType : ProviderType.values()) {
+            for (SSLEngineTestParam param : params) {
                 jdkParams.add(new JdkSSLEngineTestParam(providerType, param));
             }
         }
@@ -158,6 +161,7 @@ public class JdkSslEngineTest extends SSLEngineTest {
 
     private static final class JdkSSLEngineTestParam extends SSLEngineTestParam {
         final ProviderType providerType;
+
         JdkSSLEngineTestParam(ProviderType providerType, SSLEngineTestParam param) {
             super(param.type(), param.combo(), param.delegate());
             this.providerType = providerType;
@@ -180,7 +184,7 @@ public class JdkSslEngineTest extends SSLEngineTest {
         try {
             param.providerType.activate(this);
             ApplicationProtocolConfig apn = failingNegotiator(param.providerType.protocol(),
-                PREFERRED_APPLICATION_LEVEL_PROTOCOL);
+                    PREFERRED_APPLICATION_LEVEL_PROTOCOL);
             setupHandlers(param, apn);
             runTest();
         } catch (SkipTestException e) {
@@ -196,9 +200,9 @@ public class JdkSslEngineTest extends SSLEngineTest {
         try {
             param.providerType.activate(this);
             ApplicationProtocolConfig clientApn = acceptingNegotiator(param.providerType.protocol(),
-                PREFERRED_APPLICATION_LEVEL_PROTOCOL);
+                    PREFERRED_APPLICATION_LEVEL_PROTOCOL);
             ApplicationProtocolConfig serverApn = acceptingNegotiator(param.providerType.protocol(),
-                APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
+                    APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
             setupHandlers(param, serverApn, clientApn);
             runTest(null);
         } catch (SkipTestException e) {
@@ -216,9 +220,9 @@ public class JdkSslEngineTest extends SSLEngineTest {
             param.providerType.activate(this);
             if (param.providerType == ProviderType.NPN_JETTY) {
                 ApplicationProtocolConfig clientApn = failingNegotiator(param.providerType.protocol(),
-                    PREFERRED_APPLICATION_LEVEL_PROTOCOL);
+                        PREFERRED_APPLICATION_LEVEL_PROTOCOL);
                 ApplicationProtocolConfig serverApn = acceptingNegotiator(param.providerType.protocol(),
-                    APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
+                        APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
                 setupHandlers(param, serverApn, clientApn);
                 assertTrue(clientLatch.await(2, TimeUnit.SECONDS));
                 assertTrue(clientException instanceof SSLHandshakeException);
@@ -226,31 +230,31 @@ public class JdkSslEngineTest extends SSLEngineTest {
                 // ALPN
                 SelfSignedCertificate ssc = new SelfSignedCertificate();
                 JdkApplicationProtocolNegotiator clientApn = new JdkAlpnApplicationProtocolNegotiator(true, true,
-                    PREFERRED_APPLICATION_LEVEL_PROTOCOL);
+                        PREFERRED_APPLICATION_LEVEL_PROTOCOL);
                 JdkApplicationProtocolNegotiator serverApn = new JdkAlpnApplicationProtocolNegotiator(
-                    new ProtocolSelectorFactory() {
-                        @Override
-                        public ProtocolSelector newSelector(SSLEngine engine, Set<String> supportedProtocols) {
-                            return new ProtocolSelector() {
-                                @Override
-                                public void unsupported() {
-                                }
+                        new ProtocolSelectorFactory() {
+                            @Override
+                            public ProtocolSelector newSelector(SSLEngine engine, Set<String> supportedProtocols) {
+                                return new ProtocolSelector() {
+                                    @Override
+                                    public void unsupported() {
+                                    }
 
-                                @Override
-                                public String select(List<String> protocols) {
-                                    return APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE;
-                                }
-                            };
-                        }
-                    }, JdkBaseApplicationProtocolNegotiator.FAIL_SELECTION_LISTENER_FACTORY,
-                    APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
+                                    @Override
+                                    public String select(List<String> protocols) {
+                                        return APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE;
+                                    }
+                                };
+                            }
+                        }, JdkBaseApplicationProtocolNegotiator.FAIL_SELECTION_LISTENER_FACTORY,
+                        APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
 
                 SslContext serverSslCtx = new JdkSslServerContext(param.providerType.provider(),
-                    ssc.certificate(), ssc.privateKey(), null, null,
-                    IdentityCipherSuiteFilter.INSTANCE, serverApn, 0, 0, null);
+                        ssc.certificate(), ssc.privateKey(), null, null,
+                        IdentityCipherSuiteFilter.INSTANCE, serverApn, 0, 0, null);
                 SslContext clientSslCtx = new JdkSslClientContext(param.providerType.provider(), null,
-                    InsecureTrustManagerFactory.INSTANCE, null,
-                    IdentityCipherSuiteFilter.INSTANCE, clientApn, 0, 0);
+                        InsecureTrustManagerFactory.INSTANCE, null,
+                        IdentityCipherSuiteFilter.INSTANCE, clientApn, 0, 0);
 
                 setupHandlers(param.type(), param.delegate(), new TestDelegatingSslContext(param, serverSslCtx),
                         new TestDelegatingSslContext(param, clientSslCtx));
@@ -273,9 +277,9 @@ public class JdkSslEngineTest extends SSLEngineTest {
         try {
             param.providerType.activate(this);
             ApplicationProtocolConfig clientApn = acceptingNegotiator(param.providerType.protocol(),
-                PREFERRED_APPLICATION_LEVEL_PROTOCOL);
+                    PREFERRED_APPLICATION_LEVEL_PROTOCOL);
             ApplicationProtocolConfig serverApn = failingNegotiator(param.providerType.protocol(),
-                APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
+                    APPLICATION_LEVEL_PROTOCOL_NOT_COMPATIBLE);
             setupHandlers(param, serverApn, clientApn);
             assertTrue(serverLatch.await(2, TimeUnit.SECONDS));
             assertTrue(serverException instanceof SSLHandshakeException);
@@ -298,9 +302,9 @@ public class JdkSslEngineTest extends SSLEngineTest {
             // Even the preferred application protocol appears second in the client's list, it will be picked
             // because it's the first one on server's list.
             ApplicationProtocolConfig clientApn = acceptingNegotiator(Protocol.ALPN,
-                FALLBACK_APPLICATION_LEVEL_PROTOCOL, PREFERRED_APPLICATION_LEVEL_PROTOCOL);
+                    FALLBACK_APPLICATION_LEVEL_PROTOCOL, PREFERRED_APPLICATION_LEVEL_PROTOCOL);
             ApplicationProtocolConfig serverApn = failingNegotiator(Protocol.ALPN,
-                PREFERRED_APPLICATION_LEVEL_PROTOCOL, FALLBACK_APPLICATION_LEVEL_PROTOCOL);
+                    PREFERRED_APPLICATION_LEVEL_PROTOCOL, FALLBACK_APPLICATION_LEVEL_PROTOCOL);
             setupHandlers(param, serverApn, clientApn);
             assertNull(serverException);
             runTest(PREFERRED_APPLICATION_LEVEL_PROTOCOL);
@@ -314,7 +318,7 @@ public class JdkSslEngineTest extends SSLEngineTest {
     @MethodSource("newTestParams")
     @ParameterizedTest
     public void testEnablingAnAlreadyDisabledSslProtocol(SSLEngineTestParam param) throws Exception {
-        testEnablingAnAlreadyDisabledSslProtocol(param, new String[]{}, new String[]{ SslProtocols.TLS_v1_2 });
+        testEnablingAnAlreadyDisabledSslProtocol(param, new String[]{}, new String[]{SslProtocols.TLS_v1_2});
     }
 
     @MethodSource("newTestParams")

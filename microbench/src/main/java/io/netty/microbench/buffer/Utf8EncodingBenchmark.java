@@ -72,10 +72,10 @@ public class Utf8EncodingBenchmark extends AbstractMicrobenchmark {
     private StringBuilder[] stringBuilders;
     private AnotherCharSequence[] anotherCharSequences;
     private AsciiString[] asciiStrings;
-    @Param({ "false", "true" })
+    @Param({"false", "true"})
     private boolean direct;
     private ByteBuf buffer;
-    @Param({ "false", "true" })
+    @Param({"false", "true"})
     private boolean noUnsafe;
     private int dataSetLength;
 
@@ -109,7 +109,7 @@ public class Utf8EncodingBenchmark extends AbstractMicrobenchmark {
             closeReader(inStreamReader);
             closeReader(buffReader);
         }
-        buffer = direct? Unpooled.directBuffer(maxExpectedSize, maxExpectedSize) :
+        buffer = direct ? Unpooled.directBuffer(maxExpectedSize, maxExpectedSize) :
                 Unpooled.buffer(maxExpectedSize, maxExpectedSize);
         buffer.setByte(maxExpectedSize - 1, 0);
         this.strings = strings.toArray(new String[strings.size()]);

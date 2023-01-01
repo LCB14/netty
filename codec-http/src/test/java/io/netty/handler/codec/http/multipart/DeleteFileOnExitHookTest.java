@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         "and can interferre with other tests that use DiskAttribute")
 public class DeleteFileOnExitHookTest {
     private static final HttpRequest REQUEST = new DefaultHttpRequest(HTTP_1_1, POST, "/form");
-    private static final String HOOK_TEST_TMP = "target/DeleteFileOnExitHookTest-" + UUID.randomUUID()  + "/tmp";
+    private static final String HOOK_TEST_TMP = "target/DeleteFileOnExitHookTest-" + UUID.randomUUID() + "/tmp";
     private FileUpload fu;
 
     @BeforeEach

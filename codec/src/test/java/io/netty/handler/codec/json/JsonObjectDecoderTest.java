@@ -99,54 +99,54 @@ public class JsonObjectDecoderTest {
 
     @Test
     public void testStreamJsonArrayOverMultipleWrites1() {
-        String[] array = new String[] {
+        String[] array = new String[]{
                 "   [{\"test",
                 "case\"  : \"\\\"}]Escaped dou\\\"ble quotes \\\" in JSON str\\\"ing\"",
                 "  }\n\n    , ",
                 "{\"testcase\" : \"Streaming string me",
                 "ssage\"} ]      "
-                };
-        String[] result = new String[] {
+        };
+        String[] result = new String[]{
                 "{\"testcase\"  : \"\\\"}]Escaped dou\\\"ble quotes \\\" in JSON str\\\"ing\"  }",
                 "{\"testcase\" : \"Streaming string message\"}"
-                };
+        };
         doTestStreamJsonArrayOverMultipleWrites(2, array, result);
     }
 
     @Test
     public void testStreamJsonArrayOverMultipleWrites2() {
-        String[] array = new String[] {
+        String[] array = new String[]{
                 "   [{\"test",
                 "case\"  : \"\\\"}]Escaped dou\\\"ble quotes \\\" in JSON str\\\"ing\"",
                 "  }\n\n    , {\"test",
                 "case\" : \"Streaming string me",
                 "ssage\"} ]      "
-                };
-        String[] result = new String[] {
+        };
+        String[] result = new String[]{
                 "{\"testcase\"  : \"\\\"}]Escaped dou\\\"ble quotes \\\" in JSON str\\\"ing\"  }",
                 "{\"testcase\" : \"Streaming string message\"}"
-                };
+        };
         doTestStreamJsonArrayOverMultipleWrites(2, array, result);
     }
 
     @Test
     public void testStreamJsonArrayOverMultipleWrites3() {
-        String[] array = new String[] {
+        String[] array = new String[]{
                 "   [{\"test",
                 "case\"  : \"\\\"}]Escaped dou\\\"ble quotes \\\" in JSON str\\\"ing\"",
                 "  }\n\n    , [{\"test",
                 "case\" : \"Streaming string me",
                 "ssage\"}] ]      "
-                };
-        String[] result = new String[] {
+        };
+        String[] result = new String[]{
                 "{\"testcase\"  : \"\\\"}]Escaped dou\\\"ble quotes \\\" in JSON str\\\"ing\"  }",
                 "[{\"testcase\" : \"Streaming string message\"}]"
-                };
+        };
         doTestStreamJsonArrayOverMultipleWrites(2, array, result);
     }
 
     private static void doTestStreamJsonArrayOverMultipleWrites(int indexDataAvailable,
-            String[] array, String[] result) {
+                                                                String[] array, String[] result) {
         EmbeddedChannel ch = new EmbeddedChannel(new JsonObjectDecoder(true));
 
         boolean dataAvailable = false;
@@ -175,7 +175,7 @@ public class JsonObjectDecoderTest {
 
         String json = "{\"foo\" : {\"bar\" : [{},{}]}}";
         for (byte c : json.getBytes(CharsetUtil.UTF_8)) {
-            ch.writeInbound(Unpooled.copiedBuffer(new byte[] {c}));
+            ch.writeInbound(Unpooled.copiedBuffer(new byte[]{c}));
         }
 
         ByteBuf res = ch.readInbound();
@@ -235,8 +235,8 @@ public class JsonObjectDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(new JsonObjectDecoder());
 
         String object1 = "{\"key\" : \"value1\"}",
-               object2 = "{\"key\" : \"value2\"}",
-               object3 = "{\"key\" : \"value3\"}";
+                object2 = "{\"key\" : \"value2\"}",
+                object3 = "{\"key\" : \"value3\"}";
 
         ch.writeInbound(Unpooled.copiedBuffer(object1 + object2 + object3, CharsetUtil.UTF_8));
 
@@ -309,8 +309,8 @@ public class JsonObjectDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(new JsonObjectDecoder());
 
         String object1 = "{\"key\" : \"value1\"}",
-               object2 = "{\"key\" : \"value2\"}",
-               object3 = "{\"key\" : \"value3\"}";
+                object2 = "{\"key\" : \"value2\"}",
+                object3 = "{\"key\" : \"value3\"}";
 
         ch.writeInbound(Unpooled.copiedBuffer(object1, CharsetUtil.UTF_8));
         ch.writeInbound(Unpooled.copiedBuffer(object2, CharsetUtil.UTF_8));
@@ -348,7 +348,7 @@ public class JsonObjectDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(new JsonObjectDecoder(Integer.MAX_VALUE, true));
 
         String array = "[  12, \"bla\"  , 13.4   \t  ,{\"key0\" : [1,2], \"key1\" : 12, \"key2\" : {}} , " +
-                       "true, false, null, [\"bla\", {}, [1,2,3]] ]";
+                "true, false, null, [\"bla\", {}, [1,2,3]] ]";
         String object = "{\"bla\" : \"blub\"}";
         ch.writeInbound(Unpooled.copiedBuffer(array, CharsetUtil.UTF_8));
         ch.writeInbound(Unpooled.copiedBuffer(object, CharsetUtil.UTF_8));

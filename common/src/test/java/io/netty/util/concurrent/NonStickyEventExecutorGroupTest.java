@@ -53,10 +53,10 @@ public class NonStickyEventExecutorGroupTest {
 
     public static Collection<Object[]> data() throws Exception {
         List<Object[]> params = new ArrayList<Object[]>();
-        params.add(new Object[] {64});
-        params.add(new Object[] {256});
-        params.add(new Object[] {1024});
-        params.add(new Object[] {Integer.MAX_VALUE});
+        params.add(new Object[]{64});
+        params.add(new Object[]{256});
+        params.add(new Object[]{1024});
+        params.add(new Object[]{Integer.MAX_VALUE});
         return params;
     }
 
@@ -71,7 +71,7 @@ public class NonStickyEventExecutorGroupTest {
             final CountDownLatch startLatch = new CountDownLatch(1);
             final AtomicReference<Throwable> error = new AtomicReference<Throwable>();
             List<Thread> threadList = new ArrayList<Thread>(threads);
-            for (int i = 0 ; i < threads; i++) {
+            for (int i = 0; i < threads; i++) {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -86,7 +86,7 @@ public class NonStickyEventExecutorGroupTest {
                 thread.start();
             }
             startLatch.countDown();
-            for (Thread t: threadList) {
+            for (Thread t : threadList) {
                 t.join();
             }
             Throwable cause = error.get();
@@ -138,7 +138,7 @@ public class NonStickyEventExecutorGroupTest {
         final CountDownLatch latch = new CountDownLatch(tasks);
         startLatch.await();
 
-        for (int i = 1 ; i <= tasks; i++) {
+        for (int i = 1; i <= tasks; i++) {
             final int id = i;
             futures.add(executor.submit(new Runnable() {
                 @Override
@@ -161,7 +161,7 @@ public class NonStickyEventExecutorGroupTest {
             }));
         }
         latch.await();
-        for (Future<?> future: futures) {
+        for (Future<?> future : futures) {
             future.syncUninterruptibly();
         }
         Throwable error = cause.get();

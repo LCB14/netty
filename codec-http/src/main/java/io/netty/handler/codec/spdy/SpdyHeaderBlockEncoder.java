@@ -41,5 +41,6 @@ public abstract class SpdyHeaderBlockEncoder {
     }
 
     abstract ByteBuf encode(ByteBufAllocator alloc, SpdyHeadersFrame frame) throws Exception;
+
     abstract void end();
 }

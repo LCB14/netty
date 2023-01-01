@@ -58,18 +58,18 @@ public abstract class WebSocketServerHandshakerTest {
     @Test
     public void testDuplicateHandshakeResponseHeaders() {
         WebSocketServerHandshaker serverHandshaker = newHandshaker("ws://example.com/chat",
-                                                                   "chat", WebSocketDecoderConfig.DEFAULT);
+                "chat", WebSocketDecoderConfig.DEFAULT);
         FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/chat");
         request.headers()
-               .set(HttpHeaderNames.HOST, "example.com")
-               .set(HttpHeaderNames.ORIGIN, "example.com")
-               .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
-               .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, webSocketVersion().toAsciiString());
+                .set(HttpHeaderNames.HOST, "example.com")
+                .set(HttpHeaderNames.ORIGIN, "example.com")
+                .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
+                .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, webSocketVersion().toAsciiString());
         HttpHeaders customResponseHeaders = new DefaultHttpHeaders();
         // set duplicate required headers and one custom
         customResponseHeaders
@@ -111,10 +111,10 @@ public abstract class WebSocketServerHandshakerTest {
     @Test
     public void testWebSocketServerHandshakeException() {
         WebSocketServerHandshaker serverHandshaker = newHandshaker("ws://example.com/chat",
-                                                                   "chat", WebSocketDecoderConfig.DEFAULT);
+                "chat", WebSocketDecoderConfig.DEFAULT);
 
         FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-                                                             "ws://example.com/chat");
+                "ws://example.com/chat");
         request.headers().set("x-client-header", "value");
         try {
             serverHandshaker.handshake(null, request, null, null);
@@ -131,21 +131,21 @@ public abstract class WebSocketServerHandshakerTest {
     public void testHandshakeForHttpRequestWithoutAggregator() {
         EmbeddedChannel channel = new EmbeddedChannel(new HttpRequestDecoder(), new HttpResponseEncoder());
         WebSocketServerHandshaker serverHandshaker = newHandshaker("ws://example.com/chat",
-                                                                   "chat", WebSocketDecoderConfig.DEFAULT);
+                "chat", WebSocketDecoderConfig.DEFAULT);
 
         HttpRequest request = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/chat");
         request.headers()
-               .set(HttpHeaderNames.HOST, "example.com")
-               .set(HttpHeaderNames.ORIGIN, "example.com")
-               .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
-               .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY1, "4 @1  46546xW%0l 1 5")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_KEY2, "12998 5 Y3 1  .P00")
-               .set(HttpHeaderNames.WEBSOCKET_PROTOCOL, "chat, superchat")
-               .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, webSocketVersion().toAsciiString());
+                .set(HttpHeaderNames.HOST, "example.com")
+                .set(HttpHeaderNames.ORIGIN, "example.com")
+                .set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET)
+                .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE)
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY, "dGhlIHNhbXBsZSBub25jZQ==")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_ORIGIN, "http://example.com")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY1, "4 @1  46546xW%0l 1 5")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_KEY2, "12998 5 Y3 1  .P00")
+                .set(HttpHeaderNames.WEBSOCKET_PROTOCOL, "chat, superchat")
+                .set(HttpHeaderNames.SEC_WEBSOCKET_VERSION, webSocketVersion().toAsciiString());
 
         ChannelFuture future = serverHandshaker.handshake(channel, request);
         assertFalse(future.isDone());

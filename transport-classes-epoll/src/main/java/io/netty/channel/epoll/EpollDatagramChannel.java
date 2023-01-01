@@ -57,10 +57,10 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
     private static final ChannelMetadata METADATA = new ChannelMetadata(true);
     private static final String EXPECTED_TYPES =
             " (expected: " + StringUtil.simpleClassName(DatagramPacket.class) + ", " +
-            StringUtil.simpleClassName(AddressedEnvelope.class) + '<' +
-            StringUtil.simpleClassName(ByteBuf.class) + ", " +
-            StringUtil.simpleClassName(InetSocketAddress.class) + ">, " +
-            StringUtil.simpleClassName(ByteBuf.class) + ')';
+                    StringUtil.simpleClassName(AddressedEnvelope.class) + '<' +
+                    StringUtil.simpleClassName(ByteBuf.class) + ", " +
+                    StringUtil.simpleClassName(InetSocketAddress.class) + ">, " +
+                    StringUtil.simpleClassName(ByteBuf.class) + ')';
 
     private final EpollDatagramChannelConfig config;
     private volatile boolean connected;
@@ -374,12 +374,12 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
 
                 if (done) {
                     in.remove();
-                    maxMessagesPerWrite --;
+                    maxMessagesPerWrite--;
                 } else {
                     break;
                 }
             } catch (IOException e) {
-                maxMessagesPerWrite --;
+                maxMessagesPerWrite--;
                 // Continue on write error as a DatagramChannel can write to multiple remote peers
                 //
                 // See https://github.com/netty/netty/issues/2665
@@ -450,7 +450,7 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
 
         if (msg instanceof ByteBuf) {
             ByteBuf buf = (ByteBuf) msg;
-            return UnixChannelUtil.isBufferCopyNeededForWrite(buf)? newDirectBuffer(buf) : buf;
+            return UnixChannelUtil.isBufferCopyNeededForWrite(buf) ? newDirectBuffer(buf) : buf;
         }
 
         if (msg instanceof AddressedEnvelope) {
@@ -459,12 +459,12 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
             checkUnresolved(e);
 
             if (e.content() instanceof ByteBuf &&
-                (e.recipient() == null || e.recipient() instanceof InetSocketAddress)) {
+                    (e.recipient() == null || e.recipient() instanceof InetSocketAddress)) {
 
                 ByteBuf content = (ByteBuf) e.content();
-                return UnixChannelUtil.isBufferCopyNeededForWrite(content)?
+                return UnixChannelUtil.isBufferCopyNeededForWrite(content) ?
                         new DefaultAddressedEnvelope<ByteBuf, InetSocketAddress>(
-                            newDirectBuffer(e, content), (InetSocketAddress) e.recipient()) : e;
+                                newDirectBuffer(e, content), (InetSocketAddress) e.recipient()) : e;
             }
         }
 
@@ -554,8 +554,8 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
                         } else {
                             break;
                         }
-                    // We use the TRUE_SUPPLIER as it is also ok to read less then what we did try to read (as long
-                    // as we read anything).
+                        // We use the TRUE_SUPPLIER as it is also ok to read less then what we did try to read (as long
+                        // as we read anything).
                     } while (allocHandle.continueReading(UncheckedBooleanSupplier.TRUE_SUPPLIER));
                 } catch (Throwable t) {
                     exception = t;
@@ -624,7 +624,7 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
     }
 
     private static void addDatagramPacketToOut(DatagramPacket packet,
-                                              RecyclableArrayList out) {
+                                               RecyclableArrayList out) {
         if (packet instanceof io.netty.channel.unix.SegmentedDatagramPacket) {
             io.netty.channel.unix.SegmentedDatagramPacket segmentedDatagramPacket =
                     (io.netty.channel.unix.SegmentedDatagramPacket) packet;
@@ -718,11 +718,11 @@ public final class EpollDatagramChannel extends AbstractEpollChannel implements 
     }
 
     private boolean scatteringRead(EpollRecvByteAllocatorHandle allocHandle, NativeDatagramPacketArray array,
-            ByteBuf byteBuf, int datagramSize, int numDatagram) throws IOException {
+                                   ByteBuf byteBuf, int datagramSize, int numDatagram) throws IOException {
         RecyclableArrayList datagramPackets = null;
         try {
             int offset = byteBuf.writerIndex();
-            for (int i = 0; i < numDatagram;  i++, offset += datagramSize) {
+            for (int i = 0; i < numDatagram; i++, offset += datagramSize) {
                 if (!array.addWritable(byteBuf, offset, datagramSize)) {
                     break;
                 }

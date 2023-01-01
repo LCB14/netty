@@ -39,7 +39,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
             SpdyProtocolException.newStatic("Stream closed", SpdySessionHandler.class, "removeStream(...)");
 
     private static final int DEFAULT_WINDOW_SIZE = 64 * 1024; // 64 KB default initial window size
-    private int initialSendWindowSize    = DEFAULT_WINDOW_SIZE;
+    private int initialSendWindowSize = DEFAULT_WINDOW_SIZE;
     private int initialReceiveWindowSize = DEFAULT_WINDOW_SIZE;
     private volatile int initialSessionReceiveWindowSize = DEFAULT_WINDOW_SIZE;
 
@@ -48,7 +48,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
 
     private static final int DEFAULT_MAX_CONCURRENT_STREAMS = Integer.MAX_VALUE;
     private int remoteConcurrentStreams = DEFAULT_MAX_CONCURRENT_STREAMS;
-    private int localConcurrentStreams  = DEFAULT_MAX_CONCURRENT_STREAMS;
+    private int localConcurrentStreams = DEFAULT_MAX_CONCURRENT_STREAMS;
 
     private final AtomicInteger pings = new AtomicInteger();
 
@@ -116,7 +116,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
 
             int deltaWindowSize = -1 * spdyDataFrame.content().readableBytes();
             int newSessionWindowSize =
-                spdySession.updateReceiveWindowSize(SPDY_SESSION_STREAM_ID, deltaWindowSize);
+                    spdySession.updateReceiveWindowSize(SPDY_SESSION_STREAM_ID, deltaWindowSize);
 
             // Check if session window size is reduced beyond allowable lower bound
             if (newSessionWindowSize < 0) {
@@ -129,7 +129,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
                 int sessionDeltaWindowSize = initialSessionReceiveWindowSize - newSessionWindowSize;
                 spdySession.updateReceiveWindowSize(SPDY_SESSION_STREAM_ID, sessionDeltaWindowSize);
                 SpdyWindowUpdateFrame spdyWindowUpdateFrame =
-                    new DefaultSpdyWindowUpdateFrame(SPDY_SESSION_STREAM_ID, sessionDeltaWindowSize);
+                        new DefaultSpdyWindowUpdateFrame(SPDY_SESSION_STREAM_ID, sessionDeltaWindowSize);
                 ctx.writeAndFlush(spdyWindowUpdateFrame);
             }
 
@@ -225,8 +225,8 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
 
             // Check if we received a valid SYN_STREAM frame
             if (spdySynStreamFrame.isInvalid() ||
-                !isRemoteInitiatedId(streamId) ||
-                spdySession.isActiveStream(streamId)) {
+                    !isRemoteInitiatedId(streamId) ||
+                    spdySession.isActiveStream(streamId)) {
                 issueStreamError(ctx, streamId, SpdyStreamStatus.PROTOCOL_ERROR);
                 return;
             }
@@ -260,8 +260,8 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
 
             // Check if we received a valid SYN_REPLY frame
             if (spdySynReplyFrame.isInvalid() ||
-                isRemoteInitiatedId(streamId) ||
-                spdySession.isRemoteSideClosed(streamId)) {
+                    isRemoteInitiatedId(streamId) ||
+                    spdySession.isRemoteSideClosed(streamId)) {
                 issueStreamError(ctx, streamId, SpdyStreamStatus.INVALID_STREAM);
                 return;
             }
@@ -305,7 +305,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
             }
 
             int newConcurrentStreams =
-                spdySettingsFrame.getValue(SpdySettingsFrame.SETTINGS_MAX_CONCURRENT_STREAMS);
+                    spdySettingsFrame.getValue(SpdySettingsFrame.SETTINGS_MAX_CONCURRENT_STREAMS);
             if (newConcurrentStreams >= 0) {
                 remoteConcurrentStreams = newConcurrentStreams;
             }
@@ -319,7 +319,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
             spdySettingsFrame.setPersistValue(SpdySettingsFrame.SETTINGS_INITIAL_WINDOW_SIZE, false);
 
             int newInitialWindowSize =
-                spdySettingsFrame.getValue(SpdySettingsFrame.SETTINGS_INITIAL_WINDOW_SIZE);
+                    spdySettingsFrame.getValue(SpdySettingsFrame.SETTINGS_INITIAL_WINDOW_SIZE);
             if (newInitialWindowSize >= 0) {
                 updateInitialSendWindowSize(newInitialWindowSize);
             }
@@ -412,7 +412,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        for (Integer streamId: spdySession.activeStreams().keySet()) {
+        for (Integer streamId : spdySession.activeStreams().keySet()) {
             removeStream(streamId, ctx.newSucceededFuture());
         }
         ctx.fireChannelInactive();
@@ -435,14 +435,14 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         if (msg instanceof SpdyDataFrame ||
-            msg instanceof SpdySynStreamFrame ||
-            msg instanceof SpdySynReplyFrame ||
-            msg instanceof SpdyRstStreamFrame ||
-            msg instanceof SpdySettingsFrame ||
-            msg instanceof SpdyPingFrame ||
-            msg instanceof SpdyGoAwayFrame ||
-            msg instanceof SpdyHeadersFrame ||
-            msg instanceof SpdyWindowUpdateFrame) {
+                msg instanceof SpdySynStreamFrame ||
+                msg instanceof SpdySynReplyFrame ||
+                msg instanceof SpdyRstStreamFrame ||
+                msg instanceof SpdySettingsFrame ||
+                msg instanceof SpdyPingFrame ||
+                msg instanceof SpdyGoAwayFrame ||
+                msg instanceof SpdyHeadersFrame ||
+                msg instanceof SpdyWindowUpdateFrame) {
 
             handleOutboundMessage(ctx, msg, promise);
         } else {
@@ -607,7 +607,7 @@ public class SpdySessionHandler extends ChannelDuplexHandler {
             SpdyPingFrame spdyPingFrame = (SpdyPingFrame) msg;
             if (isRemoteInitiatedId(spdyPingFrame.id())) {
                 ctx.fireExceptionCaught(new IllegalArgumentException(
-                            "invalid PING ID: " + spdyPingFrame.id()));
+                        "invalid PING ID: " + spdyPingFrame.id()));
                 return;
             }
             pings.getAndIncrement();

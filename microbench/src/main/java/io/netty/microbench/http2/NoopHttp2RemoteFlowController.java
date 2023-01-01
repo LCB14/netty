@@ -25,7 +25,8 @@ public final class NoopHttp2RemoteFlowController implements Http2RemoteFlowContr
     public static final NoopHttp2RemoteFlowController INSTANCE = new NoopHttp2RemoteFlowController();
     private ChannelHandlerContext ctx;
 
-    private NoopHttp2RemoteFlowController() { }
+    private NoopHttp2RemoteFlowController() {
+    }
 
     @Override
     public void initialWindowSize(int newWindowSize) throws Http2Exception {

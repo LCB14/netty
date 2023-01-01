@@ -62,7 +62,7 @@ public class DatagramMulticastTest extends AbstractDatagramTest {
     public void testMulticast(Bootstrap sb, Bootstrap cb) throws Throwable {
         NetworkInterface iface = multicastNetworkInterface();
         assumeTrue(iface != null, "No NetworkInterface found that supports multicast and " +
-                             socketInternetProtocalFamily());
+                socketInternetProtocalFamily());
 
         MulticastTestHandler mhandler = new MulticastTestHandler();
 
@@ -210,8 +210,8 @@ public class DatagramMulticastTest extends AbstractDatagramTest {
                         socket.setReuseAddress(true);
                         socket.setNetworkInterface(iface);
                         try {
-                            socket.send(new java.net.DatagramPacket(new byte[] { 1, 2, 3, 4 }, 4,
-                                                                    new InetSocketAddress(groupAddress(), 12345)));
+                            socket.send(new java.net.DatagramPacket(new byte[]{1, 2, 3, 4}, 4,
+                                    new InetSocketAddress(groupAddress(), 12345)));
                             return iface;
                         } catch (IOException ignore) {
                             // Try the next interface
@@ -226,7 +226,7 @@ public class DatagramMulticastTest extends AbstractDatagramTest {
     }
 
     private String groupAddress() {
-        return groupInternetProtocalFamily() == InternetProtocolFamily.IPv4?
+        return groupInternetProtocalFamily() == InternetProtocolFamily.IPv4 ?
                 "230.0.0.1" : "FF01:0:0:0:0:0:0:101";
     }
 }

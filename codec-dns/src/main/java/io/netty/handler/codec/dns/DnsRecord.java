@@ -67,14 +67,14 @@ public interface DnsRecord {
      * Returns the class of this resource record.
      *
      * @return the class value, usually one of the following:
-     *         <ul>
-     *             <li>{@link #CLASS_IN}</li>
-     *             <li>{@link #CLASS_CSNET}</li>
-     *             <li>{@link #CLASS_CHAOS}</li>
-     *             <li>{@link #CLASS_HESIOD}</li>
-     *             <li>{@link #CLASS_NONE}</li>
-     *             <li>{@link #CLASS_ANY}</li>
-     *         </ul>
+     * <ul>
+     *     <li>{@link #CLASS_IN}</li>
+     *     <li>{@link #CLASS_CSNET}</li>
+     *     <li>{@link #CLASS_CHAOS}</li>
+     *     <li>{@link #CLASS_HESIOD}</li>
+     *     <li>{@link #CLASS_NONE}</li>
+     *     <li>{@link #CLASS_ANY}</li>
+     * </ul>
      */
     int dnsClass();
 

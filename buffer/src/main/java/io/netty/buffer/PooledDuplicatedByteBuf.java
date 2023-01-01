@@ -33,11 +33,11 @@ final class PooledDuplicatedByteBuf extends AbstractPooledDerivedByteBuf {
 
     private static final ObjectPool<PooledDuplicatedByteBuf> RECYCLER = ObjectPool.newPool(
             new ObjectCreator<PooledDuplicatedByteBuf>() {
-        @Override
-        public PooledDuplicatedByteBuf newObject(Handle<PooledDuplicatedByteBuf> handle) {
-            return new PooledDuplicatedByteBuf(handle);
-        }
-    });
+                @Override
+                public PooledDuplicatedByteBuf newObject(Handle<PooledDuplicatedByteBuf> handle) {
+                    return new PooledDuplicatedByteBuf(handle);
+                }
+            });
 
     static PooledDuplicatedByteBuf newInstance(AbstractByteBuf unwrapped, ByteBuf wrapped,
                                                int readerIndex, int writerIndex) {

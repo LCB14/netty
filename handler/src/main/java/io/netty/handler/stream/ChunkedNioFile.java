@@ -80,8 +80,8 @@ public class ChunkedNioFile implements ChunkedInput<ByteBuf> {
     /**
      * Creates a new instance that fetches data from the specified file.
      *
-     * @param offset the offset of the file where the transfer begins
-     * @param length the number of bytes to transfer
+     * @param offset    the offset of the file where the transfer begins
+     * @param length    the number of bytes to transfer
      * @param chunkSize the number of bytes to fetch on each
      *                  {@link #readChunk(ChannelHandlerContext)} call
      */
@@ -149,7 +149,7 @@ public class ChunkedNioFile implements ChunkedInput<ByteBuf> {
         boolean release = true;
         try {
             int readBytes = 0;
-            for (;;) {
+            for (; ; ) {
                 int localReadBytes = buffer.writeBytes(in, offset + readBytes, chunkSize - readBytes);
                 if (localReadBytes < 0) {
                     break;

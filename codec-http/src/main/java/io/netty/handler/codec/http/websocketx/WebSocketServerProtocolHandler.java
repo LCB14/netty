@@ -36,16 +36,16 @@ import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 /**
  * This handler does all the heavy lifting for you to run a websocket server.
- *
+ * <p>
  * It takes care of websocket handshaking as well as processing of control frames (Close, Ping, Pong). Text and Binary
  * data frames are passed to the next handler in the pipeline (implemented by you) for processing.
- *
+ * <p>
  * See <tt>io.netty.example.http.websocketx.html5.WebSocketServer</tt> for usage.
- *
+ * <p>
  * The implementation of this handler assumes that you just want to run  a websocket server and not process other types
  * HTTP requests (like GET and POST). If you wish to support both HTTP requests and websockets in the one server, refer
  * to the <tt>io.netty.example.http.websocketx.server.WebSocketServer</tt> example.
- *
+ * <p>
  * To know once a handshake was done you can intercept the
  * {@link ChannelInboundHandler#userEventTriggered(ChannelHandlerContext, Object)} and check if the event was instance
  * of {@link HandshakeComplete}, the event will contain extra information about the handshake such as the request and
@@ -107,13 +107,12 @@ public class WebSocketServerProtocolHandler extends WebSocketProtocolHandler {
     /**
      * Base constructor
      *
-     * @param serverConfig
-     *            Server protocol configuration.
+     * @param serverConfig Server protocol configuration.
      */
     public WebSocketServerProtocolHandler(WebSocketServerProtocolConfig serverConfig) {
         super(checkNotNull(serverConfig, "serverConfig").dropPongFrames(),
-              serverConfig.sendCloseFrame(),
-              serverConfig.forceCloseTimeoutMillis()
+                serverConfig.sendCloseFrame(),
+                serverConfig.forceCloseTimeoutMillis()
         );
         this.serverConfig = serverConfig;
     }
@@ -162,59 +161,59 @@ public class WebSocketServerProtocolHandler extends WebSocketProtocolHandler {
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols,
-            boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch) {
+                                          boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch) {
         this(websocketPath, subprotocols, allowExtensions, maxFrameSize, allowMaskMismatch,
-             DEFAULT_HANDSHAKE_TIMEOUT_MILLIS);
+                DEFAULT_HANDSHAKE_TIMEOUT_MILLIS);
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols, boolean allowExtensions,
                                           int maxFrameSize, boolean allowMaskMismatch, long handshakeTimeoutMillis) {
         this(websocketPath, subprotocols, allowExtensions, maxFrameSize, allowMaskMismatch, false,
-             handshakeTimeoutMillis);
+                handshakeTimeoutMillis);
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols,
-            boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch, boolean checkStartsWith) {
+                                          boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch, boolean checkStartsWith) {
         this(websocketPath, subprotocols, allowExtensions, maxFrameSize, allowMaskMismatch, checkStartsWith,
-             DEFAULT_HANDSHAKE_TIMEOUT_MILLIS);
+                DEFAULT_HANDSHAKE_TIMEOUT_MILLIS);
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols,
                                           boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch,
                                           boolean checkStartsWith, long handshakeTimeoutMillis) {
         this(websocketPath, subprotocols, allowExtensions, maxFrameSize, allowMaskMismatch, checkStartsWith, true,
-             handshakeTimeoutMillis);
+                handshakeTimeoutMillis);
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols,
                                           boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch,
                                           boolean checkStartsWith, boolean dropPongFrames) {
         this(websocketPath, subprotocols, allowExtensions, maxFrameSize, allowMaskMismatch, checkStartsWith,
-             dropPongFrames, DEFAULT_HANDSHAKE_TIMEOUT_MILLIS);
+                dropPongFrames, DEFAULT_HANDSHAKE_TIMEOUT_MILLIS);
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols, boolean allowExtensions,
                                           int maxFrameSize, boolean allowMaskMismatch, boolean checkStartsWith,
                                           boolean dropPongFrames, long handshakeTimeoutMillis) {
         this(websocketPath, subprotocols, checkStartsWith, dropPongFrames, handshakeTimeoutMillis,
-            WebSocketDecoderConfig.newBuilder()
-                .maxFramePayloadLength(maxFrameSize)
-                .allowMaskMismatch(allowMaskMismatch)
-                .allowExtensions(allowExtensions)
-                .build());
+                WebSocketDecoderConfig.newBuilder()
+                        .maxFramePayloadLength(maxFrameSize)
+                        .allowMaskMismatch(allowMaskMismatch)
+                        .allowExtensions(allowExtensions)
+                        .build());
     }
 
     public WebSocketServerProtocolHandler(String websocketPath, String subprotocols, boolean checkStartsWith,
                                           boolean dropPongFrames, long handshakeTimeoutMillis,
                                           WebSocketDecoderConfig decoderConfig) {
         this(WebSocketServerProtocolConfig.newBuilder()
-            .websocketPath(websocketPath)
-            .subprotocols(subprotocols)
-            .checkStartsWith(checkStartsWith)
-            .handshakeTimeoutMillis(handshakeTimeoutMillis)
-            .dropPongFrames(dropPongFrames)
-            .decoderConfig(decoderConfig)
-            .build());
+                .websocketPath(websocketPath)
+                .subprotocols(subprotocols)
+                .checkStartsWith(checkStartsWith)
+                .handshakeTimeoutMillis(handshakeTimeoutMillis)
+                .dropPongFrames(dropPongFrames)
+                .decoderConfig(decoderConfig)
+                .build());
     }
 
     @Override

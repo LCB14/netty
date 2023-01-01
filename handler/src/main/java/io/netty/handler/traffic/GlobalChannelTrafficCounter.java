@@ -31,12 +31,12 @@ import java.util.concurrent.TimeUnit;
 public class GlobalChannelTrafficCounter extends TrafficCounter {
     /**
      * @param trafficShapingHandler the associated {@link GlobalChannelTrafficShapingHandler}.
-     * @param executor the underlying executor service for scheduling checks (both Global and per Channel).
-     * @param name the name given to this monitor.
-     * @param checkInterval the checkInterval in millisecond between two computations.
+     * @param executor              the underlying executor service for scheduling checks (both Global and per Channel).
+     * @param name                  the name given to this monitor.
+     * @param checkInterval         the checkInterval in millisecond between two computations.
      */
     public GlobalChannelTrafficCounter(GlobalChannelTrafficShapingHandler trafficShapingHandler,
-            ScheduledExecutorService executor, String name, long checkInterval) {
+                                       ScheduledExecutorService executor, String name, long checkInterval) {
         super(trafficShapingHandler, executor, name, checkInterval);
         checkNotNullWithIAE(executor, "executor");
     }
@@ -58,7 +58,7 @@ public class GlobalChannelTrafficCounter extends TrafficCounter {
 
         /**
          * @param trafficShapingHandler The parent handler to which this task needs to callback to for accounting.
-         * @param counter The parent TrafficCounter that we need to reset the statistics for.
+         * @param counter               The parent TrafficCounter that we need to reset the statistics for.
          */
         MixedTrafficMonitoringTask(
                 GlobalChannelTrafficShapingHandler trafficShapingHandler,
@@ -95,7 +95,7 @@ public class GlobalChannelTrafficCounter extends TrafficCounter {
             monitorActive = true;
             monitor = new MixedTrafficMonitoringTask((GlobalChannelTrafficShapingHandler) trafficShapingHandler, this);
             scheduledFuture =
-                executor.scheduleAtFixedRate(monitor, 0, localCheckInterval, TimeUnit.MILLISECONDS);
+                    executor.scheduleAtFixedRate(monitor, 0, localCheckInterval, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -118,7 +118,7 @@ public class GlobalChannelTrafficCounter extends TrafficCounter {
     @Override
     public void resetCumulativeTime() {
         for (PerChannel perChannel :
-            ((GlobalChannelTrafficShapingHandler) trafficShapingHandler).channelQueues.values()) {
+                ((GlobalChannelTrafficShapingHandler) trafficShapingHandler).channelQueues.values()) {
             perChannel.channelTrafficCounter.resetCumulativeTime();
         }
         super.resetCumulativeTime();

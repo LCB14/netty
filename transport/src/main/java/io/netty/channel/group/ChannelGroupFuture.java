@@ -44,7 +44,7 @@ import java.util.Iterator;
  * operation have been completed.
  *
  * <h3>Prefer {@link #addListener(GenericFutureListener)} to {@link #await()}</h3>
- *
+ * <p>
  * It is recommended to prefer {@link #addListener(GenericFutureListener)} to
  * {@link #await()} wherever possible to get notified when I/O operations are
  * done and to do any follow-up tasks.
@@ -114,7 +114,7 @@ public interface ChannelGroupFuture extends Future<Void>, Iterable<ChannelFuture
      * is associated with the specified {@link Channel}.
      *
      * @return the matching {@link ChannelFuture} if found.
-     *         {@code null} otherwise.
+     * {@code null} otherwise.
      */
     ChannelFuture find(Channel channel);
 

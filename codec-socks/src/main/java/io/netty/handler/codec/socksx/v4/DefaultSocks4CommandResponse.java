@@ -41,7 +41,7 @@ public class DefaultSocks4CommandResponse extends AbstractSocks4Message implemen
     /**
      * Creates a new instance.
      *
-     * @param status the status of the response
+     * @param status  the status of the response
      * @param dstAddr the {@code DSTIP} field of the response
      * @param dstPort the {@code DSTPORT} field of the response
      */

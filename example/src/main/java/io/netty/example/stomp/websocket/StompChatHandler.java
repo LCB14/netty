@@ -51,25 +51,25 @@ public class StompChatHandler extends SimpleChannelInboundHandler<StompFrame> {
         }
 
         switch (inboundFrame.command()) {
-        case STOMP:
-        case CONNECT:
-            onConnect(ctx, inboundFrame);
-            break;
-        case SUBSCRIBE:
-            onSubscribe(ctx, inboundFrame);
-            break;
-        case SEND:
-            onSend(ctx, inboundFrame);
-            break;
-        case UNSUBSCRIBE:
-            onUnsubscribe(ctx, inboundFrame);
-            break;
-        case DISCONNECT:
-            onDisconnect(ctx, inboundFrame);
-            break;
-        default:
-            sendErrorFrame("unsupported command",
-                           "Received unsupported command " + inboundFrame.command(), ctx);
+            case STOMP:
+            case CONNECT:
+                onConnect(ctx, inboundFrame);
+                break;
+            case SUBSCRIBE:
+                onSubscribe(ctx, inboundFrame);
+                break;
+            case SEND:
+                onSend(ctx, inboundFrame);
+                break;
+            case UNSUBSCRIBE:
+                onUnsubscribe(ctx, inboundFrame);
+                break;
+            case DISCONNECT:
+                onDisconnect(ctx, inboundFrame);
+                break;
+            default:
+                sendErrorFrame("unsupported command",
+                        "Received unsupported command " + inboundFrame.command(), ctx);
         }
     }
 
@@ -94,7 +94,7 @@ public class StompChatHandler extends SimpleChannelInboundHandler<StompFrame> {
         final StompSubscription subscription = new StompSubscription(subscriptionId, destination, ctx.channel());
         if (subscriptions.contains(subscription)) {
             sendErrorFrame("duplicate subscription",
-                           "Received duplicate subscription id=" + subscriptionId, ctx);
+                    "Received duplicate subscription id=" + subscriptionId, ctx);
             return;
         }
 
@@ -146,15 +146,15 @@ public class StompChatHandler extends SimpleChannelInboundHandler<StompFrame> {
         StompVersion handshakeAcceptVersion = ctx.channel().attr(StompVersion.CHANNEL_ATTRIBUTE_KEY).get();
         if (acceptVersions == null || !acceptVersions.contains(handshakeAcceptVersion.version())) {
             sendErrorFrame("invalid version",
-                           "Received invalid version, expected " + handshakeAcceptVersion.version(), ctx);
+                    "Received invalid version, expected " + handshakeAcceptVersion.version(), ctx);
             return;
         }
 
         StompFrame connectedFrame = new DefaultStompFrame(StompCommand.CONNECTED);
         connectedFrame.headers()
-                      .set(VERSION, handshakeAcceptVersion.version())
-                      .set(SERVER, "Netty-Server")
-                      .set(HEART_BEAT, "0,0");
+                .set(VERSION, handshakeAcceptVersion.version())
+                .set(SERVER, "Netty-Server")
+                .set(HEART_BEAT, "0,0");
         ctx.writeAndFlush(connectedFrame);
     }
 
@@ -185,9 +185,9 @@ public class StompChatHandler extends SimpleChannelInboundHandler<StompFrame> {
         StompFrame messageFrame = new DefaultStompFrame(StompCommand.MESSAGE, sendFrame.content().retainedDuplicate());
         String id = UUID.randomUUID().toString();
         messageFrame.headers()
-                    .set(MESSAGE_ID, id)
-                    .set(SUBSCRIPTION, subscription.id())
-                    .set(CONTENT_LENGTH, Integer.toString(messageFrame.content().readableBytes()));
+                .set(MESSAGE_ID, id)
+                .set(SUBSCRIPTION, subscription.id())
+                .set(CONTENT_LENGTH, Integer.toString(messageFrame.content().readableBytes()));
 
         CharSequence contentType = sendFrame.headers().get(CONTENT_TYPE);
         if (contentType != null) {

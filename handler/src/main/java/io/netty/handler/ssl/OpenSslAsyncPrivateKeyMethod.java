@@ -38,21 +38,21 @@ public interface OpenSslAsyncPrivateKeyMethod {
     /**
      * Signs the input with the given key and notifies the returned {@link Future} with the signed bytes.
      *
-     * @param engine                the {@link SSLEngine}
-     * @param signatureAlgorithm    the algorithm to use for signing
-     * @param input                 the digest itself
-     * @return                      the {@link Future} that will be notified with the signed data
-     *                              (must not be {@code null}) when the operation completes.
+     * @param engine             the {@link SSLEngine}
+     * @param signatureAlgorithm the algorithm to use for signing
+     * @param input              the digest itself
+     * @return the {@link Future} that will be notified with the signed data
+     * (must not be {@code null}) when the operation completes.
      */
     Future<byte[]> sign(SSLEngine engine, int signatureAlgorithm, byte[] input);
 
     /**
      * Decrypts the input with the given key and notifies the returned {@link Future} with the decrypted bytes.
      *
-     * @param engine                the {@link SSLEngine}
-     * @param input                 the input which should be decrypted
-     * @return                      the {@link Future} that will be notified with the decrypted data
-     *                              (must not be {@code null}) when the operation completes.
+     * @param engine the {@link SSLEngine}
+     * @param input  the input which should be decrypted
+     * @return the {@link Future} that will be notified with the decrypted data
+     * (must not be {@code null}) when the operation completes.
      */
     Future<byte[]> decrypt(SSLEngine engine, byte[] input);
 }

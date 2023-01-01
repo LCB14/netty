@@ -51,7 +51,7 @@ public final class MacAddressUtil {
 
         // Retrieve the list of available network interfaces.
         Map<NetworkInterface, InetAddress> ifaces = new LinkedHashMap<NetworkInterface, InetAddress>();
-        for (NetworkInterface iface: NetUtil.NETWORK_INTERFACES) {
+        for (NetworkInterface iface : NetUtil.NETWORK_INTERFACES) {
             // Use the interface with proper INET addresses only.
             Enumeration<InetAddress> addrs = SocketUtils.addressesFromNetworkInterface(iface);
             if (addrs.hasMoreElements()) {
@@ -62,7 +62,7 @@ public final class MacAddressUtil {
             }
         }
 
-        for (Entry<NetworkInterface, InetAddress> entry: ifaces.entrySet()) {
+        for (Entry<NetworkInterface, InetAddress> entry : ifaces.entrySet()) {
             NetworkInterface iface = entry.getKey();
             InetAddress inetAddr = entry.getValue();
             if (iface.isVirtual()) {
@@ -139,6 +139,7 @@ public final class MacAddressUtil {
 
     /**
      * Parse a EUI-48, MAC-48, or EUI-64 MAC address from a {@link String} and return it as a {@code byte[]}.
+     *
      * @param value The string representation of the MAC address.
      * @return The byte representation of the MAC address.
      */
@@ -188,7 +189,7 @@ public final class MacAddressUtil {
      */
     public static String formatAddress(byte[] addr) {
         StringBuilder buf = new StringBuilder(24);
-        for (byte b: addr) {
+        for (byte b : addr) {
             buf.append(String.format("%02x:", b & 0xff));
         }
         return buf.substring(0, buf.length() - 1);
@@ -205,7 +206,7 @@ public final class MacAddressUtil {
 
         // Must not be filled with only 0 and 1.
         boolean onlyZeroAndOne = true;
-        for (byte b: candidate) {
+        for (byte b : candidate) {
             if (b != 0 && b != 1) {
                 onlyZeroAndOne = false;
                 break;
@@ -265,5 +266,6 @@ public final class MacAddressUtil {
         return 4;
     }
 
-    private MacAddressUtil() { }
+    private MacAddressUtil() {
+    }
 }

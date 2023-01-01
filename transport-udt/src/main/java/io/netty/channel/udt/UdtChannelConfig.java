@@ -62,7 +62,7 @@ import io.netty.channel.WriteBufferWaterMark;
  * </tr><tr>
  * <td>{@link UdtChannelOption#SYSTEM_SEND_BUFFER_SIZE}</td>
  * <td>{@link #setSystemSendBufferSize(int)}</td>
-
+ *
  * </tr>
  * </table>
  * <p>

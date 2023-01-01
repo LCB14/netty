@@ -120,7 +120,7 @@ public abstract class SslContextTest {
         String unsupportedCipher = "TLS_DH_anon_WITH_DES_CBC_SHA";
         IllegalArgumentException exception = null;
         try {
-            sslEngine.setEnabledCipherSuites(new String[] {unsupportedCipher});
+            sslEngine.setEnabledCipherSuites(new String[]{unsupportedCipher});
         } catch (IllegalArgumentException e) {
             exception = e;
         }

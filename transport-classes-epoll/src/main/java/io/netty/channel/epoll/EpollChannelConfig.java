@@ -187,16 +187,16 @@ public class EpollChannelConfig extends DefaultChannelConfig {
 
         try {
             switch (mode) {
-            case EDGE_TRIGGERED:
-                checkChannelNotRegistered();
-                ((AbstractEpollChannel) channel).setFlag(Native.EPOLLET);
-                break;
-            case LEVEL_TRIGGERED:
-                checkChannelNotRegistered();
-                ((AbstractEpollChannel) channel).clearFlag(Native.EPOLLET);
-                break;
-            default:
-                throw new Error();
+                case EDGE_TRIGGERED:
+                    checkChannelNotRegistered();
+                    ((AbstractEpollChannel) channel).setFlag(Native.EPOLLET);
+                    break;
+                case LEVEL_TRIGGERED:
+                    checkChannelNotRegistered();
+                    ((AbstractEpollChannel) channel).clearFlag(Native.EPOLLET);
+                    break;
+                default:
+                    throw new Error();
             }
         } catch (IOException e) {
             throw new ChannelException(e);

@@ -25,7 +25,8 @@ final class UnresponsiveHandler extends SimpleChannelInboundHandler<Object> {
 
     static final UnresponsiveHandler INSTANCE = new UnresponsiveHandler();
 
-    private UnresponsiveHandler() { }
+    private UnresponsiveHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {

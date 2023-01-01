@@ -76,8 +76,8 @@ public class SocketTestPermutation {
         List<BootstrapComboFactory<A, B>> list = new ArrayList<BootstrapComboFactory<A, B>>();
 
         // Populate the combinations
-        for (BootstrapFactory<A> sbf: sbfs) {
-            for (BootstrapFactory<B> cbf: cbfs) {
+        for (BootstrapFactory<A> sbf : sbfs) {
+            for (BootstrapFactory<B> cbf : cbfs) {
                 final BootstrapFactory<A> sbf0 = sbf;
                 final BootstrapFactory<B> cbf0 = cbf;
                 list.add(new BootstrapComboFactory<A, B>() {

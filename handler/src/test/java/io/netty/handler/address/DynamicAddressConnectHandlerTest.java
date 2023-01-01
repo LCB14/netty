@@ -29,10 +29,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class DynamicAddressConnectHandlerTest {
-    private static final SocketAddress LOCAL = new SocketAddress() { };
-    private static final SocketAddress LOCAL_NEW = new SocketAddress() { };
-    private static final SocketAddress REMOTE = new SocketAddress() { };
-    private static final SocketAddress REMOTE_NEW = new SocketAddress() { };
+    private static final SocketAddress LOCAL = new SocketAddress() {
+    };
+    private static final SocketAddress LOCAL_NEW = new SocketAddress() {
+    };
+    private static final SocketAddress REMOTE = new SocketAddress() {
+    };
+    private static final SocketAddress REMOTE_NEW = new SocketAddress() {
+    };
+
     @Test
     public void testReplaceAddresses() {
 

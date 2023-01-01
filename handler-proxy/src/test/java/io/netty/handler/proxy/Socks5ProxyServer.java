@@ -64,19 +64,19 @@ final class Socks5ProxyServer extends ProxyServer {
     protected void configure(SocketChannel ch) throws Exception {
         ChannelPipeline p = ch.pipeline();
         switch (testMode) {
-        case INTERMEDIARY:
-            p.addLast(DECODER, new Socks5InitialRequestDecoder());
-            p.addLast(ENCODER, Socks5ServerEncoder.DEFAULT);
-            p.addLast(new Socks5IntermediaryHandler());
-            break;
-        case TERMINAL:
-            p.addLast(DECODER, new Socks5InitialRequestDecoder());
-            p.addLast(ENCODER, Socks5ServerEncoder.DEFAULT);
-            p.addLast(new Socks5TerminalHandler());
-            break;
-        case UNRESPONSIVE:
-            p.addLast(UnresponsiveHandler.INSTANCE);
-            break;
+            case INTERMEDIARY:
+                p.addLast(DECODER, new Socks5InitialRequestDecoder());
+                p.addLast(ENCODER, Socks5ServerEncoder.DEFAULT);
+                p.addLast(new Socks5IntermediaryHandler());
+                break;
+            case TERMINAL:
+                p.addLast(DECODER, new Socks5InitialRequestDecoder());
+                p.addLast(ENCODER, Socks5ServerEncoder.DEFAULT);
+                p.addLast(new Socks5TerminalHandler());
+                break;
+            case UNRESPONSIVE:
+                p.addLast(UnresponsiveHandler.INSTANCE);
+                break;
         }
     }
 
@@ -157,7 +157,7 @@ final class Socks5ProxyServer extends ProxyServer {
             Socks5CommandResponse res;
             boolean sendGreeting = false;
             if (!req.dstAddr().equals(destination.getHostString()) ||
-                       req.dstPort() != destination.getPort()) {
+                    req.dstPort() != destination.getPort()) {
                 res = new DefaultSocks5CommandResponse(Socks5CommandStatus.FORBIDDEN, Socks5AddressType.IPv4);
             } else {
                 res = new DefaultSocks5CommandResponse(Socks5CommandStatus.SUCCESS, Socks5AddressType.IPv4);

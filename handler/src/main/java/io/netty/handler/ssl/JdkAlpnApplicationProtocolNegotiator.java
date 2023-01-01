@@ -27,14 +27,15 @@ import javax.net.ssl.SSLEngine;
 @Deprecated
 public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicationProtocolNegotiator {
     private static final boolean AVAILABLE = Conscrypt.isAvailable() ||
-                                             JdkAlpnSslUtils.supportsAlpn() ||
-                                             JettyAlpnSslEngine.isAvailable() ||
-                                             BouncyCastle.isAvailable();
+            JdkAlpnSslUtils.supportsAlpn() ||
+            JettyAlpnSslEngine.isAvailable() ||
+            BouncyCastle.isAvailable();
 
     private static final SslEngineWrapperFactory ALPN_WRAPPER = AVAILABLE ? new AlpnWrapper() : new FailureWrapper();
 
     /**
      * Create a new instance.
+     *
      * @param protocols The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(Iterable<String> protocols) {
@@ -43,6 +44,7 @@ public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicati
 
     /**
      * Create a new instance.
+     *
      * @param protocols The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(String... protocols) {
@@ -51,8 +53,9 @@ public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicati
 
     /**
      * Create a new instance.
+     *
      * @param failIfNoCommonProtocols Fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols               The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(boolean failIfNoCommonProtocols, Iterable<String> protocols) {
         this(failIfNoCommonProtocols, failIfNoCommonProtocols, protocols);
@@ -60,8 +63,9 @@ public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicati
 
     /**
      * Create a new instance.
+     *
      * @param failIfNoCommonProtocols Fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols               The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(boolean failIfNoCommonProtocols, String... protocols) {
         this(failIfNoCommonProtocols, failIfNoCommonProtocols, protocols);
@@ -69,12 +73,13 @@ public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicati
 
     /**
      * Create a new instance.
+     *
      * @param clientFailIfNoCommonProtocols Client side fail with a fatal alert if not common protocols are detected.
      * @param serverFailIfNoCommonProtocols Server side fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols                     The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(boolean clientFailIfNoCommonProtocols,
-            boolean serverFailIfNoCommonProtocols, Iterable<String> protocols) {
+                                                boolean serverFailIfNoCommonProtocols, Iterable<String> protocols) {
         this(serverFailIfNoCommonProtocols ? FAIL_SELECTOR_FACTORY : NO_FAIL_SELECTOR_FACTORY,
                 clientFailIfNoCommonProtocols ? FAIL_SELECTION_LISTENER_FACTORY : NO_FAIL_SELECTION_LISTENER_FACTORY,
                 protocols);
@@ -82,12 +87,13 @@ public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicati
 
     /**
      * Create a new instance.
+     *
      * @param clientFailIfNoCommonProtocols Client side fail with a fatal alert if not common protocols are detected.
      * @param serverFailIfNoCommonProtocols Server side fail with a fatal alert if not common protocols are detected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols                     The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(boolean clientFailIfNoCommonProtocols,
-            boolean serverFailIfNoCommonProtocols, String... protocols) {
+                                                boolean serverFailIfNoCommonProtocols, String... protocols) {
         this(serverFailIfNoCommonProtocols ? FAIL_SELECTOR_FACTORY : NO_FAIL_SELECTOR_FACTORY,
                 clientFailIfNoCommonProtocols ? FAIL_SELECTION_LISTENER_FACTORY : NO_FAIL_SELECTION_LISTENER_FACTORY,
                 protocols);
@@ -95,23 +101,25 @@ public final class JdkAlpnApplicationProtocolNegotiator extends JdkBaseApplicati
 
     /**
      * Create a new instance.
+     *
      * @param selectorFactory The factory which provides classes responsible for selecting the protocol.
      * @param listenerFactory The factory which provides to be notified of which protocol was selected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols       The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(ProtocolSelectorFactory selectorFactory,
-            ProtocolSelectionListenerFactory listenerFactory, Iterable<String> protocols) {
+                                                ProtocolSelectionListenerFactory listenerFactory, Iterable<String> protocols) {
         super(ALPN_WRAPPER, selectorFactory, listenerFactory, protocols);
     }
 
     /**
      * Create a new instance.
+     *
      * @param selectorFactory The factory which provides classes responsible for selecting the protocol.
      * @param listenerFactory The factory which provides to be notified of which protocol was selected.
-     * @param protocols The order of iteration determines the preference of support for protocols.
+     * @param protocols       The order of iteration determines the preference of support for protocols.
      */
     public JdkAlpnApplicationProtocolNegotiator(ProtocolSelectorFactory selectorFactory,
-            ProtocolSelectionListenerFactory listenerFactory, String... protocols) {
+                                                ProtocolSelectionListenerFactory listenerFactory, String... protocols) {
         super(ALPN_WRAPPER, selectorFactory, listenerFactory, protocols);
     }
 

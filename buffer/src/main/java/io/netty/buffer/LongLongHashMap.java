@@ -43,12 +43,12 @@ final class LongLongHashMap {
             return prev;
         }
 
-        for (;;) {
+        for (; ; ) {
             int index = index(key);
             for (int i = 0; i < maxProbe; i++) {
                 long existing = array[index];
                 if (existing == key || existing == 0) {
-                    long prev = existing == 0? emptyVal : array[index + 1];
+                    long prev = existing == 0 ? emptyVal : array[index + 1];
                     array[index] = key;
                     array[index + 1] = value;
                     for (; i < maxProbe; i++) { // Nerf any existing misplaced entries.

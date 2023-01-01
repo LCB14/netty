@@ -54,22 +54,22 @@ public class HttpServerKeepAliveHandlerTest {
     }
 
     static Collection<Object[]> keepAliveProvider() {
-        return Arrays.asList(new Object[][] {
-                { true, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, KEEP_ALIVE },          //  0
-                { true, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, SET_MULTIPART, KEEP_ALIVE },                //  1
-                { false, HttpVersion.HTTP_1_0, OK, null, SET_RESPONSE_LENGTH, null },                             //  2
-                { true, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, null },                //  3
-                { false, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, CLOSE },              //  4
-                { true, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_MULTIPART, null },                      //  5
-                { true, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_CHUNKED, null },                        //  6
-                { false, HttpVersion.HTTP_1_1, OK, null, SET_RESPONSE_LENGTH, null },                             //  7
-                { false, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, NOT_SELF_DEFINED_MSG_LENGTH, null },       //  8
-                { false, HttpVersion.HTTP_1_0, OK, null, NOT_SELF_DEFINED_MSG_LENGTH, null },                     //  9
-                { false, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, NOT_SELF_DEFINED_MSG_LENGTH, null },       // 10
-                { false, HttpVersion.HTTP_1_1, OK, null, NOT_SELF_DEFINED_MSG_LENGTH, null },                     // 11
-                { false, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, null },               // 12
-                { true, HttpVersion.HTTP_1_1, NO_CONTENT, REQUEST_KEEP_ALIVE, NOT_SELF_DEFINED_MSG_LENGTH, null}, // 13
-                { false, HttpVersion.HTTP_1_0, NO_CONTENT, null, NOT_SELF_DEFINED_MSG_LENGTH, null}               // 14
+        return Arrays.asList(new Object[][]{
+                {true, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, KEEP_ALIVE},          //  0
+                {true, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, SET_MULTIPART, KEEP_ALIVE},                //  1
+                {false, HttpVersion.HTTP_1_0, OK, null, SET_RESPONSE_LENGTH, null},                             //  2
+                {true, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, null},                //  3
+                {false, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, CLOSE},              //  4
+                {true, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_MULTIPART, null},                      //  5
+                {true, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, SET_CHUNKED, null},                        //  6
+                {false, HttpVersion.HTTP_1_1, OK, null, SET_RESPONSE_LENGTH, null},                             //  7
+                {false, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, NOT_SELF_DEFINED_MSG_LENGTH, null},       //  8
+                {false, HttpVersion.HTTP_1_0, OK, null, NOT_SELF_DEFINED_MSG_LENGTH, null},                     //  9
+                {false, HttpVersion.HTTP_1_1, OK, REQUEST_KEEP_ALIVE, NOT_SELF_DEFINED_MSG_LENGTH, null},       // 10
+                {false, HttpVersion.HTTP_1_1, OK, null, NOT_SELF_DEFINED_MSG_LENGTH, null},                     // 11
+                {false, HttpVersion.HTTP_1_0, OK, REQUEST_KEEP_ALIVE, SET_RESPONSE_LENGTH, null},               // 12
+                {true, HttpVersion.HTTP_1_1, NO_CONTENT, REQUEST_KEEP_ALIVE, NOT_SELF_DEFINED_MSG_LENGTH, null}, // 13
+                {false, HttpVersion.HTTP_1_0, NO_CONTENT, null, NOT_SELF_DEFINED_MSG_LENGTH, null}               // 14
         });
     }
 
@@ -101,16 +101,16 @@ public class HttpServerKeepAliveHandlerTest {
     }
 
     static Collection<Object[]> connectionCloseProvider() {
-        return Arrays.asList(new Object[][] {
-                { HttpVersion.HTTP_1_0, OK, SET_RESPONSE_LENGTH },
-                { HttpVersion.HTTP_1_0, OK, SET_MULTIPART },
-                { HttpVersion.HTTP_1_0, OK, NOT_SELF_DEFINED_MSG_LENGTH },
-                { HttpVersion.HTTP_1_0, NO_CONTENT, NOT_SELF_DEFINED_MSG_LENGTH },
-                { HttpVersion.HTTP_1_1, OK, SET_RESPONSE_LENGTH },
-                { HttpVersion.HTTP_1_1, OK, SET_MULTIPART },
-                { HttpVersion.HTTP_1_1, OK, NOT_SELF_DEFINED_MSG_LENGTH },
-                { HttpVersion.HTTP_1_1, OK, SET_CHUNKED },
-                { HttpVersion.HTTP_1_1, NO_CONTENT, NOT_SELF_DEFINED_MSG_LENGTH }
+        return Arrays.asList(new Object[][]{
+                {HttpVersion.HTTP_1_0, OK, SET_RESPONSE_LENGTH},
+                {HttpVersion.HTTP_1_0, OK, SET_MULTIPART},
+                {HttpVersion.HTTP_1_0, OK, NOT_SELF_DEFINED_MSG_LENGTH},
+                {HttpVersion.HTTP_1_0, NO_CONTENT, NOT_SELF_DEFINED_MSG_LENGTH},
+                {HttpVersion.HTTP_1_1, OK, SET_RESPONSE_LENGTH},
+                {HttpVersion.HTTP_1_1, OK, SET_MULTIPART},
+                {HttpVersion.HTTP_1_1, OK, NOT_SELF_DEFINED_MSG_LENGTH},
+                {HttpVersion.HTTP_1_1, OK, SET_CHUNKED},
+                {HttpVersion.HTTP_1_1, NO_CONTENT, NOT_SELF_DEFINED_MSG_LENGTH}
         });
     }
 
@@ -149,9 +149,9 @@ public class HttpServerKeepAliveHandlerTest {
     @ParameterizedTest
     @MethodSource("keepAliveProvider")
     public void testPipelineKeepAlive(boolean isKeepAliveResponseExpected, HttpVersion httpVersion,
-                                       HttpResponseStatus responseStatus,
-                                       String sendKeepAlive, int setSelfDefinedMessageLength,
-                                       AsciiString setResponseConnection) {
+                                      HttpResponseStatus responseStatus,
+                                      String sendKeepAlive, int setSelfDefinedMessageLength,
+                                      AsciiString setResponseConnection) {
         FullHttpRequest firstRequest = new DefaultFullHttpRequest(httpVersion, HttpMethod.GET, "/v1/foo/bar");
         setKeepAlive(firstRequest, true);
         FullHttpRequest secondRequest = new DefaultFullHttpRequest(httpVersion, HttpMethod.GET, "/v1/foo/bar");
@@ -214,22 +214,22 @@ public class HttpServerKeepAliveHandlerTest {
 
     private static void setupMessageLength(HttpResponse response, int setSelfDefinedMessageLength) {
         switch (setSelfDefinedMessageLength) {
-        case NOT_SELF_DEFINED_MSG_LENGTH:
-            if (isContentLengthSet(response)) {
-                response.headers().remove(HttpHeaderNames.CONTENT_LENGTH);
-            }
-            break;
-        case SET_RESPONSE_LENGTH:
-            setContentLength(response, 0);
-            break;
-        case SET_CHUNKED:
-            setTransferEncodingChunked(response, true);
-            break;
-        case SET_MULTIPART:
-            response.headers().set(HttpHeaderNames.CONTENT_TYPE, MULTIPART_MIXED.toUpperCase());
-            break;
-        default:
-            throw new IllegalArgumentException("selfDefinedMessageLength: " + setSelfDefinedMessageLength);
+            case NOT_SELF_DEFINED_MSG_LENGTH:
+                if (isContentLengthSet(response)) {
+                    response.headers().remove(HttpHeaderNames.CONTENT_LENGTH);
+                }
+                break;
+            case SET_RESPONSE_LENGTH:
+                setContentLength(response, 0);
+                break;
+            case SET_CHUNKED:
+                setTransferEncodingChunked(response, true);
+                break;
+            case SET_MULTIPART:
+                response.headers().set(HttpHeaderNames.CONTENT_TYPE, MULTIPART_MIXED.toUpperCase());
+                break;
+            default:
+                throw new IllegalArgumentException("selfDefinedMessageLength: " + setSelfDefinedMessageLength);
         }
     }
 }

@@ -55,20 +55,20 @@ public class Http2HeaderBlockIOTest {
     @Test
     public void successiveCallsShouldSucceed() throws Http2Exception {
         Http2Headers in = new DefaultHttp2Headers().method(new AsciiString("GET")).scheme(new AsciiString("https"))
-                        .authority(new AsciiString("example.org")).path(new AsciiString("/some/path"))
-                        .add(new AsciiString("accept"), new AsciiString("*/*"));
+                .authority(new AsciiString("example.org")).path(new AsciiString("/some/path"))
+                .add(new AsciiString("accept"), new AsciiString("*/*"));
         assertRoundtripSuccessful(in);
 
         in = new DefaultHttp2Headers().method(new AsciiString("GET")).scheme(new AsciiString("https"))
-                        .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource1"))
-                        .add(new AsciiString("accept"), new AsciiString("image/jpeg"))
-                        .add(new AsciiString("cache-control"), new AsciiString("no-cache"));
+                .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource1"))
+                .add(new AsciiString("accept"), new AsciiString("image/jpeg"))
+                .add(new AsciiString("cache-control"), new AsciiString("no-cache"));
         assertRoundtripSuccessful(in);
 
         in = new DefaultHttp2Headers().method(new AsciiString("GET")).scheme(new AsciiString("https"))
-                        .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource2"))
-                        .add(new AsciiString("accept"), new AsciiString("image/png"))
-                        .add(new AsciiString("cache-control"), new AsciiString("no-cache"));
+                .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource2"))
+                .add(new AsciiString("accept"), new AsciiString("image/png"))
+                .add(new AsciiString("cache-control"), new AsciiString("no-cache"));
         assertRoundtripSuccessful(in);
     }
 
@@ -89,7 +89,7 @@ public class Http2HeaderBlockIOTest {
 
     private static Http2Headers headers() {
         return new DefaultHttp2Headers(false).method(new AsciiString("GET")).scheme(new AsciiString("https"))
-        .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource2"))
+                .authority(new AsciiString("example.org")).path(new AsciiString("/some/path/resource2"))
                 .add(new AsciiString("accept"), new AsciiString("image/png"))
                 .add(new AsciiString("cache-control"), new AsciiString("no-cache"))
                 .add(new AsciiString("custom"), new AsciiString("value1"))

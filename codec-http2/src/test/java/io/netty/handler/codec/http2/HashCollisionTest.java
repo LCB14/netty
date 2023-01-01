@@ -39,7 +39,8 @@ import java.util.Set;
 
 @Disabled
 public final class HashCollisionTest {
-    private HashCollisionTest() { }
+    private HashCollisionTest() {
+    }
 
     public static void main(String[] args) throws IllegalAccessException, IOException, URISyntaxException {
         // Big initial size for when all name sources are pulled in.
@@ -143,7 +144,8 @@ public final class HashCollisionTest {
             Iterator<CharSequence> itr = hashResults.get(duplicateHashCode).iterator();
             // there should be at least 2 elements in the list ... bcz there may be duplicates
             realDups.add(itr.next());
-            checknext: do {
+            checknext:
+            do {
                 CharSequence next = itr.next();
                 for (CharSequence potentialDup : realDups) {
                     if (!AsciiString.contentEqualsIgnoreCase(next, potentialDup)) {

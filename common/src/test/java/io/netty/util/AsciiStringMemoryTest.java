@@ -17,6 +17,7 @@ package io.netty.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import io.netty.util.ByteProcessor.IndexOfProcessor;
 
 import java.util.Random;
@@ -83,6 +84,7 @@ public class AsciiStringMemoryTest {
         final AtomicReference<Integer> bCount = new AtomicReference<Integer>(0);
         aAsciiString.forEachByte(new ByteProcessor() {
             int i;
+
             @Override
             public boolean process(byte value) {
                 assertEquals(value, bAsciiString.byteAt(i++), "failed at index: " + i);
@@ -92,6 +94,7 @@ public class AsciiStringMemoryTest {
         });
         bAsciiString.forEachByte(new ByteProcessor() {
             int i;
+
             @Override
             public boolean process(byte value) {
                 assertEquals(value, aAsciiString.byteAt(i++), "failed at index: " + i);
@@ -121,6 +124,7 @@ public class AsciiStringMemoryTest {
         final AtomicReference<Integer> bCount = new AtomicReference<Integer>(0);
         aAsciiString.forEachByteDesc(new ByteProcessor() {
             int i = 1;
+
             @Override
             public boolean process(byte value) {
                 assertEquals(value, bAsciiString.byteAt(bAsciiString.length() - (i++)), "failed at index: " + i);
@@ -130,6 +134,7 @@ public class AsciiStringMemoryTest {
         });
         bAsciiString.forEachByteDesc(new ByteProcessor() {
             int i = 1;
+
             @Override
             public boolean process(byte value) {
                 assertEquals(value, aAsciiString.byteAt(aAsciiString.length() - (i++)), "failed at index: " + i);

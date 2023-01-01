@@ -36,7 +36,7 @@ public class OpenSslConscryptSslEngineInteropTest extends ConscryptSslEngineTest
     protected List<SSLEngineTestParam> newTestParams() {
         List<SSLEngineTestParam> params = super.newTestParams();
         List<SSLEngineTestParam> testParams = new ArrayList<SSLEngineTestParam>();
-        for (SSLEngineTestParam param: params) {
+        for (SSLEngineTestParam param : params) {
             testParams.add(new OpenSslEngineTestParam(true, param));
             testParams.add(new OpenSslEngineTestParam(false, param));
         }

@@ -133,7 +133,7 @@ public final class MacOSDnsServerAddressStreamProvider implements DnsServerAddre
         }
         Arrays.sort(resolvers, RESOLVER_COMPARATOR);
         Map<String, DnsServerAddresses> resolverMap = new HashMap<String, DnsServerAddresses>(resolvers.length);
-        for (DnsResolver resolver: resolvers) {
+        for (DnsResolver resolver : resolvers) {
             // Skip mdns
             if ("mdns".equalsIgnoreCase(resolver.options())) {
                 continue;
@@ -178,7 +178,7 @@ public final class MacOSDnsServerAddressStreamProvider implements DnsServerAddre
         }
 
         final String originalHostname = hostname;
-        for (;;) {
+        for (; ; ) {
             int i = hostname.indexOf('.', 1);
             if (i < 0 || i == hostname.length() - 1) {
                 // Try access default mapping.

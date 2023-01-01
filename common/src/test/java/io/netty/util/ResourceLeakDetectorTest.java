@@ -75,7 +75,7 @@ public class ResourceLeakDetectorTest {
                 }
 
                 private boolean closeResources(boolean checkClosed) {
-                    for (;;) {
+                    for (; ; ) {
                         LeakAwareResource r = resources.poll();
                         if (r == null) {
                             return false;
@@ -94,7 +94,7 @@ public class ResourceLeakDetectorTest {
         }
 
         // Just wait until all threads are done.
-        for (Thread t: threads) {
+        for (Thread t : threads) {
             t.join();
         }
 
@@ -133,7 +133,7 @@ public class ResourceLeakDetectorTest {
     }
 
     // Mimic the way how we implement our classes that should help with leak detection
-    private static final  class LeakAwareResource implements Resource {
+    private static final class LeakAwareResource implements Resource {
         private final Resource resource;
         private final ResourceLeakTracker<Resource> leak;
 

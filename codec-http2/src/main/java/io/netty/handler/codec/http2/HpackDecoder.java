@@ -55,7 +55,7 @@ final class HpackDecoder {
     private static final Http2Exception DECODE_ULE_128_DECOMPRESSION_EXCEPTION =
             Http2Exception.newStatic(COMPRESSION_ERROR, "HPACK - decompression failure",
                     Http2Exception.ShutdownHint.HARD_SHUTDOWN, HpackDecoder.class,
-            "decodeULE128(..)");
+                    "decodeULE128(..)");
     private static final Http2Exception DECODE_ULE_128_TO_LONG_DECOMPRESSION_EXCEPTION =
             Http2Exception.newStatic(COMPRESSION_ERROR, "HPACK - long overflow",
                     Http2Exception.ShutdownHint.HARD_SHUTDOWN, HpackDecoder.class, "decodeULE128(..)");
@@ -74,7 +74,7 @@ final class HpackDecoder {
     private static final Http2Exception INVALID_MAX_DYNAMIC_TABLE_SIZE =
             Http2Exception.newStatic(COMPRESSION_ERROR, "HPACK - invalid max dynamic table size",
                     Http2Exception.ShutdownHint.HARD_SHUTDOWN, HpackDecoder.class,
-            "setDynamicTableSize(..)");
+                    "setDynamicTableSize(..)");
     private static final Http2Exception MAX_DYNAMIC_TABLE_SIZE_CHANGE_REQUIRED =
             Http2Exception.newStatic(COMPRESSION_ERROR, "HPACK - max dynamic table size change required",
                     Http2Exception.ShutdownHint.HARD_SHUTDOWN, HpackDecoder.class, "decode(..)");
@@ -97,10 +97,11 @@ final class HpackDecoder {
 
     /**
      * Create a new instance.
+     *
      * @param maxHeaderListSize This is the only setting that can be configured before notifying the peer.
-     *  This is because <a href="https://tools.ietf.org/html/rfc7540#section-6.5.1">SETTINGS_MAX_HEADER_LIST_SIZE</a>
-     *  allows a lower than advertised limit from being enforced, and the default limit is unlimited
-     *  (which is dangerous).
+     *                          This is because <a href="https://tools.ietf.org/html/rfc7540#section-6.5.1">SETTINGS_MAX_HEADER_LIST_SIZE</a>
+     *                          allows a lower than advertised limit from being enforced, and the default limit is unlimited
+     *                          (which is dangerous).
      */
     HpackDecoder(long maxHeaderListSize) {
         this(maxHeaderListSize, DEFAULT_HEADER_TABLE_SIZE);
@@ -201,7 +202,7 @@ final class HpackDecoder {
                         // Dynamic Table Size Update
                         // See https://www.rfc-editor.org/rfc/rfc7541.html#section-4.2
                         throw connectionError(COMPRESSION_ERROR, "Dynamic table size update must happen " +
-                            "at the beginning of the header block");
+                                "at the beginning of the header block");
                     } else {
                         // Literal Header Field without Indexing / never Indexed
                         indexType = (b & 0x10) == 0x10 ? IndexType.NEVER : IndexType.NONE;
@@ -383,7 +384,7 @@ final class HpackDecoder {
     }
 
     private static HeaderType validateHeader(int streamId, AsciiString name, CharSequence value,
-            HeaderType previousHeaderType) throws Http2Exception {
+                                             HeaderType previousHeaderType) throws Http2Exception {
         if (hasPseudoHeaderFormat(name)) {
             if (previousHeaderType == HeaderType.REGULAR_HEADER) {
                 throw streamError(streamId, PROTOCOL_ERROR,

@@ -347,15 +347,15 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
             } catch (Throwable error) {
                 if (logger.isDebugEnabled()) {
                     logger.debug(
-                        "An exception {}" +
-                        "was thrown by a user handler's exceptionCaught() " +
-                        "method while handling the following exception:",
-                        ThrowableUtil.stackTraceToString(error), cause);
+                            "An exception {}" +
+                                    "was thrown by a user handler's exceptionCaught() " +
+                                    "method while handling the following exception:",
+                            ThrowableUtil.stackTraceToString(error), cause);
                 } else if (logger.isWarnEnabled()) {
                     logger.warn(
-                        "An exception '{}' [enable DEBUG level for full stacktrace] " +
-                        "was thrown by a user handler's exceptionCaught() " +
-                        "method while handling the following exception:", error, cause);
+                            "An exception '{}' [enable DEBUG level for full stacktrace] " +
+                                    "was thrown by a user handler's exceptionCaught() " +
+                                    "method while handling the following exception:", error, cause);
                 }
             }
         } else {
@@ -1088,7 +1088,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     }
 
     final boolean setAddComplete() {
-        for (;;) {
+        for (; ; ) {
             int oldState = handlerState;
             if (oldState == REMOVE_COMPLETE) {
                 return false;
@@ -1130,7 +1130,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     /**
      * Makes best possible effort to detect if {@link ChannelHandler#handlerAdded(ChannelHandlerContext)} was called
      * yet. If not return {@code false} and if called or could not detect return {@code true}.
-     *
+     * <p>
      * If this method returns {@code false} we will not invoke the {@link ChannelHandler} but just forward the event.
      * This is needed as {@link DefaultChannelPipeline} may already put the {@link ChannelHandler} in the linked-list
      * but not called {@link ChannelHandler#handlerAdded(ChannelHandlerContext)}.
@@ -1157,7 +1157,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     }
 
     private static boolean safeExecute(EventExecutor executor, Runnable runnable,
-            ChannelPromise promise, Object msg, boolean lazy) {
+                                       ChannelPromise promise, Object msg, boolean lazy) {
         try {
             if (lazy && executor instanceof AbstractEventExecutor) {
                 ((AbstractEventExecutor) executor).lazyExecute(runnable);
@@ -1196,7 +1196,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
         });
 
         static WriteTask newInstance(AbstractChannelHandlerContext ctx,
-                Object msg, ChannelPromise promise, boolean flush) {
+                                     Object msg, ChannelPromise promise, boolean flush) {
             WriteTask task = RECYCLER.get();
             init(task, ctx, msg, promise, flush);
             return task;

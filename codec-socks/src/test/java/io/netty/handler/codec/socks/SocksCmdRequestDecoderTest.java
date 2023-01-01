@@ -55,8 +55,8 @@ public class SocksCmdRequestDecoderTest {
 
     @Test
     public void testCmdRequestDecoderIPv4() {
-        String[] hosts = {"127.0.0.1", };
-        int[] ports = {1, 32769, 65535 };
+        String[] hosts = {"127.0.0.1",};
+        int[] ports = {1, 32769, 65535};
         for (SocksCmdType cmdType : SocksCmdType.values()) {
             for (String host : hosts) {
                 for (int port : ports) {
@@ -81,18 +81,18 @@ public class SocksCmdRequestDecoderTest {
 
     @Test
     public void testCmdRequestDecoderDomain() {
-        String[] hosts = {"google.com" ,
-                          "مثال.إختبار",
-                          "παράδειγμα.δοκιμή",
-                          "مثال.آزمایشی",
-                          "пример.испытание",
-                          "בײַשפּיל.טעסט",
-                          "例子.测试",
-                          "例子.測試",
-                          "उदाहरण.परीक्षा",
-                          "例え.テスト",
-                          "실례.테스트",
-                          "உதாரணம்.பரிட்சை"};
+        String[] hosts = {"google.com",
+                "مثال.إختبار",
+                "παράδειγμα.δοκιμή",
+                "مثال.آزمایشی",
+                "пример.испытание",
+                "בײַשפּיל.טעסט",
+                "例子.测试",
+                "例子.測試",
+                "उदाहरण.परीक्षा",
+                "例え.テスト",
+                "실례.테스트",
+                "உதாரணம்.பரிட்சை"};
         int[] ports = {1, 32769, 65535};
         for (SocksCmdType cmdType : SocksCmdType.values()) {
             for (String host : hosts) {

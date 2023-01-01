@@ -93,9 +93,9 @@ public class OcspRequestBuilder {
         byte[] nonce = new byte[8];
         generator.nextBytes(nonce);
 
-        Extension[] extensions = new Extension[] {
+        Extension[] extensions = new Extension[]{
                 new Extension(OCSPObjectIdentifiers.id_pkix_ocsp_nonce, false,
-                        new DEROctetString(nonce)) };
+                        new DEROctetString(nonce))};
 
         builder.setRequestExtensions(new Extensions(extensions));
 

@@ -103,5 +103,6 @@ public class Http2ServerUpgradeCodecTest {
     }
 
     @ChannelHandler.Sharable
-    private static final class HttpInboundHandler extends ChannelInboundHandlerAdapter { }
+    private static final class HttpInboundHandler extends ChannelInboundHandlerAdapter {
+    }
 }

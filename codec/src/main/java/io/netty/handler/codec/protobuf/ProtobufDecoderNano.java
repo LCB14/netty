@@ -62,6 +62,7 @@ import io.netty.util.internal.ObjectUtil;
 @Sharable
 public class ProtobufDecoderNano extends MessageToMessageDecoder<ByteBuf> {
     private final Class<? extends MessageNano> clazz;
+
     /**
      * Creates a new instance.
      */

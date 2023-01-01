@@ -79,8 +79,8 @@ public class Http2ServerUpgradeCodec implements HttpServerUpgradeHandler.Upgrade
     /**
      * Creates the codec providing an upgrade to the given handler for HTTP/2.
      *
-     * @param handlerName the name of the HTTP/2 connection handler to be used in the pipeline,
-     *                    or {@code null} to auto-generate the name
+     * @param handlerName       the name of the HTTP/2 connection handler to be used in the pipeline,
+     *                          or {@code null} to auto-generate the name
      * @param connectionHandler the HTTP/2 connection handler
      */
     public Http2ServerUpgradeCodec(String handlerName, Http2ConnectionHandler connectionHandler) {
@@ -91,7 +91,7 @@ public class Http2ServerUpgradeCodec implements HttpServerUpgradeHandler.Upgrade
      * Creates the codec providing an upgrade to the given handler for HTTP/2.
      *
      * @param handlerName the name of the HTTP/2 connection handler to be used in the pipeline.
-     * @param http2Codec the HTTP/2 multiplexing handler.
+     * @param http2Codec  the HTTP/2 multiplexing handler.
      */
     public Http2ServerUpgradeCodec(String handlerName, Http2MultiplexCodec http2Codec) {
         this(handlerName, http2Codec, EMPTY_HANDLERS);
@@ -102,14 +102,14 @@ public class Http2ServerUpgradeCodec implements HttpServerUpgradeHandler.Upgrade
      * pipeline.
      *
      * @param http2Codec the HTTP/2 frame handler.
-     * @param handlers the handlers that will handle the {@link Http2Frame}s.
+     * @param handlers   the handlers that will handle the {@link Http2Frame}s.
      */
     public Http2ServerUpgradeCodec(Http2FrameCodec http2Codec, ChannelHandler... handlers) {
         this(null, http2Codec, handlers);
     }
 
     private Http2ServerUpgradeCodec(String handlerName, Http2ConnectionHandler connectionHandler,
-            ChannelHandler... handlers) {
+                                    ChannelHandler... handlers) {
         this.handlerName = handlerName;
         this.connectionHandler = connectionHandler;
         this.handlers = handlers;
@@ -123,7 +123,7 @@ public class Http2ServerUpgradeCodec implements HttpServerUpgradeHandler.Upgrade
 
     @Override
     public boolean prepareUpgradeResponse(ChannelHandlerContext ctx, FullHttpRequest upgradeRequest,
-            HttpHeaders headers) {
+                                          HttpHeaders headers) {
         try {
             // Decode the HTTP2-Settings header and set the settings on the handler to make
             // sure everything is fine with the request.

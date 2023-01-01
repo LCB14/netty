@@ -62,6 +62,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public abstract class DatagramUnicastTest extends AbstractDatagramTest {
 
     private static final byte[] BYTES = {0, 1, 2, 3};
+
     protected enum WrapType {
         NONE, DUP, SLICE, READ_ONLY
     }
@@ -179,7 +180,7 @@ public abstract class DatagramUnicastTest extends AbstractDatagramTest {
 
     private void testSimpleSend(Bootstrap sb, Bootstrap cb, ByteBuf buf, boolean bindClient,
                                 final byte[] bytes, int count) throws Throwable {
-        for (WrapType type: WrapType.values()) {
+        for (WrapType type : WrapType.values()) {
             testSimpleSend0(sb, cb, buf.retain(), bindClient, bytes, count, type);
         }
         assertTrue(buf.release());
@@ -301,7 +302,7 @@ public abstract class DatagramUnicastTest extends AbstractDatagramTest {
 
     @SuppressWarnings("deprecation")
     private void testSimpleSend0(Bootstrap sb, Bootstrap cb, ByteBuf buf, boolean bindClient,
-                                final byte[] bytes, int count, WrapType wrapType)
+                                 final byte[] bytes, int count, WrapType wrapType)
             throws Throwable {
         Channel sc = null;
         Channel cc = null;
@@ -338,7 +339,7 @@ public abstract class DatagramUnicastTest extends AbstractDatagramTest {
             // release as we used buf.retain() before
             cc.flush();
 
-            for (ChannelFuture future: futures) {
+            for (ChannelFuture future : futures) {
                 future.sync();
             }
             if (!latch.await(10, TimeUnit.SECONDS)) {
@@ -391,7 +392,7 @@ public abstract class DatagramUnicastTest extends AbstractDatagramTest {
             }
             cc.flush();
 
-            for (ChannelFuture future: futures) {
+            for (ChannelFuture future : futures) {
                 future.sync();
             }
 

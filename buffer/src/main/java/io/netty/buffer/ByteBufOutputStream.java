@@ -100,7 +100,7 @@ public class ByteBufOutputStream extends OutputStream implements DataOutput {
     @Override
     public void writeChars(String s) throws IOException {
         int len = s.length();
-        for (int i = 0 ; i < len ; i ++) {
+        for (int i = 0; i < len; i++) {
             buffer.writeChar(s.charAt(i));
         }
     }

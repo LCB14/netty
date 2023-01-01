@@ -49,6 +49,7 @@ final class OpenSslKeyMaterialManager {
 
     // key type mappings for types.
     private static final Map<String, String> KEY_TYPES = new HashMap<String, String>();
+
     static {
         KEY_TYPES.put("RSA", KEY_TYPE_RSA);
         KEY_TYPES.put("DHE_RSA", KEY_TYPE_RSA);
@@ -119,8 +120,9 @@ final class OpenSslKeyMaterialManager {
             }
         }
     }
+
     private String chooseClientAlias(ReferenceCountedOpenSslEngine engine,
-                                       String[] keyTypes, X500Principal[] issuer) {
+                                     String[] keyTypes, X500Principal[] issuer) {
         X509KeyManager manager = provider.keyManager();
         if (manager instanceof X509ExtendedKeyManager) {
             return ((X509ExtendedKeyManager) manager).chooseEngineClientAlias(keyTypes, issuer, engine);

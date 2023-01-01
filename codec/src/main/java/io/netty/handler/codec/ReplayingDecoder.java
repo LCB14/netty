@@ -261,9 +261,9 @@ import java.util.List;
  *         ctx.pipeline().remove(this);
  *     }
  * </pre>
- * @param <S>
- *        the state type which is usually an {@link Enum}; use {@link Void} if state management is
- *        unused
+ *
+ * @param <S> the state type which is usually an {@link Enum}; use {@link Void} if state management is
+ *            unused
  */
 public abstract class ReplayingDecoder<S> extends ByteToMessageDecoder {
 
@@ -305,6 +305,7 @@ public abstract class ReplayingDecoder<S> extends ByteToMessageDecoder {
 
     /**
      * Returns the current state of this decoder.
+     *
      * @return the current state of this decoder
      */
     protected S state() {
@@ -313,6 +314,7 @@ public abstract class ReplayingDecoder<S> extends ByteToMessageDecoder {
 
     /**
      * Sets the current state of this decoder.
+     *
      * @return the old state of this decoder
      */
     protected S state(S newState) {
@@ -377,7 +379,7 @@ public abstract class ReplayingDecoder<S> extends ByteToMessageDecoder {
                         if (oldInputLength == in.readableBytes() && oldState == state) {
                             throw new DecoderException(
                                     StringUtil.simpleClassName(getClass()) + ".decode() must consume the inbound " +
-                                    "data or change its state if it did not decode anything.");
+                                            "data or change its state if it did not decode anything.");
                         } else {
                             // Previous data has been discarded or caused state transition.
                             // Probably it is reading on.
@@ -408,8 +410,8 @@ public abstract class ReplayingDecoder<S> extends ByteToMessageDecoder {
 
                 if (oldReaderIndex == in.readerIndex() && oldState == state) {
                     throw new DecoderException(
-                           StringUtil.simpleClassName(getClass()) + ".decode() method must consume the inbound data " +
-                           "or change its state if it decoded something.");
+                            StringUtil.simpleClassName(getClass()) + ".decode() method must consume the inbound data " +
+                                    "or change its state if it decoded something.");
                 }
                 if (isSingleDecode()) {
                     break;

@@ -18,7 +18,7 @@ package io.netty.handler.ssl;
 /**
  * {@link SslContextOption}s that are specific to the {@link SslProvider#OPENSSL} / {@link SslProvider#OPENSSL_REFCNT}.
  *
- * @param <T>   the type of the value.
+ * @param <T> the type of the value.
  */
 public final class OpenSslContextOption<T> extends SslContextOption<T> {
 
@@ -35,7 +35,7 @@ public final class OpenSslContextOption<T> extends SslContextOption<T> {
      * If enabled <a href="https://tools.ietf.org/html/rfc7918">TLS false start</a> will be enabled if supported.
      * When TLS false start is enabled the flow of {@link SslHandshakeCompletionEvent}s may be different compared when,
      * not enabled.
-     *
+     * <p>
      * This is currently only supported when {@code BoringSSL} and ALPN is used.
      */
     public static final OpenSslContextOption<Boolean> TLS_FALSE_START =
@@ -44,7 +44,7 @@ public final class OpenSslContextOption<T> extends SslContextOption<T> {
     /**
      * Set the {@link OpenSslPrivateKeyMethod} to use. This allows to offload private-key operations
      * if needed.
-     *
+     * <p>
      * This is currently only supported when {@code BoringSSL} is used.
      */
     public static final OpenSslContextOption<OpenSslPrivateKeyMethod> PRIVATE_KEY_METHOD =
@@ -53,7 +53,7 @@ public final class OpenSslContextOption<T> extends SslContextOption<T> {
     /**
      * Set the {@link OpenSslAsyncPrivateKeyMethod} to use. This allows to offload private-key operations
      * if needed.
-     *
+     * <p>
      * This is currently only supported when {@code BoringSSL} is used.
      */
     public static final OpenSslContextOption<OpenSslAsyncPrivateKeyMethod> ASYNC_PRIVATE_KEY_METHOD =
@@ -63,7 +63,7 @@ public final class OpenSslContextOption<T> extends SslContextOption<T> {
      * Set the {@link OpenSslCertificateCompressionConfig} to use. This allows for the configuration of certificate
      * compression algorithms which should be used, the priority of those algorithms and the directions in which
      * they should be used.
-     *
+     * <p>
      * This is currently only supported when {@code BoringSSL} is used.
      */
     public static final OpenSslContextOption<OpenSslCertificateCompressionConfig> CERTIFICATE_COMPRESSION_ALGORITHMS =

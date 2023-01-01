@@ -70,7 +70,7 @@ public class DefaultHttp2HeadersTest {
         Http2Headers nonPseudoHeaders = new DefaultHttp2Headers();
         for (Entry<CharSequence, CharSequence> entry : headers) {
             if (entry.getKey().length() == 0 || entry.getKey().charAt(0) != ':' &&
-                !nonPseudoHeaders.contains(entry.getKey())) {
+                    !nonPseudoHeaders.contains(entry.getKey())) {
                 nonPseudoHeaders.add(entry.getKey(), entry.getValue());
             }
         }
@@ -209,7 +209,7 @@ public class DefaultHttp2HeadersTest {
 
     static void verifyPseudoHeadersFirst(Http2Headers headers) {
         CharSequence lastNonPseudoName = null;
-        for (Entry<CharSequence, CharSequence> entry: headers) {
+        for (Entry<CharSequence, CharSequence> entry : headers) {
             if (entry.getKey().length() == 0 || entry.getKey().charAt(0) != ':') {
                 lastNonPseudoName = entry.getKey();
             } else if (lastNonPseudoName != null) {

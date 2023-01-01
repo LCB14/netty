@@ -40,7 +40,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class DetectPeerCloseWithoutReadTest {
     protected abstract EventLoopGroup newGroup();
+
     protected abstract Class<? extends ServerChannel> serverChannel();
+
     protected abstract Class<? extends Channel> clientChannel();
 
     @Test

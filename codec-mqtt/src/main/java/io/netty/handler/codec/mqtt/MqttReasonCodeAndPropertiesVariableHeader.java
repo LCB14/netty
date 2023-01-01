@@ -45,10 +45,10 @@ public final class MqttReasonCodeAndPropertiesVariableHeader {
     @Override
     public String toString() {
         return new StringBuilder(StringUtil.simpleClassName(this))
-            .append('[')
-            .append("reasonCode=").append(reasonCode)
-            .append(", properties=").append(properties)
-            .append(']')
-            .toString();
+                .append('[')
+                .append("reasonCode=").append(reasonCode)
+                .append(", properties=").append(properties)
+                .append(']')
+                .toString();
     }
 }

@@ -29,7 +29,7 @@ import javax.net.ssl.SSLException;
 
 public abstract class AbstractSslEngineThroughputBenchmark extends AbstractSslEngineBenchmark {
 
-    @Param({ "64", "128", "512", "1024", "4096" })
+    @Param({"64", "128", "512", "1024", "4096"})
     public int messageSize;
 
     protected ByteBuffer wrapSrcBuffer;
@@ -56,7 +56,8 @@ public abstract class AbstractSslEngineThroughputBenchmark extends AbstractSslEn
         doSetup();
     }
 
-    protected void doSetup() throws Exception { }
+    protected void doSetup() throws Exception {
+    }
 
     @TearDown(Level.Iteration)
     public final void tearDown() throws Exception {
@@ -67,7 +68,8 @@ public abstract class AbstractSslEngineThroughputBenchmark extends AbstractSslEn
         doTearDown();
     }
 
-    protected void doTearDown() throws Exception { }
+    protected void doTearDown() throws Exception {
+    }
 
     protected final ByteBuffer doWrap(int numWraps) throws SSLException {
         wrapDstBuffer.clear();

@@ -34,9 +34,9 @@ public class DatagramDnsQuery extends DefaultDnsQuery
     /**
      * Creates a new instance with the {@link DnsOpCode#QUERY} {@code opCode}.
      *
-     * @param sender the address of the sender
+     * @param sender    the address of the sender
      * @param recipient the address of the recipient
-     * @param id the {@code ID} of the DNS query
+     * @param id        the {@code ID} of the DNS query
      */
     public DatagramDnsQuery(
             InetSocketAddress sender, InetSocketAddress recipient, int id) {
@@ -46,10 +46,10 @@ public class DatagramDnsQuery extends DefaultDnsQuery
     /**
      * Creates a new instance.
      *
-     * @param sender the address of the sender
+     * @param sender    the address of the sender
      * @param recipient the address of the recipient
-     * @param id the {@code ID} of the DNS query
-     * @param opCode the {@code opCode} of the DNS query
+     * @param id        the {@code ID} of the DNS query
+     * @param opCode    the {@code opCode} of the DNS query
      */
     public DatagramDnsQuery(
             InetSocketAddress sender, InetSocketAddress recipient, int id, DnsOpCode opCode) {
@@ -157,8 +157,7 @@ public class DatagramDnsQuery extends DefaultDnsQuery
             return false;
         }
 
-        @SuppressWarnings("unchecked")
-        final AddressedEnvelope<?, SocketAddress> that = (AddressedEnvelope<?, SocketAddress>) obj;
+        @SuppressWarnings("unchecked") final AddressedEnvelope<?, SocketAddress> that = (AddressedEnvelope<?, SocketAddress>) obj;
         if (sender() == null) {
             if (that.sender() != null) {
                 return false;

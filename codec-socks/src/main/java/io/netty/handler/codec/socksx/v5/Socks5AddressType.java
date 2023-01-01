@@ -29,12 +29,12 @@ public class Socks5AddressType implements Comparable<Socks5AddressType> {
 
     public static Socks5AddressType valueOf(byte b) {
         switch (b) {
-        case 0x01:
-            return IPv4;
-        case 0x03:
-            return DOMAIN;
-        case 0x04:
-            return IPv6;
+            case 0x01:
+                return IPv4;
+            case 0x03:
+                return DOMAIN;
+            case 0x04:
+                return IPv6;
         }
 
         return new Socks5AddressType(b);

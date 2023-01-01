@@ -26,7 +26,7 @@ import io.netty.channel.WriteBufferWaterMark;
  * A configuration class for RXTX device connections.
  *
  * <h3>Available options</h3>
- *
+ * <p>
  * In addition to the options provided by {@link ChannelConfig},
  * {@link DefaultRxtxChannelConfig} allows the following options in the option map:
  *
@@ -169,6 +169,7 @@ public interface RxtxChannelConfig extends ChannelConfig {
             throw new IllegalArgumentException("unknown " + Paritybit.class.getSimpleName() + " value: " + value);
         }
     }
+
     /**
      * Sets the baud rate (ie. bits per second) for communication with the serial device.
      * The baud rate will include bits for framing (in the form of stop bits and parity),
@@ -249,7 +250,7 @@ public interface RxtxChannelConfig extends ChannelConfig {
 
     /**
      * @return The number of milliseconds to wait between opening the serial port and
-     *     initialising.
+     * initialising.
      */
     int getWaitTimeMillis();
 
@@ -259,7 +260,7 @@ public interface RxtxChannelConfig extends ChannelConfig {
      * occur.
      *
      * @param waitTimeMillis The number of milliseconds to wait, defaulting to 0 (no
-     *     wait) if unset
+     *                       wait) if unset
      * @throws IllegalArgumentException if the supplied value is &lt; 0
      */
     RxtxChannelConfig setWaitTimeMillis(int waitTimeMillis);

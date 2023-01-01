@@ -36,6 +36,7 @@ public final class KQueueEventLoopGroup extends MultithreadEventLoopGroup {
         // Ensure JNI is initialized by the time this class is loaded by this time!
         KQueue.ensureAvailability();
     }
+
     /**
      * Create a new instance using the default number of threads and the default {@link ThreadFactory}.
      */
@@ -91,7 +92,7 @@ public final class KQueueEventLoopGroup extends MultithreadEventLoopGroup {
      * Create a new instance using the specified number of threads, the given {@link ThreadFactory} and the given
      * maximal amount of epoll events to handle per epollWait(...).
      *
-     * @deprecated  Use {@link #KQueueEventLoopGroup(int)} or {@link #KQueueEventLoopGroup(int, ThreadFactory)}
+     * @deprecated Use {@link #KQueueEventLoopGroup(int)} or {@link #KQueueEventLoopGroup(int, ThreadFactory)}
      */
     @Deprecated
     public KQueueEventLoopGroup(int nThreads, ThreadFactory threadFactory, int maxEventsAtOnce) {
@@ -102,12 +103,12 @@ public final class KQueueEventLoopGroup extends MultithreadEventLoopGroup {
      * Create a new instance using the specified number of threads, the given {@link ThreadFactory} and the given
      * maximal amount of epoll events to handle per epollWait(...).
      *
-     * @deprecated  Use {@link #KQueueEventLoopGroup(int)}, {@link #KQueueEventLoopGroup(int, ThreadFactory)}, or
+     * @deprecated Use {@link #KQueueEventLoopGroup(int)}, {@link #KQueueEventLoopGroup(int, ThreadFactory)}, or
      * {@link #KQueueEventLoopGroup(int, SelectStrategyFactory)}
      */
     @Deprecated
     public KQueueEventLoopGroup(int nThreads, ThreadFactory threadFactory, int maxEventsAtOnce,
-                               SelectStrategyFactory selectStrategyFactory) {
+                                SelectStrategyFactory selectStrategyFactory) {
         super(nThreads, threadFactory, maxEventsAtOnce, selectStrategyFactory, RejectedExecutionHandlers.reject());
     }
 
@@ -116,13 +117,13 @@ public final class KQueueEventLoopGroup extends MultithreadEventLoopGroup {
     }
 
     public KQueueEventLoopGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory,
-                               SelectStrategyFactory selectStrategyFactory) {
+                                SelectStrategyFactory selectStrategyFactory) {
         super(nThreads, executor, chooserFactory, 0, selectStrategyFactory, RejectedExecutionHandlers.reject());
     }
 
     public KQueueEventLoopGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory,
-                               SelectStrategyFactory selectStrategyFactory,
-                               RejectedExecutionHandler rejectedExecutionHandler) {
+                                SelectStrategyFactory selectStrategyFactory,
+                                RejectedExecutionHandler rejectedExecutionHandler) {
         super(nThreads, executor, chooserFactory, 0, selectStrategyFactory, rejectedExecutionHandler);
     }
 
@@ -135,23 +136,23 @@ public final class KQueueEventLoopGroup extends MultithreadEventLoopGroup {
     }
 
     /**
-     * @param nThreads the number of threads that will be used by this instance.
-     * @param executor the Executor to use, or {@code null} if default one should be used.
-     * @param chooserFactory the {@link EventExecutorChooserFactory} to use.
-     * @param selectStrategyFactory the {@link SelectStrategyFactory} to use.
+     * @param nThreads                 the number of threads that will be used by this instance.
+     * @param executor                 the Executor to use, or {@code null} if default one should be used.
+     * @param chooserFactory           the {@link EventExecutorChooserFactory} to use.
+     * @param selectStrategyFactory    the {@link SelectStrategyFactory} to use.
      * @param rejectedExecutionHandler the {@link RejectedExecutionHandler} to use.
-     * @param taskQueueFactory the {@link EventLoopTaskQueueFactory} to use for
-     *                         {@link SingleThreadEventLoop#execute(Runnable)},
-     *                         or {@code null} if default one should be used.
-     * @param tailTaskQueueFactory the {@link EventLoopTaskQueueFactory} to use for
-     *                             {@link SingleThreadEventLoop#executeAfterEventLoopIteration(Runnable)},
-     *                             or {@code null} if default one should be used.
+     * @param taskQueueFactory         the {@link EventLoopTaskQueueFactory} to use for
+     *                                 {@link SingleThreadEventLoop#execute(Runnable)},
+     *                                 or {@code null} if default one should be used.
+     * @param tailTaskQueueFactory     the {@link EventLoopTaskQueueFactory} to use for
+     *                                 {@link SingleThreadEventLoop#executeAfterEventLoopIteration(Runnable)},
+     *                                 or {@code null} if default one should be used.
      */
     public KQueueEventLoopGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory,
-                               SelectStrategyFactory selectStrategyFactory,
-                               RejectedExecutionHandler rejectedExecutionHandler,
-                               EventLoopTaskQueueFactory taskQueueFactory,
-                               EventLoopTaskQueueFactory tailTaskQueueFactory) {
+                                SelectStrategyFactory selectStrategyFactory,
+                                RejectedExecutionHandler rejectedExecutionHandler,
+                                EventLoopTaskQueueFactory taskQueueFactory,
+                                EventLoopTaskQueueFactory tailTaskQueueFactory) {
         super(nThreads, executor, chooserFactory, 0, selectStrategyFactory, rejectedExecutionHandler, taskQueueFactory,
                 tailTaskQueueFactory);
     }
@@ -161,7 +162,7 @@ public final class KQueueEventLoopGroup extends MultithreadEventLoopGroup {
      * {@code 50}, which means the event loop will try to spend the same amount of time for I/O as for non-I/O tasks.
      */
     public void setIoRatio(int ioRatio) {
-        for (EventExecutor e: this) {
+        for (EventExecutor e : this) {
             ((KQueueEventLoop) e).setIoRatio(ioRatio);
         }
     }

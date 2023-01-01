@@ -131,7 +131,7 @@ public class UniformStreamByteDistributorTest {
         Exception fakeException = new RuntimeException("Fake exception");
         doThrow(fakeException).when(writer).write(same(stream(STREAM_C)), eq(3));
 
-        Http2Exception e =  assertThrows(Http2Exception.class, new Executable() {
+        Http2Exception e = assertThrows(Http2Exception.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 write(10);
@@ -251,7 +251,7 @@ public class UniformStreamByteDistributorTest {
     }
 
     private void initState(final int streamId, final long pendingBytes, final boolean hasFrame,
-            final boolean isWriteAllowed) {
+                           final boolean isWriteAllowed) {
         final Http2Stream stream = stream(streamId);
         TestStreamByteDistributorStreamState state = new TestStreamByteDistributorStreamState(stream, pendingBytes,
                 hasFrame, isWriteAllowed);

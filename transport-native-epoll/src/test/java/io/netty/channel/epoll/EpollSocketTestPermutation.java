@@ -75,7 +75,7 @@ class EpollSocketTestPermutation extends SocketTestPermutation {
             @Override
             public ServerBootstrap newInstance() {
                 return new ServerBootstrap().group(EPOLL_BOSS_GROUP, EPOLL_WORKER_GROUP)
-                                            .channel(EpollServerSocketChannel.class);
+                        .channel(EpollServerSocketChannel.class);
             }
         });
         if (IS_SUPPORTING_TCP_FASTOPEN_SERVER) {
@@ -83,7 +83,7 @@ class EpollSocketTestPermutation extends SocketTestPermutation {
                 @Override
                 public ServerBootstrap newInstance() {
                     ServerBootstrap serverBootstrap = new ServerBootstrap().group(EPOLL_BOSS_GROUP, EPOLL_WORKER_GROUP)
-                                                                           .channel(EpollServerSocketChannel.class);
+                            .channel(EpollServerSocketChannel.class);
                     serverBootstrap.option(ChannelOption.TCP_FASTOPEN, 5);
                     return serverBootstrap;
                 }
@@ -93,7 +93,7 @@ class EpollSocketTestPermutation extends SocketTestPermutation {
             @Override
             public ServerBootstrap newInstance() {
                 return new ServerBootstrap().group(nioBossGroup, nioWorkerGroup)
-                                            .channel(NioServerSocketChannel.class);
+                        .channel(NioServerSocketChannel.class);
             }
         });
 

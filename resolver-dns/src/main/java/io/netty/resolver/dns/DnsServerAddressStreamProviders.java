@@ -77,8 +77,8 @@ public final class DnsServerAddressStreamProviders {
                             + "'io.netty:netty-resolver-dns-native-macos'", MACOS_PROVIDER_CLASS_NAME, cause);
                 } else {
                     LOGGER.error("Unable to load {}, fallback to system defaults. This may result in "
-                            + "incorrect DNS resolutions on MacOS. Check whether you have a dependency on "
-                            + "'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: {}",
+                                    + "incorrect DNS resolutions on MacOS. Check whether you have a dependency on "
+                                    + "'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: {}",
                             MACOS_PROVIDER_CLASS_NAME,
                             cause.getCause() != null ? cause.getCause().toString() : cause.toString());
                 }
@@ -95,6 +95,7 @@ public final class DnsServerAddressStreamProviders {
      * A {@link DnsServerAddressStreamProvider} which inherits the DNS servers from your local host's configuration.
      * <p>
      * Note that only macOS and Linux are currently supported.
+     *
      * @return A {@link DnsServerAddressStreamProvider} which inherits the DNS servers from your local host's
      * configuration.
      */

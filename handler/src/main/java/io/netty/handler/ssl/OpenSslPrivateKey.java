@@ -110,7 +110,7 @@ final class OpenSslPrivateKey extends AbstractReferenceCounted implements Privat
 
     /**
      * Create a new {@link OpenSslKeyMaterial} which uses the private key that is held by {@link OpenSslPrivateKey}.
-     *
+     * <p>
      * When the material is created we increment the reference count of the enclosing {@link OpenSslPrivateKey} and
      * decrement it again when the reference count of the {@link OpenSslKeyMaterial} reaches {@code 0}.
      */

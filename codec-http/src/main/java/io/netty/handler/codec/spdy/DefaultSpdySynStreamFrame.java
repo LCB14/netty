@@ -113,26 +113,26 @@ public class DefaultSpdySynStreamFrame extends DefaultSpdyHeadersFrame
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder()
-            .append(StringUtil.simpleClassName(this))
-            .append("(last: ")
-            .append(isLast())
-            .append("; unidirectional: ")
-            .append(isUnidirectional())
-            .append(')')
-            .append(StringUtil.NEWLINE)
-            .append("--> Stream-ID = ")
-            .append(streamId())
-            .append(StringUtil.NEWLINE);
+                .append(StringUtil.simpleClassName(this))
+                .append("(last: ")
+                .append(isLast())
+                .append("; unidirectional: ")
+                .append(isUnidirectional())
+                .append(')')
+                .append(StringUtil.NEWLINE)
+                .append("--> Stream-ID = ")
+                .append(streamId())
+                .append(StringUtil.NEWLINE);
         if (associatedStreamId != 0) {
             buf.append("--> Associated-To-Stream-ID = ")
-               .append(associatedStreamId())
-               .append(StringUtil.NEWLINE);
+                    .append(associatedStreamId())
+                    .append(StringUtil.NEWLINE);
         }
         buf.append("--> Priority = ")
-           .append(priority())
-           .append(StringUtil.NEWLINE)
-           .append("--> Headers:")
-           .append(StringUtil.NEWLINE);
+                .append(priority())
+                .append(StringUtil.NEWLINE)
+                .append("--> Headers:")
+                .append(StringUtil.NEWLINE);
         appendHeaders(buf);
 
         // Remove the last newline.

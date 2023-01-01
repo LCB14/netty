@@ -24,8 +24,8 @@ import io.netty.util.internal.UnstableApi;
  */
 @UnstableApi
 public abstract class AbstractBinaryMemcacheMessage
-    extends AbstractMemcacheObject
-    implements BinaryMemcacheMessage {
+        extends AbstractMemcacheObject
+        implements BinaryMemcacheMessage {
 
     /**
      * Contains the optional key.

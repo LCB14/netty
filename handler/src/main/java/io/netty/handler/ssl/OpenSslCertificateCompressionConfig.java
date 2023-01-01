@@ -54,7 +54,8 @@ public final class OpenSslCertificateCompressionConfig implements
     public static final class Builder {
         private final List<AlgorithmConfig> algorithmList = new ArrayList<AlgorithmConfig>();
 
-        private Builder() { }
+        private Builder() {
+        }
 
         /**
          * Adds a certificate compression algorithm.
@@ -62,8 +63,8 @@ public final class OpenSslCertificateCompressionConfig implements
          * Most preferred algorithm should be registered first.
          *
          * @param algorithm implementation of the compression and or decompression algorithm as a
-         * {@link OpenSslCertificateCompressionAlgorithm}
-         * @param mode indicates whether decompression support should be advertized, compression should be applied
+         *                  {@link OpenSslCertificateCompressionAlgorithm}
+         * @param mode      indicates whether decompression support should be advertized, compression should be applied
          *                  for peers which support it, or both. This allows the caller to support one way compression
          *                  only.
          * @return self.

@@ -56,6 +56,7 @@ public class Socket extends FileDescriptor {
         super(fd);
         ipv6 = isIPv6(fd);
     }
+
     /**
      * Returns {@code true} if we should use IPv6 internally, {@code false} otherwise.
      */
@@ -76,7 +77,7 @@ public class Socket extends FileDescriptor {
     }
 
     public final void shutdown(boolean read, boolean write) throws IOException {
-        for (;;) {
+        for (; ; ) {
             // We need to only shutdown what has not been shutdown yet, and if there is no change we should not
             // shutdown anything. This is because if the underlying FD is reused and we still have an object which
             // represents the previous incarnation of the FD we need to be sure we don't inadvertently shutdown the
@@ -465,7 +466,7 @@ public class Socket extends FileDescriptor {
         setKeepAlive(fd, keepAlive ? 1 : 0);
     }
 
-    public final void setReceiveBufferSize(int receiveBufferSize) throws IOException  {
+    public final void setReceiveBufferSize(int receiveBufferSize) throws IOException {
         setReceiveBufferSize(fd, receiveBufferSize);
     }
 
@@ -473,7 +474,7 @@ public class Socket extends FileDescriptor {
         setSendBufferSize(fd, sendBufferSize);
     }
 
-    public final void setTcpNoDelay(boolean tcpNoDelay) throws IOException  {
+    public final void setTcpNoDelay(boolean tcpNoDelay) throws IOException {
         setTcpNoDelay(fd, tcpNoDelay ? 1 : 0);
     }
 
@@ -523,7 +524,7 @@ public class Socket extends FileDescriptor {
 
     public void getRawOpt(int level, int optname, ByteBuffer out) throws IOException {
         if (out.isDirect()) {
-            getRawOptAddress(fd, level, optname, Buffer.memoryAddress(out) + out.position() , out.remaining());
+            getRawOptAddress(fd, level, optname, Buffer.memoryAddress(out) + out.position(), out.remaining());
         } else if (out.hasArray()) {
             getRawOptArray(fd, level, optname, out.array(), out.position() + out.arrayOffset(), out.remaining());
         } else {
@@ -540,7 +541,7 @@ public class Socket extends FileDescriptor {
 
     public static boolean shouldUseIpv6(InternetProtocolFamily family) {
         return family == null ? isIPv6Preferred() :
-                        family == InternetProtocolFamily.IPv6;
+                family == InternetProtocolFamily.IPv6;
     }
 
     private static native boolean isIPv6Preferred0(boolean ipv4Preferred);
@@ -623,20 +624,31 @@ public class Socket extends FileDescriptor {
     }
 
     private static native int shutdown(int fd, boolean read, boolean write);
+
     private static native int connect(int fd, boolean ipv6, byte[] address, int scopeId, int port);
+
     private static native int connectDomainSocket(int fd, byte[] path);
+
     private static native int finishConnect(int fd);
+
     private static native int disconnect(int fd, boolean ipv6);
+
     private static native int bind(int fd, boolean ipv6, byte[] address, int scopeId, int port);
+
     private static native int bindDomainSocket(int fd, byte[] path);
+
     private static native int listen(int fd, int backlog);
+
     private static native int accept(int fd, byte[] addr);
 
     private static native byte[] remoteAddress(int fd);
+
     private static native byte[] localAddress(int fd);
 
     private static native int send(int fd, ByteBuffer buf, int pos, int limit);
+
     private static native int sendAddress(int fd, long address, int pos, int limit);
+
     private static native int recv(int fd, ByteBuffer buf, int pos, int limit);
 
     private static native int recvAddress(int fd, long address, int pos, int limit);
@@ -654,55 +666,88 @@ public class Socket extends FileDescriptor {
             int flags);
 
     private static native int sendToDomainSocket(int fd, ByteBuffer buf, int pos, int limit, byte[] path);
+
     private static native int sendToAddressDomainSocket(int fd, long memoryAddress, int pos, int limit, byte[] path);
+
     private static native int sendToAddressesDomainSocket(int fd, long memoryAddress, int length, byte[] path);
 
     private static native DatagramSocketAddress recvFrom(
             int fd, ByteBuffer buf, int pos, int limit) throws IOException;
+
     private static native DatagramSocketAddress recvFromAddress(
             int fd, long memoryAddress, int pos, int limit) throws IOException;
+
     private static native DomainDatagramSocketAddress recvFromDomainSocket(
             int fd, ByteBuffer buf, int pos, int limit) throws IOException;
+
     private static native DomainDatagramSocketAddress recvFromAddressDomainSocket(
             int fd, long memoryAddress, int pos, int limit) throws IOException;
+
     private static native int recvFd(int fd);
+
     private static native int sendFd(int socketFd, int fd);
+
     private static native int msgFastopen();
 
     private static native int newSocketStreamFd(boolean ipv6);
+
     private static native int newSocketDgramFd(boolean ipv6);
+
     private static native int newSocketDomainFd();
+
     private static native int newSocketDomainDgramFd();
 
     private static native int isReuseAddress(int fd) throws IOException;
+
     private static native int isReusePort(int fd) throws IOException;
+
     private static native int getReceiveBufferSize(int fd) throws IOException;
+
     private static native int getSendBufferSize(int fd) throws IOException;
+
     private static native int isKeepAlive(int fd) throws IOException;
+
     private static native int isTcpNoDelay(int fd) throws IOException;
+
     private static native int isBroadcast(int fd) throws IOException;
+
     private static native int getSoLinger(int fd) throws IOException;
+
     private static native int getSoError(int fd) throws IOException;
+
     private static native int getTrafficClass(int fd, boolean ipv6) throws IOException;
 
     private static native void setReuseAddress(int fd, int reuseAddress) throws IOException;
+
     private static native void setReusePort(int fd, int reuseAddress) throws IOException;
+
     private static native void setKeepAlive(int fd, int keepAlive) throws IOException;
+
     private static native void setReceiveBufferSize(int fd, int receiveBufferSize) throws IOException;
+
     private static native void setSendBufferSize(int fd, int sendBufferSize) throws IOException;
+
     private static native void setTcpNoDelay(int fd, int tcpNoDelay) throws IOException;
+
     private static native void setSoLinger(int fd, int soLinger) throws IOException;
+
     private static native void setBroadcast(int fd, int broadcast) throws IOException;
+
     private static native void setTrafficClass(int fd, boolean ipv6, int trafficClass) throws IOException;
 
     private static native void setIntOpt(int fd, int level, int optname, int optvalue) throws IOException;
+
     private static native void setRawOptArray(int fd, int level, int optname, byte[] optvalue, int offset, int length)
             throws IOException;
+
     private static native void setRawOptAddress(int fd, int level, int optname, long optvalueMemoryAddress, int length)
             throws IOException;
+
     private static native int getIntOpt(int fd, int level, int optname) throws IOException;
+
     private static native void getRawOptArray(int fd, int level, int optname, byte[] out, int offset, int length)
             throws IOException;
+
     private static native void getRawOptAddress(int fd, int level, int optname, long outMemoryAddress, int length)
             throws IOException;
 }

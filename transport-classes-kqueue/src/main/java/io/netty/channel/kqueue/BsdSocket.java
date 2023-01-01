@@ -116,7 +116,7 @@ final class BsdSocket extends Socket {
      * destination. This number is <em>negative</em> if connecting is left in an in-progress state,
      * or <em>positive</em> if the connection was immediately established.
      * @throws IOException if an IO error occurs, if the {@code data} is too big to send in one go,
-     * or if the system call is not supported on your platform.
+     *                     or if the system call is not supported on your platform.
      */
     int connectx(InetSocketAddress source, InetSocketAddress destination, IovArray data, boolean tcpFastOpen)
             throws IOException {

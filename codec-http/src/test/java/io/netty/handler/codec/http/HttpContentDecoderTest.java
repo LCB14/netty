@@ -86,9 +86,9 @@ public class HttpContentDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
 
         String headers = "POST / HTTP/1.1\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.copiedBuffer(headers.getBytes(CharsetUtil.US_ASCII), GZ_HELLO_WORLD);
         assertTrue(channel.writeInbound(buf));
 
@@ -155,9 +155,9 @@ public class HttpContentDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
 
         String headers = "HTTP/1.1 200 OK\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.copiedBuffer(headers.getBytes(CharsetUtil.US_ASCII), GZ_HELLO_WORLD);
         assertTrue(channel.writeInbound(buf));
 
@@ -184,9 +184,9 @@ public class HttpContentDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
 
         String headers = "HTTP/1.1 200 OK\r\n" +
-          "Content-Length: " + SAMPLE_BZ_BYTES.length + "\r\n" +
-          "Content-Encoding: br\r\n" +
-          "\r\n";
+                "Content-Length: " + SAMPLE_BZ_BYTES.length + "\r\n" +
+                "Content-Encoding: br\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.wrappedBuffer(headers.getBytes(CharsetUtil.US_ASCII), SAMPLE_BZ_BYTES);
         assertTrue(channel.writeInbound(buf));
 
@@ -214,9 +214,9 @@ public class HttpContentDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
 
         String headers = "HTTP/1.1 200 OK\r\n" +
-          "Content-Length: " + SAMPLE_BZ_BYTES.length + "\r\n" +
-          "Content-Encoding: br\r\n" +
-          "\r\n";
+                "Content-Length: " + SAMPLE_BZ_BYTES.length + "\r\n" +
+                "Content-Encoding: br\r\n" +
+                "\r\n";
 
         assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(headers.getBytes(CharsetUtil.US_ASCII))));
 
@@ -236,7 +236,7 @@ public class HttpContentDecoderTest {
         assertThat(o, is(instanceOf(FullHttpResponse.class)));
         FullHttpResponse resp = (FullHttpResponse) o;
         assertEquals(SAMPLE_STRING, resp.content().toString(CharsetUtil.UTF_8),
-          "Response body should match uncompressed string");
+                "Response body should match uncompressed string");
         resp.release();
 
         assertHasInboundMessages(channel, false);
@@ -252,9 +252,9 @@ public class HttpContentDecoderTest {
         HttpObjectAggregator aggregator = new HttpObjectAggregator(1024);
         EmbeddedChannel channel = new EmbeddedChannel(decoder, aggregator);
         String req = "POST / HTTP/1.1\r\n" +
-                     "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                     "Expect: 100-continue\r\n" +
-                     "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Expect: 100-continue\r\n" +
+                "\r\n";
         // note: the following writeInbound() returns false as there is no message is inbound buffer
         // until HttpObjectAggregator caches composes a complete message.
         // however, http response "100 continue" must be sent as soon as headers are received
@@ -281,9 +281,9 @@ public class HttpContentDecoderTest {
         HttpObjectAggregator aggregator = new HttpObjectAggregator(1024);
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
         String req = "POST / HTTP/1.1\r\n" +
-                     "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                     "Expect: 100-continue\r\n" +
-                     "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Expect: 100-continue\r\n" +
+                "\r\n";
         assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(req.getBytes())));
 
         Object o = channel.readOutbound();
@@ -307,10 +307,10 @@ public class HttpContentDecoderTest {
         HttpObjectAggregator aggregator = new HttpObjectAggregator(1024);
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
         String req = "POST / HTTP/1.1\r\n" +
-                     "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                     "Expect: 100-continue\r\n" +
-                     "Content-Encoding: gzip\r\n" +
-                     "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Expect: 100-continue\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(req.getBytes())));
 
         Object o = channel.readOutbound();
@@ -334,10 +334,10 @@ public class HttpContentDecoderTest {
         HttpContentDecoder decompressor = new HttpContentDecompressor();
         EmbeddedChannel channel = new EmbeddedChannel(decoder, aggregator, decompressor);
         String req = "POST / HTTP/1.1\r\n" +
-                     "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                     "Expect: 100-continue\r\n" +
-                     "Content-Encoding: gzip\r\n" +
-                     "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Expect: 100-continue\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(req.getBytes())));
 
         Object o = channel.readOutbound();
@@ -416,9 +416,9 @@ public class HttpContentDecoderTest {
         HttpContentDecoder decompressor = new HttpContentDecompressor();
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor);
         String headers = "POST / HTTP/1.1\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.copiedBuffer(headers.getBytes(CharsetUtil.US_ASCII), GZ_HELLO_WORLD);
         assertTrue(channel.writeInbound(buf));
 
@@ -446,9 +446,9 @@ public class HttpContentDecoderTest {
         HttpObjectAggregator aggregator = new HttpObjectAggregator(1024);
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
         String headers = "POST / HTTP/1.1\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.copiedBuffer(headers.getBytes(CharsetUtil.US_ASCII), GZ_HELLO_WORLD);
         assertTrue(channel.writeInbound(buf));
 
@@ -477,9 +477,9 @@ public class HttpContentDecoderTest {
         HttpContentDecoder decompressor = new HttpContentDecompressor();
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor);
         String headers = "HTTP/1.1 200 OK\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.copiedBuffer(headers.getBytes(CharsetUtil.US_ASCII), GZ_HELLO_WORLD);
         assertTrue(channel.writeInbound(buf));
 
@@ -510,9 +510,9 @@ public class HttpContentDecoderTest {
         HttpObjectAggregator aggregator = new HttpObjectAggregator(1024);
         EmbeddedChannel channel = new EmbeddedChannel(decoder, decompressor, aggregator);
         String headers = "HTTP/1.1 200 OK\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         ByteBuf buf = Unpooled.copiedBuffer(headers.getBytes(CharsetUtil.US_ASCII), GZ_HELLO_WORLD);
         assertTrue(channel.writeInbound(buf));
 
@@ -538,9 +538,9 @@ public class HttpContentDecoderTest {
         HttpContentDecoder decompressor = new HttpContentDecompressor();
         EmbeddedChannel channel = new EmbeddedChannel(decoder, aggregator, decompressor);
         String headers = "POST / HTTP/1.1\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         assertTrue(channel.writeInbound(Unpooled.copiedBuffer(headers.getBytes(), GZ_HELLO_WORLD)));
 
         Queue<Object> req = channel.inboundMessages();
@@ -565,9 +565,9 @@ public class HttpContentDecoderTest {
         HttpContentDecoder decompressor = new HttpContentDecompressor();
         EmbeddedChannel channel = new EmbeddedChannel(decoder, aggregator, decompressor);
         String headers = "HTTP/1.1 200 OK\r\n" +
-                         "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
-                         "Content-Encoding: gzip\r\n" +
-                         "\r\n";
+                "Content-Length: " + GZ_HELLO_WORLD.length + "\r\n" +
+                "Content-Encoding: gzip\r\n" +
+                "\r\n";
         assertTrue(channel.writeInbound(Unpooled.copiedBuffer(headers.getBytes(), GZ_HELLO_WORLD)));
 
         Queue<Object> resp = channel.inboundMessages();

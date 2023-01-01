@@ -36,9 +36,9 @@ public class DefaultAuthoritativeDnsServerCacheTest {
     @Test
     public void testExpire() throws Throwable {
         InetSocketAddress resolved1 = new InetSocketAddress(
-                InetAddress.getByAddress("ns1", new byte[] { 10, 0, 0, 1 }), 53);
+                InetAddress.getByAddress("ns1", new byte[]{10, 0, 0, 1}), 53);
         InetSocketAddress resolved2 = new InetSocketAddress(
-                InetAddress.getByAddress("ns2", new byte[] { 10, 0, 0, 2 }), 53);
+                InetAddress.getByAddress("ns2", new byte[]{10, 0, 0, 2}), 53);
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -88,9 +88,9 @@ public class DefaultAuthoritativeDnsServerCacheTest {
     @Test
     public void testAddMultipleDnsServerForSameHostname() throws Exception {
         InetSocketAddress resolved1 = new InetSocketAddress(
-                InetAddress.getByAddress("ns1", new byte[] { 10, 0, 0, 1 }), 53);
+                InetAddress.getByAddress("ns1", new byte[]{10, 0, 0, 1}), 53);
         InetSocketAddress resolved2 = new InetSocketAddress(
-                InetAddress.getByAddress("ns2", new byte[] { 10, 0, 0, 2 }), 53);
+                InetAddress.getByAddress("ns2", new byte[]{10, 0, 0, 2}), 53);
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -112,9 +112,9 @@ public class DefaultAuthoritativeDnsServerCacheTest {
     public void testUnresolvedReplacedByResolved() throws Exception {
         InetSocketAddress unresolved = InetSocketAddress.createUnresolved("ns1", 53);
         InetSocketAddress resolved1 = new InetSocketAddress(
-                InetAddress.getByAddress("ns2", new byte[] { 10, 0, 0, 2 }), 53);
+                InetAddress.getByAddress("ns2", new byte[]{10, 0, 0, 2}), 53);
         InetSocketAddress resolved2 = new InetSocketAddress(
-                InetAddress.getByAddress("ns1", new byte[] { 10, 0, 0, 1 }), 53);
+                InetAddress.getByAddress("ns1", new byte[]{10, 0, 0, 1}), 53);
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -152,7 +152,7 @@ public class DefaultAuthoritativeDnsServerCacheTest {
     private static void testUseComparator0(boolean noComparator) throws Exception {
         InetSocketAddress unresolved = InetSocketAddress.createUnresolved("ns1", 53);
         InetSocketAddress resolved = new InetSocketAddress(
-                InetAddress.getByAddress("ns2", new byte[] { 10, 0, 0, 2 }), 53);
+                InetAddress.getByAddress("ns2", new byte[]{10, 0, 0, 2}), 53);
         EventLoopGroup group = new DefaultEventLoopGroup(1);
 
         try {
@@ -161,21 +161,21 @@ public class DefaultAuthoritativeDnsServerCacheTest {
 
             if (noComparator) {
                 cache = new DefaultAuthoritativeDnsServerCache(10000, 10000, null);
-            }  else {
+            } else {
                 cache = new DefaultAuthoritativeDnsServerCache(10000, 10000,
-                                                               new Comparator<InetSocketAddress>() {
-                    @Override
-                    public int compare(InetSocketAddress o1, InetSocketAddress o2) {
-                        if (o1.equals(o2)) {
-                            return 0;
-                        }
-                        if (o1.isUnresolved()) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    }
-                });
+                        new Comparator<InetSocketAddress>() {
+                            @Override
+                            public int compare(InetSocketAddress o1, InetSocketAddress o2) {
+                                if (o1.equals(o2)) {
+                                    return 0;
+                                }
+                                if (o1.isUnresolved()) {
+                                    return 1;
+                                } else {
+                                    return -1;
+                                }
+                            }
+                        });
             }
             cache.cache("netty.io", unresolved, 100, loop);
             cache.cache("netty.io", resolved, 10000, loop);

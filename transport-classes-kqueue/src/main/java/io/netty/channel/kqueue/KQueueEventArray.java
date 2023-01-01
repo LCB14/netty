@@ -22,14 +22,14 @@ import java.nio.ByteBuffer;
 
 /**
  * Represents an array of kevent structures, backed by offheap memory.
- *
+ * <p>
  * struct kevent {
- *  uintptr_t ident;
- *  short     keventFilter;
- *  u_short   flags;
- *  u_int     fflags;
- *  intptr_t  data;
- *  void      *udata;
+ * uintptr_t ident;
+ * short     keventFilter;
+ * u_short   flags;
+ * u_int     fflags;
+ * intptr_t  data;
+ * void      *udata;
  * };
  */
 final class KQueueEventArray {

@@ -62,16 +62,16 @@ public class DefaultSpdySynReplyFrame extends DefaultSpdyHeadersFrame implements
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder()
-            .append(StringUtil.simpleClassName(this))
-            .append("(last: ")
-            .append(isLast())
-            .append(')')
-            .append(StringUtil.NEWLINE)
-            .append("--> Stream-ID = ")
-            .append(streamId())
-            .append(StringUtil.NEWLINE)
-            .append("--> Headers:")
-            .append(StringUtil.NEWLINE);
+                .append(StringUtil.simpleClassName(this))
+                .append("(last: ")
+                .append(isLast())
+                .append(')')
+                .append(StringUtil.NEWLINE)
+                .append("--> Stream-ID = ")
+                .append(streamId())
+                .append(StringUtil.NEWLINE)
+                .append("--> Headers:")
+                .append(StringUtil.NEWLINE);
         appendHeaders(buf);
 
         // Remove the last newline.

@@ -51,7 +51,7 @@ final class HpackHuffmanEncoder {
     /**
      * Creates a new Huffman encoder with the specified Huffman coding.
      *
-     * @param codes the Huffman codes indexed by symbol
+     * @param codes   the Huffman codes indexed by symbol
      * @param lengths the length of each Huffman code
      */
     private HpackHuffmanEncoder(int[] codes, byte[] lengths) {
@@ -62,7 +62,7 @@ final class HpackHuffmanEncoder {
     /**
      * Compresses the input string literal using the Huffman coding.
      *
-     * @param out the output stream for the compressed data
+     * @param out  the output stream for the compressed data
      * @param data the string literal to be Huffman encoded
      */
     public void encode(ByteBuf out, CharSequence data) {

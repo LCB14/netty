@@ -41,9 +41,9 @@ public abstract class ZlibDecoder extends ByteToMessageDecoder {
 
     /**
      * Construct a new ZlibDecoder.
-     * @param maxAllocation
-     *          Maximum size of the decompression buffer. Must be &gt;= 0.
-     *          If zero, maximum size is decided by the {@link ByteBufAllocator}.
+     *
+     * @param maxAllocation Maximum size of the decompression buffer. Must be &gt;= 0.
+     *                      If zero, maximum size is decided by the {@link ByteBufAllocator}.
      */
     public ZlibDecoder(int maxAllocation) {
         this.maxAllocation = checkPositiveOrZero(maxAllocation, "maxAllocation");

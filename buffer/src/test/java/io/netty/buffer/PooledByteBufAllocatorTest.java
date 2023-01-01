@@ -35,6 +35,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
+
 import org.junit.jupiter.api.Timeout;
 
 import static io.netty.buffer.PoolChunk.runOffset;
@@ -192,7 +193,7 @@ public class PooledByteBufAllocatorTest extends AbstractByteBufAllocatorTest<Poo
 
     @Test
     public void testPoolChunkListMetric() {
-        for (PoolArenaMetric arenaMetric: PooledByteBufAllocator.DEFAULT.metric().heapArenas()) {
+        for (PoolArenaMetric arenaMetric : PooledByteBufAllocator.DEFAULT.metric().heapArenas()) {
             assertPoolChunkListMetric(arenaMetric);
         }
     }
@@ -363,7 +364,7 @@ public class PooledByteBufAllocatorTest extends AbstractByteBufAllocatorTest<Poo
     private static void testThreadCacheDestroyed(boolean useRunnable) throws InterruptedException {
         int numArenas = 11;
         final PooledByteBufAllocator allocator =
-            new PooledByteBufAllocator(numArenas, numArenas, 8192, 1);
+                new PooledByteBufAllocator(numArenas, numArenas, 8192, 1);
 
         final AtomicBoolean threadCachesCreated = new AtomicBoolean(true);
 
@@ -420,7 +421,7 @@ public class PooledByteBufAllocatorTest extends AbstractByteBufAllocatorTest<Poo
     public void testNumThreadCachesWithNoDirectArenas() throws InterruptedException {
         int numHeapArenas = 1;
         final PooledByteBufAllocator allocator =
-            new PooledByteBufAllocator(numHeapArenas, 0, 8192, 1);
+                new PooledByteBufAllocator(numHeapArenas, 0, 8192, 1);
 
         ThreadCache tcache0 = createNewThreadCache(allocator);
         assertEquals(1, allocator.metric().numThreadLocalCaches());
@@ -440,7 +441,7 @@ public class PooledByteBufAllocatorTest extends AbstractByteBufAllocatorTest<Poo
     public void testThreadCacheToArenaMappings() throws InterruptedException {
         int numArenas = 2;
         final PooledByteBufAllocator allocator =
-            new PooledByteBufAllocator(numArenas, numArenas, 8192, 1);
+                new PooledByteBufAllocator(numArenas, numArenas, 8192, 1);
 
         ThreadCache tcache0 = createNewThreadCache(allocator);
         ThreadCache tcache1 = createNewThreadCache(allocator);
@@ -548,7 +549,7 @@ public class PooledByteBufAllocatorTest extends AbstractByteBufAllocatorTest<Poo
                 t.markAsFinished();
             }
 
-            for (AllocationThread t: threads) {
+            for (AllocationThread t : threads) {
                 t.joinAndCheckForError();
             }
         }
@@ -569,6 +570,7 @@ public class PooledByteBufAllocatorTest extends AbstractByteBufAllocatorTest<Poo
     private static final class AllocationThread extends Thread {
 
         private static final int[] ALLOCATION_SIZES = new int[16 * 1024];
+
         static {
             for (int i = 0; i < ALLOCATION_SIZES.length; i++) {
                 ALLOCATION_SIZES[i] = i;

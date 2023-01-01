@@ -51,7 +51,7 @@ public abstract class CompleteFuture<V> extends AbstractFuture<V> {
 
     @Override
     public Future<V> addListeners(GenericFutureListener<? extends Future<? super V>>... listeners) {
-        for (GenericFutureListener<? extends Future<? super V>> l:
+        for (GenericFutureListener<? extends Future<? super V>> l :
                 ObjectUtil.checkNotNull(listeners, "listeners")) {
 
             if (l == null) {

@@ -63,7 +63,7 @@ public class DefaultUdtChannelConfig extends DefaultChannelConfig implements
     private volatile boolean reuseAddress = true;
 
     public DefaultUdtChannelConfig(final UdtChannel channel,
-            final ChannelUDT channelUDT, final boolean apply)
+                                   final ChannelUDT channelUDT, final boolean apply)
             throws IOException {
         super(channel);
         if (apply) {

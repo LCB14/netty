@@ -23,6 +23,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.ssl.SslContext;
 
 /**
+ *
  */
 public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
 

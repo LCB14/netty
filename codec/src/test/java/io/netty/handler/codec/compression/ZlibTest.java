@@ -100,6 +100,7 @@ public abstract class ZlibTest {
     }
 
     protected abstract ZlibEncoder createEncoder(ZlibWrapper wrapper);
+
     protected abstract ZlibDecoder createDecoder(ZlibWrapper wrapper, int maxAllocation);
 
     @Test
@@ -116,7 +117,7 @@ public abstract class ZlibTest {
             deflatedData.release();
             assertTrue(chDecoderGZip.finish());
             ByteBuf buf = Unpooled.buffer();
-            for (;;) {
+            for (; ; ) {
                 ByteBuf b = chDecoderGZip.readInbound();
                 if (b == null) {
                     break;
@@ -160,7 +161,7 @@ public abstract class ZlibTest {
             deflatedData.release();
             assertTrue(chDecoderGZip.finish());
             ByteBuf buf = Unpooled.buffer();
-            for (;;) {
+            for (; ; ) {
                 ByteBuf b = chDecoderGZip.readInbound();
                 if (b == null) {
                     break;
@@ -186,7 +187,7 @@ public abstract class ZlibTest {
             chEncoder.flush();
             data.resetReaderIndex();
 
-            for (;;) {
+            for (; ; ) {
                 ByteBuf deflatedData = chEncoder.readOutbound();
                 if (deflatedData == null) {
                     break;
@@ -196,7 +197,7 @@ public abstract class ZlibTest {
 
             byte[] decompressed = new byte[data.readableBytes()];
             int offset = 0;
-            for (;;) {
+            for (; ; ) {
                 ByteBuf buf = chDecoderZlib.readInbound();
                 if (buf == null) {
                     break;
@@ -214,7 +215,7 @@ public abstract class ZlibTest {
 
             // Closing an encoder channel will generate a footer.
             assertTrue(chEncoder.finish());
-            for (;;) {
+            for (; ; ) {
                 Object msg = chEncoder.readOutbound();
                 if (msg == null) {
                     break;
@@ -239,7 +240,7 @@ public abstract class ZlibTest {
             // Closing an encoder channel without writing anything should generate both header and footer.
             assertTrue(chEncoder.finish());
 
-            for (;;) {
+            for (; ; ) {
                 ByteBuf deflatedData = chEncoder.readOutbound();
                 if (deflatedData == null) {
                     break;
@@ -249,7 +250,7 @@ public abstract class ZlibTest {
 
             // Decoder should not generate anything at all.
             boolean decoded = false;
-            for (;;) {
+            for (; ; ) {
                 ByteBuf buf = chDecoderZlib.readInbound();
                 if (buf == null) {
                     break;
@@ -269,14 +270,14 @@ public abstract class ZlibTest {
 
     private static void dispose(EmbeddedChannel ch) {
         if (ch.finish()) {
-            for (;;) {
+            for (; ; ) {
                 Object msg = ch.readInbound();
                 if (msg == null) {
                     break;
                 }
                 ReferenceCountUtil.release(msg);
             }
-            for (;;) {
+            for (; ; ) {
                 Object msg = ch.readOutbound();
                 if (msg == null) {
                     break;
@@ -294,7 +295,7 @@ public abstract class ZlibTest {
 
         ByteBuf decoded = Unpooled.buffer(data.length);
 
-        for (;;) {
+        for (; ; ) {
             ByteBuf buf = chDecoder.readInbound();
             if (buf == null) {
                 break;
@@ -357,7 +358,7 @@ public abstract class ZlibTest {
         assertTrue(chEncoder.finish());
 
         ByteBuf encoded = Unpooled.buffer();
-        for (;;) {
+        for (; ; ) {
             ByteBuf buf = chEncoder.readOutbound();
             if (buf == null) {
                 break;
@@ -370,7 +371,7 @@ public abstract class ZlibTest {
         GZIPInputStream stream = new GZIPInputStream(new ByteBufInputStream(encoded, true));
         try {
             byte[] buf = new byte[8192];
-            for (;;) {
+            for (; ; ) {
                 int readBytes = stream.read(buf);
                 if (readBytes < 0) {
                     break;

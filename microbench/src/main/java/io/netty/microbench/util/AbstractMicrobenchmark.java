@@ -36,7 +36,7 @@ public class AbstractMicrobenchmark extends AbstractMicrobenchmarkBase {
     protected static final int DEFAULT_FORKS = 2;
 
     public static final class HarnessExecutor extends ThreadPoolExecutor {
-        private final  InternalLogger logger = InternalLoggerFactory.getInstance(AbstractMicrobenchmark.class);
+        private final InternalLogger logger = InternalLoggerFactory.getInstance(AbstractMicrobenchmark.class);
 
         public HarnessExecutor(int maxThreads, String prefix) {
             super(maxThreads, maxThreads, 0, TimeUnit.MILLISECONDS,

@@ -170,7 +170,7 @@ public class PerFrameDeflateEncoderTest {
         byte[] payload = new byte[300];
         random.nextBytes(payload);
         BinaryWebSocketFrame binaryFrame = new BinaryWebSocketFrame(true,
-                                                                    0, Unpooled.wrappedBuffer(payload));
+                0, Unpooled.wrappedBuffer(payload));
 
         // execute
         assertTrue(encoderChannel.writeOutbound(binaryFrame.copy()));

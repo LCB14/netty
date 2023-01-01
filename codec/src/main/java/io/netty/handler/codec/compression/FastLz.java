@@ -19,10 +19,10 @@ import io.netty.buffer.ByteBuf;
 
 /**
  * Core of FastLZ compression algorithm.
- *
+ * <p>
  * This class provides methods for compression and decompression of buffers and saves
  * constants which use by {@link FastLzFrameEncoder} and {@link FastLzFrameDecoder}.
- *
+ * <p>
  * This is refactored code of <a href="https://code.google.com/p/jfastlz/">jfastlz</a>
  * library written by William Kinney.
  */
@@ -43,9 +43,9 @@ final class FastLz {
     static final int MAGIC_NUMBER = 'F' << 16 | 'L' << 8 | 'Z';
 
     static final byte BLOCK_TYPE_NON_COMPRESSED = 0x00;
-    static final byte     BLOCK_TYPE_COMPRESSED = 0x01;
-    static final byte    BLOCK_WITHOUT_CHECKSUM = 0x00;
-    static final byte       BLOCK_WITH_CHECKSUM = 0x10;
+    static final byte BLOCK_TYPE_COMPRESSED = 0x01;
+    static final byte BLOCK_WITHOUT_CHECKSUM = 0x00;
+    static final byte BLOCK_WITH_CHECKSUM = 0x10;
 
     static final int OPTIONS_OFFSET = 3;
     static final int CHECKSUM_OFFSET = 4;
@@ -78,6 +78,7 @@ final class FastLz {
 
     /**
      * The output buffer must be at least 6% larger than the input buffer and can not be smaller than 66 bytes.
+     *
      * @param inputLength length of input buffer
      * @return Maximum output buffer length
      */
@@ -89,7 +90,7 @@ final class FastLz {
     /**
      * Compress a block of data in the input buffer and returns the size of compressed block.
      * The size of input buffer is specified by length. The minimum input buffer size is 32.
-     *
+     * <p>
      * If the input is not compressible, the return value might be larger than length (input buffer size).
      */
     @SuppressWarnings("IdentityBinaryExpression")
@@ -402,7 +403,7 @@ final class FastLz {
      * Decompress a block of compressed data and returns the size of the decompressed block.
      * If error occurs, e.g. the compressed data is corrupted or the output buffer is not large
      * enough, then 0 (zero) will be returned instead.
-     *
+     * <p>
      * Decompression is memory safe and guaranteed not to write the output buffer
      * more than what is specified in outLength.
      */
@@ -535,7 +536,7 @@ final class FastLz {
                 }
             }
 
-        // while(FASTLZ_EXPECT_CONDITIONAL(loop));
+            // while(FASTLZ_EXPECT_CONDITIONAL(loop));
         } while (loop != 0);
 
         //  return op - (flzuint8*)output;
@@ -556,5 +557,6 @@ final class FastLz {
         return data.getUnsignedByte(offset + 1) << 8 | data.getUnsignedByte(offset);
     }
 
-    private FastLz() { }
+    private FastLz() {
+    }
 }

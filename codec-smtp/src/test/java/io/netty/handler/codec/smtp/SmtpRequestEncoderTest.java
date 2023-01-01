@@ -52,7 +52,7 @@ public class SmtpRequestEncoderTest {
 
     @Test
     public void testEncodeEmpty() {
-        testEncode(SmtpRequests.empty("dGVzdAB0ZXN0ADEyMzQ="),  "dGVzdAB0ZXN0ADEyMzQ=\r\n");
+        testEncode(SmtpRequests.empty("dGVzdAB0ZXN0ADEyMzQ="), "dGVzdAB0ZXN0ADEyMzQ=\r\n");
     }
 
     @Test
@@ -139,7 +139,7 @@ public class SmtpRequestEncoderTest {
     private static String getWrittenString(EmbeddedChannel channel) {
         ByteBuf written = Unpooled.buffer();
 
-        for (;;) {
+        for (; ; ) {
             ByteBuf buffer = channel.readOutbound();
             if (buffer == null) {
                 break;

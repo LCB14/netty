@@ -46,6 +46,7 @@ public class SearchProcessorTest {
                 return AbstractMultiSearchProcessorFactory.newAhoCorasicSearchProcessorFactory(needle);
             }
         };
+
         abstract SearchProcessorFactory newFactory(byte[] needle);
     }
 
@@ -92,9 +93,9 @@ public class SearchProcessorTest {
         final int length = haystack.readableBytes();
         SearchProcessor processor = factory(algorithm, "ab").newSearchProcessor();
 
-        assertEquals(1,  haystack.forEachByte(processor));
-        assertEquals(4,  haystack.forEachByte(2, length - 2, processor));
-        assertEquals(6,  haystack.forEachByte(5, length - 5, processor));
+        assertEquals(1, haystack.forEachByte(processor));
+        assertEquals(4, haystack.forEachByte(2, length - 2, processor));
+        assertEquals(6, haystack.forEachByte(5, length - 5, processor));
         assertEquals(-1, haystack.forEachByte(7, length - 7, processor));
 
         haystack.release();
@@ -107,8 +108,8 @@ public class SearchProcessorTest {
         final int length = haystack.readableBytes();
         SearchProcessor processor = factory(algorithm, "bab").newSearchProcessor();
 
-        assertEquals(3,  haystack.forEachByte(processor));
-        assertEquals(5,  haystack.forEachByte(4, length - 4, processor));
+        assertEquals(3, haystack.forEachByte(processor));
+        assertEquals(5, haystack.forEachByte(4, length - 4, processor));
         assertEquals(-1, haystack.forEachByte(6, length - 6, processor));
 
         haystack.release();

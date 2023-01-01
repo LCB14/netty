@@ -55,7 +55,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * <p>This class also provides additional commonly used bounded random
  * generation methods.
- *
+ * <p>
  * //since 1.7
  * //author Doug Lea
  */
@@ -90,13 +90,13 @@ public final class ThreadLocalRandom extends Random {
                         final byte[] seed = random.generateSeed(8);
                         seedGeneratorEndTime = System.nanoTime();
                         long s = ((long) seed[0] & 0xff) << 56 |
-                                 ((long) seed[1] & 0xff) << 48 |
-                                 ((long) seed[2] & 0xff) << 40 |
-                                 ((long) seed[3] & 0xff) << 32 |
-                                 ((long) seed[4] & 0xff) << 24 |
-                                 ((long) seed[5] & 0xff) << 16 |
-                                 ((long) seed[6] & 0xff) <<  8 |
-                                 (long) seed[7] & 0xff;
+                                ((long) seed[1] & 0xff) << 48 |
+                                ((long) seed[2] & 0xff) << 40 |
+                                ((long) seed[3] & 0xff) << 32 |
+                                ((long) seed[4] & 0xff) << 24 |
+                                ((long) seed[5] & 0xff) << 16 |
+                                ((long) seed[6] & 0xff) << 8 |
+                                (long) seed[7] & 0xff;
                         seedQueue.add(s);
                     }
                 };
@@ -142,7 +142,7 @@ public final class ThreadLocalRandom extends Random {
             final long timeoutSeconds = 3;
             final long deadLine = seedGeneratorStartTime + TimeUnit.SECONDS.toNanos(timeoutSeconds);
             boolean interrupted = false;
-            for (;;) {
+            for (; ; ) {
                 final long waitTime = deadLine - System.nanoTime();
                 try {
                     final Long seed;
@@ -166,7 +166,7 @@ public final class ThreadLocalRandom extends Random {
                     seedGeneratorThread.interrupt();
                     logger.warn(
                             "Failed to generate a seed from SecureRandom within {} seconds. " +
-                            "Not enough entropy?", timeoutSeconds
+                                    "Not enough entropy?", timeoutSeconds
                     );
                     break;
                 }
@@ -196,9 +196,9 @@ public final class ThreadLocalRandom extends Random {
     }
 
     private static long newSeed() {
-        for (;;) {
+        for (; ; ) {
             final long current = seedUniquifier.get();
-            final long actualCurrent = current != 0? current : getInitialSeedUniquifier();
+            final long actualCurrent = current != 0 ? current : getInitialSeedUniquifier();
 
             // L'Ecuyer, "Tables of Linear Congruential Generators of Different Sizes and Good Lattice Structure", 1999
             final long next = actualCurrent * 181783497276652981L;
@@ -293,9 +293,9 @@ public final class ThreadLocalRandom extends Random {
      *
      * @param least the least value returned
      * @param bound the upper bound (exclusive)
-     * @throws IllegalArgumentException if least greater than or equal
-     * to bound
      * @return the next value
+     * @throws IllegalArgumentException if least greater than or equal
+     *                                  to bound
      */
     public int nextInt(int least, int bound) {
         if (least >= bound) {
@@ -309,7 +309,7 @@ public final class ThreadLocalRandom extends Random {
      * between 0 (inclusive) and the specified value (exclusive).
      *
      * @param n the bound on the random number to be returned.  Must be
-     *        positive.
+     *          positive.
      * @return the next value
      * @throws IllegalArgumentException if n is not positive
      */
@@ -342,7 +342,7 @@ public final class ThreadLocalRandom extends Random {
      * @param bound the upper bound (exclusive)
      * @return the next value
      * @throws IllegalArgumentException if least greater than or equal
-     * to bound
+     *                                  to bound
      */
     public long nextLong(long least, long bound) {
         if (least >= bound) {
@@ -356,7 +356,7 @@ public final class ThreadLocalRandom extends Random {
      * between 0 (inclusive) and the specified value (exclusive).
      *
      * @param n the bound on the random number to be returned.  Must be
-     *        positive.
+     *          positive.
      * @return the next value
      * @throws IllegalArgumentException if n is not positive
      */
@@ -373,7 +373,7 @@ public final class ThreadLocalRandom extends Random {
      * @param bound the upper bound (exclusive)
      * @return the next value
      * @throws IllegalArgumentException if least greater than or equal
-     * to bound
+     *                                  to bound
      */
     public double nextDouble(double least, double bound) {
         if (least >= bound) {

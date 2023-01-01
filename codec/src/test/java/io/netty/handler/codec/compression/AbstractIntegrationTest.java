@@ -41,6 +41,7 @@ public abstract class AbstractIntegrationTest {
     protected EmbeddedChannel decoder;
 
     protected abstract EmbeddedChannel createEncoder();
+
     protected abstract EmbeddedChannel createDecoder();
 
     public void initChannels() {
@@ -50,7 +51,7 @@ public abstract class AbstractIntegrationTest {
 
     public void closeChannels() {
         encoder.close();
-        for (;;) {
+        for (; ; ) {
             Object msg = encoder.readOutbound();
             if (msg == null) {
                 break;
@@ -59,7 +60,7 @@ public abstract class AbstractIntegrationTest {
         }
 
         decoder.close();
-        for (;;) {
+        for (; ; ) {
             Object msg = decoder.readInbound();
             if (msg == null) {
                 break;
@@ -76,14 +77,14 @@ public abstract class AbstractIntegrationTest {
 
     @Test
     public void testOneByte() throws Exception {
-        final byte[] data = { 'A' };
+        final byte[] data = {'A'};
         testIdentity(data, true);
         testIdentity(data, false);
     }
 
     @Test
     public void testTwoBytes() throws Exception {
-        final byte[] data = { 'B', 'A' };
+        final byte[] data = {'B', 'A'};
         testIdentity(data, true);
         testIdentity(data, false);
     }
@@ -153,7 +154,7 @@ public abstract class AbstractIntegrationTest {
 
     protected void testIdentity(final byte[] data, boolean heapBuffer) {
         initChannels();
-        final ByteBuf in = heapBuffer? Unpooled.wrappedBuffer(data) :
+        final ByteBuf in = heapBuffer ? Unpooled.wrappedBuffer(data) :
                 Unpooled.directBuffer(data.length).writeBytes(data);
         final CompositeByteBuf compressed = Unpooled.compositeBuffer();
         final CompositeByteBuf decompressed = Unpooled.compositeBuffer();

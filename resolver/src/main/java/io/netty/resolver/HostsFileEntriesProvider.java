@@ -69,9 +69,9 @@ public final class HostsFileEntriesProvider {
          * parse something or none is left. In case {@link Charset}s are not provided,
          * the system default {@link Charset} is used for decoding.
          *
-         * @param file the file to be parsed
+         * @param file     the file to be parsed
          * @param charsets the {@link Charset}s to try as file encodings when parsing, in case {@link Charset}s
-         * are not provided, the system default {@link Charset} is used for decoding
+         *                 are not provided, the system default {@link Charset} is used for decoding
          * @return a new {@link HostsFileEntriesProvider}
          * @throws IOException file could not be read
          */
@@ -106,9 +106,9 @@ public final class HostsFileEntriesProvider {
          * parse something or none is left. In case {@link Charset}s are not provided,
          * the system default {@link Charset} is used for decoding.
          *
-         * @param file the file to be parsed
+         * @param file     the file to be parsed
          * @param charsets the {@link Charset}s to try as file encodings when parsing, in case {@link Charset}s
-         * are not provided, the system default {@link Charset} is used for decoding
+         *                 are not provided, the system default {@link Charset} is used for decoding
          * @return a new {@link HostsFileEntriesProvider}
          */
         HostsFileEntriesProvider parseSilently(File file, Charset... charsets);

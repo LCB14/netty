@@ -22,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DefaultHttpResponseTest {
 
-   @Test
+    @Test
     public void testNotEquals() {
         HttpResponse ok = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         HttpResponse notFound = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND);
         assertNotEquals(ok, notFound);
         assertNotEquals(ok.hashCode(), notFound.hashCode());
-   }
+    }
 
     @Test
     public void testEquals() {

@@ -33,7 +33,8 @@ public class DefaultDnsRecordEncoder implements DnsRecordEncoder {
     /**
      * Creates a new instance.
      */
-    protected DefaultDnsRecordEncoder() { }
+    protected DefaultDnsRecordEncoder() {
+    }
 
     @Override
     public final void encodeQuestion(DnsQuestion question, ByteBuf out) throws Exception {
@@ -143,26 +144,26 @@ public class DefaultDnsRecordEncoder implements DnsRecordEncoder {
 
     private static byte padWithZeros(byte b, int lowOrderBitsToPreserve) {
         switch (lowOrderBitsToPreserve) {
-        case 0:
-            return 0;
-        case 1:
-            return (byte) (0x80 & b);
-        case 2:
-            return (byte) (0xC0 & b);
-        case 3:
-            return (byte) (0xE0 & b);
-        case 4:
-            return (byte) (0xF0 & b);
-        case 5:
-            return (byte) (0xF8 & b);
-        case 6:
-            return (byte) (0xFC & b);
-        case 7:
-            return (byte) (0xFE & b);
-        case 8:
-            return b;
-        default:
-            throw new IllegalArgumentException("lowOrderBitsToPreserve: " + lowOrderBitsToPreserve);
+            case 0:
+                return 0;
+            case 1:
+                return (byte) (0x80 & b);
+            case 2:
+                return (byte) (0xC0 & b);
+            case 3:
+                return (byte) (0xE0 & b);
+            case 4:
+                return (byte) (0xF0 & b);
+            case 5:
+                return (byte) (0xF8 & b);
+            case 6:
+                return (byte) (0xFC & b);
+            case 7:
+                return (byte) (0xFE & b);
+            case 8:
+                return b;
+            default:
+                throw new IllegalArgumentException("lowOrderBitsToPreserve: " + lowOrderBitsToPreserve);
         }
     }
 }

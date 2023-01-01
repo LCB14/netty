@@ -205,7 +205,7 @@ public class StompSubframeDecoderTest {
         assertNotNull(frame);
         assertTrue(frame.decoderResult().isFailure());
         assertEquals("received an invalid header line ':header-value'",
-                     frame.decoderResult().cause().getMessage());
+                frame.decoderResult().cause().getMessage());
     }
 
     @Test
@@ -242,7 +242,7 @@ public class StompSubframeDecoderTest {
         assertNotNull(lastContentFrame);
         assertTrue(lastContentFrame.decoderResult().isFailure());
         assertEquals("unexpected byte in buffer 1 while expecting NULL byte",
-                     lastContentFrame.decoderResult().cause().getMessage());
+                lastContentFrame.decoderResult().cause().getMessage());
     }
 
     @Test
@@ -329,6 +329,6 @@ public class StompSubframeDecoderTest {
         assertTrue(headersSubFrame.decoderResult().isFailure());
 
         assertEquals("received an invalid escape header sequence 'custom_invalid\\t'",
-                     headersSubFrame.decoderResult().cause().getMessage());
+                headersSubFrame.decoderResult().cause().getMessage());
     }
 }

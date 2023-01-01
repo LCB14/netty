@@ -33,8 +33,8 @@ public class DefaultMarshallerProvider implements MarshallerProvider {
     /**
      * Create a new instance
      *
-     * @param factory   the {@link MarshallerFactory} to use to create {@link Marshaller}
-     * @param config    the {@link MarshallingConfiguration}
+     * @param factory the {@link MarshallerFactory} to use to create {@link Marshaller}
+     * @param config  the {@link MarshallingConfiguration}
      */
     public DefaultMarshallerProvider(MarshallerFactory factory, MarshallingConfiguration config) {
         this.factory = factory;

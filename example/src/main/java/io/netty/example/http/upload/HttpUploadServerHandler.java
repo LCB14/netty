@@ -80,11 +80,11 @@ public class HttpUploadServerHandler extends SimpleChannelInboundHandler<HttpObj
 
     static {
         DiskFileUpload.deleteOnExitTemporaryFile = true; // should delete file
-                                                         // on exit (in normal
-                                                         // exit)
+        // on exit (in normal
+        // exit)
         DiskFileUpload.baseDirectory = null; // system temp directory
         DiskAttribute.deleteOnExitTemporaryFile = true; // should delete file on
-                                                        // exit (in normal exit)
+        // exit (in normal exit)
         DiskAttribute.baseDirectory = null; // system temp directory
     }
 
@@ -135,8 +135,8 @@ public class HttpUploadServerHandler extends SimpleChannelInboundHandler<HttpObj
 
             QueryStringDecoder decoderQuery = new QueryStringDecoder(request.uri());
             Map<String, List<String>> uriAttributes = decoderQuery.parameters();
-            for (Entry<String, List<String>> attr: uriAttributes.entrySet()) {
-                for (String attrVal: attr.getValue()) {
+            for (Entry<String, List<String>> attr : uriAttributes.entrySet()) {
+                for (String attrVal : attr.getValue()) {
                     responseContent.append("URI: " + attr.getKey() + '=' + attrVal + "\r\n");
                 }
             }
@@ -231,16 +231,16 @@ public class HttpUploadServerHandler extends SimpleChannelInboundHandler<HttpObj
                     partialContent = (HttpData) data;
                     if (partialContent instanceof FileUpload) {
                         builder.append("Start FileUpload: ")
-                            .append(((FileUpload) partialContent).getFilename()).append(" ");
+                                .append(((FileUpload) partialContent).getFilename()).append(" ");
                     } else {
                         builder.append("Start Attribute: ")
-                            .append(partialContent.getName()).append(" ");
+                                .append(partialContent.getName()).append(" ");
                     }
                     builder.append("(DefinedSize: ").append(partialContent.definedLength()).append(")");
                 }
                 if (partialContent.definedLength() > 0) {
                     builder.append(" ").append(partialContent.length() * 100 / partialContent.definedLength())
-                        .append("% ");
+                            .append("% ");
                     logger.info(builder.toString());
                 } else {
                     builder.append(" ").append(partialContent.length()).append(" ");

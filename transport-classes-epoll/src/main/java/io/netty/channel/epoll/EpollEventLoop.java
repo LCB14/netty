@@ -322,7 +322,7 @@ class EpollEventLoop extends SingleThreadEventLoop {
     @Override
     protected void run() {
         long prevDeadlineNanos = NONE;
-        for (;;) {
+        for (; ; ) {
             try {
                 int strategy = selectStrategy.calculateStrategy(selectNowSupplier, hasTasks());
                 switch (strategy) {
@@ -451,7 +451,7 @@ class EpollEventLoop extends SingleThreadEventLoop {
         // In the `close()` method, the channel is deleted from `channels` map.
         AbstractEpollChannel[] localChannels = channels.values().toArray(new AbstractEpollChannel[0]);
 
-        for (AbstractEpollChannel ch: localChannels) {
+        for (AbstractEpollChannel ch : localChannels) {
             ch.unsafe().close(ch.unsafe().voidPromise());
         }
     }
@@ -459,7 +459,7 @@ class EpollEventLoop extends SingleThreadEventLoop {
     // Returns true if a timerFd event was encountered
     private boolean processReady(EpollEventArray events, int ready) {
         boolean timerFired = false;
-        for (int i = 0; i < ready; i ++) {
+        for (int i = 0; i < ready; i++) {
             final int fd = events.fd(i);
             if (fd == eventFd.intValue()) {
                 pendingWakeup = false;

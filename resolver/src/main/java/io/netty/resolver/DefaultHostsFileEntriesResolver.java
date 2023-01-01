@@ -76,7 +76,7 @@ public final class DefaultHostsFileEntriesResolver implements HostsFileEntriesRe
      * Resolves all addresses of a hostname against the entries in a hosts file, depending on the specified
      * {@link ResolvedAddressTypes}.
      *
-     * @param inetHost the hostname to resolve
+     * @param inetHost             the hostname to resolve
      * @param resolvedAddressTypes the address types to resolve
      * @return all matching addresses or {@code null} in case the hostname cannot be resolved
      */

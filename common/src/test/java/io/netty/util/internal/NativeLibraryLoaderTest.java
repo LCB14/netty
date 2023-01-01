@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.condition.OS.LINUX;
 class NativeLibraryLoaderTest {
 
     private static final String OS_ARCH = System.getProperty("os.arch");
+
     private boolean is_x86_64() {
         return "x86_64".equals(OS_ARCH) || "amd64".equals(OS_ARCH);
     }
@@ -71,7 +72,7 @@ class NativeLibraryLoaderTest {
     void testMultipleResourcesWithSameContentInTheClassLoader() throws MalformedURLException {
         URL url1 = new File("src/test/data/NativeLibraryLoader/1").toURI().toURL();
         URL url2 = new File("src/test/data/NativeLibraryLoader/2").toURI().toURL();
-        final URLClassLoader loader = new URLClassLoader(new URL[] {url1, url2});
+        final URLClassLoader loader = new URLClassLoader(new URL[]{url1, url2});
         final String resourceName = "test3";
 
         NativeLibraryLoader.load(resourceName, loader);
@@ -84,7 +85,7 @@ class NativeLibraryLoaderTest {
     void testMultipleResourcesInTheClassLoader() throws MalformedURLException {
         URL url1 = new File("src/test/data/NativeLibraryLoader/1").toURI().toURL();
         URL url2 = new File("src/test/data/NativeLibraryLoader/2").toURI().toURL();
-        final URLClassLoader loader = new URLClassLoader(new URL[] {url1, url2});
+        final URLClassLoader loader = new URLClassLoader(new URL[]{url1, url2});
         final String resourceName = "test1";
 
         Exception ise = assertThrows(IllegalStateException.class, new Executable() {
@@ -94,7 +95,7 @@ class NativeLibraryLoaderTest {
             }
         });
         assertTrue(ise.getMessage()
-                    .contains("Multiple resources found for 'META-INF/native/lib" + resourceName + ".so'"));
+                .contains("Multiple resources found for 'META-INF/native/lib" + resourceName + ".so'"));
     }
 
     @Test
@@ -103,7 +104,7 @@ class NativeLibraryLoaderTest {
     void testSingleResourceInTheClassLoader() throws MalformedURLException {
         URL url1 = new File("src/test/data/NativeLibraryLoader/1").toURI().toURL();
         URL url2 = new File("src/test/data/NativeLibraryLoader/2").toURI().toURL();
-        URLClassLoader loader = new URLClassLoader(new URL[] {url1, url2});
+        URLClassLoader loader = new URLClassLoader(new URL[]{url1, url2});
         String resourceName = "test2";
 
         NativeLibraryLoader.load(resourceName, loader);
@@ -112,7 +113,7 @@ class NativeLibraryLoaderTest {
 
     @SuppressJava6Requirement(reason = "uses Java 7+ Throwable#getSuppressed but is guarded by version checks")
     private static void verifySuppressedException(UnsatisfiedLinkError error,
-            Class<?> expectedSuppressedExceptionClass) {
+                                                  Class<?> expectedSuppressedExceptionClass) {
         try {
             Throwable[] suppressed = error.getCause().getSuppressed();
             assertTrue(suppressed.length == 1);

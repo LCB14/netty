@@ -27,12 +27,11 @@ import org.jboss.marshalling.Marshaller;
  * an Object. Be aware that this encoder is not compatible with an other client that just use
  * JBoss Marshalling as it includes the size of every {@link Object} that gets serialized in
  * front of the {@link Object} itself.
- *
+ * <p>
  * Use this with {@link MarshallingDecoder}
- *
+ * <p>
  * See <a href="https://www.jboss.org/jbossmarshalling">JBoss Marshalling website</a>
  * for more information
- *
  */
 @Sharable
 public class MarshallingEncoder extends MessageToByteEncoder<Object> {

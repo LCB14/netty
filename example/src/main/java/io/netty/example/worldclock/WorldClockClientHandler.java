@@ -47,18 +47,18 @@ public class WorldClockClientHandler extends SimpleChannelInboundHandler<LocalTi
     public List<String> getLocalTimes(Collection<String> cities) {
         Locations.Builder builder = Locations.newBuilder();
 
-        for (String c: cities) {
+        for (String c : cities) {
             String[] components = DELIM.split(c);
             builder.addLocation(Location.newBuilder().
-                setContinent(Continent.valueOf(components[0].toUpperCase())).
-                setCity(components[1]).build());
+                    setContinent(Continent.valueOf(components[0].toUpperCase())).
+                    setCity(components[1]).build());
         }
 
         channel.writeAndFlush(builder.build());
 
         LocalTimes localTimes;
         boolean interrupted = false;
-        for (;;) {
+        for (; ; ) {
             try {
                 localTimes = answer.take();
                 break;
@@ -72,7 +72,7 @@ public class WorldClockClientHandler extends SimpleChannelInboundHandler<LocalTi
         }
 
         List<String> result = new ArrayList<String>();
-        for (LocalTime lt: localTimes.getLocalTimeList()) {
+        for (LocalTime lt : localTimes.getLocalTimeList()) {
             result.add(
                     new Formatter().format(
                             "%4d-%02d-%02d %02d:%02d:%02d %s",

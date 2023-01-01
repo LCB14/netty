@@ -40,7 +40,7 @@ public final class WebSocketServerHandshakeException extends WebSocketHandshakeE
         super(message);
         if (httpRequest != null) {
             request = new DefaultHttpRequest(httpRequest.protocolVersion(), httpRequest.method(),
-                                             httpRequest.uri(), httpRequest.headers());
+                    httpRequest.uri(), httpRequest.headers());
         } else {
             request = null;
         }

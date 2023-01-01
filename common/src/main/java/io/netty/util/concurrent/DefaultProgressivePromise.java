@@ -22,11 +22,10 @@ public class DefaultProgressivePromise<V> extends DefaultPromise<V> implements P
 
     /**
      * Creates a new instance.
-     *
+     * <p>
      * It is preferable to use {@link EventExecutor#newProgressivePromise()} to create a new progressive promise
      *
-     * @param executor
-     *        the {@link EventExecutor} which is used to notify the promise when it progresses or it is complete
+     * @param executor the {@link EventExecutor} which is used to notify the promise when it progresses or it is complete
      */
     public DefaultProgressivePromise(EventExecutor executor) {
         super(executor);

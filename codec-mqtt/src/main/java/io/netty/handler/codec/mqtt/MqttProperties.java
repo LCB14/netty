@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * MQTT Properties container
- * */
+ */
 public final class MqttProperties {
 
     public enum MqttPropertyType {
@@ -134,6 +134,7 @@ public final class MqttProperties {
 
         /**
          * Get MQTT property ID
+         *
          * @return property ID
          */
         public int propertyId() {
@@ -229,7 +230,7 @@ public final class MqttProperties {
 
         private static UserProperties fromUserPropertyCollection(Collection<UserProperty> properties) {
             UserProperties userProperties = new UserProperties();
-            for (UserProperty property: properties) {
+            for (UserProperty property : properties) {
                 userProperties.add(new StringPair(property.value.key, property.value.value));
             }
             return userProperties;
@@ -247,7 +248,7 @@ public final class MqttProperties {
         public String toString() {
             StringBuilder builder = new StringBuilder("UserProperties(");
             boolean first = true;
-            for (StringPair pair: value) {
+            for (StringPair pair : value) {
                 if (!first) {
                     builder.append(", ");
                 }
@@ -309,7 +310,7 @@ public final class MqttProperties {
             if (property instanceof UserProperty) {
                 userProperties.add((UserProperty) property);
             } else if (property instanceof UserProperties) {
-                for (StringPair pair: ((UserProperties) property).value) {
+                for (StringPair pair : ((UserProperties) property).value) {
                     userProperties.add(new UserProperty(pair.key, pair.value));
                 }
             } else {

@@ -57,7 +57,7 @@ public class DnsQueryTest {
                 DnsSection.QUESTION,
                 new DefaultDnsQuestion("example.com", DnsRecordType.CNAME)));
 
-        for (DnsQuery query: queries) {
+        for (DnsQuery query : queries) {
             assertThat(query.count(DnsSection.QUESTION), is(1));
             assertThat(query.count(DnsSection.ANSWER), is(0));
             assertThat(query.count(DnsSection.AUTHORITY), is(0));

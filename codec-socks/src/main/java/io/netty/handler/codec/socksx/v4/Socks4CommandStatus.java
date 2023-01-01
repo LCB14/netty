@@ -29,14 +29,14 @@ public class Socks4CommandStatus implements Comparable<Socks4CommandStatus> {
 
     public static Socks4CommandStatus valueOf(byte b) {
         switch (b) {
-        case 0x5a:
-            return SUCCESS;
-        case 0x5b:
-            return REJECTED_OR_FAILED;
-        case 0x5c:
-            return IDENTD_UNREACHABLE;
-        case 0x5d:
-            return IDENTD_AUTH_FAILURE;
+            case 0x5a:
+                return SUCCESS;
+            case 0x5b:
+                return REJECTED_OR_FAILED;
+            case 0x5c:
+                return IDENTD_UNREACHABLE;
+            case 0x5d:
+                return IDENTD_AUTH_FAILURE;
         }
 
         return new Socks4CommandStatus(b);

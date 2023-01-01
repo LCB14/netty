@@ -50,10 +50,10 @@ public class HpackDecoderBenchmark extends AbstractMicrobenchmark {
     @Param
     public HpackHeadersSize size;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean sensitive;
 
-    @Param({ "true", "false" })
+    @Param({"true", "false"})
     public boolean limitToAscii;
 
     private ByteBuf input;
@@ -75,12 +75,12 @@ public class HpackDecoderBenchmark extends AbstractMicrobenchmark {
         @SuppressWarnings("unchecked")
         Http2Headers headers =
                 new DefaultHttp2Headers() {
-            @Override
-            public Http2Headers add(CharSequence name, CharSequence value) {
-                bh.consume(sensitive);
-                return this;
-            }
-        };
+                    @Override
+                    public Http2Headers add(CharSequence name, CharSequence value) {
+                        bh.consume(sensitive);
+                        return this;
+                    }
+                };
         hpackDecoder.decode(0, input.duplicate(), headers, true);
     }
 
@@ -89,8 +89,8 @@ public class HpackDecoderBenchmark extends AbstractMicrobenchmark {
         ByteBuf out = size.newOutBuffer();
         try {
             hpackEncoder.encodeHeaders(3 /* randomly chosen */, out, headers,
-                                  sensitive ? Http2HeadersEncoder.ALWAYS_SENSITIVE
-                                            : Http2HeadersEncoder.NEVER_SENSITIVE);
+                    sensitive ? Http2HeadersEncoder.ALWAYS_SENSITIVE
+                            : Http2HeadersEncoder.NEVER_SENSITIVE);
             byte[] bytes = new byte[out.readableBytes()];
             out.readBytes(bytes);
             return bytes;

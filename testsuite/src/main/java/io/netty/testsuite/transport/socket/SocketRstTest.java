@@ -39,7 +39,7 @@ public class SocketRstTest extends AbstractSocketTest {
     protected void assertRstOnCloseException(IOException cause, Channel clientChannel) {
         if (Locale.getDefault() == Locale.US || Locale.getDefault() == Locale.UK) {
             assertTrue(cause.getMessage().contains("reset") || cause.getMessage().contains("closed"),
-                "actual message: " + cause.getMessage());
+                    "actual message: " + cause.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class SocketRstTest extends AbstractSocketTest {
         // Verify the client received a RST.
         Throwable cause = throwableRef.get();
         assertTrue(cause instanceof IOException,
-            "actual [type, message]: [" + cause.getClass() + ", " + cause.getMessage() + "]");
+                "actual [type, message]: [" + cause.getClass() + ", " + cause.getMessage() + "]");
 
         assertRstOnCloseException((IOException) cause, cc);
     }

@@ -91,7 +91,7 @@ public class SocksCmdResponseTest {
                 0x01,
                 0x00, // port
                 0x50
-                };
+        };
         assertByteBufEquals(expected, buffer);
     }
 
@@ -158,7 +158,7 @@ public class SocksCmdResponseTest {
         assertEquals(SocksAddressType.DOMAIN.byteValue(), buffer.readByte());
         assertEquals((byte) asciiHost.length(), buffer.readUnsignedByte());
         assertEquals(asciiHost,
-            CharBuffer.wrap(buffer.readCharSequence(asciiHost.length(), CharsetUtil.US_ASCII)));
+                CharBuffer.wrap(buffer.readCharSequence(asciiHost.length(), CharsetUtil.US_ASCII)));
         assertEquals(port, buffer.readUnsignedShort());
 
         buffer.release();

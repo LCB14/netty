@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class UnitializedArrayBenchmark extends AbstractMicrobenchmark {
 
-    @Param({ "1", "10", "100", "1000", "10000", "100000" })
+    @Param({"1", "10", "100", "1000", "10000", "100000"})
     private int size;
 
     @Setup(Level.Trial)
@@ -57,8 +57,8 @@ public class UnitializedArrayBenchmark extends AbstractMicrobenchmark {
     protected String[] jvmArgs() {
         // Ensure we minimize the GC overhead for this benchmark and also open up required package.
         // See also https://shipilev.net/jvm-anatomy-park/7-initialization-costs/
-        return new String[] { "-XX:+UseParallelOldGC", "-Xmx8g", "-Xms8g",
-                "-Xmn6g", "--add-opens", "java.base/jdk.internal.misc=ALL-UNNAMED" };
+        return new String[]{"-XX:+UseParallelOldGC", "-Xmx8g", "-Xms8g",
+                "-Xmn6g", "--add-opens", "java.base/jdk.internal.misc=ALL-UNNAMED"};
     }
 
     @Benchmark

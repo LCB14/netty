@@ -16,7 +16,7 @@
 
 /**
  * This package is only included to let SCTP also compile on non-unix operation systems.
- * 
+ *
  * <strong>This will not get included in the generated jar!</strong>
  */
 package com.sun.nio.sctp;

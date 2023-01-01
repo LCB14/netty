@@ -62,10 +62,10 @@ final class Bzip2MTFAndRLE2StageEncoder {
     private int alphabetSize;
 
     /**
-     * @param bwtBlock The Burrows Wheeler Transformed block data
-     * @param bwtLength The actual length of the BWT data
+     * @param bwtBlock         The Burrows Wheeler Transformed block data
+     * @param bwtLength        The actual length of the BWT data
      * @param bwtValuesPresent The values that are present within the BWT data. For each index,
-     *            {@code true} if that value is present within the data, otherwise {@code false}
+     *                         {@code true} if that value is present within the data, otherwise {@code false}
      */
     Bzip2MTFAndRLE2StageEncoder(final int[] bwtBlock, final int bwtLength, final boolean[] bwtValuesPresent) {
         this.bwtBlock = bwtBlock;

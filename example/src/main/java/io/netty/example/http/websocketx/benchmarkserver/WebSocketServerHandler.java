@@ -66,14 +66,14 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         // Handle a bad request.
         if (!req.decoderResult().isSuccess()) {
             sendHttpResponse(ctx, req, new DefaultFullHttpResponse(req.protocolVersion(), BAD_REQUEST,
-                                                                   ctx.alloc().buffer(0)));
+                    ctx.alloc().buffer(0)));
             return;
         }
 
         // Allow only GET methods.
         if (!GET.equals(req.method())) {
             sendHttpResponse(ctx, req, new DefaultFullHttpResponse(req.protocolVersion(), FORBIDDEN,
-                                                                   ctx.alloc().buffer(0)));
+                    ctx.alloc().buffer(0)));
             return;
         }
 
@@ -91,7 +91,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 
         if ("/favicon.ico".equals(req.uri())) {
             FullHttpResponse res = new DefaultFullHttpResponse(req.protocolVersion(), NOT_FOUND,
-                                                               ctx.alloc().buffer(0));
+                    ctx.alloc().buffer(0));
             sendHttpResponse(ctx, req, res);
             return;
         }
@@ -152,7 +152,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     private static String getWebSocketLocation(FullHttpRequest req) {
-        String location =  req.headers().get(HttpHeaderNames.HOST) + WEBSOCKET_PATH;
+        String location = req.headers().get(HttpHeaderNames.HOST) + WEBSOCKET_PATH;
         if (WebSocketServer.SSL) {
             return "wss://" + location;
         } else {

@@ -32,11 +32,11 @@ public final class DefaultDnsOptEcsRecord extends AbstractDnsOptPseudoRrRecord i
     /**
      * Creates a new instance.
      *
-     * @param maxPayloadSize the suggested max payload size in bytes
-     * @param extendedRcode the extended rcode
-     * @param version the version
+     * @param maxPayloadSize  the suggested max payload size in bytes
+     * @param extendedRcode   the extended rcode
+     * @param version         the version
      * @param srcPrefixLength the prefix length
-     * @param address the bytes of the {@link InetAddress} to use
+     * @param address         the bytes of the {@link InetAddress} to use
      */
     public DefaultDnsOptEcsRecord(int maxPayloadSize, int extendedRcode, int version,
                                   int srcPrefixLength, byte[] address) {
@@ -48,9 +48,9 @@ public final class DefaultDnsOptEcsRecord extends AbstractDnsOptPseudoRrRecord i
     /**
      * Creates a new instance.
      *
-     * @param maxPayloadSize the suggested max payload size in bytes
+     * @param maxPayloadSize  the suggested max payload size in bytes
      * @param srcPrefixLength the prefix length
-     * @param address the bytes of the {@link InetAddress} to use
+     * @param address         the bytes of the {@link InetAddress} to use
      */
     public DefaultDnsOptEcsRecord(int maxPayloadSize, int srcPrefixLength, byte[] address) {
         this(maxPayloadSize, 0, 0, srcPrefixLength, address);
@@ -94,11 +94,11 @@ public final class DefaultDnsOptEcsRecord extends AbstractDnsOptPseudoRrRecord i
         StringBuilder sb = toStringBuilder();
         sb.setLength(sb.length() - 1);
         return sb.append(" address:")
-          .append(Arrays.toString(address))
-          .append(" sourcePrefixLength:")
-          .append(sourcePrefixLength())
-          .append(" scopePrefixLength:")
-          .append(scopePrefixLength())
-          .append(')').toString();
+                .append(Arrays.toString(address))
+                .append(" sourcePrefixLength:")
+                .append(sourcePrefixLength())
+                .append(" scopePrefixLength:")
+                .append(scopePrefixLength())
+                .append(')').toString();
     }
 }

@@ -77,7 +77,7 @@ public final class HostsFileParser {
     /**
      * Parse a hosts file.
      *
-     * @param file the file to be parsed
+     * @param file     the file to be parsed
      * @param charsets the {@link Charset}s to try as file encodings when parsing.
      * @return a {@link HostsFileEntries}
      * @throws IOException file could not be read

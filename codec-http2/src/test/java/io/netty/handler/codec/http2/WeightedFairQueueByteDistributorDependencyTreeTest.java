@@ -30,7 +30,7 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doAnswer;
 
 public class WeightedFairQueueByteDistributorDependencyTreeTest extends
-                                                AbstractWeightedFairQueueByteDistributorDependencyTest {
+        AbstractWeightedFairQueueByteDistributorDependencyTest {
     private static final int leadersId = 3; // js, css
     private static final int unblockedId = 5;
     private static final int backgroundId = 7;
@@ -213,7 +213,7 @@ public class WeightedFairQueueByteDistributorDependencyTreeTest extends
         assertEquals(1, distributor.numChildren(backgroundId));
 
         assertTrue(distributor.isChild(favIconStream.id(), connection.connectionStream().id(),
-                                       DEFAULT_PRIORITY_WEIGHT));
+                DEFAULT_PRIORITY_WEIGHT));
         assertEquals(0, distributor.numChildren(favIconStream.id()));
 
         // Level 2
@@ -585,8 +585,8 @@ public class WeightedFairQueueByteDistributorDependencyTreeTest extends
         setPriority(streamC.id(), streamA.id(), DEFAULT_PRIORITY_WEIGHT, false);
         setPriority(streamD.id(), streamA.id(), DEFAULT_PRIORITY_WEIGHT, true);
 
-        boolean[] exclusives = { true, false };
-        short[] weights = { DEFAULT_PRIORITY_WEIGHT, 100, 200, DEFAULT_PRIORITY_WEIGHT };
+        boolean[] exclusives = {true, false};
+        short[] weights = {DEFAULT_PRIORITY_WEIGHT, 100, 200, DEFAULT_PRIORITY_WEIGHT};
 
         assertEquals(4, connection.numActiveStreams());
 

@@ -52,6 +52,7 @@ class Bzip2BitReader {
 
     /**
      * Reads up to 32 bits from the {@link ByteBuf}.
+     *
      * @param count The number of bits to read (maximum {@code 32} as a size of {@code int})
      * @return The bits requested, right-aligned within the integer
      */
@@ -99,6 +100,7 @@ class Bzip2BitReader {
 
     /**
      * Reads a single bit from the {@link ByteBuf}.
+     *
      * @return {@code true} if the bit read was {@code 1}, otherwise {@code false}
      */
     boolean readBoolean() {
@@ -107,6 +109,7 @@ class Bzip2BitReader {
 
     /**
      * Reads 32 bits of input as an integer.
+     *
      * @return The integer read
      */
     int readInt() {
@@ -124,6 +127,7 @@ class Bzip2BitReader {
 
     /**
      * Checks that at least one bit is available for reading.
+     *
      * @return {@code true} if one bit is available for reading, otherwise {@code false}
      */
     boolean isReadable() {
@@ -132,6 +136,7 @@ class Bzip2BitReader {
 
     /**
      * Checks that the specified number of bits available for reading.
+     *
      * @param count The number of bits to check
      * @return {@code true} if {@code count} bits are available for reading, otherwise {@code false}
      */
@@ -144,6 +149,7 @@ class Bzip2BitReader {
 
     /**
      * Checks that the specified number of bytes available for reading.
+     *
      * @param count The number of bytes to check
      * @return {@code true} if {@code count} bytes are available for reading, otherwise {@code false}
      */

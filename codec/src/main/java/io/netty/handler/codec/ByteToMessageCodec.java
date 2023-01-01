@@ -25,9 +25,9 @@ import java.util.List;
 
 /**
  * A Codec for on-the-fly encoding/decoding of bytes to messages and vise-versa.
- *
+ * <p>
  * This can be thought of as a combination of {@link ByteToMessageDecoder} and {@link MessageToByteEncoder}.
- *
+ * <p>
  * Be aware that sub-classes of {@link ByteToMessageCodec} <strong>MUST NOT</strong>
  * annotated with {@link @Sharable}.
  */
@@ -65,9 +65,9 @@ public abstract class ByteToMessageCodec<I> extends ChannelDuplexHandler {
     /**
      * Create a new instance which will try to detect the types to match out of the type parameter of the class.
      *
-     * @param preferDirect          {@code true} if a direct {@link ByteBuf} should be tried to be used as target for
-     *                              the encoded messages. If {@code false} is used it will allocate a heap
-     *                              {@link ByteBuf}, which is backed by an byte array.
+     * @param preferDirect {@code true} if a direct {@link ByteBuf} should be tried to be used as target for
+     *                     the encoded messages. If {@code false} is used it will allocate a heap
+     *                     {@link ByteBuf}, which is backed by an byte array.
      */
     protected ByteToMessageCodec(boolean preferDirect) {
         ensureNotSharable();
@@ -78,10 +78,10 @@ public abstract class ByteToMessageCodec<I> extends ChannelDuplexHandler {
     /**
      * Create a new instance
      *
-     * @param outboundMessageType   The type of messages to match
-     * @param preferDirect          {@code true} if a direct {@link ByteBuf} should be tried to be used as target for
-     *                              the encoded messages. If {@code false} is used it will allocate a heap
-     *                              {@link ByteBuf}, which is backed by an byte array.
+     * @param outboundMessageType The type of messages to match
+     * @param preferDirect        {@code true} if a direct {@link ByteBuf} should be tried to be used as target for
+     *                            the encoded messages. If {@code false} is used it will allocate a heap
+     *                            {@link ByteBuf}, which is backed by an byte array.
      */
     protected ByteToMessageCodec(Class<? extends I> outboundMessageType, boolean preferDirect) {
         ensureNotSharable();

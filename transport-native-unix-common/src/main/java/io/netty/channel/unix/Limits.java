@@ -27,5 +27,6 @@ public final class Limits {
 
     public static final int SIZEOF_JLONG = sizeOfjlong();
 
-    private Limits() { }
+    private Limits() {
+    }
 }

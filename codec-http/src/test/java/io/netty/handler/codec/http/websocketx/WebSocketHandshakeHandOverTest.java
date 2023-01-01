@@ -29,12 +29,15 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketClientProtocolHandler.ClientHandshakeStateEvent;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler.ServerHandshakeStateEvent;
+
 import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.List;
+
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.function.Executable;
 
@@ -57,10 +60,10 @@ public class WebSocketHandshakeHandOverTest {
     private final class CloseNoOpServerProtocolHandler extends WebSocketServerProtocolHandler {
         CloseNoOpServerProtocolHandler(String websocketPath) {
             super(WebSocketServerProtocolConfig.newBuilder()
-                .websocketPath(websocketPath)
-                .allowExtensions(false)
-                .sendCloseFrame(null)
-                .build());
+                    .websocketPath(websocketPath)
+                    .allowExtensions(false)
+                    .sendCloseFrame(null)
+                    .build());
         }
 
         @Override
@@ -97,6 +100,7 @@ public class WebSocketHandshakeHandOverTest {
                     serverHandshakeComplete = (WebSocketServerProtocolHandler.HandshakeComplete) evt;
                 }
             }
+
             @Override
             protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
             }
@@ -109,6 +113,7 @@ public class WebSocketHandshakeHandOverTest {
                     clientReceivedHandshake = true;
                 }
             }
+
             @Override
             protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
                 if (msg instanceof TextWebSocketFrame) {
@@ -258,6 +263,7 @@ public class WebSocketHandshakeHandOverTest {
                     handshaker.close(ctx.channel(), new CloseWebSocketFrame());
                 }
             }
+
             @Override
             protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
             }
@@ -292,12 +298,13 @@ public class WebSocketHandshakeHandOverTest {
     /**
      * Transfers all pending data from the source channel into the destination channel.<br>
      * Merges all data into a single buffer before transmission into the destination.
+     *
      * @param srcChannel The source channel
      * @param dstChannel The destination channel
      */
-    private static void transferAllDataWithMerge(EmbeddedChannel srcChannel, EmbeddedChannel dstChannel)  {
+    private static void transferAllDataWithMerge(EmbeddedChannel srcChannel, EmbeddedChannel dstChannel) {
         ByteBuf mergedBuffer = null;
-        for (;;) {
+        for (; ; ) {
             Object srcData = srcChannel.readOutbound();
 
             if (srcData != null) {
@@ -323,17 +330,17 @@ public class WebSocketHandshakeHandOverTest {
 
     private static EmbeddedChannel createClientChannel(ChannelHandler handler) throws Exception {
         return createClientChannel(handler, WebSocketClientProtocolConfig.newBuilder()
-            .webSocketUri("ws://localhost:1234/test")
-            .subprotocol("test-proto-2")
-            .build());
+                .webSocketUri("ws://localhost:1234/test")
+                .subprotocol("test-proto-2")
+                .build());
     }
 
     private static EmbeddedChannel createClientChannel(ChannelHandler handler, long timeoutMillis) throws Exception {
         return createClientChannel(handler, WebSocketClientProtocolConfig.newBuilder()
-            .webSocketUri("ws://localhost:1234/test")
-            .subprotocol("test-proto-2")
-            .handshakeTimeoutMillis(timeoutMillis)
-            .build());
+                .webSocketUri("ws://localhost:1234/test")
+                .subprotocol("test-proto-2")
+                .handshakeTimeoutMillis(timeoutMillis)
+                .build());
     }
 
     private static EmbeddedChannel createClientChannel(ChannelHandler handler, WebSocketClientProtocolConfig config) {

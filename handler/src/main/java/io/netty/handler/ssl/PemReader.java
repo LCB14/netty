@@ -80,7 +80,7 @@ final class PemReader {
         List<ByteBuf> certs = new ArrayList<ByteBuf>();
         Matcher m = CERT_HEADER.matcher(content);
         int start = 0;
-        for (;;) {
+        for (; ; ) {
             if (!m.find(start)) {
                 break;
             }
@@ -161,7 +161,7 @@ final class PemReader {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
             byte[] buf = new byte[8192];
-            for (;;) {
+            for (; ; ) {
                 int ret = in.read(buf);
                 if (ret < 0) {
                     break;
@@ -190,5 +190,6 @@ final class PemReader {
         }
     }
 
-    private PemReader() { }
+    private PemReader() {
+    }
 }

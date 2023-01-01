@@ -71,7 +71,7 @@ public abstract class AbstractNioChannelTest<T extends AbstractNioChannel> {
     }
 
     @Test
-    public void testGetOptions()  {
+    public void testGetOptions() {
         T channel = newNioChannel();
         try {
             channel.config().getOptions();

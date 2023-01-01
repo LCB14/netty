@@ -26,10 +26,10 @@ public interface OpenSslCertificateCompressionAlgorithm {
     /**
      * Compress the given input with the specified algorithm and return the compressed bytes.
      *
-     * @param engine                    the {@link SSLEngine}
-     * @param uncompressedCertificate   the uncompressed certificate
-     * @return                          the compressed form of the certificate
-     * @throws Exception                thrown if an error occurs while compressing
+     * @param engine                  the {@link SSLEngine}
+     * @param uncompressedCertificate the uncompressed certificate
+     * @return the compressed form of the certificate
+     * @throws Exception thrown if an error occurs while compressing
      */
     byte[] compress(SSLEngine engine, byte[] uncompressedCertificate) throws Exception;
 
@@ -45,12 +45,12 @@ public interface OpenSslCertificateCompressionAlgorithm {
      * function exceeds that limit.
      * </p>
      *
-     * @param engine                    the {@link SSLEngine}
-     * @param uncompressedLen           the expected length of the decompressed certificate that will be returned.
-     * @param compressedCertificate     the compressed form of the certificate
-     * @return                          the decompressed form of the certificate
-     * @throws Exception                thrown if an error occurs while decompressing or output size exceeds
-     *                                  {@code uncompressedLen}
+     * @param engine                the {@link SSLEngine}
+     * @param uncompressedLen       the expected length of the decompressed certificate that will be returned.
+     * @param compressedCertificate the compressed form of the certificate
+     * @return the decompressed form of the certificate
+     * @throws Exception thrown if an error occurs while decompressing or output size exceeds
+     *                   {@code uncompressedLen}
      */
     byte[] decompress(SSLEngine engine, int uncompressedLen, byte[] compressedCertificate) throws Exception;
 

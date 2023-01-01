@@ -26,9 +26,9 @@ import java.util.TreeSet;
 
 /**
  * A <a href="https://tools.ietf.org/html/rfc6265">RFC6265</a> compliant cookie decoder to be used server side.
- *
+ * <p>
  * Only name and value fields are expected, so old fields are not populated (path, domain, etc).
- *
+ * <p>
  * Old <a href="https://tools.ietf.org/html/rfc2965">RFC2965</a> cookies are still supported,
  * old fields will simply be ignored.
  *
@@ -101,10 +101,11 @@ public final class ServerCookieDecoder extends CookieDecoder {
             rfc2965Style = true;
         }
 
-        loop: for (;;) {
+        loop:
+        for (; ; ) {
 
             // Skip spaces and separators.
-            for (;;) {
+            for (; ; ) {
                 if (i == headerLen) {
                     break loop;
                 }
@@ -122,7 +123,7 @@ public final class ServerCookieDecoder extends CookieDecoder {
             int valueBegin;
             int valueEnd;
 
-            for (;;) {
+            for (; ; ) {
 
                 char curChar = header.charAt(i);
                 if (curChar == ';') {

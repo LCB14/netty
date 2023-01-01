@@ -25,7 +25,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.TearDown;
 
 public abstract class AbstractSslHandlerThroughputBenchmark extends AbstractSslHandlerBenchmark {
-    @Param({ "64", "128", "512", "1024", "4096" })
+    @Param({"64", "128", "512", "1024", "4096"})
     public int messageSize;
 
     @Param

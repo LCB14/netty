@@ -83,11 +83,11 @@ public final class AsciiHeadersEncoder {
 
         switch (separatorType) {
             case COLON:
-                buf.setByte(offset ++, ':');
+                buf.setByte(offset++, ':');
                 break;
             case COLON_SPACE:
-                buf.setByte(offset ++, ':');
-                buf.setByte(offset ++, ' ');
+                buf.setByte(offset++, ':');
+                buf.setByte(offset++, ' ');
                 break;
             default:
                 throw new Error();
@@ -98,11 +98,11 @@ public final class AsciiHeadersEncoder {
 
         switch (newlineType) {
             case LF:
-                buf.setByte(offset ++, '\n');
+                buf.setByte(offset++, '\n');
                 break;
             case CRLF:
-                buf.setByte(offset ++, '\r');
-                buf.setByte(offset ++, '\n');
+                buf.setByte(offset++, '\r');
+                buf.setByte(offset++, '\n');
                 break;
             default:
                 throw new Error();

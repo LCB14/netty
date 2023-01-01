@@ -28,7 +28,8 @@ public final class WriteTimeoutException extends TimeoutException {
     public static final WriteTimeoutException INSTANCE = PlatformDependent.javaVersion() >= 7 ?
             new WriteTimeoutException(true) : new WriteTimeoutException();
 
-    public WriteTimeoutException() { }
+    public WriteTimeoutException() {
+    }
 
     public WriteTimeoutException(String message) {
         super(message, false);

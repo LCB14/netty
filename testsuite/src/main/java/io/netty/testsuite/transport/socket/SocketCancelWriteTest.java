@@ -23,7 +23,9 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+
 import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.Timeout;
@@ -104,6 +106,7 @@ public class SocketCancelWriteTest extends AbstractSocketTest {
         final AtomicReference<Throwable> exception = new AtomicReference<Throwable>();
         volatile int counter;
         final ByteBuf received = Unpooled.buffer();
+
         @Override
         public void channelActive(ChannelHandlerContext ctx)
                 throws Exception {
@@ -118,7 +121,7 @@ public class SocketCancelWriteTest extends AbstractSocketTest {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx,
-                Throwable cause) throws Exception {
+                                    Throwable cause) throws Exception {
             if (exception.compareAndSet(null, cause)) {
                 ctx.close();
             }

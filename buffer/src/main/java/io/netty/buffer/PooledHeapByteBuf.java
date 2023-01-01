@@ -28,11 +28,11 @@ class PooledHeapByteBuf extends PooledByteBuf<byte[]> {
 
     private static final ObjectPool<PooledHeapByteBuf> RECYCLER = ObjectPool.newPool(
             new ObjectCreator<PooledHeapByteBuf>() {
-        @Override
-        public PooledHeapByteBuf newObject(Handle<PooledHeapByteBuf> handle) {
-            return new PooledHeapByteBuf(handle, 0);
-        }
-    });
+                @Override
+                public PooledHeapByteBuf newObject(Handle<PooledHeapByteBuf> handle) {
+                    return new PooledHeapByteBuf(handle, 0);
+                }
+            });
 
     static PooledHeapByteBuf newInstance(int maxCapacity) {
         PooledHeapByteBuf buf = RECYCLER.get();
@@ -145,7 +145,7 @@ class PooledHeapByteBuf extends PooledByteBuf<byte[]> {
     }
 
     @Override
-    protected void _setMedium(int index, int   value) {
+    protected void _setMedium(int index, int value) {
         HeapByteBufUtil.setMedium(memory, idx(index), value);
     }
 
@@ -155,7 +155,7 @@ class PooledHeapByteBuf extends PooledByteBuf<byte[]> {
     }
 
     @Override
-    protected void _setInt(int index, int   value) {
+    protected void _setInt(int index, int value) {
         HeapByteBufUtil.setInt(memory, idx(index), value);
     }
 
@@ -165,7 +165,7 @@ class PooledHeapByteBuf extends PooledByteBuf<byte[]> {
     }
 
     @Override
-    protected void _setLong(int index, long  value) {
+    protected void _setLong(int index, long value) {
         HeapByteBufUtil.setLong(memory, idx(index), value);
     }
 

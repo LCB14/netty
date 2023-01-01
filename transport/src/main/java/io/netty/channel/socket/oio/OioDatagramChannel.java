@@ -59,17 +59,17 @@ import java.util.Locale;
  */
 @Deprecated
 public class OioDatagramChannel extends AbstractOioMessageChannel
-                                implements DatagramChannel {
+        implements DatagramChannel {
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(OioDatagramChannel.class);
 
     private static final ChannelMetadata METADATA = new ChannelMetadata(true);
     private static final String EXPECTED_TYPES =
             " (expected: " + StringUtil.simpleClassName(DatagramPacket.class) + ", " +
-            StringUtil.simpleClassName(AddressedEnvelope.class) + '<' +
-            StringUtil.simpleClassName(ByteBuf.class) + ", " +
-            StringUtil.simpleClassName(SocketAddress.class) + ">, " +
-            StringUtil.simpleClassName(ByteBuf.class) + ')';
+                    StringUtil.simpleClassName(AddressedEnvelope.class) + '<' +
+                    StringUtil.simpleClassName(ByteBuf.class) + ", " +
+                    StringUtil.simpleClassName(SocketAddress.class) + ">, " +
+                    StringUtil.simpleClassName(ByteBuf.class) + ')';
 
     private final MulticastSocket socket;
     private final OioDatagramChannelConfig config;
@@ -93,7 +93,7 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
     /**
      * Create a new instance from the given {@link MulticastSocket}.
      *
-     * @param socket    the {@link MulticastSocket} which is used by this instance
+     * @param socket the {@link MulticastSocket} which is used by this instance
      */
     public OioDatagramChannel(MulticastSocket socket) {
         super(null);
@@ -123,7 +123,7 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * This can be safely cast to {@link OioDatagramChannelConfig}.
      */
     @Override
@@ -141,8 +141,8 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
     @SuppressWarnings("deprecation")
     public boolean isActive() {
         return isOpen()
-            && (config.getOption(ChannelOption.DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION) && isRegistered()
-                 || socket.isBound());
+                && (config.getOption(ChannelOption.DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION) && isRegistered()
+                || socket.isBound());
     }
 
     @Override
@@ -177,7 +177,7 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
 
     @Override
     protected void doConnect(SocketAddress remoteAddress,
-            SocketAddress localAddress) throws Exception {
+                             SocketAddress localAddress) throws Exception {
         if (localAddress != null) {
             socket.bind(localAddress);
         }
@@ -246,7 +246,7 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
 
     @Override
     protected void doWrite(ChannelOutboundBuffer in) throws Exception {
-        for (;;) {
+        for (; ; ) {
             final Object o = in.current();
             if (o == null) {
                 break;
@@ -378,7 +378,7 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
         if (!isActive()) {
             throw new IllegalStateException(
                     DatagramChannel.class.getName() +
-                    " must be bound to join a group.");
+                            " must be bound to join a group.");
         }
     }
 
@@ -433,27 +433,27 @@ public class OioDatagramChannel extends AbstractOioMessageChannel
 
     @Override
     public ChannelFuture block(InetAddress multicastAddress,
-            NetworkInterface networkInterface, InetAddress sourceToBlock) {
+                               NetworkInterface networkInterface, InetAddress sourceToBlock) {
         return newFailedFuture(new UnsupportedOperationException());
     }
 
     @Override
     public ChannelFuture block(InetAddress multicastAddress,
-            NetworkInterface networkInterface, InetAddress sourceToBlock,
-            ChannelPromise promise) {
+                               NetworkInterface networkInterface, InetAddress sourceToBlock,
+                               ChannelPromise promise) {
         promise.setFailure(new UnsupportedOperationException());
         return promise;
     }
 
     @Override
     public ChannelFuture block(InetAddress multicastAddress,
-            InetAddress sourceToBlock) {
+                               InetAddress sourceToBlock) {
         return newFailedFuture(new UnsupportedOperationException());
     }
 
     @Override
     public ChannelFuture block(InetAddress multicastAddress,
-            InetAddress sourceToBlock, ChannelPromise promise) {
+                               InetAddress sourceToBlock, ChannelPromise promise) {
         promise.setFailure(new UnsupportedOperationException());
         return promise;
     }

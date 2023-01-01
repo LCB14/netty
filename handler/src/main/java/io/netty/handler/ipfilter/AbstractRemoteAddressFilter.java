@@ -92,7 +92,8 @@ public abstract class AbstractRemoteAddressFilter<T extends SocketAddress> exten
      * (e.g. respond to) accepted addresses.
      */
     @SuppressWarnings("UnusedParameters")
-    protected void channelAccepted(ChannelHandlerContext ctx, T remoteAddress) { }
+    protected void channelAccepted(ChannelHandlerContext ctx, T remoteAddress) {
+    }
 
     /**
      * This method is called if {@code remoteAddress} gets rejected by
@@ -100,7 +101,7 @@ public abstract class AbstractRemoteAddressFilter<T extends SocketAddress> exten
      * (e.g. respond to) rejected addresses.
      *
      * @return A {@link ChannelFuture} if you perform I/O operations, so that
-     *         the {@link Channel} can be closed once it completes. Null otherwise.
+     * the {@link Channel} can be closed once it completes. Null otherwise.
      */
     @SuppressWarnings("UnusedParameters")
     protected ChannelFuture channelRejected(ChannelHandlerContext ctx, T remoteAddress) {

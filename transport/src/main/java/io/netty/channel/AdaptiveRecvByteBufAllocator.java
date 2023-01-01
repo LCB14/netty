@@ -56,7 +56,7 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
         }
 
         SIZE_TABLE = new int[sizeTable.size()];
-        for (int i = 0; i < SIZE_TABLE.length; i ++) {
+        for (int i = 0; i < SIZE_TABLE.length; i++) {
             SIZE_TABLE[i] = sizeTable.get(i);
         }
     }
@@ -68,7 +68,7 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
     public static final AdaptiveRecvByteBufAllocator DEFAULT = new AdaptiveRecvByteBufAllocator();
 
     private static int getSizeTableIndex(final int size) {
-        for (int low = 0, high = SIZE_TABLE.length - 1;;) {
+        for (int low = 0, high = SIZE_TABLE.length - 1; ; ) {
             if (high < low) {
                 return low;
             }
@@ -161,9 +161,9 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
     /**
      * Creates a new predictor with the specified parameters.
      *
-     * @param minimum  the inclusive lower bound of the expected buffer size
-     * @param initial  the initial buffer size when no feed back was received
-     * @param maximum  the inclusive upper bound of the expected buffer size
+     * @param minimum the inclusive lower bound of the expected buffer size
+     * @param initial the initial buffer size when no feed back was received
+     * @param maximum the inclusive upper bound of the expected buffer size
      */
     public AdaptiveRecvByteBufAllocator(int minimum, int initial, int maximum) {
         checkPositive(minimum, "minimum");

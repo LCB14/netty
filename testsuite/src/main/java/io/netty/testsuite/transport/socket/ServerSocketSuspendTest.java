@@ -62,7 +62,7 @@ public class ServerSocketSuspendTest extends AbstractServerSocketTest {
 
         try {
             long startTime = System.nanoTime();
-            for (int i = 0; i < NUM_CHANNELS; i ++) {
+            for (int i = 0; i < NUM_CHANNELS; i++) {
                 Socket s = new Socket();
                 SocketUtils.connect(s, sc.localAddress(), 10000);
                 sockets.add(s);
@@ -75,7 +75,7 @@ public class ServerSocketSuspendTest extends AbstractServerSocketTest {
             long endTime = System.nanoTime();
             assertTrue(endTime - startTime > TIMEOUT);
         } finally {
-            for (Socket s: sockets) {
+            for (Socket s : sockets) {
                 s.close();
             }
         }
@@ -84,7 +84,7 @@ public class ServerSocketSuspendTest extends AbstractServerSocketTest {
 
         try {
             long startTime = System.nanoTime();
-            for (int i = 0; i < NUM_CHANNELS; i ++) {
+            for (int i = 0; i < NUM_CHANNELS; i++) {
                 Socket s = new Socket();
                 s.connect(sc.localAddress(), 10000);
                 sockets.add(s);
@@ -93,7 +93,7 @@ public class ServerSocketSuspendTest extends AbstractServerSocketTest {
 
             assertTrue(endTime - startTime < TIMEOUT);
         } finally {
-            for (Socket s: sockets) {
+            for (Socket s : sockets) {
                 s.close();
             }
         }

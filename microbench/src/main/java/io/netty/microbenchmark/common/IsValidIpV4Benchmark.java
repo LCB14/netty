@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class IsValidIpV4Benchmark extends AbstractMicrobenchmark {
 
-    @Param({ "127.0.0.1", "255.255.255.255", "1.1.1.1", "127.0.0.256", "127.0.0.1.1", "127.0.0", "[2001::1]" })
+    @Param({"127.0.0.1", "255.255.255.255", "1.1.1.1", "127.0.0.256", "127.0.0.1.1", "127.0.0", "[2001::1]"})
     private String ip;
 
     public static boolean isValidIpV4AddressOld(String value) {

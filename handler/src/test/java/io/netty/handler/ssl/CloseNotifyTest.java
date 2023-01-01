@@ -57,11 +57,11 @@ public class CloseNotifyTest {
     };
 
     static Collection<Object[]> data() {
-        return asList(new Object[][] {
-                { SslProvider.JDK, SslProtocols.TLS_v1_2 },
-                { SslProvider.JDK, SslProtocols.TLS_v1_3 },
-                { SslProvider.OPENSSL, SslProtocols.TLS_v1_2 },
-                { SslProvider.OPENSSL, SslProtocols.TLS_v1_3 },
+        return asList(new Object[][]{
+                {SslProvider.JDK, SslProtocols.TLS_v1_2},
+                {SslProvider.JDK, SslProtocols.TLS_v1_3},
+                {SslProvider.OPENSSL, SslProtocols.TLS_v1_2},
+                {SslProvider.OPENSSL, SslProtocols.TLS_v1_3},
         });
     }
 
@@ -144,14 +144,14 @@ public class CloseNotifyTest {
     }
 
     private static EmbeddedChannel initChannel(SslProvider provider, String protocol, final boolean useClientMode,
-            final BlockingQueue<Object> eventQueue) throws Exception {
+                                               final BlockingQueue<Object> eventQueue) throws Exception {
 
         SelfSignedCertificate ssc = new SelfSignedCertificate();
         final SslContext sslContext = (useClientMode
                 ? SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE)
                 : SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()))
-                 .sslProvider(provider)
-                 .protocols(protocol)
+                .sslProvider(provider)
+                .protocols(protocol)
                 .build();
         return new EmbeddedChannel(
                 // use sslContext.newHandler(ALLOC) instead of new SslHandler(sslContext.newEngine(ALLOC)) to create

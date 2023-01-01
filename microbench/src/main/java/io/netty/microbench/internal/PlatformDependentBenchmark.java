@@ -36,7 +36,7 @@ import org.openjdk.jmh.annotations.Threads;
 @State(Scope.Benchmark)
 public class PlatformDependentBenchmark extends AbstractMicrobenchmark {
 
-    @Param({ "10", "50", "100", "1000", "10000", "100000" })
+    @Param({"10", "50", "100", "1000", "10000", "100000"})
     private int size;
     private byte[] bytes1;
     private byte[] bytes2;

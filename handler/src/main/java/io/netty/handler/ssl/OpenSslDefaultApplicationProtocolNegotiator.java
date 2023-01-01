@@ -27,6 +27,7 @@ import static io.netty.util.internal.ObjectUtil.checkNotNull;
 @Deprecated
 public final class OpenSslDefaultApplicationProtocolNegotiator implements OpenSslApplicationProtocolNegotiator {
     private final ApplicationProtocolConfig config;
+
     public OpenSslDefaultApplicationProtocolNegotiator(ApplicationProtocolConfig config) {
         this.config = checkNotNull(config, "config");
     }

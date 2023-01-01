@@ -55,7 +55,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
     }
 
     public DelegatingDecompressorFrameListener(Http2Connection connection, Http2FrameListener listener,
-                    boolean strict) {
+                                               boolean strict) {
         super(listener);
         this.connection = connection;
         this.strict = strict;
@@ -106,7 +106,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
             try {
                 Http2LocalFlowController flowController = connection.local().flowController();
                 decompressor.incrementDecompressedBytes(padding);
-                for (;;) {
+                for (; ; ) {
                     ByteBuf nextBuf = nextReadableBuf(channel);
                     boolean decompressedEndOfStream = nextBuf == null && endOfStream;
                     if (decompressedEndOfStream && channel.finish()) {
@@ -145,14 +145,14 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
 
     @Override
     public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int padding,
-                    boolean endStream) throws Http2Exception {
+                              boolean endStream) throws Http2Exception {
         initDecompressor(ctx, streamId, headers, endStream);
         listener.onHeadersRead(ctx, streamId, headers, padding, endStream);
     }
 
     @Override
     public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int streamDependency,
-                    short weight, boolean exclusive, int padding, boolean endStream) throws Http2Exception {
+                              short weight, boolean exclusive, int padding, boolean endStream) throws Http2Exception {
         initDecompressor(ctx, streamId, headers, endStream);
         listener.onHeadersRead(ctx, streamId, headers, streamDependency, weight, exclusive, padding, endStream);
     }
@@ -163,7 +163,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
      *
      * @param contentEncoding the value of the {@code content-encoding} header
      * @return a new {@link ByteToMessageDecoder} if the specified encoding is supported. {@code null} otherwise
-     *         (alternatively, you can throw a {@link Http2Exception} to block unknown encoding).
+     * (alternatively, you can throw a {@link Http2Exception} to block unknown encoding).
      * @throws Http2Exception If the specified encoding is not supported and warrants an exception
      */
     protected EmbeddedChannel newContentDecompressor(final ChannelHandlerContext ctx, CharSequence contentEncoding)
@@ -180,7 +180,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
         }
         if (Brotli.isAvailable() && BR.contentEqualsIgnoreCase(contentEncoding)) {
             return new EmbeddedChannel(ctx.channel().id(), ctx.channel().metadata().hasDisconnect(),
-              ctx.channel().config(), new BrotliDecoder());
+                    ctx.channel().config(), new BrotliDecoder());
         }
         // 'identity' or unsupported
         return null;
@@ -195,7 +195,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
      * @throws Http2Exception if the {@code contentEncoding} is not supported and warrants an exception
      */
     protected CharSequence getTargetContentEncoding(@SuppressWarnings("UnusedParameters") CharSequence contentEncoding)
-                    throws Http2Exception {
+            throws Http2Exception {
         return IDENTITY;
     }
 
@@ -203,9 +203,9 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
      * Checks if a new decompressor object is needed for the stream identified by {@code streamId}.
      * This method will modify the {@code content-encoding} header contained in {@code headers}.
      *
-     * @param ctx The context
-     * @param streamId The identifier for the headers inside {@code headers}
-     * @param headers Object representing headers which have been read
+     * @param ctx         The context
+     * @param streamId    The identifier for the headers inside {@code headers}
+     * @param headers     Object representing headers which have been read
      * @param endOfStream Indicates if the stream has ended
      * @throws Http2Exception If the {@code content-encoding} is not supported
      */
@@ -274,7 +274,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
      * @return The next decoded {@link ByteBuf} from the {@link EmbeddedChannel} or {@code null} if one does not exist
      */
     private static ByteBuf nextReadableBuf(EmbeddedChannel decompressor) {
-        for (;;) {
+        for (; ; ) {
             final ByteBuf buf = decompressor.readInbound();
             if (buf == null) {
                 return null;
@@ -329,7 +329,7 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
 
         @Override
         public void receiveFlowControlledFrame(Http2Stream stream, ByteBuf data, int padding,
-                boolean endOfStream) throws Http2Exception {
+                                               boolean endOfStream) throws Http2Exception {
             flowController.receiveFlowControlledFrame(stream, data, padding, endOfStream);
         }
 
@@ -401,7 +401,8 @@ public class DelegatingDecompressorFrameListener extends Http2FrameListenerDecor
          * Determines the ratio between {@code numBytes} and {@link Http2Decompressor#decompressed}.
          * This ratio is used to decrement {@link Http2Decompressor#decompressed} and
          * {@link Http2Decompressor#compressed}.
-         * @param streamId the stream ID
+         *
+         * @param streamId          the stream ID
          * @param decompressedBytes The number of post-decompressed bytes to return to flow control
          * @return The number of pre-decompressed bytes that have been consumed.
          */

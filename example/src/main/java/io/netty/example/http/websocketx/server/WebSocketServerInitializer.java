@@ -25,6 +25,7 @@ import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketSe
 import io.netty.handler.ssl.SslContext;
 
 /**
+ *
  */
 public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
 

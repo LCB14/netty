@@ -76,7 +76,7 @@ public final class CaliperRunner {
      * Execute benchmark for all parameter combinations.
      */
     public static Run execute(final String name,
-            final Class<? extends CaliperBench> klaz) throws Exception {
+                              final Class<? extends CaliperBench> klaz) throws Exception {
 
         final CaliperBench booter = klaz.getConstructor().newInstance();
 
@@ -141,7 +141,7 @@ public final class CaliperRunner {
         final Comparator<Map<String, String>> comp = new Comparator<Map<String, String>>() {
             @Override
             public int compare(final Map<String, String> o1,
-                    final Map<String, String> o2) {
+                               final Map<String, String> o2) {
                 return signature(o1).compareTo(signature(o2));
             }
         };

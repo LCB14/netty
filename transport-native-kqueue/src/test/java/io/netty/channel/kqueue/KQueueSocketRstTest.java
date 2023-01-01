@@ -43,7 +43,7 @@ public class KQueueSocketRstTest extends SocketRstTest {
         }
 
         assertTrue(cause instanceof NativeIoException,
-            "actual [type, message]: [" + cause.getClass() + ", " + cause.getMessage() + "]");
+                "actual [type, message]: [" + cause.getClass() + ", " + cause.getMessage() + "]");
         assertEquals(Errors.ERRNO_ECONNRESET_NEGATIVE, ((NativeIoException) cause).expectedErr());
     }
 }

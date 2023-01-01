@@ -39,7 +39,7 @@ public class AsciiStringCharacterTest {
 
     @Test
     public void testContentEqualsIgnoreCase() {
-        byte[] bytes = { 32, 'a' };
+        byte[] bytes = {32, 'a'};
         AsciiString asciiString = new AsciiString(bytes, 1, 1, false);
         // https://github.com/netty/netty/issues/9475
         assertFalse(asciiString.contentEqualsIgnoreCase("b"));
@@ -100,7 +100,7 @@ public class AsciiStringCharacterTest {
 
     @Test
     public void subSequenceTest() {
-        byte[] init = {'t', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 't', 'e', 's', 't' };
+        byte[] init = {'t', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 't', 'e', 's', 't'};
         AsciiString ascii = new AsciiString(init);
         final int start = 2;
         final int end = init.length;
@@ -115,8 +115,8 @@ public class AsciiStringCharacterTest {
 
     @Test
     public void testContains() {
-        String[] falseLhs = {null, "a", "aa", "aaa" };
-        String[] falseRhs = {null, "b", "ba", "baa" };
+        String[] falseLhs = {null, "a", "aa", "aaa"};
+        String[] falseRhs = {null, "b", "ba", "baa"};
         for (int i = 0; i < falseLhs.length; ++i) {
             for (int j = 0; j < falseRhs.length; ++j) {
                 assertContains(falseLhs[i], falseRhs[i], false, false);
@@ -236,11 +236,11 @@ public class AsciiStringCharacterTest {
 
     @Test
     public void testBooleanUtilityMethods() {
-        assertTrue(new AsciiString(new byte[] { 1 }).parseBoolean());
+        assertTrue(new AsciiString(new byte[]{1}).parseBoolean());
         assertFalse(AsciiString.EMPTY_STRING.parseBoolean());
-        assertFalse(new AsciiString(new byte[] { 0 }).parseBoolean());
-        assertTrue(new AsciiString(new byte[] { 5 }).parseBoolean());
-        assertTrue(new AsciiString(new byte[] { 2, 0 }).parseBoolean());
+        assertFalse(new AsciiString(new byte[]{0}).parseBoolean());
+        assertTrue(new AsciiString(new byte[]{5}).parseBoolean());
+        assertTrue(new AsciiString(new byte[]{2, 0}).parseBoolean());
     }
 
     @Test

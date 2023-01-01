@@ -24,7 +24,7 @@ import io.netty.util.internal.UnstableApi;
 
 /**
  * An object aggregator for the memcache binary protocol.
- *
+ * <p>
  * It aggregates {@link BinaryMemcacheMessage}s and {@link MemcacheContent} into {@link FullBinaryMemcacheRequest}s
  * or {@link FullBinaryMemcacheResponse}s.
  */

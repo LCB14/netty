@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public class EpollDatagramScatteringReadTest extends AbstractDatagramTest  {
+public class EpollDatagramScatteringReadTest extends AbstractDatagramTest {
 
     @BeforeAll
     public static void assumeRecvmmsgSupported() {
@@ -140,6 +140,7 @@ public class EpollDatagramScatteringReadTest extends AbstractDatagramTest  {
             final CountDownLatch latch = new CountDownLatch(numPackets);
             sb.handler(new SimpleChannelInboundHandler<DatagramPacket>() {
                 private int counter;
+
                 @Override
                 public void channelReadComplete(ChannelHandlerContext ctx) {
                     assertTrue(counter > 1);
@@ -161,7 +162,7 @@ public class EpollDatagramScatteringReadTest extends AbstractDatagramTest  {
                 }
 
                 @Override
-                public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)  {
+                public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
                     errorRef.compareAndSet(null, cause);
                 }
             });
@@ -182,7 +183,7 @@ public class EpollDatagramScatteringReadTest extends AbstractDatagramTest  {
 
             cc.flush();
 
-            for (ChannelFuture f: futures) {
+            for (ChannelFuture f : futures) {
                 f.sync();
             }
 
@@ -273,7 +274,7 @@ public class EpollDatagramScatteringReadTest extends AbstractDatagramTest  {
                 }
 
                 @Override
-                public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)  {
+                public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
                     errorRef.compareAndSet(null, cause);
                 }
             });

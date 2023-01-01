@@ -87,7 +87,7 @@ public class DefaultHttp2PushPromiseFrameTest {
                     }
                 });
 
-         bootstrap.connect(channelFuture.channel().localAddress()).sync();
+        bootstrap.connect(channelFuture.channel().localAddress()).sync();
     }
 
     @Test

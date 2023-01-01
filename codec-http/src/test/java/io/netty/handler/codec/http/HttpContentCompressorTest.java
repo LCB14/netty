@@ -37,6 +37,7 @@ import io.netty.handler.codec.EncoderException;
 import io.netty.handler.codec.compression.ZlibWrapper;
 import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
+
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -67,16 +68,16 @@ public class HttpContentCompressorTest {
         HttpContentCompressor compressor = new HttpContentCompressor();
 
         String[] tests = {
-            // Accept-Encoding -> Content-Encoding
-            "", null,
-            "*", "gzip",
-            "*;q=0.0", null,
-            "gzip", "gzip",
-            "compress, gzip;q=0.5", "gzip",
-            "gzip; q=0.5, identity", "gzip",
-            "gzip ; q=0.1", "gzip",
-            "gzip; q=0, deflate", "deflate",
-            " deflate ; q=0 , *;q=0.5", "gzip",
+                // Accept-Encoding -> Content-Encoding
+                "", null,
+                "*", "gzip",
+                "*;q=0.0", null,
+                "gzip", "gzip",
+                "compress, gzip;q=0.5", "gzip",
+                "gzip; q=0.5, identity", "gzip",
+                "gzip ; q=0.1", "gzip",
+                "gzip; q=0, deflate", "deflate",
+                " deflate ; q=0 , *;q=0.5", "gzip",
         };
         for (int i = 0; i < tests.length; i += 2) {
             String acceptEncoding = tests[i];
@@ -85,14 +86,14 @@ public class HttpContentCompressorTest {
             String targetEncoding = null;
             if (targetWrapper != null) {
                 switch (targetWrapper) {
-                case GZIP:
-                    targetEncoding = "gzip";
-                    break;
-                case ZLIB:
-                    targetEncoding = "deflate";
-                    break;
-                default:
-                    fail();
+                    case GZIP:
+                        targetEncoding = "gzip";
+                        break;
+                    case ZLIB:
+                        targetEncoding = "deflate";
+                        break;
+                    default:
+                        fail();
                 }
             }
             assertEquals(contentEncoding, targetEncoding);
@@ -367,8 +368,8 @@ public class HttpContentCompressorTest {
         ch.writeInbound(newRequest());
 
         FullHttpResponse res = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.OK,
-            Unpooled.copiedBuffer("Hello, World", CharsetUtil.US_ASCII));
+                HttpVersion.HTTP_1_1, HttpResponseStatus.OK,
+                Unpooled.copiedBuffer("Hello, World", CharsetUtil.US_ASCII));
         ch.writeOutbound(res);
 
         assertEncodedResponse(ch);
@@ -395,38 +396,38 @@ public class HttpContentCompressorTest {
         Channel client = null;
         try {
             ServerBootstrap bootstrap = new ServerBootstrap()
-                .channel(LocalServerChannel.class)
-                .group(localGroup)
-                .childHandler(new ChannelInitializer<LocalChannel>() {
-                @Override
-                protected void initChannel(LocalChannel ch) throws Exception {
-                    ch.pipeline()
-                        .addLast(new HttpServerCodec())
-                        .addLast(new HttpObjectAggregator(1024))
-                        .addLast(compressorGroup, new HttpContentCompressor())
-                        .addLast(new ChannelOutboundHandlerAdapter() {
-                            @Override
-                            public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
-                                throws Exception {
-                                super.write(ctx, msg, promise);
-                            }
-                        })
-                        .addLast(new ChannelInboundHandlerAdapter() {
-                            @Override
-                            public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                if (msg instanceof FullHttpRequest) {
-                                    FullHttpResponse res =
-                                        new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK,
-                                            Unpooled.copiedBuffer("Hello, World", CharsetUtil.US_ASCII));
-                                    ctx.writeAndFlush(res);
-                                    ReferenceCountUtil.release(msg);
-                                    return;
-                                }
-                                super.channelRead(ctx, msg);
-                            }
-                        });
-                }
-            });
+                    .channel(LocalServerChannel.class)
+                    .group(localGroup)
+                    .childHandler(new ChannelInitializer<LocalChannel>() {
+                        @Override
+                        protected void initChannel(LocalChannel ch) throws Exception {
+                            ch.pipeline()
+                                    .addLast(new HttpServerCodec())
+                                    .addLast(new HttpObjectAggregator(1024))
+                                    .addLast(compressorGroup, new HttpContentCompressor())
+                                    .addLast(new ChannelOutboundHandlerAdapter() {
+                                        @Override
+                                        public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
+                                                throws Exception {
+                                            super.write(ctx, msg, promise);
+                                        }
+                                    })
+                                    .addLast(new ChannelInboundHandlerAdapter() {
+                                        @Override
+                                        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                                            if (msg instanceof FullHttpRequest) {
+                                                FullHttpResponse res =
+                                                        new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK,
+                                                                Unpooled.copiedBuffer("Hello, World", CharsetUtil.US_ASCII));
+                                                ctx.writeAndFlush(res);
+                                                ReferenceCountUtil.release(msg);
+                                                return;
+                                            }
+                                            super.channelRead(ctx, msg);
+                                        }
+                                    });
+                        }
+                    });
 
             LocalAddress address = new LocalAddress(UUID.randomUUID().toString());
             server = bootstrap.bind(address).sync().channel();
@@ -434,24 +435,24 @@ public class HttpContentCompressorTest {
             final BlockingQueue<HttpObject> responses = new LinkedBlockingQueue<HttpObject>();
 
             client = new Bootstrap()
-                .channel(LocalChannel.class)
-                .remoteAddress(address)
-                .group(localGroup)
-                .handler(new ChannelInitializer<LocalChannel>() {
-                @Override
-                protected void initChannel(LocalChannel ch) throws Exception {
-                    ch.pipeline().addLast(new HttpClientCodec()).addLast(new ChannelInboundHandlerAdapter() {
+                    .channel(LocalChannel.class)
+                    .remoteAddress(address)
+                    .group(localGroup)
+                    .handler(new ChannelInitializer<LocalChannel>() {
                         @Override
-                        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                            if (msg instanceof HttpObject) {
-                                responses.put((HttpObject) msg);
-                                return;
-                            }
-                            super.channelRead(ctx, msg);
+                        protected void initChannel(LocalChannel ch) throws Exception {
+                            ch.pipeline().addLast(new HttpClientCodec()).addLast(new ChannelInboundHandlerAdapter() {
+                                @Override
+                                public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                                    if (msg instanceof HttpObject) {
+                                        responses.put((HttpObject) msg);
+                                        return;
+                                    }
+                                    super.channelRead(ctx, msg);
+                                }
+                            });
                         }
-                    });
-                }
-            }).connect().sync().channel();
+                    }).connect().sync().channel();
 
             client.writeAndFlush(newRequest()).sync();
 
@@ -459,7 +460,7 @@ public class HttpContentCompressorTest {
             HttpContent c = (HttpContent) responses.poll(1, TimeUnit.SECONDS);
             assertNotNull(c);
             assertThat(ByteBufUtil.hexDump(c.content()),
-                is("1f8b0800000000000000f248cdc9c9d75108cf2fca4901000000ffff"));
+                    is("1f8b0800000000000000f248cdc9c9d75108cf2fca4901000000ffff"));
             c.release();
 
             c = (HttpContent) responses.poll(1, TimeUnit.SECONDS);
@@ -612,16 +613,16 @@ public class HttpContentCompressorTest {
         ch.writeInbound(request);
 
         FullHttpResponse continueResponse = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE, Unpooled.EMPTY_BUFFER);
+                HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE, Unpooled.EMPTY_BUFFER);
         ch.writeOutbound(continueResponse);
 
         FullHttpResponse earlyHintsResponse = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.EARLY_HINTS, Unpooled.EMPTY_BUFFER);
+                HttpVersion.HTTP_1_1, HttpResponseStatus.EARLY_HINTS, Unpooled.EMPTY_BUFFER);
         earlyHintsResponse.trailingHeaders().set(of("X-Test"), of("Netty"));
         ch.writeOutbound(earlyHintsResponse);
 
         FullHttpResponse res = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.EMPTY_BUFFER);
+                HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.EMPTY_BUFFER);
         res.trailingHeaders().set(of("X-Test"), of("Netty"));
         ch.writeOutbound(res);
 
@@ -664,12 +665,12 @@ public class HttpContentCompressorTest {
         ch.writeInbound(request);
 
         FullHttpResponse earlyHintsResponse = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.EARLY_HINTS, Unpooled.EMPTY_BUFFER);
+                HttpVersion.HTTP_1_1, HttpResponseStatus.EARLY_HINTS, Unpooled.EMPTY_BUFFER);
         earlyHintsResponse.trailingHeaders().set(of("X-Test"), of("Netty"));
         ch.writeOutbound(earlyHintsResponse);
 
         FullHttpResponse res = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.EMPTY_BUFFER);
+                HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.EMPTY_BUFFER);
         res.trailingHeaders().set(of("X-Test"), of("Netty"));
         ch.writeOutbound(res);
 
@@ -714,14 +715,14 @@ public class HttpContentCompressorTest {
             assertTrue(e.getCause() instanceof IllegalStateException);
         }
         assertTrue(ch.finish());
-        for (;;) {
+        for (; ; ) {
             Object message = ch.readOutbound();
             if (message == null) {
                 break;
             }
             ReferenceCountUtil.release(message);
         }
-        for (;;) {
+        for (; ; ) {
             Object message = ch.readInbound();
             if (message == null) {
                 break;
@@ -824,8 +825,8 @@ public class HttpContentCompressorTest {
     public void testMultipleAcceptEncodingHeaders() {
         FullHttpRequest request = newRequest();
         request.headers().set(HttpHeaderNames.ACCEPT_ENCODING, "unknown; q=1.0")
-               .add(HttpHeaderNames.ACCEPT_ENCODING, "gzip; q=0.5")
-               .add(HttpHeaderNames.ACCEPT_ENCODING, "deflate; q=0");
+                .add(HttpHeaderNames.ACCEPT_ENCODING, "gzip; q=0.5")
+                .add(HttpHeaderNames.ACCEPT_ENCODING, "deflate; q=0");
 
         EmbeddedChannel ch = new EmbeddedChannel(new HttpContentCompressor());
 

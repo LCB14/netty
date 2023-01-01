@@ -47,8 +47,7 @@ public final class DeflateFrameClientExtensionHandshaker implements WebSocketCli
     /**
      * Constructor with custom configuration.
      *
-     * @param compressionLevel
-     *            Compression level between 0 and 9 (default is 6).
+     * @param compressionLevel Compression level between 0 and 9 (default is 6).
      */
     public DeflateFrameClientExtensionHandshaker(int compressionLevel, boolean useWebkitExtensionName) {
         this(compressionLevel, useWebkitExtensionName, WebSocketExtensionFilterProvider.DEFAULT);
@@ -57,13 +56,11 @@ public final class DeflateFrameClientExtensionHandshaker implements WebSocketCli
     /**
      * Constructor with custom configuration.
      *
-     * @param compressionLevel
-     *            Compression level between 0 and 9 (default is 6).
-     * @param extensionFilterProvider
-     *            provides client extension filters for per frame deflate encoder and decoder.
+     * @param compressionLevel        Compression level between 0 and 9 (default is 6).
+     * @param extensionFilterProvider provides client extension filters for per frame deflate encoder and decoder.
      */
     public DeflateFrameClientExtensionHandshaker(int compressionLevel, boolean useWebkitExtensionName,
-            WebSocketExtensionFilterProvider extensionFilterProvider) {
+                                                 WebSocketExtensionFilterProvider extensionFilterProvider) {
         if (compressionLevel < 0 || compressionLevel > 9) {
             throw new IllegalArgumentException(
                     "compressionLevel: " + compressionLevel + " (expected: 0-9)");
@@ -83,7 +80,7 @@ public final class DeflateFrameClientExtensionHandshaker implements WebSocketCli
     @Override
     public WebSocketClientExtension handshakeExtension(WebSocketExtensionData extensionData) {
         if (!X_WEBKIT_DEFLATE_FRAME_EXTENSION.equals(extensionData.name()) &&
-            !DEFLATE_FRAME_EXTENSION.equals(extensionData.name())) {
+                !DEFLATE_FRAME_EXTENSION.equals(extensionData.name())) {
             return null;
         }
 
@@ -112,7 +109,7 @@ public final class DeflateFrameClientExtensionHandshaker implements WebSocketCli
         @Override
         public WebSocketExtensionEncoder newExtensionEncoder() {
             return new PerFrameDeflateEncoder(compressionLevel, 15, false,
-                                              extensionFilterProvider.encoderFilter());
+                    extensionFilterProvider.encoderFilter());
         }
 
         @Override

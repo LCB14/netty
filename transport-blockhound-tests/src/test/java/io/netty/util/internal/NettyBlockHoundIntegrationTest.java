@@ -181,7 +181,8 @@ public class NettyBlockHoundIntegrationTest {
         taskQueue.emulateContention();
         CountDownLatch latch = new CountDownLatch(1);
         executor.submit(() -> {
-            executor.execute(() -> { }); // calls addTask
+            executor.execute(() -> {
+            }); // calls addTask
             latch.countDown();
         });
         taskQueue.waitUntilContented();
@@ -297,9 +298,9 @@ public class NettyBlockHoundIntegrationTest {
     public void testSslHandlerWrapAllowsBlockingCalls() throws Exception {
         final SslContext sslClientCtx =
                 SslContextBuilder.forClient()
-                                 .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                                 .sslProvider(SslProvider.JDK)
-                                 .build();
+                        .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                        .sslProvider(SslProvider.JDK)
+                        .build();
         final SslHandler sslHandler = sslClientCtx.newHandler(UnpooledByteBufAllocator.DEFAULT);
         final EventLoopGroup group = new NioEventLoopGroup();
         final CountDownLatch activeLatch = new CountDownLatch(1);
@@ -346,7 +347,7 @@ public class NettyBlockHoundIntegrationTest {
                     })
                     .connect(sc.localAddress())
                     .addListener((ChannelFutureListener) future ->
-                        future.channel().writeAndFlush(wrappedBuffer(new byte [] { 1, 2, 3, 4 })))
+                            future.channel().writeAndFlush(wrappedBuffer(new byte[]{1, 2, 3, 4})))
                     .syncUninterruptibly()
                     .channel();
 
@@ -457,21 +458,21 @@ public class NettyBlockHoundIntegrationTest {
     private static void testTrustManagerVerify(SslProvider provider, String tlsVersion) throws Exception {
         final SslContext sslClientCtx =
                 SslContextBuilder.forClient()
-                                 .sslProvider(provider)
-                                 .protocols(tlsVersion)
-                                 .trustManager(ResourcesUtil.getFile(
-                                         NettyBlockHoundIntegrationTest.class, "mutual_auth_ca.pem"))
-                                 .build();
+                        .sslProvider(provider)
+                        .protocols(tlsVersion)
+                        .trustManager(ResourcesUtil.getFile(
+                                NettyBlockHoundIntegrationTest.class, "mutual_auth_ca.pem"))
+                        .build();
 
         final SslContext sslServerCtx =
                 SslContextBuilder.forServer(ResourcesUtil.getFile(
-                        NettyBlockHoundIntegrationTest.class, "localhost_server.pem"),
-                                            ResourcesUtil.getFile(
-                                                    NettyBlockHoundIntegrationTest.class, "localhost_server.key"),
-                                            null)
-                                 .sslProvider(provider)
-                                 .protocols(tlsVersion)
-                                 .build();
+                                        NettyBlockHoundIntegrationTest.class, "localhost_server.pem"),
+                                ResourcesUtil.getFile(
+                                        NettyBlockHoundIntegrationTest.class, "localhost_server.key"),
+                                null)
+                        .sslProvider(provider)
+                        .protocols(tlsVersion)
+                        .build();
 
         final SslHandler clientSslHandler = sslClientCtx.newHandler(UnpooledByteBufAllocator.DEFAULT);
         final SslHandler serverSslHandler = sslServerCtx.newHandler(UnpooledByteBufAllocator.DEFAULT);
@@ -513,18 +514,18 @@ public class NettyBlockHoundIntegrationTest {
                         @Override
                         protected void initChannel(Channel ch) {
                             ch.pipeline()
-                              .addLast(clientSslHandler)
-                              .addLast(new ChannelInboundHandlerAdapter() {
+                                    .addLast(clientSslHandler)
+                                    .addLast(new ChannelInboundHandlerAdapter() {
 
-                                  @Override
-                                  public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
-                                      if (evt instanceof SslHandshakeCompletionEvent &&
-                                              ((SslHandshakeCompletionEvent) evt).cause() != null) {
-                                          ((SslHandshakeCompletionEvent) evt).cause().printStackTrace();
-                                      }
-                                      ctx.fireUserEventTriggered(evt);
-                                  }
-                              });
+                                        @Override
+                                        public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+                                            if (evt instanceof SslHandshakeCompletionEvent &&
+                                                    ((SslHandshakeCompletionEvent) evt).cause() != null) {
+                                                ((SslHandshakeCompletionEvent) evt).cause().printStackTrace();
+                                            }
+                                            ctx.fireUserEventTriggered(evt);
+                                        }
+                                    });
                         }
                     }).connect(sc.localAddress());
             cc = future.syncUninterruptibly().channel();

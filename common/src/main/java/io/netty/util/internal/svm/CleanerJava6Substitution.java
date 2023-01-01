@@ -26,8 +26,8 @@ final class CleanerJava6Substitution {
 
     @Alias
     @RecomputeFieldValue(
-        kind = RecomputeFieldValue.Kind.FieldOffset,
-        declClassName = "java.nio.DirectByteBuffer",
-        name = "cleaner")
+            kind = RecomputeFieldValue.Kind.FieldOffset,
+            declClassName = "java.nio.DirectByteBuffer",
+            name = "cleaner")
     private static long CLEANER_FIELD_OFFSET;
 }

@@ -71,7 +71,7 @@ public class LoggingHandlerTest {
 
     @BeforeAll
     public static void beforeClass() {
-        for (Iterator<Appender<ILoggingEvent>> i = rootLogger.iteratorForAppenders(); i.hasNext();) {
+        for (Iterator<Appender<ILoggingEvent>> i = rootLogger.iteratorForAppenders(); i.hasNext(); ) {
             Appender<ILoggingEvent> a = i.next();
             oldAppenders.add(a);
             rootLogger.detachAppender(a);
@@ -82,7 +82,7 @@ public class LoggingHandlerTest {
 
     @AfterAll
     public static void afterClass() {
-        for (Appender<ILoggingEvent> a: oldAppenders) {
+        for (Appender<ILoggingEvent> a : oldAppenders) {
             rootLogger.addAppender(a);
         }
     }

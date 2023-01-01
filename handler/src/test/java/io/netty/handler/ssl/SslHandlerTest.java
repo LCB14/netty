@@ -400,8 +400,8 @@ public class SslHandlerTest {
         SelfSignedCertificate cert = new SelfSignedCertificate();
         try {
             SslContext sslContext = SslContextBuilder.forServer(cert.certificate(), cert.privateKey())
-                .sslProvider(SslProvider.OPENSSL)
-                .build();
+                    .sslProvider(SslProvider.OPENSSL)
+                    .build();
             try {
                 assertEquals(1, ((ReferenceCounted) sslContext).refCnt());
                 SSLEngine sslEngine = sslContext.newEngine(ByteBufAllocator.DEFAULT);
@@ -459,7 +459,7 @@ public class SslHandlerTest {
             assertTrue(ch.writeOutbound(Unpooled.EMPTY_BUFFER));
             assertTrue(readIssued);
             assertTrue(ch.finishAndReleaseAll());
-       }
+        }
     }
 
     @Test
@@ -612,53 +612,53 @@ public class SslHandlerTest {
         try {
             ServerBootstrap sb = new ServerBootstrap();
             sb.group(group)
-                .channel(LocalServerChannel.class)
-                .childHandler(new ChannelInitializer<Channel>() {
-                  @Override
-                  protected void initChannel(Channel ch) {
-                      ch.pipeline().addLast(sslServerCtx.newHandler(ch.alloc()));
-                      ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
-                          @Override
-                          public void channelActive(ChannelHandlerContext ctx) {
-                              ByteBuf buf = ctx.alloc().buffer(10);
-                              buf.writeZero(buf.capacity());
-                              ctx.writeAndFlush(buf).addListener(new ChannelFutureListener() {
-                                  @Override
-                                  public void operationComplete(ChannelFuture future) {
-                                      events.add(future);
-                                      latch.countDown();
-                                  }
-                              });
-                          }
+                    .channel(LocalServerChannel.class)
+                    .childHandler(new ChannelInitializer<Channel>() {
+                        @Override
+                        protected void initChannel(Channel ch) {
+                            ch.pipeline().addLast(sslServerCtx.newHandler(ch.alloc()));
+                            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                                @Override
+                                public void channelActive(ChannelHandlerContext ctx) {
+                                    ByteBuf buf = ctx.alloc().buffer(10);
+                                    buf.writeZero(buf.capacity());
+                                    ctx.writeAndFlush(buf).addListener(new ChannelFutureListener() {
+                                        @Override
+                                        public void operationComplete(ChannelFuture future) {
+                                            events.add(future);
+                                            latch.countDown();
+                                        }
+                                    });
+                                }
 
-                          @Override
-                          public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
-                              if (evt instanceof SslCompletionEvent) {
-                                  events.add(evt);
-                                  latch.countDown();
-                                  latch2.countDown();
-                              }
-                          }
-                      });
-                  }
-                });
+                                @Override
+                                public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+                                    if (evt instanceof SslCompletionEvent) {
+                                        events.add(evt);
+                                        latch.countDown();
+                                        latch2.countDown();
+                                    }
+                                }
+                            });
+                        }
+                    });
 
             Bootstrap cb = new Bootstrap();
             cb.group(group)
-                .channel(LocalChannel.class)
-                .handler(new ChannelInitializer<Channel>() {
-                    @Override
-                    protected void initChannel(Channel ch) {
-                        ch.pipeline().addFirst(new ChannelInboundHandlerAdapter() {
-                            @Override
-                            public void channelActive(ChannelHandlerContext ctx) {
-                                ByteBuf buf = ctx.alloc().buffer(1000);
-                                buf.writeZero(buf.capacity());
-                                ctx.writeAndFlush(buf);
-                            }
-                        });
-                    }
-                });
+                    .channel(LocalChannel.class)
+                    .handler(new ChannelInitializer<Channel>() {
+                        @Override
+                        protected void initChannel(Channel ch) {
+                            ch.pipeline().addFirst(new ChannelInboundHandlerAdapter() {
+                                @Override
+                                public void channelActive(ChannelHandlerContext ctx) {
+                                    ByteBuf buf = ctx.alloc().buffer(1000);
+                                    buf.writeZero(buf.capacity());
+                                    ctx.writeAndFlush(buf);
+                                }
+                            });
+                        }
+                    });
 
             serverChannel = sb.bind(new LocalAddress("SslHandlerTest")).sync().channel();
             clientChannel = cb.connect(serverChannel.localAddress()).sync().channel();
@@ -716,6 +716,7 @@ public class SslHandlerTest {
                             ch.pipeline().addLast(sslServerCtx.newHandler(ch.alloc()));
                             ch.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
                                 private int readBytes;
+
                                 @Override
                                 protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
                                     readBytes += msg.readableBytes();
@@ -842,9 +843,9 @@ public class SslHandlerTest {
     @Timeout(value = 10000, unit = TimeUnit.MILLISECONDS)
     public void testHandshakeFailedByWriteBeforeChannelActive() throws Exception {
         final SslContext sslClientCtx = SslContextBuilder.forClient()
-                                                         .protocols(SslProtocols.SSL_v3)
-                                                         .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                                                         .sslProvider(SslProvider.JDK).build();
+                .protocols(SslProtocols.SSL_v3)
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .sslProvider(SslProvider.JDK).build();
 
         EventLoopGroup group = new NioEventLoopGroup();
         Channel sc = null;
@@ -885,7 +886,7 @@ public class SslHandlerTest {
                         @Override
                         public void operationComplete(ChannelFuture future) throws Exception {
                             // Write something to trigger the handshake before fireChannelActive is called.
-                            future.channel().writeAndFlush(wrappedBuffer(new byte [] { 1, 2, 3, 4 }));
+                            future.channel().writeAndFlush(wrappedBuffer(new byte[]{1, 2, 3, 4}));
                         }
                     }).syncUninterruptibly().channel();
 
@@ -898,7 +899,7 @@ public class SslHandlerTest {
                 throw error;
             }
             assertThat(sslHandler.handshakeFuture().await().cause(),
-                       CoreMatchers.<Throwable>instanceOf(SSLException.class));
+                    CoreMatchers.<Throwable>instanceOf(SSLException.class));
         } finally {
             if (cc != null) {
                 cc.close().syncUninterruptibly();
@@ -926,9 +927,9 @@ public class SslHandlerTest {
 
     private static void testHandshakeTimeout0(final boolean startTls) throws Exception {
         final SslContext sslClientCtx = SslContextBuilder.forClient()
-                                                         .startTls(true)
-                                                         .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                                                         .sslProvider(SslProvider.JDK).build();
+                .startTls(true)
+                .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                .sslProvider(SslProvider.JDK).build();
 
         EventLoopGroup group = new NioEventLoopGroup();
         Channel sc = null;
@@ -954,7 +955,7 @@ public class SslHandlerTest {
                                 ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                                     @Override
                                     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                        ctx.writeAndFlush(wrappedBuffer(new byte[] { 1, 2, 3, 4 }));
+                                        ctx.writeAndFlush(wrappedBuffer(new byte[]{1, 2, 3, 4}));
                                     }
                                 });
                             }
@@ -965,7 +966,7 @@ public class SslHandlerTest {
                     @Override
                     public void operationComplete(ChannelFuture future) throws Exception {
                         // Write something to trigger the handshake before fireChannelActive is called.
-                        future.channel().writeAndFlush(wrappedBuffer(new byte [] { 1, 2, 3, 4 }));
+                        future.channel().writeAndFlush(wrappedBuffer(new byte[]{1, 2, 3, 4}));
                     }
                 });
             }
@@ -1336,7 +1337,7 @@ public class SslHandlerTest {
                                 private int handshakeCount;
 
                                 @Override
-                                public void userEventTriggered(ChannelHandlerContext ctx, Object evt)  {
+                                public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
                                     if (evt instanceof SslHandshakeCompletionEvent) {
                                         handshakeCount++;
                                         ReferenceCountedOpenSslEngine engine =

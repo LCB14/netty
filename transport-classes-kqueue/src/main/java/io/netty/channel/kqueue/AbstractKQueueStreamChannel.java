@@ -88,7 +88,8 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Write bytes form the given {@link ByteBuf} to the underlying {@link java.nio.channels.Channel}.
-     * @param in the collection which contains objects to write.
+     *
+     * @param in  the collection which contains objects to write.
      * @param buf the {@link ByteBuf} from which the bytes should be written
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -131,7 +132,8 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Write multiple bytes via {@link IovArray}.
-     * @param in the collection which contains objects to write.
+     *
+     * @param in    the collection which contains objects to write.
      * @param array The array which contains the content to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -161,10 +163,11 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Write multiple bytes via {@link ByteBuffer} array.
-     * @param in the collection which contains objects to write.
-     * @param nioBuffers The buffers to write.
-     * @param nioBufferCnt The number of buffers to write.
-     * @param expectedWrittenBytes The number of bytes we expect to write.
+     *
+     * @param in                        the collection which contains objects to write.
+     * @param nioBuffers                The buffers to write.
+     * @param nioBufferCnt              The number of buffers to write.
+     * @param expectedWrittenBytes      The number of bytes we expect to write.
      * @param maxBytesPerGatheringWrite The maximum number of bytes we should attempt to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -196,7 +199,8 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Write a {@link DefaultFileRegion}
-     * @param in the collection which contains objects to write.
+     *
+     * @param in     the collection which contains objects to write.
      * @param region the {@link DefaultFileRegion} from which the bytes should be written
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -232,7 +236,8 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Write a {@link FileRegion}
-     * @param in the collection which contains objects to write.
+     *
+     * @param in     the collection which contains objects to write.
      * @param region the {@link FileRegion} from which the bytes should be written
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -304,6 +309,7 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Attempt to write a single object.
+     *
      * @param in the collection which contains objects to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -333,6 +339,7 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
 
     /**
      * Attempt to write multiple {@link ByteBuf} objects.
+     *
      * @param in the collection which contains objects to write.
      * @return The value that should be decremented from the write quantum which starts at
      * {@link ChannelConfig#getWriteSpinCount()}. The typical use cases are as follows:
@@ -364,7 +371,7 @@ public abstract class AbstractKQueueStreamChannel extends AbstractKQueueChannel 
     protected Object filterOutboundMessage(Object msg) {
         if (msg instanceof ByteBuf) {
             ByteBuf buf = (ByteBuf) msg;
-            return UnixChannelUtil.isBufferCopyNeededForWrite(buf)? newDirectBuffer(buf) : buf;
+            return UnixChannelUtil.isBufferCopyNeededForWrite(buf) ? newDirectBuffer(buf) : buf;
         }
 
         if (msg instanceof FileRegion) {

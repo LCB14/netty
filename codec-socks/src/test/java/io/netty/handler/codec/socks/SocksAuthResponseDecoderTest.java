@@ -39,7 +39,7 @@ public class SocksAuthResponseDecoderTest {
 
     @Test
     public void testSocksCmdResponseDecoder() {
-        for (SocksAuthStatus authStatus: SocksAuthStatus.values()) {
+        for (SocksAuthStatus authStatus : SocksAuthStatus.values()) {
             testSocksAuthResponseDecoderWithDifferentParams(authStatus);
         }
     }

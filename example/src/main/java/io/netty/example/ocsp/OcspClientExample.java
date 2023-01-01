@@ -82,7 +82,7 @@ public class OcspClientExample {
         String host = "www.wikipedia.org";
 
         ReferenceCountedOpenSslContext context
-            = (ReferenceCountedOpenSslContext) SslContextBuilder.forClient()
+                = (ReferenceCountedOpenSslContext) SslContextBuilder.forClient()
                 .sslProvider(SslProvider.OPENSSL)
                 .enableOcsp(true)
                 .build();
@@ -117,14 +117,14 @@ public class OcspClientExample {
     }
 
     private static ChannelInitializer<Channel> newClientHandler(final ReferenceCountedOpenSslContext context,
-            final String host, final Promise<FullHttpResponse> promise) {
+                                                                final String host, final Promise<FullHttpResponse> promise) {
 
         return new ChannelInitializer<Channel>() {
             @Override
             protected void initChannel(Channel ch) throws Exception {
                 SslHandler sslHandler = context.newHandler(ch.alloc());
                 ReferenceCountedOpenSslEngine engine
-                    = (ReferenceCountedOpenSslEngine) sslHandler.engine();
+                        = (ReferenceCountedOpenSslEngine) sslHandler.engine();
 
                 ChannelPipeline pipeline = ch.pipeline();
                 pipeline.addLast(sslHandler);
@@ -233,13 +233,13 @@ public class OcspClientExample {
             CertificateStatus status = first.getCertStatus();
             BigInteger ocspSerial = first.getCertID().getSerialNumber();
             String message = new StringBuilder()
-                .append("OCSP status of ").append(ctx.channel().remoteAddress())
-                .append("\n  Status: ").append(status == CertificateStatus.GOOD ? "Good" : status)
-                .append("\n  This Update: ").append(first.getThisUpdate())
-                .append("\n  Next Update: ").append(first.getNextUpdate())
-                .append("\n  Cert Serial: ").append(certSerial)
-                .append("\n  OCSP Serial: ").append(ocspSerial)
-                .toString();
+                    .append("OCSP status of ").append(ctx.channel().remoteAddress())
+                    .append("\n  Status: ").append(status == CertificateStatus.GOOD ? "Good" : status)
+                    .append("\n  This Update: ").append(first.getThisUpdate())
+                    .append("\n  Next Update: ").append(first.getNextUpdate())
+                    .append("\n  Cert Serial: ").append(certSerial)
+                    .append("\n  OCSP Serial: ").append(ocspSerial)
+                    .toString();
             System.out.println(message);
 
             return status == CertificateStatus.GOOD && certSerial.equals(ocspSerial);

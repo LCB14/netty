@@ -41,7 +41,7 @@ import io.netty.util.internal.UnstableApi;
  */
 @UnstableApi
 public final class RedisBulkStringAggregator extends MessageAggregator<RedisMessage, BulkStringHeaderRedisMessage,
-                                                                 BulkStringRedisContent, FullBulkStringRedisMessage> {
+        BulkStringRedisContent, FullBulkStringRedisMessage> {
 
     /**
      * Creates a new instance.

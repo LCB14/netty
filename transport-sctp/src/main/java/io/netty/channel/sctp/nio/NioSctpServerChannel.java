@@ -40,7 +40,7 @@ import java.util.Set;
 /**
  * {@link io.netty.channel.sctp.SctpServerChannel} implementation which use non-blocking mode to accept new
  * connections and create the {@link NioSctpChannel} for them.
- *
+ * <p>
  * Be aware that not all operations systems support SCTP. Please refer to the documentation of your operation system,
  * to understand what you need to do to use it. Also this feature is only supported on Java 7+.
  */

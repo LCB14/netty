@@ -38,11 +38,12 @@ public class DatagramUnicastIPv6Test extends DatagramUnicastInetTest {
             Channel channel = SelectorProvider.provider().openDatagramChannel(StandardProtocolFamily.INET6);
             channel.close();
         } catch (UnsupportedOperationException e) {
-           throw new TestAbortedException("IPv6 not supported", e);
+            throw new TestAbortedException("IPv6 not supported", e);
         } catch (IOException ignore) {
             // Ignore
         }
     }
+
     @Override
     protected InternetProtocolFamily internetProtocolFamily() {
         return InternetProtocolFamily.IPv6;

@@ -70,7 +70,7 @@ public final class UniformStreamByteDistributor implements StreamByteDistributor
      * Sets the minimum allocation chunk that will be allocated to each stream. Defaults to 1KiB.
      *
      * @param minAllocationChunk the minimum number of bytes that will be allocated to each stream.
-     * Must be > 0.
+     *                           Must be > 0.
      */
     public void minAllocationChunk(int minAllocationChunk) {
         checkPositive(minAllocationChunk, "minAllocationChunk");
@@ -80,8 +80,8 @@ public final class UniformStreamByteDistributor implements StreamByteDistributor
     @Override
     public void updateStreamableBytes(StreamState streamState) {
         state(streamState.stream()).updateStreamableBytes(streamableBytes(streamState),
-                                                          streamState.hasFrame(),
-                                                          streamState.windowSize());
+                streamState.hasFrame(),
+                streamState.windowSize());
     }
 
     @Override
@@ -144,7 +144,7 @@ public final class UniformStreamByteDistributor implements StreamByteDistributor
 
         void updateStreamableBytes(int newStreamableBytes, boolean hasFrame, int windowSize) {
             assert hasFrame || newStreamableBytes == 0 :
-                "hasFrame: " + hasFrame + " newStreamableBytes: " + newStreamableBytes;
+                    "hasFrame: " + hasFrame + " newStreamableBytes: " + newStreamableBytes;
 
             int delta = newStreamableBytes - streamableBytes;
             if (delta != 0) {

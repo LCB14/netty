@@ -26,8 +26,8 @@ final class PlatformDependent0Substitution {
 
     @Alias
     @RecomputeFieldValue(
-        kind = RecomputeFieldValue.Kind.FieldOffset,
-        declClassName = "java.nio.Buffer",
-        name = "address")
+            kind = RecomputeFieldValue.Kind.FieldOffset,
+            declClassName = "java.nio.Buffer",
+            name = "address")
     private static long ADDRESS_FIELD_OFFSET;
 }

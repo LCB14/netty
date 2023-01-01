@@ -53,8 +53,8 @@ public final class CoalescingBufferQueue extends AbstractCoalescingBufferQueue {
      * fully consumed during removal will have it's promise completed when the passed aggregate {@link ChannelPromise}
      * completes.
      *
-     * @param bytes the maximum number of readable bytes in the returned {@link ByteBuf}, if {@code bytes} is greater
-     *              than {@link #readableBytes} then a buffer of length {@link #readableBytes} is returned.
+     * @param bytes            the maximum number of readable bytes in the returned {@link ByteBuf}, if {@code bytes} is greater
+     *                         than {@link #readableBytes} then a buffer of length {@link #readableBytes} is returned.
      * @param aggregatePromise used to aggregate the promises and listeners for the constituent buffers.
      * @return a {@link ByteBuf} composed of the enqueued buffers.
      */
@@ -63,7 +63,7 @@ public final class CoalescingBufferQueue extends AbstractCoalescingBufferQueue {
     }
 
     /**
-     *  Release all buffers in the queue and complete all listeners and promises.
+     * Release all buffers in the queue and complete all listeners and promises.
      */
     public void releaseAndFailAll(Throwable cause) {
         releaseAndFailAll(channel, cause);

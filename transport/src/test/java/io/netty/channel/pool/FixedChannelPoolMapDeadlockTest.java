@@ -69,41 +69,41 @@ public class FixedChannelPoolMapDeadlockTest {
         final AbstractChannelPoolMap<String, FixedChannelPool> channelPoolMap =
                 new AbstractChannelPoolMap<String, FixedChannelPool>() {
 
-            @Override
-            protected FixedChannelPool newPool(String key) {
+                    @Override
+                    protected FixedChannelPool newPool(String key) {
 
-                // Thread A1 gets a new pool on eventexecutor thread A1 (anywhere but A2 or B2)
-                // Thread B1 gets a new pool on eventexecutor thread B1 (anywhere but A2 or B2)
-                // Thread A2 gets a new pool on eventexecutor thread B2
-                // Thread B2 gets a new pool on eventexecutor thread A2
+                        // Thread A1 gets a new pool on eventexecutor thread A1 (anywhere but A2 or B2)
+                        // Thread B1 gets a new pool on eventexecutor thread B1 (anywhere but A2 or B2)
+                        // Thread A2 gets a new pool on eventexecutor thread B2
+                        // Thread B2 gets a new pool on eventexecutor thread A2
 
-                if ("A".equals(key)) {
-                    if (threadA1.inEventLoop()) {
-                        // Thread A1 gets pool A with thread A1
-                        await(arrivalBarrier);
-                        return poolA1;
-                    } else if (threadA2.inEventLoop()) {
-                        // Thread A2 gets pool A with thread B2, but only after A1 won
-                        await(arrivalBarrier);
-                        await(releaseBarrier);
-                        return poolA2;
+                        if ("A".equals(key)) {
+                            if (threadA1.inEventLoop()) {
+                                // Thread A1 gets pool A with thread A1
+                                await(arrivalBarrier);
+                                return poolA1;
+                            } else if (threadA2.inEventLoop()) {
+                                // Thread A2 gets pool A with thread B2, but only after A1 won
+                                await(arrivalBarrier);
+                                await(releaseBarrier);
+                                return poolA2;
+                            }
+                        } else if ("B".equals(key)) {
+                            if (threadB1.inEventLoop()) {
+                                // Thread B1 gets pool with thread B1
+                                await(arrivalBarrier);
+                                return poolB1;
+                            } else if (threadB2.inEventLoop()) {
+                                // Thread B2 gets pool with thread A2
+                                await(arrivalBarrier);
+                                await(releaseBarrier);
+                                return poolB2;
+                            }
+                        }
+                        throw new AssertionError("Unexpected key=" + key + " or thread="
+                                + Thread.currentThread().getName());
                     }
-                } else if ("B".equals(key)) {
-                    if (threadB1.inEventLoop()) {
-                        // Thread B1 gets pool with thread B1
-                        await(arrivalBarrier);
-                        return poolB1;
-                    } else if (threadB2.inEventLoop()) {
-                        // Thread B2 gets pool with thread A2
-                        await(arrivalBarrier);
-                        await(releaseBarrier);
-                        return poolB2;
-                    }
-                }
-                throw new AssertionError("Unexpected key=" + key + " or thread="
-                                         + Thread.currentThread().getName());
-            }
-        };
+                };
 
         // Thread A1 calls ChannelPoolMap.get(A)
         // Thread A2 calls ChannelPoolMap.get(A)
@@ -190,17 +190,17 @@ public class FixedChannelPoolMapDeadlockTest {
         final AbstractChannelPoolMap<String, FixedChannelPool> channelPoolMap =
                 new AbstractChannelPoolMap<String, FixedChannelPool>() {
 
-            @Override
-            protected FixedChannelPool newPool(String key) {
-                if ("#1".equals(key)) {
-                    return pool1;
-                } else if ("#2".equals(key)) {
-                    return pool2;
-                } else {
-                    throw new AssertionError("Unexpected key=" + key);
-                }
-            }
-        };
+                    @Override
+                    protected FixedChannelPool newPool(String key) {
+                        if ("#1".equals(key)) {
+                            return pool1;
+                        } else if ("#2".equals(key)) {
+                            return pool2;
+                        } else {
+                            throw new AssertionError("Unexpected key=" + key);
+                        }
+                    }
+                };
 
         assertSame(pool1, channelPoolMap.get("#1"));
         assertSame(pool2, channelPoolMap.get("#2"));

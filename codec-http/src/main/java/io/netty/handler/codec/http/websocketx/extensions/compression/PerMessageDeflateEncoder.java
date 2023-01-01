@@ -36,8 +36,8 @@ class PerMessageDeflateEncoder extends DeflateEncoder {
      * Constructor
      *
      * @param compressionLevel compression level of the compressor.
-     * @param windowSize maximum size of the window compressor buffer.
-     * @param noContext true to disable context takeover.
+     * @param windowSize       maximum size of the window compressor buffer.
+     * @param noContext        true to disable context takeover.
      */
     PerMessageDeflateEncoder(int compressionLevel, int windowSize, boolean noContext) {
         super(compressionLevel, windowSize, noContext, WebSocketExtensionFilter.NEVER_SKIP);
@@ -46,9 +46,9 @@ class PerMessageDeflateEncoder extends DeflateEncoder {
     /**
      * Constructor
      *
-     * @param compressionLevel compression level of the compressor.
-     * @param windowSize maximum size of the window compressor buffer.
-     * @param noContext true to disable context takeover.
+     * @param compressionLevel       compression level of the compressor.
+     * @param windowSize             maximum size of the window compressor buffer.
+     * @param noContext              true to disable context takeover.
      * @param extensionEncoderFilter extension filter for per message deflate encoder.
      */
     PerMessageDeflateEncoder(int compressionLevel, int windowSize, boolean noContext,
@@ -72,12 +72,12 @@ class PerMessageDeflateEncoder extends DeflateEncoder {
 
         return ((wsFrame instanceof TextWebSocketFrame || wsFrame instanceof BinaryWebSocketFrame) &&
                 (wsFrame.rsv() & WebSocketExtension.RSV1) == 0) ||
-               (wsFrame instanceof ContinuationWebSocketFrame && compressing);
+                (wsFrame instanceof ContinuationWebSocketFrame && compressing);
     }
 
     @Override
     protected int rsv(WebSocketFrame msg) {
-        return msg instanceof TextWebSocketFrame || msg instanceof BinaryWebSocketFrame?
+        return msg instanceof TextWebSocketFrame || msg instanceof BinaryWebSocketFrame ?
                 msg.rsv() | WebSocketExtension.RSV1 : msg.rsv();
     }
 

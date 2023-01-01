@@ -62,10 +62,14 @@ public final class SelfSignedCertificate {
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(SelfSignedCertificate.class);
 
-    /** Current time minus 1 year, just in case software clock goes back due to time synchronization */
+    /**
+     * Current time minus 1 year, just in case software clock goes back due to time synchronization
+     */
     private static final Date DEFAULT_NOT_BEFORE = new Date(SystemPropertyUtil.getLong(
             "io.netty.selfSignedCertificate.defaultNotBefore", System.currentTimeMillis() - 86400000L * 365));
-    /** The maximum possible value in X.509 specification: 9999-12-31 23:59:59 */
+    /**
+     * The maximum possible value in X.509 specification: 9999-12-31 23:59:59
+     */
     private static final Date DEFAULT_NOT_AFTER = new Date(SystemPropertyUtil.getLong(
             "io.netty.selfSignedCertificate.defaultNotAfter", 253402300799000L));
 
@@ -170,9 +174,9 @@ public final class SelfSignedCertificate {
      * Creates a new instance.
      * <p> Algorithm: RSA </p>
      *
-     * @param fqdn      a fully qualified domain name
-     * @param random    the {@link SecureRandom} to use
-     * @param bits      the number of bits of the generated private key
+     * @param fqdn   a fully qualified domain name
+     * @param random the {@link SecureRandom} to use
+     * @param bits   the number of bits of the generated private key
      */
     public SelfSignedCertificate(String fqdn, SecureRandom random, int bits)
             throws CertificateException {
@@ -291,7 +295,7 @@ public final class SelfSignedCertificate {
     }
 
     /**
-     *  Returns the generated X.509 certificate.
+     * Returns the generated X.509 certificate.
      */
     public X509Certificate cert() {
         return cert;
@@ -381,7 +385,7 @@ public final class SelfSignedCertificate {
             }
         }
 
-        return new String[] { certFile.getPath(), keyFile.getPath() };
+        return new String[]{certFile.getPath(), keyFile.getPath()};
     }
 
     private static void safeDelete(File certFile) {

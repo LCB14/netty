@@ -29,7 +29,8 @@ public class PrematureChannelClosureException extends CodecException {
     /**
      * Creates a new instance.
      */
-    public PrematureChannelClosureException() { }
+    public PrematureChannelClosureException() {
+    }
 
     /**
      * Creates a new instance.

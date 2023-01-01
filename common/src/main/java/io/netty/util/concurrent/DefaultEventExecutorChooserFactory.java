@@ -28,7 +28,8 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
     public static final DefaultEventExecutorChooserFactory INSTANCE = new DefaultEventExecutorChooserFactory();
 
-    private DefaultEventExecutorChooserFactory() { }
+    private DefaultEventExecutorChooserFactory() {
+    }
 
     @Override
     public EventExecutorChooser newChooser(EventExecutor[] executors) {

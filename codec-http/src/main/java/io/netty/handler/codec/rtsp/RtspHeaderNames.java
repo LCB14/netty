@@ -203,5 +203,6 @@ public final class RtspHeaderNames {
      */
     public static final AsciiString WWW_AUTHENTICATE = HttpHeaderNames.WWW_AUTHENTICATE;
 
-    private RtspHeaderNames() { }
+    private RtspHeaderNames() {
+    }
 }

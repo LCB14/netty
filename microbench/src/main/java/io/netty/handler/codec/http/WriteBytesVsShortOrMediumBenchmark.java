@@ -35,9 +35,9 @@ import static io.netty.handler.codec.http.HttpConstants.*;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class WriteBytesVsShortOrMediumBenchmark extends AbstractMicrobenchmark {
     private static final int CRLF_SHORT = (CR << 8) + LF;
-    private static final byte[] CRLF = { CR, LF };
+    private static final byte[] CRLF = {CR, LF};
     private static final int ZERO_CRLF_MEDIUM = ('0' << 16) + (CR << 8) + LF;
-    private static final byte[] ZERO_CRLF = { '0', CR, LF };
+    private static final byte[] ZERO_CRLF = {'0', CR, LF};
 
     private final ByteBuf buf = Unpooled.directBuffer(16);
 

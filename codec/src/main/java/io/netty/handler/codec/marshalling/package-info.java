@@ -16,6 +16,5 @@
 
 /**
  * Decoder and Encoder which uses <a href="https://www.jboss.org/jbossmarshalling">JBoss Marshalling</a>.
- *
  */
 package io.netty.handler.codec.marshalling;

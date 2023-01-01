@@ -72,10 +72,10 @@ final class Bzip2HuffmanStageEncoder {
     private final byte[] selectors;
 
     /**
-     * @param writer The {@link Bzip2BitWriter} which provides bit-level writes
-     * @param mtfBlock The MTF block data
-     * @param mtfLength The actual length of the MTF block
-     * @param mtfAlphabetSize The size of the MTF block's alphabet
+     * @param writer               The {@link Bzip2BitWriter} which provides bit-level writes
+     * @param mtfBlock             The MTF block data
+     * @param mtfLength            The actual length of the MTF block
+     * @param mtfAlphabetSize      The size of the MTF block's alphabet
      * @param mtfSymbolFrequencies The frequencies the MTF block's symbols
      */
     Bzip2HuffmanStageEncoder(final Bzip2BitWriter writer, final char[] mtfBlock,
@@ -95,6 +95,7 @@ final class Bzip2HuffmanStageEncoder {
 
     /**
      * Selects an appropriate table count for a given MTF length.
+     *
      * @param mtfLength The length to select a table count for
      * @return The selected table count
      */
@@ -116,9 +117,10 @@ final class Bzip2HuffmanStageEncoder {
 
     /**
      * Generate a Huffman code length table for a given list of symbol frequencies.
-     * @param alphabetSize The total number of symbols
+     *
+     * @param alphabetSize      The total number of symbols
      * @param symbolFrequencies The frequencies of the symbols
-     * @param codeLengths The array to which the generated code lengths should be written
+     * @param codeLengths       The array to which the generated code lengths should be written
      */
     private static void generateHuffmanCodeLengths(final int alphabetSize,
                                                    final int[] symbolFrequencies, final int[] codeLengths) {
@@ -200,6 +202,7 @@ final class Bzip2HuffmanStageEncoder {
      * lengths and the block data encoded with them will converge towards a minimum.<br>
      * If the data is highly incompressible, it is possible that the total encoded size will
      * instead diverge (increase) slightly.<br>
+     *
      * @param storeSelectors If {@code true}, write out the (final) chosen selectors
      */
     private void optimiseSelectorsAndHuffmanTables(final boolean storeSelectors) {
@@ -215,7 +218,7 @@ final class Bzip2HuffmanStageEncoder {
         int selectorIndex = 0;
 
         // Find the best table for each group of 50 block bytes based on the current Huffman code lengths
-        for (int groupStart = 0; groupStart < mtfLength;) {
+        for (int groupStart = 0; groupStart < mtfLength; ) {
 
             final int groupEnd = Math.min(groupStart + HUFFMAN_GROUP_RUN_LENGTH, mtfLength) - 1;
 
@@ -231,7 +234,7 @@ final class Bzip2HuffmanStageEncoder {
             // Find the table with the least cost for this group
             byte bestTable = 0;
             int bestCost = cost[0];
-            for (byte i = 1 ; i < totalTables; i++) {
+            for (byte i = 1; i < totalTables; i++) {
                 final int tableCost = cost[i];
                 if (tableCost < bestCost) {
                     bestCost = tableCost;
@@ -345,7 +348,7 @@ final class Bzip2HuffmanStageEncoder {
         final int mtfLength = this.mtfLength;
 
         int selectorIndex = 0;
-        for (int mtfIndex = 0; mtfIndex < mtfLength;) {
+        for (int mtfIndex = 0; mtfIndex < mtfLength; ) {
             final int groupEnd = Math.min(mtfIndex + HUFFMAN_GROUP_RUN_LENGTH, mtfLength) - 1;
             final int[] tableMergedCodeSymbols = huffmanMergedCodeSymbols[selectors[selectorIndex++]];
 

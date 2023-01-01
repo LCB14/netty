@@ -38,7 +38,7 @@ public class ThreadDeathWatcherTest {
         final Thread t = new Thread() {
             @Override
             public void run() {
-                for (;;) {
+                for (; ; ) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ignore) {
@@ -84,7 +84,7 @@ public class ThreadDeathWatcherTest {
         final Thread t = new Thread() {
             @Override
             public void run() {
-                for (;;) {
+                for (; ; ) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ignore) {

@@ -81,17 +81,17 @@ public class NioUdtByteRendezvousChannelTest extends AbstractUdtTest {
 
         final Bootstrap boot1 = new Bootstrap();
         boot1.group(group1)
-             .channelFactory(NioUdtProvider.BYTE_RENDEZVOUS)
-             .localAddress(addr1)
-             .remoteAddress(addr2)
-             .handler(handler1);
+                .channelFactory(NioUdtProvider.BYTE_RENDEZVOUS)
+                .localAddress(addr1)
+                .remoteAddress(addr2)
+                .handler(handler1);
 
         final Bootstrap boot2 = new Bootstrap();
         boot2.group(group1)
-             .channelFactory(NioUdtProvider.BYTE_RENDEZVOUS)
-             .localAddress(addr2)
-             .remoteAddress(addr1)
-             .handler(handler2);
+                .channelFactory(NioUdtProvider.BYTE_RENDEZVOUS)
+                .localAddress(addr2)
+                .remoteAddress(addr1)
+                .handler(handler2);
 
         final ChannelFuture connectFuture1 = boot1.connect();
         final ChannelFuture connectFuture2 = boot2.connect();

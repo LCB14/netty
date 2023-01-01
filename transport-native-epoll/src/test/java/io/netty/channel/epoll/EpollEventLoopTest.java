@@ -155,7 +155,7 @@ public class EpollEventLoopTest extends AbstractSingleThreadEventLoopTest {
                 @Override
                 public void run() {
                     try {
-                        for (;;) {
+                        for (; ; ) {
                             long ready = Native.epollWait(epoll, array, timerFd, 0, 0, 10);
                             if (ready > 0) {
                                 assertEquals(1, Native.epollReady(ready));

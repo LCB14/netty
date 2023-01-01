@@ -25,4 +25,5 @@ package io.netty.util.concurrent;
  * });
  * </pre>
  */
-public interface FutureListener<V> extends GenericFutureListener<Future<V>> { }
+public interface FutureListener<V> extends GenericFutureListener<Future<V>> {
+}

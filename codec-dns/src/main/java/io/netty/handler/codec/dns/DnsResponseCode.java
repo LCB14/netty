@@ -115,47 +115,46 @@ public class DnsResponseCode implements Comparable<DnsResponseCode> {
      * Returns the {@link DnsResponseCode} that corresponds with the given {@code responseCode}.
      *
      * @param responseCode the DNS RCODE
-     *
      * @return the corresponding {@link DnsResponseCode}
      */
     public static DnsResponseCode valueOf(int responseCode) {
         switch (responseCode) {
-        case 0:
-            return NOERROR;
-        case 1:
-            return FORMERR;
-        case 2:
-            return SERVFAIL;
-        case 3:
-            return NXDOMAIN;
-        case 4:
-            return NOTIMP;
-        case 5:
-            return REFUSED;
-        case 6:
-            return YXDOMAIN;
-        case 7:
-            return YXRRSET;
-        case 8:
-            return NXRRSET;
-        case 9:
-            return NOTAUTH;
-        case 10:
-            return NOTZONE;
-        case 16:
-            return BADVERS_OR_BADSIG;
-        case 17:
-            return BADKEY;
-        case 18:
-            return BADTIME;
-        case 19:
-            return BADMODE;
-        case 20:
-            return BADNAME;
-        case 21:
-            return BADALG;
-        default:
-            return new DnsResponseCode(responseCode);
+            case 0:
+                return NOERROR;
+            case 1:
+                return FORMERR;
+            case 2:
+                return SERVFAIL;
+            case 3:
+                return NXDOMAIN;
+            case 4:
+                return NOTIMP;
+            case 5:
+                return REFUSED;
+            case 6:
+                return YXDOMAIN;
+            case 7:
+                return YXRRSET;
+            case 8:
+                return NXRRSET;
+            case 9:
+                return NOTAUTH;
+            case 10:
+                return NOTZONE;
+            case 16:
+                return BADVERS_OR_BADSIG;
+            case 17:
+                return BADKEY;
+            case 18:
+                return BADTIME;
+            case 19:
+                return BADMODE;
+            case 20:
+                return BADNAME;
+            case 21:
+                return BADALG;
+            default:
+                return new DnsResponseCode(responseCode);
         }
     }
 

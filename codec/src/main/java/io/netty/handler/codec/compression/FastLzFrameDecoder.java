@@ -30,7 +30,7 @@ import static io.netty.handler.codec.compression.FastLz.decompress;
 
 /**
  * Uncompresses a {@link ByteBuf} encoded by {@link FastLzFrameEncoder} using the FastLZ algorithm.
- *
+ * <p>
  * See <a href="https://github.com/netty/netty/issues/2750">FastLZ format</a>.
  */
 public class FastLzFrameDecoder extends ByteToMessageDecoder {
@@ -87,12 +87,11 @@ public class FastLzFrameDecoder extends ByteToMessageDecoder {
     /**
      * Creates a FastLZ decoder with calculation of checksums as specified.
      *
-     * @param validateChecksums
-     *        If true, the checksum field will be validated against the actual
-     *        uncompressed data, and if the checksums do not match, a suitable
-     *        {@link DecompressionException} will be thrown.
-     *        Note, that in this case decoder will use {@link java.util.zip.Adler32}
-     *        as a default checksum calculator.
+     * @param validateChecksums If true, the checksum field will be validated against the actual
+     *                          uncompressed data, and if the checksums do not match, a suitable
+     *                          {@link DecompressionException} will be thrown.
+     *                          Note, that in this case decoder will use {@link java.util.zip.Adler32}
+     *                          as a default checksum calculator.
      */
     public FastLzFrameDecoder(boolean validateChecksums) {
         this(validateChecksums ? new Adler32() : null);
@@ -101,9 +100,8 @@ public class FastLzFrameDecoder extends ByteToMessageDecoder {
     /**
      * Creates a FastLZ decoder with specified checksum calculator.
      *
-     * @param checksum
-     *        the {@link Checksum} instance to use to check data for integrity.
-     *        You may set {@code null} if you do not want to validate checksum of each block.
+     * @param checksum the {@link Checksum} instance to use to check data for integrity.
+     *                 You may set {@code null} if you do not want to validate checksum of each block.
      */
     public FastLzFrameDecoder(Checksum checksum) {
         this.checksum = checksum == null ? null : ByteBufChecksum.wrapChecksum(checksum);
@@ -113,92 +111,92 @@ public class FastLzFrameDecoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         try {
             switch (currentState) {
-            case INIT_BLOCK:
-                if (in.readableBytes() < 4) {
-                    break;
-                }
+                case INIT_BLOCK:
+                    if (in.readableBytes() < 4) {
+                        break;
+                    }
 
-                final int magic = in.readUnsignedMedium();
-                if (magic != MAGIC_NUMBER) {
-                    throw new DecompressionException("unexpected block identifier");
-                }
+                    final int magic = in.readUnsignedMedium();
+                    if (magic != MAGIC_NUMBER) {
+                        throw new DecompressionException("unexpected block identifier");
+                    }
 
-                final byte options = in.readByte();
-                isCompressed = (options & 0x01) == BLOCK_TYPE_COMPRESSED;
-                hasChecksum = (options & 0x10) == BLOCK_WITH_CHECKSUM;
+                    final byte options = in.readByte();
+                    isCompressed = (options & 0x01) == BLOCK_TYPE_COMPRESSED;
+                    hasChecksum = (options & 0x10) == BLOCK_WITH_CHECKSUM;
 
-                currentState = State.INIT_BLOCK_PARAMS;
-                // fall through
-            case INIT_BLOCK_PARAMS:
-                if (in.readableBytes() < 2 + (isCompressed ? 2 : 0) + (hasChecksum ? 4 : 0)) {
-                    break;
-                }
-                currentChecksum = hasChecksum ? in.readInt() : 0;
-                chunkLength = in.readUnsignedShort();
-                originalLength = isCompressed ? in.readUnsignedShort() : chunkLength;
+                    currentState = State.INIT_BLOCK_PARAMS;
+                    // fall through
+                case INIT_BLOCK_PARAMS:
+                    if (in.readableBytes() < 2 + (isCompressed ? 2 : 0) + (hasChecksum ? 4 : 0)) {
+                        break;
+                    }
+                    currentChecksum = hasChecksum ? in.readInt() : 0;
+                    chunkLength = in.readUnsignedShort();
+                    originalLength = isCompressed ? in.readUnsignedShort() : chunkLength;
 
-                currentState = State.DECOMPRESS_DATA;
-                // fall through
-            case DECOMPRESS_DATA:
-                final int chunkLength = this.chunkLength;
-                if (in.readableBytes() < chunkLength) {
-                    break;
-                }
+                    currentState = State.DECOMPRESS_DATA;
+                    // fall through
+                case DECOMPRESS_DATA:
+                    final int chunkLength = this.chunkLength;
+                    if (in.readableBytes() < chunkLength) {
+                        break;
+                    }
 
-                final int idx = in.readerIndex();
-                final int originalLength = this.originalLength;
+                    final int idx = in.readerIndex();
+                    final int originalLength = this.originalLength;
 
-                ByteBuf output = null;
+                    ByteBuf output = null;
 
-                try {
-                    if (isCompressed) {
+                    try {
+                        if (isCompressed) {
 
-                        output = ctx.alloc().buffer(originalLength);
-                        int outputOffset = output.writerIndex();
-                        final int decompressedBytes = decompress(in, idx, chunkLength,
-                                output, outputOffset, originalLength);
-                        if (originalLength != decompressedBytes) {
-                            throw new DecompressionException(String.format(
-                                    "stream corrupted: originalLength(%d) and actual length(%d) mismatch",
-                                    originalLength, decompressedBytes));
+                            output = ctx.alloc().buffer(originalLength);
+                            int outputOffset = output.writerIndex();
+                            final int decompressedBytes = decompress(in, idx, chunkLength,
+                                    output, outputOffset, originalLength);
+                            if (originalLength != decompressedBytes) {
+                                throw new DecompressionException(String.format(
+                                        "stream corrupted: originalLength(%d) and actual length(%d) mismatch",
+                                        originalLength, decompressedBytes));
+                            }
+                            output.writerIndex(output.writerIndex() + decompressedBytes);
+                        } else {
+                            output = in.retainedSlice(idx, chunkLength);
                         }
-                        output.writerIndex(output.writerIndex() + decompressedBytes);
-                    } else {
-                        output = in.retainedSlice(idx, chunkLength);
-                    }
 
-                    final ByteBufChecksum checksum = this.checksum;
-                    if (hasChecksum && checksum != null) {
-                        checksum.reset();
-                        checksum.update(output, output.readerIndex(), output.readableBytes());
-                        final int checksumResult = (int) checksum.getValue();
-                        if (checksumResult != currentChecksum) {
-                            throw new DecompressionException(String.format(
-                                    "stream corrupted: mismatching checksum: %d (expected: %d)",
-                                    checksumResult, currentChecksum));
+                        final ByteBufChecksum checksum = this.checksum;
+                        if (hasChecksum && checksum != null) {
+                            checksum.reset();
+                            checksum.update(output, output.readerIndex(), output.readableBytes());
+                            final int checksumResult = (int) checksum.getValue();
+                            if (checksumResult != currentChecksum) {
+                                throw new DecompressionException(String.format(
+                                        "stream corrupted: mismatching checksum: %d (expected: %d)",
+                                        checksumResult, currentChecksum));
+                            }
+                        }
+
+                        if (output.readableBytes() > 0) {
+                            out.add(output);
+                        } else {
+                            output.release();
+                        }
+                        output = null;
+                        in.skipBytes(chunkLength);
+
+                        currentState = State.INIT_BLOCK;
+                    } finally {
+                        if (output != null) {
+                            output.release();
                         }
                     }
-
-                    if (output.readableBytes() > 0) {
-                        out.add(output);
-                    } else {
-                        output.release();
-                    }
-                    output = null;
-                    in.skipBytes(chunkLength);
-
-                    currentState = State.INIT_BLOCK;
-                } finally {
-                    if (output != null) {
-                        output.release();
-                    }
-                }
-                break;
-            case CORRUPTED:
-                in.skipBytes(in.readableBytes());
-                break;
-            default:
-                throw new IllegalStateException();
+                    break;
+                case CORRUPTED:
+                    in.skipBytes(in.readableBytes());
+                    break;
+                default:
+                    throw new IllegalStateException();
             }
         } catch (Exception e) {
             currentState = State.CORRUPTED;

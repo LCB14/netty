@@ -194,10 +194,10 @@ public final class UnitHelp {
      */
     public static void logOsArch() {
         final StringBuilder text = new StringBuilder(1024)
-            .append("\n\t")
-            .append(System.getProperty("os.name"))
-            .append("\n\t")
-            .append(System.getProperty("os.arch"));
+                .append("\n\t")
+                .append(System.getProperty("os.name"))
+                .append("\n\t")
+                .append(System.getProperty("os.arch"));
         log.info("\n\t[os/arch]{}", text);
     }
 
@@ -205,8 +205,7 @@ public final class UnitHelp {
      * Display contents of a set.
      */
     public static void logSet(final Set<?> set) {
-        @SuppressWarnings("unchecked")
-        final TreeSet<?> treeSet = new TreeSet(set);
+        @SuppressWarnings("unchecked") final TreeSet<?> treeSet = new TreeSet(set);
         for (final Object item : treeSet) {
             log.info("-> {}", item);
         }
@@ -242,7 +241,7 @@ public final class UnitHelp {
      * Block till socket reaches given state.
      */
     public static void socketAwait(final SocketUDT socket,
-            final StatusUDT... statusArray) throws Exception {
+                                   final StatusUDT... statusArray) throws Exception {
         while (true) {
             for (final StatusUDT status : statusArray) {
                 if (socket.status() == status) {
@@ -263,7 +262,7 @@ public final class UnitHelp {
     }
 
     public static boolean socketPresent(final SocketUDT socket,
-            final IntBuffer buffer) {
+                                        final IntBuffer buffer) {
         for (int index = 0; index < buffer.capacity(); index++) {
             if (buffer.get(index) == socket.id()) {
                 return true;

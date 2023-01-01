@@ -17,7 +17,9 @@ package io.netty.handler.codec.http2;
 
 import io.netty.util.internal.UnstableApi;
 
-/** HTTP/2 RST_STREAM frame. */
+/**
+ * HTTP/2 RST_STREAM frame.
+ */
 @UnstableApi
 public interface Http2ResetFrame extends Http2StreamFrame {
 

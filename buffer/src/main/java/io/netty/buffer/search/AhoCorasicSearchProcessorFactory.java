@@ -28,6 +28,7 @@ import java.util.Queue;
  * to create an instance of this factory.
  * Use {@link AhoCorasicSearchProcessorFactory#newSearchProcessor} to get an instance of
  * {@link io.netty.util.ByteProcessor} implementation for performing the actual search.
+ *
  * @see AbstractMultiSearchProcessorFactory
  */
 public class AhoCorasicSearchProcessorFactory extends AbstractMultiSearchProcessorFactory {
@@ -75,9 +76,9 @@ public class AhoCorasicSearchProcessorFactory extends AbstractMultiSearchProcess
         }
     }
 
-    AhoCorasicSearchProcessorFactory(byte[] ...needles) {
+    AhoCorasicSearchProcessorFactory(byte[]... needles) {
 
-        for (byte[] needle: needles) {
+        for (byte[] needle : needles) {
             if (needle.length == 0) {
                 throw new IllegalArgumentException("Needle must be non empty");
             }
@@ -110,7 +111,7 @@ public class AhoCorasicSearchProcessorFactory extends AbstractMultiSearchProcess
             byte[] needle = needles[needleId];
             int currentPosition = 0;
 
-            for (byte ch0: needle) {
+            for (byte ch0 : needle) {
 
                 final int ch = ch0 & 0xff;
                 final int next = currentPosition + ch;

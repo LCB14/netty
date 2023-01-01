@@ -45,7 +45,7 @@ import java.util.List;
  * | &lt;anXmlElement/&gt; |
  * +-----------------+
  * </pre>
- *
+ * <p>
  * Given an input array of bytes split over 5 frames like this:
  * <pre>
  * +-----+-----+-----------+-----+----------------------------------+
@@ -60,7 +60,7 @@ import java.util.List;
  * | &lt;anXmlElement/&gt; | &lt;root&gt;&lt;child&gt;content&lt;/child&gt;&lt;/root&gt; |
  * +-----------------+-------------------------------------+
  * </pre>
- *
+ * <p>
  * <p/>
  * The byte stream is expected to be in UTF-8 character encoding or ASCII. The current implementation
  * uses direct {@code byte} to {@code char} cast and then compares that {@code char} to a few low range
@@ -195,10 +195,10 @@ public class XmlFrameDecoder extends ByteToMessageDecoder {
     private void fail(long frameLength) {
         if (frameLength > 0) {
             throw new TooLongFrameException(
-                            "frame length exceeds " + maxFrameLength + ": " + frameLength + " - discarded");
+                    "frame length exceeds " + maxFrameLength + ": " + frameLength + " - discarded");
         } else {
             throw new TooLongFrameException(
-                            "frame length exceeds " + maxFrameLength + " - discarding");
+                    "frame length exceeds " + maxFrameLength + " - discarding");
         }
     }
 

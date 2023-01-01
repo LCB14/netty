@@ -52,7 +52,8 @@ public class SingleThreadEventLoopTest {
 
     private static final Runnable NOOP = new Runnable() {
         @Override
-        public void run() { }
+        public void run() {
+        }
     };
 
     private SingleThreadEventLoopA loopA;
@@ -171,7 +172,7 @@ public class SingleThreadEventLoopTest {
             }
         }, 500, TimeUnit.MILLISECONDS).get();
         assertThat(endTime.get() - startTime,
-                   is(greaterThanOrEqualTo(TimeUnit.MILLISECONDS.toNanos(500))));
+                is(greaterThanOrEqualTo(TimeUnit.MILLISECONDS.toNanos(500))));
     }
 
     @Test
@@ -210,7 +211,7 @@ public class SingleThreadEventLoopTest {
         // Check if the task was run without a lag.
         Long firstTimestamp = null;
         int cnt = 0;
-        for (Long t: timestamps) {
+        for (Long t : timestamps) {
             if (firstTimestamp == null) {
                 firstTimestamp = t;
                 continue;
@@ -220,7 +221,7 @@ public class SingleThreadEventLoopTest {
             assertThat(timepoint, is(greaterThanOrEqualTo(TimeUnit.MILLISECONDS.toNanos(100 * cnt + 80))));
             assertThat(timepoint, is(lessThan(TimeUnit.MILLISECONDS.toNanos(100 * (cnt + 1) + 20))));
 
-            cnt ++;
+            cnt++;
         }
     }
 
@@ -263,7 +264,7 @@ public class SingleThreadEventLoopTest {
         // Check if the task was run with lag.
         int i = 0;
         Long previousTimestamp = null;
-        for (Long t: timestamps) {
+        for (Long t : timestamps) {
             if (previousTimestamp == null) {
                 previousTimestamp = t;
                 continue;
@@ -276,7 +277,7 @@ public class SingleThreadEventLoopTest {
                 assertThat(diff, is(lessThanOrEqualTo(TimeUnit.MILLISECONDS.toNanos(10))));
             }
             previousTimestamp = t;
-            i ++;
+            i++;
         }
     }
 
@@ -315,14 +316,14 @@ public class SingleThreadEventLoopTest {
 
         // Check if the task was run without a lag.
         Long previousTimestamp = null;
-        for (Long t: timestamps) {
+        for (Long t : timestamps) {
             if (previousTimestamp == null) {
                 previousTimestamp = t;
                 continue;
             }
 
             assertThat(t.longValue() - previousTimestamp.longValue(),
-                       is(greaterThanOrEqualTo(TimeUnit.MILLISECONDS.toNanos(150))));
+                    is(greaterThanOrEqualTo(TimeUnit.MILLISECONDS.toNanos(150))));
             previousTimestamp = t;
         }
     }
@@ -347,7 +348,7 @@ public class SingleThreadEventLoopTest {
             }
         };
 
-        for (int i = 0; i < NUM_TASKS; i ++) {
+        for (int i = 0; i < NUM_TASKS; i++) {
             loopA.execute(task);
         }
 
@@ -381,7 +382,7 @@ public class SingleThreadEventLoopTest {
         // Disable logging temporarily.
         Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         List<Appender<ILoggingEvent>> appenders = new ArrayList<Appender<ILoggingEvent>>();
-        for (Iterator<Appender<ILoggingEvent>> i = root.iteratorForAppenders(); i.hasNext();) {
+        for (Iterator<Appender<ILoggingEvent>> i = root.iteratorForAppenders(); i.hasNext(); ) {
             Appender<ILoggingEvent> a = i.next();
             appenders.add(a);
             root.detachAppender(a);
@@ -394,7 +395,7 @@ public class SingleThreadEventLoopTest {
             assertThat(f.cause(), is(instanceOf(RejectedExecutionException.class)));
             assertFalse(f.channel().isOpen());
         } finally {
-            for (Appender<ILoggingEvent> a: appenders) {
+            for (Appender<ILoggingEvent> a : appenders) {
                 root.addAppender(a);
             }
         }
@@ -418,7 +419,7 @@ public class SingleThreadEventLoopTest {
         // Disable logging temporarily.
         Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         List<Appender<ILoggingEvent>> appenders = new ArrayList<Appender<ILoggingEvent>>();
-        for (Iterator<Appender<ILoggingEvent>> i = root.iteratorForAppenders(); i.hasNext();) {
+        for (Iterator<Appender<ILoggingEvent>> i = root.iteratorForAppenders(); i.hasNext(); ) {
             Appender<ILoggingEvent> a = i.next();
             appenders.add(a);
             root.detachAppender(a);
@@ -434,7 +435,7 @@ public class SingleThreadEventLoopTest {
             assertFalse(latch.await(1, TimeUnit.SECONDS));
             assertFalse(ch.isOpen());
         } finally {
-            for (Appender<ILoggingEvent> a: appenders) {
+            for (Appender<ILoggingEvent> a : appenders) {
                 root.addAppender(a);
             }
         }
@@ -445,7 +446,7 @@ public class SingleThreadEventLoopTest {
     public void testGracefulShutdownQuietPeriod() throws Exception {
         loopA.shutdownGracefully(1, Integer.MAX_VALUE, TimeUnit.SECONDS);
         // Keep Scheduling tasks for another 2 seconds.
-        for (int i = 0; i < 20; i ++) {
+        for (int i = 0; i < 20; i++) {
             Thread.sleep(100);
             loopA.execute(NOOP);
         }
@@ -460,7 +461,7 @@ public class SingleThreadEventLoopTest {
         }
 
         assertThat(System.nanoTime() - startTime,
-                   is(greaterThanOrEqualTo(TimeUnit.SECONDS.toNanos(1))));
+                is(greaterThanOrEqualTo(TimeUnit.SECONDS.toNanos(1))));
     }
 
     @Test
@@ -469,13 +470,13 @@ public class SingleThreadEventLoopTest {
         loopA.shutdownGracefully(2, 2, TimeUnit.SECONDS);
         // Keep Scheduling tasks for another 3 seconds.
         // Submitted tasks must be rejected after 2 second timeout.
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             Thread.sleep(100);
             loopA.execute(NOOP);
         }
 
         try {
-            for (int i = 0; i < 20; i ++) {
+            for (int i = 0; i < 20; i++) {
                 Thread.sleep(100);
                 loopA.execute(NOOP);
             }
@@ -497,9 +498,9 @@ public class SingleThreadEventLoopTest {
         loopC.submit(noopTask).sync();
         loopC.iterationEndSignal.take();
         MatcherAssert.assertThat("Unexpected invocation count for regular task.",
-                                 noopTask.getInvocationCount(), is(1));
+                noopTask.getInvocationCount(), is(1));
         MatcherAssert.assertThat("Unexpected invocation count for on every eventloop iteration task.",
-                                 onIteration.getInvocationCount(), is(1));
+                onIteration.getInvocationCount(), is(1));
     }
 
     @Test
@@ -515,11 +516,11 @@ public class SingleThreadEventLoopTest {
 
         loopC.iterationEndSignal.take();
         MatcherAssert.assertThat("Unexpected invocation count for regular task.",
-                                 noopTask.getInvocationCount(), is(1));
+                noopTask.getInvocationCount(), is(1));
         MatcherAssert.assertThat("Unexpected invocation count for on every eventloop iteration task.",
-                                 onIteration2.getInvocationCount(), is(1));
+                onIteration2.getInvocationCount(), is(1));
         MatcherAssert.assertThat("Unexpected invocation count for on every eventloop iteration task.",
-                                 onIteration1.getInvocationCount(), is(0));
+                onIteration1.getInvocationCount(), is(0));
     }
 
     private static final class SingleThreadEventLoopA extends SingleThreadEventLoop {
@@ -532,7 +533,7 @@ public class SingleThreadEventLoopTest {
 
         @Override
         protected void run() {
-            for (;;) {
+            for (; ; ) {
                 Runnable task = takeTask();
                 if (task != null) {
                     task.run();
@@ -559,7 +560,7 @@ public class SingleThreadEventLoopTest {
 
         @Override
         protected void run() {
-            for (;;) {
+            for (; ; ) {
                 try {
                     Thread.sleep(TimeUnit.NANOSECONDS.toMillis(delayNanos(System.nanoTime())));
                 } catch (InterruptedException e) {

@@ -122,7 +122,7 @@ final class Native {
     static int keventWait(int kqueueFd, KQueueEventArray changeList, KQueueEventArray eventList,
                           int tvSec, int tvNsec) throws IOException {
         int ready = keventWait(kqueueFd, changeList.memoryAddress(), changeList.size(),
-                               eventList.memoryAddress(), eventList.capacity(), tvSec, tvNsec);
+                eventList.memoryAddress(), eventList.capacity(), tvSec, tvNsec);
         if (ready < 0) {
             throw newIOException("kevent", ready);
         }
@@ -130,17 +130,25 @@ final class Native {
     }
 
     private static native int kqueueCreate();
+
     private static native int keventWait(int kqueueFd, long changeListAddress, int changeListLength,
                                          long eventListAddress, int eventListLength, int tvSec, int tvNsec);
+
     static native int keventTriggerUserEvent(int kqueueFd, int ident);
+
     static native int keventAddUserEvent(int kqueueFd, int ident);
 
     // kevent related
     static native int sizeofKEvent();
+
     static native int offsetofKEventIdent();
+
     static native int offsetofKEventFlags();
+
     static native int offsetofKEventFFlags();
+
     static native int offsetofKEventFilter();
+
     static native int offsetofKeventData();
 
     private static void loadNativeLibrary() {

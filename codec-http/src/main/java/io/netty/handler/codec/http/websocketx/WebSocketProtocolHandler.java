@@ -50,8 +50,7 @@ abstract class WebSocketProtocolHandler extends MessageToMessageDecoder<WebSocke
      * Creates a new {@link WebSocketProtocolHandler}, given a parameter that determines whether or not to drop {@link
      * PongWebSocketFrame}s.
      *
-     * @param dropPongFrames
-     *            {@code true} if {@link PongWebSocketFrame}s should be dropped
+     * @param dropPongFrames {@code true} if {@link PongWebSocketFrame}s should be dropped
      */
     WebSocketProtocolHandler(boolean dropPongFrames) {
         this(dropPongFrames, null, 0L);

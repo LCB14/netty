@@ -150,7 +150,7 @@ public class Http2DataChunkedInputTest {
         int i = 0;
         int read = 0;
         Http2DataFrame http2DataFrame = null;
-        for (;;) {
+        for (; ; ) {
             Http2DataFrame dataFrame = ch.readOutbound();
             if (dataFrame == null) {
                 break;

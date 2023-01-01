@@ -20,4 +20,5 @@ import io.netty.handler.codec.DecoderResultProvider;
 /**
  * Defines a common interface for all {@link StompSubframe} implementations.
  */
-public interface StompSubframe extends DecoderResultProvider { }
+public interface StompSubframe extends DecoderResultProvider {
+}

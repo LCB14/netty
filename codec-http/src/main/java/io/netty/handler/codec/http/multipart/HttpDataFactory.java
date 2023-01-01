@@ -31,15 +31,14 @@ public interface HttpDataFactory {
     void setMaxLimit(long max);
 
     /**
-     *
      * @param request associated request
      * @return a new Attribute with no value
      */
     Attribute createAttribute(HttpRequest request, String name);
 
     /**
-     * @param request associated request
-     * @param name name of the attribute
+     * @param request     associated request
+     * @param name        name of the attribute
      * @param definedSize defined size from request for this attribute
      * @return a new Attribute with no value
      */
@@ -53,7 +52,7 @@ public interface HttpDataFactory {
 
     /**
      * @param request associated request
-     * @param size the size of the Uploaded file
+     * @param size    the size of the Uploaded file
      * @return a new FileUpload
      */
     FileUpload createFileUpload(HttpRequest request, String name, String filename,
@@ -63,6 +62,7 @@ public interface HttpDataFactory {
     /**
      * Remove the given InterfaceHttpData from clean list (will not delete the file, except if the file
      * is still a temporary one as setup at construction)
+     *
      * @param request associated request
      */
     void removeHttpDataFromClean(HttpRequest request, InterfaceHttpData data);

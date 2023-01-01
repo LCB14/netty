@@ -161,7 +161,7 @@ public class DefaultHttp2FrameReaderTest {
                     .path("/")
                     .scheme("https");
             writeHeaderFrame(input, 1, headers,
-                             new Http2Flags().endOfHeaders(false).endOfStream(true));
+                    new Http2Flags().endOfHeaders(false).endOfStream(true));
             writeContinuationFrame(input, 3, new DefaultHttp2Headers().add("foo", "bar"),
                     new Http2Flags().endOfHeaders(true));
 
@@ -181,7 +181,7 @@ public class DefaultHttp2FrameReaderTest {
         final ByteBuf input = Unpooled.buffer();
         try {
             writeContinuationFrame(input, 1, new DefaultHttp2Headers().add("foo", "bar"),
-                                   new Http2Flags().endOfHeaders(true));
+                    new Http2Flags().endOfHeaders(true));
             assertThrows(Http2Exception.class, new Executable() {
                 @Override
                 public void execute() throws Throwable {

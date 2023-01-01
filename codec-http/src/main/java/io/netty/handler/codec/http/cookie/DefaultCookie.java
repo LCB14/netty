@@ -124,6 +124,7 @@ public class DefaultCookie implements Cookie {
      * Checks to see if this {@link Cookie} can be sent along cross-site requests.
      * For more information, please look
      * <a href="https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-05">here</a>
+     *
      * @return <b>same-site-flag</b> value
      */
     public SameSite sameSite() {
@@ -133,7 +134,8 @@ public class DefaultCookie implements Cookie {
     /**
      * Determines if this this {@link Cookie} can be sent along cross-site requests.
      * For more information, please look
-     *  <a href="https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-05">here</a>
+     * <a href="https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-05">here</a>
+     *
      * @param sameSite <b>same-site-flag</b> value
      */
     public void setSameSite(SameSite sameSite) {
@@ -218,7 +220,8 @@ public class DefaultCookie implements Cookie {
     /**
      * Validate a cookie attribute value, throws a {@link IllegalArgumentException} otherwise.
      * Only intended to be used by {@link io.netty.handler.codec.http.DefaultCookie}.
-     * @param name attribute name
+     *
+     * @param name  attribute name
      * @param value attribute value
      * @return the trimmed, validated attribute value
      * @deprecated CookieUtil is package private, will be removed once old Cookie API is dropped
@@ -231,21 +234,21 @@ public class DefaultCookie implements Cookie {
     @Override
     public String toString() {
         StringBuilder buf = stringBuilder()
-            .append(name())
-            .append('=')
-            .append(value());
+                .append(name())
+                .append('=')
+                .append(value());
         if (domain() != null) {
             buf.append(", domain=")
-               .append(domain());
+                    .append(domain());
         }
         if (path() != null) {
             buf.append(", path=")
-               .append(path());
+                    .append(path());
         }
         if (maxAge() >= 0) {
             buf.append(", maxAge=")
-               .append(maxAge())
-               .append('s');
+                    .append(maxAge())
+                    .append('s');
         }
         if (isSecure()) {
             buf.append(", secure");

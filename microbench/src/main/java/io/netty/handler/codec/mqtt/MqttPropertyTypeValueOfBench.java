@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class MqttPropertyTypeValueOfBench extends AbstractMicrobenchmark {
 
-    private static final int[] DATASET = new int[] {
+    private static final int[] DATASET = new int[]{
             28, 28, 40, 28, 36, 22, 23, 22, 11, 40, 18, 33, 8, 37, 23, 23, 33, 2, 2, 33, 18,
             31, 39, 41, 39, 25, 2, 28, 26, 38, 42, 9, 40, 3, 2, 19, 1, 8, 18, 38, 28, 9, 18,
             22, 42, 22, 37, 42, 23, 38, 22, 40, 2, 8, 40, 26, 1, 8, 17, 2, 37, 21, 41, 8, 37, 26, 1, 17,
@@ -117,62 +117,62 @@ public class MqttPropertyTypeValueOfBench extends AbstractMicrobenchmark {
 
     private static MqttPropertyType switchValueOf(int type) {
         switch (type) {
-        case 1:
-            return MqttPropertyType.PAYLOAD_FORMAT_INDICATOR;
-        case 2:
-            return MqttPropertyType.PUBLICATION_EXPIRY_INTERVAL;
-        case 3:
-            return MqttPropertyType.CONTENT_TYPE;
-        case 8:
-            return MqttPropertyType.RESPONSE_TOPIC;
-        case 9:
-            return MqttPropertyType.CORRELATION_DATA;
-        case 11:
-            return MqttPropertyType.SUBSCRIPTION_IDENTIFIER;
-        case 17:
-            return MqttPropertyType.SESSION_EXPIRY_INTERVAL;
-        case 18:
-            return MqttPropertyType.ASSIGNED_CLIENT_IDENTIFIER;
-        case 19:
-            return MqttPropertyType.SERVER_KEEP_ALIVE;
-        case 21:
-            return MqttPropertyType.AUTHENTICATION_METHOD;
-        case 22:
-            return MqttPropertyType.AUTHENTICATION_DATA;
-        case 23:
-            return MqttPropertyType.REQUEST_PROBLEM_INFORMATION;
-        case 24:
-            return MqttPropertyType.WILL_DELAY_INTERVAL;
-        case 25:
-            return MqttPropertyType.REQUEST_RESPONSE_INFORMATION;
-        case 26:
-            return MqttPropertyType.RESPONSE_INFORMATION;
-        case 28:
-            return MqttPropertyType.SERVER_REFERENCE;
-        case 31:
-            return MqttPropertyType.REASON_STRING;
-        case 33:
-            return MqttPropertyType.RECEIVE_MAXIMUM;
-        case 34:
-            return MqttPropertyType.TOPIC_ALIAS_MAXIMUM;
-        case 35:
-            return MqttPropertyType.TOPIC_ALIAS;
-        case 36:
-            return MqttPropertyType.MAXIMUM_QOS;
-        case 37:
-            return MqttPropertyType.RETAIN_AVAILABLE;
-        case 38:
-            return MqttPropertyType.USER_PROPERTY;
-        case 39:
-            return MqttPropertyType.MAXIMUM_PACKET_SIZE;
-        case 40:
-            return MqttPropertyType.WILDCARD_SUBSCRIPTION_AVAILABLE;
-        case 41:
-            return MqttPropertyType.SUBSCRIPTION_IDENTIFIER_AVAILABLE;
-        case 42:
-            return MqttPropertyType.SHARED_SUBSCRIPTION_AVAILABLE;
-        default:
-            throw new IllegalArgumentException("unknown message type: " + type);
+            case 1:
+                return MqttPropertyType.PAYLOAD_FORMAT_INDICATOR;
+            case 2:
+                return MqttPropertyType.PUBLICATION_EXPIRY_INTERVAL;
+            case 3:
+                return MqttPropertyType.CONTENT_TYPE;
+            case 8:
+                return MqttPropertyType.RESPONSE_TOPIC;
+            case 9:
+                return MqttPropertyType.CORRELATION_DATA;
+            case 11:
+                return MqttPropertyType.SUBSCRIPTION_IDENTIFIER;
+            case 17:
+                return MqttPropertyType.SESSION_EXPIRY_INTERVAL;
+            case 18:
+                return MqttPropertyType.ASSIGNED_CLIENT_IDENTIFIER;
+            case 19:
+                return MqttPropertyType.SERVER_KEEP_ALIVE;
+            case 21:
+                return MqttPropertyType.AUTHENTICATION_METHOD;
+            case 22:
+                return MqttPropertyType.AUTHENTICATION_DATA;
+            case 23:
+                return MqttPropertyType.REQUEST_PROBLEM_INFORMATION;
+            case 24:
+                return MqttPropertyType.WILL_DELAY_INTERVAL;
+            case 25:
+                return MqttPropertyType.REQUEST_RESPONSE_INFORMATION;
+            case 26:
+                return MqttPropertyType.RESPONSE_INFORMATION;
+            case 28:
+                return MqttPropertyType.SERVER_REFERENCE;
+            case 31:
+                return MqttPropertyType.REASON_STRING;
+            case 33:
+                return MqttPropertyType.RECEIVE_MAXIMUM;
+            case 34:
+                return MqttPropertyType.TOPIC_ALIAS_MAXIMUM;
+            case 35:
+                return MqttPropertyType.TOPIC_ALIAS;
+            case 36:
+                return MqttPropertyType.MAXIMUM_QOS;
+            case 37:
+                return MqttPropertyType.RETAIN_AVAILABLE;
+            case 38:
+                return MqttPropertyType.USER_PROPERTY;
+            case 39:
+                return MqttPropertyType.MAXIMUM_PACKET_SIZE;
+            case 40:
+                return MqttPropertyType.WILDCARD_SUBSCRIPTION_AVAILABLE;
+            case 41:
+                return MqttPropertyType.SUBSCRIPTION_IDENTIFIER_AVAILABLE;
+            case 42:
+                return MqttPropertyType.SHARED_SUBSCRIPTION_AVAILABLE;
+            default:
+                throw new IllegalArgumentException("unknown message type: " + type);
         }
     }
 }

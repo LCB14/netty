@@ -60,7 +60,7 @@ public final class DefaultEventExecutor extends SingleThreadEventExecutor {
 
     @Override
     protected void run() {
-        for (;;) {
+        for (; ; ) {
             Runnable task = takeTask();
             if (task != null) {
                 runTask(task);

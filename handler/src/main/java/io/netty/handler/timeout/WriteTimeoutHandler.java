@@ -60,6 +60,7 @@ import java.util.concurrent.TimeUnit;
  * bootstrap.childHandler(new MyChannelInitializer());
  * ...
  * </pre>
+ *
  * @see ReadTimeoutHandler
  * @see IdleStateHandler
  */
@@ -78,8 +79,7 @@ public class WriteTimeoutHandler extends ChannelOutboundHandlerAdapter {
     /**
      * Creates a new instance.
      *
-     * @param timeoutSeconds
-     *        write timeout in seconds
+     * @param timeoutSeconds write timeout in seconds
      */
     public WriteTimeoutHandler(int timeoutSeconds) {
         this(timeoutSeconds, TimeUnit.SECONDS);
@@ -88,10 +88,8 @@ public class WriteTimeoutHandler extends ChannelOutboundHandlerAdapter {
     /**
      * Creates a new instance.
      *
-     * @param timeout
-     *        write timeout
-     * @param unit
-     *        the {@link TimeUnit} of {@code timeout}
+     * @param timeout write timeout
+     * @param unit    the {@link TimeUnit} of {@code timeout}
      */
     public WriteTimeoutHandler(long timeout, TimeUnit unit) {
         ObjectUtil.checkNotNull(unit, "unit");

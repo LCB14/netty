@@ -17,6 +17,7 @@ package io.netty.handler.ssl;
 
 final class OpenSslEngineTestParam extends SSLEngineTest.SSLEngineTestParam {
     final boolean useTasks;
+
     OpenSslEngineTestParam(boolean useTasks, SSLEngineTest.SSLEngineTestParam param) {
         super(param.type(), param.combo(), param.delegate());
         this.useTasks = useTasks;

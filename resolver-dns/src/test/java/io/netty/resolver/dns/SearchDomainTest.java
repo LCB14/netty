@@ -45,11 +45,11 @@ public class SearchDomainTest {
 
     private DnsNameResolverBuilder newResolver() {
         return new DnsNameResolverBuilder(group.next())
-            .channelType(NioDatagramChannel.class)
-            .nameServerProvider(new SingletonDnsServerAddressStreamProvider(dnsServer.localAddress()))
-            .maxQueriesPerResolve(1)
-            .optResourceEnabled(false)
-            .ndots(1);
+                .channelType(NioDatagramChannel.class)
+                .nameServerProvider(new SingletonDnsServerAddressStreamProvider(dnsServer.localAddress()))
+                .maxQueriesPerResolve(1)
+                .optResourceEnabled(false)
+                .ndots(1);
     }
 
     private TestDnsServer dnsServer;
@@ -293,7 +293,7 @@ public class SearchDomainTest {
         final Throwable cause = fut.cause();
         assertThat(cause, instanceOf(UnknownHostException.class));
         assertThat("search domain is included in UnknownHostException", cause.getMessage(),
-            containsString("foo.com"));
+                containsString("foo.com"));
     }
 
     @Test

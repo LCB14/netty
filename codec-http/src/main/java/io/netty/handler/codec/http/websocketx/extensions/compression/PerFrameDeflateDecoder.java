@@ -39,7 +39,7 @@ class PerFrameDeflateDecoder extends DeflateDecoder {
     /**
      * Constructor
      *
-     * @param noContext true to disable context takeover.
+     * @param noContext              true to disable context takeover.
      * @param extensionDecoderFilter extension decoder filter for per frame deflate decoder.
      */
     PerFrameDeflateDecoder(boolean noContext, WebSocketExtensionFilter extensionDecoderFilter) {
@@ -59,7 +59,7 @@ class PerFrameDeflateDecoder extends DeflateDecoder {
 
         return (msg instanceof TextWebSocketFrame || msg instanceof BinaryWebSocketFrame ||
                 msg instanceof ContinuationWebSocketFrame) &&
-               (wsFrame.rsv() & WebSocketExtension.RSV1) > 0;
+                (wsFrame.rsv() & WebSocketExtension.RSV1) > 0;
     }
 
     @Override

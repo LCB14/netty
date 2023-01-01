@@ -242,7 +242,7 @@ public class ReadOnlyDirectByteBufferBufTest {
     @Test
     public void testGetReadByte() {
         ByteBuf buf = buffer(
-                ((ByteBuffer) allocate(2).put(new byte[] { (byte) 1, (byte) 2 }).flip()).asReadOnlyBuffer());
+                ((ByteBuffer) allocate(2).put(new byte[]{(byte) 1, (byte) 2}).flip()).asReadOnlyBuffer());
 
         assertEquals(1, buf.getByte(0));
         assertEquals(2, buf.getByte(1));

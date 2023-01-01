@@ -102,14 +102,14 @@ public class SpdyFrameDecoder {
         int statusCode;
 
         while (true) {
-            switch(state) {
+            switch (state) {
                 case READ_COMMON_HEADER:
                     if (buffer.readableBytes() < SPDY_HEADER_SIZE) {
                         return;
                     }
 
-                    int frameOffset  = buffer.readerIndex();
-                    int flagsOffset  = frameOffset + SPDY_HEADER_FLAGS_OFFSET;
+                    int frameOffset = buffer.readerIndex();
+                    int flagsOffset = frameOffset + SPDY_HEADER_FLAGS_OFFSET;
                     int lengthOffset = frameOffset + SPDY_HEADER_LENGTH_OFFSET;
                     buffer.skipBytes(SPDY_HEADER_SIZE);
 
@@ -129,7 +129,7 @@ public class SpdyFrameDecoder {
                         streamId = getUnsignedInt(buffer, frameOffset);
                     }
 
-                    flags  = buffer.getByte(flagsOffset);
+                    flags = buffer.getByte(flagsOffset);
                     length = getUnsignedMedium(buffer, lengthOffset);
 
                     // Check version first then validity

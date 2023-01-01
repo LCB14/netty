@@ -27,7 +27,8 @@ final class EmbeddedChannelId implements ChannelId {
 
     static final ChannelId INSTANCE = new EmbeddedChannelId();
 
-    private EmbeddedChannelId() { }
+    private EmbeddedChannelId() {
+    }
 
     @Override
     public String asShortText() {

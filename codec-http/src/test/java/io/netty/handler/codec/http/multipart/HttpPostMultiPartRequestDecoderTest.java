@@ -75,10 +75,10 @@ public class HttpPostMultiPartRequestDecoderTest {
     public void testDecodeFullHttpRequestWithInvalidPayloadReleaseBuffer() {
         String content = "\n--861fbeab-cd20-470c-9609-d40a0f704466\n" +
                 "Content-Disposition: form-data; name=\"image1\"; filename*=\"'some.jpeg\"\n" +
-                        "Content-Type: image/jpeg\n" +
-                        "Content-Length: 1\n" +
-                        "x\n" +
-                        "--861fbeab-cd20-470c-9609-d40a0f704466--\n";
+                "Content-Type: image/jpeg\n" +
+                "Content-Length: 1\n" +
+                "x\n" +
+                "--861fbeab-cd20-470c-9609-d40a0f704466--\n";
 
         FullHttpRequest req = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST, "/upload",
                 Unpooled.copiedBuffer(content, CharsetUtil.US_ASCII));
@@ -105,9 +105,9 @@ public class HttpPostMultiPartRequestDecoderTest {
         byte[] bsuffix1 = Arrays.copyOf(bsuffix, partOfDelimiter);
         byte[] bsuffix2 = Arrays.copyOfRange(bsuffix, partOfDelimiter, bsuffix.length);
         String prefix = delimiter + "\n" +
-                        "Content-Disposition: form-data; name=\"image\"; filename=\"guangzhou.jpeg\"\n" +
-                        "Content-Type: image/jpeg\n" +
-                        "Content-Length: " + bytesLastChunk + "\n\n";
+                "Content-Disposition: form-data; name=\"image\"; filename=\"guangzhou.jpeg\"\n" +
+                "Content-Type: image/jpeg\n" +
+                "Content-Length: " + bytesLastChunk + "\n\n";
         HttpRequest request = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST, "/upload");
         request.headers().set("content-type", "multipart/form-data; boundary=861fbeab-cd20-470c-9609-d40a0f704466");
         request.headers().set("content-length", prefix.length() + bytesLastChunk + suffix.length());
@@ -249,7 +249,7 @@ public class HttpPostMultiPartRequestDecoderTest {
         }
         factory.cleanAllHttpData();
         for (InterfaceHttpData httpData : httpDatas) {
-            assertEquals(inMemory? 1 : 0, httpData.refCnt(), "After cleanAllHttpData should be 1 if in Memory");
+            assertEquals(inMemory ? 1 : 0, httpData.refCnt(), "After cleanAllHttpData should be 1 if in Memory");
         }
         decoder.destroy();
         for (InterfaceHttpData httpData : httpDatas) {
@@ -287,12 +287,14 @@ public class HttpPostMultiPartRequestDecoderTest {
         HttpDataFactory factory = new DefaultHttpDataFactory(true);
         commonNotBadReleaseBuffersDuringDecoding(factory, false);
     }
+
     @Test
     public void testNotBadReleaseBuffersDuringDecodingMemoryFactory() throws IOException {
         // Using Memory Factory
         HttpDataFactory factory = new DefaultHttpDataFactory(false);
         commonNotBadReleaseBuffersDuringDecoding(factory, true);
     }
+
     @Test
     public void testNotBadReleaseBuffersDuringDecodingMixedFactory() throws IOException {
         // Using Mixed Factory
@@ -381,7 +383,7 @@ public class HttpPostMultiPartRequestDecoderTest {
         }
         // To not be done since will load full file on memory: assertEquals(data.get().length, fileSize);
         // Not mandatory since implicitly called during destroy of decoder
-        for (InterfaceHttpData httpData: decoder.getBodyHttpDatas()) {
+        for (InterfaceHttpData httpData : decoder.getBodyHttpDatas()) {
             httpData.release();
             factory.removeHttpDataFromClean(request, httpData);
         }
@@ -399,10 +401,10 @@ public class HttpPostMultiPartRequestDecoderTest {
 
         String delimiter = "--861fbeab-cd20-470c-9609-d40a0f704466";
         String prefix = delimiter + "\n" +
-                        "Content-Disposition: form-data; name=\"image\"; filename=\"guangzhou.jpeg\"\n" +
-                        "Content-Type: image/jpeg\n" +
-                        "Content-Length: " + fileSize + "\n" +
-                        "\n";
+                "Content-Disposition: form-data; name=\"image\"; filename=\"guangzhou.jpeg\"\n" +
+                "Content-Type: image/jpeg\n" +
+                "Content-Length: " + fileSize + "\n" +
+                "\n";
 
         String suffix = "--861fbeab-cd20-470c-9609-d40a0f704466--";
         byte[] bsuffix = suffix.getBytes(CharsetUtil.UTF_8);
@@ -468,17 +470,17 @@ public class HttpPostMultiPartRequestDecoderTest {
         if (data.isInMemory()) {
             // To be done only if not inMemory: assertEquals(data.get().length, fileSize);
             assertFalse(data.getByteBuf().capacity() < fileSize,
-                        "Capacity should be at least file size");
+                    "Capacity should be at least file size");
         }
         assertTrue(decoder.getCurrentAllocatedCapacity() < fileSize,
-                   "Capacity should be less than 1M");
+                "Capacity should be less than 1M");
         InterfaceHttpData[] httpDatas = decoder.getBodyHttpDatas().toArray(new InterfaceHttpData[0]);
         for (InterfaceHttpData httpData : httpDatas) {
             assertEquals(1, httpData.refCnt(), "Before cleanAllHttpData should be 1");
         }
         factory.cleanAllHttpData();
         for (InterfaceHttpData httpData : httpDatas) {
-            assertEquals(inMemory? 1 : 0, httpData.refCnt(), "After cleanAllHttpData should be 1 if in Memory");
+            assertEquals(inMemory ? 1 : 0, httpData.refCnt(), "After cleanAllHttpData should be 1 if in Memory");
         }
         decoder.destroy();
         for (InterfaceHttpData httpData : httpDatas) {

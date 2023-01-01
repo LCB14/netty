@@ -48,10 +48,11 @@ public final class ReadOnlyHttpHeaders extends HttpHeaders {
 
     /**
      * Create a new instance.
+     *
      * @param validateHeaders {@code true} to validate the contents of each header name.
-     * @param nameValuePairs An array of the structure {@code [<name,value>,<name,value>,...]}.
-     *                      A copy will <strong>NOT</strong> be made of this array. If the contents of this array
-     *                      may be modified externally you are responsible for passing in a copy.
+     * @param nameValuePairs  An array of the structure {@code [<name,value>,<name,value>,...]}.
+     *                        A copy will <strong>NOT</strong> be made of this array. If the contents of this array
+     *                        may be modified externally you are responsible for passing in a copy.
      */
     public ReadOnlyHttpHeaders(boolean validateHeaders, CharSequence... nameValuePairs) {
         if ((nameValuePairs.length & 1) != 0) {

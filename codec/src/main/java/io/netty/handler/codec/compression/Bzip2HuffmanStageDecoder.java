@@ -168,6 +168,7 @@ final class Bzip2HuffmanStageDecoder {
 
     /**
      * Decodes and returns the next symbol.
+     *
      * @return The decoded symbol
      */
     int nextSymbol() {

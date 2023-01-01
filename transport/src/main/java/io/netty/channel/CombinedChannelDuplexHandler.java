@@ -27,7 +27,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
 import java.net.SocketAddress;
 
 /**
- *  Combines a {@link ChannelInboundHandler} and a {@link ChannelOutboundHandler} into one {@link ChannelHandler}.
+ * Combines a {@link ChannelInboundHandler} and a {@link ChannelOutboundHandler} into one {@link ChannelHandler}.
  */
 public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O extends ChannelOutboundHandler>
         extends ChannelDuplexHandler {
@@ -61,8 +61,8 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O ext
     /**
      * Initialized this handler with the specified handlers.
      *
-     * @throws IllegalStateException if this handler was not constructed via the default constructor or
-     *                               if this handler does not implement all required handler interfaces
+     * @throws IllegalStateException    if this handler was not constructed via the default constructor or
+     *                                  if this handler does not implement all required handler interfaces
      * @throws IllegalArgumentException if the specified handlers cannot be combined into one due to a conflict
      *                                  in the type hierarchy
      */
@@ -85,12 +85,12 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O ext
         if (inboundHandler instanceof ChannelOutboundHandler) {
             throw new IllegalArgumentException(
                     "inboundHandler must not implement " +
-                    ChannelOutboundHandler.class.getSimpleName() + " to get combined.");
+                            ChannelOutboundHandler.class.getSimpleName() + " to get combined.");
         }
         if (outboundHandler instanceof ChannelInboundHandler) {
             throw new IllegalArgumentException(
                     "outboundHandler must not implement " +
-                    ChannelInboundHandler.class.getSimpleName() + " to get combined.");
+                            ChannelInboundHandler.class.getSimpleName() + " to get combined.");
         }
     }
 
@@ -129,7 +129,7 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O ext
         if (inboundHandler == null) {
             throw new IllegalStateException(
                     "init() must be invoked before being added to a " + ChannelPipeline.class.getSimpleName() +
-                            " if " +  CombinedChannelDuplexHandler.class.getSimpleName() +
+                            " if " + CombinedChannelDuplexHandler.class.getSimpleName() +
                             " was constructed with the default constructor.");
         }
 
@@ -147,14 +147,14 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O ext
                         if (logger.isDebugEnabled()) {
                             logger.debug(
                                     "An exception {}" +
-                                    "was thrown by a user handler's exceptionCaught() " +
-                                    "method while handling the following exception:",
+                                            "was thrown by a user handler's exceptionCaught() " +
+                                            "method while handling the following exception:",
                                     ThrowableUtil.stackTraceToString(error), cause);
                         } else if (logger.isWarnEnabled()) {
                             logger.warn(
                                     "An exception '{}' [enable DEBUG level for full stacktrace] " +
-                                    "was thrown by a user handler's exceptionCaught() " +
-                                    "method while handling the following exception:", error, cause);
+                                            "was thrown by a user handler's exceptionCaught() " +
+                                            "method while handling the following exception:", error, cause);
                         }
                     }
                 } else {

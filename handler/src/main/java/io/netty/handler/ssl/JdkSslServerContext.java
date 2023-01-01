@@ -43,7 +43,7 @@ public final class JdkSslServerContext extends JdkSslContext {
      * Creates a new instance.
      *
      * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
+     * @param keyFile       a PKCS#8 private key file in PEM format
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -56,9 +56,9 @@ public final class JdkSslServerContext extends JdkSslContext {
      * Creates a new instance.
      *
      * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
+     * @param keyFile       a PKCS#8 private key file in PEM format
+     * @param keyPassword   the password of the {@code keyFile}.
+     *                      {@code null} if it's not password-protected.
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -70,18 +70,18 @@ public final class JdkSslServerContext extends JdkSslContext {
     /**
      * Creates a new instance.
      *
-     * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param ciphers the cipher suites to enable, in the order of preference.
-     *                {@code null} to use the default cipher suites.
-     * @param nextProtocols the application layer protocols to accept, in the order of preference.
-     *                      {@code null} to disable TLS NPN/ALPN extension.
+     * @param certChainFile    an X.509 certificate chain file in PEM format
+     * @param keyFile          a PKCS#8 private key file in PEM format
+     * @param keyPassword      the password of the {@code keyFile}.
+     *                         {@code null} if it's not password-protected.
+     * @param ciphers          the cipher suites to enable, in the order of preference.
+     *                         {@code null} to use the default cipher suites.
+     * @param nextProtocols    the application layer protocols to accept, in the order of preference.
+     *                         {@code null} to disable TLS NPN/ALPN extension.
      * @param sessionCacheSize the size of the cache used for storing SSL session objects.
      *                         {@code 0} to use the default value.
-     * @param sessionTimeout the timeout for the cached SSL session objects, in seconds.
-     *                       {@code 0} to use the default value.
+     * @param sessionTimeout   the timeout for the cached SSL session objects, in seconds.
+     *                         {@code 0} to use the default value.
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -97,18 +97,18 @@ public final class JdkSslServerContext extends JdkSslContext {
     /**
      * Creates a new instance.
      *
-     * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param ciphers the cipher suites to enable, in the order of preference.
-     *                {@code null} to use the default cipher suites.
-     * @param cipherFilter a filter to apply over the supplied list of ciphers
-     * @param apn Provides a means to configure parameters related to application protocol negotiation.
+     * @param certChainFile    an X.509 certificate chain file in PEM format
+     * @param keyFile          a PKCS#8 private key file in PEM format
+     * @param keyPassword      the password of the {@code keyFile}.
+     *                         {@code null} if it's not password-protected.
+     * @param ciphers          the cipher suites to enable, in the order of preference.
+     *                         {@code null} to use the default cipher suites.
+     * @param cipherFilter     a filter to apply over the supplied list of ciphers
+     * @param apn              Provides a means to configure parameters related to application protocol negotiation.
      * @param sessionCacheSize the size of the cache used for storing SSL session objects.
      *                         {@code 0} to use the default value.
-     * @param sessionTimeout the timeout for the cached SSL session objects, in seconds.
-     *                       {@code 0} to use the default value.
+     * @param sessionTimeout   the timeout for the cached SSL session objects, in seconds.
+     *                         {@code 0} to use the default value.
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -123,18 +123,18 @@ public final class JdkSslServerContext extends JdkSslContext {
     /**
      * Creates a new instance.
      *
-     * @param certChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param ciphers the cipher suites to enable, in the order of preference.
-     *                {@code null} to use the default cipher suites.
-     * @param cipherFilter a filter to apply over the supplied list of ciphers
-     * @param apn Application Protocol Negotiator object.
+     * @param certChainFile    an X.509 certificate chain file in PEM format
+     * @param keyFile          a PKCS#8 private key file in PEM format
+     * @param keyPassword      the password of the {@code keyFile}.
+     *                         {@code null} if it's not password-protected.
+     * @param ciphers          the cipher suites to enable, in the order of preference.
+     *                         {@code null} to use the default cipher suites.
+     * @param cipherFilter     a filter to apply over the supplied list of ciphers
+     * @param apn              Application Protocol Negotiator object.
      * @param sessionCacheSize the size of the cache used for storing SSL session objects.
      *                         {@code 0} to use the default value.
-     * @param sessionTimeout the timeout for the cached SSL session objects, in seconds.
-     *                       {@code 0} to use the default value.
+     * @param sessionTimeout   the timeout for the cached SSL session objects, in seconds.
+     *                         {@code 0} to use the default value.
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -151,37 +151,38 @@ public final class JdkSslServerContext extends JdkSslContext {
                         Iterable<String> ciphers, CipherSuiteFilter cipherFilter, JdkApplicationProtocolNegotiator apn,
                         long sessionCacheSize, long sessionTimeout, String keyStore) throws SSLException {
         super(newSSLContext(provider, null, null,
-                toX509CertificatesInternal(certChainFile), toPrivateKeyInternal(keyFile, keyPassword),
-                keyPassword, null, sessionCacheSize, sessionTimeout, keyStore), false,
+                        toX509CertificatesInternal(certChainFile), toPrivateKeyInternal(keyFile, keyPassword),
+                        keyPassword, null, sessionCacheSize, sessionTimeout, keyStore), false,
                 ciphers, cipherFilter, apn, ClientAuth.NONE, null, false);
     }
 
     /**
      * Creates a new instance.
+     *
      * @param trustCertCollectionFile an X.509 certificate collection file in PEM format.
-     *                      This provides the certificate collection used for mutual authentication.
-     *                      {@code null} to use the system default
-     * @param trustManagerFactory the {@link TrustManagerFactory} that provides the {@link TrustManager}s
-     *                            that verifies the certificates sent from clients.
-     *                            {@code null} to use the default or the results of parsing
-     *                            {@code trustCertCollectionFile}.
-     * @param keyCertChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param keyManagerFactory the {@link KeyManagerFactory} that provides the {@link KeyManager}s
-     *                          that is used to encrypt data being sent to clients.
-     *                          {@code null} to use the default or the results of parsing
-     *                          {@code keyCertChainFile} and {@code keyFile}.
-     * @param ciphers the cipher suites to enable, in the order of preference.
-     *                {@code null} to use the default cipher suites.
-     * @param cipherFilter a filter to apply over the supplied list of ciphers
-     *                Only required if {@code provider} is {@link SslProvider#JDK}
-     * @param apn Provides a means to configure parameters related to application protocol negotiation.
-     * @param sessionCacheSize the size of the cache used for storing SSL session objects.
-     *                         {@code 0} to use the default value.
-     * @param sessionTimeout the timeout for the cached SSL session objects, in seconds.
-     *                       {@code 0} to use the default value.
+     *                                This provides the certificate collection used for mutual authentication.
+     *                                {@code null} to use the system default
+     * @param trustManagerFactory     the {@link TrustManagerFactory} that provides the {@link TrustManager}s
+     *                                that verifies the certificates sent from clients.
+     *                                {@code null} to use the default or the results of parsing
+     *                                {@code trustCertCollectionFile}.
+     * @param keyCertChainFile        an X.509 certificate chain file in PEM format
+     * @param keyFile                 a PKCS#8 private key file in PEM format
+     * @param keyPassword             the password of the {@code keyFile}.
+     *                                {@code null} if it's not password-protected.
+     * @param keyManagerFactory       the {@link KeyManagerFactory} that provides the {@link KeyManager}s
+     *                                that is used to encrypt data being sent to clients.
+     *                                {@code null} to use the default or the results of parsing
+     *                                {@code keyCertChainFile} and {@code keyFile}.
+     * @param ciphers                 the cipher suites to enable, in the order of preference.
+     *                                {@code null} to use the default cipher suites.
+     * @param cipherFilter            a filter to apply over the supplied list of ciphers
+     *                                Only required if {@code provider} is {@link SslProvider#JDK}
+     * @param apn                     Provides a means to configure parameters related to application protocol negotiation.
+     * @param sessionCacheSize        the size of the cache used for storing SSL session objects.
+     *                                {@code 0} to use the default value.
+     * @param sessionTimeout          the timeout for the cached SSL session objects, in seconds.
+     *                                {@code 0} to use the default value.
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -191,37 +192,38 @@ public final class JdkSslServerContext extends JdkSslContext {
                                Iterable<String> ciphers, CipherSuiteFilter cipherFilter, ApplicationProtocolConfig apn,
                                long sessionCacheSize, long sessionTimeout) throws SSLException {
         super(newSSLContext(null, toX509CertificatesInternal(trustCertCollectionFile), trustManagerFactory,
-                toX509CertificatesInternal(keyCertChainFile), toPrivateKeyInternal(keyFile, keyPassword),
-                keyPassword, keyManagerFactory, sessionCacheSize, sessionTimeout, null), false,
+                        toX509CertificatesInternal(keyCertChainFile), toPrivateKeyInternal(keyFile, keyPassword),
+                        keyPassword, keyManagerFactory, sessionCacheSize, sessionTimeout, null), false,
                 ciphers, cipherFilter, apn, ClientAuth.NONE, null, false);
     }
 
     /**
      * Creates a new instance.
+     *
      * @param trustCertCollectionFile an X.509 certificate collection file in PEM format.
-     *                      This provides the certificate collection used for mutual authentication.
-     *                      {@code null} to use the system default
-     * @param trustManagerFactory the {@link TrustManagerFactory} that provides the {@link TrustManager}s
-     *                            that verifies the certificates sent from clients.
-     *                            {@code null} to use the default or the results of parsing
-     *                            {@code trustCertCollectionFile}
-     * @param keyCertChainFile an X.509 certificate chain file in PEM format
-     * @param keyFile a PKCS#8 private key file in PEM format
-     * @param keyPassword the password of the {@code keyFile}.
-     *                    {@code null} if it's not password-protected.
-     * @param keyManagerFactory the {@link KeyManagerFactory} that provides the {@link KeyManager}s
-     *                          that is used to encrypt data being sent to clients.
-     *                          {@code null} to use the default or the results of parsing
-     *                          {@code keyCertChainFile} and {@code keyFile}.
-     * @param ciphers the cipher suites to enable, in the order of preference.
-     *                {@code null} to use the default cipher suites.
-     * @param cipherFilter a filter to apply over the supplied list of ciphers
-     *                Only required if {@code provider} is {@link SslProvider#JDK}
-     * @param apn Application Protocol Negotiator object.
-     * @param sessionCacheSize the size of the cache used for storing SSL session objects.
-     *                         {@code 0} to use the default value.
-     * @param sessionTimeout the timeout for the cached SSL session objects, in seconds.
-     *                       {@code 0} to use the default value
+     *                                This provides the certificate collection used for mutual authentication.
+     *                                {@code null} to use the system default
+     * @param trustManagerFactory     the {@link TrustManagerFactory} that provides the {@link TrustManager}s
+     *                                that verifies the certificates sent from clients.
+     *                                {@code null} to use the default or the results of parsing
+     *                                {@code trustCertCollectionFile}
+     * @param keyCertChainFile        an X.509 certificate chain file in PEM format
+     * @param keyFile                 a PKCS#8 private key file in PEM format
+     * @param keyPassword             the password of the {@code keyFile}.
+     *                                {@code null} if it's not password-protected.
+     * @param keyManagerFactory       the {@link KeyManagerFactory} that provides the {@link KeyManager}s
+     *                                that is used to encrypt data being sent to clients.
+     *                                {@code null} to use the default or the results of parsing
+     *                                {@code keyCertChainFile} and {@code keyFile}.
+     * @param ciphers                 the cipher suites to enable, in the order of preference.
+     *                                {@code null} to use the default cipher suites.
+     * @param cipherFilter            a filter to apply over the supplied list of ciphers
+     *                                Only required if {@code provider} is {@link SslProvider#JDK}
+     * @param apn                     Application Protocol Negotiator object.
+     * @param sessionCacheSize        the size of the cache used for storing SSL session objects.
+     *                                {@code 0} to use the default value.
+     * @param sessionTimeout          the timeout for the cached SSL session objects, in seconds.
+     *                                {@code 0} to use the default value
      * @deprecated use {@link SslContextBuilder}
      */
     @Deprecated
@@ -229,11 +231,11 @@ public final class JdkSslServerContext extends JdkSslContext {
                                File keyCertChainFile, File keyFile, String keyPassword,
                                KeyManagerFactory keyManagerFactory,
                                Iterable<String> ciphers, CipherSuiteFilter cipherFilter,
-                                JdkApplicationProtocolNegotiator apn,
+                               JdkApplicationProtocolNegotiator apn,
                                long sessionCacheSize, long sessionTimeout) throws SSLException {
         super(newSSLContext(null, toX509CertificatesInternal(trustCertCollectionFile), trustManagerFactory,
-                toX509CertificatesInternal(keyCertChainFile), toPrivateKeyInternal(keyFile, keyPassword),
-                keyPassword, keyManagerFactory, sessionCacheSize, sessionTimeout, KeyStore.getDefaultType()), false,
+                        toX509CertificatesInternal(keyCertChainFile), toPrivateKeyInternal(keyFile, keyPassword),
+                        keyPassword, keyManagerFactory, sessionCacheSize, sessionTimeout, KeyStore.getDefaultType()), false,
                 ciphers, cipherFilter, apn, ClientAuth.NONE, null, false);
     }
 
@@ -245,14 +247,14 @@ public final class JdkSslServerContext extends JdkSslContext {
                         ClientAuth clientAuth, String[] protocols, boolean startTls,
                         String keyStore) throws SSLException {
         super(newSSLContext(provider, trustCertCollection, trustManagerFactory, keyCertChain, key,
-                keyPassword, keyManagerFactory, sessionCacheSize, sessionTimeout, keyStore), false,
+                        keyPassword, keyManagerFactory, sessionCacheSize, sessionTimeout, keyStore), false,
                 ciphers, cipherFilter, toNegotiator(apn, true), clientAuth, protocols, startTls);
     }
 
     private static SSLContext newSSLContext(Provider sslContextProvider, X509Certificate[] trustCertCollection,
-                                     TrustManagerFactory trustManagerFactory, X509Certificate[] keyCertChain,
-                                     PrivateKey key, String keyPassword, KeyManagerFactory keyManagerFactory,
-                                     long sessionCacheSize, long sessionTimeout, String keyStore)
+                                            TrustManagerFactory trustManagerFactory, X509Certificate[] keyCertChain,
+                                            PrivateKey key, String keyPassword, KeyManagerFactory keyManagerFactory,
+                                            long sessionCacheSize, long sessionTimeout, String keyStore)
             throws SSLException {
         if (key == null && keyManagerFactory == null) {
             throw new NullPointerException("key, keyManagerFactory");
@@ -269,10 +271,10 @@ public final class JdkSslServerContext extends JdkSslContext {
 
             // Initialize the SSLContext to work with our key managers.
             SSLContext ctx = sslContextProvider == null ? SSLContext.getInstance(PROTOCOL)
-                : SSLContext.getInstance(PROTOCOL, sslContextProvider);
+                    : SSLContext.getInstance(PROTOCOL, sslContextProvider);
             ctx.init(keyManagerFactory.getKeyManagers(),
-                     trustManagerFactory == null ? null : trustManagerFactory.getTrustManagers(),
-                     null);
+                    trustManagerFactory == null ? null : trustManagerFactory.getTrustManagers(),
+                    null);
 
             SSLSessionContext sessCtx = ctx.getServerSessionContext();
             if (sessionCacheSize > 0) {

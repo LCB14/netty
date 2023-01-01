@@ -407,8 +407,8 @@ public class ProxyHandlerTest {
 
         // Convert the test items to the list of constructor parameters.
         List<Object[]> params = new ArrayList<Object[]>(items.size());
-        for (Object i: items) {
-            params.add(new Object[] { i });
+        for (Object i : items) {
+            params.add(new Object[]{i});
         }
 
         // Randomize the execution order to increase the possibility of exposing failure dependencies.
@@ -421,14 +421,14 @@ public class ProxyHandlerTest {
 
     @AfterAll
     public static void stopServers() {
-        for (ProxyServer p: allProxies) {
+        for (ProxyServer p : allProxies) {
             p.stop();
         }
     }
 
     @BeforeEach
     public void clearServerExceptions() throws Exception {
-        for (ProxyServer p: allProxies) {
+        for (ProxyServer p : allProxies) {
             p.clearExceptions();
         }
     }
@@ -441,7 +441,7 @@ public class ProxyHandlerTest {
 
     @AfterEach
     public void checkServerExceptions() throws Exception {
-        for (ProxyServer p: allProxies) {
+        for (ProxyServer p : allProxies) {
             p.checkExceptions();
         }
     }
@@ -467,7 +467,7 @@ public class ProxyHandlerTest {
         @Override
         public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
             if (evt instanceof ProxyConnectionEvent) {
-                eventCount ++;
+                eventCount++;
 
                 if (eventCount == 1) {
                     // Note that ProxyConnectionEvent can be triggered multiple times when there are multiple
@@ -561,7 +561,7 @@ public class ProxyHandlerTest {
         abstract void test() throws Exception;
 
         protected void assertProxyHandlers(boolean success) {
-            for (ChannelHandler h: clientHandlers) {
+            for (ChannelHandler h : clientHandlers) {
                 if (h instanceof ProxyHandler) {
                     ProxyHandler ph = (ProxyHandler) h;
                     String type = StringUtil.simpleClassName(ph);
@@ -584,7 +584,7 @@ public class ProxyHandlerTest {
                 }
             }
 
-            for (ChannelHandler h: clientHandlers) {
+            for (ChannelHandler h : clientHandlers) {
                 if (h instanceof ProxyHandler) {
                     ProxyHandler ph = (ProxyHandler) h;
                     assertThat(ph.connectFuture().isDone(), is(true));
@@ -614,7 +614,7 @@ public class ProxyHandlerTest {
                         ChannelHandler... clientHandlers) {
             super(name, destination, clientHandlers);
             int expectedEventCount = 0;
-            for (ChannelHandler h: clientHandlers) {
+            for (ChannelHandler h : clientHandlers) {
                 if (h instanceof ProxyHandler) {
                     expectedEventCount++;
                 }
@@ -656,7 +656,7 @@ public class ProxyHandlerTest {
 
             assertProxyHandlers(true);
 
-            assertThat(testHandler.received.toArray(), is(new Object[] { "0", "1", "2", "3" }));
+            assertThat(testHandler.received.toArray(), is(new Object[]{"0", "1", "2", "3"}));
             assertThat(testHandler.exceptions.toArray(), is(EmptyArrays.EMPTY_OBJECTS));
             assertThat(testHandler.eventCount, is(expectedEventCount));
             assertThat(finished, is(true));
@@ -714,7 +714,7 @@ public class ProxyHandlerTest {
         @Override
         protected void test() throws Exception {
             final long TIMEOUT = 2000;
-            for (ChannelHandler h: clientHandlers) {
+            for (ChannelHandler h : clientHandlers) {
                 if (h instanceof ProxyHandler) {
                     ((ProxyHandler) h).setConnectTimeoutMillis(TIMEOUT);
                 }

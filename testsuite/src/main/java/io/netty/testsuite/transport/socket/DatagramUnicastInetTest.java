@@ -51,7 +51,8 @@ public class DatagramUnicastInetTest extends DatagramUnicastTest {
     private static void testBindWithPortOnly(Bootstrap cb) throws Throwable {
         Channel channel = null;
         try {
-            cb.handler(new ChannelHandlerAdapter() { });
+            cb.handler(new ChannelHandlerAdapter() {
+            });
             channel = cb.bind(0).sync().channel();
         } finally {
             closeChannel(channel);

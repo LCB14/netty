@@ -30,17 +30,17 @@ public class DefaultHttpRequestTest {
         HttpHeaders h = m.headers();
 
         // Insert sample keys.
-        for (int i = 0; i < 1000; i ++) {
+        for (int i = 0; i < 1000; i++) {
             h.set(of(String.valueOf(i)), AsciiString.EMPTY_STRING);
         }
 
         // Remove in reversed order.
-        for (int i = 999; i >= 0; i --) {
+        for (int i = 999; i >= 0; i--) {
             h.remove(of(String.valueOf(i)));
         }
 
         // Check if random access returns nothing.
-        for (int i = 0; i < 1000; i ++) {
+        for (int i = 0; i < 1000; i++) {
             assertNull(h.get(of(String.valueOf(i))));
         }
 

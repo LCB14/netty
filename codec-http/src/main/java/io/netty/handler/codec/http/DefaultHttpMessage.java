@@ -40,7 +40,7 @@ public abstract class DefaultHttpMessage extends DefaultHttpObject implements Ht
     protected DefaultHttpMessage(final HttpVersion version, boolean validateHeaders, boolean singleFieldHeaders) {
         this(version,
                 singleFieldHeaders ? new CombinedHttpHeaders(validateHeaders)
-                                   : new DefaultHttpHeaders(validateHeaders));
+                        : new DefaultHttpHeaders(validateHeaders));
     }
 
     /**
@@ -85,8 +85,8 @@ public abstract class DefaultHttpMessage extends DefaultHttpObject implements Ht
         DefaultHttpMessage other = (DefaultHttpMessage) o;
 
         return headers().equals(other.headers()) &&
-               protocolVersion().equals(other.protocolVersion()) &&
-               super.equals(o);
+                protocolVersion().equals(other.protocolVersion()) &&
+                super.equals(o);
     }
 
     @Override

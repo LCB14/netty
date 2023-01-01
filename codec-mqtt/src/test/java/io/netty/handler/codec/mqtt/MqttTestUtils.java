@@ -123,7 +123,7 @@ public final class MqttTestUtils {
     private static void assertContainsValue(String message,
                                             Integer expectedValue,
                                             List<? extends MqttProperties.MqttProperty> properties) {
-        for (MqttProperties.MqttProperty property: properties) {
+        for (MqttProperties.MqttProperty property : properties) {
             if (property instanceof MqttProperties.IntegerProperty &&
                     ((MqttProperties.IntegerProperty) property).value == expectedValue) {
                 return;

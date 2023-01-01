@@ -245,5 +245,6 @@ public final class HttpHeaderValues {
      */
     public static final AsciiString XML_HTTP_REQUEST = AsciiString.cached("XMLHttpRequest");
 
-    private HttpHeaderValues() { }
+    private HttpHeaderValues() {
+    }
 }

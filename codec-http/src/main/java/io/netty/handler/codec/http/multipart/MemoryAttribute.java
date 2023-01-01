@@ -68,7 +68,7 @@ public class MemoryAttribute extends AbstractMemoryHttpData implements Attribute
     @Override
     public void setValue(String value) throws IOException {
         ObjectUtil.checkNotNull(value, "value");
-        byte [] bytes = value.getBytes(getCharset());
+        byte[] bytes = value.getBytes(getCharset());
         checkSize(bytes.length);
         ByteBuf buffer = wrappedBuffer(bytes);
         if (definedSize > 0) {

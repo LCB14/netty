@@ -235,7 +235,7 @@ public abstract class SslClientHelloHandler<T> extends ByteToMessageDecoder impl
     /**
      * Kicks off a lookup for the given {@code ClientHello} and returns a {@link Future} which in turn will
      * notify the {@link #onLookupComplete(ChannelHandlerContext, Future)} on completion.
-     *
+     * <p>
      * See https://tools.ietf.org/html/rfc5246#section-7.4.1.2
      *
      * <pre>

@@ -24,7 +24,7 @@ import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 /**
  * A <a href="https://tools.ietf.org/html/rfc6265">RFC6265</a> compliant cookie decoder to be used client side.
- *
+ * <p>
  * It will store the way the raw value was wrapped in {@link Cookie#setWrap(boolean)} so it can be
  * eventually sent back to the Origin server as is.
  *
@@ -61,10 +61,11 @@ public final class ClientCookieDecoder extends CookieDecoder {
 
         CookieBuilder cookieBuilder = null;
 
-        loop: for (int i = 0;;) {
+        loop:
+        for (int i = 0; ; ) {
 
             // Skip spaces and separators.
-            for (;;) {
+            for (; ; ) {
                 if (i == headerLen) {
                     break loop;
                 }
@@ -87,7 +88,7 @@ public final class ClientCookieDecoder extends CookieDecoder {
             int valueBegin;
             int valueEnd;
 
-            for (;;) {
+            for (; ; ) {
                 char curChar = header.charAt(i);
                 if (curChar == ';') {
                     // NAME; (no value till ';')
@@ -190,14 +191,10 @@ public final class ClientCookieDecoder extends CookieDecoder {
          * Parse and store a key-value pair. First one is considered to be the
          * cookie name/value. Unknown attribute names are silently discarded.
          *
-         * @param keyStart
-         *            where the key starts in the header
-         * @param keyEnd
-         *            where the key ends in the header
-         * @param valueStart
-         *            where the value starts in the header
-         * @param valueEnd
-         *            where the value ends in the header
+         * @param keyStart   where the key starts in the header
+         * @param keyEnd     where the key ends in the header
+         * @param valueStart where the value starts in the header
+         * @param valueEnd   where the value ends in the header
          */
         void appendAttribute(int keyStart, int keyEnd, int valueStart, int valueEnd) {
             int length = keyEnd - keyStart;

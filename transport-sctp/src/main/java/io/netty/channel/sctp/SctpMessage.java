@@ -32,9 +32,10 @@ public final class SctpMessage extends DefaultByteBufHolder {
 
     /**
      * Essential data that is being carried within SCTP Data Chunk
+     *
      * @param protocolIdentifier of payload
-     * @param streamIdentifier that you want to send the payload
-     * @param payloadBuffer channel buffer
+     * @param streamIdentifier   that you want to send the payload
+     * @param payloadBuffer      channel buffer
      */
     public SctpMessage(int protocolIdentifier, int streamIdentifier, ByteBuf payloadBuffer) {
         this(protocolIdentifier, streamIdentifier, false, payloadBuffer);
@@ -42,10 +43,11 @@ public final class SctpMessage extends DefaultByteBufHolder {
 
     /**
      * Essential data that is being carried within SCTP Data Chunk
+     *
      * @param protocolIdentifier of payload
-     * @param streamIdentifier that you want to send the payload
-     * @param unordered if {@literal true}, the SCTP Data Chunk will be sent with the U (unordered) flag set.
-     * @param payloadBuffer channel buffer
+     * @param streamIdentifier   that you want to send the payload
+     * @param unordered          if {@literal true}, the SCTP Data Chunk will be sent with the U (unordered) flag set.
+     * @param payloadBuffer      channel buffer
      */
     public SctpMessage(int protocolIdentifier, int streamIdentifier, boolean unordered, ByteBuf payloadBuffer) {
         super(payloadBuffer);
@@ -57,6 +59,7 @@ public final class SctpMessage extends DefaultByteBufHolder {
 
     /**
      * Essential data that is being carried within SCTP Data Chunk
+     *
      * @param msgInfo       the {@link MessageInfo}
      * @param payloadBuffer channel buffer
      */
@@ -103,7 +106,7 @@ public final class SctpMessage extends DefaultByteBufHolder {
     public boolean isComplete() {
         if (msgInfo != null) {
             return msgInfo.isComplete();
-        }  else {
+        } else {
             //all outbound sctp messages are complete
             return true;
         }
@@ -197,8 +200,8 @@ public final class SctpMessage extends DefaultByteBufHolder {
     @Override
     public String toString() {
         return "SctpFrame{" +
-               "streamIdentifier=" + streamIdentifier + ", protocolIdentifier=" + protocolIdentifier +
-               ", unordered=" + unordered +
-               ", data=" + contentToString() + '}';
+                "streamIdentifier=" + streamIdentifier + ", protocolIdentifier=" + protocolIdentifier +
+                ", unordered=" + unordered +
+                ", data=" + contentToString() + '}';
     }
 }

@@ -73,8 +73,7 @@ public final class ThreadDeathWatcher {
      * Schedules the specified {@code task} to run when the specified {@code thread} dies.
      *
      * @param thread the {@link Thread} to watch
-     * @param task the {@link Runnable} to run when the {@code thread} dies
-     *
+     * @param task   the {@link Runnable} to run when the {@code thread} dies
      * @throws IllegalArgumentException if the specified {@code thread} is not alive
      */
     public static void watch(Thread thread, Runnable task) {
@@ -141,7 +140,8 @@ public final class ThreadDeathWatcher {
         }
     }
 
-    private ThreadDeathWatcher() { }
+    private ThreadDeathWatcher() {
+    }
 
     private static final class Watcher implements Runnable {
 
@@ -149,7 +149,7 @@ public final class ThreadDeathWatcher {
 
         @Override
         public void run() {
-            for (;;) {
+            for (; ; ) {
                 fetchWatchees();
                 notifyWatchees();
 
@@ -195,7 +195,7 @@ public final class ThreadDeathWatcher {
         }
 
         private void fetchWatchees() {
-            for (;;) {
+            for (; ; ) {
                 Entry e = pendingEntries.poll();
                 if (e == null) {
                     break;
@@ -211,7 +211,7 @@ public final class ThreadDeathWatcher {
 
         private void notifyWatchees() {
             List<Entry> watchees = this.watchees;
-            for (int i = 0; i < watchees.size();) {
+            for (int i = 0; i < watchees.size(); ) {
                 Entry e = watchees.get(i);
                 if (!e.thread.isAlive()) {
                     watchees.remove(i);
@@ -221,7 +221,7 @@ public final class ThreadDeathWatcher {
                         logger.warn("Thread death watcher task raised an exception:", t);
                     }
                 } else {
-                    i ++;
+                    i++;
                 }
             }
         }

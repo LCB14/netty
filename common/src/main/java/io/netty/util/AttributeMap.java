@@ -17,7 +17,7 @@ package io.netty.util;
 
 /**
  * Holds {@link Attribute}s which can be accessed via {@link AttributeKey}.
- *
+ * <p>
  * Implementations must be Thread-safe.
  */
 public interface AttributeMap {

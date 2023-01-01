@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Async XML decoder based on <a href="https://github.com/FasterXML/aalto-xml">Aalto XML parser</a>.
- *
+ * <p>
  * Parses the incoming data into one of XML messages defined in this package.
  */
 

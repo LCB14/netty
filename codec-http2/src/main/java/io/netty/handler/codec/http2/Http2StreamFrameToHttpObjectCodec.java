@@ -53,7 +53,7 @@ import java.util.List;
  * and back. It can be used as an adapter in conjunction with {@link
  * Http2MultiplexCodec} to make http/2 connections backward-compatible with
  * {@link ChannelHandler}s expecting {@link HttpObject}
- *
+ * <p>
  * For simplicity, it converts to chunked encoding unless the entire stream
  * is a single header.
  */
@@ -62,7 +62,7 @@ import java.util.List;
 public class Http2StreamFrameToHttpObjectCodec extends MessageToMessageCodec<Http2StreamFrame, HttpObject> {
 
     private static final AttributeKey<HttpScheme> SCHEME_ATTR_KEY =
-        AttributeKey.valueOf(HttpScheme.class, "STREAMFRAMECODEC_SCHEME");
+            AttributeKey.valueOf(HttpScheme.class, "STREAMFRAMECODEC_SCHEME");
 
     private final boolean isServer;
     private final boolean validateHeaders;
@@ -104,7 +104,7 @@ public class Http2StreamFrameToHttpObjectCodec extends MessageToMessageCodec<Htt
                 if (headers.method() == null && status == null) {
                     LastHttpContent last = new DefaultLastHttpContent(Unpooled.EMPTY_BUFFER, validateHeaders);
                     HttpConversionUtil.addHttp2ToHttpHeaders(id, headers, last.trailingHeaders(),
-                                                             HttpVersion.HTTP_1_1, true, true);
+                            HttpVersion.HTTP_1_1, true, true);
                     out.add(last);
                 } else {
                     FullHttpMessage full = newFullMessage(id, headers, ctx.alloc());
@@ -141,14 +141,14 @@ public class Http2StreamFrameToHttpObjectCodec extends MessageToMessageCodec<Htt
     /**
      * Encode from an {@link HttpObject} to an {@link Http2StreamFrame}. This method will
      * be called for each written message that can be handled by this encoder.
-     *
+     * <p>
      * NOTE: 100-Continue responses that are NOT {@link FullHttpResponse} will be rejected.
      *
-     * @param ctx           the {@link ChannelHandlerContext} which this handler belongs to
-     * @param obj           the {@link HttpObject} message to encode
-     * @param out           the {@link List} into which the encoded msg should be added
-     *                      needs to do some kind of aggregation
-     * @throws Exception    is thrown if an error occurs
+     * @param ctx the {@link ChannelHandlerContext} which this handler belongs to
+     * @param obj the {@link HttpObject} message to encode
+     * @param out the {@link List} into which the encoded msg should be added
+     *            needs to do some kind of aggregation
+     * @throws Exception is thrown if an error occurs
      */
     @Override
     protected void encode(ChannelHandlerContext ctx, HttpObject obj, List<Object> out) throws Exception {
@@ -254,8 +254,8 @@ public class Http2StreamFrameToHttpObjectCodec extends MessageToMessageCodec<Htt
     }
 
     /**
-     *    An informational response using a 1xx status code other than 101 is
-     *    transmitted as a HEADERS frame
+     * An informational response using a 1xx status code other than 101 is
+     * transmitted as a HEADERS frame
      */
     private static boolean isInformationalResponseHeaderFrame(CharSequence status) {
         if (status.length() == 3) {
@@ -263,8 +263,8 @@ public class Http2StreamFrameToHttpObjectCodec extends MessageToMessageCodec<Htt
             char char1 = status.charAt(1);
             char char2 = status.charAt(2);
             return char0 == '1'
-                && char1 >= '0' && char1 <= '9'
-                && char2 >= '0' && char2 <= '9' && char2 != '1';
+                    && char1 >= '0' && char1 <= '9'
+                    && char2 >= '0' && char2 <= '9' && char2 != '1';
         }
         return false;
     }

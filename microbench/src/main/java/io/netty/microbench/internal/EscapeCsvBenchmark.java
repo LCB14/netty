@@ -37,6 +37,7 @@ public class EscapeCsvBenchmark extends AbstractMicrobenchmark {
 
     private static final String value1024;
     private static final String value1024commaAtEnd;
+
     static {
         StringBuilder s1024 = new StringBuilder(1024);
         while (s1024.length() < 1024) {
@@ -52,10 +53,10 @@ public class EscapeCsvBenchmark extends AbstractMicrobenchmark {
     @Override
     protected ChainedOptionsBuilder newOptionsBuilder() throws Exception {
         return super.newOptionsBuilder()
-                    .param("value", "netty")
-                    .param("value", "\"123\"", "need\"escape", "need,quotes", "  trim-me  ", "short-comma-ended,")
-                    .param("value", value1024)
-                    .param("value", value1024commaAtEnd);
+                .param("value", "netty")
+                .param("value", "\"123\"", "need\"escape", "need,quotes", "  trim-me  ", "short-comma-ended,")
+                .param("value", value1024)
+                .param("value", value1024commaAtEnd);
     }
 
     private static CharSequence escapeCsvOld(CharSequence value, boolean trimWhiteSpace) {
@@ -86,26 +87,26 @@ public class EscapeCsvBenchmark extends AbstractMicrobenchmark {
         for (int i = start; i <= last; i++) {
             char current = value.charAt(i);
             switch (current) {
-            case DOUBLE_QUOTE:
-                if (i == start || i == last) {
-                    if (!quoted) {
-                        result.append(DOUBLE_QUOTE);
+                case DOUBLE_QUOTE:
+                    if (i == start || i == last) {
+                        if (!quoted) {
+                            result.append(DOUBLE_QUOTE);
+                        } else {
+                            continue;
+                        }
                     } else {
-                        continue;
+                        boolean isNextCharDoubleQuote = isDoubleQuote(value.charAt(i + 1));
+                        if (!isDoubleQuote(value.charAt(i - 1)) &&
+                                (!isNextCharDoubleQuote || i + 1 == last)) {
+                            result.append(DOUBLE_QUOTE);
+                            escapedDoubleQuote = true;
+                        }
+                        break;
                     }
-                } else {
-                    boolean isNextCharDoubleQuote = isDoubleQuote(value.charAt(i + 1));
-                    if (!isDoubleQuote(value.charAt(i - 1)) &&
-                        (!isNextCharDoubleQuote || i + 1 == last)) {
-                        result.append(DOUBLE_QUOTE);
-                        escapedDoubleQuote = true;
-                    }
-                    break;
-                }
-            case LINE_FEED:
-            case CARRIAGE_RETURN:
-            case COMMA:
-                foundSpecialCharacter = true;
+                case LINE_FEED:
+                case CARRIAGE_RETURN:
+                case COMMA:
+                    foundSpecialCharacter = true;
             }
             result.append(current);
         }
@@ -114,7 +115,7 @@ public class EscapeCsvBenchmark extends AbstractMicrobenchmark {
             return quote(result);
         }
         if (trimmed) {
-            return quoted? quote(result) : result;
+            return quoted ? quote(result) : result;
         }
         return value;
     }

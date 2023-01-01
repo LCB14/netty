@@ -33,10 +33,9 @@ public class StompSubframeAggregator
     /**
      * Creates a new instance.
      *
-     * @param maxContentLength
-     *        the maximum length of the aggregated content.
-     *        If the length of the aggregated content exceeds this value,
-     *        a {@link TooLongFrameException} will be raised.
+     * @param maxContentLength the maximum length of the aggregated content.
+     *                         If the length of the aggregated content exceeds this value,
+     *                         a {@link TooLongFrameException} will be raised.
      */
     public StompSubframeAggregator(int maxContentLength) {
         super(maxContentLength);
@@ -65,7 +64,7 @@ public class StompSubframeAggregator
     @Override
     protected boolean isContentLengthInvalid(StompHeadersSubframe start, int maxContentLength) {
         return (int) Math.min(Integer.MAX_VALUE, start.headers().getLong(StompHeaders.CONTENT_LENGTH, -1)) >
-                     maxContentLength;
+                maxContentLength;
     }
 
     @Override

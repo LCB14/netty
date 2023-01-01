@@ -41,23 +41,23 @@ public class RtspDecoderTest {
     @Test
     public void testReceiveAnnounce() {
         byte[] data1 = ("ANNOUNCE rtsp://172.20.184.218:554/d3abaaa7-65f2-"
-                      + "42b4-8d6b-379f492fcf0f RTSP/1.0\r\n"
-                      + "CSeq: 2\r\n"
-                      + "Session: 2777476816092819869\r\n"
-                      + "x-notice: 5402 \"Session Terminated by Server\" "
-                      + "event-date=20150514T075303Z\r\n"
-                      + "Range: npt=0\r\n\r\n").getBytes();
+                + "42b4-8d6b-379f492fcf0f RTSP/1.0\r\n"
+                + "CSeq: 2\r\n"
+                + "Session: 2777476816092819869\r\n"
+                + "x-notice: 5402 \"Session Terminated by Server\" "
+                + "event-date=20150514T075303Z\r\n"
+                + "Range: npt=0\r\n\r\n").getBytes();
 
         byte[] data2 = ("RTSP/1.0 200 OK\r\n" +
-                        "Server: Orbit2x\r\n" +
-                        "CSeq: 172\r\n" +
-                        "Session: 2547019973447939919\r\n" +
-                        "\r\n").getBytes();
+                "Server: Orbit2x\r\n" +
+                "CSeq: 172\r\n" +
+                "Session: 2547019973447939919\r\n" +
+                "\r\n").getBytes();
 
         EmbeddedChannel ch = new EmbeddedChannel(new RtspDecoder(),
-                                            new HttpObjectAggregator(1048576));
+                new HttpObjectAggregator(1048576));
         ch.writeInbound(Unpooled.wrappedBuffer(data1),
-                        Unpooled.wrappedBuffer(data2));
+                Unpooled.wrappedBuffer(data2));
 
         HttpObject res1 = ch.readInbound();
         assertNotNull(res1);

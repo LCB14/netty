@@ -121,8 +121,8 @@ public abstract class AbstractSingleThreadEventLoopTest {
         EventLoopGroup loop = newEventLoopGroup();
         ServerBootstrap b = new ServerBootstrap();
         b.group(loop)
-        .channel(serverChannelClass())
-        .childHandler(new ChannelInboundHandlerAdapter());
+                .channel(serverChannelClass())
+                .childHandler(new ChannelInboundHandlerAdapter());
 
         // Not close the Channel to ensure the EventLoop is still shutdown in time.
         ChannelFuture cf = serverChannelClass() == LocalServerChannel.class
@@ -268,17 +268,17 @@ public abstract class AbstractSingleThreadEventLoopTest {
 
     private static void runBlockingOn(EventLoop eventLoop, final Runnable action) {
         final Promise<Void> promise = eventLoop.newPromise();
-            eventLoop.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        action.run();
-                        promise.setSuccess(null);
-                    } catch (Throwable t) {
-                        promise.tryFailure(t);
-                    }
+        eventLoop.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    action.run();
+                    promise.setSuccess(null);
+                } catch (Throwable t) {
+                    promise.tryFailure(t);
                 }
-            });
+            }
+        });
         try {
             promise.await();
         } catch (InterruptedException e) {
@@ -295,7 +295,8 @@ public abstract class AbstractSingleThreadEventLoopTest {
 
     private static final Runnable NOOP = new Runnable() {
         @Override
-        public void run() { }
+        public void run() {
+        }
     };
 
     private static void assertRejection(EventExecutor loop) {
@@ -310,7 +311,10 @@ public abstract class AbstractSingleThreadEventLoopTest {
     protected boolean supportsChannelIteration() {
         return false;
     }
+
     protected abstract EventLoopGroup newEventLoopGroup();
+
     protected abstract Channel newChannel();
+
     protected abstract Class<? extends ServerChannel> serverChannelClass();
 }

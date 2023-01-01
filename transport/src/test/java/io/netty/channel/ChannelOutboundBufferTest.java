@@ -49,7 +49,7 @@ public class ChannelOutboundBufferTest {
         assertEquals(0, buffer.nioBufferCount());
         ByteBuffer[] buffers = buffer.nioBuffers();
         assertNotNull(buffers);
-        for (ByteBuffer b: buffers) {
+        for (ByteBuffer b : buffers) {
             assertNull(b);
         }
         assertEquals(0, buffer.nioBufferCount());
@@ -71,7 +71,7 @@ public class ChannelOutboundBufferTest {
         ByteBuffer[] buffers = buffer.nioBuffers();
         assertNotNull(buffers);
         assertEquals(1, buffer.nioBufferCount(), "Should still be 0 as not flushed yet");
-        for (int i = 0;  i < buffer.nioBufferCount(); i++) {
+        for (int i = 0; i < buffer.nioBufferCount(); i++) {
             if (i == 0) {
                 assertEquals(buffers[i], nioBuf);
             } else {
@@ -95,7 +95,7 @@ public class ChannelOutboundBufferTest {
         buffer.addFlush();
         ByteBuffer[] buffers = buffer.nioBuffers();
         assertEquals(64, buffer.nioBufferCount());
-        for (int i = 0;  i < buffer.nioBufferCount(); i++) {
+        for (int i = 0; i < buffer.nioBufferCount(); i++) {
             assertEquals(buffers[i], buf.internalNioBuffer(buf.readerIndex(), buf.readableBytes()));
         }
         release(buffer);
@@ -119,7 +119,7 @@ public class ChannelOutboundBufferTest {
         buffer.addFlush();
         ByteBuffer[] buffers = buffer.nioBuffers();
         assertEquals(65, buffer.nioBufferCount());
-        for (int i = 0;  i < buffer.nioBufferCount(); i++) {
+        for (int i = 0; i < buffer.nioBufferCount(); i++) {
             if (i < 65) {
                 assertEquals(buffers[i], buf.internalNioBuffer(buf.readerIndex(), buf.readableBytes()));
             } else {
@@ -148,7 +148,7 @@ public class ChannelOutboundBufferTest {
         final int maxCount = 10;    // less than comp.nioBufferCount()
         ByteBuffer[] buffers = buffer.nioBuffers(maxCount, Integer.MAX_VALUE);
         assertTrue(buffer.nioBufferCount() <= maxCount, "Should not be greater than maxCount");
-        for (int i = 0;  i < buffer.nioBufferCount(); i++) {
+        for (int i = 0; i < buffer.nioBufferCount(); i++) {
             assertEquals(buffers[i], buf.internalNioBuffer(buf.readerIndex(), buf.readableBytes()));
         }
         release(buffer);
@@ -156,7 +156,7 @@ public class ChannelOutboundBufferTest {
     }
 
     private static void release(ChannelOutboundBuffer buffer) {
-        for (;;) {
+        for (; ; ) {
             if (!buffer.remove()) {
                 break;
             }
@@ -296,7 +296,7 @@ public class ChannelOutboundBufferTest {
         ChannelOutboundBuffer cob = ch.unsafe().outboundBuffer();
 
         // Ensure that the default value of a user-defined writability flag is true.
-        for (int i = 1; i <= 30; i ++) {
+        for (int i = 1; i <= 30; i++) {
             assertThat(cob.getUserDefinedWritability(i), is(true));
         }
 
@@ -492,7 +492,7 @@ public class ChannelOutboundBufferTest {
 
     private static void safeClose(EmbeddedChannel ch) {
         ch.finish();
-        for (;;) {
+        for (; ; ) {
             ByteBuf m = ch.readOutbound();
             if (m == null) {
                 break;

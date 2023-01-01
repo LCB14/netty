@@ -273,8 +273,8 @@ public abstract class ProxyHandler extends ChannelDuplexHandler {
      * Handles the message received from the proxy server.
      *
      * @return {@code true} if the connection to the destination has been established,
-     *         {@code false} if the connection to the destination has not been established and more messages are
-     *         expected from the proxy server
+     * {@code false} if the connection to the destination has not been established and more messages are
+     * expected from the proxy server
      */
     protected abstract boolean handleResponse(ChannelHandlerContext ctx, Object response) throws Exception;
 
@@ -371,13 +371,13 @@ public abstract class ProxyHandler extends ChannelDuplexHandler {
         }
 
         StringBuilder buf = new StringBuilder(128 + msg.length())
-            .append(protocol())
-            .append(", ")
-            .append(authScheme())
-            .append(", ")
-            .append(proxyAddress)
-            .append(" => ")
-            .append(destinationAddress);
+                .append(protocol())
+                .append(", ")
+                .append(authScheme())
+                .append(", ")
+                .append(proxyAddress)
+                .append(" => ")
+                .append(destinationAddress);
         if (!msg.isEmpty()) {
             buf.append(", ").append(msg);
         }

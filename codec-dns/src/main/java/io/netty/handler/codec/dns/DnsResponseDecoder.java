@@ -84,14 +84,14 @@ abstract class DnsResponseDecoder<A extends SocketAddress> {
                                                DnsOpCode opCode, DnsResponseCode responseCode) throws Exception;
 
     private void decodeQuestions(DnsResponse response, ByteBuf buf, int questionCount) throws Exception {
-        for (int i = questionCount; i > 0; i --) {
+        for (int i = questionCount; i > 0; i--) {
             response.addRecord(DnsSection.QUESTION, recordDecoder.decodeQuestion(buf));
         }
     }
 
     private boolean decodeRecords(
             DnsResponse response, DnsSection section, ByteBuf buf, int count) throws Exception {
-        for (int i = count; i > 0; i --) {
+        for (int i = count; i > 0; i--) {
             final DnsRecord r = recordDecoder.decodeRecord(buf);
             if (r == null) {
                 // Truncated response

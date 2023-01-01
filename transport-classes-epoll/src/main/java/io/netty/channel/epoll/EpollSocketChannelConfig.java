@@ -159,8 +159,7 @@ public final class EpollSocketChannelConfig extends EpollChannelConfig implement
         } else if (option == EpollChannelOption.IP_TRANSPARENT) {
             setIpTransparent((Boolean) value);
         } else if (option == EpollChannelOption.TCP_MD5SIG) {
-            @SuppressWarnings("unchecked")
-            final Map<InetAddress, byte[]> m = (Map<InetAddress, byte[]>) value;
+            @SuppressWarnings("unchecked") final Map<InetAddress, byte[]> m = (Map<InetAddress, byte[]>) value;
             setTcpMd5Sig(m);
         } else if (option == EpollChannelOption.TCP_QUICKACK) {
             setTcpQuickAck((Boolean) value);
@@ -262,6 +261,7 @@ public final class EpollSocketChannelConfig extends EpollChannelConfig implement
 
     /**
      * Get the {@code TCP_NOTSENT_LOWAT} option on the socket. See {@code man 7 tcp} for more details.
+     *
      * @return value is a uint32_t
      */
     public long getTcpNotSentLowAt() {
@@ -409,6 +409,7 @@ public final class EpollSocketChannelConfig extends EpollChannelConfig implement
 
     /**
      * Set the {@code TCP_NOTSENT_LOWAT} option on the socket. See {@code man 7 tcp} for more details.
+     *
      * @param tcpNotSentLowAt is a uint32_t
      */
     public EpollSocketChannelConfig setTcpNotSentLowAt(long tcpNotSentLowAt) {
@@ -486,7 +487,7 @@ public final class EpollSocketChannelConfig extends EpollChannelConfig implement
         }
     }
 
-     /**
+    /**
      * Returns {@code true} if <a href="https://man7.org/linux/man-pages/man7/ip.7.html">IP_TRANSPARENT</a> is enabled,
      * {@code false} otherwise.
      */

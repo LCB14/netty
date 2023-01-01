@@ -47,16 +47,17 @@ public class CompositeByteBufWriteOutBenchmark extends AbstractMicrobenchmark {
                 return makeLargeChunks(length);
             }
         };
+
         abstract ByteBuf[] sourceBuffers(int length);
     }
 
     @Override
     protected String[] jvmArgs() {
         // Ensure we minimize the GC overhead by sizing the heap big enough.
-        return new String[] { "-XX:MaxDirectMemorySize=2g", "-Xmx4g", "-Xms4g", "-Xmn3g" };
+        return new String[]{"-XX:MaxDirectMemorySize=2g", "-Xmx4g", "-Xms4g", "-Xmn3g"};
     }
 
-    @Param({ "64", "1024", "10240", "102400", "1024000" })
+    @Param({"64", "1024", "10240", "102400", "1024000"})
     public int size;
 
     @Param

@@ -177,7 +177,7 @@ public class SpdyHeaderBlockRawDecoderTest {
 
     @Test
     public void testMissingValueLength() throws Exception {
-        ByteBuf headerBlock =  Unpooled.buffer(12);
+        ByteBuf headerBlock = Unpooled.buffer(12);
         headerBlock.writeInt(1);
         headerBlock.writeInt(4);
         headerBlock.writeBytes(nameBytes);

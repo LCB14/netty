@@ -69,10 +69,10 @@ public final class NioDatagramChannel
     private static final SelectorProvider DEFAULT_SELECTOR_PROVIDER = SelectorProvider.provider();
     private static final String EXPECTED_TYPES =
             " (expected: " + StringUtil.simpleClassName(DatagramPacket.class) + ", " +
-            StringUtil.simpleClassName(AddressedEnvelope.class) + '<' +
-            StringUtil.simpleClassName(ByteBuf.class) + ", " +
-            StringUtil.simpleClassName(SocketAddress.class) + ">, " +
-            StringUtil.simpleClassName(ByteBuf.class) + ')';
+                    StringUtil.simpleClassName(AddressedEnvelope.class) + '<' +
+                    StringUtil.simpleClassName(ByteBuf.class) + ", " +
+                    StringUtil.simpleClassName(SocketAddress.class) + ">, " +
+                    StringUtil.simpleClassName(ByteBuf.class) + ')';
 
     private final DatagramChannelConfig config;
 
@@ -169,7 +169,7 @@ public final class NioDatagramChannel
         DatagramChannel ch = javaChannel();
         return ch.isOpen() && (
                 config.getOption(ChannelOption.DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION) && isRegistered()
-                || ch.socket().isBound());
+                        || ch.socket().isBound());
     }
 
     @Override
@@ -207,7 +207,7 @@ public final class NioDatagramChannel
 
     @Override
     protected boolean doConnect(SocketAddress remoteAddress,
-            SocketAddress localAddress) throws Exception {
+                                SocketAddress localAddress) throws Exception {
         if (localAddress != null) {
             doBind0(localAddress);
         }
@@ -264,7 +264,7 @@ public final class NioDatagramChannel
         } catch (Throwable cause) {
             PlatformDependent.throwException(cause);
             return -1;
-        }  finally {
+        } finally {
             if (free) {
                 data.release();
             }
@@ -291,7 +291,7 @@ public final class NioDatagramChannel
         }
 
         final ByteBuffer nioData = data.nioBufferCount() == 1 ? data.internalNioBuffer(data.readerIndex(), dataLen)
-                                                              : data.nioBuffer(data.readerIndex(), dataLen);
+                : data.nioBuffer(data.readerIndex(), dataLen);
         final int writtenBytes;
         if (remoteAddress != null) {
             writtenBytes = javaChannel().send(nioData, remoteAddress);
@@ -505,11 +505,11 @@ public final class NioDatagramChannel
                     while (keyIt.hasNext()) {
                         MembershipKey key = keyIt.next();
                         if (networkInterface.equals(key.networkInterface())) {
-                           if (source == null && key.sourceAddress() == null ||
-                               source != null && source.equals(key.sourceAddress())) {
-                               key.drop();
-                               keyIt.remove();
-                           }
+                            if (source == null && key.sourceAddress() == null ||
+                                    source != null && source.equals(key.sourceAddress())) {
+                                key.drop();
+                                keyIt.remove();
+                            }
                         }
                     }
                     if (keys.isEmpty()) {
@@ -550,7 +550,7 @@ public final class NioDatagramChannel
         synchronized (this) {
             if (memberships != null) {
                 List<MembershipKey> keys = memberships.get(multicastAddress);
-                for (MembershipKey key: keys) {
+                for (MembershipKey key : keys) {
                     if (networkInterface.equals(key.networkInterface())) {
                         try {
                             key.block(sourceToBlock);
@@ -567,7 +567,6 @@ public final class NioDatagramChannel
 
     /**
      * Block the given sourceToBlock address for the given multicastAddress
-     *
      */
     @Override
     public ChannelFuture block(InetAddress multicastAddress, InetAddress sourceToBlock) {
@@ -576,7 +575,6 @@ public final class NioDatagramChannel
 
     /**
      * Block the given sourceToBlock address for the given multicastAddress
-     *
      */
     @Override
     public ChannelFuture block(

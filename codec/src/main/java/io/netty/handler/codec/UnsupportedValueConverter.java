@@ -21,7 +21,9 @@ package io.netty.handler.codec;
 public final class UnsupportedValueConverter<V> implements ValueConverter<V> {
     @SuppressWarnings("rawtypes")
     private static final UnsupportedValueConverter INSTANCE = new UnsupportedValueConverter();
-    private UnsupportedValueConverter() { }
+
+    private UnsupportedValueConverter() {
+    }
 
     @SuppressWarnings("unchecked")
     public static <V> UnsupportedValueConverter<V> instance() {

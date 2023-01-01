@@ -27,7 +27,8 @@ public final class DefaultAddressResolverGroup extends AddressResolverGroup<Inet
 
     public static final DefaultAddressResolverGroup INSTANCE = new DefaultAddressResolverGroup();
 
-    private DefaultAddressResolverGroup() { }
+    private DefaultAddressResolverGroup() {
+    }
 
     @Override
     protected AddressResolver<InetSocketAddress> newResolver(EventExecutor executor) throws Exception {

@@ -16,6 +16,7 @@
 package io.netty.handler.codec.socks;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SocksAuthRequestTest {
@@ -52,13 +53,13 @@ public class SocksAuthRequestTest {
         try {
             new SocksAuthRequest(
                     "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword",
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword",
                     "password");
         } catch (Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
@@ -66,13 +67,13 @@ public class SocksAuthRequestTest {
         try {
             new SocksAuthRequest("password",
                     "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
-                    "passwordpasswordpasswordpasswordpasswordpasswordpassword");
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword" +
+                            "passwordpasswordpasswordpasswordpasswordpasswordpassword");
         } catch (Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }

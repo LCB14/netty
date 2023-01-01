@@ -122,7 +122,7 @@ public final class Http2TestUtil {
         try {
             hpackEncoder.setMaxHeaderTableSize(buf, maxHeaderTableSize);
             hpackEncoder.setMaxHeaderListSize(maxHeaderListSize);
-        } finally  {
+        } finally {
             buf.release();
         }
         return hpackEncoder;
@@ -158,12 +158,12 @@ public final class Http2TestUtil {
         private final CountDownLatch goAwayLatch;
 
         FrameCountDown(Http2FrameListener listener, CountDownLatch settingsAckLatch, CountDownLatch messageLatch,
-                CountDownLatch dataLatch, CountDownLatch trailersLatch) {
+                       CountDownLatch dataLatch, CountDownLatch trailersLatch) {
             this(listener, settingsAckLatch, messageLatch, dataLatch, trailersLatch, messageLatch);
         }
 
         FrameCountDown(Http2FrameListener listener, CountDownLatch settingsAckLatch, CountDownLatch messageLatch,
-                CountDownLatch dataLatch, CountDownLatch trailersLatch, CountDownLatch goAwayLatch) {
+                       CountDownLatch dataLatch, CountDownLatch trailersLatch, CountDownLatch goAwayLatch) {
             this.listener = listener;
             this.messageLatch = messageLatch;
             this.settingsAckLatch = settingsAckLatch;
@@ -188,7 +188,7 @@ public final class Http2TestUtil {
 
         @Override
         public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int padding,
-                boolean endStream) throws Http2Exception {
+                                  boolean endStream) throws Http2Exception {
             listener.onHeadersRead(ctx, streamId, headers, padding, endStream);
             messageLatch.countDown();
             if (trailersLatch != null && endStream) {
@@ -198,7 +198,7 @@ public final class Http2TestUtil {
 
         @Override
         public void onHeadersRead(ChannelHandlerContext ctx, int streamId, Http2Headers headers, int streamDependency,
-                short weight, boolean exclusive, int padding, boolean endStream) throws Http2Exception {
+                                  short weight, boolean exclusive, int padding, boolean endStream) throws Http2Exception {
             listener.onHeadersRead(ctx, streamId, headers, streamDependency, weight, exclusive, padding, endStream);
             messageLatch.countDown();
             if (trailersLatch != null && endStream) {
@@ -208,7 +208,7 @@ public final class Http2TestUtil {
 
         @Override
         public void onPriorityRead(ChannelHandlerContext ctx, int streamId, int streamDependency, short weight,
-                boolean exclusive) throws Http2Exception {
+                                   boolean exclusive) throws Http2Exception {
             listener.onPriorityRead(ctx, streamId, streamDependency, weight, exclusive);
             messageLatch.countDown();
         }
@@ -245,7 +245,7 @@ public final class Http2TestUtil {
 
         @Override
         public void onPushPromiseRead(ChannelHandlerContext ctx, int streamId, int promisedStreamId,
-                Http2Headers headers, int padding) throws Http2Exception {
+                                      Http2Headers headers, int padding) throws Http2Exception {
             listener.onPushPromiseRead(ctx, streamId, promisedStreamId, headers, padding);
             messageLatch.countDown();
         }
@@ -266,7 +266,7 @@ public final class Http2TestUtil {
 
         @Override
         public void onUnknownFrame(ChannelHandlerContext ctx, byte frameType, int streamId, Http2Flags flags,
-                ByteBuf payload) throws Http2Exception {
+                                   ByteBuf payload) throws Http2Exception {
             listener.onUnknownFrame(ctx, frameType, streamId, flags, payload);
             messageLatch.countDown();
         }
@@ -361,26 +361,26 @@ public final class Http2TestUtil {
         Http2FrameWriter.Configuration configuration = new Http2FrameWriter.Configuration() {
             private final Http2HeadersEncoder.Configuration headerConfiguration =
                     new Http2HeadersEncoder.Configuration() {
-                @Override
-                public void maxHeaderTableSize(long max)  {
-                    // NOOP
-                }
+                        @Override
+                        public void maxHeaderTableSize(long max) {
+                            // NOOP
+                        }
 
-                @Override
-                public long maxHeaderTableSize() {
-                    return 0;
-                }
+                        @Override
+                        public long maxHeaderTableSize() {
+                            return 0;
+                        }
 
-                @Override
-                public void maxHeaderListSize(long max) {
-                    // NOOP
-                }
+                        @Override
+                        public void maxHeaderListSize(long max) {
+                            // NOOP
+                        }
 
-                @Override
-                public long maxHeaderListSize() {
-                    return 0;
-                }
-            };
+                        @Override
+                        public long maxHeaderListSize() {
+                            return 0;
+                        }
+                    };
 
             private final Http2FrameSizePolicy policy = new Http2FrameSizePolicy() {
                 @Override
@@ -393,6 +393,7 @@ public final class Http2TestUtil {
                     return 0;
                 }
             };
+
             @Override
             public Http2HeadersEncoder.Configuration headersConfiguration() {
                 return headerConfiguration;
@@ -410,7 +411,7 @@ public final class Http2TestUtil {
         doAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) {
-                for (;;) {
+                for (; ; ) {
                     ByteBuf buf = buffers.poll();
                     if (buf == null) {
                         break;
@@ -432,11 +433,11 @@ public final class Http2TestUtil {
 
         when(frameWriter.writeSettingsAck(any(ChannelHandlerContext.class), any(ChannelPromise.class)))
                 .thenAnswer(new Answer<ChannelFuture>() {
-            @Override
-            public ChannelFuture answer(InvocationOnMock invocationOnMock) {
-                return ((ChannelPromise) invocationOnMock.getArgument(1)).setSuccess();
-            }
-        });
+                    @Override
+                    public ChannelFuture answer(InvocationOnMock invocationOnMock) {
+                        return ((ChannelPromise) invocationOnMock.getArgument(1)).setSuccess();
+                    }
+                });
 
         when(frameWriter.writeGoAway(any(ChannelHandlerContext.class), anyInt(),
                 anyLong(), any(ByteBuf.class), any(ChannelPromise.class))).thenAnswer(new Answer<ChannelFuture>() {

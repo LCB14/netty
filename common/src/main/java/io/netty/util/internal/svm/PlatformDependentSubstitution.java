@@ -33,7 +33,7 @@ final class PlatformDependentSubstitution {
      */
     @Alias
     @RecomputeFieldValue(
-        kind = RecomputeFieldValue.Kind.ArrayBaseOffset,
-        declClass = byte[].class)
+            kind = RecomputeFieldValue.Kind.ArrayBaseOffset,
+            declClass = byte[].class)
     private static long BYTE_ARRAY_BASE_OFFSET;
 }

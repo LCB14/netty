@@ -50,7 +50,7 @@ public class NioServerSocketChannelTest extends AbstractNioChannelTest<NioServer
     }
 
     @Test
-    public void testIsActiveFalseAfterClose()  {
+    public void testIsActiveFalseAfterClose() {
         NioServerSocketChannel serverSocketChannel = new NioServerSocketChannel();
         EventLoopGroup group = new NioEventLoopGroup(1);
         try {

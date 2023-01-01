@@ -37,7 +37,7 @@ import static io.netty.handler.codec.compression.Bzip2Constants.THREAD_POOL_DELA
 
 /**
  * Compresses a {@link ByteBuf} using the Bzip2 algorithm.
- *
+ * <p>
  * See <a href="https://en.wikipedia.org/wiki/Bzip2">Bzip2</a>.
  */
 public class Bzip2Encoder extends MessageToByteEncoder<ByteBuf> {
@@ -92,10 +92,10 @@ public class Bzip2Encoder extends MessageToByteEncoder<ByteBuf> {
 
     /**
      * Creates a new bzip2 encoder with the specified {@code blockSizeMultiplier}.
-     * @param blockSizeMultiplier
-     *        The Bzip2 block size as a multiple of 100,000 bytes (minimum {@code 1}, maximum {@code 9}).
-     *        Larger block sizes require more memory for both compression and decompression,
-     *        but give better compression ratios. {@code 9} will usually be the best value to use.
+     *
+     * @param blockSizeMultiplier The Bzip2 block size as a multiple of 100,000 bytes (minimum {@code 1}, maximum {@code 9}).
+     *                            Larger block sizes require more memory for both compression and decompression,
+     *                            but give better compression ratios. {@code 9} will usually be the best value to use.
      */
     public Bzip2Encoder(final int blockSizeMultiplier) {
         if (blockSizeMultiplier < MIN_BLOCK_SIZE || blockSizeMultiplier > MAX_BLOCK_SIZE) {
@@ -112,7 +112,7 @@ public class Bzip2Encoder extends MessageToByteEncoder<ByteBuf> {
             return;
         }
 
-        for (;;) {
+        for (; ; ) {
             switch (currentState) {
                 case INIT:
                     out.ensureWritable(4);
@@ -172,7 +172,7 @@ public class Bzip2Encoder extends MessageToByteEncoder<ByteBuf> {
 
     /**
      * Close this {@link Bzip2Encoder} and so finish the encoding.
-     *
+     * <p>
      * The returned {@link ChannelFuture} will be notified once the operation completes.
      */
     public ChannelFuture close() {

@@ -29,9 +29,8 @@ import java.util.List;
 
 /**
  * This decoder will decode Body and can handle POST BODY.
- *
+ * <p>
  * You <strong>MUST</strong> call {@link #destroy()} after completion to release all resources.
- *
  */
 public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
 
@@ -40,48 +39,33 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
     private final InterfaceHttpPostRequestDecoder decoder;
 
     /**
-     *
-     * @param request
-     *            the request to decode
-     * @throws NullPointerException
-     *             for request
-     * @throws ErrorDataDecoderException
-     *             if the default charset was wrong when decoding or other
-     *             errors
+     * @param request the request to decode
+     * @throws NullPointerException      for request
+     * @throws ErrorDataDecoderException if the default charset was wrong when decoding or other
+     *                                   errors
      */
     public HttpPostRequestDecoder(HttpRequest request) {
         this(new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE), request, HttpConstants.DEFAULT_CHARSET);
     }
 
     /**
-     *
-     * @param factory
-     *            the factory used to create InterfaceHttpData
-     * @param request
-     *            the request to decode
-     * @throws NullPointerException
-     *             for request or factory
-     * @throws ErrorDataDecoderException
-     *             if the default charset was wrong when decoding or other
-     *             errors
+     * @param factory the factory used to create InterfaceHttpData
+     * @param request the request to decode
+     * @throws NullPointerException      for request or factory
+     * @throws ErrorDataDecoderException if the default charset was wrong when decoding or other
+     *                                   errors
      */
     public HttpPostRequestDecoder(HttpDataFactory factory, HttpRequest request) {
         this(factory, request, HttpConstants.DEFAULT_CHARSET);
     }
 
     /**
-     *
-     * @param factory
-     *            the factory used to create InterfaceHttpData
-     * @param request
-     *            the request to decode
-     * @param charset
-     *            the charset to use as default
-     * @throws NullPointerException
-     *             for request or charset or factory
-     * @throws ErrorDataDecoderException
-     *             if the default charset was wrong when decoding or other
-     *             errors
+     * @param factory the factory used to create InterfaceHttpData
+     * @param request the request to decode
+     * @param charset the charset to use as default
+     * @throws NullPointerException      for request or charset or factory
+     * @throws ErrorDataDecoderException if the default charset was wrong when decoding or other
+     *                                   errors
      */
     public HttpPostRequestDecoder(HttpDataFactory factory, HttpRequest request, Charset charset) {
         ObjectUtil.checkNotNull(factory, "factory");
@@ -101,29 +85,29 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
      * FILEUPLOAD))* (HEADERDELIMITER DISPOSITION MIXEDPREAMBLE (MIXEDDELIMITER
      * MIXEDDISPOSITION MIXEDFILEUPLOAD)+ MIXEDCLOSEDELIMITER)* CLOSEDELIMITER)+
      * EPILOGUE
-     *
+     * <p>
      * First getStatus is: NOSTARTED
-     *
+     * <p>
      * Content-type: multipart/form-data, boundary=AaB03x => PREAMBLE in Header
-     *
+     * <p>
      * --AaB03x => HEADERDELIMITER content-disposition: form-data; name="field1"
      * => DISPOSITION
-     *
+     * <p>
      * Joe Blow => FIELD --AaB03x => HEADERDELIMITER content-disposition:
      * form-data; name="pics" => DISPOSITION Content-type: multipart/mixed,
      * boundary=BbC04y
-     *
+     * <p>
      * --BbC04y => MIXEDDELIMITER Content-disposition: attachment;
      * filename="file1.txt" => MIXEDDISPOSITION Content-Type: text/plain
-     *
+     * <p>
      * ... contents of file1.txt ... => MIXEDFILEUPLOAD --BbC04y =>
      * MIXEDDELIMITER Content-disposition: file; filename="file2.gif" =>
      * MIXEDDISPOSITION Content-type: image/gif Content-Transfer-Encoding:
      * binary
-     *
+     * <p>
      * ...contents of file2.gif... => MIXEDFILEUPLOAD --BbC04y-- =>
      * MIXEDCLOSEDELIMITER --AaB03x-- => CLOSEDELIMITER
-     *
+     * <p>
      * Once CLOSEDELIMITER is found, last getStatus is EPILOGUE
      */
     protected enum MultiPartStatus {
@@ -133,6 +117,7 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
 
     /**
      * Check if the given request is a multipart request
+     *
      * @return True if the request is a Multipart request
      */
     public static boolean isMultipart(HttpRequest request) {
@@ -145,6 +130,7 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
 
     /**
      * Check from the request ContentType if this request is a Multipart request.
+     *
      * @return an array of String if multipartDataBoundary exists with the multipartDataBoundary
      * as first element, charset if any as second (missing if not set), else null
      */
@@ -152,7 +138,7 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
         // Check if Post using "multipart/form-data; boundary=--89421926422648 [; charset=xxx]"
         String[] headerContentType = splitHeaderContentType(contentType);
         final String multiPartHeader = HttpHeaderValues.MULTIPART_FORM_DATA.toString();
-        if (headerContentType[0].regionMatches(true, 0, multiPartHeader, 0 , multiPartHeader.length())) {
+        if (headerContentType[0].regionMatches(true, 0, multiPartHeader, 0, multiPartHeader.length())) {
             int mrank;
             int crank;
             final String boundaryHeader = HttpHeaderValues.BOUNDARY.toString();
@@ -180,10 +166,10 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
             if (headerContentType[crank].regionMatches(true, 0, charsetHeader, 0, charsetHeader.length())) {
                 String charset = StringUtil.substringAfter(headerContentType[crank], '=');
                 if (charset != null) {
-                    return new String[] {"--" + boundary, charset};
+                    return new String[]{"--" + boundary, charset};
                 }
             }
-            return new String[] {"--" + boundary};
+            return new String[]{"--" + boundary};
         }
         return null;
     }
@@ -266,25 +252,25 @@ public class HttpPostRequestDecoder implements InterfaceHttpPostRequestDecoder {
         int cStart;
         int cEnd;
         aStart = HttpPostBodyUtil.findNonWhitespace(sb, 0);
-        aEnd =  sb.indexOf(';');
+        aEnd = sb.indexOf(';');
         if (aEnd == -1) {
-            return new String[] { sb, "", "" };
+            return new String[]{sb, "", ""};
         }
         bStart = HttpPostBodyUtil.findNonWhitespace(sb, aEnd + 1);
         if (sb.charAt(aEnd - 1) == ' ') {
             aEnd--;
         }
-        bEnd =  sb.indexOf(';', bStart);
+        bEnd = sb.indexOf(';', bStart);
         if (bEnd == -1) {
             bEnd = HttpPostBodyUtil.findEndOfString(sb);
-            return new String[] { sb.substring(aStart, aEnd), sb.substring(bStart, bEnd), "" };
+            return new String[]{sb.substring(aStart, aEnd), sb.substring(bStart, bEnd), ""};
         }
         cStart = HttpPostBodyUtil.findNonWhitespace(sb, bEnd + 1);
         if (sb.charAt(bEnd - 1) == ' ') {
             bEnd--;
         }
         cEnd = HttpPostBodyUtil.findEndOfString(sb);
-        return new String[] { sb.substring(aStart, aEnd), sb.substring(bStart, bEnd), sb.substring(cStart, cEnd) };
+        return new String[]{sb.substring(aStart, aEnd), sb.substring(bStart, bEnd), sb.substring(cStart, cEnd)};
     }
 
     /**

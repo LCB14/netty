@@ -21,7 +21,6 @@ import org.jboss.marshalling.Unmarshaller;
 
 /**
  * This provider is responsible to get an {@link Unmarshaller} for a {@link ChannelHandlerContext}
- *
  */
 public interface UnmarshallerProvider {
 

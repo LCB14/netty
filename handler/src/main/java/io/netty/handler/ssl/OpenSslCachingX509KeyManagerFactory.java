@@ -33,7 +33,7 @@ import java.security.cert.X509Certificate;
 /**
  * Wraps another {@link KeyManagerFactory} and caches its chains / certs for an alias for better performance when using
  * {@link SslProvider#OPENSSL} or {@link SslProvider#OPENSSL_REFCNT}.
- *
+ * <p>
  * Because of the caching its important that the wrapped {@link KeyManagerFactory}s {@link X509KeyManager}s always
  * return the same {@link X509Certificate} chain and {@link PrivateKey} for the same alias.
  */

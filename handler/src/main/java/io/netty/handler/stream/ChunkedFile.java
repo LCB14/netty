@@ -77,8 +77,8 @@ public class ChunkedFile implements ChunkedInput<ByteBuf> {
     /**
      * Creates a new instance that fetches data from the specified file.
      *
-     * @param offset the offset of the file where the transfer begins
-     * @param length the number of bytes to transfer
+     * @param offset    the offset of the file where the transfer begins
+     * @param length    the number of bytes to transfer
      * @param chunkSize the number of bytes to fetch on each
      *                  {@link #readChunk(ChannelHandlerContext)} call
      */

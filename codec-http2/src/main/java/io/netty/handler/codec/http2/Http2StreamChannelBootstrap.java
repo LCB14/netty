@@ -100,6 +100,7 @@ public final class Http2StreamChannelBootstrap {
 
     /**
      * Open a new {@link Http2StreamChannel} to use.
+     *
      * @return the {@link Future} that will be notified once the channel was opened successfully or it failed.
      */
     public Future<Http2StreamChannel> open() {
@@ -108,6 +109,7 @@ public final class Http2StreamChannelBootstrap {
 
     /**
      * Open a new {@link Http2StreamChannel} to use and notifies the given {@link Promise}.
+     *
      * @return the {@link Future} that will be notified once the channel was opened successfully or it failed.
      */
     public Future<Http2StreamChannel> open(final Promise<Http2StreamChannel> promise) {
@@ -215,7 +217,7 @@ public final class Http2StreamChannelBootstrap {
         if (handler != null) {
             p.addLast(handler);
         }
-        final Map.Entry<ChannelOption<?>, Object> [] optionArray;
+        final Map.Entry<ChannelOption<?>, Object>[] optionArray;
         synchronized (options) {
             optionArray = options.entrySet().toArray(EMPTY_OPTION_ARRAY);
         }
@@ -226,7 +228,7 @@ public final class Http2StreamChannelBootstrap {
 
     private static void setChannelOptions(
             Channel channel, Map.Entry<ChannelOption<?>, Object>[] options) {
-        for (Map.Entry<ChannelOption<?>, Object> e: options) {
+        for (Map.Entry<ChannelOption<?>, Object> e : options) {
             setChannelOption(channel, e.getKey(), e.getValue());
         }
     }
@@ -247,7 +249,7 @@ public final class Http2StreamChannelBootstrap {
 
     private static void setAttributes(
             Channel channel, Map.Entry<AttributeKey<?>, Object>[] options) {
-        for (Map.Entry<AttributeKey<?>, Object> e: options) {
+        for (Map.Entry<AttributeKey<?>, Object> e : options) {
             @SuppressWarnings("unchecked")
             AttributeKey<Object> key = (AttributeKey<Object>) e.getKey();
             channel.attr(key).set(e.getValue());

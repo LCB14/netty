@@ -44,8 +44,10 @@ public final class SpdyHttpHeaders {
          */
         public static final AsciiString SCHEME = AsciiString.cached("x-spdy-scheme");
 
-        private Names() { }
+        private Names() {
+        }
     }
 
-    private SpdyHttpHeaders() { }
+    private SpdyHttpHeaders() {
+    }
 }

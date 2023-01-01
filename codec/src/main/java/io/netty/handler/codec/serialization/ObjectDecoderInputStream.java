@@ -49,9 +49,8 @@ public class ObjectDecoderInputStream extends InputStream implements
     /**
      * Creates a new {@link ObjectInput}.
      *
-     * @param in
-     *        the {@link InputStream} where the serialized form will be
-     *        read from
+     * @param in the {@link InputStream} where the serialized form will be
+     *           read from
      */
     public ObjectDecoderInputStream(InputStream in) {
         this(in, null);
@@ -60,12 +59,10 @@ public class ObjectDecoderInputStream extends InputStream implements
     /**
      * Creates a new {@link ObjectInput}.
      *
-     * @param in
-     *        the {@link InputStream} where the serialized form will be
-     *        read from
-     * @param classLoader
-     *        the {@link ClassLoader} which will load the class of the
-     *        serialized object
+     * @param in          the {@link InputStream} where the serialized form will be
+     *                    read from
+     * @param classLoader the {@link ClassLoader} which will load the class of the
+     *                    serialized object
      */
     public ObjectDecoderInputStream(InputStream in, ClassLoader classLoader) {
         this(in, classLoader, 1048576);
@@ -74,13 +71,11 @@ public class ObjectDecoderInputStream extends InputStream implements
     /**
      * Creates a new {@link ObjectInput}.
      *
-     * @param in
-     *        the {@link InputStream} where the serialized form will be
-     *        read from
-     * @param maxObjectSize
-     *        the maximum byte length of the serialized object.  if the length
-     *        of the received object is greater than this value,
-     *        a {@link StreamCorruptedException} will be raised.
+     * @param in            the {@link InputStream} where the serialized form will be
+     *                      read from
+     * @param maxObjectSize the maximum byte length of the serialized object.  if the length
+     *                      of the received object is greater than this value,
+     *                      a {@link StreamCorruptedException} will be raised.
      */
     public ObjectDecoderInputStream(InputStream in, int maxObjectSize) {
         this(in, null, maxObjectSize);
@@ -89,16 +84,13 @@ public class ObjectDecoderInputStream extends InputStream implements
     /**
      * Creates a new {@link ObjectInput}.
      *
-     * @param in
-     *        the {@link InputStream} where the serialized form will be
-     *        read from
-     * @param classLoader
-     *        the {@link ClassLoader} which will load the class of the
-     *        serialized object
-     * @param maxObjectSize
-     *        the maximum byte length of the serialized object.  if the length
-     *        of the received object is greater than this value,
-     *        a {@link StreamCorruptedException} will be raised.
+     * @param in            the {@link InputStream} where the serialized form will be
+     *                      read from
+     * @param classLoader   the {@link ClassLoader} which will load the class of the
+     *                      serialized object
+     * @param maxObjectSize the maximum byte length of the serialized object.  if the length
+     *                      of the received object is greater than this value,
+     *                      a {@link StreamCorruptedException} will be raised.
      */
     public ObjectDecoderInputStream(InputStream in, ClassLoader classLoader, int maxObjectSize) {
         ObjectUtil.checkNotNull(in, "in");

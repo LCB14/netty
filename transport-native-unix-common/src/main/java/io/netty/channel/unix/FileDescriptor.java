@@ -41,8 +41,8 @@ public class FileDescriptor {
     private static final int STATE_INPUT_SHUTDOWN_MASK = 1 << 1;
     private static final int STATE_OUTPUT_SHUTDOWN_MASK = 1 << 2;
     private static final int STATE_ALL_MASK = STATE_CLOSED_MASK |
-                                              STATE_INPUT_SHUTDOWN_MASK |
-                                              STATE_OUTPUT_SHUTDOWN_MASK;
+            STATE_INPUT_SHUTDOWN_MASK |
+            STATE_OUTPUT_SHUTDOWN_MASK;
 
     /**
      * Bit map = [Output Shutdown | Input Shutdown | Closed]
@@ -63,7 +63,7 @@ public class FileDescriptor {
     }
 
     protected boolean markClosed() {
-        for (;;) {
+        for (; ; ) {
             int state = this.state;
             if (isClosed(state)) {
                 return false;
@@ -226,14 +226,19 @@ public class FileDescriptor {
     }
 
     private static native int open(String path);
+
     private static native int close(int fd);
 
     private static native int write(int fd, ByteBuffer buf, int pos, int limit);
+
     private static native int writeAddress(int fd, long address, int pos, int limit);
+
     private static native long writev(int fd, ByteBuffer[] buffers, int offset, int length, long maxBytesToWrite);
+
     private static native long writevAddresses(int fd, long memoryAddress, int length);
 
     private static native int read(int fd, ByteBuffer buf, int pos, int limit);
+
     private static native int readAddress(int fd, long address, int pos, int limit);
 
     private static native long newPipe();

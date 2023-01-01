@@ -49,18 +49,18 @@ public class SingleThreadEventExecutorTest {
     public void testWrappedExecutorIsShutdown() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-       final SingleThreadEventExecutor executor =
-               new SingleThreadEventExecutor(null, executorService, false) {
-            @Override
-            protected void run() {
-                while (!confirmShutdown()) {
-                    Runnable task = takeTask();
-                    if (task != null) {
-                        task.run();
+        final SingleThreadEventExecutor executor =
+                new SingleThreadEventExecutor(null, executorService, false) {
+                    @Override
+                    protected void run() {
+                        while (!confirmShutdown()) {
+                            Runnable task = takeTask();
+                            if (task != null) {
+                                task.run();
+                            }
+                        }
                     }
-                }
-            }
-        };
+                };
 
         executorService.shutdownNow();
         executeShouldFail(executor);
@@ -164,12 +164,12 @@ public class SingleThreadEventExecutorTest {
                             try {
                                 Set<Callable<Boolean>> set = Collections.<Callable<Boolean>>singleton(
                                         new Callable<Boolean>() {
-                                    @Override
-                                    public Boolean call() throws Exception {
-                                        promise.setFailure(new AssertionError("Should never execute the Callable"));
-                                        return Boolean.TRUE;
-                                    }
-                                });
+                                            @Override
+                                            public Boolean call() throws Exception {
+                                                promise.setFailure(new AssertionError("Should never execute the Callable"));
+                                                return Boolean.TRUE;
+                                            }
+                                        });
                                 if (any) {
                                     if (timeout) {
                                         executor.invokeAny(set, 10, TimeUnit.SECONDS);
@@ -208,7 +208,8 @@ public class SingleThreadEventExecutorTest {
         }
     }
 
-    static class LazyLatchTask extends LatchTask implements LazyRunnable { }
+    static class LazyLatchTask extends LatchTask implements LazyRunnable {
+    }
 
     @Test
     public void testLazyExecution() throws Exception {
@@ -343,16 +344,16 @@ public class SingleThreadEventExecutorTest {
     public void testTakeTask() throws Exception {
         final SingleThreadEventExecutor executor =
                 new SingleThreadEventExecutor(null, Executors.defaultThreadFactory(), true) {
-            @Override
-            protected void run() {
-                while (!confirmShutdown()) {
-                    Runnable task = takeTask();
-                    if (task != null) {
-                        task.run();
+                    @Override
+                    protected void run() {
+                        while (!confirmShutdown()) {
+                            Runnable task = takeTask();
+                            if (task != null) {
+                                task.run();
+                            }
+                        }
                     }
-                }
-            }
-        };
+                };
 
         //add task
         TestRunnable beforeTask = new TestRunnable();
@@ -360,7 +361,7 @@ public class SingleThreadEventExecutorTest {
 
         //add scheduled task
         TestRunnable scheduledTask = new TestRunnable();
-        ScheduledFuture<?> f = executor.schedule(scheduledTask , 1500, TimeUnit.MILLISECONDS);
+        ScheduledFuture<?> f = executor.schedule(scheduledTask, 1500, TimeUnit.MILLISECONDS);
 
         //add task
         TestRunnable afterTask = new TestRunnable();
@@ -380,16 +381,16 @@ public class SingleThreadEventExecutorTest {
 
         final SingleThreadEventExecutor executor =
                 new SingleThreadEventExecutor(null, Executors.defaultThreadFactory(), true) {
-            @Override
-            protected void run() {
-                while (!confirmShutdown()) {
-                    Runnable task = takeTask();
-                    if (task != null) {
-                        task.run();
+                    @Override
+                    protected void run() {
+                        while (!confirmShutdown()) {
+                            Runnable task = takeTask();
+                            if (task != null) {
+                                task.run();
+                            }
+                        }
                     }
-                }
-            }
-        };
+                };
 
         //add scheduled task
         TestRunnable t = new TestRunnable();

@@ -119,9 +119,9 @@ public class BinaryMemcacheEncoderTest {
     @Test
     public void shouldEncodeContent() {
         DefaultMemcacheContent content1 =
-            new DefaultMemcacheContent(Unpooled.copiedBuffer("Netty", CharsetUtil.UTF_8));
+                new DefaultMemcacheContent(Unpooled.copiedBuffer("Netty", CharsetUtil.UTF_8));
         DefaultLastMemcacheContent content2 =
-            new DefaultLastMemcacheContent(Unpooled.copiedBuffer(" Rocks!", CharsetUtil.UTF_8));
+                new DefaultLastMemcacheContent(Unpooled.copiedBuffer(" Rocks!", CharsetUtil.UTF_8));
         int totalBodyLength = content1.content().readableBytes() + content2.content().readableBytes();
 
         BinaryMemcacheRequest request = new DefaultBinaryMemcacheRequest();

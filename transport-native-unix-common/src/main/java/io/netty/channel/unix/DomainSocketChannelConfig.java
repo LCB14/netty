@@ -68,7 +68,7 @@ public interface DomainSocketChannelConfig extends ChannelConfig {
      * {@link io.netty.channel.Channel} and passed through the pipeline. If
      * {@link DomainSocketReadMode#FILE_DESCRIPTORS} is used
      * {@link FileDescriptor}s will be passed through the {@link io.netty.channel.ChannelPipeline}.
-     *
+     * <p>
      * This setting can be modified on the fly if needed.
      */
     DomainSocketChannelConfig setReadMode(DomainSocketReadMode mode);

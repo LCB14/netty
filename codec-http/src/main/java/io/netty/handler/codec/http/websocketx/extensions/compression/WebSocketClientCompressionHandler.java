@@ -21,7 +21,7 @@ import io.netty.handler.codec.http.websocketx.extensions.WebSocketClientExtensio
 /**
  * Extends <tt>io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketClientExtensionHandler</tt>
  * to handle the most common WebSocket Compression Extensions.
- *
+ * <p>
  * See <tt>io.netty.example.http.websocketx.client.WebSocketClient</tt> for usage.
  */
 @ChannelHandler.Sharable

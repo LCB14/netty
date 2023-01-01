@@ -54,25 +54,25 @@ public class ByteBufUtilTest {
     private ByteBuf buffer(BufferType bufferType, int capacity) {
         switch (bufferType) {
 
-        case DIRECT_UNPOOLED:
-            return Unpooled.directBuffer(capacity);
-        case HEAP_UNPOOLED:
-            return Unpooled.buffer(capacity);
-        case DIRECT_POOLED:
-            return PooledByteBufAllocator.DEFAULT.directBuffer(capacity);
-        case HEAP_POOLED:
-            return PooledByteBufAllocator.DEFAULT.buffer(capacity);
-        default:
-            throw new AssertionError("unexpected buffer type: " + bufferType);
+            case DIRECT_UNPOOLED:
+                return Unpooled.directBuffer(capacity);
+            case HEAP_UNPOOLED:
+                return Unpooled.buffer(capacity);
+            case DIRECT_POOLED:
+                return PooledByteBufAllocator.DEFAULT.directBuffer(capacity);
+            case HEAP_POOLED:
+                return PooledByteBufAllocator.DEFAULT.buffer(capacity);
+            default:
+                throw new AssertionError("unexpected buffer type: " + bufferType);
         }
     }
 
     public static Collection<Object[]> noUnsafe() {
-        return Arrays.asList(new Object[][] {
-                { BufferType.DIRECT_POOLED },
-                { BufferType.DIRECT_UNPOOLED },
-                { BufferType.HEAP_POOLED },
-                { BufferType.HEAP_UNPOOLED }
+        return Arrays.asList(new Object[][]{
+                {BufferType.DIRECT_POOLED},
+                {BufferType.DIRECT_UNPOOLED},
+                {BufferType.HEAP_POOLED},
+                {BufferType.HEAP_UNPOOLED}
         });
     }
 
@@ -428,11 +428,11 @@ public class ByteBufUtilTest {
     public void testWriteUtf8Surrogates(BufferType bufferType) {
         // leading surrogate + trailing surrogate
         String surrogateString = new StringBuilder(2)
-                                .append('a')
-                                .append('\uD800')
-                                .append('\uDC00')
-                                .append('b')
-                                .toString();
+                .append('a')
+                .append('\uD800')
+                .append('\uDC00')
+                .append('b')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -449,10 +449,10 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidOnlyTrailingSurrogate(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('a')
-                                .append('\uDC00')
-                                .append('b')
-                                .toString();
+                .append('a')
+                .append('\uDC00')
+                .append('b')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -469,10 +469,10 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidOnlyLeadingSurrogate(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('a')
-                                .append('\uD800')
-                                .append('b')
-                                .toString();
+                .append('a')
+                .append('\uD800')
+                .append('b')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -489,11 +489,11 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidSurrogatesSwitched(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('a')
-                                .append('\uDC00')
-                                .append('\uD800')
-                                .append('b')
-                                .toString();
+                .append('a')
+                .append('\uDC00')
+                .append('\uD800')
+                .append('b')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -510,11 +510,11 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidTwoLeadingSurrogates(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('a')
-                                .append('\uD800')
-                                .append('\uD800')
-                                .append('b')
-                                .toString();
+                .append('a')
+                .append('\uD800')
+                .append('\uD800')
+                .append('b')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -530,11 +530,11 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidTwoTrailingSurrogates(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('a')
-                                .append('\uDC00')
-                                .append('\uDC00')
-                                .append('b')
-                                .toString();
+                .append('a')
+                .append('\uDC00')
+                .append('\uDC00')
+                .append('b')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -551,8 +551,8 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidEndOnLeadingSurrogate(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('\uD800')
-                                .toString();
+                .append('\uD800')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -569,8 +569,8 @@ public class ByteBufUtilTest {
     @MethodSource("noUnsafe")
     public void testWriteUtf8InvalidEndOnTrailingSurrogate(BufferType bufferType) {
         String surrogateString = new StringBuilder(2)
-                                .append('\uDC00')
-                                .toString();
+                .append('\uDC00')
+                .toString();
         ByteBuf buf = buffer(bufferType, 16);
         buf.writeBytes(surrogateString.getBytes(CharsetUtil.UTF_8));
         ByteBuf buf2 = buffer(bufferType, 16);
@@ -673,8 +673,8 @@ public class ByteBufUtilTest {
                 ByteBufUtil.utf8Bytes(usAscii, 5, 18));
     }
 
-    private static final int[][] INVALID_RANGES = new int[][] {
-        { -1, 5 }, { 5, 30 }, { 10, 5 }
+    private static final int[][] INVALID_RANGES = new int[][]{
+            {-1, 5}, {5, 30}, {10, 5}
     };
 
     interface TestMethod {
@@ -682,7 +682,7 @@ public class ByteBufUtilTest {
     }
 
     private void testInvalidSubsequences(BufferType bufferType, TestMethod method) {
-        for (int [] range : INVALID_RANGES) {
+        for (int[] range : INVALID_RANGES) {
             ByteBuf buf = buffer(bufferType, 16);
             try {
                 method.invoke(buf, "Some UTF-8 like äÄ∏ŒŒ", range[0], range[1]);
@@ -1000,19 +1000,19 @@ public class ByteBufUtilTest {
     private static void checkGetBytes(final ByteBuf buf) {
         buf.writeInt(0x01020304);
 
-        byte[] expected = { 0x01, 0x02, 0x03, 0x04 };
+        byte[] expected = {0x01, 0x02, 0x03, 0x04};
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf));
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 0, buf.readableBytes(), false));
 
-        expected = new byte[] { 0x01, 0x02, 0x03 };
+        expected = new byte[]{0x01, 0x02, 0x03};
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 0, 3));
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 0, 3, false));
 
-        expected = new byte[] { 0x02, 0x03, 0x04 };
+        expected = new byte[]{0x02, 0x03, 0x04};
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 1, 3));
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 1, 3, false));
 
-        expected = new byte[] { 0x02, 0x03 };
+        expected = new byte[]{0x02, 0x03};
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 1, 2));
         assertArrayEquals(expected, ByteBufUtil.getBytes(buf, 1, 2, false));
     }

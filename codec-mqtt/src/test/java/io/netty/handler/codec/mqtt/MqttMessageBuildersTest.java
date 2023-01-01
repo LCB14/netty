@@ -27,12 +27,12 @@ public class MqttMessageBuildersTest {
     public void testConnAckWithProperties() {
         final MqttConnAckMessage ackMsg = MqttMessageBuilders.connAck()
                 .properties(new PropertiesInitializer<MqttMessageBuilders.ConnAckPropertiesBuilder>() {
-            @Override
-            public void apply(MqttMessageBuilders.ConnAckPropertiesBuilder builder) {
-                builder.assignedClientId("client1234");
-                builder.userProperty("custom_property", "value");
-            }
-        }).build();
+                    @Override
+                    public void apply(MqttMessageBuilders.ConnAckPropertiesBuilder builder) {
+                        builder.assignedClientId("client1234");
+                        builder.userProperty("custom_property", "value");
+                    }
+                }).build();
 
         final String clientId = (String) ackMsg.variableHeader()
                 .properties()

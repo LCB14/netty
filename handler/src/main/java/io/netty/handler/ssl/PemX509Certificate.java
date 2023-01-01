@@ -37,7 +37,7 @@ import io.netty.util.internal.ObjectUtil;
  * This is a special purpose implementation of a {@link X509Certificate} which allows
  * the user to pass PEM/PKCS#8 encoded data straight into {@link OpenSslContext} without
  * having to parse and re-encode bytes in Java land.
- *
+ * <p>
  * All methods other than what's implemented in {@link PemEncoded}'s throw
  * {@link UnsupportedOperationException}s.
  *
@@ -55,7 +55,7 @@ public final class PemX509Certificate extends X509Certificate implements PemEnco
      * Creates a {@link PemEncoded} value from the {@link X509Certificate}s.
      */
     static PemEncoded toPEM(ByteBufAllocator allocator, boolean useDirect,
-            X509Certificate... chain) throws CertificateEncodingException {
+                            X509Certificate... chain) throws CertificateEncodingException {
 
         checkNonEmpty(chain, "chain");
 
@@ -103,7 +103,7 @@ public final class PemX509Certificate extends X509Certificate implements PemEnco
      * If the {@link ByteBuf} didn't exist yet it'll create it using the {@link ByteBufAllocator}.
      */
     private static ByteBuf append(ByteBufAllocator allocator, boolean useDirect,
-            PemEncoded encoded, int count, ByteBuf pem) {
+                                  PemEncoded encoded, int count, ByteBuf pem) {
 
         ByteBuf content = encoded.content();
 
@@ -121,7 +121,7 @@ public final class PemX509Certificate extends X509Certificate implements PemEnco
      * If the {@link ByteBuf} didn't exist yet it'll create it using the {@link ByteBufAllocator}.
      */
     private static ByteBuf append(ByteBufAllocator allocator, boolean useDirect,
-            X509Certificate cert, int count, ByteBuf pem) throws CertificateEncodingException {
+                                  X509Certificate cert, int count, ByteBuf pem) throws CertificateEncodingException {
 
         ByteBuf encoded = Unpooled.wrappedBuffer(cert.getEncoded());
         try {
@@ -154,7 +154,7 @@ public final class PemX509Certificate extends X509Certificate implements PemEnco
 
     /**
      * Creates a {@link PemX509Certificate} from raw {@code byte[]}.
-     *
+     * <p>
      * ATTENTION: It's assumed that the given argument is a PEM/PKCS#8 encoded value.
      * No input validation is performed to validate it.
      */
@@ -164,7 +164,7 @@ public final class PemX509Certificate extends X509Certificate implements PemEnco
 
     /**
      * Creates a {@link PemX509Certificate} from raw {@code ByteBuf}.
-     *
+     * <p>
      * ATTENTION: It's assumed that the given argument is a PEM/PKCS#8 encoded value.
      * No input validation is performed to validate it.
      */

@@ -46,9 +46,9 @@ public final class HttpNativeServer {
             ServerBootstrap b = new ServerBootstrap();
             b.option(ChannelOption.SO_BACKLOG, 1024);
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new HttpNativeServerInitializer());
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new HttpNativeServerInitializer());
 
             Channel channel = b.bind(0).sync().channel();
             System.err.println("Server started, will shutdown now.");

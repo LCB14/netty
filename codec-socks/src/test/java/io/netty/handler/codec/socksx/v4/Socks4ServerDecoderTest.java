@@ -32,7 +32,7 @@ public class Socks4ServerDecoderTest {
     private static void test(String userId, Socks4CommandType type, String dstAddr, int dstPort) {
         logger.debug(
                 "Testing type: " + type + " dstAddr: " + dstAddr + " dstPort: " + dstPort +
-                " userId: " + userId);
+                        " userId: " + userId);
 
         Socks4CommandRequest msg = new DefaultSocks4CommandRequest(type, dstAddr, dstPort, userId);
         EmbeddedChannel embedder = new EmbeddedChannel(new Socks4ServerDecoder());
@@ -47,12 +47,12 @@ public class Socks4ServerDecoderTest {
 
     @Test
     public void testCmdRequestDecoder() {
-        String[] hosts = { "127.0.0.1", };
-        String[] userIds = { "test", };
+        String[] hosts = {"127.0.0.1",};
+        String[] userIds = {"test",};
         int[] ports = {1, 32769, 65535};
 
         for (Socks4CommandType cmdType : Arrays.asList(Socks4CommandType.BIND,
-                                                       Socks4CommandType.CONNECT)) {
+                Socks4CommandType.CONNECT)) {
             for (String userId : userIds) {
                 for (String host : hosts) {
                     for (int port : ports) {

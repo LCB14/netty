@@ -41,7 +41,7 @@ public class DefaultBinaryMemcacheRequest extends AbstractBinaryMemcacheMessage 
     /**
      * Create a new {@link DefaultBinaryMemcacheRequest} with the header and key.
      *
-     * @param key    the key to use.
+     * @param key the key to use.
      */
     public DefaultBinaryMemcacheRequest(ByteBuf key) {
         this(key, null);

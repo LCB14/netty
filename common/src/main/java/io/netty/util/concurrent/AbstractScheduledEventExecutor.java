@@ -39,8 +39,9 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
     private static final long START_TIME = System.nanoTime();
 
     static final Runnable WAKEUP_TASK = new Runnable() {
-       @Override
-       public void run() { } // Do nothing
+        @Override
+        public void run() {
+        } // Do nothing
     };
 
     PriorityQueue<ScheduledFutureTask<?>> scheduledTaskQueue;
@@ -89,6 +90,7 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
     /**
      * Given an arbitrary deadline {@code deadlineNanos}, calculate the number of nano seconds from now
      * {@code deadlineNanos} would expire.
+     *
      * @param deadlineNanos An arbitrary deadline in nano seconds.
      * @return the number of nano seconds from now {@code deadlineNanos} would expire.
      */
@@ -98,6 +100,7 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
 
     /**
      * The initial value used for delay and computations based upon a monatomic time source.
+     *
      * @return initial value used for delay and computations based upon a monatomic time source.
      */
     protected static long initialNanoTime() {
@@ -120,7 +123,7 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
 
     /**
      * Cancel all scheduled tasks.
-     *
+     * <p>
      * This method MUST be called only when {@link #inEventLoop()} is {@code true}.
      */
     protected void cancelScheduledTasks() {
@@ -133,7 +136,7 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
         final ScheduledFutureTask<?>[] scheduledTasks =
                 scheduledTaskQueue.toArray(new ScheduledFutureTask<?>[0]);
 
-        for (ScheduledFutureTask<?> task: scheduledTasks) {
+        for (ScheduledFutureTask<?> task : scheduledTasks) {
             task.cancelWithoutRemove(false);
         }
 
@@ -320,7 +323,7 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
      * to wake the {@link EventExecutor} thread if required.
      *
      * @param deadlineNanos deadline of the to-be-scheduled task
-     *     relative to {@link AbstractScheduledEventExecutor#getCurrentTimeNanos()}
+     *                      relative to {@link AbstractScheduledEventExecutor#getCurrentTimeNanos()}
      * @return {@code true} if the {@link EventExecutor} thread should be woken, {@code false} otherwise
      */
     protected boolean beforeScheduledTaskSubmitted(long deadlineNanos) {
@@ -331,7 +334,7 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
      * See {@link #beforeScheduledTaskSubmitted(long)}. Called only after that method returns false.
      *
      * @param deadlineNanos relative to {@link AbstractScheduledEventExecutor#getCurrentTimeNanos()}
-     * @return  {@code true} if the {@link EventExecutor} thread should be woken, {@code false} otherwise
+     * @return {@code true} if the {@link EventExecutor} thread should be woken, {@code false} otherwise
      */
     protected boolean afterScheduledTaskSubmitted(long deadlineNanos) {
         return true;

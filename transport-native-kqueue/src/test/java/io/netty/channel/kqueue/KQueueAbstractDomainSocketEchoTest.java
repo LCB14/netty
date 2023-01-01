@@ -16,6 +16,7 @@
 package io.netty.channel.kqueue;
 
 import io.netty.channel.unix.DomainSocketAddress;
+
 import java.net.SocketAddress;
 import java.util.UUID;
 

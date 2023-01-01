@@ -28,7 +28,8 @@ public final class ReadTimeoutException extends TimeoutException {
     public static final ReadTimeoutException INSTANCE = PlatformDependent.javaVersion() >= 7 ?
             new ReadTimeoutException(true) : new ReadTimeoutException();
 
-    public ReadTimeoutException() { }
+    public ReadTimeoutException() {
+    }
 
     public ReadTimeoutException(String message) {
         super(message, false);

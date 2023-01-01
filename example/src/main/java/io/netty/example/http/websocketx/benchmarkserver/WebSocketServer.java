@@ -25,16 +25,16 @@ import io.netty.handler.ssl.SslContext;
 
 /**
  * A Benchmark application for websocket which is served at:
- *
+ * <p>
  * http://localhost:8080/websocket
- *
+ * <p>
  * Open your browser at http://localhost:8080/, then the benchmark page will be loaded and a Web Socket connection will
  * be made automatically.
  */
 public final class WebSocketServer {
 
     static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8443" : "8080"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8443" : "8080"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.
@@ -45,13 +45,13 @@ public final class WebSocketServer {
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .childHandler(new WebSocketServerInitializer(sslCtx));
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new WebSocketServerInitializer(sslCtx));
 
             Channel ch = b.bind(PORT).sync().channel();
 
             System.out.println("Open your web browser and navigate to " +
-                    (SSL? "https" : "http") + "://127.0.0.1:" + PORT + '/');
+                    (SSL ? "https" : "http") + "://127.0.0.1:" + PORT + '/');
 
             ch.closeFuture().sync();
         } finally {

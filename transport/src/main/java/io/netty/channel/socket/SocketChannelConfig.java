@@ -29,7 +29,7 @@ import java.net.StandardSocketOptions;
  * A {@link ChannelConfig} for a {@link SocketChannel}.
  *
  * <h3>Available options</h3>
- *
+ * <p>
  * In addition to the options provided by {@link DuplexChannelConfig},
  * {@link SocketChannelConfig} allows the following options in the option map:
  *

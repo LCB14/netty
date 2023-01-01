@@ -335,7 +335,7 @@ public class ChannelInitializerTest {
                                 ch.pipeline().addAfter(ctx.executor(),
                                         ctx.name(), null, new ChannelInboundHandlerAdapter() {
                                             @Override
-                                            public void channelRead(ChannelHandlerContext ctx, Object msg)  {
+                                            public void channelRead(ChannelHandlerContext ctx, Object msg) {
                                                 // just drop on the floor.
                                             }
 

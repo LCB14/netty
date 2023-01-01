@@ -402,14 +402,14 @@ public class WebSocketServerProtocolHandlerTest {
 
     private EmbeddedChannel createClient(ChannelHandler... handlers) throws Exception {
         WebSocketClientProtocolConfig clientConfig = WebSocketClientProtocolConfig.newBuilder()
-            .webSocketUri("http://test/test")
-            .dropPongFrames(false)
-            .handleCloseFrames(false)
-            .build();
+                .webSocketUri("http://test/test")
+                .dropPongFrames(false)
+                .handleCloseFrames(false)
+                .build();
         EmbeddedChannel ch = new EmbeddedChannel(false, false,
-            new HttpClientCodec(),
-            new HttpObjectAggregator(8192),
-            new WebSocketClientProtocolHandler(clientConfig)
+                new HttpClientCodec(),
+                new HttpObjectAggregator(8192),
+                new WebSocketClientProtocolHandler(clientConfig)
         );
         ch.pipeline().addLast(handlers);
         ch.register();
@@ -418,13 +418,13 @@ public class WebSocketServerProtocolHandlerTest {
 
     private EmbeddedChannel createServer(ChannelHandler... handlers) throws Exception {
         WebSocketServerProtocolConfig serverConfig = WebSocketServerProtocolConfig.newBuilder()
-            .websocketPath("/test")
-            .dropPongFrames(false)
-            .build();
+                .websocketPath("/test")
+                .dropPongFrames(false)
+                .build();
         EmbeddedChannel ch = new EmbeddedChannel(false, false,
-            new HttpServerCodec(),
-            new HttpObjectAggregator(8192),
-            new WebSocketServerProtocolHandler(serverConfig)
+                new HttpServerCodec(),
+                new HttpObjectAggregator(8192),
+                new WebSocketServerProtocolHandler(serverConfig)
         );
         ch.pipeline().addLast(handlers);
         ch.register();
@@ -447,9 +447,9 @@ public class WebSocketServerProtocolHandlerTest {
 
     private EmbeddedChannel createChannel(ChannelHandler handler) {
         WebSocketServerProtocolConfig serverConfig = WebSocketServerProtocolConfig.newBuilder()
-            .websocketPath("/test")
-            .sendCloseFrame(null)
-            .build();
+                .websocketPath("/test")
+                .sendCloseFrame(null)
+                .build();
         return createChannel(serverConfig, handler);
     }
 

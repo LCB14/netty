@@ -75,9 +75,9 @@ public class SocketSslSessionReuseTest extends AbstractSocketTest {
     }
 
     public static Collection<Object[]> data() throws Exception {
-        return Collections.singletonList(new Object[] {
-            new JdkSslServerContext(CERT_FILE, KEY_FILE),
-            new JdkSslClientContext(CERT_FILE)
+        return Collections.singletonList(new Object[]{
+                new JdkSslServerContext(CERT_FILE, KEY_FILE),
+                new JdkSslClientContext(CERT_FILE)
         });
     }
 
@@ -98,7 +98,7 @@ public class SocketSslSessionReuseTest extends AbstractSocketTest {
                                     final SslContext serverCtx, final SslContext clientCtx) throws Throwable {
         final ReadAndDiscardHandler sh = new ReadAndDiscardHandler(true, true);
         final ReadAndDiscardHandler ch = new ReadAndDiscardHandler(false, true);
-        final String[] protocols = { "TLSv1", "TLSv1.1", "TLSv1.2" };
+        final String[] protocols = {"TLSv1", "TLSv1.1", "TLSv1.2"};
 
         sb.childHandler(new ChannelInitializer<SocketChannel>() {
             @Override
@@ -128,14 +128,14 @@ public class SocketSslSessionReuseTest extends AbstractSocketTest {
 
         try {
             SSLSessionContext clientSessionCtx = clientCtx.sessionContext();
-            ByteBuf msg = Unpooled.wrappedBuffer(new byte[] { 0xa, 0xb, 0xc, 0xd }, 0, 4);
+            ByteBuf msg = Unpooled.wrappedBuffer(new byte[]{0xa, 0xb, 0xc, 0xd}, 0, 4);
             Channel cc = cb.connect(sc.localAddress()).sync().channel();
             cc.writeAndFlush(msg).sync();
             cc.closeFuture().sync();
             rethrowHandlerExceptions(sh, ch);
             Set<String> sessions = sessionIdSet(clientSessionCtx.getIds());
 
-            msg = Unpooled.wrappedBuffer(new byte[] { 0xa, 0xb, 0xc, 0xd }, 0, 4);
+            msg = Unpooled.wrappedBuffer(new byte[]{0xa, 0xb, 0xc, 0xd}, 0, 4);
             cc = cb.connect(sc.localAddress()).sync().channel();
             cc.writeAndFlush(msg).sync();
             cc.closeFuture().sync();
@@ -202,11 +202,11 @@ public class SocketSslSessionReuseTest extends AbstractSocketTest {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx,
-                Throwable cause) throws Exception {
+                                    Throwable cause) throws Exception {
             if (logger.isWarnEnabled()) {
                 logger.warn(
                         "Unexpected exception from the " +
-                        (server? "server" : "client") + " side", cause);
+                                (server ? "server" : "client") + " side", cause);
             }
 
             exception.compareAndSet(null, cause);

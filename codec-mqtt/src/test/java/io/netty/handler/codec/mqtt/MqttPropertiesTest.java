@@ -76,7 +76,7 @@ public class MqttPropertiesTest {
         expectedSubscriptionIds.add(new MqttProperties.IntegerProperty(SUBSCRIPTION_IDENTIFIER.value(), 20));
         assertEquals(
                 expectedSubscriptionIds,
-               props.getProperties(SUBSCRIPTION_IDENTIFIER.value()));
+                props.getProperties(SUBSCRIPTION_IDENTIFIER.value()));
 
         List<MqttProperties.UserProperty> expectedUserProps = new ArrayList<MqttProperties.UserProperty>();
         expectedUserProps.add(new MqttProperties.UserProperty("isSecret", "true"));

@@ -33,7 +33,7 @@ import java.util.Map;
 
 import static io.netty.channel.ChannelOption.SO_TIMEOUT;
 
-final class DefaultOioDatagramChannelConfig extends DefaultDatagramChannelConfig implements OioDatagramChannelConfig  {
+final class DefaultOioDatagramChannelConfig extends DefaultDatagramChannelConfig implements OioDatagramChannelConfig {
 
     DefaultOioDatagramChannelConfig(DatagramChannel channel, DatagramSocket javaSocket) {
         super(channel, javaSocket);

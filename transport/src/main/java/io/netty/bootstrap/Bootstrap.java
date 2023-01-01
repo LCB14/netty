@@ -56,7 +56,8 @@ public class Bootstrap extends AbstractBootstrap<Bootstrap, Channel> {
             (AddressResolverGroup<SocketAddress>) DEFAULT_RESOLVER;
     private volatile SocketAddress remoteAddress;
 
-    public Bootstrap() { }
+    public Bootstrap() {
+    }
 
     private Bootstrap(Bootstrap bootstrap) {
         super(bootstrap);
@@ -69,7 +70,6 @@ public class Bootstrap extends AbstractBootstrap<Bootstrap, Channel> {
      *
      * @param resolver the {@link NameResolver} for this {@code Bootstrap}; may be {@code null}, in which case a default
      *                 resolver will be used
-     *
      * @see io.netty.resolver.DefaultAddressResolverGroup
      */
     @SuppressWarnings("unchecked")

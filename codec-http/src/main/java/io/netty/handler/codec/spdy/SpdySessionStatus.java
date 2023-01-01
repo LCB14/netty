@@ -26,19 +26,19 @@ public class SpdySessionStatus implements Comparable<SpdySessionStatus> {
      * 0 OK
      */
     public static final SpdySessionStatus OK =
-        new SpdySessionStatus(0, "OK");
+            new SpdySessionStatus(0, "OK");
 
     /**
      * 1 Protocol Error
      */
     public static final SpdySessionStatus PROTOCOL_ERROR =
-        new SpdySessionStatus(1, "PROTOCOL_ERROR");
+            new SpdySessionStatus(1, "PROTOCOL_ERROR");
 
     /**
      * 2 Internal Error
      */
     public static final SpdySessionStatus INTERNAL_ERROR =
-        new SpdySessionStatus(2, "INTERNAL_ERROR");
+            new SpdySessionStatus(2, "INTERNAL_ERROR");
 
     /**
      * Returns the {@link SpdySessionStatus} represented by the specified code.
@@ -47,12 +47,12 @@ public class SpdySessionStatus implements Comparable<SpdySessionStatus> {
      */
     public static SpdySessionStatus valueOf(int code) {
         switch (code) {
-        case 0:
-            return OK;
-        case 1:
-            return PROTOCOL_ERROR;
-        case 2:
-            return INTERNAL_ERROR;
+            case 0:
+                return OK;
+            case 1:
+                return PROTOCOL_ERROR;
+            case 2:
+                return INTERNAL_ERROR;
         }
 
         return new SpdySessionStatus(code, "UNKNOWN (" + code + ')');

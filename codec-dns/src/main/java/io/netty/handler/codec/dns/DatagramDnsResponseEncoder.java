@@ -35,7 +35,7 @@ import static io.netty.util.internal.ObjectUtil.checkNotNull;
 @UnstableApi
 @ChannelHandler.Sharable
 public class DatagramDnsResponseEncoder
-    extends MessageToMessageEncoder<AddressedEnvelope<DnsResponse, InetSocketAddress>> {
+        extends MessageToMessageEncoder<AddressedEnvelope<DnsResponse, InetSocketAddress>> {
 
     private final DnsRecordEncoder recordEncoder;
 
@@ -71,8 +71,8 @@ public class DatagramDnsResponseEncoder
      * Sub-classes may override this method to return a {@link ByteBuf} with a perfect matching initial capacity.
      */
     protected ByteBuf allocateBuffer(
-        ChannelHandlerContext ctx,
-        @SuppressWarnings("unused") AddressedEnvelope<DnsResponse, InetSocketAddress> msg) throws Exception {
+            ChannelHandlerContext ctx,
+            @SuppressWarnings("unused") AddressedEnvelope<DnsResponse, InetSocketAddress> msg) throws Exception {
         return ctx.alloc().ioBuffer(1024);
     }
 }

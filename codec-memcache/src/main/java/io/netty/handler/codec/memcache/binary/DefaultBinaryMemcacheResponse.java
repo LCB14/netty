@@ -41,7 +41,7 @@ public class DefaultBinaryMemcacheResponse extends AbstractBinaryMemcacheMessage
     /**
      * Create a new {@link DefaultBinaryMemcacheResponse} with the header and key.
      *
-     * @param key    the key to use.
+     * @param key the key to use.
      */
     public DefaultBinaryMemcacheResponse(ByteBuf key) {
         this(key, null);

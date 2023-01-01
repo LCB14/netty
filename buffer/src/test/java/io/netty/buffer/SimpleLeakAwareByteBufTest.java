@@ -58,7 +58,7 @@ public class SimpleLeakAwareByteBufTest extends BigEndianHeapByteBufTest {
     public void dispose() {
         super.dispose();
 
-        for (;;) {
+        for (; ; ) {
             NoopResourceLeakTracker<ByteBuf> tracker = trackers.poll();
 
             if (tracker == null) {

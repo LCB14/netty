@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class MqttMessageTypeValueOfBench extends AbstractMicrobenchmark {
 
-    private static final int[] DATASET = new int[] {
+    private static final int[] DATASET = new int[]{
             9, 5, 2, 9, 8, 4, 3, 7, 7, 9, 6, 11, 10, 4, 10, 6, 12, 6, 14, 8, 2, 2, 5, 7, 13, 3, 10, 12, 6, 2, 8, 1, 6,
             4, 10, 8, 13, 9, 9, 2, 7, 12, 2, 3, 12, 9, 3, 12,
             11, 4, 10, 11, 9, 10, 5, 9, 4, 14, 6, 10, 13, 9, 12, 7, 5, 3, 1, 2, 7, 11, 1, 8, 4, 9, 5, 11, 14, 6, 3, 4,
@@ -113,36 +113,36 @@ public class MqttMessageTypeValueOfBench extends AbstractMicrobenchmark {
 
     private static MqttMessageType switchValueOf(int type) {
         switch (type) {
-        case 1:
-            return MqttMessageType.CONNECT;
-        case 2:
-            return MqttMessageType.CONNACK;
-        case 3:
-            return MqttMessageType.PUBLISH;
-        case 4:
-            return MqttMessageType.PUBACK;
-        case 5:
-            return MqttMessageType.PUBREC;
-        case 6:
-            return MqttMessageType.PUBREL;
-        case 7:
-            return MqttMessageType.PUBCOMP;
-        case 8:
-            return MqttMessageType.SUBSCRIBE;
-        case 9:
-            return MqttMessageType.SUBACK;
-        case 10:
-            return MqttMessageType.UNSUBSCRIBE;
-        case 11:
-            return MqttMessageType.UNSUBACK;
-        case 12:
-            return MqttMessageType.PINGREQ;
-        case 13:
-            return MqttMessageType.PINGRESP;
-        case 14:
-            return MqttMessageType.DISCONNECT;
-        default:
-            throw new IllegalArgumentException("unknown message type: " + type);
+            case 1:
+                return MqttMessageType.CONNECT;
+            case 2:
+                return MqttMessageType.CONNACK;
+            case 3:
+                return MqttMessageType.PUBLISH;
+            case 4:
+                return MqttMessageType.PUBACK;
+            case 5:
+                return MqttMessageType.PUBREC;
+            case 6:
+                return MqttMessageType.PUBREL;
+            case 7:
+                return MqttMessageType.PUBCOMP;
+            case 8:
+                return MqttMessageType.SUBSCRIBE;
+            case 9:
+                return MqttMessageType.SUBACK;
+            case 10:
+                return MqttMessageType.UNSUBSCRIBE;
+            case 11:
+                return MqttMessageType.UNSUBACK;
+            case 12:
+                return MqttMessageType.PINGREQ;
+            case 13:
+                return MqttMessageType.PINGRESP;
+            case 14:
+                return MqttMessageType.DISCONNECT;
+            default:
+                throw new IllegalArgumentException("unknown message type: " + type);
         }
     }
 }

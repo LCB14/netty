@@ -36,7 +36,7 @@ public class FingerprintTrustManagerFactoryTest {
 
     private static final String FIRST_CERT_SHA256_FINGERPRINT
             = "1C:53:0E:6B:FF:93:F0:DE:C2:E6:E7:9D:10:53:58:FF:" +
-              "DD:8E:68:CD:82:D9:C9:36:9B:43:EE:B3:DC:13:68:FB";
+            "DD:8E:68:CD:82:D9:C9:36:9B:43:EE:B3:DC:13:68:FB";
 
     private static final X509Certificate[] FIRST_CHAIN;
 

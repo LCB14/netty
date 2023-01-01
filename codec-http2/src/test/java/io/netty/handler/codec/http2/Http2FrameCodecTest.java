@@ -259,7 +259,7 @@ public class Http2FrameCodecTest {
         channel.writeOutbound(new DefaultHttp2DataFrame(bb("world"), true, 27).stream(stream2));
         ArgumentCaptor<ByteBuf> outboundData = ArgumentCaptor.forClass(ByteBuf.class);
         verify(frameWriter).writeData(eqFrameCodecCtx(), eq(1), outboundData.capture(), eq(27),
-                                      eq(true), anyChannelPromise());
+                eq(true), anyChannelPromise());
 
         ByteBuf bb = bb("world");
         assertEquals(bb, outboundData.getValue());
@@ -591,15 +591,15 @@ public class Http2FrameCodecTest {
         final Promise<Void> listenerExecuted = new DefaultPromise<Void>(GlobalEventExecutor.INSTANCE);
 
         channel.writeAndFlush(new DefaultHttp2HeadersFrame(new DefaultHttp2Headers(), false).stream(stream))
-               .addListener(new ChannelFutureListener() {
-                    @Override
-                    public void operationComplete(ChannelFuture future) throws Exception {
-                        assertTrue(future.isSuccess());
-                        assertTrue(isStreamIdValid(stream.id()));
-                        listenerExecuted.setSuccess(null);
-                    }
-                }
-        );
+                .addListener(new ChannelFutureListener() {
+                                 @Override
+                                 public void operationComplete(ChannelFuture future) throws Exception {
+                                     assertTrue(future.isSuccess());
+                                     assertTrue(isStreamIdValid(stream.id()));
+                                     listenerExecuted.setSuccess(null);
+                                 }
+                             }
+                );
         ByteBuf data = Unpooled.buffer().writeZero(100);
         ChannelFuture f = channel.writeAndFlush(new DefaultHttp2DataFrame(data).stream(stream));
         assertTrue(f.isSuccess());
@@ -611,7 +611,7 @@ public class Http2FrameCodecTest {
     @Test
     public void newOutboundStreamsShouldBeBuffered() throws Exception {
         setUp(Http2FrameCodecBuilder.forServer().encoderEnforceMaxConcurrentStreams(true),
-              new Http2Settings().maxConcurrentStreams(1));
+                new Http2Settings().maxConcurrentStreams(1));
 
         Http2FrameStream stream1 = frameCodec.newStream();
         Http2FrameStream stream2 = frameCodec.newStream();
@@ -691,13 +691,13 @@ public class Http2FrameCodecTest {
         ChannelPromise stream2HeaderPromise = channel.newPromise();
 
         channel.writeAndFlush(new DefaultHttp2HeadersFrame(new DefaultHttp2Headers()).stream(stream1),
-                              stream1HeaderPromise);
+                stream1HeaderPromise);
         channel.runPendingTasks();
 
         frameInboundWriter.writeInboundGoAway(stream1.id(), 0L, Unpooled.EMPTY_BUFFER);
 
         channel.writeAndFlush(new DefaultHttp2HeadersFrame(new DefaultHttp2Headers()).stream(stream2),
-                              stream2HeaderPromise);
+                stream2HeaderPromise);
         channel.runPendingTasks();
 
         assertTrue(stream1HeaderPromise.syncUninterruptibly().isSuccess());
@@ -766,7 +766,7 @@ public class Http2FrameCodecTest {
     @Test
     public void iterateActiveStreams() throws Exception {
         setUp(Http2FrameCodecBuilder.forServer().encoderEnforceMaxConcurrentStreams(true),
-              new Http2Settings().maxConcurrentStreams(1));
+                new Http2Settings().maxConcurrentStreams(1));
 
         frameInboundWriter.writeInboundHeaders(3, request, 0, false);
 
@@ -894,10 +894,10 @@ public class Http2FrameCodecTest {
 
         String longString = new String(new char[70000]).replace("\0", "*");
         DefaultFullHttpRequest request =
-            new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/", bb(longString));
+                new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/", bb(longString));
 
         HttpServerUpgradeHandler.UpgradeEvent upgradeEvent = constructor.newInstance(
-            "HTTP/2", request);
+                "HTTP/2", request);
         channel.pipeline().fireUserEventTriggered(upgradeEvent);
     }
 

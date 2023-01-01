@@ -38,14 +38,14 @@ public abstract class AbstractTestsuiteTest<T extends AbstractBootstrap<?, ?>> {
     protected void run(TestInfo testInfo, Runner<T> runner) throws Throwable {
         List<TestsuitePermutation.BootstrapFactory<T>> combos = newFactories();
         String methodName = TestUtils.testMethodName(testInfo);
-        for (ByteBufAllocator allocator: newAllocators()) {
+        for (ByteBufAllocator allocator : newAllocators()) {
             int i = 0;
-            for (TestsuitePermutation.BootstrapFactory<T> e: combos) {
+            for (TestsuitePermutation.BootstrapFactory<T> e : combos) {
                 cb = e.newInstance();
                 configure(cb, allocator);
                 logger.info(String.format(
                         "Running: %s %d of %d with %s",
-                        methodName, ++ i, combos.size(), StringUtil.simpleClassName(allocator)));
+                        methodName, ++i, combos.size(), StringUtil.simpleClassName(allocator)));
                 runner.run(cb);
             }
         }

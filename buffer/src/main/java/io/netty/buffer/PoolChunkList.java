@@ -88,7 +88,7 @@ final class PoolChunkList<T> implements PoolChunkListMetric {
         // As an example:
         // - If a PoolChunkList has minUsage == 25 we are allowed to allocate at most 75% of the chunkSize because
         //   this is the maximum amount available in any PoolChunk in this PoolChunkList.
-        return  (int) (chunkSize * (100L - minUsage) / 100L);
+        return (int) (chunkSize * (100L - minUsage) / 100L);
     }
 
     void prevList(PoolChunkList<T> prevList) {
@@ -215,7 +215,7 @@ final class PoolChunkList<T> implements PoolChunkListMetric {
                 return EMPTY_METRICS;
             }
             List<PoolChunkMetric> metrics = new ArrayList<PoolChunkMetric>();
-            for (PoolChunk<T> cur = head;;) {
+            for (PoolChunk<T> cur = head; ; ) {
                 metrics.add(cur);
                 cur = cur.next;
                 if (cur == null) {
@@ -237,7 +237,7 @@ final class PoolChunkList<T> implements PoolChunkListMetric {
                 return "none";
             }
 
-            for (PoolChunk<T> cur = head;;) {
+            for (PoolChunk<T> cur = head; ; ) {
                 buf.append(cur);
                 cur = cur.next;
                 if (cur == null) {

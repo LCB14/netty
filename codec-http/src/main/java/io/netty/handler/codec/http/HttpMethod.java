@@ -122,7 +122,7 @@ public class HttpMethod implements Comparable<HttpMethod> {
     public HttpMethod(String name) {
         name = checkNonEmptyAfterTrim(name, "name");
 
-        for (int i = 0; i < name.length(); i ++) {
+        for (int i = 0; i < name.length(); i++) {
             char c = name.charAt(i);
             if (Character.isISOControl(c) || Character.isWhitespace(c)) {
                 throw new IllegalArgumentException("invalid character in name");

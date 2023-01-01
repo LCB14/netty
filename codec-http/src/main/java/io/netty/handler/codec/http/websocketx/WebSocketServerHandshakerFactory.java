@@ -42,13 +42,10 @@ public class WebSocketServerHandshakerFactory {
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param subprotocols
-     *            CSV of supported protocols. Null if sub protocols not supported.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
+     * @param webSocketURL    URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                        Subsequent web socket frames will be sent to this URL.
+     * @param subprotocols    CSV of supported protocols. Null if sub protocols not supported.
+     * @param allowExtensions Allow extensions to be used in the reserved bits of the web socket frame
      */
     public WebSocketServerHandshakerFactory(
             String webSocketURL, String subprotocols, boolean allowExtensions) {
@@ -58,16 +55,12 @@ public class WebSocketServerHandshakerFactory {
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param subprotocols
-     *            CSV of supported protocols. Null if sub protocols not supported.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                              Subsequent web socket frames will be sent to this URL.
+     * @param subprotocols          CSV of supported protocols. Null if sub protocols not supported.
+     * @param allowExtensions       Allow extensions to be used in the reserved bits of the web socket frame
+     * @param maxFramePayloadLength Maximum allowable frame payload length. Setting this value to your application's
+     *                              requirement may reduce denial of service attacks using long data frames.
      */
     public WebSocketServerHandshakerFactory(
             String webSocketURL, String subprotocols, boolean allowExtensions,
@@ -78,40 +71,32 @@ public class WebSocketServerHandshakerFactory {
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param subprotocols
-     *            CSV of supported protocols. Null if sub protocols not supported.
-     * @param allowExtensions
-     *            Allow extensions to be used in the reserved bits of the web socket frame
-     * @param maxFramePayloadLength
-     *            Maximum allowable frame payload length. Setting this value to your application's
-     *            requirement may reduce denial of service attacks using long data frames.
-     * @param allowMaskMismatch
-     *            When set to true, frames which are not masked properly according to the standard will still be
-     *            accepted.
+     * @param webSocketURL          URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                              Subsequent web socket frames will be sent to this URL.
+     * @param subprotocols          CSV of supported protocols. Null if sub protocols not supported.
+     * @param allowExtensions       Allow extensions to be used in the reserved bits of the web socket frame
+     * @param maxFramePayloadLength Maximum allowable frame payload length. Setting this value to your application's
+     *                              requirement may reduce denial of service attacks using long data frames.
+     * @param allowMaskMismatch     When set to true, frames which are not masked properly according to the standard will still be
+     *                              accepted.
      */
     public WebSocketServerHandshakerFactory(
             String webSocketURL, String subprotocols, boolean allowExtensions,
             int maxFramePayloadLength, boolean allowMaskMismatch) {
         this(webSocketURL, subprotocols, WebSocketDecoderConfig.newBuilder()
-            .allowExtensions(allowExtensions)
-            .maxFramePayloadLength(maxFramePayloadLength)
-            .allowMaskMismatch(allowMaskMismatch)
-            .build());
+                .allowExtensions(allowExtensions)
+                .maxFramePayloadLength(maxFramePayloadLength)
+                .allowMaskMismatch(allowMaskMismatch)
+                .build());
     }
 
     /**
      * Constructor specifying the destination web socket location
      *
-     * @param webSocketURL
-     *            URL for web socket communications. e.g "ws://myhost.com/mypath".
-     *            Subsequent web socket frames will be sent to this URL.
-     * @param subprotocols
-     *            CSV of supported protocols. Null if sub protocols not supported.
-     * @param decoderConfig
-     *            Frames decoder options.
+     * @param webSocketURL  URL for web socket communications. e.g "ws://myhost.com/mypath".
+     *                      Subsequent web socket frames will be sent to this URL.
+     * @param subprotocols  CSV of supported protocols. Null if sub protocols not supported.
+     * @param decoderConfig Frames decoder options.
      */
     public WebSocketServerHandshakerFactory(
             String webSocketURL, String subprotocols, WebSocketDecoderConfig decoderConfig) {
@@ -124,7 +109,7 @@ public class WebSocketServerHandshakerFactory {
      * Instances a new handshaker
      *
      * @return A new WebSocketServerHandshaker for the requested web socket version. Null if web
-     *         socket version is not supported.
+     * socket version is not supported.
      */
     public WebSocketServerHandshaker newHandshaker(HttpRequest req) {
 

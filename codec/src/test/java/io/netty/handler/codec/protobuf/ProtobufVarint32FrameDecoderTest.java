@@ -38,14 +38,14 @@ public class ProtobufVarint32FrameDecoderTest {
 
     @Test
     public void testTinyDecode() {
-        byte[] b = { 4, 1, 1, 1, 1 };
+        byte[] b = {4, 1, 1, 1, 1};
         assertFalse(ch.writeInbound(wrappedBuffer(b, 0, 1)));
         assertThat(ch.readInbound(), is(nullValue()));
         assertFalse(ch.writeInbound(wrappedBuffer(b, 1, 2)));
         assertThat(ch.readInbound(), is(nullValue()));
         assertTrue(ch.writeInbound(wrappedBuffer(b, 3, b.length - 3)));
 
-        ByteBuf expected = wrappedBuffer(new byte[] { 1, 1, 1, 1 });
+        ByteBuf expected = wrappedBuffer(new byte[]{1, 1, 1, 1});
         ByteBuf actual = ch.readInbound();
 
         assertThat(expected, is(actual));
@@ -58,7 +58,7 @@ public class ProtobufVarint32FrameDecoderTest {
     @Test
     public void testRegularDecode() {
         byte[] b = new byte[2048];
-        for (int i = 2; i < 2048; i ++) {
+        for (int i = 2; i < 2048; i++) {
             b[i] = 1;
         }
         b[0] = -2;

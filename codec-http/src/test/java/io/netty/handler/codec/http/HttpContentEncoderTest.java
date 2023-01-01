@@ -203,7 +203,7 @@ public class HttpContentEncoderTest {
         ch.writeInbound(new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/"));
 
         FullHttpResponse res = new DefaultFullHttpResponse(
-            HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(new byte[42]));
+                HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(new byte[42]));
         ch.writeOutbound(res);
 
         assertEncodedResponse(ch);
@@ -404,12 +404,12 @@ public class HttpContentEncoderTest {
             protected Result beginEncode(HttpResponse httpResponse, String acceptEncoding) throws Exception {
                 return new Result("myencoding", new EmbeddedChannel(
                         new ChannelInboundHandlerAdapter() {
-                    @Override
-                    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-                        ctx.fireExceptionCaught(new EncoderException());
-                        ctx.fireChannelInactive();
-                    }
-                }));
+                            @Override
+                            public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+                                ctx.fireExceptionCaught(new EncoderException());
+                                ctx.fireChannelInactive();
+                            }
+                        }));
             }
         };
 

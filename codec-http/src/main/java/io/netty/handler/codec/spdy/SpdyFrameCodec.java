@@ -96,8 +96,8 @@ public class SpdyFrameCodec extends ByteToMessageDecoder
     }
 
     protected SpdyFrameCodec(SpdyVersion version, int maxChunkSize,
-            SpdyHeaderBlockDecoder spdyHeaderBlockDecoder, SpdyHeaderBlockEncoder spdyHeaderBlockEncoder,
-            boolean validateHeaders) {
+                             SpdyHeaderBlockDecoder spdyHeaderBlockDecoder, SpdyHeaderBlockEncoder spdyHeaderBlockEncoder,
+                             boolean validateHeaders) {
         spdyFrameDecoder = new SpdyFrameDecoder(version, this, maxChunkSize);
         spdyFrameEncoder = new SpdyFrameEncoder(version);
         this.spdyHeaderBlockDecoder = spdyHeaderBlockDecoder;

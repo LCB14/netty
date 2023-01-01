@@ -192,7 +192,7 @@ public abstract class EmbeddedChannelHandlerContext implements ChannelHandlerCon
 
     @Override
     public final ChannelFuture connect(SocketAddress remoteAddress, SocketAddress localAddress,
-                                 ChannelPromise promise) {
+                                       ChannelPromise promise) {
         try {
             channel().connect(remoteAddress, localAddress, promise);
         } catch (Exception e) {

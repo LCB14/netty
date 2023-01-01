@@ -67,7 +67,7 @@ public final class EmptyByteBuf extends ByteBuf {
     private EmptyByteBuf(ByteBufAllocator alloc, ByteOrder order) {
         this.alloc = ObjectUtil.checkNotNull(alloc, "alloc");
         this.order = order;
-        str = StringUtil.simpleClassName(this) + (order == ByteOrder.BIG_ENDIAN? "BE" : "LE");
+        str = StringUtil.simpleClassName(this) + (order == ByteOrder.BIG_ENDIAN ? "BE" : "LE");
     }
 
     @Override
@@ -913,7 +913,7 @@ public final class EmptyByteBuf extends ByteBuf {
 
     @Override
     public ByteBuffer[] nioBuffers() {
-        return new ByteBuffer[] { EMPTY_BYTE_BUFFER };
+        return new ByteBuffer[]{EMPTY_BYTE_BUFFER};
     }
 
     @Override
@@ -984,7 +984,7 @@ public final class EmptyByteBuf extends ByteBuf {
 
     @Override
     public int compareTo(ByteBuf buffer) {
-        return buffer.isReadable()? -1 : 0;
+        return buffer.isReadable() ? -1 : 0;
     }
 
     @Override

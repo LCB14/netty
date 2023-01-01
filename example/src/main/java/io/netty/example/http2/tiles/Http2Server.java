@@ -17,6 +17,7 @@
 package io.netty.example.http2.tiles;
 
 import static io.netty.handler.codec.http2.Http2SecurityUtil.CIPHERS;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -81,7 +82,7 @@ public class Http2Server {
                 ApplicationProtocolNames.HTTP_1_1);
 
         return SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey(), null)
-                                .ciphers(CIPHERS, SupportedCipherSuiteFilter.INSTANCE)
-                                .applicationProtocolConfig(apn).build();
+                .ciphers(CIPHERS, SupportedCipherSuiteFilter.INSTANCE)
+                .applicationProtocolConfig(apn).build();
     }
 }

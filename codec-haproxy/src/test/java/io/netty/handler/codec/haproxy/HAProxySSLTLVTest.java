@@ -45,7 +45,7 @@ public class HAProxySSLTLVTest {
 
         final HAProxySSLTLV clientSSLandClientCertSessTLV =
                 new HAProxySSLTLV(0, clientSSLandClientCertSessEnabled, Collections.<HAProxyTLV>emptyList(),
-                                  Unpooled.buffer());
+                        Unpooled.buffer());
 
         assertFalse(clientSSLandClientCertSessTLV.isPP2ClientCertConn());
         assertTrue(clientSSLandClientCertSessTLV.isPP2ClientSSL());
@@ -57,7 +57,7 @@ public class HAProxySSLTLVTest {
 
         final HAProxySSLTLV noClientTlv =
                 new HAProxySSLTLV(0, noClientEnabled, Collections.<HAProxyTLV>emptyList(),
-                                  Unpooled.buffer());
+                        Unpooled.buffer());
 
         assertFalse(noClientTlv.isPP2ClientCertConn());
         assertFalse(noClientTlv.isPP2ClientSSL());

@@ -41,15 +41,15 @@ public class ReplayingDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(new LineDecoder());
 
         // Ordinary input
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 'A' }));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'A'}));
         assertNull(ch.readInbound());
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 'B' }));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'B'}));
         assertNull(ch.readInbound());
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 'C' }));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'C'}));
         assertNull(ch.readInbound());
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { '\n' }));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'\n'}));
 
-        ByteBuf buf = Unpooled.wrappedBuffer(new byte[] { 'A', 'B', 'C' });
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'A', 'B', 'C'});
         ByteBuf buf2 = ch.readInbound();
         assertEquals(buf, buf2);
 
@@ -57,7 +57,7 @@ public class ReplayingDecoderTest {
         buf2.release();
 
         // Truncated input
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 'A' }));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'A'}));
         assertNull(ch.readInbound());
 
         ch.finish();
@@ -88,7 +88,7 @@ public class ReplayingDecoderTest {
         // "C\n" should be appended to "AB" so that LineDecoder decodes it correctly.
         ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'C', '\n'}));
 
-        ByteBuf buf = Unpooled.wrappedBuffer(new byte[] { 'A', 'B', 'C' });
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'A', 'B', 'C'});
         ByteBuf buf2 = ch.readInbound();
         assertEquals(buf, buf2);
 
@@ -114,9 +114,9 @@ public class ReplayingDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(decoder);
 
         // "C\n" should be appended to "AB" so that LineDecoder decodes it correctly.
-        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'C', '\n' , 'B', '\n'}));
+        ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'C', '\n', 'B', '\n'}));
 
-        ByteBuf buf  = Unpooled.wrappedBuffer(new byte[] {'C'});
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'C'});
         ByteBuf buf2 = ch.readInbound();
         assertEquals(buf, buf2);
 
@@ -128,7 +128,7 @@ public class ReplayingDecoderTest {
         ch.read();
         ch.finish();
 
-        buf  = Unpooled.wrappedBuffer(new byte[] {'B'});
+        buf = Unpooled.wrappedBuffer(new byte[]{'B'});
         buf2 = ch.readInbound();
         assertEquals(buf, buf2);
 
@@ -152,7 +152,7 @@ public class ReplayingDecoderTest {
             }
         });
 
-        ByteBuf buf = Unpooled.wrappedBuffer(new byte[] {'a', 'b', 'c'});
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'a', 'b', 'c'});
         channel.writeInbound(buf.copy());
         ByteBuf b = channel.readInbound();
         assertEquals(b, buf.skipBytes(1));
@@ -176,7 +176,7 @@ public class ReplayingDecoderTest {
             }
         });
 
-        ByteBuf buf = Unpooled.wrappedBuffer(new byte[] {'a', 'b', 'c'});
+        ByteBuf buf = Unpooled.wrappedBuffer(new byte[]{'a', 'b', 'c'});
         channel.writeInbound(buf.copy());
         ByteBuf b = channel.readInbound();
 
@@ -187,7 +187,7 @@ public class ReplayingDecoderTest {
 
     @Test
     public void testRemoveItselfWriteBuffer() {
-        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[] {'a', 'b', 'c'});
+        final ByteBuf buf = Unpooled.buffer().writeBytes(new byte[]{'a', 'b', 'c'});
         EmbeddedChannel channel = new EmbeddedChannel(new ReplayingDecoder() {
             private boolean removed;
 
@@ -205,7 +205,7 @@ public class ReplayingDecoderTest {
 
         channel.writeInbound(buf.copy());
         ByteBuf b = channel.readInbound();
-        assertEquals(b, Unpooled.wrappedBuffer(new byte[] { 'b', 'c'}));
+        assertEquals(b, Unpooled.wrappedBuffer(new byte[]{'b', 'c'}));
         b.release();
         buf.release();
     }
@@ -281,7 +281,7 @@ public class ReplayingDecoderTest {
             }
         });
 
-        assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(new byte[] {0, 1})));
+        assertFalse(channel.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 1})));
         channel.pipeline().fireUserEventTriggered(ChannelInputShutdownEvent.INSTANCE);
         assertFalse(channel.finishAndReleaseAll());
 

@@ -67,9 +67,9 @@ public class CipherSuiteCanaryTest {
     private static SelfSignedCertificate CERT;
 
     static Collection<Object[]> parameters() {
-       List<Object[]> dst = new ArrayList<Object[]>();
-       dst.addAll(expand("TLS_DHE_RSA_WITH_AES_128_GCM_SHA256")); // DHE-RSA-AES128-GCM-SHA256
-       return dst;
+        List<Object[]> dst = new ArrayList<Object[]>();
+        dst.addAll(expand("TLS_DHE_RSA_WITH_AES_128_GCM_SHA256")); // DHE-RSA-AES128-GCM-SHA256
+        return dst;
     }
 
     @BeforeAll
@@ -88,11 +88,11 @@ public class CipherSuiteCanaryTest {
         boolean cipherSupported = false;
         if (provider == SslProvider.JDK) {
             SSLEngine engine = SSLContext.getDefault().createSSLEngine();
-            for (String c: engine.getSupportedCipherSuites()) {
-               if (cipher.equals(c)) {
-                   cipherSupported = true;
-                   break;
-               }
+            for (String c : engine.getSupportedCipherSuites()) {
+                if (cipher.equals(c)) {
+                    cipherSupported = true;
+                    break;
+                }
             }
         } else {
             cipherSupported = OpenSsl.isCipherSuiteAvailable(cipher);
@@ -158,7 +158,7 @@ public class CipherSuiteCanaryTest {
                             @Override
                             public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
                                 if (serverPromise.trySuccess(null)) {
-                                    ctx.writeAndFlush(Unpooled.wrappedBuffer(new byte[] {'P', 'O', 'N', 'G'}));
+                                    ctx.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{'P', 'O', 'N', 'G'}));
                                 }
                                 ctx.close();
                             }
@@ -210,8 +210,8 @@ public class CipherSuiteCanaryTest {
 
                     Channel client = client(server, clientHandler);
                     try {
-                        client.writeAndFlush(Unpooled.wrappedBuffer(new byte[] {'P', 'I', 'N', 'G'}))
-                              .syncUninterruptibly();
+                        client.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{'P', 'I', 'N', 'G'}))
+                                .syncUninterruptibly();
 
                         assertTrue(clientPromise.await(5L, TimeUnit.SECONDS), "client timeout");
                         assertTrue(serverPromise.await(5L, TimeUnit.SECONDS), "server timeout");

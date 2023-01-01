@@ -30,7 +30,6 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * Abstract base class for {@link EventLoop}s that execute all its submitted tasks in a single thread.
- *
  */
 public abstract class SingleThreadEventLoop extends SingleThreadEventExecutor implements EventLoop {
 
@@ -124,7 +123,6 @@ public abstract class SingleThreadEventLoop extends SingleThreadEventExecutor im
      * Removes a task that was added previously via {@link #executeAfterEventLoopIteration(Runnable)}.
      *
      * @param task to be removed.
-     *
      * @return {@code true} if the task was removed as a result of this call.
      */
     @UnstableApi
@@ -159,9 +157,9 @@ public abstract class SingleThreadEventLoop extends SingleThreadEventExecutor im
 
     /**
      * @return read-only iterator of active {@link Channel}s registered with this {@link EventLoop}.
-     *         The returned value is not guaranteed to be exact accurate and
-     *         should be viewed as a best effort. This method is expected to be called from within
-     *         event loop.
+     * The returned value is not guaranteed to be exact accurate and
+     * should be viewed as a best effort. This method is expected to be called from within
+     * event loop.
      * @throws UnsupportedOperationException if operation is not supported by implementation.
      */
     @UnstableApi

@@ -45,6 +45,7 @@ public final class LoggingDnsQueryLifeCycleObserverFactory implements DnsQueryLi
 
     /**
      * Create {@link DnsQueryLifecycleObserver} instances that log events at the given log level.
+     *
      * @param level The log level to use for logging resolver events.
      */
     public LoggingDnsQueryLifeCycleObserverFactory(LogLevel level) {
@@ -55,8 +56,9 @@ public final class LoggingDnsQueryLifeCycleObserverFactory implements DnsQueryLi
     /**
      * Create {@link DnsQueryLifecycleObserver} instances that log events to a logger with the given class context,
      * at the given log level.
+     *
      * @param classContext The class context for the logger to use.
-     * @param level The log level to use for logging resolver events.
+     * @param level        The log level to use for logging resolver events.
      */
     public LoggingDnsQueryLifeCycleObserverFactory(Class<?> classContext, LogLevel level) {
         this.level = checkAndConvertLevel(level);
@@ -66,7 +68,8 @@ public final class LoggingDnsQueryLifeCycleObserverFactory implements DnsQueryLi
     /**
      * Create {@link DnsQueryLifecycleObserver} instances that log events to a logger with the given name context,
      * at the given log level.
-     * @param name The name for the logger to use.
+     *
+     * @param name  The name for the logger to use.
      * @param level The log level to use for logging resolver events.
      */
     public LoggingDnsQueryLifeCycleObserverFactory(String name, LogLevel level) {

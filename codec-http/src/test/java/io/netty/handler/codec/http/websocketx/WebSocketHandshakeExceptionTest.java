@@ -43,7 +43,7 @@ public class WebSocketHandshakeExceptionTest {
         HttpResponse httpResponse = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST);
         httpResponse.headers().set("x-header", "x-value");
         WebSocketClientHandshakeException clientException = new WebSocketClientHandshakeException("client message",
-                                                                                                  httpResponse);
+                httpResponse);
 
         assertNotNull(clientException.response());
         assertEquals("client message", clientException.getMessage());
@@ -62,10 +62,10 @@ public class WebSocketHandshakeExceptionTest {
     @Test
     public void testClientExceptionWithRequest() {
         HttpRequest httpRequest = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
-                                                         "ws://localhost:9999/ws");
+                "ws://localhost:9999/ws");
         httpRequest.headers().set("x-header", "x-value");
         WebSocketServerHandshakeException serverException = new WebSocketServerHandshakeException("server message",
-                                                                                                  httpRequest);
+                httpRequest);
 
         assertNotNull(serverException.request());
         assertEquals("server message", serverException.getMessage());

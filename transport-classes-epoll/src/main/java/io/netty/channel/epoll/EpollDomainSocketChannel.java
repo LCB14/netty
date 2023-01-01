@@ -159,22 +159,23 @@ public final class EpollDomainSocketChannel extends AbstractEpollStreamChannel i
             epollInBefore();
 
             try {
-                readLoop: do {
+                readLoop:
+                do {
                     // lastBytesRead represents the fd. We use lastBytesRead because it must be set so that the
                     // EpollRecvByteAllocatorHandle knows if it should try to read again or not when autoRead is
                     // enabled.
                     allocHandle.lastBytesRead(socket.recvFd());
-                    switch(allocHandle.lastBytesRead()) {
-                    case 0:
-                        break readLoop;
-                    case -1:
-                        close(voidPromise());
-                        return;
-                    default:
-                        allocHandle.incMessagesRead(1);
-                        readPending = false;
-                        pipeline.fireChannelRead(new FileDescriptor(allocHandle.lastBytesRead()));
-                        break;
+                    switch (allocHandle.lastBytesRead()) {
+                        case 0:
+                            break readLoop;
+                        case -1:
+                            close(voidPromise());
+                            return;
+                        default:
+                            allocHandle.incMessagesRead(1);
+                            readPending = false;
+                            pipeline.fireChannelRead(new FileDescriptor(allocHandle.lastBytesRead()));
+                            break;
                     }
                 } while (allocHandle.continueReading());
 

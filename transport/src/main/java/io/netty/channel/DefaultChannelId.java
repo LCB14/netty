@@ -167,7 +167,7 @@ public final class DefaultChannelId implements ChannelId {
 
         if (pid < 0) {
             pid = PlatformDependent.threadLocalRandom().nextInt();
-            logger.warn("Failed to find the current process ID from '{}'; using a random value: {}",  value, pid);
+            logger.warn("Failed to find the current process ID from '{}'; using a random value: {}", value, pid);
         }
 
         return pid;
@@ -214,22 +214,22 @@ public final class DefaultChannelId implements ChannelId {
     }
 
     private int writeInt(int i, int value) {
-        data[i ++] = (byte) (value >>> 24);
-        data[i ++] = (byte) (value >>> 16);
-        data[i ++] = (byte) (value >>> 8);
-        data[i ++] = (byte) value;
+        data[i++] = (byte) (value >>> 24);
+        data[i++] = (byte) (value >>> 16);
+        data[i++] = (byte) (value >>> 8);
+        data[i++] = (byte) value;
         return i;
     }
 
     private int writeLong(int i, long value) {
-        data[i ++] = (byte) (value >>> 56);
-        data[i ++] = (byte) (value >>> 48);
-        data[i ++] = (byte) (value >>> 40);
-        data[i ++] = (byte) (value >>> 32);
-        data[i ++] = (byte) (value >>> 24);
-        data[i ++] = (byte) (value >>> 16);
-        data[i ++] = (byte) (value >>> 8);
-        data[i ++] = (byte) value;
+        data[i++] = (byte) (value >>> 56);
+        data[i++] = (byte) (value >>> 48);
+        data[i++] = (byte) (value >>> 40);
+        data[i++] = (byte) (value >>> 32);
+        data[i++] = (byte) (value >>> 24);
+        data[i++] = (byte) (value >>> 16);
+        data[i++] = (byte) (value >>> 8);
+        data[i++] = (byte) value;
         return i;
     }
 

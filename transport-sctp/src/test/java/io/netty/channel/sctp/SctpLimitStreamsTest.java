@@ -77,6 +77,8 @@ public abstract class SctpLimitStreamsTest {
     }
 
     protected abstract EventLoopGroup newEventLoopGroup();
+
     protected abstract Class<? extends SctpChannel> clientClass();
+
     protected abstract Class<? extends SctpServerChannel> serverClass();
 }

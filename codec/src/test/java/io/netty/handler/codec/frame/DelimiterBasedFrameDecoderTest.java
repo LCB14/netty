@@ -36,16 +36,16 @@ public class DelimiterBasedFrameDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(
                 new DelimiterBasedFrameDecoder(1, true, false, Delimiters.nulDelimiter()));
 
-        for (int i = 0; i < 2; i ++) {
-            ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 1, 2 }));
+        for (int i = 0; i < 2; i++) {
+            ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{1, 2}));
             try {
-                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0 })));
+                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0})));
                 fail(DecoderException.class.getSimpleName() + " must be raised.");
             } catch (TooLongFrameException e) {
                 // Expected
             }
 
-            ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 'A', 0 }));
+            ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{'A', 0}));
             ByteBuf buf = ch.readInbound();
             assertEquals("A", buf.toString(CharsetUtil.ISO_8859_1));
 
@@ -58,15 +58,15 @@ public class DelimiterBasedFrameDecoderTest {
         EmbeddedChannel ch = new EmbeddedChannel(
                 new DelimiterBasedFrameDecoder(1, Delimiters.nulDelimiter()));
 
-        for (int i = 0; i < 2; i ++) {
+        for (int i = 0; i < 2; i++) {
             try {
-                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 1, 2 })));
+                assertTrue(ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{1, 2})));
                 fail(DecoderException.class.getSimpleName() + " must be raised.");
             } catch (TooLongFrameException e) {
                 // Expected
             }
 
-            ch.writeInbound(Unpooled.wrappedBuffer(new byte[] { 0, 'A', 0 }));
+            ch.writeInbound(Unpooled.wrappedBuffer(new byte[]{0, 'A', 0}));
             ByteBuf buf = ch.readInbound();
             assertEquals("A", buf.toString(CharsetUtil.ISO_8859_1));
 

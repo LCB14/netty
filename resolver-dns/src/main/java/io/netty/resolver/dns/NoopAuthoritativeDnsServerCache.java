@@ -25,7 +25,8 @@ import java.net.InetSocketAddress;
 public final class NoopAuthoritativeDnsServerCache implements AuthoritativeDnsServerCache {
     public static final NoopAuthoritativeDnsServerCache INSTANCE = new NoopAuthoritativeDnsServerCache();
 
-    private NoopAuthoritativeDnsServerCache() { }
+    private NoopAuthoritativeDnsServerCache() {
+    }
 
     @Override
     public DnsServerAddressStream get(String hostname) {

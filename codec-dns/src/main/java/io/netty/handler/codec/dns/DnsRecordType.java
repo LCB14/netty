@@ -317,7 +317,7 @@ public class DnsRecordType implements Comparable<DnsRecordType> {
         final StringBuilder expected = new StringBuilder(512);
 
         expected.append(" (expected: ");
-        for (DnsRecordType type: all) {
+        for (DnsRecordType type : all) {
             BY_NAME.put(type.name(), type);
             BY_TYPE.put(type.intValue(), type);
 

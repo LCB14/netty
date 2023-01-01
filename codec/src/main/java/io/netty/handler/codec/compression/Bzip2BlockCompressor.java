@@ -24,7 +24,7 @@ import static io.netty.handler.codec.compression.Bzip2Constants.HUFFMAN_SYMBOL_R
 
 /**
  * Compresses and writes a single Bzip2 block.<br><br>
- *
+ * <p>
  * Block encoding consists of the following stages:<br>
  * 1. Run-Length Encoding[1] - {@link #write(int)}<br>
  * 2. Burrows Wheeler Transform - {@link #close(ByteBuf)} (through {@link Bzip2DivSufSort})<br>
@@ -89,7 +89,7 @@ final class Bzip2BlockCompressor {
     private int rleLength;
 
     /**
-     * @param writer The {@link Bzip2BitWriter} which provides bit-level writes
+     * @param writer    The {@link Bzip2BitWriter} which provides bit-level writes
      * @param blockSize The declared block size in bytes. Up to this many bytes will be accepted
      *                  into the block after Run-Length Encoding is applied
      */
@@ -135,7 +135,8 @@ final class Bzip2BlockCompressor {
 
     /**
      * Writes an RLE run to the block array, updating the block CRC and present values array as required.
-     * @param value The value to write
+     *
+     * @param value     The value to write
      * @param runLength The run length of the value to write
      */
     private void writeRun(final int value, int runLength) {
@@ -177,6 +178,7 @@ final class Bzip2BlockCompressor {
 
     /**
      * Writes a byte to the block, accumulating to an RLE run where possible.
+     *
      * @param value The byte to write
      * @return {@code true} if the byte was written, or {@code false} if the block is already full
      */
@@ -208,11 +210,12 @@ final class Bzip2BlockCompressor {
 
     /**
      * Writes an array to the block.
+     *
      * @param buffer The buffer to write
      * @param offset The offset within the input data to write from
      * @param length The number of bytes of input data to write
      * @return The actual number of input bytes written. May be less than the number requested, or
-     *         zero if the block is already full
+     * zero if the block is already full
      */
     int write(final ByteBuf buffer, int offset, int length) {
         int index = buffer.forEachByte(offset, length, writeProcessor);
@@ -249,7 +252,7 @@ final class Bzip2BlockCompressor {
 
         // Perform the Move To Front Transform and Run-Length Encoding[2] stages
         Bzip2MTFAndRLE2StageEncoder mtfEncoder = new Bzip2MTFAndRLE2StageEncoder(bwtBlock, blockLength,
-                                                                                    blockValuesPresent);
+                blockValuesPresent);
         mtfEncoder.encode();
 
         // Perform the Huffman Encoding stage and write out the encoded data
@@ -263,6 +266,7 @@ final class Bzip2BlockCompressor {
 
     /**
      * Gets available size of the current block.
+     *
      * @return Number of available bytes which can be written
      */
     int availableSize() {
@@ -274,6 +278,7 @@ final class Bzip2BlockCompressor {
 
     /**
      * Determines if the block is full and ready for compression.
+     *
      * @return {@code true} if the block is full, otherwise {@code false}
      */
     boolean isFull() {
@@ -282,6 +287,7 @@ final class Bzip2BlockCompressor {
 
     /**
      * Determines if any bytes have been written to the block.
+     *
      * @return {@code true} if one or more bytes has been written to the block, otherwise {@code false}
      */
     boolean isEmpty() {
@@ -290,6 +296,7 @@ final class Bzip2BlockCompressor {
 
     /**
      * Gets the CRC of the completed block. Only valid after calling {@link #close(ByteBuf)}.
+     *
      * @return The block's CRC
      */
     int crc() {

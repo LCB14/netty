@@ -39,7 +39,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** {@link AbstractMemoryHttpData} test cases. */
+/**
+ * {@link AbstractMemoryHttpData} test cases.
+ */
 public class AbstractMemoryHttpDataTest {
 
     @Test
@@ -105,6 +107,7 @@ public class AbstractMemoryHttpDataTest {
             test.delete();
         }
     }
+
     /**
      * Provide content into HTTP data with input stream.
      *
@@ -152,7 +155,9 @@ public class AbstractMemoryHttpDataTest {
         }
     }
 
-    /** Memory-based HTTP data implementation for test purposes. */
+    /**
+     * Memory-based HTTP data implementation for test purposes.
+     */
     private static final class TestHttpData extends AbstractMemoryHttpData {
         /**
          * Constructs HTTP data for tests.

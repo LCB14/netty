@@ -137,7 +137,7 @@ public class HpackDecoderTest {
     @Test
     public void testDecodeULE128LongMax() throws Http2Exception {
         byte[] input = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
-                        (byte) 0xFF, (byte) 0x7F};
+                (byte) 0xFF, (byte) 0x7F};
         ByteBuf in = Unpooled.wrappedBuffer(input);
         try {
             assertEquals(Long.MAX_VALUE, decodeULE128(in, 0L));
@@ -149,7 +149,7 @@ public class HpackDecoderTest {
     @Test
     public void testDecodeULE128LongOverflow1() throws Http2Exception {
         byte[] input = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
-                        (byte) 0xFF, (byte) 0xFF};
+                (byte) 0xFF, (byte) 0xFF};
         final ByteBuf in = Unpooled.wrappedBuffer(input);
         final int readerIndex = in.readerIndex();
         try {
@@ -168,7 +168,7 @@ public class HpackDecoderTest {
     @Test
     public void testDecodeULE128LongOverflow2() throws Http2Exception {
         byte[] input = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
-                        (byte) 0xFF, (byte) 0x7F};
+                (byte) 0xFF, (byte) 0x7F};
         final ByteBuf in = Unpooled.wrappedBuffer(input);
         final int readerIndex = in.readerIndex();
         try {
@@ -842,11 +842,11 @@ public class HpackDecoderTest {
 
             Http2Exception.StreamException expected =
                     assertThrows(Http2Exception.StreamException.class, new Executable() {
-                @Override
-                public void execute() throws Throwable {
-                    hpackDecoder.decode(1, in1, decoded, true);
-                }
-            });
+                        @Override
+                        public void execute() throws Throwable {
+                            hpackDecoder.decode(1, in1, decoded, true);
+                        }
+                    });
             assertEquals(1, expected.streamId());
 
             // Do it again, this time without validation, to make sure the HPACK state is still sane.

@@ -55,18 +55,18 @@ public class DnsOpCode implements Comparable<DnsOpCode> {
      */
     public static DnsOpCode valueOf(int b) {
         switch (b) {
-        case 0x00:
-            return QUERY;
-        case 0x01:
-            return IQUERY;
-        case 0x02:
-            return STATUS;
-        case 0x04:
-            return NOTIFY;
-        case 0x05:
-            return UPDATE;
-        default:
-            break;
+            case 0x00:
+                return QUERY;
+            case 0x01:
+                return IQUERY;
+            case 0x02:
+                return STATUS;
+            case 0x04:
+                return NOTIFY;
+            case 0x05:
+                return UPDATE;
+            default:
+                break;
         }
 
         return new DnsOpCode(b);

@@ -64,14 +64,14 @@ class KQueueSocketTestPermutation extends SocketTestPermutation {
             @Override
             public ServerBootstrap newInstance() {
                 return new ServerBootstrap().group(KQUEUE_BOSS_GROUP, KQUEUE_WORKER_GROUP)
-                                            .channel(KQueueServerSocketChannel.class);
+                        .channel(KQueueServerSocketChannel.class);
             }
         });
         toReturn.add(new BootstrapFactory<ServerBootstrap>() {
             @Override
             public ServerBootstrap newInstance() {
                 ServerBootstrap serverBootstrap = new ServerBootstrap().group(KQUEUE_BOSS_GROUP, KQUEUE_WORKER_GROUP)
-                                                                       .channel(KQueueServerSocketChannel.class);
+                        .channel(KQueueServerSocketChannel.class);
                 serverBootstrap.option(ChannelOption.TCP_FASTOPEN, 1);
                 return serverBootstrap;
             }
@@ -81,7 +81,7 @@ class KQueueSocketTestPermutation extends SocketTestPermutation {
             @Override
             public ServerBootstrap newInstance() {
                 return new ServerBootstrap().group(nioBossGroup, nioWorkerGroup)
-                                            .channel(NioServerSocketChannel.class);
+                        .channel(NioServerSocketChannel.class);
             }
         });
 

@@ -100,7 +100,7 @@ public final class BrotliEncoder extends MessageToByteEncoder<ByteBuf> {
      * Create a new {@link BrotliEncoder} Instance and specify
      * whether this instance will be shared with multiple pipelines or not.
      * </p>
-     *
+     * <p>
      * If {@link #isSharable()} is true then on {@link #handlerAdded(ChannelHandlerContext)} call,
      * a new {@link Writer} will create, and it will be mapped using {@link Channel#attr(AttributeKey)}
      * so {@link BrotliEncoder} can be shared with multiple pipelines. This works fine but there on every

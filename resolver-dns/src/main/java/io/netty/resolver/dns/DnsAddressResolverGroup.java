@@ -68,7 +68,7 @@ public class DnsAddressResolverGroup extends AddressResolverGroup<InetSocketAddr
         if (!(executor instanceof EventLoop)) {
             throw new IllegalStateException(
                     "unsupported executor type: " + StringUtil.simpleClassName(executor) +
-                    " (expected: " + StringUtil.simpleClassName(EventLoop.class));
+                            " (expected: " + StringUtil.simpleClassName(EventLoop.class));
         }
 
         // we don't really need to pass channelFactory and nameServerProvider separately,

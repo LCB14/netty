@@ -32,7 +32,8 @@ public final class TestsuitePermutation {
         return allocators;
     }
 
-    private TestsuitePermutation() { }
+    private TestsuitePermutation() {
+    }
 
     public interface BootstrapFactory<CB extends AbstractBootstrap<?, ?>> {
         CB newInstance();
@@ -40,6 +41,7 @@ public final class TestsuitePermutation {
 
     public interface BootstrapComboFactory<SB extends AbstractBootstrap<?, ?>, CB extends AbstractBootstrap<?, ?>> {
         SB newServerInstance();
+
         CB newClientInstance();
     }
 }

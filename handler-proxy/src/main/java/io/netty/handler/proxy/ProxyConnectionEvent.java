@@ -77,16 +77,16 @@ public final class ProxyConnectionEvent {
         }
 
         StringBuilder buf = new StringBuilder(128)
-            .append(StringUtil.simpleClassName(this))
-            .append('(')
-            .append(protocol)
-            .append(", ")
-            .append(authScheme)
-            .append(", ")
-            .append(proxyAddress)
-            .append(" => ")
-            .append(destinationAddress)
-            .append(')');
+                .append(StringUtil.simpleClassName(this))
+                .append('(')
+                .append(protocol)
+                .append(", ")
+                .append(authScheme)
+                .append(", ")
+                .append(proxyAddress)
+                .append(" => ")
+                .append(destinationAddress)
+                .append(')');
 
         return strVal = buf.toString();
     }

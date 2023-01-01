@@ -81,6 +81,7 @@ public interface Http2Connection {
          * <p>
          * If a {@link RuntimeException} is thrown it will be logged and <strong>not propagated</strong>.
          * Throwing from this method is not supported and is considered a programming error.
+         *
          * @param lastStreamId the last known stream of the remote endpoint.
          * @param errorCode    the error code, if abnormal closure.
          * @param debugData    application-defined debug data.
@@ -96,6 +97,7 @@ public interface Http2Connection {
          * <p>
          * If a {@link RuntimeException} is thrown it will be logged and <strong>not propagated</strong>.
          * Throwing from this method is not supported and is considered a programming error.
+         *
          * @param lastStreamId the last known stream of the remote endpoint.
          * @param errorCode    the error code, if abnormal closure.
          * @param debugData    application-defined debug data.
@@ -147,7 +149,8 @@ public interface Http2Connection {
          * <p>
          * The initial state of the stream will be immediately set before notifying {@link Listener}s. The state
          * transition is sensitive to {@code halfClosed} and is defined by {@link Http2Stream#open(boolean)}.
-         * @param streamId The ID of the stream
+         *
+         * @param streamId   The ID of the stream
          * @param halfClosed see {@link Http2Stream#open(boolean)}.
          * @see Http2Stream#open(boolean)
          */
@@ -167,7 +170,7 @@ public interface Http2Connection {
          * </ul>
          *
          * @param streamId the ID of the push stream
-         * @param parent the parent stream used to initiate the push stream.
+         * @param parent   the parent stream used to initiate the push stream.
          */
         Http2Stream reservePushStream(int streamId, Http2Stream parent) throws Http2Exception;
 
@@ -208,10 +211,11 @@ public interface Http2Connection {
 
         /**
          * Sets the limit for {@code SETTINGS_MAX_CONCURRENT_STREAMS}.
+         *
          * @param maxActiveStreams The maximum number of streams (created by this endpoint) that are allowed to be
-         * active at once. This is the
-         * <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_CONCURRENT_STREAMS</a> value sent
-         * from the opposite endpoint to restrict stream creation by this endpoint.
+         *                         active at once. This is the
+         *                         <a href="https://tools.ietf.org/html/rfc7540#section-6.5.2">SETTINGS_MAX_CONCURRENT_STREAMS</a> value sent
+         *                         from the opposite endpoint to restrict stream creation by this endpoint.
          */
         void maxActiveStreams(int maxActiveStreams);
 
@@ -253,6 +257,7 @@ public interface Http2Connection {
      * all streams that exists (active or otherwise) will be closed and removed.
      * <p>Note if iterating active streams via {@link #forEachActiveStream(Http2StreamVisitor)} and an exception is
      * thrown it is necessary to call this method again to ensure the close completes.
+     *
      * @param promise Will be completed when all streams have been removed, and listeners have been notified.
      * @return A future that will be completed when all streams have been removed, and listeners have been notified.
      */
@@ -326,13 +331,14 @@ public interface Http2Connection {
 
     /**
      * Indicates that a {@code GOAWAY} was received from the remote endpoint and sets the last known stream.
+     *
      * @param lastKnownStream The Last-Stream-ID in the
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
-     * @param errorCode the Error Code in the
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
-     * @param message The Additional Debug Data in the
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame. Note that reference count ownership
-     * belongs to the caller (ownership is not transferred to this method).
+     *                        <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
+     * @param errorCode       the Error Code in the
+     *                        <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
+     * @param message         The Additional Debug Data in the
+     *                        <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame. Note that reference count ownership
+     *                        belongs to the caller (ownership is not transferred to this method).
      */
     void goAwayReceived(int lastKnownStream, long errorCode, ByteBuf message) throws Http2Exception;
 
@@ -344,12 +350,13 @@ public interface Http2Connection {
     /**
      * Updates the local state of this {@link Http2Connection} as a result of a {@code GOAWAY} to send to the remote
      * endpoint.
+     *
      * @param lastKnownStream The Last-Stream-ID in the
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
-     * @param errorCode the Error Code in the
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
-     * <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame. Note that reference count ownership
-     * belongs to the caller (ownership is not transferred to this method).
+     *                        <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
+     * @param errorCode       the Error Code in the
+     *                        <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame.
+     *                        <a href="https://tools.ietf.org/html/rfc7540#section-6.8">GOAWAY</a> frame. Note that reference count ownership
+     *                        belongs to the caller (ownership is not transferred to this method).
      * @return {@code true} if the corresponding {@code GOAWAY} frame should be sent to the remote endpoint.
      */
     boolean goAwaySent(int lastKnownStream, long errorCode, ByteBuf message) throws Http2Exception;

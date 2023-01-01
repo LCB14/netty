@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class MqttQoSValueOfBench extends AbstractMicrobenchmark {
 
-    private static final int[] DATASET = new int[] {
+    private static final int[] DATASET = new int[]{
             2, 0, 2, 2, 2, 0, 1, 2, 0, 1, 0, 1, 128, 1, 1, 2, 0, 2, 2, 1, 2, 1, 2, 0, 1, 2, 1, 0, 2, 1, 1, 2, 1, 128,
             2, 2, 1, 2, 2, 1, 1, 128, 0, 128, 2, 2, 1, 1, 2, 128, 128, 128, 128, 128, 0, 2, 128, 128, 2, 1, 128, 1, 0,
             2, 1, 0, 2, 0, 2, 0, 2, 128, 2, 2, 128, 0, 128, 2, 128, 0, 0, 1, 2, 1, 128, 0, 2, 0, 2, 0, 0, 128, 2, 0,

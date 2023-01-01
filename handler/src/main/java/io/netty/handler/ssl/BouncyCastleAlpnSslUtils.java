@@ -74,11 +74,11 @@ final class BouncyCastleAlpnSslUtils {
 
             bcApplicationProtocolSelectorSelect = AccessController.doPrivileged(
                     new PrivilegedExceptionAction<Method>() {
-                @Override
-                public Method run() throws Exception {
-                    return testBCApplicationProtocolSelector.getMethod("select", Object.class, List.class);
-                }
-            });
+                        @Override
+                        public Method run() throws Exception {
+                            return testBCApplicationProtocolSelector.getMethod("select", Object.class, List.class);
+                        }
+                    });
 
             SSLContext context = getSSLContext("BCJSSE");
             SSLEngine engine = context.createSSLEngine();

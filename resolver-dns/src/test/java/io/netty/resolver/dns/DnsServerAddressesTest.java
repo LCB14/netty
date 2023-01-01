@@ -44,7 +44,7 @@ public class DnsServerAddressesTest {
         DnsServerAddresses seq = DnsServerAddresses.sequential(ADDR1, ADDR2, ADDR3);
         assertThat(seq.stream(), is(not(sameInstance(seq.stream()))));
 
-        for (int j = 0; j < 2; j ++) {
+        for (int j = 0; j < 2; j++) {
             DnsServerAddressStream i = seq.stream();
             assertNext(i, ADDR1);
             assertNext(i, ADDR2);
@@ -100,7 +100,7 @@ public class DnsServerAddressesTest {
         // In theory, this test can fail at extremely low chance, but we don't really care.
         Set<InetSocketAddress> set = Collections.newSetFromMap(new IdentityHashMap<InetSocketAddress, Boolean>());
         DnsServerAddressStream i = seq.stream();
-        for (int j = 0; j < 1048576; j ++) {
+        for (int j = 0; j < 1048576; j++) {
             set.add(i.next());
         }
 

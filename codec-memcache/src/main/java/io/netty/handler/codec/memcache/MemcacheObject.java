@@ -22,4 +22,5 @@ import io.netty.util.internal.UnstableApi;
  * Defines a common interface for all {@link MemcacheObject} implementations.
  */
 @UnstableApi
-public interface MemcacheObject extends DecoderResultProvider { }
+public interface MemcacheObject extends DecoderResultProvider {
+}

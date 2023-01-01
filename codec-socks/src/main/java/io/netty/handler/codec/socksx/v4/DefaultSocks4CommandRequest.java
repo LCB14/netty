@@ -34,7 +34,7 @@ public class DefaultSocks4CommandRequest extends AbstractSocks4Message implement
     /**
      * Creates a new instance.
      *
-     * @param type the type of the request
+     * @param type    the type of the request
      * @param dstAddr the {@code DSTIP} field of the request
      * @param dstPort the {@code DSTPORT} field of the request
      */
@@ -45,10 +45,10 @@ public class DefaultSocks4CommandRequest extends AbstractSocks4Message implement
     /**
      * Creates a new instance.
      *
-     * @param type the type of the request
+     * @param type    the type of the request
      * @param dstAddr the {@code DSTIP} field of the request
      * @param dstPort the {@code DSTPORT} field of the request
-     * @param userId the {@code USERID} field of the request
+     * @param userId  the {@code USERID} field of the request
      */
     public DefaultSocks4CommandRequest(Socks4CommandType type, String dstAddr, int dstPort, String userId) {
         if (dstPort <= 0 || dstPort >= 65536) {

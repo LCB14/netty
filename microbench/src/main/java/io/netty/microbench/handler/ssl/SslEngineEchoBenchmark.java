@@ -29,12 +29,12 @@ import javax.net.ssl.SSLException;
 @Threads(1)
 public class SslEngineEchoBenchmark extends AbstractSslEngineThroughputBenchmark {
 
-    @Param({ "1", "2", "5", "10" })
+    @Param({"1", "2", "5", "10"})
     public int numWraps;
     private ByteBuffer unwrapDstBuffer;
 
     @Override
-    protected void doSetup()  {
+    protected void doSetup() {
         unwrapDstBuffer = allocateBuffer(serverEngine.getSession().getApplicationBufferSize() << 2);
     }
 

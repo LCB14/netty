@@ -49,7 +49,7 @@ public class DecodeHexBenchmark extends AbstractMicrobenchmark {
     private String hex;
     // Needs to specify a high number of inputs to allow the current strategy
     // on nextHexDigits to produce enough branch-misses
-    @Param({ "2048" })
+    @Param({"2048"})
     private int inputs;
     private char[][] hexDigits;
     private static final long SEED = 1578675524L;

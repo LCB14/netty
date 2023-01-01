@@ -23,7 +23,7 @@ import io.netty.channel.socket.nio.NioDatagramChannel;
 
 /**
  * A UDP server that responds to the QOTM (quote of the moment) request to a {@link QuoteOfTheMomentClient}.
- *
+ * <p>
  * Inspired by <a href="https://docs.oracle.com/javase/tutorial/networking/datagrams/clientServer.html">the official
  * Java tutorial</a>.
  */
@@ -36,9 +36,9 @@ public final class QuoteOfTheMomentServer {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioDatagramChannel.class)
-             .option(ChannelOption.SO_BROADCAST, true)
-             .handler(new QuoteOfTheMomentServerHandler());
+                    .channel(NioDatagramChannel.class)
+                    .option(ChannelOption.SO_BROADCAST, true)
+                    .handler(new QuoteOfTheMomentServerHandler());
 
             b.bind(PORT).sync().channel().closeFuture().await();
         } finally {

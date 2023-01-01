@@ -60,37 +60,37 @@ public interface SctpServerChannelConfig extends ChannelConfig {
 
     /**
      * Gets the <a href="https://openjdk.java.net/projects/sctp/javadoc/com/sun/nio/sctp/SctpStandardSocketOption.html">
-     *     {@code SO_SNDBUF}</a> option.
+     * {@code SO_SNDBUF}</a> option.
      */
     int getSendBufferSize();
 
     /**
      * Sets the <a href="https://openjdk.java.net/projects/sctp/javadoc/com/sun/nio/sctp/SctpStandardSocketOption.html">
-     *     {@code SO_SNDBUF}</a> option.
+     * {@code SO_SNDBUF}</a> option.
      */
     SctpServerChannelConfig setSendBufferSize(int sendBufferSize);
 
     /**
      * Gets the <a href="https://openjdk.java.net/projects/sctp/javadoc/com/sun/nio/sctp/SctpStandardSocketOption.html">
-     *     {@code SO_RCVBUF}</a> option.
+     * {@code SO_RCVBUF}</a> option.
      */
     int getReceiveBufferSize();
 
     /**
      * Gets the <a href="https://openjdk.java.net/projects/sctp/javadoc/com/sun/nio/sctp/SctpStandardSocketOption.html">
-     *     {@code SO_RCVBUF}</a> option.
+     * {@code SO_RCVBUF}</a> option.
      */
     SctpServerChannelConfig setReceiveBufferSize(int receiveBufferSize);
 
     /**
      * Gets the <a href="https://openjdk.java.net/projects/sctp/javadoc/com/sun/nio/sctp/SctpStandardSocketOption.html">
-     *     {@code SCTP_INIT_MAXSTREAMS}</a> option.
+     * {@code SCTP_INIT_MAXSTREAMS}</a> option.
      */
     InitMaxStreams getInitMaxStreams();
 
     /**
      * Gets the <a href="https://openjdk.java.net/projects/sctp/javadoc/com/sun/nio/sctp/SctpStandardSocketOption.html">
-     *     {@code SCTP_INIT_MAXSTREAMS}</a> option.
+     * {@code SCTP_INIT_MAXSTREAMS}</a> option.
      */
     SctpServerChannelConfig setInitMaxStreams(InitMaxStreams initMaxStreams);
 

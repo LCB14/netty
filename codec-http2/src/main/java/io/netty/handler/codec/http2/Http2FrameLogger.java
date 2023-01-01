@@ -68,7 +68,7 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logData(Direction direction, ChannelHandlerContext ctx, int streamId, ByteBuf data, int padding,
-            boolean endStream) {
+                        boolean endStream) {
         if (isEnabled()) {
             logger.log(level, "{} {} DATA: streamId={} padding={} endStream={} length={} bytes={}", ctx.channel(),
                     direction.name(), streamId, padding, endStream, data.readableBytes(), toString(data));
@@ -76,7 +76,7 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logHeaders(Direction direction, ChannelHandlerContext ctx, int streamId, Http2Headers headers,
-            int padding, boolean endStream) {
+                           int padding, boolean endStream) {
         if (isEnabled()) {
             logger.log(level, "{} {} HEADERS: streamId={} headers={} padding={} endStream={}", ctx.channel(),
                     direction.name(), streamId, headers, padding, endStream);
@@ -84,16 +84,16 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logHeaders(Direction direction, ChannelHandlerContext ctx, int streamId, Http2Headers headers,
-            int streamDependency, short weight, boolean exclusive, int padding, boolean endStream) {
+                           int streamDependency, short weight, boolean exclusive, int padding, boolean endStream) {
         if (isEnabled()) {
             logger.log(level, "{} {} HEADERS: streamId={} headers={} streamDependency={} weight={} exclusive={} " +
-                    "padding={} endStream={}", ctx.channel(),
+                            "padding={} endStream={}", ctx.channel(),
                     direction.name(), streamId, headers, streamDependency, weight, exclusive, padding, endStream);
         }
     }
 
     public void logPriority(Direction direction, ChannelHandlerContext ctx, int streamId, int streamDependency,
-            short weight, boolean exclusive) {
+                            short weight, boolean exclusive) {
         if (isEnabled()) {
             logger.log(level, "{} {} PRIORITY: streamId={} streamDependency={} weight={} exclusive={}", ctx.channel(),
                     direction.name(), streamId, streamDependency, weight, exclusive);
@@ -132,7 +132,7 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logPushPromise(Direction direction, ChannelHandlerContext ctx, int streamId, int promisedStreamId,
-            Http2Headers headers, int padding) {
+                               Http2Headers headers, int padding) {
         if (isEnabled()) {
             logger.log(level, "{} {} PUSH_PROMISE: streamId={} promisedStreamId={} headers={} padding={}",
                     ctx.channel(), direction.name(), streamId, promisedStreamId, headers, padding);
@@ -140,7 +140,7 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logGoAway(Direction direction, ChannelHandlerContext ctx, int lastStreamId, long errorCode,
-            ByteBuf debugData) {
+                          ByteBuf debugData) {
         if (isEnabled()) {
             logger.log(level, "{} {} GO_AWAY: lastStreamId={} errorCode={} length={} bytes={}", ctx.channel(),
                     direction.name(), lastStreamId, errorCode, debugData.readableBytes(), toString(debugData));
@@ -148,7 +148,7 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logWindowsUpdate(Direction direction, ChannelHandlerContext ctx, int streamId,
-            int windowSizeIncrement) {
+                                 int windowSizeIncrement) {
         if (isEnabled()) {
             logger.log(level, "{} {} WINDOW_UPDATE: streamId={} windowSizeIncrement={}", ctx.channel(),
                     direction.name(), streamId, windowSizeIncrement);
@@ -156,7 +156,7 @@ public class Http2FrameLogger extends ChannelHandlerAdapter {
     }
 
     public void logUnknownFrame(Direction direction, ChannelHandlerContext ctx, byte frameType, int streamId,
-            Http2Flags flags, ByteBuf data) {
+                                Http2Flags flags, ByteBuf data) {
         if (isEnabled()) {
             logger.log(level, "{} {} UNKNOWN: frameType={} streamId={} flags={} length={} bytes={}", ctx.channel(),
                     direction.name(), frameType & 0xFF, streamId, flags.value(), data.readableBytes(), toString(data));

@@ -60,5 +60,6 @@ final class BouncyCastleSelfSignedCertGenerator {
         return newSelfSignedCertificate(fqdn, key, cert);
     }
 
-    private BouncyCastleSelfSignedCertGenerator() { }
+    private BouncyCastleSelfSignedCertGenerator() {
+    }
 }

@@ -26,7 +26,7 @@
  * <li><a href="https://netty.io/s/ws-10">draft-ietf-hybi-thewebsocketprotocol-10</a></li>
  * <li><a href="https://netty.io/s/rfc6455">RFC 6455</a>
  *     (originally <a href="https://netty.io/s/ws-17">draft-ietf-hybi-thewebsocketprotocol-17</a>)</li>
-
+ *
  * </ul>
  * </p>
  * <p>

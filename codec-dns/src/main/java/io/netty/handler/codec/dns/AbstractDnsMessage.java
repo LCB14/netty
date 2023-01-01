@@ -127,15 +127,14 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             return 1;
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         return recordList.size();
     }
 
     @Override
     public int count() {
         int count = 0;
-        for (int i = 0; i < SECTION_COUNT; i ++) {
+        for (int i = 0; i < SECTION_COUNT; i++) {
             count += count(i);
         }
         return count;
@@ -156,8 +155,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             return castRecord(records);
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         if (recordList.isEmpty()) {
             return null;
         }
@@ -184,8 +182,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             }
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         return castRecord(recordList.get(index));
     }
 
@@ -222,8 +219,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             }
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         return castRecord(recordList.set(index, record));
     }
 
@@ -250,8 +246,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             return;
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         recordList.add(record);
     }
 
@@ -291,8 +286,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             return;
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         recordList.add(index, record);
     }
 
@@ -317,8 +311,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
             return record;
         }
 
-        @SuppressWarnings("unchecked")
-        final List<DnsRecord> recordList = (List<DnsRecord>) records;
+        @SuppressWarnings("unchecked") final List<DnsRecord> recordList = (List<DnsRecord>) records;
         return castRecord(recordList.remove(index));
     }
 
@@ -330,7 +323,7 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
 
     @Override
     public DnsMessage clear() {
-        for (int i = 0; i < SECTION_COUNT; i ++) {
+        for (int i = 0; i < SECTION_COUNT; i++) {
             clear(i);
         }
         return this;
@@ -414,21 +407,21 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
 
     @Override
     public int hashCode() {
-        return id() * 31 + (this instanceof DnsQuery? 0 : 1);
+        return id() * 31 + (this instanceof DnsQuery ? 0 : 1);
     }
 
     private Object sectionAt(int section) {
         switch (section) {
-        case 0:
-            return questions;
-        case 1:
-            return answers;
-        case 2:
-            return authorities;
-        case 3:
-            return additionals;
-        default:
-            break;
+            case 0:
+                return questions;
+            case 1:
+                return answers;
+            case 2:
+                return authorities;
+            case 3:
+                return additionals;
+            default:
+                break;
         }
 
         throw new Error(); // Should never reach here.
@@ -436,20 +429,20 @@ public abstract class AbstractDnsMessage extends AbstractReferenceCounted implem
 
     private void setSection(int section, Object value) {
         switch (section) {
-        case 0:
-            questions = value;
-            return;
-        case 1:
-            answers = value;
-            return;
-        case 2:
-            authorities = value;
-            return;
-        case 3:
-            additionals = value;
-            return;
-        default:
-            break;
+            case 0:
+                questions = value;
+                return;
+            case 1:
+                answers = value;
+                return;
+            case 2:
+                authorities = value;
+                return;
+            case 3:
+                additionals = value;
+                return;
+            default:
+                break;
         }
 
         throw new Error(); // Should never reach here.

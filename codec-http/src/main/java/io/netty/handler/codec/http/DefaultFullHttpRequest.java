@@ -19,6 +19,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.util.IllegalReferenceCountException;
+
 import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 /**
@@ -53,7 +54,7 @@ public class DefaultFullHttpRequest extends DefaultHttpRequest implements FullHt
     }
 
     public DefaultFullHttpRequest(HttpVersion httpVersion, HttpMethod method, String uri,
-            ByteBuf content, HttpHeaders headers, HttpHeaders trailingHeader) {
+                                  ByteBuf content, HttpHeaders headers, HttpHeaders trailingHeader) {
         super(httpVersion, method, uri, headers);
         this.content = checkNotNull(content, "content");
         this.trailingHeader = checkNotNull(trailingHeader, "trailingHeader");
@@ -179,8 +180,8 @@ public class DefaultFullHttpRequest extends DefaultHttpRequest implements FullHt
         DefaultFullHttpRequest other = (DefaultFullHttpRequest) o;
 
         return super.equals(other) &&
-               content().equals(other.content()) &&
-               trailingHeaders().equals(other.trailingHeaders());
+                content().equals(other.content()) &&
+                trailingHeaders().equals(other.trailingHeaders());
     }
 
     @Override

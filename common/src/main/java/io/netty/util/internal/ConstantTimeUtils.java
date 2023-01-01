@@ -16,7 +16,8 @@
 package io.netty.util.internal;
 
 public final class ConstantTimeUtils {
-    private ConstantTimeUtils() { }
+    private ConstantTimeUtils() {
+    }
 
     /**
      * Compare two {@code int}s without leaking timing information.
@@ -29,6 +30,7 @@ public final class ConstantTimeUtils {
      *     int l4 = 500;
      *     boolean equals = (equalsConstantTime(l1, l2) & equalsConstantTime(l3, l4)) != 0;
      * </pre>
+     *
      * @param x the first value.
      * @param y the second value.
      * @return {@code 0} if not equal. {@code 1} if equal.
@@ -54,6 +56,7 @@ public final class ConstantTimeUtils {
      *     long l4 = 500;
      *     boolean equals = (equalsConstantTime(l1, l2) & equalsConstantTime(l3, l4)) != 0;
      * </pre>
+     *
      * @param x the first value.
      * @param y the second value.
      * @return {@code 0} if not equal. {@code 1} if equal.
@@ -82,12 +85,13 @@ public final class ConstantTimeUtils {
      *     boolean equals = (equalsConstantTime(s1, 0, s2, 0, s1.length) &
      *                       equalsConstantTime(s3, 0, s4, 0, s3.length)) != 0;
      * </pre>
-     * @param bytes1 the first byte array.
+     *
+     * @param bytes1    the first byte array.
      * @param startPos1 the position (inclusive) to start comparing in {@code bytes1}.
-     * @param bytes2 the second byte array.
+     * @param bytes2    the second byte array.
      * @param startPos2 the position (inclusive) to start comparing in {@code bytes2}.
-     * @param length the amount of bytes to compare. This is assumed to be validated as not going out of bounds
-     * by the caller.
+     * @param length    the amount of bytes to compare. This is assumed to be validated as not going out of bounds
+     *                  by the caller.
      * @return {@code 0} if not equal. {@code 1} if equal.
      */
     public static int equalsConstantTime(byte[] bytes1, int startPos1,
@@ -112,6 +116,7 @@ public final class ConstantTimeUtils {
      *     String s4 = "goo";
      *     boolean equals = (equalsConstantTime(s1, s2) & equalsConstantTime(s3, s4)) != 0;
      * </pre>
+     *
      * @param s1 the first value.
      * @param s2 the second value.
      * @return {@code 0} if not equal. {@code 1} if equal.

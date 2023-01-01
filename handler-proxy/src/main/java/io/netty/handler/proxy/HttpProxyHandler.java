@@ -123,7 +123,7 @@ public final class HttpProxyHandler extends ProxyHandler {
 
     @Override
     public String authScheme() {
-        return authorization != null? AUTH_BASIC : AUTH_NONE;
+        return authorization != null ? AUTH_BASIC : AUTH_NONE;
     }
 
     public String username() {

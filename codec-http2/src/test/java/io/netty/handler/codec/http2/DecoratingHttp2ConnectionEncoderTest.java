@@ -50,5 +50,6 @@ public class DecoratingHttp2ConnectionEncoderTest {
         verify(encoder, times(1)).consumeReceivedSettings(eq(settings));
     }
 
-    private interface TestHttp2ConnectionEncoder extends Http2ConnectionEncoder, Http2SettingsReceivedConsumer { }
+    private interface TestHttp2ConnectionEncoder extends Http2ConnectionEncoder, Http2SettingsReceivedConsumer {
+    }
 }

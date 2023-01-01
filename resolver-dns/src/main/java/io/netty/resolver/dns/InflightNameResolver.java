@@ -91,12 +91,10 @@ final class InflightNameResolver<T> implements NameResolver<T> {
         } else {
             try {
                 if (resolveAll) {
-                    @SuppressWarnings("unchecked")
-                    final Promise<List<T>> castPromise = (Promise<List<T>>) promise; // U is List<T>
+                    @SuppressWarnings("unchecked") final Promise<List<T>> castPromise = (Promise<List<T>>) promise; // U is List<T>
                     delegate.resolveAll(inetHost, castPromise);
                 } else {
-                    @SuppressWarnings("unchecked")
-                    final Promise<T> castPromise = (Promise<T>) promise; // U is T
+                    @SuppressWarnings("unchecked") final Promise<T> castPromise = (Promise<T>) promise; // U is T
                     delegate.resolve(inetHost, castPromise);
                 }
             } finally {

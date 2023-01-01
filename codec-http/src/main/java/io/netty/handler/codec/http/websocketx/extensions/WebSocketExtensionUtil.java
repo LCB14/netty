@@ -75,14 +75,14 @@ public final class WebSocketExtensionUtil {
     static String computeMergeExtensionsHeaderValue(String userDefinedHeaderValue,
                                                     List<WebSocketExtensionData> extraExtensions) {
         List<WebSocketExtensionData> userDefinedExtensions =
-          userDefinedHeaderValue != null ?
-            extractExtensions(userDefinedHeaderValue) :
-            Collections.<WebSocketExtensionData>emptyList();
+                userDefinedHeaderValue != null ?
+                        extractExtensions(userDefinedHeaderValue) :
+                        Collections.<WebSocketExtensionData>emptyList();
 
-        for (WebSocketExtensionData userDefined: userDefinedExtensions) {
+        for (WebSocketExtensionData userDefined : userDefinedExtensions) {
             WebSocketExtensionData matchingExtra = null;
             int i;
-            for (i = 0; i < extraExtensions.size(); i ++) {
+            for (i = 0; i < extraExtensions.size(); i++) {
                 WebSocketExtensionData extra = extraExtensions.get(i);
                 if (extra.name().equals(userDefined.name())) {
                     matchingExtra = extra;
@@ -101,7 +101,7 @@ public final class WebSocketExtensionUtil {
 
         StringBuilder sb = new StringBuilder(150);
 
-        for (WebSocketExtensionData data: extraExtensions) {
+        for (WebSocketExtensionData data : extraExtensions) {
             sb.append(data.name());
             for (Entry<String, String> parameter : data.parameters().entrySet()) {
                 sb.append(PARAMETER_SEPARATOR);

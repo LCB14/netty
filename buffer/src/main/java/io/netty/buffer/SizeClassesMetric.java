@@ -52,7 +52,6 @@ public interface SizeClassesMetric {
      * Normalizes request size up to the nearest size class.
      *
      * @param size request size
-     *
      * @return sizeIdx of the size class
      */
     int size2SizeIdx(int size);
@@ -61,7 +60,6 @@ public interface SizeClassesMetric {
      * Normalizes request size up to the nearest pageSize class.
      *
      * @param pages multiples of pageSizes
-     *
      * @return pageIdx of the pageSize class
      */
     int pages2pageIdx(int pages);
@@ -70,7 +68,6 @@ public interface SizeClassesMetric {
      * Normalizes request size down to the nearest pageSize class.
      *
      * @param pages multiples of pageSizes
-     *
      * @return pageIdx of the pageSize class
      */
     int pages2pageIdxFloor(int pages);
@@ -80,7 +77,6 @@ public interface SizeClassesMetric {
      * specified size and alignment.
      *
      * @param size request size
-     *
      * @return normalized size
      */
     int normalizeSize(int size);

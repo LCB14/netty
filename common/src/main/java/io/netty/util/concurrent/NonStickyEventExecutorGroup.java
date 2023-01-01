@@ -234,7 +234,7 @@ public final class NonStickyEventExecutorGroup implements EventExecutorGroup {
             if (!state.compareAndSet(SUBMITTED, RUNNING)) {
                 return;
             }
-            for (;;) {
+            for (; ; ) {
                 int i = 0;
                 try {
                     for (; i < maxTaskExecutePerRun; i++) {

@@ -96,7 +96,7 @@ public class LocalTransportThreadModelTest3 {
     @Timeout(value = 60000, unit = TimeUnit.MILLISECONDS)
     @Disabled("regression test")
     public void testConcurrentAddRemoveInboundEventsMultiple() throws Throwable {
-        for (int i = 0; i < 50; i ++) {
+        for (int i = 0; i < 50; i++) {
             testConcurrentAddRemoveInboundEvents();
         }
     }
@@ -105,7 +105,7 @@ public class LocalTransportThreadModelTest3 {
     @Timeout(value = 60000, unit = TimeUnit.MILLISECONDS)
     @Disabled("regression test")
     public void testConcurrentAddRemoveOutboundEventsMultiple() throws Throwable {
-        for (int i = 0; i < 50; i ++) {
+        for (int i = 0; i < 50; i++) {
             testConcurrentAddRemoveOutboundEvents();
         }
     }
@@ -182,7 +182,7 @@ public class LocalTransportThreadModelTest3 {
             });
             pipelineModifier.setDaemon(true);
             pipelineModifier.start();
-            for (EventType event: expectedEvents) {
+            for (EventType event : expectedEvents) {
                 switch (event) {
                     case EXCEPTION_CAUGHT:
                         ch.pipeline().fireExceptionCaught(cause);
@@ -216,7 +216,7 @@ public class LocalTransportThreadModelTest3 {
             expectedEvents.addLast(EventType.INACTIVE);
             expectedEvents.addLast(EventType.UNREGISTERED);
 
-            for (;;) {
+            for (; ; ) {
                 EventType event = events.poll();
                 if (event == null) {
                     assertTrue(expectedEvents.isEmpty(), "Missing events:" + expectedEvents);
@@ -244,12 +244,12 @@ public class LocalTransportThreadModelTest3 {
     private static LinkedList<EventType> events(boolean inbound, int size) {
         EventType[] events;
         if (inbound) {
-            events = new EventType[] {
+            events = new EventType[]{
                     EventType.USER_EVENT, EventType.MESSAGE_RECEIVED, EventType.MESSAGE_RECEIVED_LAST,
                     EventType.EXCEPTION_CAUGHT};
         } else {
-            events = new EventType[] {
-                    EventType.READ, EventType.WRITE, EventType.EXCEPTION_CAUGHT };
+            events = new EventType[]{
+                    EventType.READ, EventType.WRITE, EventType.EXCEPTION_CAUGHT};
         }
 
         Random random = new Random();
@@ -261,7 +261,8 @@ public class LocalTransportThreadModelTest3 {
     }
 
     @ChannelHandler.Sharable
-    private static final class EventForwarder extends ChannelDuplexHandler { }
+    private static final class EventForwarder extends ChannelDuplexHandler {
+    }
 
     private static final class EventRecorder extends ChannelDuplexHandler {
         private final Queue<EventType> events;

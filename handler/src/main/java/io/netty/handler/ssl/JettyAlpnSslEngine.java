@@ -51,12 +51,12 @@ abstract class JettyAlpnSslEngine extends JdkSslEngine {
     }
 
     static JettyAlpnSslEngine newClientEngine(SSLEngine engine,
-            JdkApplicationProtocolNegotiator applicationNegotiator) {
+                                              JdkApplicationProtocolNegotiator applicationNegotiator) {
         return new ClientEngine(engine, applicationNegotiator);
     }
 
     static JettyAlpnSslEngine newServerEngine(SSLEngine engine,
-            JdkApplicationProtocolNegotiator applicationNegotiator) {
+                                              JdkApplicationProtocolNegotiator applicationNegotiator) {
         return new ServerEngine(engine, applicationNegotiator);
     }
 

@@ -61,7 +61,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
     private void setup(int maxStateOnlySize) throws Http2Exception {
         connection = new DefaultHttp2Connection(false);
         distributor = maxStateOnlySize >= 0 ? new WeightedFairQueueByteDistributor(connection, maxStateOnlySize)
-                                            : new WeightedFairQueueByteDistributor(connection);
+                : new WeightedFairQueueByteDistributor(connection);
         distributor.allocationQuantum(ALLOCATION_QUANTUM);
 
         connection.local().createStream(STREAM_A, false);
@@ -88,7 +88,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *         |
      *         D
      * </pre>
-     *
+     * <p>
      * After the write:
      * <pre>
      *         0
@@ -221,7 +221,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the tree shift:
      *
      * <pre>
@@ -435,7 +435,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * We then re-prioritize D so that it's directly off of the connection and verify that A and D split the written
      * bytes between them.
      *
@@ -642,7 +642,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the tree shift:
      *
      * <pre>
@@ -685,7 +685,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the tree shift:
      *
      * <pre>
@@ -727,7 +727,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the tree shift:
      *
      * <pre>
@@ -778,7 +778,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the tree shift:
      *
      * <pre>
@@ -835,7 +835,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the close:
      * <pre>
      *          0
@@ -873,7 +873,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
      *      / \
      *     C   D
      * </pre>
-     *
+     * <p>
      * After the close:
      * <pre>
      *         0

@@ -24,7 +24,7 @@ public abstract class AbstractChannelPoolHandler implements ChannelPoolHandler {
 
     /**
      * NOOP implementation, sub-classes may override this.
-     *
+     * <p>
      * {@inheritDoc}
      */
     @Override
@@ -34,7 +34,7 @@ public abstract class AbstractChannelPoolHandler implements ChannelPoolHandler {
 
     /**
      * NOOP implementation, sub-classes may override this.
-     *
+     * <p>
      * {@inheritDoc}
      */
     @Override

@@ -71,7 +71,7 @@ public final class HelloWorldHttp2Handler extends Http2ConnectionHandler impleme
         if (evt instanceof HttpServerUpgradeHandler.UpgradeEvent) {
             HttpServerUpgradeHandler.UpgradeEvent upgradeEvent =
                     (HttpServerUpgradeHandler.UpgradeEvent) evt;
-            onHeadersRead(ctx, 1, http1HeadersToHttp2Headers(upgradeEvent.upgradeRequest()), 0 , true);
+            onHeadersRead(ctx, 1, http1HeadersToHttp2Headers(upgradeEvent.upgradeRequest()), 0, true);
         }
         super.userEventTriggered(ctx, evt);
     }

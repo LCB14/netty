@@ -32,11 +32,11 @@ import java.util.List;
 
 /**
  * This handler negotiates and initializes the WebSocket Extensions.
- *
+ * <p>
  * This implementation negotiates the extension with the server in a defined order,
  * ensures that the successfully negotiated extensions are consistent between them,
  * and initializes the channel pipeline with the extension decoder and encoder.
- *
+ * <p>
  * Find a basic implementation for compression extensions at
  * <tt>io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketClientCompressionHandler</tt>.
  */
@@ -47,9 +47,8 @@ public class WebSocketClientExtensionHandler extends ChannelDuplexHandler {
     /**
      * Constructor
      *
-     * @param extensionHandshakers
-     *      The extension handshaker in priority order. A handshaker could be repeated many times
-     *      with fallback configuration.
+     * @param extensionHandshakers The extension handshaker in priority order. A handshaker could be repeated many times
+     *                             with fallback configuration.
      */
     public WebSocketClientExtensionHandler(WebSocketClientExtensionHandshaker... extensionHandshakers) {
         this.extensionHandshakers = Arrays.asList(checkNonEmpty(extensionHandshakers, "extensionHandshakers"));
@@ -61,12 +60,12 @@ public class WebSocketClientExtensionHandler extends ChannelDuplexHandler {
             HttpRequest request = (HttpRequest) msg;
             String headerValue = request.headers().getAsString(HttpHeaderNames.SEC_WEBSOCKET_EXTENSIONS);
             List<WebSocketExtensionData> extraExtensions =
-              new ArrayList<WebSocketExtensionData>(extensionHandshakers.size());
+                    new ArrayList<WebSocketExtensionData>(extensionHandshakers.size());
             for (WebSocketClientExtensionHandshaker extensionHandshaker : extensionHandshakers) {
                 extraExtensions.add(extensionHandshaker.newRequestData());
             }
             String newHeaderValue = WebSocketExtensionUtil
-              .computeMergeExtensionsHeaderValue(headerValue, extraExtensions);
+                    .computeMergeExtensionsHeaderValue(headerValue, extraExtensions);
 
             request.headers().set(HttpHeaderNames.SEC_WEBSOCKET_EXTENSIONS, newHeaderValue);
         }

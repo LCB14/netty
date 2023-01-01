@@ -67,7 +67,7 @@ public class AppendableCharSequenceTest {
     public void testEmptySubSequence() {
         AppendableCharSequence master = new AppendableCharSequence(26);
         master.append("abcdefghijlkmonpqrstuvwxyz");
-        AppendableCharSequence sub =  master.subSequence(0, 0);
+        AppendableCharSequence sub = master.subSequence(0, 0);
         assertEquals(0, sub.length());
         sub.append('b');
         assertEquals('b', sub.charAt(0));
@@ -101,7 +101,7 @@ public class AppendableCharSequenceTest {
         assertEquals(0, seq.length());
     }
 
-    private static  void assertEqualsChars(CharSequence seq1, CharSequence seq2) {
+    private static void assertEqualsChars(CharSequence seq1, CharSequence seq2) {
         assertEquals(seq1.length(), seq2.length());
         for (int i = 0; i < seq1.length(); i++) {
             assertEquals(seq1.charAt(i), seq2.charAt(i));

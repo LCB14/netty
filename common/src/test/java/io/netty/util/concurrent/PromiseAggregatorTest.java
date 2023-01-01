@@ -41,8 +41,7 @@ public class PromiseAggregatorTest {
     public void testAddNullFuture() {
         @SuppressWarnings("unchecked")
         Promise<Void> p = mock(Promise.class);
-        @SuppressWarnings("deprecation")
-        final PromiseAggregator<Void, Future<Void>> a =
+        @SuppressWarnings("deprecation") final PromiseAggregator<Void, Future<Void>> a =
                 new PromiseAggregator<Void, Future<Void>>(p);
         assertThrows(NullPointerException.class, new Executable() {
             @Override

@@ -49,7 +49,7 @@ public final class Http2FrameClient {
 
     static final boolean SSL = System.getProperty("ssl") != null;
     static final String HOST = System.getProperty("host", "127.0.0.1");
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8443" : "8080"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8443" : "8080"));
     static final String PATH = System.getProperty("path", "/");
 
     private Http2FrameClient() {
@@ -62,19 +62,19 @@ public final class Http2FrameClient {
         final SslContext sslCtx;
         if (SSL) {
             final SslProvider provider =
-                    SslProvider.isAlpnSupported(SslProvider.OPENSSL)? SslProvider.OPENSSL : SslProvider.JDK;
+                    SslProvider.isAlpnSupported(SslProvider.OPENSSL) ? SslProvider.OPENSSL : SslProvider.JDK;
             sslCtx = SslContextBuilder.forClient()
-                  .sslProvider(provider)
-                  .ciphers(Http2SecurityUtil.CIPHERS, SupportedCipherSuiteFilter.INSTANCE)
-                  // you probably won't want to use this in production, but it is fine for this example:
-                  .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                  .applicationProtocolConfig(new ApplicationProtocolConfig(
-                          Protocol.ALPN,
-                          SelectorFailureBehavior.NO_ADVERTISE,
-                          SelectedListenerFailureBehavior.ACCEPT,
-                          ApplicationProtocolNames.HTTP_2,
-                          ApplicationProtocolNames.HTTP_1_1))
-                  .build();
+                    .sslProvider(provider)
+                    .ciphers(Http2SecurityUtil.CIPHERS, SupportedCipherSuiteFilter.INSTANCE)
+                    // you probably won't want to use this in production, but it is fine for this example:
+                    .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                    .applicationProtocolConfig(new ApplicationProtocolConfig(
+                            Protocol.ALPN,
+                            SelectorFailureBehavior.NO_ADVERTISE,
+                            SelectedListenerFailureBehavior.ACCEPT,
+                            ApplicationProtocolNames.HTTP_2,
+                            ApplicationProtocolNames.HTTP_1_1))
+                    .build();
         } else {
             sslCtx = null;
         }
@@ -102,7 +102,7 @@ public final class Http2FrameClient {
             final DefaultHttp2Headers headers = new DefaultHttp2Headers();
             headers.method("GET");
             headers.path(PATH);
-            headers.scheme(SSL? "https" : "http");
+            headers.scheme(SSL ? "https" : "http");
             final Http2HeadersFrame headersFrame = new DefaultHttp2HeadersFrame(headers, true);
             streamChannel.writeAndFlush(headersFrame);
             System.out.println("Sent HTTP/2 GET request to " + PATH);

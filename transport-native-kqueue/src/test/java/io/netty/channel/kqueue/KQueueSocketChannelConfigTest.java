@@ -116,7 +116,7 @@ public class KQueueSocketChannelConfigTest {
     public void testGetOptionWhenClosed() {
         ch.close().syncUninterruptibly();
         try {
-        ch.config().getSoLinger();
+            ch.config().getSoLinger();
             fail();
         } catch (ChannelException e) {
             assertTrue(e.getCause() instanceof ClosedChannelException);

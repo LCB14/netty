@@ -182,7 +182,7 @@ public class DefaultMaxBytesRecvByteBufAllocator implements MaxBytesRecvByteBufA
 
     @Override
     public DefaultMaxBytesRecvByteBufAllocator maxBytesPerReadPair(int maxBytesPerRead,
-            int maxBytesPerIndividualRead) {
+                                                                   int maxBytesPerIndividualRead) {
         checkMaxBytesPerReadPair(maxBytesPerRead, maxBytesPerIndividualRead);
         // There is a dependency between this.maxBytesPerRead and this.maxBytesPerIndividualRead (a < b).
         // Write operations must be synchronized, but independent read operations can just be volatile.

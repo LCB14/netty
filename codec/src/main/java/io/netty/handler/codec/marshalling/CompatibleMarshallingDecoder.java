@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * {@link ReplayingDecoder} which use an {@link Unmarshaller} to read the Object out of the {@link ByteBuf}.
- *
+ * <p>
  * If you can you should use {@link MarshallingDecoder}.
  */
 public class CompatibleMarshallingDecoder extends ReplayingDecoder<Void> {
@@ -39,15 +39,13 @@ public class CompatibleMarshallingDecoder extends ReplayingDecoder<Void> {
     /**
      * Create a new instance of {@link CompatibleMarshallingDecoder}.
      *
-     * @param provider
-     *        the {@link UnmarshallerProvider} which is used to obtain the {@link Unmarshaller}
-     *        for the {@link Channel}
-     * @param maxObjectSize
-     *        the maximal size (in bytes) of the {@link Object} to unmarshal. Once the size is
-     *        exceeded the {@link Channel} will get closed. Use a maxObjectSize of
-     *        {@link Integer#MAX_VALUE} to disable this.  You should only do this if you are sure
-     *        that the received Objects will never be big and the sending side are trusted, as this
-     *        opens the possibility for a DOS-Attack due an {@link OutOfMemoryError}.
+     * @param provider      the {@link UnmarshallerProvider} which is used to obtain the {@link Unmarshaller}
+     *                      for the {@link Channel}
+     * @param maxObjectSize the maximal size (in bytes) of the {@link Object} to unmarshal. Once the size is
+     *                      exceeded the {@link Channel} will get closed. Use a maxObjectSize of
+     *                      {@link Integer#MAX_VALUE} to disable this.  You should only do this if you are sure
+     *                      that the received Objects will never be big and the sending side are trusted, as this
+     *                      opens the possibility for a DOS-Attack due an {@link OutOfMemoryError}.
      */
     public CompatibleMarshallingDecoder(UnmarshallerProvider provider, int maxObjectSize) {
         this.provider = provider;
@@ -85,14 +83,14 @@ public class CompatibleMarshallingDecoder extends ReplayingDecoder<Void> {
     @Override
     protected void decodeLast(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
         switch (buffer.readableBytes()) {
-        case 0:
-            return;
-        case 1:
-            // Ignore the last TC_RESET
-            if (buffer.getByte(buffer.readerIndex()) == ObjectStreamConstants.TC_RESET) {
-                buffer.skipBytes(1);
+            case 0:
                 return;
-            }
+            case 1:
+                // Ignore the last TC_RESET
+                if (buffer.getByte(buffer.readerIndex()) == ObjectStreamConstants.TC_RESET) {
+                    buffer.skipBytes(1);
+                    return;
+                }
         }
 
         decode(ctx, buffer, out);
