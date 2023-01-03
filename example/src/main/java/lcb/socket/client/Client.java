@@ -38,6 +38,10 @@ public class Client {
         /**
          * 思考：多个线程使用同一个socket实例进行访问会出现什么问题？如何解决？
          * 会出现拆包和粘包问题。
+         *
+         * 思考：socketA 和 socketB 的区别？（localport 不同）
+         * socketA：Socket[addr=/127.0.0.1,port=8000,localport=52762]
+         * socketB：Socket[addr=/127.0.0.1,port=8000,localport=52763]
          */
         final Socket socketB = new Socket(HOST, PORT);
         new Thread(() -> {
