@@ -33,7 +33,7 @@ public class ServerHandler {
             while ((len = inputStream.read(data)) != -1) {
                 String message = new String(data, 0, len);
                 System.out.println("收到客户端传过来的消息:" + message + socket);
-                String toClient = "form server: hello client";
+                String toClient = "from server: hello client";
                 socket.getOutputStream().write(toClient.getBytes());
             }
         } catch (Exception e) {
