@@ -56,9 +56,7 @@ public class ServerHandler {
     }
 
     public void start() {
-        new Thread(() -> {
-            doStart();
-        }).start();
+        new Thread(this::doStart).start();
     }
 
     private void doStart() {
