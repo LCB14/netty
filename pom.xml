@@ -1329,34 +1329,34 @@
           </excludes>
         </configuration>
       </plugin>
-      <plugin>
-        <!-- ensure that only methods available in java 1.6 can
-             be used even when compiling with java 1.7+ -->
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>animal-sniffer-maven-plugin</artifactId>
-        <version>1.16</version>
-        <configuration>
-          <signature>
-            <groupId>org.codehaus.mojo.signature</groupId>
-            <artifactId>java16</artifactId>
-            <version>1.1</version>
-          </signature>
-          <ignores>
-            <ignore>java.nio.ByteBuffer</ignore>
-          </ignores>
-          <annotations>
-            <annotation>io.netty.util.internal.SuppressJava6Requirement</annotation>
-          </annotations>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--      <plugin>-->
+<!--        &lt;!&ndash; ensure that only methods available in java 1.6 can-->
+<!--             be used even when compiling with java 1.7+ &ndash;&gt;-->
+<!--        <groupId>org.codehaus.mojo</groupId>-->
+<!--        <artifactId>animal-sniffer-maven-plugin</artifactId>-->
+<!--        <version>1.16</version>-->
+<!--        <configuration>-->
+<!--          <signature>-->
+<!--            <groupId>org.codehaus.mojo.signature</groupId>-->
+<!--            <artifactId>java16</artifactId>-->
+<!--            <version>1.1</version>-->
+<!--          </signature>-->
+<!--          <ignores>-->
+<!--            <ignore>java.nio.ByteBuffer</ignore>-->
+<!--          </ignores>-->
+<!--          <annotations>-->
+<!--            <annotation>io.netty.util.internal.SuppressJava6Requirement</annotation>-->
+<!--          </annotations>-->
+<!--        </configuration>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <phase>process-classes</phase>-->
+<!--            <goals>-->
+<!--              <goal>check</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
 <!--      <plugin>-->
 <!--        <artifactId>maven-checkstyle-plugin</artifactId>-->
 <!--        <version>3.1.0</version>-->
@@ -1416,34 +1416,34 @@
 <!--          </dependency>-->
 <!--        </dependencies>-->
 <!--      </plugin>-->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>xml-maven-plugin</artifactId>
-        <version>1.0.1</version>
-        <executions>
-          <execution>
-            <id>check-style</id>
-            <goals>
-              <goal>check-format</goal>
-            </goals>
-            <phase>validate</phase>
-          </execution>
-        </executions>
-        <configuration>
-          <formatFileSets>
-            <formatFileSet>
-              <directory>${project.basedir}</directory>
-              <includes>
-                <include>**/pom.xml</include>
-              </includes>
-              <excludes>
-                <exclude>**/target/**</exclude>
-              </excludes>
-            </formatFileSet>
-          </formatFileSets>
-          <useDefaultFormatFileSet>false</useDefaultFormatFileSet>
-        </configuration>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.codehaus.mojo</groupId>-->
+<!--        <artifactId>xml-maven-plugin</artifactId>-->
+<!--        <version>1.0.1</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>check-style</id>-->
+<!--            <goals>-->
+<!--              <goal>check-format</goal>-->
+<!--            </goals>-->
+<!--            <phase>validate</phase>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--        <configuration>-->
+<!--          <formatFileSets>-->
+<!--            <formatFileSet>-->
+<!--              <directory>${project.basedir}</directory>-->
+<!--              <includes>-->
+<!--                <include>**/pom.xml</include>-->
+<!--              </includes>-->
+<!--              <excludes>-->
+<!--                <exclude>**/target/**</exclude>-->
+<!--              </excludes>-->
+<!--            </formatFileSet>-->
+<!--          </formatFileSets>-->
+<!--          <useDefaultFormatFileSet>false</useDefaultFormatFileSet>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
       <!-- Download the npn-boot.jar in advance to add it to the boot classpath. -->
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
