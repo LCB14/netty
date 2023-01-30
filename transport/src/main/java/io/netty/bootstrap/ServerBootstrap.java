@@ -200,6 +200,9 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             };
         }
 
+        /**
+         * Netty 通过 ServerBootstrapAcceptor，会在 Channel 建立后触发 channelRead() 方法，并在 channelRead() 内将此 Channel 绑定至子反应组对应的处理线程，后续的数据处理就交于它进行处理。
+         */
         @Override
         @SuppressWarnings("unchecked")
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
