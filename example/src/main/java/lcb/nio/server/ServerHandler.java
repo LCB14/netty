@@ -29,7 +29,11 @@ public class ServerHandler {
             // 2、获取通道
             serverSocketChannel = ServerSocketChannel.open();
 
-            // 3.设置为非阻塞
+            /**
+             * 3.设置为非阻塞
+             * 如果使用selector，此处为何要设置成非阻塞的？
+             * @see ServerSocketChannel#accept()
+             */
             serverSocketChannel.configureBlocking(false);
 
             /**
