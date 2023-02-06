@@ -81,6 +81,9 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         for (int i = 0; i < nThreads; i++) {
             boolean success = false;
             try {
+                /**
+                 * @see io.netty.channel.nio.NioEventLoopGroup#newChild(java.util.concurrent.Executor, java.lang.Object...)
+                 */
                 children[i] = newChild(executor, args);
                 success = true;
             } catch (Exception e) {

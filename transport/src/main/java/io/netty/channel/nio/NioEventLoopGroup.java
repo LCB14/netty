@@ -28,6 +28,7 @@ import io.netty.util.concurrent.RejectedExecutionHandler;
 import io.netty.util.concurrent.RejectedExecutionHandlers;
 
 import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
@@ -70,6 +71,10 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
     }
 
     public NioEventLoopGroup(int nThreads, Executor executor) {
+        /**
+         * SelectorProvider.provider() 参考
+         * @see ServerSocketChannel#open()
+         */
         this(nThreads, executor, SelectorProvider.provider());
     }
 
@@ -179,8 +184,7 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
         if (argsLength > 4) {
             tailTaskQueueFactory = (EventLoopTaskQueueFactory) args[4];
         }
-        return new NioEventLoop(this, executor, selectorProvider,
-                selectStrategyFactory.newSelectStrategy(),
+        return new NioEventLoop(this, executor, selectorProvider, selectStrategyFactory.newSelectStrategy(),
                 rejectedExecutionHandler, taskQueueFactory, tailTaskQueueFactory);
     }
 }
