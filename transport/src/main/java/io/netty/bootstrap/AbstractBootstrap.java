@@ -26,6 +26,7 @@ import io.netty.channel.DefaultChannelPromise;
 import io.netty.channel.EventLoop;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.ReflectiveChannelFactory;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GlobalEventExecutor;
@@ -307,6 +308,11 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     final ChannelFuture initAndRegister() {
         Channel channel = null;
         try {
+            /**
+             * @see AbstractBootstrap#channel(Class)
+             * @see ReflectiveChannelFactory#newChannel()
+             * @see NioServerSocketChannel#NioServerSocketChannel()
+             */
             channel = channelFactory.newChannel();
             init(channel);
         } catch (Throwable t) {
