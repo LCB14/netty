@@ -32,6 +32,7 @@ public class Server {
                     .childHandler(new ServerChannelInitializer());
 
             /**
+             *  绑定端口启动服务，开始监听accept事件
              * @see AbstractBootstrap#doBind(java.net.SocketAddress)
              */
             ChannelFuture channelFuture = serverBootstrap.bind(8888).sync();
