@@ -68,8 +68,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
      * @param chooserFactory the {@link EventExecutorChooserFactory} to use.
      * @param args           arguments which will passed to each {@link #newChild(Executor, Object...)} call
      */
-    protected MultithreadEventExecutorGroup(int nThreads, Executor executor,
-                                            EventExecutorChooserFactory chooserFactory, Object... args) {
+    protected MultithreadEventExecutorGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory, Object... args) {
         checkPositive(nThreads, "nThreads");
 
         if (executor == null) {
