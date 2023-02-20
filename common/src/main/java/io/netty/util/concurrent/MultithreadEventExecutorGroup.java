@@ -77,10 +77,12 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
         children = new EventExecutor[nThreads];
 
+        // 循环创建 reactor group 中的 Reactor
         for (int i = 0; i < nThreads; i++) {
             boolean success = false;
             try {
                 /**
+                 * 创建reactor
                  * @see io.netty.channel.nio.NioEventLoopGroup#newChild(java.util.concurrent.Executor, java.lang.Object...)
                  */
                 children[i] = newChild(executor, args);
@@ -110,6 +112,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             }
         }
 
+        // 创建channel到Reactor的绑定策略
         chooser = chooserFactory.newChooser(children);
 
         final FutureListener<Object> terminationListener = new FutureListener<Object>() {
