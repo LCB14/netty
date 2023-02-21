@@ -16,6 +16,7 @@
 
 package io.netty.channel;
 
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.StringUtil;
 
@@ -41,6 +42,9 @@ public class ReflectiveChannelFactory<T extends Channel> implements ChannelFacto
     @Override
     public T newChannel() {
         try {
+            /**
+             * @see NioServerSocketChannel#NioServerSocketChannel()
+             */
             return constructor.newInstance();
         } catch (Throwable t) {
             throw new ChannelException("Unable to create Channel from class " + constructor.getDeclaringClass(), t);

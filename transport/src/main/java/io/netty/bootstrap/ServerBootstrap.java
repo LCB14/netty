@@ -57,6 +57,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
     }
 
     private ServerBootstrap(ServerBootstrap bootstrap) {
+        // 父类管理主Reactor线程
         super(bootstrap);
         childGroup = bootstrap.childGroup;
         childHandler = bootstrap.childHandler;

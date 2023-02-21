@@ -27,12 +27,13 @@ public class Server {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_BACKLOG, 100)
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childAttr(AttributeKey.newInstance("childAttr"), "childAttrValue")
                     .childHandler(new ServerChannelInitializer());
 
             /**
-             *  绑定端口启动服务，开始监听accept事件
+             *  Start the server. 绑定端口启动服务，开始监听accept事件
              * @see AbstractBootstrap#doBind(java.net.SocketAddress)
              */
             ChannelFuture channelFuture = serverBootstrap.bind(8888).sync();
