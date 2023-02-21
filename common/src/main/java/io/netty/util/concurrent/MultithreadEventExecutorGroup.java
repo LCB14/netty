@@ -34,6 +34,9 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
     private final EventExecutor[] children;
     private final Set<EventExecutor> readonlyChildren;
+    /**
+     * 记录已经关闭的Reactor个数，用来判断NioEventLoopGroup中的Reactor是否已经全部关闭。
+     */
     private final AtomicInteger terminatedChildren = new AtomicInteger();
     private final Promise<?> terminationFuture = new DefaultPromise(GlobalEventExecutor.INSTANCE);
     private final EventExecutorChooserFactory.EventExecutorChooser chooser;
@@ -119,6 +122,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             @Override
             public void operationComplete(Future<Object> future) throws Exception {
                 if (terminatedChildren.incrementAndGet() == children.length) {
+                    // 当所有Reactor关闭后 才认为是关闭成功
                     terminationFuture.setSuccess(null);
                 }
             }
