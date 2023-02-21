@@ -172,7 +172,17 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
     @Override
     protected EventLoop newChild(Executor executor, Object... args) throws Exception {
         SelectorProvider selectorProvider = (SelectorProvider) args[0];
+
+        /**
+         * @see DefaultSelectStrategyFactory#INSTANCE
+         * Reactor最重要的事情就是轮询注册其上的Channel上的IO就绪事件，这里的SelectStrategyFactory用于指定轮询策略，默认为DefaultSelectStrategyFactory.INSTANCE
+         */
         SelectStrategyFactory selectStrategyFactory = (SelectStrategyFactory) args[1];
+
+        /**
+         * @see RejectedExecutionHandlers#REJECT
+         * 当向Reactor添加异步任务添加失败时，采用的拒绝策略。Reactor的任务不只是监听IO活跃事件和IO任务的处理，还包括对异步任务的处理。
+         */
         RejectedExecutionHandler rejectedExecutionHandler = (RejectedExecutionHandler) args[2];
 
         // Netty为了极致的压榨Reactor的性能，还会让它做一些异步任务的执行工作。既然要执行异步任务，那么Reactor中就需要一个队列来保存任务。
