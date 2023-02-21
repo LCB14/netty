@@ -125,6 +125,9 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         };
 
         for (EventExecutor e : children) {
+            /**
+             * @see io.netty.util.concurrent.DefaultPromise#addListener(io.netty.util.concurrent.GenericFutureListener)
+             */
             e.terminationFuture().addListener(terminationListener);
         }
 
