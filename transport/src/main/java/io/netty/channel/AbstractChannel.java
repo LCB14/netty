@@ -21,6 +21,9 @@ import io.netty.channel.socket.ChannelOutputShutdownEvent;
 import io.netty.channel.socket.ChannelOutputShutdownException;
 import io.netty.util.DefaultAttributeMap;
 import io.netty.util.ReferenceCountUtil;
+import io.netty.util.concurrent.AbstractEventExecutor;
+import io.netty.util.concurrent.SingleThreadEventExecutor;
+import io.netty.util.concurrent.ThreadPerTaskExecutor;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.UnstableApi;
@@ -492,18 +495,34 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 promise.setFailure(new IllegalStateException("registered to an event loop already"));
                 return;
             }
+
+            // EventLoop的类型要与Channel的类型一样  Nio Oio Aio
             if (!isCompatible(eventLoop)) {
-                promise.setFailure(
-                        new IllegalStateException("incompatible event loop type: " + eventLoop.getClass().getName()));
+                promise.setFailure(new IllegalStateException("incompatible event loop type: " + eventLoop.getClass().getName()));
                 return;
             }
 
+            // 在channel上设置绑定的Reactor
             AbstractChannel.this.eventLoop = eventLoop;
 
+            /**
+             * 执行channel注册的操作必须是Reactor线程来完成
+             *
+             * 1: 如果当前执行线程是Reactor线程，则直接执行register0进行注册
+             * 2：如果当前执行线程是外部线程，则需要将register0注册操作 封装程异步Task 由Reactor线程执行
+             *
+             * @see AbstractEventExecutor#inEventLoop()
+             * @see SingleThreadEventExecutor#inEventLoop(Thread)
+             * 注：当前执行线程并不是Reactor线程，而是用户程序的启动线程Main线程。
+             * */
             if (eventLoop.inEventLoop()) {
                 register0(promise);
             } else {
                 try {
+                    /**
+                     * @see SingleThreadEventExecutor#execute(Runnable)
+                     * @see ThreadPerTaskExecutor#execute(Runnable)
+                     */
                     eventLoop.execute(new Runnable() {
                         @Override
                         public void run() {
@@ -511,9 +530,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                         }
                     });
                 } catch (Throwable t) {
-                    logger.warn(
-                            "Force-closing a channel whose registration task was not accepted by an event loop: {}",
-                            AbstractChannel.this, t);
+                    logger.warn("Force-closing a channel whose registration task was not accepted by an event loop: {}", AbstractChannel.this, t);
                     closeForcibly();
                     closeFuture.setClosed();
                     safeSetFailure(promise, t);
@@ -528,8 +545,11 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 if (!promise.setUncancellable() || !ensureOpen(promise)) {
                     return;
                 }
+
                 boolean firstRegistration = neverRegistered;
+
                 doRegister();
+
                 neverRegistered = false;
                 registered = true;
 
