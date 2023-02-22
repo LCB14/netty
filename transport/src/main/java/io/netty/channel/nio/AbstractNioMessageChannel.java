@@ -35,9 +35,6 @@ import java.util.List;
 public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
     boolean inputShutdown;
 
-    /**
-     * @see AbstractNioChannel#AbstractNioChannel(Channel, SelectableChannel, int)
-     */
     protected AbstractNioMessageChannel(Channel parent, SelectableChannel ch, int readInterestOp) {
         super(parent, ch, readInterestOp);
     }

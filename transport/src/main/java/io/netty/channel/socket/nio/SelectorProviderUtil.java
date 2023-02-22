@@ -45,8 +45,7 @@ final class SelectorProviderUtil {
     }
 
     @SuppressJava6Requirement(reason = "Usage guarded by java version check")
-    static <C extends Channel> C newChannel(Method method, SelectorProvider provider,
-                                            InternetProtocolFamily family) throws IOException {
+    static <C extends Channel> C newChannel(Method method, SelectorProvider provider, InternetProtocolFamily family) throws IOException {
         /**
          *  Use the {@link SelectorProvider} to open {@link SocketChannel} and so remove condition in
          *  {@link SelectorProvider#provider()} which is called by each SocketChannel.open() otherwise.
@@ -56,8 +55,7 @@ final class SelectorProviderUtil {
         if (family != null && method != null) {
             try {
                 @SuppressWarnings("unchecked")
-                C channel = (C) method.invoke(
-                        provider, ProtocolFamilyConverter.convert(family));
+                C channel = (C) method.invoke(provider, ProtocolFamilyConverter.convert(family));
                 return channel;
             } catch (InvocationTargetException e) {
                 throw new IOException(e);
