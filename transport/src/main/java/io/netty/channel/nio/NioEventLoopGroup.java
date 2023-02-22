@@ -197,7 +197,6 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
             tailTaskQueueFactory = (EventLoopTaskQueueFactory) args[4];
         }
 
-        return new NioEventLoop(this, executor, selectorProvider, selectStrategyFactory.newSelectStrategy(), rejectedExecutionHandler,
-                taskQueueFactory, tailTaskQueueFactory);
+        return new NioEventLoop(this, executor, selectorProvider, selectStrategyFactory.newSelectStrategy(), rejectedExecutionHandler, taskQueueFactory, tailTaskQueueFactory);
     }
 }

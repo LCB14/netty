@@ -15,6 +15,7 @@
  */
 package io.netty.channel;
 
+import io.netty.channel.nio.AbstractNioMessageChannel;
 import io.netty.util.concurrent.RejectedExecutionHandler;
 import io.netty.util.concurrent.RejectedExecutionHandlers;
 import io.netty.util.concurrent.SingleThreadEventExecutor;
@@ -85,6 +86,12 @@ public abstract class SingleThreadEventLoop extends SingleThreadEventExecutor im
     @Override
     public ChannelFuture register(final ChannelPromise promise) {
         ObjectUtil.checkNotNull(promise, "promise");
+        /**
+         * promise.channel().unsafe() 值参考：
+         * @see AbstractChannel#AbstractChannel(Channel)
+         * @see AbstractNioMessageChannel#newUnsafe()
+         * @see AbstractChannel.AbstractUnsafe#register(EventLoop, ChannelPromise)
+         */
         promise.channel().unsafe().register(this, promise);
         return promise;
     }
