@@ -15,18 +15,7 @@
  */
 package io.netty.bootstrap;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelConfig;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.ServerChannel;
+import io.netty.channel.*;
 import io.netty.util.AttributeKey;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.logging.InternalLogger;
@@ -144,6 +133,8 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
          * 这里为什么不干脆直接将ChannelHandler添加到pipeline中，而是又使用到了ChannelInitializer呢？
          * 1、为了保证线程安全地初始化pipeline，所以初始化的动作需要由Reactor线程进行，而当前线程是用户程序的启动Main线程 并不是Reactor线程。这里不能立即初始化。
          * 2、初始化Channel中pipeline的动作，需要等到Channel注册到对应的Reactor中才可以进行初始化，当前只是创建好了NioServerSocketChannel，但并未注册到Main Reactor上。
+         *
+         * @see DefaultChannelPipeline#addLast(ChannelHandler)
          */
         p.addLast(new ChannelInitializer<Channel>() {
             @Override

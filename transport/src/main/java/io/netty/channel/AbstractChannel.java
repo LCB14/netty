@@ -1053,6 +1053,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
          * Marks the specified {@code promise} as success.  If the {@code promise} is done already, log a message.
          */
         protected final void safeSetSuccess(ChannelPromise promise) {
+            /**
+             * @see DefaultChannelPromise#trySuccess()
+             */
             if (!(promise instanceof VoidChannelPromise) && !promise.trySuccess()) {
                 logger.warn("Failed to mark a promise as success because it is done already: {}", promise);
             }

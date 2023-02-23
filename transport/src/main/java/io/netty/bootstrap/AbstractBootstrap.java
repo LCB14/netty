@@ -264,12 +264,12 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     private ChannelFuture doBind(final SocketAddress localAddress) {
         // 异步创建，初始化，注册ServerSocketChannel到main reactor上
         final ChannelFuture regFuture = initAndRegister();
-
         final Channel channel = regFuture.channel();
         if (regFuture.cause() != null) {
             return regFuture;
         }
 
+        // 如果注册完成，则进行绑定操作
         if (regFuture.isDone()) {
             // At this point we know that the registration was complete and successful.
             ChannelPromise promise = channel.newPromise();
@@ -278,7 +278,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         } else {
             // Registration future is almost always fulfilled already, but just in case it's not.
             final PendingRegistrationPromise promise = new PendingRegistrationPromise(channel);
-            // 如果此时注册操作没有完成，则向regFuture添加operationComplete回调函数，注册成功后回调。
+            // 添加注册完成，回调函数。
             regFuture.addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
@@ -291,7 +291,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
                         // Registration was successful, so set the correct executor to use.
                         // See https://github.com/netty/netty/issues/2586
                         promise.registered();
-
+                        // 注册完成后，Reactor线程回调这里。
                         doBind0(regFuture, channel, localAddress, promise);
                     }
                 }
@@ -304,7 +304,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         Channel channel = null;
         try {
             /**
-             * 初始化步骤：
+             * step1:初始化步骤
              * @see lcb.netty.server.Server#main(String[])
              * @see AbstractBootstrap#channel(Class)
              * @see ReflectiveChannelFactory#newChannel()
@@ -325,11 +325,13 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         }
 
         /**
+         * step2:注册步骤
          * 向Main Reactor注册NioServerSocketChannel，config().group() -- 获取bossGroup
          * @see io.netty.channel.MultithreadEventLoopGroup#register(io.netty.channel.Channel) -- 选取一个Reactor进行注册
          * @see SingleThreadEventLoop#register(Channel)
          */
         ChannelFuture regFuture = config().group().register(channel);
+
         if (regFuture.cause() != null) {
             if (channel.isRegistered()) {
                 channel.close();
@@ -353,7 +355,6 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     abstract void init(Channel channel) throws Exception;
 
     private static void doBind0(final ChannelFuture regFuture, final Channel channel, final SocketAddress localAddress, final ChannelPromise promise) {
-
         // This method is invoked before channelRegistered() is triggered.  Give user handlers a chance to set up
         // the pipeline in its channelRegistered() implementation.
         channel.eventLoop().execute(new Runnable() {
