@@ -1334,8 +1334,11 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         }
 
         @Override
-        public void bind(
-                ChannelHandlerContext ctx, SocketAddress localAddress, ChannelPromise promise) {
+        public void bind(ChannelHandlerContext ctx, SocketAddress localAddress, ChannelPromise promise) {
+            /**
+             * 触发AbstractChannel->bind方法 执行JDK NIO SelectableChannel 执行底层绑定操作
+             * @see AbstractChannel.AbstractUnsafe#bind(SocketAddress, ChannelPromise)
+             */
             unsafe.bind(localAddress, promise);
         }
 

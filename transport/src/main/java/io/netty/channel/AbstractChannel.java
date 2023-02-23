@@ -21,6 +21,7 @@ import io.netty.channel.nio.AbstractNioChannel;
 import io.netty.channel.nio.AbstractNioMessageChannel;
 import io.netty.channel.socket.ChannelOutputShutdownEvent;
 import io.netty.channel.socket.ChannelOutputShutdownException;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.DefaultAttributeMap;
 import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.AbstractEventExecutor;
@@ -568,7 +569,6 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                 /**
                  * 设置regFuture为success，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
-                 * @see AbstractBootstrap#doBind(SocketAddress)
                  */
                 safeSetSuccess(promise);
 
@@ -616,14 +616,17 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                     !PlatformDependent.isWindows() && !PlatformDependent.maybeSuperUser()) {
                 // Warn a user about the fact that a non-root user can't receive a
                 // broadcast packet on *nix if the socket is bound on non-wildcard address.
-                logger.warn(
-                        "A non-root user can't receive a broadcast packet if the socket " +
+                logger.warn("A non-root user can't receive a broadcast packet if the socket " +
                                 "is not bound to a wildcard address; binding to a non-wildcard " +
                                 "address (" + localAddress + ") anyway as requested.");
             }
 
             boolean wasActive = isActive();
             try {
+                /**
+                 * 调用具体channel实现类
+                 * @see NioServerSocketChannel#doBind(SocketAddress)
+                 */
                 doBind(localAddress);
             } catch (Throwable t) {
                 safeSetFailure(promise, t);
@@ -631,15 +634,18 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 return;
             }
 
+            // 绑定成功后 channel激活 触发channelActive事件传播
             if (!wasActive && isActive()) {
                 invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                        // pipeline中触发channelActive事件
                         pipeline.fireChannelActive();
                     }
                 });
             }
 
+            // 回调注册在promise上的ChannelFutureListener
             safeSetSuccess(promise);
         }
 
