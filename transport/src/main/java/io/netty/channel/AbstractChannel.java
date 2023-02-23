@@ -15,7 +15,9 @@
  */
 package io.netty.channel;
 
+import io.netty.bootstrap.AbstractBootstrap;
 import io.netty.buffer.ByteBufAllocator;
+import io.netty.channel.nio.AbstractNioChannel;
 import io.netty.channel.nio.AbstractNioMessageChannel;
 import io.netty.channel.socket.ChannelOutputShutdownEvent;
 import io.netty.channel.socket.ChannelOutputShutdownException;
@@ -549,7 +551,10 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                 boolean firstRegistration = neverRegistered;
 
-                // 执行真正的注册操作
+                /**
+                 * 执行真正的注册操作
+                 * @see AbstractNioChannel#doRegister()
+                 */
                 doRegister();
 
                 // 修改注册状态
@@ -558,14 +563,18 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                 // Ensure we call handlerAdded(...) before we actually notify the promise. This is needed as the
                 // user may already fire events through the pipeline in the ChannelFutureListener.
-                // 回调pipeline中添加的ChannelInitializer的handlerAdded方法，在这里初始化channelPipeline
+                // 触发回调pipeline中添加的ChannelInitializer的handlerAdded方法，在handlerAdded方法中利用前面提到的ChannelInitializer初始化ChannelPipeline
                 pipeline.invokeHandlerAddedIfNeeded();
 
-                // 设置regFuture为success，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
+                /**
+                 * 设置regFuture为success，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
+                 * @see AbstractBootstrap#doBind(SocketAddress)
+                 */
                 safeSetSuccess(promise);
 
-                // 触发channelRegister事件
+                // 触发channelRegister事件，pipeline中channelHandler的channelRegistered方法被回调。
                 pipeline.fireChannelRegistered();
+
                 // Only fire a channelActive if the channel has never been registered. This prevents firing
                 // multiple channel actives if the channel is deregistered and re-registered.
                 /**
@@ -574,6 +583,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                  */
                 if (isActive()) {
                     if (firstRegistration) {
+                        // 触发channelActive事件
                         pipeline.fireChannelActive();
                     } else if (config().isAutoRead()) {
                         // This channel was registered before and autoRead() is set. This means we need to begin read
