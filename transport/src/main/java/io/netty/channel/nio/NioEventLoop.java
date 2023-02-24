@@ -544,10 +544,8 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     switch (strategy) {
                         case SelectStrategy.CONTINUE:
                             continue;
-
                         case SelectStrategy.BUSY_WAIT:
                             // fall-through to SELECT since the busy-wait is not supported with NIO
-
                         case SelectStrategy.SELECT:
                             long curDeadlineNanos = nextScheduledTaskDeadlineNanos();
                             if (curDeadlineNanos == -1L) {
