@@ -576,6 +576,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 }
 
                 selectCnt++;
+
                 cancelledKeys = 0;
                 needsToSelectAgain = false;
                 final int ioRatio = this.ioRatio;
@@ -599,13 +600,13 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                         ranTasks = runAllTasks(ioTime * (100 - ioRatio) / ioRatio);
                     }
                 } else {
-                    ranTasks = runAllTasks(0); // This will run the minimum number of tasks
+                    // This will run the minimum number of tasks
+                    ranTasks = runAllTasks(0);
                 }
 
                 if (ranTasks || strategy > 0) {
                     if (selectCnt > MIN_PREMATURE_SELECTOR_RETURNS && logger.isDebugEnabled()) {
-                        logger.debug("Selector.select() returned prematurely {} times in a row for Selector {}.",
-                                selectCnt - 1, selector);
+                        logger.debug("Selector.select() returned prematurely {} times in a row for Selector {}.", selectCnt - 1, selector);
                     }
                     selectCnt = 0;
                 } else if (unexpectedSelectorWakeup(selectCnt)) { // Unexpected wakeup (unusual case)
@@ -614,8 +615,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             } catch (CancelledKeyException e) {
                 // Harmless exception - log anyway
                 if (logger.isDebugEnabled()) {
-                    logger.debug(CancelledKeyException.class.getSimpleName() + " raised by a Selector {} - JDK bug?",
-                            selector, e);
+                    logger.debug(CancelledKeyException.class.getSimpleName() + " raised by a Selector {} - JDK bug?", selector, e);
                 }
             } catch (Error e) {
                 throw e;

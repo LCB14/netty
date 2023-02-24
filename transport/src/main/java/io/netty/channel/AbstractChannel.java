@@ -523,6 +523,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             } else {
                 try {
                     /**
+                     * Reactor线程的启动是在向Reactor提交第一个异步任务的时候启动的。
                      * @see SingleThreadEventExecutor#execute(Runnable)
                      * @see ThreadPerTaskExecutor#execute(Runnable)
                      */
@@ -564,7 +565,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                 // Ensure we call handlerAdded(...) before we actually notify the promise. This is needed as the
                 // user may already fire events through the pipeline in the ChannelFutureListener.
-                // 触发回调pipeline中添加的ChannelInitializer的handlerAdded方法，在handlerAdded方法中利用前面提到的ChannelInitializer初始化ChannelPipeline
+                /**
+                 * 触发回调pipeline中添加的ChannelInitializer的handlerAdded方法，在handlerAdded方法中利用前面提到的ChannelInitializer初始化ChannelPipeline
+                 */
                 pipeline.invokeHandlerAddedIfNeeded();
 
                 /**
@@ -572,7 +575,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                  */
                 safeSetSuccess(promise);
 
-                // 触发channelRegister事件，pipeline中channelHandler的channelRegistered方法被回调。
+                /**
+                 * 触发channelRegister事件，pipeline中channelHandler的channelRegistered方法被回调。
+                 */
                 pipeline.fireChannelRegistered();
 
                 // Only fire a channelActive if the channel has never been registered. This prevents firing

@@ -1012,8 +1012,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                 } finally {
                     for (; ; ) {
                         int oldState = state;
-                        if (oldState >= ST_SHUTTING_DOWN || STATE_UPDATER.compareAndSet(
-                                SingleThreadEventExecutor.this, oldState, ST_SHUTTING_DOWN)) {
+                        if (oldState >= ST_SHUTTING_DOWN || STATE_UPDATER.compareAndSet(SingleThreadEventExecutor.this, oldState, ST_SHUTTING_DOWN)) {
                             break;
                         }
                     }
@@ -1041,8 +1040,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                         // achieved by switching the state. Any new tasks beyond this point will be rejected.
                         for (; ; ) {
                             int oldState = state;
-                            if (oldState >= ST_SHUTDOWN || STATE_UPDATER.compareAndSet(
-                                    SingleThreadEventExecutor.this, oldState, ST_SHUTDOWN)) {
+                            if (oldState >= ST_SHUTDOWN || STATE_UPDATER.compareAndSet(SingleThreadEventExecutor.this, oldState, ST_SHUTDOWN)) {
                                 break;
                             }
                         }
@@ -1064,8 +1062,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                             threadLock.countDown();
                             int numUserTasks = drainTasks();
                             if (numUserTasks > 0 && logger.isWarnEnabled()) {
-                                logger.warn("An event executor terminated with " +
-                                        "non-empty task queue (" + numUserTasks + ')');
+                                logger.warn("An event executor terminated with " + "non-empty task queue (" + numUserTasks + ')');
                             }
                             terminationFuture.setSuccess(null);
                         }
