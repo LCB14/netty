@@ -145,7 +145,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                     pipeline.addLast(handler);
                 }
 
-                // 添加用于接收客户端连接的acceptor
+                // 添加用于接收客户端连接的acceptor(handler)到reactor的任务队列中
                 ch.eventLoop().execute(new Runnable() {
                     @Override
                     public void run() {
