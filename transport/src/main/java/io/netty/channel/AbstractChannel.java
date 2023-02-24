@@ -24,9 +24,7 @@ import io.netty.channel.socket.ChannelOutputShutdownException;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.DefaultAttributeMap;
 import io.netty.util.ReferenceCountUtil;
-import io.netty.util.concurrent.AbstractEventExecutor;
-import io.netty.util.concurrent.SingleThreadEventExecutor;
-import io.netty.util.concurrent.ThreadPerTaskExecutor;
+import io.netty.util.concurrent.*;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.UnstableApi;
@@ -572,6 +570,10 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
                 /**
                  * 设置regFuture为success，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
+                 *
+                 * 思考：凭什么可以保证main线程执行到此处的时候，ChannelFutureListener 一定就被 regFuture 添加了呢？
+                 * 及时此处未完成，在regFuture真正添加ChannelFutureListener之后也会主动调用 notifyListeners 方法。
+                 * @see DefaultPromise#addListener(GenericFutureListener)
                  */
                 safeSetSuccess(promise);
 

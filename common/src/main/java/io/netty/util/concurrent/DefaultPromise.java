@@ -469,8 +469,7 @@ public class DefaultPromise<V> extends AbstractFuture<V> implements Promise<V> {
      * @param future        the future that is complete.
      * @param listener      the listener to notify.
      */
-    protected static void notifyListener(
-            EventExecutor eventExecutor, final Future<?> future, final GenericFutureListener<?> listener) {
+    protected static void notifyListener(EventExecutor eventExecutor, final Future<?> future, final GenericFutureListener<?> listener) {
         notifyListenerWithStackOverFlowProtection(
                 checkNotNull(eventExecutor, "eventExecutor"),
                 checkNotNull(future, "future"),
