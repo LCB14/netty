@@ -571,8 +571,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 /**
                  * 设置regFuture为success，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
                  *
-                 * 思考：凭什么可以保证main线程执行到此处的时候，ChannelFutureListener 一定就被 regFuture 添加了呢？
+                 * 思考：凭什么可以保证reactor线程执行到此处的时候，ChannelFutureListener 一定就被 regFuture 添加了呢？
                  * 及时此处未完成，在regFuture真正添加ChannelFutureListener之后也会主动调用 notifyListeners 方法。
+                 * @see AbstractBootstrap#doBind(SocketAddress)
                  * @see DefaultPromise#addListener(GenericFutureListener)
                  */
                 safeSetSuccess(promise);
