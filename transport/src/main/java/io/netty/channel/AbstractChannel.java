@@ -629,6 +629,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                                 "address (" + localAddress + ") anyway as requested.");
             }
 
+            // 这时channel还未激活 wasActive = false
             boolean wasActive = isActive();
             try {
                 /**
@@ -653,7 +654,11 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 });
             }
 
-            // 回调注册在promise上的ChannelFutureListener
+            /**
+             * 回调注册在promise上的ChannelFutureListener
+             * @see AbstractBootstrap.PendingRegistrationPromise#PendingRegistrationPromise(Channel)
+             * @see DefaultChannelPromise#trySuccess()
+             */
             safeSetSuccess(promise);
         }
 

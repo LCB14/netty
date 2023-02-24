@@ -1307,8 +1307,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         }
     }
 
-    final class HeadContext extends AbstractChannelHandlerContext
-            implements ChannelOutboundHandler, ChannelInboundHandler {
+    final class HeadContext extends AbstractChannelHandlerContext implements ChannelOutboundHandler, ChannelInboundHandler {
 
         private final Unsafe unsafe;
 
@@ -1343,10 +1342,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         }
 
         @Override
-        public void connect(
-                ChannelHandlerContext ctx,
-                SocketAddress remoteAddress, SocketAddress localAddress,
-                ChannelPromise promise) {
+        public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) {
             unsafe.connect(remoteAddress, localAddress, promise);
         }
 
@@ -1367,6 +1363,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
 
         @Override
         public void read(ChannelHandlerContext ctx) {
+            // 触发注册OP_ACCEPT或者OP_READ事件
             unsafe.beginRead();
         }
 
@@ -1403,8 +1400,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) {
+            // pipeline中继续向后传播channelActive事件
             ctx.fireChannelActive();
-
+            // 如果是 autoRead 则自动触发read事件传播, 在read回调函数中 触发OP_ACCEPT注册
             readIfIsAutoRead();
         }
 
@@ -1426,6 +1424,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         }
 
         private void readIfIsAutoRead() {
+            // 如果是 autoRead 则触发read事件传播
             if (channel.config().isAutoRead()) {
                 channel.read();
             }
