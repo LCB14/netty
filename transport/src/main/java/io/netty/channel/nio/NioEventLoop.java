@@ -549,7 +549,8 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                         case SelectStrategy.SELECT:
                             long curDeadlineNanos = nextScheduledTaskDeadlineNanos();
                             if (curDeadlineNanos == -1L) {
-                                curDeadlineNanos = NONE; // nothing on the calendar
+                                // nothing on the calendar
+                                curDeadlineNanos = NONE;
                             }
                             nextWakeupNanos.set(curDeadlineNanos);
                             try {
