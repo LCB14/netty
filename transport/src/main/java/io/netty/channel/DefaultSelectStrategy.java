@@ -28,6 +28,12 @@ final class DefaultSelectStrategy implements SelectStrategy {
 
     @Override
     public int calculateStrategy(IntSupplier selectSupplier, boolean hasTasks) throws Exception {
+        /**
+         * 三种情况：
+         * 1、存在异步执行任务且存在IO就绪事件  -- 返回一个大于 0 的值；
+         * 2、存在异步执行任务但不存在IO就绪事件 -- 返回一个等于 0 的值；
+         * 3、无待执行的异步任务 -- 返回 -1；
+         */
         return hasTasks ? selectSupplier.get() : SelectStrategy.SELECT;
     }
 }

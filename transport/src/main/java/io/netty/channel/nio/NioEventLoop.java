@@ -543,10 +543,13 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     strategy = selectStrategy.calculateStrategy(selectNowSupplier, hasTasks());
                     switch (strategy) {
                         case SelectStrategy.CONTINUE:
+                            // 进入该 case，则重新开启一轮IO轮询
                             continue;
                         case SelectStrategy.BUSY_WAIT:
                             // fall-through to SELECT since the busy-wait is not supported with NIO
+                            // Reactor线程进行自旋轮询，由于NIO 不支持自旋操作，所以这里直接跳到SelectStrategy.SELECT策略。
                         case SelectStrategy.SELECT:
+                            // 进入该case，表示此时没有任何异步任务需要执行，Reactor线程可以安心的阻塞在Selector上等待IO就绪事件的来临。
                             long curDeadlineNanos = nextScheduledTaskDeadlineNanos();
                             if (curDeadlineNanos == -1L) {
                                 // nothing on the calendar
@@ -577,7 +580,11 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 selectCnt++;
 
                 cancelledKeys = 0;
+
+                // 主要用于从IO就绪的SelectedKeys集合中剔除已经失效的selectKey
                 needsToSelectAgain = false;
+
+                // 调整Reactor线程执行IO事件和执行异步任务的CPU时间比例 默认50，表示执行IO事件和异步任务的时间比例是一比一
                 final int ioRatio = this.ioRatio;
                 boolean ranTasks;
                 if (ioRatio == 100) {
@@ -603,12 +610,14 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     ranTasks = runAllTasks(0);
                 }
 
+                // 判断是否触发JDK Epoll 空轮询 BUG
                 if (ranTasks || strategy > 0) {
                     if (selectCnt > MIN_PREMATURE_SELECTOR_RETURNS && logger.isDebugEnabled()) {
                         logger.debug("Selector.select() returned prematurely {} times in a row for Selector {}.", selectCnt - 1, selector);
                     }
                     selectCnt = 0;
                 } else if (unexpectedSelectorWakeup(selectCnt)) { // Unexpected wakeup (unusual case)
+                    // 既没有IO就绪事件，也没有异步任务，Reactor线程从Selector上被异常唤醒 触发JDK Epoll空轮询BUG，重新构建Selector,selectCnt归零。
                     selectCnt = 0;
                 }
             } catch (CancelledKeyException e) {
