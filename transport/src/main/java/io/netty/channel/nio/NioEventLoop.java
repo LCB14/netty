@@ -907,6 +907,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
 
     @Override
     protected void wakeup(boolean inEventLoop) {
+        /**
+         * 当 nextWakeupNanos = AWAKE时表示当前Reactor正处于苏醒状态，既然是苏醒状态也就没有必要去执行selector.wakeup()重复唤醒Reactor了，同时也能省去这一次的系统调用开销。
+         */
         if (!inEventLoop && nextWakeupNanos.getAndSet(AWAKE) != AWAKE) {
             selector.wakeup();
         }
@@ -933,10 +936,13 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     }
 
     private int select(long deadlineNanos) throws IOException {
+        // 无定时任务，无普通任务执行时，开始轮询IO就绪事件，没有就一直阻塞 直到唤醒条件成立
         if (deadlineNanos == NONE) {
             return selector.select();
         }
-        // Timeout will only be 0 if deadline is within 5 microsecs
+
+        // Timeout will only be 0 if deadline is within 5 micro secs
+        // 将纳秒转为毫秒（1毫秒 == 10^3 微秒 == 10^6 纳秒）
         long timeoutMillis = deadlineToDelayNanos(deadlineNanos + 995000L) / 1000000L;
         return timeoutMillis <= 0 ? selector.selectNow() : selector.select(timeoutMillis);
     }

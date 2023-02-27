@@ -844,7 +844,9 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
     private void execute(Runnable task, boolean immediate) {
         boolean inEventLoop = inEventLoop();
         addTask(task);
+        // 如果当前线程不是Reactor线程，则启动Reactor线程
         if (!inEventLoop) {
+            // 这里可以看出Reactor线程的启动是通过向NioEventLoop添加异步任务时启动的
             startThread();
             if (isShutdown()) {
                 boolean reject = false;
@@ -863,7 +865,16 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             }
         }
 
+        /**
+         * 判断条件说明：
+         * addTaskWakesUp : true 表示当且仅当只有调用addTask方法时才会唤醒Reactor线程。调用别的方法并不会唤醒Reactor线程。在初始化NioEventLoop时会设置为false，
+         * 表示并不是只有addTask方法才能唤醒Reactor线程，还有其他方法可以唤醒Reactor线程，比如这里的execute方法就会唤醒Reactor线程。
+         * immediate：表示提交的task是否需要被立即执行。Netty中只要你提交的任务类型不是LazyRunnable类型的任务，都是需要立即执行的。immediate = true
+         */
         if (!addTaskWakesUp && immediate) {
+            /**
+             * @see io.netty.channel.nio.NioEventLoop#wakeup(boolean)
+             */
             wakeup(inEventLoop);
         }
     }
