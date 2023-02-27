@@ -177,6 +177,9 @@ public abstract class AbstractScheduledEventExecutor extends AbstractEventExecut
     /**
      * Return the deadline (in nanoseconds) when the next scheduled task is ready to be run or {@code -1}
      * if no task is scheduled.
+     *
+     * 会返回当前Reactor定时任务队列中最近的一个定时任务deadline时间点，如果定时任务队列中没有定时任务，则返回-1。
+     * 定时任务存放在优先级队列中
      */
     protected final long nextScheduledTaskDeadlineNanos() {
         ScheduledFutureTask<?> scheduledTask = peekScheduledTask();

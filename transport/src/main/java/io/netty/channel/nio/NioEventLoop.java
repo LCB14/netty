@@ -541,6 +541,13 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                      * @see DefaultSelectStrategy#calculateStrategy(IntSupplier, boolean)
                      */
                     strategy = selectStrategy.calculateStrategy(selectNowSupplier, hasTasks());
+
+                    /**
+                     * strategy 值对应的三种场景：
+                     * 1、返回 -1： switch逻辑分支进入SelectStrategy.SELECT分支，表示此时Reactor中没有异步任务需要执行，Reactor线程可以安心的阻塞在Selector上等待IO就绪事件发生。
+                     * 2、返回 0： switch逻辑分支进入default分支，表示此时Reactor中没有IO就绪事件但是有异步任务需要执行，流程通过default分支直接进入了处理异步任务的逻辑部分。
+                     * 3、返回 > 0：switch逻辑分支进入default分支，表示此时Reactor中既有IO就绪事件发生也有异步任务需要执行，流程通过default分支直接进入了处理IO就绪事件和执行异步任务逻辑部分。
+                     */
                     switch (strategy) {
                         case SelectStrategy.CONTINUE:
                             // 进入该 case，则重新开启一轮IO轮询
@@ -550,19 +557,29 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                             // Reactor线程进行自旋轮询，由于NIO 不支持自旋操作，所以这里直接跳到SelectStrategy.SELECT策略。
                         case SelectStrategy.SELECT:
                             // 进入该case，表示此时没有任何异步任务需要执行，Reactor线程可以安心的阻塞在Selector上等待IO就绪事件的来临。
+
+                            // 从定时任务队列中取出即将快要执行的定时任务deadline
                             long curDeadlineNanos = nextScheduledTaskDeadlineNanos();
                             if (curDeadlineNanos == -1L) {
                                 // nothing on the calendar
+                                // -1代表当前定时任务队列中没有定时任务
                                 curDeadlineNanos = NONE;
                             }
+                            // 最早执行定时任务的deadline作为 select的阻塞时间，意思是到了定时任务的执行时间，不管有无IO就绪事件，必须唤醒selector，从而使reactor线程执行定时任务
                             nextWakeupNanos.set(curDeadlineNanos);
+
                             try {
+                                // 再次检查任务队列中是否有异步任务
                                 if (!hasTasks()) {
                                     strategy = select(curDeadlineNanos);
                                 }
                             } finally {
                                 // This update is just to help block unnecessary selector wakeups
                                 // so use of lazySet is ok (no race condition)
+                                /**
+                                 * 执行到这里说明Reactor已经从Selector上被唤醒了，设置Reactor的状态为苏醒状态AWAKE
+                                 * lazySet优化不必要的volatile操作，不使用内存屏障，不保证写操作的可见性（单线程不需要保证）
+                                 */
                                 nextWakeupNanos.lazySet(AWAKE);
                             }
                             // fall through
