@@ -604,8 +604,10 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 // 调整Reactor线程执行IO事件和执行异步任务的CPU时间比例 默认50，表示执行IO事件和异步任务的时间比例是一比一
                 final int ioRatio = this.ioRatio;
                 boolean ranTasks;
+                // 当ioRatio = 100时，表示无需考虑执行时间的限制
                 if (ioRatio == 100) {
                     try {
+                        // 当有IO就绪事件时（strategy > 0）Reactor线程需要优先处理IO就绪事件，处理完IO事件后，执行所有的异步任务包括：普通任务，尾部任务，定时任务。无时间限制。
                         if (strategy > 0) {
                             processSelectedKeys();
                         }
@@ -620,15 +622,17 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     } finally {
                         // Ensure we always run tasks.
                         final long ioTime = System.nanoTime() - ioStartTime;
+                        // ioTime * ((100 - ioRatio) / ioRatio)  -> 计算执行异步任务的限制时间
                         ranTasks = runAllTasks(ioTime * (100 - ioRatio) / ioRatio);
                     }
                 } else {
                     // This will run the minimum number of tasks
+                    // 没有IO就绪事件处理，则只执行异步任务 最多执行64个 防止Reactor线程处理异步任务时间过长而导致 I/O 事件阻塞
                     ranTasks = runAllTasks(0);
                 }
 
-                // 判断是否触发JDK Epoll 空轮询 BUG
                 if (ranTasks || strategy > 0) {
+                    // 判断是否触发JDK Epoll 空轮询 BUG
                     if (selectCnt > MIN_PREMATURE_SELECTOR_RETURNS && logger.isDebugEnabled()) {
                         logger.debug("Selector.select() returned prematurely {} times in a row for Selector {}.", selectCnt - 1, selector);
                     }
@@ -679,12 +683,11 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             }
             return true;
         }
-        if (SELECTOR_AUTO_REBUILD_THRESHOLD > 0 &&
-                selectCnt >= SELECTOR_AUTO_REBUILD_THRESHOLD) {
+
+        if (SELECTOR_AUTO_REBUILD_THRESHOLD > 0 && selectCnt >= SELECTOR_AUTO_REBUILD_THRESHOLD) {
             // The selector returned prematurely many times in a row.
             // Rebuild the selector to work around the problem.
-            logger.warn("Selector.select() returned prematurely {} times in a row; rebuilding Selector {}.",
-                    selectCnt, selector);
+            logger.warn("Selector.select() returned prematurely {} times in a row; rebuilding Selector {}.", selectCnt, selector);
             rebuildSelector();
             return true;
         }
