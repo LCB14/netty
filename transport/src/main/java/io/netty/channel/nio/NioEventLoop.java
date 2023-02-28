@@ -762,6 +762,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 break;
             }
 
+            // 目的是再次进入for循环 移除失效的selectKey(socketChannel可能从selector上移除)
             if (needsToSelectAgain) {
                 selectAgain();
                 selectedKeys = selector.selectedKeys();
