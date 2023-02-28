@@ -560,9 +560,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
 
                             // 从定时任务队列中取出即将快要执行的定时任务deadline
                             long curDeadlineNanos = nextScheduledTaskDeadlineNanos();
+                            // -1代表当前定时任务队列中没有定时任务
                             if (curDeadlineNanos == -1L) {
                                 // nothing on the calendar
-                                // -1代表当前定时任务队列中没有定时任务
                                 curDeadlineNanos = NONE;
                             }
                             // 最早执行定时任务的deadline作为 select的阻塞时间，意思是到了定时任务的执行时间，不管有无IO就绪事件，必须唤醒selector，从而使reactor线程执行定时任务
