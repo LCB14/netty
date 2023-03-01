@@ -32,6 +32,7 @@ import java.nio.channels.SelectableChannel;
 import java.nio.channels.Selector;
 import java.nio.channels.SelectionKey;
 
+import java.nio.channels.spi.AbstractSelectionKey;
 import java.nio.channels.spi.SelectorProvider;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -54,8 +55,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
 
     private static final int CLEANUP_INTERVAL = 256; // XXX Hard-coded value, but won't need customization.
 
-    private static final boolean DISABLE_KEY_SET_OPTIMIZATION =
-            SystemPropertyUtil.getBoolean("io.netty.noKeySetOptimization", false);
+    private static final boolean DISABLE_KEY_SET_OPTIMIZATION = SystemPropertyUtil.getBoolean("io.netty.noKeySetOptimization", false);
 
     private static final int MIN_PREMATURE_SELECTOR_RETURNS = 3;
     private static final int SELECTOR_AUTO_REBUILD_THRESHOLD;
@@ -723,9 +723,22 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         }
     }
 
+    /**
+     * 将socketChannel从selector中移除 取消监听IO事件
+     */
     void cancel(SelectionKey key) {
+        /**
+         * 调用JDK NIO SelectionKey的API cancel方法，将Channel从Selector中取消掉。
+         * @see AbstractSelectionKey#cancel()
+         */
         key.cancel();
+
         cancelledKeys++;
+
+        /**
+         * 当从selector中移除的socketChannel数量达到256个，设置needsToSelectAgain为true
+         * 在io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain 中重新做一次轮询，将失效的selectKey移除，以保证selectKeySet的有效性
+         */
         if (cancelledKeys >= CLEANUP_INTERVAL) {
             cancelledKeys = 0;
             needsToSelectAgain = true;
@@ -762,7 +775,12 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 break;
             }
 
-            // 目的是再次进入for循环 移除失效的selectKey(socketChannel可能从selector上移除)
+            /**
+             *  目的是再次进入for循环 移除失效的selectKey(socketChannel可能从selector上移除)
+             *
+             * @see AbstractNioChannel#doDeregister()
+             * @see NioEventLoop#cancel(SelectionKey)
+             */
             if (needsToSelectAgain) {
                 selectAgain();
                 selectedKeys = selector.selectedKeys();
