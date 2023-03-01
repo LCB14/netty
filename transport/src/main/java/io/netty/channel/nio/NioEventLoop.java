@@ -604,7 +604,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 // 调整Reactor线程执行IO事件和执行异步任务的CPU时间比例 默认50，表示执行IO事件和异步任务的时间比例是一比一
                 final int ioRatio = this.ioRatio;
                 boolean ranTasks;
-                // 当ioRatio = 100时，表示无需考虑执行时间的限制
+                // 当ioRatio设置为100时，Reactor线程会先一股脑的处理IO就绪事件，然后在一股脑的执行异步任务，并没有时间的限制。
                 if (ioRatio == 100) {
                     try {
                         // 当有IO就绪事件时（strategy > 0）Reactor线程需要优先处理IO就绪事件，处理完IO事件后，执行所有的异步任务包括：普通任务，尾部任务，定时任务。无时间限制。
@@ -622,7 +622,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     } finally {
                         // Ensure we always run tasks.
                         final long ioTime = System.nanoTime() - ioStartTime;
-                        // ioTime * ((100 - ioRatio) / ioRatio)  -> 计算执行异步任务的限制时间
+                        // (100 - ioRatio) / ioRatio * ioTime -> 计算执行异步任务的限制时间
                         ranTasks = runAllTasks(ioTime * (100 - ioRatio) / ioRatio);
                     }
                 } else {
