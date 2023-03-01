@@ -796,6 +796,10 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     }
 
     private void processSelectedKeysOptimized() {
+        /**
+         * 在openSelector的时候将JDK中selector实现类中得selectedKeys和publicSelectKeys字段类型
+         * 由原来的HashSet类型替换为 Netty 优化后的数组实现的SelectedSelectionKeySet类型
+         */
         for (int i = 0; i < selectedKeys.size; ++i) {
             final SelectionKey k = selectedKeys.keys[i];
             // null out entry in the array to allow to have it GC'ed once the Channel close
@@ -976,6 +980,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     private void selectAgain() {
         needsToSelectAgain = false;
         try {
+            // 触发一次selectNow，目的是清除无效的SelectionKey
             selector.selectNow();
         } catch (Throwable t) {
             logger.warn("Failed to update SelectionKeys.", t);
