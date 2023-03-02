@@ -21,6 +21,7 @@ import io.netty.channel.ChannelOutboundBuffer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.RecvByteBufAllocator;
 import io.netty.channel.ServerChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
@@ -58,13 +59,20 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
 
     private final class NioMessageUnsafe extends AbstractNioUnsafe {
 
+        // 存放连接建立后，创建的客户端SocketChannel
         private final List<Object> readBuf = new ArrayList<Object>();
 
         @Override
         public void read() {
             assert eventLoop().inEventLoop();
+
             final ChannelConfig config = config();
             final ChannelPipeline pipeline = pipeline();
+
+            /**
+             * 创建接收数据Buffer分配器（用于分配容量大小合适的byteBuffer用来容纳接收数据）
+             * 在接收连接的场景中，这里的allocHandle只是用于控制read loop的循环读取创建连接的次数。
+             */
             final RecvByteBufAllocator.Handle allocHandle = unsafe().recvBufAllocHandle();
             allocHandle.reset(config);
 
@@ -73,6 +81,9 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
             try {
                 try {
                     do {
+                        /**
+                         * @see NioServerSocketChannel#doReadMessages(List)
+                         */
                         int localRead = doReadMessages(readBuf);
                         if (localRead == 0) {
                             break;
@@ -82,6 +93,10 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
                             break;
                         }
 
+                        /**
+                         * 这里的read loop循环会被限定只能读取16次，当main reactor从NioServerSocketChannel中读取客户端连接NioSocketChannel的次数达到16次之后，
+                         * 无论此时是否还有客户端连接都不能在继续读取了。
+                         */
                         allocHandle.incMessagesRead(localRead);
                     } while (continueReading(allocHandle));
                 } catch (Throwable t) {
@@ -91,9 +106,14 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
                 int size = readBuf.size();
                 for (int i = 0; i < size; i++) {
                     readPending = false;
+                    /**
+                     * 在NioServerSocketChannel对应的pipeline中传播ChannelRead事件
+                     * 初始化客户端SocketChannel，并将其绑定到Sub Reactor线程组中的一个Reactor上
+                     */
                     pipeline.fireChannelRead(readBuf.get(i));
                 }
                 readBuf.clear();
+
                 allocHandle.readComplete();
                 pipeline.fireChannelReadComplete();
 
