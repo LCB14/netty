@@ -15,12 +15,8 @@
  */
 package io.netty.channel.nio;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelConfig;
-import io.netty.channel.ChannelOutboundBuffer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.RecvByteBufAllocator;
-import io.netty.channel.ServerChannel;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.*;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.io.IOException;
@@ -110,17 +106,19 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
                     /**
                      * 在NioServerSocketChannel对应的pipeline中传播ChannelRead事件
                      * 初始化客户端SocketChannel，并将其绑定到Sub Reactor线程组中的一个Reactor上
+                     * @see ServerBootstrap.ServerBootstrapAcceptor#channelRead(ChannelHandlerContext, Object)
                      */
                     pipeline.fireChannelRead(readBuf.get(i));
                 }
                 readBuf.clear();
 
                 allocHandle.readComplete();
+
+                // 当Sub Reactor线程通知ChannelFutureListener注册成功之后，随后就会调用pipeline.fireChannelRegistered()在客户端NioSocketChannel的pipeline中传播ChannelRegistered事件。
                 pipeline.fireChannelReadComplete();
 
                 if (exception != null) {
                     closed = closeOnReadError(exception);
-
                     pipeline.fireExceptionCaught(exception);
                 }
 
