@@ -470,7 +470,11 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
         public RecvByteBufAllocator.Handle recvBufAllocHandle() {
             if (recvHandle == null) {
                 /**
+                 * 主 Reactor
                  * @see ServerChannelRecvByteBufAllocator#newHandle()
+                 *
+                 * 从 Reactor
+                 * @see AdaptiveRecvByteBufAllocator#newHandle()
                  */
                 recvHandle = config().getRecvByteBufAllocator().newHandle();
             }

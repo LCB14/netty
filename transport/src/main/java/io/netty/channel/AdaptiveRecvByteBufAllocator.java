@@ -95,6 +95,9 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
         private final int minIndex;
         private final int maxIndex;
         private int index;
+        /**
+         * 预计下一次分配buffer的容量，初始：2048
+         */
         private int nextReceiveBufferSize;
         private boolean decreaseNow;
 

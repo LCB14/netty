@@ -810,6 +810,11 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             // See https://github.com/netty/netty/issues/2363
             selectedKeys.keys[i] = null;
 
+            /**
+             * k.attachment() 值：
+             * 对于主Reactor 此处对应是 NioServerSocketChannel
+             * 对于从Reactor 此处对应的 NioSocketChannel
+             */
             final Object a = k.attachment();
 
             if (a instanceof AbstractNioChannel) {
@@ -881,7 +886,13 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             // 处理OP_ACCEPT事件或OP_READ事件
             if ((readyOps & (SelectionKey.OP_READ | SelectionKey.OP_ACCEPT)) != 0 || readyOps == 0) {
                 /**
+                 * 主 Reactor：
+                 * NioServerSocketChannel
                  * @see AbstractNioMessageChannel.NioMessageUnsafe#read()
+                 *
+                 * 从 Reactor：
+                 * NioSocketChannel
+                 * @see AbstractNioByteChannel.NioByteUnsafe#read()
                  */
                 unsafe.read();
             }

@@ -17,14 +17,8 @@ package io.netty.channel.nio;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelConfig;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelMetadata;
-import io.netty.channel.ChannelOutboundBuffer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.FileRegion;
-import io.netty.channel.RecvByteBufAllocator;
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.*;
 import io.netty.channel.internal.ChannelUtils;
 import io.netty.channel.socket.ChannelInputShutdownEvent;
 import io.netty.channel.socket.ChannelInputShutdownReadComplete;
@@ -133,22 +127,47 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
 
         @Override
         public final void read() {
+            // 获取客户端NioSocketChannel的Channel配置类NioSocketChannelConfig
             final ChannelConfig config = config();
             if (shouldBreakReadReady(config)) {
                 clearReadPending();
                 return;
             }
+
+            // 获取NioSocketChannel的pipeline。
             final ChannelPipeline pipeline = pipeline();
+
+            /**
+             * 具体执行内存分配动作的是这里的ByteBufAllocator类型为PooledByteBufAllocator。
+             * 它会根据AdaptiveRecvByteBufAllocator动态调整出来的大小去真正的申请内存分配ByteBuffer。
+             *
+             * PooledByteBufAllocator为Netty中的内存池，用来管理堆外内存DirectByteBuffer。
+             *
+             * @see PooledByteBufAllocator
+             */
             final ByteBufAllocator allocator = config.getAllocator();
+
+            /**
+             * AdaptiveRecvByteBufAllocator并不会真正的去分配ByteBuffer，它只是负责动态调整分配ByteBuffer的大小。
+             * @see AdaptiveRecvByteBufAllocator#AdaptiveRecvByteBufAllocator()
+             */
             final RecvByteBufAllocator.Handle allocHandle = recvBufAllocHandle();
+
+            // 在每轮循环开始前，执行 reset 操作清空上一轮read loop的统计指标。
             allocHandle.reset(config);
 
             ByteBuf byteBuf = null;
             boolean close = false;
             try {
                 do {
+                    /**
+                     * 利用PooledByteBufAllocator分配合适大小的byteBuf，初始大小为2048
+                     * @see DefaultMaxMessagesRecvByteBufAllocator.MaxMessageHandle#allocate(ByteBufAllocator)
+                     */
                     byteBuf = allocHandle.allocate(allocator);
+                    // 记录本次读取了多少字节数
                     allocHandle.lastBytesRead(doReadBytes(byteBuf));
+                    // 如果本次没有读取到任何字节，则退出循环，进行下一轮事件轮询
                     if (allocHandle.lastBytesRead() <= 0) {
                         // nothing was read. release the buffer.
                         byteBuf.release();
@@ -161,13 +180,25 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                         break;
                     }
 
+                    // read loop读取数据次数+1
                     allocHandle.incMessagesRead(1);
+
                     readPending = false;
+
+                    // 客户端NioSocketChannel的pipeline中触发ChannelRead事件
                     pipeline.fireChannelRead(byteBuf);
+
+                    // 解除本次读取数据分配的ByteBuffer引用，方便下一轮read loop分配
                     byteBuf = null;
                 } while (allocHandle.continueReading());
 
+                // 根据本次read loop总共读取的字节数，决定下次是否扩容或者缩容
                 allocHandle.readComplete();
+
+                /**
+                 * 在NioSocketChannel的pipeline中触发ChannelReadComplete事件，表示一次read事件处理完毕。
+                 * 但这并不表示客户端发送来的数据已经全部读完，因为如果数据太多的话，这里只会读取16次，剩下的会等到下次read事件到来后在处理。
+                 */
                 pipeline.fireChannelReadComplete();
 
                 if (close) {
