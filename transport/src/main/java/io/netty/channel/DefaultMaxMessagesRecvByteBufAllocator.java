@@ -101,8 +101,7 @@ public abstract class DefaultMaxMessagesRecvByteBufAllocator implements MaxMessa
         private int maxMessagePerRead;
 
         /**
-         * 用于统计read loop中总共接收的连接个数，NioSocketChannel中表示读取数据的次数
-         * 每次read loop循环后会调用allocHandle.incMessagesRead增加记录接收到的连接个数
+         * 用于统计read loop，NioSocketChannel中表示读取数据的次数，每次read loop循环后会调用allocHandle.incMessagesRead增加次数。
          */
         private int totalMessages;
 
