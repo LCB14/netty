@@ -153,7 +153,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
              */
             final RecvByteBufAllocator.Handle allocHandle = recvBufAllocHandle();
 
-            // 在每轮循环开始前，执行 reset 操作清空上一轮read loop的统计指标。
+            /**
+             * 在每轮循环开始前，执行 reset 操作清空上一轮read loop的统计指标。
+             * @see DefaultMaxMessagesRecvByteBufAllocator.MaxMessageHandle#reset(ChannelConfig)
+             */
             allocHandle.reset(config);
 
             ByteBuf byteBuf = null;
@@ -165,8 +168,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                      * @see DefaultMaxMessagesRecvByteBufAllocator.MaxMessageHandle#allocate(ByteBufAllocator)
                      */
                     byteBuf = allocHandle.allocate(allocator);
-                    // 记录本次读取了多少字节数
+
+                    // 记录本次读取了多少字节数据，并统计本轮read loop目前总共读取了多少字节。
                     allocHandle.lastBytesRead(doReadBytes(byteBuf));
+
                     // 如果本次没有读取到任何字节，则退出循环，进行下一轮事件轮询
                     if (allocHandle.lastBytesRead() <= 0) {
                         // nothing was read. release the buffer.
@@ -190,9 +195,12 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
 
                     // 解除本次读取数据分配的ByteBuffer引用，方便下一轮read loop分配
                     byteBuf = null;
-                } while (allocHandle.continueReading());
+                } while (allocHandle.continueReading());// @see io.netty.channel.DefaultMaxMessagesRecvByteBufAllocator.MaxMessageHandle.continueReading()
 
-                // 根据本次read loop总共读取的字节数，决定下次是否扩容或者缩容
+                /**
+                 * 根据本次read loop总共读取的字节数，决定下次是否扩容或者缩容
+                 * @see AdaptiveRecvByteBufAllocator.HandleImpl#readComplete()
+                 */
                 allocHandle.readComplete();
 
                 /**

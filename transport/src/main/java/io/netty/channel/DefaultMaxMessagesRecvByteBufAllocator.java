@@ -101,22 +101,22 @@ public abstract class DefaultMaxMessagesRecvByteBufAllocator implements MaxMessa
         private int maxMessagePerRead;
 
         /**
-         * 用于统计read loop，NioSocketChannel中表示读取数据的次数，每次read loop循环后会调用allocHandle.incMessagesRead增加次数。
+         * 用于统计read loop 次数，在NioSocketChannel中表示读取数据的次数，每次read loop循环后都会调用allocHandle.incMessagesRead增加次数。
          */
         private int totalMessages;
 
         /**
-         * 用于统计在read loop中总共接收到客户端连接上的数据大小
+         * 用于统计在 read loop 中总共接收到客户端连接上的数据大小
          */
         private int totalBytesRead;
 
         /**
-         * 表示本次read loop 尝试读取多少字节，byteBuffer剩余可写的字节数
+         * 表示当前 ByteBuffer 预计尝试要写入的字节数。
          */
         private int attemptedBytesRead;
 
         /**
-         * 本次read loop读取到的字节数
+         * 本次 read loop 实际读取到的字节数
          */
         private int lastBytesRead;
         private final boolean respectMaybeMoreData = DefaultMaxMessagesRecvByteBufAllocator.this.respectMaybeMoreData;
@@ -142,7 +142,7 @@ public abstract class DefaultMaxMessagesRecvByteBufAllocator implements MaxMessa
             /**
              * ioBuffer 方法在 PooledByteBufAllocator 类的父类 AbstractByteBufAllocator
              * @see PooledByteBufAllocator#PooledByteBufAllocator()
-             * @see AbstractByteBufAllocator#ioBuffer()
+             * @see AbstractByteBufAllocator#ioBuffer(int)
              */
             return alloc.ioBuffer(guess());
         }
@@ -172,9 +172,10 @@ public abstract class DefaultMaxMessagesRecvByteBufAllocator implements MaxMessa
 
         @Override
         public boolean continueReading(UncheckedBooleanSupplier maybeMoreDataSupplier) {
-            return config.isAutoRead() &&
-                    (!respectMaybeMoreData || maybeMoreDataSupplier.get()) &&
-                    totalMessages < maxMessagePerRead && (ignoreBytesRead || totalBytesRead > 0);
+            return config.isAutoRead()
+                    && (!respectMaybeMoreData || maybeMoreDataSupplier.get())
+                    && totalMessages < maxMessagePerRead
+                    && (ignoreBytesRead || totalBytesRead > 0);
         }
 
         @Override
