@@ -143,7 +143,7 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
              *
              * PooledByteBufAllocator为Netty中的内存池，用来管理堆外内存DirectByteBuffer。
              *
-             * @see PooledByteBufAllocator
+             * @see DefaultChannelConfig#getAllocator()
              */
             final ByteBufAllocator allocator = config.getAllocator();
 

@@ -94,13 +94,29 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
     }
 
     private final class HandleImpl extends MaxMessageHandle {
+        /**
+         * 最小容量在扩缩容索引表中的index
+         */
         private final int minIndex;
+
+        /**
+         * 最大容量在扩缩容索引表中的index
+         */
         private final int maxIndex;
+
+        /**
+         * 当前容量在扩缩容索引表中的index 初始33 对应容量2048
+         */
         private int index;
+
         /**
          * 预计下一次分配buffer的容量，初始：2048
          */
         private int nextReceiveBufferSize;
+
+        /**
+         * 是否缩容
+         */
         private boolean decreaseNow;
 
         HandleImpl(int minIndex, int maxIndex, int initial) {
