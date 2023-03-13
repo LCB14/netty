@@ -807,6 +807,10 @@ public final class ChannelOutboundBuffer {
             }
         });
 
+        /**
+         * 在对象池创建对象时，会为池化对象创建其在对象池中的句柄Handler，随后将Handler传入创建好的池化对象中。
+         * 当对象使用完毕后，我们可以通过Handler来将对象回收至对象池中等待下次继续使用。
+         */
         private final Handle<Entry> handle;
         Entry next;
         Object msg;
@@ -823,7 +827,12 @@ public final class ChannelOutboundBuffer {
             this.handle = handle;
         }
 
+        /**
+         * 由于Entry对象在设计上是被对象池管理的，所以不能对外提供public构造函数，无法在外面直接创建Entry对象。
+         * 所以池化对象都会提供一个获取对象实例的 static 方法 newInstance。
+         */
         static Entry newInstance(Object msg, int size, long total, ChannelPromise promise) {
+            // 从对象池中获取对象
             Entry entry = RECYCLER.get();
             entry.msg = msg;
             entry.pendingSize = size + CHANNEL_OUTBOUND_BUFFER_ENTRY_OVERHEAD;
@@ -851,6 +860,11 @@ public final class ChannelOutboundBuffer {
             return 0;
         }
 
+        /**
+         * 池化对象都会提供一个 recycle 方法，当对象使用完毕后，调用该方法将对象回收进对象池中。
+         * 1、清空对象中的所有属性。
+         * 2、通过对象中持有的对象池句柄Handler，将对象回收进对象池中。
+         */
         void recycle() {
             next = null;
             bufs = null;
@@ -862,6 +876,7 @@ public final class ChannelOutboundBuffer {
             pendingSize = 0;
             count = -1;
             cancelled = false;
+
             handle.recycle(this);
         }
 

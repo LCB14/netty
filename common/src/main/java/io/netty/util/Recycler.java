@@ -164,6 +164,7 @@ public abstract class Recycler<T> {
         if (maxCapacityPerThread == 0) {
             return newObject((Handle<T>) NOOP_HANDLE);
         }
+
         LocalPool<T> localPool = threadLocal.get();
         DefaultHandle<T> handle = localPool.claim();
         T obj;

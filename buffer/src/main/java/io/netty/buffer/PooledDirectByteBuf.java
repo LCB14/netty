@@ -26,7 +26,10 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 final class PooledDirectByteBuf extends PooledByteBuf<ByteBuffer> {
-
+    /**
+     * 创建对象池
+     * Netty中每个被池化的对象中都会引用对象池的实例ObjectPool RECYCLER ，这个对象池的实例就是专门用来分配和管理被池化对象的。
+     */
     private static final ObjectPool<PooledDirectByteBuf> RECYCLER = ObjectPool.newPool(
             new ObjectCreator<PooledDirectByteBuf>() {
                 @Override
@@ -35,6 +38,10 @@ final class PooledDirectByteBuf extends PooledByteBuf<ByteBuffer> {
                 }
             });
 
+    /**
+     * 由于Entry对象在设计上是被对象池管理的，所以不能对外提供public构造函数，无法在外面直接创建Entry对象。
+     * 所以池化对象都会提供一个获取对象实例的 static 方法 newInstance。
+     */
     static PooledDirectByteBuf newInstance(int maxCapacity) {
         PooledDirectByteBuf buf = RECYCLER.get();
         buf.reuse(maxCapacity);

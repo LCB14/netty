@@ -28,6 +28,10 @@ import java.nio.channels.ScatteringByteChannel;
 
 abstract class PooledByteBuf<T> extends AbstractReferenceCountedByteBuf {
 
+    /**
+     * 在对象池创建对象时，会为池化对象创建其在对象池中的句柄Handler，随后将Handler传入创建好的池化对象中。
+     * 当对象使用完毕后，我们可以通过Handler来将对象回收至对象池中等待下次继续使用。
+     */
     private final Handle<PooledByteBuf<T>> recyclerHandle;
 
     protected PoolChunk<T> chunk;
