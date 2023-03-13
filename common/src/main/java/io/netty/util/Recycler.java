@@ -66,7 +66,12 @@ public abstract class Recycler<T> {
      * 创建线程回收对象时的回收比例，默认是8，表示只回收1/8的对象。也就是产生8个对象回收一个对象到对象池中
      */
     private static final int RATIO;
+
+    /**
+     *
+     */
     private static final int DEFAULT_QUEUE_CHUNK_SIZE_PER_THREAD;
+
     private static final boolean BLOCKING_POOL;
 
     static {
@@ -104,9 +109,21 @@ public abstract class Recycler<T> {
         }
     }
 
+    /**
+     * 创建线程持有对象池的最大容量
+     */
     private final int maxCapacityPerThread;
+
+    /**
+     * 创建线程的回收比例
+     */
     private final int interval;
+
     private final int chunkSize;
+
+    /**
+     * threadlocal保存每个线程对应的 stack结构
+     */
     private final FastThreadLocal<LocalPool<T>> threadLocal = new FastThreadLocal<LocalPool<T>>() {
         @Override
         protected LocalPool<T> initialValue() {
