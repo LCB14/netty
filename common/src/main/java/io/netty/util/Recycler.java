@@ -49,8 +49,22 @@ public abstract class Recycler<T> {
             return "NOOP_HANDLE";
         }
     };
-    private static final int DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD = 4 * 1024; // Use 4k instances as default.
+
+    /**
+     * 定义每个创建线程对应的Stack结构中的数组栈初始默认的最大容量 -- 默认为4096个。
+     * 可由JVM启动参数 -D io.netty.recycler.maxCapacity 指定。
+     */
+    private static final int DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD = 4 * 1024;//Use 4k instances as default.
+
+    /**
+     * 定义每个创建线程对应的Stack结构中的数组栈的最大容量。
+     * 可由JVM启动参数 -D io.netty.recycler.maxCapacityPerThread 指定，如无特殊指定，即采用 DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD 的值，默认为4096个。
+     */
     private static final int DEFAULT_MAX_CAPACITY_PER_THREAD;
+
+    /**
+     * 创建线程回收对象时的回收比例，默认是8，表示只回收1/8的对象。也就是产生8个对象回收一个对象到对象池中
+     */
     private static final int RATIO;
     private static final int DEFAULT_QUEUE_CHUNK_SIZE_PER_THREAD;
     private static final boolean BLOCKING_POOL;
