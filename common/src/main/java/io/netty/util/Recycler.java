@@ -122,7 +122,7 @@ public abstract class Recycler<T> {
     private final int chunkSize;
 
     /**
-     * threadlocal保存每个线程对应的 stack结构
+     * threadlocal 保存每个线程对应的 LocalPool 结构
      */
     private final FastThreadLocal<LocalPool<T>> threadLocal = new FastThreadLocal<LocalPool<T>>() {
         @Override
