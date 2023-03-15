@@ -58,7 +58,7 @@ public abstract class Recycler<T> {
 
     /**
      * 定义每个创建线程对应的Stack结构中的数组栈的最大容量。
-     * 可由JVM启动参数 -D io.netty.recycler.maxCapacityPerThread 指定，如无特殊指定，即采用 DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD 的值，默认为4096个。
+     * 可由JVM启动参数 -D io.netty.recycler.maxCapacityPerThread 指定，如无特殊指定，即采用 DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD 的值(4096个)。
      */
     private static final int DEFAULT_MAX_CAPACITY_PER_THREAD;
 
@@ -72,14 +72,16 @@ public abstract class Recycler<T> {
      */
     private static final int DEFAULT_QUEUE_CHUNK_SIZE_PER_THREAD;
 
+    /**
+     *
+     */
     private static final boolean BLOCKING_POOL;
 
     static {
         // In the future, we might have different maxCapacity for different object types.
         // e.g. io.netty.recycler.maxCapacity.writeTask
         //      io.netty.recycler.maxCapacity.outboundBuffer
-        int maxCapacityPerThread = SystemPropertyUtil.getInt("io.netty.recycler.maxCapacityPerThread",
-                SystemPropertyUtil.getInt("io.netty.recycler.maxCapacity", DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD));
+        int maxCapacityPerThread = SystemPropertyUtil.getInt("io.netty.recycler.maxCapacityPerThread", SystemPropertyUtil.getInt("io.netty.recycler.maxCapacity", DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD));
         if (maxCapacityPerThread < 0) {
             maxCapacityPerThread = DEFAULT_INITIAL_MAX_CAPACITY_PER_THREAD;
         }
@@ -119,10 +121,13 @@ public abstract class Recycler<T> {
      */
     private final int interval;
 
+    /**
+     *
+     */
     private final int chunkSize;
 
     /**
-     * threadlocal 保存每个线程对应的 LocalPool 结构
+     * threadLocal 保存每个线程对应的 LocalPool 结构
      */
     private final FastThreadLocal<LocalPool<T>> threadLocal = new FastThreadLocal<LocalPool<T>>() {
         @Override
@@ -163,8 +168,7 @@ public abstract class Recycler<T> {
      */
     @Deprecated
     @SuppressWarnings("unused") // Parameters we can't remove due to compatibility.
-    protected Recycler(int maxCapacityPerThread, int maxSharedCapacityFactor,
-                       int ratio, int maxDelayedQueuesPerThread) {
+    protected Recycler(int maxCapacityPerThread, int maxSharedCapacityFactor, int ratio, int maxDelayedQueuesPerThread) {
         this(maxCapacityPerThread, ratio, DEFAULT_QUEUE_CHUNK_SIZE_PER_THREAD);
     }
 
@@ -174,8 +178,7 @@ public abstract class Recycler<T> {
      */
     @Deprecated
     @SuppressWarnings("unused") // Parameters we can't remove due to compatibility.
-    protected Recycler(int maxCapacityPerThread, int maxSharedCapacityFactor,
-                       int ratio, int maxDelayedQueuesPerThread, int delayedQueueRatio) {
+    protected Recycler(int maxCapacityPerThread, int maxSharedCapacityFactor, int ratio, int maxDelayedQueuesPerThread, int delayedQueueRatio) {
         this(maxCapacityPerThread, ratio, DEFAULT_QUEUE_CHUNK_SIZE_PER_THREAD);
     }
 
@@ -300,9 +303,11 @@ public abstract class Recycler<T> {
             if (BLOCKING_POOL) {
                 pooledHandles = new BlockingMessageQueue<DefaultHandle<T>>(maxCapacity);
             } else {
+                // 静态导入了 io.netty.util.internal.PlatformDependent.newMpscQueue 方法
                 pooledHandles = (MessagePassingQueue<DefaultHandle<T>>) newMpscQueue(chunkSize, maxCapacity);
             }
-            ratioCounter = ratioInterval; // Start at interval so the first one will be recycled.
+            // Start at interval so the first one will be recycled.
+            ratioCounter = ratioInterval;
         }
 
         DefaultHandle<T> claim() {
