@@ -957,17 +957,28 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
             throw e;
         }
 
-        final AbstractChannelHandlerContext next = findContextOutbound(flush ?
-                (MASK_WRITE | MASK_FLUSH) : MASK_WRITE);
+        /**
+         * flush = true 表示channelHandler中调用的是writeAndFlush方法，这里需要找到pipeline中覆盖write或者flush方法的channelHandler
+         * flush = false 表示调用的是write方法，只需要找到pipeline中覆盖write方法的channelHandler
+         */
+        final AbstractChannelHandlerContext next = findContextOutbound(flush ? (MASK_WRITE | MASK_FLUSH) : MASK_WRITE);
+
+        // 用于检查内存泄露
         final Object m = pipeline.touch(msg, next);
+
+        // 获取pipeline中下一个要被执行的channelHandler的executor
         EventExecutor executor = next.executor();
+
+        // 确保OutBound事件由ChannelHandler指定的executor执行
         if (executor.inEventLoop()) {
+            // 如果当前线程正是channelHandler指定的executor则直接执行
             if (flush) {
                 next.invokeWriteAndFlush(m, promise);
             } else {
                 next.invokeWrite(m, promise);
             }
         } else {
+            // 如果当前线程不是ChannelHandler指定的executor,则封装成异步任务提交给指定executor执行，注意这里的executor不一定是reactor线程。
             final WriteTask task = WriteTask.newInstance(next, m, promise, flush);
             if (!safeExecute(executor, task, promise, m, !flush)) {
                 // We failed to submit the WriteTask. We need to cancel it so we decrement the pending bytes
@@ -1068,6 +1079,9 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     }
 
     private static boolean skipContext(AbstractChannelHandlerContext ctx, EventExecutor currentExecutor, int mask, int onlyMask) {
+        /**
+         *
+         */
         // Ensure we correctly handle MASK_EXCEPTION_CAUGHT which is not included in the MASK_EXCEPTION_CAUGHT
         return (ctx.executionMask & (onlyMask | mask)) == 0 ||
                 // We can only skip if the EventExecutor is the same as otherwise we need to ensure we offload
