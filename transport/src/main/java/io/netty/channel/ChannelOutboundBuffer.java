@@ -122,7 +122,10 @@ public final class ChannelOutboundBuffer {
             tail.next = entry;
         }
 
-        // tailEntry 指针指向 ChannelOutboundBuffer 中最后一个待发送数据的 Entry。通过 unflushedEntry 和 tailEntry 这两个指针，我们可以很方便的定位到待发送数据的 Entry 范围。
+        /**
+         * tailEntry 指针指向 ChannelOutboundBuffer 中最后一个待发送数据的 Entry。
+         * 通过 unflushedEntry 和 tailEntry 这两个指针，我们可以很方便的定位到待发送数据的 Entry 范围。
+         */
         tailEntry = entry;
 
         // unflushedEntry 指针指向 ChannelOutboundBuffer 中第一个待发送数据的 Entry。
@@ -806,6 +809,9 @@ public final class ChannelOutboundBuffer {
     }
 
     static final class Entry {
+        /**
+         * Entry的对象池，用来创建和回收Entry对象
+         */
         private static final ObjectPool<Entry> RECYCLER = ObjectPool.newPool(new ObjectCreator<Entry>() {
             @Override
             public Entry newObject(Handle<Entry> handle) {
@@ -818,15 +824,56 @@ public final class ChannelOutboundBuffer {
          * 当对象使用完毕后，我们可以通过Handler来将对象回收至对象池中等待下次继续使用。
          */
         private final Handle<Entry> handle;
+
+        /**
+         * ChannelOutboundBuffer下一个节点
+         */
         Entry next;
+
+        /**
+         * 待发送数据
+         */
         Object msg;
+
+        /**
+         * msg 转换为 jdk nio 中的byteBuffer
+         */
         ByteBuffer[] bufs;
         ByteBuffer buf;
+
+        /**
+         * 当 Netty 将待发送数据写入到 Socket 中时会通过这个 ChannelPromise 通知应用程序发送结果。
+         */
         ChannelPromise promise;
+
+        /**
+         * 表示当前的一个发送进度，已经发送了多少数据。
+         */
         long progress;
+
+        /**
+         * Entry中总共需要发送多少数据。
+         * 注意：这个字段并不包含 Entry 对象的内存占用大小。只是表示待发送网络数据的大小。
+         */
         long total;
+
+        /**
+         * pendingSize表示待发送数据在内存中的占用量，待发送数据大小 + entry对象本身在堆中占用内存大小（96）
+         *
+         * 待发送数据在内存中的占用量分为两部分：
+         * 1、Entry对象中所封装的待发送网络数据大小。
+         * 2、Entry对象本身在内存中的占用量。
+         */
         int pendingSize;
+
+        /**
+         * 表示待发送数据 msg 中一共包含了多少个 ByteBuffer 需要发送。
+         */
         int count = -1;
+
+        /**
+         * 应用程序调用的 write 操作是否被取消
+         */
         boolean cancelled;
 
         private Entry(Handle<Entry> handle) {

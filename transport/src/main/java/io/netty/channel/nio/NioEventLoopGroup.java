@@ -51,6 +51,32 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
      * {@link SelectorProvider} which is returned by {@link SelectorProvider#provider()}.
      */
     public NioEventLoopGroup(int nThreads) {
+        /**
+         * public class App {
+         *     private void commonMethod() {
+         *          System.out.println("commonMethod");
+         *     }
+         *
+         *     private static void staticMethod() {
+         *          System.out.println("我是静态方法");
+         *     }
+         *
+         *
+         *     public static void main(String[] args) {
+         *           App app = (App) null;
+         *
+         *           // 调用静态方法，不报错
+         *           app.staticMethod();
+         *
+         *           // 调用普通方法，报空指针
+         *           app.commonMethod();
+         *     }
+         *  }
+         *
+         *  null强转为对象后，调用静态方法是不会报错的，调用普通方法会报空指针。
+         *  原因是，我们在进行App app = (App)null强转操作时，虽然对象app是为null没有引用的，
+         *  但是java里调用静态方法不需要创建实例对象，静态成员应该通过类型来访问，也就是类名.静态方法（）就可以调用了静态方法了。所以，app.staticMethod()调用静态方法不报错。
+         */
         this(nThreads, (Executor) null);
     }
 
