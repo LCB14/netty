@@ -31,12 +31,17 @@ import static io.netty.util.internal.ObjectUtil.checkPositiveOrZero;
  * {@code true} again.
  */
 public final class WriteBufferWaterMark {
-
+    /**
+     * 低水位线设置的是 32 KB。
+     */
     private static final int DEFAULT_LOW_WATER_MARK = 32 * 1024;
+
+    /**
+     * 高水位线设置的大小为 64 KB
+     */
     private static final int DEFAULT_HIGH_WATER_MARK = 64 * 1024;
 
-    public static final WriteBufferWaterMark DEFAULT =
-            new WriteBufferWaterMark(DEFAULT_LOW_WATER_MARK, DEFAULT_HIGH_WATER_MARK, false);
+    public static final WriteBufferWaterMark DEFAULT = new WriteBufferWaterMark(DEFAULT_LOW_WATER_MARK, DEFAULT_HIGH_WATER_MARK, false);
 
     private final int low;
     private final int high;
@@ -58,10 +63,7 @@ public final class WriteBufferWaterMark {
         if (validate) {
             checkPositiveOrZero(low, "low");
             if (high < low) {
-                throw new IllegalArgumentException(
-                        "write buffer's high water mark cannot be less than " +
-                                " low water mark (" + low + "): " +
-                                high);
+                throw new IllegalArgumentException("write buffer's high water mark cannot be less than " + " low water mark (" + low + "): " + high);
             }
         }
         this.low = low;
