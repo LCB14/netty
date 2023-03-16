@@ -59,8 +59,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
             };
 
     private static final AtomicReferenceFieldUpdater<DefaultChannelPipeline, MessageSizeEstimator.Handle> ESTIMATOR =
-            AtomicReferenceFieldUpdater.newUpdater(
-                    DefaultChannelPipeline.class, MessageSizeEstimator.Handle.class, "estimatorHandle");
+            AtomicReferenceFieldUpdater.newUpdater(DefaultChannelPipeline.class, MessageSizeEstimator.Handle.class, "estimatorHandle");
     final HeadContext head;
     final TailContext tail;
 
@@ -70,6 +69,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     private final boolean touch = ResourceLeakDetector.isEnabled();
 
     private Map<EventExecutorGroup, EventExecutor> childExecutors;
+    /**
+     * 计算要发送msg大小的handler
+     */
     private volatile MessageSizeEstimator.Handle estimatorHandle;
     private boolean firstRegistration = true;
 
@@ -104,6 +106,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     final MessageSizeEstimator.Handle estimatorHandle() {
         MessageSizeEstimator.Handle handle = estimatorHandle;
         if (handle == null) {
+            /**
+             * @see DefaultMessageSizeEstimator#newHandle()
+             */
             handle = channel.config().getMessageSizeEstimator().newHandle();
             if (!ESTIMATOR.compareAndSet(this, null, handle)) {
                 handle = estimatorHandle;

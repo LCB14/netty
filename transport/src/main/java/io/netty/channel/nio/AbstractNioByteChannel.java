@@ -311,10 +311,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
     protected final Object filterOutboundMessage(Object msg) {
         if (msg instanceof ByteBuf) {
             ByteBuf buf = (ByteBuf) msg;
+            // Netty为了减少数据从 堆内内存 到 堆外内存 的拷贝以及缓解GC的压力，所以这里必须采用 DirectByteBuffer 使用堆外内存来存放网络发送数据。
             if (buf.isDirect()) {
                 return msg;
             }
-
             return newDirectBuffer(buf);
         }
 
