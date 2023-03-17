@@ -270,12 +270,15 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             }
         } else if (msg instanceof FileRegion) {
             FileRegion region = (FileRegion) msg;
+            // 表示当前 FileRegion 中的文件数据已经传输完毕。那么在这种情况下本次 write loop 没有写入任何数据到 Socket ，所以返回 0 ，writeSpinCount - 0 意思就是本次 write loop 不算，继续循环。
             if (region.transferred() >= region.count()) {
                 in.remove();
                 return 0;
             }
 
+            // doWriteFileRegion 方法中通过 FileChannel#transferTo 方法底层用到的系统调用为 sendFile 实现零拷贝网络文件的传输。
             long localFlushedAmount = doWriteFileRegion(region);
+            // 表示本 write loop 中写入了一些数据到 Socket 中，会有返回 1，writeSpinCount - 1 减少一次 write loop 次数。
             if (localFlushedAmount > 0) {
                 in.progress(localFlushedAmount);
                 if (region.transferred() >= region.count()) {
@@ -287,6 +290,11 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             // Should not reach here.
             throw new Error();
         }
+
+        /**
+         * localFlushedAmount <= 0 ：表示当前 Socket 发送缓冲区已满，无法写入数据，那么就返回 WRITE_STATUS_SNDBUF_FULL = Integer.MAX_VALUE。
+         * writeSpinCount - Integer.MAX_VALUE 必然是负数，直接退出循环，向 Reactor 注册 OP_WRITE 事件并退出 flush 流程。等 Socket 发送缓冲区可写了，Reactor 会通知 channel 继续发送文件数据。
+         */
         return WRITE_STATUS_SNDBUF_FULL;
     }
 

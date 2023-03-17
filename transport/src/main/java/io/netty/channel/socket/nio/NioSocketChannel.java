@@ -418,8 +418,13 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
             // Always use nioBuffers() to workaround data-corruption.
             // See https://github.com/netty/netty/issues/2761
             switch (nioBufferCnt) {
+                /**
+                 * ChannelOutboundBuffer 中支持 ByteBuf 类型和 FileRegion 类型，其中 ByteBuf 类型用于装载普通的发送数据，而 FileRegion 类型用于通过零拷贝的方式网络传输文件。
+                 * 而这里 ChannelOutboundBuffer 虽然不为空，但是装载的 NioByteBuffer 个数却为 0 说明 ChannelOutboundBuffer 中装载的是 FileRegion 类型，当前正在进行网络文件的传输。
+                 */
                 case 0:
                     // We have something else beside ByteBuffers to write so fallback to normal writes.
+                    // 这里主要是针对 网络传输文件数据 的处理 FileRegion
                     writeSpinCount -= doWrite0(in);
                     break;
                 case 1: {
