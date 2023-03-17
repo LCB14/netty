@@ -427,6 +427,9 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
                     // 这里主要是针对 网络传输文件数据 的处理 FileRegion
                     writeSpinCount -= doWrite0(in);
                     break;
+                /**
+                 * 表示当前 Channel 的 ChannelOutboundBuffer 中只包含了一个 NioByteBuffer 的情况。
+                 */
                 case 1: {
                     // Only one ByteBuf so use non-gathering write
                     // Zero length buffers are not added to nioBuffers by ChannelOutboundBuffer, so there is no need
@@ -435,14 +438,26 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
                     int attemptedBytes = buffer.remaining();
                     final int localWrittenBytes = ch.write(buffer);
                     if (localWrittenBytes <= 0) {
+                        /**
+                         * 如果当前Socket发送缓冲区满了写不进去了，则注册OP_WRITE事件，等待Socket发送缓冲区可写时 在写
+                         * SubReactor在处理OP_WRITE事件时，直接调用flush方法
+                         */
                         incompleteWrite(true);
                         return;
                     }
+                    // 根据当前实际写入情况调整 maxBytesPerGatheringWrite数值
                     adjustMaxBytesPerGatheringWrite(attemptedBytes, localWrittenBytes, maxBytesPerGatheringWrite);
+                    /**
+                     * 如果ChannelOutboundBuffer中的某个Entry被全部写入 则删除该Entry
+                     * 如果Entry被写入了一部分 还有一部分未写入  则更新Entry中的readIndex 等待下次writeLoop继续写入
+                     */
                     in.removeBytes(localWrittenBytes);
                     --writeSpinCount;
                     break;
                 }
+                /**
+                 * 表示当前 Channel 的 ChannelOutboundBuffer 中包含了多个 NioByteBuffers 的情况。
+                 */
                 default: {
                     // Zero length buffers are not added to nioBuffers by ChannelOutboundBuffer, so there is no need
                     // to check if the total size of all the buffers is non-zero.
