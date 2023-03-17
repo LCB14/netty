@@ -1040,7 +1040,10 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             }
 
             try {
-                // 写入Socket
+                /**
+                 * 写入Socket
+                 * @see io.netty.channel.socket.nio.NioSocketChannel#doWrite(io.netty.channel.ChannelOutboundBuffer)
+                 */
                 doWrite(outboundBuffer);
             } catch (Throwable t) {
                 handleWriteError(t);

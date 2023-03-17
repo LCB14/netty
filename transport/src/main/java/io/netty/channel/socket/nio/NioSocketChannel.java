@@ -385,9 +385,12 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
 
     @Override
     protected void doWrite(ChannelOutboundBuffer in) throws Exception {
+        // 获取NioSocketChannel中封装的jdk nio底层socketChannel
         SocketChannel ch = javaChannel();
+        // 最大写入次数 默认为16 目的是为了保证SubReactor可以平均的处理注册其上的所有Channel
         int writeSpinCount = config().getWriteSpinCount();
         do {
+            // 如果全部数据已经写完 则移除OP_WRITE事件并直接退出writeLoop
             if (in.isEmpty()) {
                 // All written so clear OP_WRITE
                 clearOpWrite();
@@ -396,8 +399,20 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
             }
 
             // Ensure the pending writes are made of ByteBufs only.
+            /**
+             * 从 NioSocketChannelConfig 中获取本次 write loop 最大允许发送的字节数 maxBytesPerGatheringWrite。
+             * 初始值为 SO_SNDBUF 大小 * 2 = 293976 = 146988 << 1，最小值为 2048
+             */
             int maxBytesPerGatheringWrite = ((NioSocketChannelConfig) config).getMaxBytesPerGatheringWrite();
+
+            /**
+             * 将ChannelOutboundBuffer中缓存的DirectBuffer转换成JDK NIO 的 ByteBuffer
+             * maxBytesPerGatheringWrite：表示本次 write loop 中最多从 ChannelOutboundBuffer 中转换 maxBytesPerGatheringWrite 个字节出来。也就是本次 write loop 最多能发送多少字节。
+             * 1024 : 本次 write loop 最多转换 1024 个 ByteBuffer（ JDK NIO 实现）。也就是说本次 write loop 最多批量发送多少个 ByteBuffer 。
+             */
             ByteBuffer[] nioBuffers = in.nioBuffers(1024, maxBytesPerGatheringWrite);
+
+            // 获取本次 write loop 总共需要发送的 ByteBuffer 数量 nioBufferCnt 。注意这里已经变成了 JDK NIO 实现的 ByteBuffer 了。
             int nioBufferCnt = in.nioBufferCount();
 
             // Always use nioBuffers() to workaround data-corruption.
@@ -473,6 +488,9 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
     }
 
     private final class NioSocketChannelConfig extends DefaultSocketChannelConfig {
+        /**
+         * @see NioSocketChannelConfig#calculateMaxBytesPerGatheringWrite()
+         */
         private volatile int maxBytesPerGatheringWrite = Integer.MAX_VALUE;
 
         private NioSocketChannelConfig(NioSocketChannel channel, Socket javaSocket) {
