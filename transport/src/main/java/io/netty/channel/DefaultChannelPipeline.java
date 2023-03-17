@@ -1379,6 +1379,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
 
         @Override
         public void flush(ChannelHandlerContext ctx) {
+            /**
+             * @see AbstractChannel.AbstractUnsafe#flush()
+             */
             unsafe.flush();
         }
 

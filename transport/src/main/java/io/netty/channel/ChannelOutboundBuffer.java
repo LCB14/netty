@@ -167,6 +167,7 @@ public final class ChannelOutboundBuffer {
             }
             do {
                 flushed++;
+                // 如果当前entry对应的write操作被用户取消，则释放msg，并降低channelOutboundBuffer水位线
                 if (!entry.promise.setUncancellable()) {
                     // Was cancelled so make sure we free up memory and notify about the freed bytes
                     int pending = entry.cancel();
@@ -216,6 +217,7 @@ public final class ChannelOutboundBuffer {
         }
 
         long newWriteBufferSize = TOTAL_PENDING_SIZE_UPDATER.addAndGet(this, -size);
+        // 当更新后的水位线低于低水位线 DEFAULT_LOW_WATER_MARK = 32 * 1024 时，就将当前 channel 设置为可写状态。
         if (notifyWritability && newWriteBufferSize < channel.config().getWriteBufferLowWaterMark()) {
             setWritable(invokeLater);
         }
@@ -316,25 +318,32 @@ public final class ChannelOutboundBuffer {
     private boolean remove0(Throwable cause, boolean notifyWritability) {
         Entry e = flushedEntry;
         if (e == null) {
+            // 清空当前reactor线程缓存的所有待发送数据
             clearNioBuffers();
             return false;
         }
-        Object msg = e.msg;
 
+        Object msg = e.msg;
         ChannelPromise promise = e.promise;
         int size = e.pendingSize;
 
+        // 从channelOutboundBuffer中删除该Entry节点
         removeEntry(e);
 
         if (!e.cancelled) {
             // only release message, fail and decrement if it was not canceled before.
+            // 释放msg所占用的内存空间
             ReferenceCountUtil.safeRelease(msg);
 
+            // 编辑promise发送失败，并通知相应的Lisener
             safeFail(promise, cause);
+
+            // 由于msg得到释放，所以需要降低channelOutboundBuffer中的内存占用水位线，并根据notifyWritability决定是否触发ChannelWritabilityChanged事件
             decrementPendingOutboundBytes(size, false, notifyWritability);
         }
 
         // recycle the entry
+        // 回收Entry实例对象
         e.recycle();
 
         return true;
@@ -617,6 +626,9 @@ public final class ChannelOutboundBuffer {
             final int newValue = oldValue & ~1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
                 if (oldValue != 0 && newValue == 0) {
+                    /**
+                     * 当 Channel 的状态是第一次从不可写状态变为可写状态时，Netty 会在 pipeline 中再次触发 ChannelWritabilityChanged 事件的传播。
+                     */
                     fireChannelWritabilityChanged(invokeLater);
                 }
                 break;
@@ -630,7 +642,9 @@ public final class ChannelOutboundBuffer {
             final int newValue = oldValue | 1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
                 if (oldValue == 0) {
-                    // 触发fireChannelWritabilityChanged事件 表示当前channel变为不可写
+                    /**
+                     * 触发fireChannelWritabilityChanged事件 表示当前channel变为不可写
+                     */
                     fireChannelWritabilityChanged(invokeLater);
                 }
                 break;
@@ -684,6 +698,10 @@ public final class ChannelOutboundBuffer {
         try {
             inFail = true;
             for (; ; ) {
+                /**
+                 * remove0 方法用于在 Netty 在发送数据的时候，如果发现当前 channel 处于非活跃状态，
+                 * 则将 ChannelOutboundBuffer 中 flushedEntry 与tailEntry 之间的 Entry 对象节点全部删除，并释放发送数据占用的内存空间，同时回收 Entry 对象实例。
+                 */
                 if (!remove0(cause, notify)) {
                     break;
                 }

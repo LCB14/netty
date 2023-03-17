@@ -903,7 +903,9 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
 
     @Override
     public ChannelHandlerContext flush() {
+        // 向前查找覆盖flush方法的Outbound类型的ChannelHandler
         final AbstractChannelHandlerContext next = findContextOutbound(MASK_FLUSH);
+        // 获取执行ChannelHandler的executor,在初始化pipeline的时候设置，默认为Reactor线程
         EventExecutor executor = next.executor();
         if (executor.inEventLoop()) {
             next.invokeFlush();
@@ -919,6 +921,10 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     }
 
     private void invokeFlush() {
+        /**
+         * 调用 invokeHandler() 方法来判断这个 nextChannelHandler 是否在 pipeline 中被正确的初始化。
+         * 如果 nextChannelHandler 中的 handlerAdded 方法并没有被回调过，那么这里就只能跳过 nextChannelHandler，并调用 ChannelHandlerContext#flush 方法继续向前传播flush事件。
+         */
         if (invokeHandler()) {
             invokeFlush0();
         } else {
@@ -941,6 +947,10 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
                 ((ChannelOutboundHandler) handler).flush(this);
             }
         } catch (Throwable t) {
+            /**
+             * 这里有一点和 write 事件处理不同的是，当调用 nextChannelHandler 的 flush 回调出现异常的时候，会触发 nextChannelHandler 的 exceptionCaught 回调。
+             * 而其他 outbound 类事件比如 write 事件在传播的过程中发生异常，只是回调通知相关的 ChannelFuture。并不会触发 exceptionCaught 事件的传播。
+             */
             invokeExceptionCaught(t);
         }
     }

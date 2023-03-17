@@ -988,11 +988,15 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             assertEventLoop();
 
             ChannelOutboundBuffer outboundBuffer = this.outboundBuffer;
+            // channel已关闭
             if (outboundBuffer == null) {
                 return;
             }
 
+            // 将flushedEntry指针指向ChannelOutboundBuffer头结点，此时变为即将要flush进Socket的数据队列
             outboundBuffer.addFlush();
+
+            // 将待写数据写进Socket
             flush0();
         }
 
@@ -1004,6 +1008,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             }
 
             final ChannelOutboundBuffer outboundBuffer = this.outboundBuffer;
+            // 如果 channel 已经关闭了或者对应写缓冲区中没有任何数据，那么就停止发送流程，直接 return。
             if (outboundBuffer == null || outboundBuffer.isEmpty()) {
                 return;
             }
@@ -1011,14 +1016,20 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             inFlush0 = true;
 
             // Mark all pending write requests as failure if the channel is inactive.
+            /**
+             * 如果当前channel处于非活跃状态，则需要调用 outboundBuffer#failFlushed 通知 ChannelOutboundBuffer 中所有待发送操作对应的 channelPromise 向用户线程报告发送失败。
+             * 并将待发送数据 Entry 对象从 ChannelOutboundBuffer 中删除，并释放待发送数据空间，回收 Entry 对象实例。
+             */
             if (!isActive()) {
                 try {
                     // Check if we need to generate the exception at all.
                     if (!outboundBuffer.isEmpty()) {
                         if (isOpen()) {
+                            // 当前channel处于disConnected状态  通知promise 写入失败 并触发channelWritabilityChanged事件
                             outboundBuffer.failFlushed(new NotYetConnectedException(), true);
                         } else {
                             // Do not trigger channelWritabilityChanged because the channel is closed already.
+                            // 当前channel处于关闭状态 通知promise 写入失败 但不触发channelWritabilityChanged事件
                             outboundBuffer.failFlushed(newClosedChannelException(initialCloseCause, "flush0()"), false);
                         }
                     }
@@ -1029,6 +1040,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             }
 
             try {
+                // 写入Socket
                 doWrite(outboundBuffer);
             } catch (Throwable t) {
                 handleWriteError(t);
