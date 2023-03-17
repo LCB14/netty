@@ -59,6 +59,12 @@ public final class ChannelOutboundBuffer {
     //  - 2 int fields
     //  - 1 boolean field
     //  - padding
+    /**
+     * 不考虑指针压缩的大小 entry对象在堆中占用的内存大小为96
+     * 如果开启指针压缩，entry对象在堆中占用的内存大小 会是64
+     *
+     * 如果我们的应用程序开启了指针压缩，我们可以通过 JVM 启动参数 -D io.netty.transport.outboundBufferEntrySizeOverhead 指定为 64 字节。
+     */
     static final int CHANNEL_OUTBOUND_BUFFER_ENTRY_OVERHEAD = SystemPropertyUtil.getInt("io.netty.transport.outboundBufferEntrySizeOverhead", 96);
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(ChannelOutboundBuffer.class);
@@ -98,6 +104,9 @@ public final class ChannelOutboundBuffer {
 
     private static final AtomicIntegerFieldUpdater<ChannelOutboundBuffer> UNWRITABLE_UPDATER = AtomicIntegerFieldUpdater.newUpdater(ChannelOutboundBuffer.class, "unwritable");
 
+    /**
+     * 0:表示channel可写，1:表示channel不可写
+     */
     @SuppressWarnings("UnusedDeclaration")
     private volatile int unwritable;
 
@@ -184,8 +193,11 @@ public final class ChannelOutboundBuffer {
             return;
         }
 
+        // 更新总共待写入数据的大小
         long newWriteBufferSize = TOTAL_PENDING_SIZE_UPDATER.addAndGet(this, size);
+        // 如果待写入的数据 大于 高水位线 64 * 1024  则设置当前channel为不可写 由用户自己决定是否继续写入
         if (newWriteBufferSize > channel.config().getWriteBufferHighWaterMark()) {
+            // 设置当前channel状态为不可写，并触发fireChannelWritabilityChanged事件
             setUnwritable(invokeLater);
         }
     }
@@ -618,6 +630,7 @@ public final class ChannelOutboundBuffer {
             final int newValue = oldValue | 1;
             if (UNWRITABLE_UPDATER.compareAndSet(this, oldValue, newValue)) {
                 if (oldValue == 0) {
+                    // 触发fireChannelWritabilityChanged事件 表示当前channel变为不可写
                     fireChannelWritabilityChanged(invokeLater);
                 }
                 break;
@@ -879,6 +892,9 @@ public final class ChannelOutboundBuffer {
          */
         boolean cancelled;
 
+        /**
+         * Entry对象只能通过对象池获取，不可外部自行创建
+         */
         private Entry(Handle<Entry> handle) {
             this.handle = handle;
         }
@@ -891,6 +907,7 @@ public final class ChannelOutboundBuffer {
             // 从对象池中获取对象
             Entry entry = RECYCLER.get();
             entry.msg = msg;
+            // 待发数据数据大小 + entry对象大小
             entry.pendingSize = size + CHANNEL_OUTBOUND_BUFFER_ENTRY_OVERHEAD;
             entry.total = total;
             entry.promise = promise;
