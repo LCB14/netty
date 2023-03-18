@@ -374,11 +374,25 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
         // By default we track the SO_SNDBUF when ever it is explicitly set. However some OSes may dynamically change
         // SO_SNDBUF (and other characteristics that determine how much data can be written at once) so we should try
         // make a best effort to adjust as OS behavior changes.
+        // 表示本次 write loop 尝试写入的数据能全部写入到 Socket 的写缓冲区中，那么下次 write loop 就应该尝试去写入更多的数据。
         if (attempted == written) {
+            /**
+             * 如果扩大两倍后的写入量大于本次 write loop 的最大限制写入量 maxBytesPerGatheringWrite，说明用户的写入需求很猛烈，
+             * Netty当然要满足这样的猛烈需求，那么就将当前 NioSocketChannelConfig 中的 maxBytesPerGatheringWrite 更新为本次 write loop 两倍的写入量大小。
+             * 在下次 write loop 写入数据的时候，就会尝试从 ChannelOutboundBuffer 中加载最多 written * 2 大小的字节数。
+             *
+             * 如果扩大两倍后的写入量依然小于等于本次 write loop 的最大限制写入量 maxBytesPerGatheringWrite，
+             * 说明用户的写入需求还不是很猛烈，Netty 继续维持本次 maxBytesPerGatheringWrite 数值不变。
+             */
             if (attempted << 1 > oldMaxBytesPerGatheringWrite) {
                 ((NioSocketChannelConfig) config).setMaxBytesPerGatheringWrite(attempted << 1);
             }
         } else if (attempted > MAX_BYTES_PER_GATHERING_WRITE_ATTEMPTED_LOW_THRESHOLD && written < attempted >>> 1) {
+            /**
+             * 如果本次写入的数据还不及尝试写入数据的 1 / 2，说明当前 Socket 写缓冲区的可写容量不是很多了，下一次 write loop
+             * 就不要写这么多了尝试减少下次写入的量将下次 write loop 要写入的数据减小为 attempted 的1 / 2。
+             * 当然也不能无限制的减小，最小值不能低于 2048。
+             */
             ((NioSocketChannelConfig) config).setMaxBytesPerGatheringWrite(attempted >>> 1);
         }
     }
@@ -439,13 +453,13 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
                     final int localWrittenBytes = ch.write(buffer);
                     if (localWrittenBytes <= 0) {
                         /**
-                         * 如果当前Socket发送缓冲区满了写不进去了，则注册OP_WRITE事件，等待Socket发送缓冲区可写时 在写
+                         * 如果当前Socket发送缓冲区满了写不进去了，则注册OP_WRITE事件，等待Socket发送缓冲区可写时再写
                          * SubReactor在处理OP_WRITE事件时，直接调用flush方法
                          */
                         incompleteWrite(true);
                         return;
                     }
-                    // 根据当前实际写入情况调整 maxBytesPerGatheringWrite数值
+                    // 根据当前实际写入情况调整 maxBytesPerGatheringWrite 数值
                     adjustMaxBytesPerGatheringWrite(attemptedBytes, localWrittenBytes, maxBytesPerGatheringWrite);
                     /**
                      * 如果ChannelOutboundBuffer中的某个Entry被全部写入 则删除该Entry
@@ -468,16 +482,31 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
                         incompleteWrite(true);
                         return;
                     }
+
                     // Casting to int is safe because we limit the total amount of data in the nioBuffers to int above.
-                    adjustMaxBytesPerGatheringWrite((int) attemptedBytes, (int) localWrittenBytes,
-                            maxBytesPerGatheringWrite);
+                    // 由于操作系统会动态调整 SO_SNDBUF 的大小，所以这里 netty 也需要根据操作系统的动态调整做出相应的调整，目的是尽量多的去写入数据。
+                    adjustMaxBytesPerGatheringWrite((int) attemptedBytes, (int) localWrittenBytes, maxBytesPerGatheringWrite);
+                    /**
+                     * 从 ChannelOutboundBuffer 中移除全部写完的 Entry ，如果只发送了 Entry 的部分数据则更新 Entry 对象中封装的
+                     * DirectByteBuffer 的 readerIndex，等待下一次 write loop 写入。
+                     */
                     in.removeBytes(localWrittenBytes);
                     --writeSpinCount;
                     break;
                 }
             }
         } while (writeSpinCount > 0);
-
+        /**
+         * writeSpinCount < 0：当 Netty 在传输文件的过程中发现 Socket 缓冲区已满无法在继续写入数据时，会返回
+         * WRITE_STATUS_SNDBUF_FULL = Integer.MAX_VALUE，这就使得 writeSpinCount的值 < 0。
+         * 随后 break 掉 write loop 来到 incompleteWrite(writeSpinCount < 0) 方法中，最后会在 incompleteWrite 方法中向
+         * reactor 注册 OP_WRITE 事件。当 Socket 缓冲区变得可写时，epoll 会通知 reactor 线程继续发送文件。
+         *
+         * writeSpinCount == 0：这种情况很好理解，就是已经写满了 16 次，但是还没写完，同时 Socket 的写缓冲区未满，还可以继续写入。
+         * 这种情况下即使 Socket 还可以继续写入，Netty 也不会再去写了，因为执行 flush 操作的是 reactor 线程，而 reactor
+         * 线程负责执行注册在它上边的所有 channel 的 IO 操作，Netty 不会允许 reactor 线程一直在一个 channel 上执行 IO 操作，
+         * reactor 线程的执行时间需要均匀的分配到每个 channel 上。所以这里 Netty 会停下，转而去处理其他 channel 上的 IO 事件。
+         */
         incompleteWrite(writeSpinCount < 0);
     }
 

@@ -337,15 +337,35 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
     protected final void incompleteWrite(boolean setOpWrite) {
         // Did not write completely.
         if (setOpWrite) {
+            /**
+             * 这里处理还没写满16次 但是socket缓冲区已满写不进去的情况 注册write事件
+             * 什么时候socket可写了， epoll会通知reactor线程继续写
+             */
             setOpWrite();
         } else {
             // It is possible that we have set the write OP, woken up by NIO because the socket is writable, and then
             // use our write quantum. In this case we no longer want to set the write OP because the socket is still
             // writable (as far as we know). We will find out next time we attempt to write if the socket is writable
             // and set the write OP if necessary.
+            /**
+             * 必须清除OP_WRITE事件，此时Socket对应的缓冲区依然是可写的，只不过当前channel写够了16次，被SubReactor限制了。
+             * 这样SubReactor可以腾出手来处理其他channel上的IO事件。这里如果不清除OP_WRITE事件，则会一直被通知。
+             *
+             * 思考：为什么在向 reactor 提交 flushTask 之前需要清理 OP_WRITE 事件呢？ 我们并没有注册 OP_WRITE 事件呀？
+             * 当 ChannelOutboundBuffer 中的数据全部写完后 in.isEmpty() ，就需要清理 OP_WRITE 事件，
+             * 因为此时 Socket 缓冲区是可写的，这种情况下当数据全部写完后，就需要及时取消对 OP_WRITE 事件的监听，否则 epoll 会不断的通知 Reactor。
+             * 同理在 incompleteWrite 方法的 else 分支也需要执行 clearOpWrite() 方法取消对 OP_WRITE 事件的监听。
+             */
             clearOpWrite();
 
             // Schedule flush again later so other tasks can be picked up in the meantime
+            /**
+             * 如果本次writeLoop还没写完，则提交flushTask到SubReactor，释放SubReactor让其可以继续处理其他Channel上的IO事件。
+             *
+             * 思考：为什么这里不在继续注册 OP_WRITE 事件而是通过向 reactor 提交一个 flushTask 来完成 channel 中剩下数据的写入呢？
+             * 既然当前 Socket 缓冲区是可写的，我们就不能注册 OP_WRITE 事件，否则这里一直会不停地收到 epoll 的通知。
+             * 因为 JDK NIO Selector 默认的是 epoll 的水平触发。
+             */
             eventLoop().execute(flushTask);
         }
     }

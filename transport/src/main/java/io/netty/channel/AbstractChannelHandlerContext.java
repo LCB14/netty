@@ -963,6 +963,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
 
     void invokeWriteAndFlush(Object msg, ChannelPromise promise) {
         if (invokeHandler()) {
+            // 首先向前传播 write 事件，经过 write 事件的流程处理后，最后向前传播 flush 事件。
             invokeWrite0(msg, promise);
             invokeFlush0();
         } else {
@@ -997,6 +998,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
          * 如果当前线程正是channelHandler指定的executor则直接执行
          */
         EventExecutor executor = next.executor();
+        // 如果当前线程正是channelHandler指定的executor则直接执行
         if (executor.inEventLoop()) {
             if (flush) {
                 next.invokeWriteAndFlush(m, promise);
