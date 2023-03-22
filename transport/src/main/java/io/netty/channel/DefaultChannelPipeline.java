@@ -92,7 +92,9 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     private boolean registered;
 
     protected DefaultChannelPipeline(Channel channel) {
+        // pipeline中持有对应channel的引用
         this.channel = ObjectUtil.checkNotNull(channel, "channel");
+
         succeededFuture = new SucceededChannelFuture(channel, null);
         voidPromise = new VoidChannelPromise(channel, true);
 
@@ -1313,12 +1315,16 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     }
 
     final class HeadContext extends AbstractChannelHandlerContext implements ChannelOutboundHandler, ChannelInboundHandler {
-
+        /**
+         * HeadContext中持有对channel unsafe操作类的引用 用于执行channel底层操作
+         */
         private final Unsafe unsafe;
 
         HeadContext(DefaultChannelPipeline pipeline) {
             super(pipeline, null, HEAD_NAME, HeadContext.class);
+            // 持有channel unsafe操作类的引用，后续用于执行channel底层操作
             unsafe = pipeline.channel().unsafe();
+            // 设置channelHandler的状态为ADD_COMPLETE
             setAddComplete();
         }
 
