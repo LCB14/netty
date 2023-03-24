@@ -207,27 +207,47 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     public final ChannelPipeline addLast(EventExecutorGroup group, String name, ChannelHandler handler) {
         final AbstractChannelHandlerContext newCtx;
         synchronized (this) {
+            // 检查同一个channelHandler实例是否允许被重复添加
             checkMultiplicity(handler);
 
+            // 创建channelHandlerContext包裹channelHandler并封装执行传播事件相关的上下文信息
             newCtx = newContext(group, filterName(name, handler), handler);
 
+            /**
+             * 将channelHandelrContext插入到pipeline中的末尾处。双向链表操作
+             * 此时channelHandler的状态还是ADD_PENDING，只有当channelHandler的handlerAdded方法被回调后，状态才会为ADD_COMPLETE
+             */
             addLast0(newCtx);
 
             // If the registered is false it means that the channel was not registered on an eventLoop yet.
             // In this case we add the context to the pipeline and add a task that will call
             // ChannelHandler.handlerAdded(...) once the channel is registered.
+            // 如果当前channel还没有向reactor注册，则将handlerAdded方法的回调添加进pipeline的任务队列中
             if (!registered) {
+                /**
+                 * 这里主要是用来处理ChannelInitializer的情况
+                 * 设置channelHandler的状态为ADD_PENDING 即等待添加,当状态变为ADD_COMPLETE时 channelHandler中的handlerAdded会被回调
+                 */
                 newCtx.setAddPending();
+
+                /**
+                 * 向pipeline中添加PendingHandlerAddedTask任务，在任务中回调handlerAdded
+                 * 当channel注册到reactor后，pipeline中的pendingHandlerCallbackHead任务链表会被挨个执行
+                 */
                 callHandlerCallbackLater(newCtx, true);
+
                 return this;
             }
 
+            // 如果当前channel已经向reactor注册成功，那么就直接回调channelHandler中的handlerAddded方法
             EventExecutor executor = newCtx.executor();
             if (!executor.inEventLoop()) {
+                // 这里需要确保channelHandler中handlerAdded方法的回调是在channel指定的executor中
                 callHandlerAddedInEventLoop(newCtx, executor);
                 return this;
             }
         }
+        // 回调channelHandler中的handlerAddded方法
         callHandlerAdded0(newCtx);
         return this;
     }
