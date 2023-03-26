@@ -100,8 +100,10 @@ final class ChannelHandlerMask {
         int mask = MASK_EXCEPTION_CAUGHT;
         try {
             if (ChannelInboundHandler.class.isAssignableFrom(handlerType)) {
+                // 如果该ChannelHandler是Inbound类型的，则先将inbound事件全部设置进掩码中
                 mask |= MASK_ALL_INBOUND;
 
+                // 最后在对不感兴趣的事件一一排除（handler中的事件回调方法如果标注了@Skip注解，则认为handler对该事件不感兴趣）
                 if (isSkippable(handlerType, "channelRegistered", ChannelHandlerContext.class)) {
                     mask &= ~MASK_CHANNEL_REGISTERED;
                 }
@@ -129,8 +131,10 @@ final class ChannelHandlerMask {
             }
 
             if (ChannelOutboundHandler.class.isAssignableFrom(handlerType)) {
+                // 如果handler为Outbound类型的，则先将全部outbound事件设置进掩码中
                 mask |= MASK_ALL_OUTBOUND;
 
+                // 最后对handler不感兴趣的事件从掩码中一一排除
                 if (isSkippable(handlerType, "bind", ChannelHandlerContext.class,
                         SocketAddress.class, ChannelPromise.class)) {
                     mask &= ~MASK_BIND;
@@ -172,18 +176,17 @@ final class ChannelHandlerMask {
     }
 
     @SuppressWarnings("rawtypes")
-    private static boolean isSkippable(
-            final Class<?> handlerType, final String methodName, final Class<?>... paramTypes) throws Exception {
+    private static boolean isSkippable(final Class<?> handlerType, final String methodName, final Class<?>... paramTypes) throws Exception {
         return AccessController.doPrivileged(new PrivilegedExceptionAction<Boolean>() {
             @Override
             public Boolean run() throws Exception {
                 Method m;
                 try {
+                    // 首先查看类中是否覆盖实现了对应的事件回调方法
                     m = handlerType.getMethod(methodName, paramTypes);
                 } catch (NoSuchMethodException e) {
                     if (logger.isDebugEnabled()) {
-                        logger.debug(
-                                "Class {} missing method {}, assume we can not skip execution", handlerType, methodName, e);
+                        logger.debug("Class {} missing method {}, assume we can not skip execution", handlerType, methodName, e);
                     }
                     return false;
                 }
