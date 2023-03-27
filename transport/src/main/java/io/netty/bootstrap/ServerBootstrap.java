@@ -130,16 +130,19 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         final Entry<AttributeKey<?>, Object>[] currentChildAttrs = newAttributesArray(childAttrs);
 
         /**
-         * 这里为什么不干脆直接将ChannelHandler添加到pipeline中，而是又使用到了ChannelInitializer呢？
+         * 这里为什么不干脆直接将ChannelHandler添加到pipeline中，而是创建一个匿名的ChannelInitializer呢？
          * 1、为了保证线程安全地初始化pipeline，所以初始化的动作需要由Reactor线程进行，而当前线程是用户程序的启动Main线程 并不是Reactor线程。这里不能立即初始化。
          * 2、初始化Channel中pipeline的动作，需要等到Channel注册到对应的Reactor中才可以进行初始化，当前只是创建好了NioServerSocketChannel，但并未注册到Main Reactor上。
-         *
+         * 3、兼容Netty支持的两种初始化 pipeline 的方式
+         *  1）：一种是直接使用一个具体的 ChannelHandler 来初始化 pipeline。
+         *  2）：另一种是使用 ChannelInitializer 来自定义初始化 pipeline 逻辑。
          * @see DefaultChannelPipeline#addLast(ChannelHandler)
          */
         p.addLast(new ChannelInitializer<Channel>() {
             @Override
             public void initChannel(final Channel ch) {
                 final ChannelPipeline pipeline = ch.pipeline();
+                // ServerBootstrap中用户指定的channelHandler
                 ChannelHandler handler = config.handler();
                 if (handler != null) {
                     pipeline.addLast(handler);

@@ -85,9 +85,22 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
      */
     private static final int INIT = 0;
 
+    /**
+     * ChannelHandlerContext中持有pipeline的引用
+     */
     private final DefaultChannelPipeline pipeline;
+
+    /**
+     * 存放ChannelHandler的名称
+     */
     private final String name;
+
+    /**
+     * false:表示当channelHandler的状态为ADD_PENDING的时候，也可以响应pipeline中的事件。
+     * true:表示只有在channelHandler的状态为ADD_COMPLETE的时候才能响应pipeline中的事件
+     */
     private final boolean ordered;
+
     /**
      * ChannelHandler执行资格掩码
      */
@@ -95,7 +108,9 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
 
     // Will be set to null if no child executor should be used, otherwise it will be set to the
     // child executor.
+    // channelHandler 对应的 executor 默认为reactor
     final EventExecutor executor;
+
     private ChannelFuture succeededFuture;
 
     // Lazily instantiated tasks used to trigger events to a handler with different executor.
@@ -103,6 +118,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     private Tasks invokeTasks;
 
     /**
+     * channelHandelr 的初始状态 -- INIT
      * 只有触发了 handlerAdded 回调，ChannelHandler 的状态才能变成 ADD_COMPLETE
      */
     private volatile int handlerState = INIT;
@@ -112,8 +128,16 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
         this.name = ObjectUtil.checkNotNull(name, "name");
         this.pipeline = pipeline;
         this.executor = executor;
+
+        /**
+         * executionMask 属性作用：
+         * 1、当前 ChannelHandler 是什么类型的；
+         * 2、当前 ChannelHandler 对哪些事件感兴趣。
+         */
         this.executionMask = mask(handlerClass);
+
         // Its ordered if its driven by the EventLoop or the given Executor is an instanceof OrderedEventExecutor.
+        // 当我们不指定 channelHandler 的 executor 时或者指定的 executor 类型为 OrderedEventExecutor 时，ordered = true。
         ordered = executor == null || executor instanceof OrderedEventExecutor;
     }
 
@@ -422,6 +446,7 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     static void invokeChannelRead(final AbstractChannelHandlerContext next, Object msg) {
         final Object m = next.pipeline.touch(ObjectUtil.checkNotNull(msg, "msg"), next);
         EventExecutor executor = next.executor();
+        // 需要保证channelRead事件回调在channelHandler指定的executor中进行
         if (executor.inEventLoop()) {
             next.invokeChannelRead(m);
         } else {
@@ -1113,6 +1138,14 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
                 // everything to preserve ordering.
                 //
                 // See https://github.com/netty/netty/issues/10067
+                /**
+                 * 1、当 ctx.executor() == currentExecutor 也就是说前后两个 ChannelHandler 指定的 executor 相同时，我们核心语义保持不变。
+                 * 2、当 ctx.executor() != currentExecutor 也就是前后两个 ChannelHandler 指定的 executor 不同时，
+                 * 语义变为：只要前后两个 ChannelHandler 指定的 executor 不同，不管下一个ChannelHandler有没有覆盖实现指定事件的回调方法，均不能跳过。
+                 *
+                 * 这里之所以需要加入 ctx.executor() == currentExecutor 条件的判断，是为了防止 HttpContentCompressor
+                 * 在被指定不同的 executor 情况下无法正确的创建压缩内容，导致的一些异常。
+                 */
                 (ctx.executor() == currentExecutor && (ctx.executionMask & mask) == 0);
     }
 
@@ -1148,6 +1181,12 @@ abstract class AbstractChannelHandlerContext implements ChannelHandlerContext, R
     final void callHandlerAdded() throws Exception {
         // We must call setAddComplete before calling handlerAdded. Otherwise if the handlerAdded method generates
         // any pipeline events ctx.handler() will miss them because the state will not allow it.
+        /**
+         * 这里需要注意的是需要在回调 handlerAdded 方法之前将 ChannelHandler 的状态提前设置为 ADD_COMPLETE 。
+         * 因为用户可能在 ChannelHandler 中的 handerAdded 回调中触发一些事件，而如果此时 ChannelHandler 的状态不是 ADD_COMPLETE 的话，就会停止对事件的响应，从而错过事件的处理。
+         *
+         * 这种属于一种用户极端的使用情况。
+         */
         if (setAddComplete()) {
             handler().handlerAdded(this);
         }

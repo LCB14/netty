@@ -131,17 +131,23 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         if (group == null) {
             return null;
         }
+
         Boolean pinEventExecutor = channel.config().getOption(ChannelOption.SINGLE_EVENTEXECUTOR_PER_GROUP);
         if (pinEventExecutor != null && !pinEventExecutor) {
+            // 如果没有开启SINGLE_EVENTEXECUTOR_PER_GROUP，则按顺序从指定的EventExecutorGroup中为channelHandler分配EventExecutor
             return group.next();
         }
+
+        // 获取pipeline绑定到EventExecutorGroup的线程（在一个pipeline中会为每个指定的EventExecutorGroup绑定一个固定的线程）
         Map<EventExecutorGroup, EventExecutor> childExecutors = this.childExecutors;
         if (childExecutors == null) {
             // Use size of 4 as most people only use one extra EventExecutor.
             childExecutors = this.childExecutors = new IdentityHashMap<EventExecutorGroup, EventExecutor>(4);
         }
+
         // Pin one of the child executors once and remember it so that the same child executor
         // is used to fire events for the same channel.
+        // 获取该pipeline绑定在指定EventExecutorGroup中的线程
         EventExecutor childExecutor = childExecutors.get(group);
         if (childExecutor == null) {
             childExecutor = group.next();
@@ -207,7 +213,11 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     public final ChannelPipeline addLast(EventExecutorGroup group, String name, ChannelHandler handler) {
         final AbstractChannelHandlerContext newCtx;
         synchronized (this) {
-            // 检查同一个channelHandler实例是否允许被重复添加
+            /**
+             * 检查被添加的 ChannelHandler 是否是共享的（标注 @Sharable 注解），
+             * 如果不是共享的那么则不会允许该 ChannelHandler 的同一实例被添加进多个 pipeline 中。如果是共享的，
+             * 则允许该 ChannelHandler 的同一个实例被多次添加进多个 pipeline 中。
+             */
             checkMultiplicity(handler);
 
             // 创建channelHandlerContext包裹channelHandler并封装执行传播事件相关的上下文信息
@@ -222,11 +232,16 @@ public class DefaultChannelPipeline implements ChannelPipeline {
             // If the registered is false it means that the channel was not registered on an eventLoop yet.
             // In this case we add the context to the pipeline and add a task that will call
             // ChannelHandler.handlerAdded(...) once the channel is registered.
-            // 如果当前channel还没有向reactor注册，则将handlerAdded方法的回调添加进pipeline的任务队列中
+            /**
+             * 如果当前channel还没有向reactor注册，则将handlerAdded方法的回调添加进pipeline的任务队列中。
+             *
+             * 除了 ChannelInitializer 这个特殊的 ChannelHandler 的添加是在 channel 向 reactor 注册之前外，
+             * 剩下的这些用户自定义的 ChannelHandler 的添加，均是在 channel 向 reactor 注册之后被添加进 pipeline 的。
+             */
             if (!registered) {
                 /**
                  * 这里主要是用来处理ChannelInitializer的情况
-                 * 设置channelHandler的状态为ADD_PENDING 即等待添加,当状态变为ADD_COMPLETE时 channelHandler中的handlerAdded会被回调
+                 * 设置channelHandler的状态为ADD_PENDING 即等待添加,当状态变为ADD_3COMPLETE时 channelHandler中的handlerAdded会被回调
                  */
                 newCtx.setAddPending();
 
@@ -247,6 +262,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
                 return this;
             }
         }
+
         // 回调channelHandler中的handlerAddded方法
         callHandlerAdded0(newCtx);
         return this;
@@ -307,8 +323,10 @@ public class DefaultChannelPipeline implements ChannelPipeline {
 
     private String filterName(String name, ChannelHandler handler) {
         if (name == null) {
+            // 如果没有指定name,则会为handler默认生成一个name，该方法可确保默认生成的name在pipeline中不会重复
             return generateName(handler);
         }
+        // 如果指定了name，需要确保name在pipeline中是唯一的
         checkDuplicateName(name);
         return name;
     }
@@ -423,6 +441,10 @@ public class DefaultChannelPipeline implements ChannelPipeline {
 
         // It's not very likely for a user to put more than one handler of the same type, but make sure to avoid
         // any name conflicts.  Note that we don't cache the names generated here.
+        /**
+         * 虽然用户不大可能将同一类型的 channelHandler 重复添加到 pipeline 中，但是 netty 为了防止这种反复添加同一类型 ChannelHandler 的行为导致的名称冲突，
+         * 从而利用 nameCaches 来缓存同一类型 ChannelHandler 的基础名称 simpleClassName + #0，然后通过不断的重试递增名称后缀，来生成一个在pipeline中唯一的名称。
+         */
         if (context0(name) != null) {
             String baseName = name.substring(0, name.length() - 1); // Strip the trailing '0'.
             for (int i = 1; ; i++) {
@@ -481,16 +503,25 @@ public class DefaultChannelPipeline implements ChannelPipeline {
         assert ctx != head && ctx != tail;
 
         synchronized (this) {
+            // 从pipeline的双向列表中删除指定channelHandler对应的context
             atomicRemoveFromHandlerList(ctx);
 
             // If the registered is false it means that the channel was not registered on an eventloop yet.
             // In this case we remove the context from the pipeline and add a task that will call
             // ChannelHandler.handlerRemoved(...) once the channel is registered.
             if (!registered) {
+                /**
+                 * 如果此时channel还未向reactor注册，则通过向pipeline中添加PendingHandlerRemovedTask任务
+                 * 在注册之后回调channelHandelr中的handlerRemoved方法
+                 */
                 callHandlerCallbackLater(ctx, false);
                 return ctx;
             }
 
+            /**
+             * channelHandelr从pipeline中删除后，需要回调其handlerRemoved方法
+             * 需要确保handlerRemoved方法在channelHandelr指定的executor中进行
+             */
             EventExecutor executor = ctx.executor();
             if (!executor.inEventLoop()) {
                 executor.execute(new Runnable() {
@@ -623,6 +654,11 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     private static void checkMultiplicity(ChannelHandler handler) {
         if (handler instanceof ChannelHandlerAdapter) {
             ChannelHandlerAdapter h = (ChannelHandlerAdapter) handler;
+            /**
+             * 只有标注@Sharable注解的channelHandler，才被允许同一个实例被添加进多个pipeline中
+             * 注意：标注@Sharable之后，一个channelHandler的实例可以被添加到多个channel对应的pipeline中
+             * 可能被多线程执行，需要确保线程安全
+             */
             if (!h.isSharable() && h.added) {
                 throw new ChannelPipelineException(
                         h.getClass().getName() +
