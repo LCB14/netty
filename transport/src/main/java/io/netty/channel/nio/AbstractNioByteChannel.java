@@ -23,6 +23,7 @@ import io.netty.channel.internal.ChannelUtils;
 import io.netty.channel.socket.ChannelInputShutdownEvent;
 import io.netty.channel.socket.ChannelInputShutdownReadComplete;
 import io.netty.channel.socket.SocketChannelConfig;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.internal.StringUtil;
 
 import java.io.IOException;
@@ -91,11 +92,19 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
     protected class NioByteUnsafe extends AbstractNioUnsafe {
 
         private void closeOnRead(ChannelPipeline pipeline) {
+            /**
+             * 这里的 isInputShutdown0 方法是用来判断 TCP 连接上的读通道是否关闭，在当前情况下，服务端的读通道肯定还没有关闭，
+             * 因为目前 Netty 还没有调用任何关闭连接的系统调用。
+             *
+             * 那这里为什么要对读通道是否关闭进行判断？
+             *
+             */
             if (!isInputShutdown0()) {
                 if (isAllowHalfClosure(config())) {
                     shutdownInput();
                     pipeline.fireUserEventTriggered(ChannelInputShutdownEvent.INSTANCE);
                 } else {
+                    // 如果不支持半关闭，则服务端直接调用close方法向客户端发送fin,结束close_wait状态进入last_ack状态
                     close(voidPromise());
                 }
             } else if (!inputClosedSeenErrorOnRead) {
@@ -169,7 +178,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                      */
                     byteBuf = allocHandle.allocate(allocator);
 
-                    // 记录本次读取了多少字节数据，并统计本轮read loop目前总共读取了多少字节。
+                    /**
+                     * 记录本次读取了多少字节数据，并统计本轮read loop目前总共读取了多少字节。
+                     * @see NioSocketChannel#doReadBytes(ByteBuf)
+                     */
                     allocHandle.lastBytesRead(doReadBytes(byteBuf));
 
                     // 如果本次没有读取到任何字节，则退出循环，进行下一轮事件轮询
@@ -210,6 +222,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                 pipeline.fireChannelReadComplete();
 
                 if (close) {
+                    /**
+                     * 此时客户端发送fin1（fi_wait_1状态）主动关闭连接，服务端接收到fin，并回复ack进入close_wait状态
+                     * 在服务端进入close_wait状态 需要调用close 方法向客户端发送fin_ack，服务端才能结束close_wait状态
+                     */
                     closeOnRead(pipeline);
                 }
             } catch (Throwable t) {

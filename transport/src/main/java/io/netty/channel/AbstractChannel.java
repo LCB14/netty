@@ -67,13 +67,23 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
      */
     private final DefaultChannelPipeline pipeline;
     private final VoidChannelPromise unsafeVoidPromise = new VoidChannelPromise(this, false);
+
+    /**
+     * 关闭channel操作的指定future，来判断关闭流程进度 每个channel对应一个CloseFuture
+     * 连接关闭之后，netty 会通知这个CloseFuture
+     */
     private final CloseFuture closeFuture = new CloseFuture(this);
 
     private volatile SocketAddress localAddress;
     private volatile SocketAddress remoteAddress;
     private volatile EventLoop eventLoop;
     private volatile boolean registered;
+
+    /**
+     * channel的关闭流程是否已经开始
+     */
     private boolean closeInitiated;
+
     private Throwable initialCloseCause;
 
     /**
@@ -705,12 +715,27 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             closeIfClosed(); // doDisconnect() might have closed the channel
         }
 
+        /**
+         * ChannelPromise promise：服务端作为被动关闭方，这里传入的 ChannelPromise 类型为 VoidChannelPromise ，
+         * 表示调用方对处理结果并不关心，VoidChannelPromise 不可添加 Listener ，不可修改操作结果状态。
+         */
         @Override
         public void close(final ChannelPromise promise) {
             assertEventLoop();
 
-            ClosedChannelException closedChannelException =
-                    StacklessClosedChannelException.newInstance(AbstractChannel.class, "close(ChannelPromise)");
+            ClosedChannelException closedChannelException = StacklessClosedChannelException.newInstance(AbstractChannel.class, "close(ChannelPromise)");
+
+            /**
+             * Throwable cause：当 Channel 关闭之后，需要清理 Channel 写入缓冲队列 ChannelOutboundBuffer 中的待发送数据，这里会将异常 cause 传递给用户的 writePromise ，
+             * 通知用户 Channel 已经关闭，write 操作失败。这里传入的异常类型为 StacklessClosedChannelException。
+             *
+             * ClosedChannelException closeCause：这个参数和 Throwable cause 参数的作用差不多，都是用于在连接关闭的时候如果此时还有待发送数据未发送。就通知用户这里在参数中指定的异常。唯一不同的是 Throwable cause 负责通知给 Channel 发送数据缓冲队列 ChannelOutboundBuffer 中的 flushedEntry 队列。
+             * ClosedChannelException closeCause 负责通知给 ChannelOutboundBuffer 中的 unflushedEntry 队列。
+             *
+             * boolean notify：由于在关闭 Channel 之后，会清理 Channel 对应的发送缓冲队列 ChannelOutboundBuffer 中存储的待发送数据，同时也会释放其中用于存储待发送数据用的 ByteBuffer，
+             * 当 ChannelOutboundBuffer 中的内存占用低于低水位线的时候，会触发 ChannelWritabilityChanged 事件。
+             * 这里的参数 boolean notify 决定是否触发 ChannelWritabilityChanged 事件，由于当前是关闭操作，所以 notify = false ，不需要触发 ChannelWritabilityChanged 事件。
+             */
             close(promise, closedChannelException, closedChannelException, false);
         }
 
@@ -769,18 +794,21 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             pipeline.fireUserEventTriggered(ChannelOutputShutdownEvent.INSTANCE);
         }
 
-        private void close(final ChannelPromise promise, final Throwable cause,
-                           final ClosedChannelException closeCause, final boolean notify) {
+        private void close(final ChannelPromise promise, final Throwable cause, final ClosedChannelException closeCause, final boolean notify) {
+            // 关闭操作如果被取消则直接返回
             if (!promise.setUncancellable()) {
                 return;
             }
 
+            // 如果此时channel已经开始关闭流程，则进入这里
             if (closeInitiated) {
+                // 如果channel已经关闭 则设置promise为success，如果promise是voidPromise类型则会跳过
                 if (closeFuture.isDone()) {
                     // Closed already.
                     safeSetSuccess(promise);
                 } else if (!(promise instanceof VoidChannelPromise)) { // Only needed if no VoidChannelPromise.
                     // This means close() was called before so we just register a listener and return
+                    // 如果promise不是voidPromise，则会在关闭完成后 通过closeFuture设置promise success
                     closeFuture.addListener(new ChannelFutureListener() {
                         @Override
                         public void operationComplete(ChannelFuture future) throws Exception {
@@ -788,9 +816,11 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                         }
                     });
                 }
+                // 直接返回，防止重复关闭
                 return;
             }
 
+            // 标识当前channel现在开始进入正在关闭状态
             closeInitiated = true;
 
             final boolean wasActive = isActive();
