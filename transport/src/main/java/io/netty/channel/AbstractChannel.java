@@ -823,9 +823,24 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             // 标识当前channel现在开始进入正在关闭状态
             closeInitiated = true;
 
+            /**
+             * 通过 isActive() 获取 Channel 的状态 boolean wasActive ，由于此时我们还没有关闭 Channel，所以 Channel 现在的状态肯定是 active 的。
+             * 之所以在关闭流程的一开始就获取 Channel 是否 active 的状态，是因为当我们关闭 Channel 之后，
+             * 需要通过这个状态来判断 channel 是否是第一次从 active 变为 inactive ，如果是第一次，则会触发 ChannelInactive 事件在 Channel 对应的 pipeline 中传播。
+             */
             final boolean wasActive = isActive();
+
             final ChannelOutboundBuffer outboundBuffer = this.outboundBuffer;
-            this.outboundBuffer = null; // Disallow adding any messages and flushes to outboundBuffer.
+
+            // Disallow adding any messages and flushes to outboundBuffer.
+            /**
+             * 在 Channel 关闭之前，还会将 Channel 对应的写入缓冲队列 ChannelOutboundBuffer 设置为 null ，表示 Channel 即将要关闭了，不允许业务线程在继续发送数据。
+             * 此时如果还在write数据，则直接释放bytebuffer，并立马 fail 相关writeFuture 并抛出newClosedChannelException异常
+             * 此时如果执行flush，则会直接返回
+             */
+            this.outboundBuffer = null;
+
+            // 如果开启了SO_LINGER，则需要先将channel从reactor中取消掉。避免reactor线程空转浪费cpu
             Executor closeExecutor = prepareToClose();
             if (closeExecutor != null) {
                 closeExecutor.execute(new Runnable() {
