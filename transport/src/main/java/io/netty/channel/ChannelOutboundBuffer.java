@@ -699,6 +699,8 @@ public final class ChannelOutboundBuffer {
             inFail = true;
             for (; ; ) {
                 /**
+                 * 循环清除channelOutboundBuffer中的待发送数据，将entry从buffer中删除，并释放entry中的bytebuffer，通知promise failed。
+                 *
                  * remove0 方法用于在 Netty 在发送数据的时候，如果发现当前 channel 处于非活跃状态，
                  * 则将 ChannelOutboundBuffer 中 flushedEntry 与tailEntry 之间的 Entry 对象节点全部删除，并释放发送数据占用的内存空间，同时回收 Entry 对象实例。
                  */
@@ -733,6 +735,7 @@ public final class ChannelOutboundBuffer {
         }
 
         // Release all unflushed messages.
+        // 循环清理channelOutboundBuffer中的unflushedEntry，因为在执行关闭之前有可能用户有一些数据write进来，需要清理掉
         try {
             Entry e = unflushedEntry;
             while (e != null) {
@@ -741,7 +744,9 @@ public final class ChannelOutboundBuffer {
                 TOTAL_PENDING_SIZE_UPDATER.addAndGet(this, -size);
 
                 if (!e.cancelled) {
+                    // 释放unflushedEntry中的bytebuffer
                     ReferenceCountUtil.safeRelease(e.msg);
+                    // 通知unflushedEntry中的promise failed
                     safeFail(e.promise, cause);
                 }
                 e = e.recycleAndGetNext();
@@ -749,6 +754,8 @@ public final class ChannelOutboundBuffer {
         } finally {
             inFail = false;
         }
+
+        // 清理channel用于缓存JDK nioBuffer的 threadLocal缓存NIO_BUFFERS
         clearNioBuffers();
     }
 

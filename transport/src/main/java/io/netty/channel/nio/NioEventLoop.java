@@ -733,6 +733,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     void cancel(SelectionKey key) {
         /**
          * 调用JDK NIO SelectionKey的API cancel方法，将Channel从Selector中取消掉。
+         * SelectionKey#cancel 方法调用后，Selector 会将要取消的这个 SelectionKey 加入到 Selector 中的 cancelledKeys 集合中。
          * @see AbstractSelectionKey#cancel()
          */
         key.cancel();
@@ -740,8 +741,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         cancelledKeys++;
 
         /**
-         * 当从selector中移除的socketChannel数量达到256个，设置needsToSelectAgain为true
-         * 在io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain 中重新做一次轮询，将失效的selectKey移除，以保证selectKeySet的有效性
+         * 当从selector中移除的socketChannel数量达到256个，设置needsToSelectAgain为true 在
+         * @see NioEventLoop#processSelectedKeysPlain(Set)
+         * 中重新做一次轮询，将失效的selectKey移除，以保证selectKeySet的有效性
          */
         if (cancelledKeys >= CLEANUP_INTERVAL) {
             cancelledKeys = 0;
@@ -825,6 +827,12 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 processSelectedKey(k, task);
             }
 
+            /**
+             * needsToSelectAgain 初始化位置
+             * @see NioEventLoop#cancel(SelectionKey)
+             *
+             * 目的：及时更新Selector关联的selectedKeys的有效性，剔除已经被取消的Selectionkey
+             */
             if (needsToSelectAgain) {
                 // null out entries in the array to allow to have it GC'ed once the Channel close
                 // See https://github.com/netty/netty/issues/2363

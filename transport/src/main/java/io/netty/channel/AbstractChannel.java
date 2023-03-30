@@ -23,6 +23,7 @@ import io.netty.channel.nio.AbstractNioMessageChannel;
 import io.netty.channel.socket.ChannelOutputShutdownEvent;
 import io.netty.channel.socket.ChannelOutputShutdownException;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.DefaultAttributeMap;
 import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.*;
@@ -840,7 +841,10 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
              */
             this.outboundBuffer = null;
 
-            // 如果开启了SO_LINGER，则需要先将channel从reactor中取消掉。避免reactor线程空转浪费cpu
+            /**
+             * 当我们开启了 SO_LINGER 选项时，closeExecutor = GlobalEventExecutor.INSTANCE ，避免了 Reactor 线程的阻塞。
+             * @see NioSocketChannel.NioSocketChannelUnsafe#prepareToClose()
+             */
             Executor closeExecutor = prepareToClose();
             if (closeExecutor != null) {
                 closeExecutor.execute(new Runnable() {
@@ -848,17 +852,28 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                     public void run() {
                         try {
                             // Execute the close.
+                            // 在GlobalEventExecutor中执行channel的关闭任务,设置closeFuture,promise success
                             doClose0(promise);
                         } finally {
                             // Call invokeLater so closeAndDeregister is executed in the EventLoop again!
+                            // reactor线程中执行
                             invokeLater(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (outboundBuffer != null) {
                                         // Fail all the queued messages
+                                        // cause = closeCause = ClosedChannelException, notify = false
+                                        // 此时channel已经关闭，需要清理对应channelOutboundBuffer中的待发送数据flushedEntry
                                         outboundBuffer.failFlushed(cause, notify);
+
+                                        // 循环清理channelOutboundBuffer中的unflushedEntry
                                         outboundBuffer.close(closeCause);
                                     }
+
+                                    /**
+                                     * 这里的active = true
+                                     * 关闭channel后，会将channel从reactor中注销，首先触发ChannelInactive事件，然后触发ChannelUnregistered
+                                     */
                                     fireChannelInactiveAndDeregister(wasActive);
                                 }
                             });
@@ -876,6 +891,11 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                         outboundBuffer.close(closeCause);
                     }
                 }
+
+                /**
+                 * 此时 Channel 已经关闭，如果此时用户还在执行 flush 操作，netty 则会在 flush 方法的处理中处理 Channel 关闭的情况
+                 * 所以这里 deRegister 操作需要延后到 flush 方法处理完之后。
+                 */
                 if (inFlush0) {
                     invokeLater(new Runnable() {
                         @Override
@@ -891,16 +911,32 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
         private void doClose0(ChannelPromise promise) {
             try {
+                /**
+                 * 关闭channel，此时服务端向客户端发送fin2，服务端进入last_ack状态，客户端收到fin2进入time_wait状态
+                 * @see NioSocketChannel#doClose()
+                 */
                 doClose();
+
+                /**
+                 * 设置clostFuture的状态为success，表示channel已经关闭
+                 * 调用shutdownOutput则不会通知closeFuture
+                 */
                 closeFuture.setClosed();
+
+                // 通知用户promise success,关闭操作已经完成
                 safeSetSuccess(promise);
             } catch (Throwable t) {
                 closeFuture.setClosed();
+                // 通知用户线程关闭失败
                 safeSetFailure(promise, t);
             }
         }
 
         private void fireChannelInactiveAndDeregister(final boolean wasActive) {
+            /**
+             * wasActive && !isActive() 条件表示 channel的状态第一次从active变为 inactive
+             * 这里的wasActive = true  isActive()= false
+             */
             deregister(voidPromise(), wasActive && !isActive());
         }
 
@@ -945,11 +981,13 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 @Override
                 public void run() {
                     try {
+                        // 将channel从reactor中注销，reactor不在监听channel上的事件
                         doDeregister();
                     } catch (Throwable t) {
                         logger.warn("Unexpected exception occurred while deregistering a channel.", t);
                     } finally {
                         if (fireChannelInactive) {
+                            // 当channel被关闭后，触发ChannelInactive事件
                             pipeline.fireChannelInactive();
                         }
                         // Some transports like local and AIO does not allow the deregistration of
@@ -957,7 +995,9 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                         // close() calls deregister() again - no need to fire channelUnregistered, so check
                         // if it was registered.
                         if (registered) {
+                            // 如果channel没有注册，则不需要触发ChannelUnregistered
                             registered = false;
+                            // 随后触发ChannelUnregistered
                             pipeline.fireChannelUnregistered();
                         }
                         safeSetSuccess(promise);
