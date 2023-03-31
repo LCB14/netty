@@ -757,6 +757,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
          * @param cause The cause which may provide rational for the shutdown.
          */
         private void shutdownOutput(final ChannelPromise promise, Throwable cause) {
+            // 如果Channel已经close了，直接返回
             if (!promise.setUncancellable()) {
                 return;
             }
@@ -766,7 +767,13 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 promise.setFailure(new ClosedChannelException());
                 return;
             }
-            this.outboundBuffer = null; // Disallow adding any messages and flushes to outboundBuffer.
+
+            // Disallow adding any messages and flushes to outboundBuffer.
+            /**
+             * 当 shutdownOutput 方法调用之后，主动关闭方连接的写通道就被关闭了，所以在这个状态下是不允许用户继续向 Channel 写入数据的，
+             * 所以这里会将 Channel 对应的写入缓冲队列 ChannelOutboundBuffer 设置为 null 。
+             */
+            this.outboundBuffer = null;
 
             final Throwable shutdownCause = cause == null ?
                     new ChannelOutputShutdownException("Channel output shutdown") :
@@ -779,19 +786,28 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             try {
                 // The shutdown function does not block regardless of the SO_LINGER setting on the socket
                 // so we don't need to use GlobalEventExecutor to execute the shutdown
+                // 关闭底层 JDK NIO SocketChannel 的写通道。此时内核协议栈会向对端发送 FIN 发起 TCP 半关闭流程。
                 doShutdownOutput();
                 promise.setSuccess();
             } catch (Throwable err) {
                 promise.setFailure(err);
             } finally {
+                // 清理ChannelOutboundBuffer，并触发ChannelOutputShutdownEvent事件
                 closeOutboundBufferForShutdown(pipeline, outboundBuffer, shutdownCause);
             }
         }
 
-        private void closeOutboundBufferForShutdown(
-                ChannelPipeline pipeline, ChannelOutboundBuffer buffer, Throwable cause) {
+        private void closeOutboundBufferForShutdown(ChannelPipeline pipeline, ChannelOutboundBuffer buffer, Throwable cause) {
+            // shutdownOutput半关闭后需要清理channelOutboundBuffer中的待发送数据flushedEntry
             buffer.failFlushed(cause, false);
+
+            // 循环清理channelOutboundBuffer中的unflushedEntry
             buffer.close(cause, true);
+
+            /**
+             * ChannelOutputShutdownEvent 是一种 UserEventTriggered 事件，它是 netty  提供的一种事件扩展机制可以允许用户自定义异步事件，
+             * 这样可以使得用户能够灵活的定义各种复杂场景的处理机制。
+             */
             pipeline.fireUserEventTriggered(ChannelOutputShutdownEvent.INSTANCE);
         }
 
@@ -1304,6 +1320,11 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
      */
     @UnstableApi
     protected void doShutdownOutput() throws Exception {
+        /**
+         * @see NioSocketChannel#doClose()
+         * or
+         * @see NioServerSocketChannel#doClose()
+         */
         doClose();
     }
 

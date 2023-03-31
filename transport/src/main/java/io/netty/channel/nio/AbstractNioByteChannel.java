@@ -113,11 +113,11 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             }
         }
 
-        private void handleReadException(ChannelPipeline pipeline, ByteBuf byteBuf, Throwable cause, boolean close,
-                                         RecvByteBufAllocator.Handle allocHandle) {
+        private void handleReadException(ChannelPipeline pipeline, ByteBuf byteBuf, Throwable cause, boolean close, RecvByteBufAllocator.Handle allocHandle) {
             if (byteBuf != null) {
                 if (byteBuf.isReadable()) {
                     readPending = false;
+                    // 如果发生异常时，已经读取到了部分数据，则触发ChannelRead事件
                     pipeline.fireChannelRead(byteBuf);
                 } else {
                     byteBuf.release();
@@ -181,6 +181,10 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                     /**
                      * 记录本次读取了多少字节数据，并统计本轮read loop目前总共读取了多少字节。
                      * @see NioSocketChannel#doReadBytes(ByteBuf)
+                     *
+                     * 同 TCP 正常关闭收到 FIN 包一样，当服务端收到 RST 包后，OP_READ 事件活跃，这里和 TCP 正常关闭不同的是，
+                     * 在调用 doReadBytes 方法从 Channel 中读取数据的时候会抛出 IOException 异常。
+                     * 这里会有两种情况抛出异常：
                      */
                     allocHandle.lastBytesRead(doReadBytes(byteBuf));
 
