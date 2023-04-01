@@ -117,6 +117,14 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
     private long lastExecutionTime;
 
+    /**
+     * 1、在 Reactor 被创建出来之后状态为 ST_NOT_STARTED。
+     * 2、随着第一个异步任务的提交 Reactor 开始启动随后状态为 ST_STARTED 。
+     * 3、当调用 shutdownGracefully 方法之后，Reactor 的状态变为 ST_SHUTTING_DOWN 。表示正在进行优雅关闭。此时用户仍可向 Reactor 提交异步任务。
+     * 4、当 Reactor 中遗留的任务全部执行完毕之后，Reactor 的状态变为 ST_SHUTDOWN 。此时如果用户继续向 Reactor 提交异步任务，会被拒绝，
+     * 并收到 RejectedExecutionException 异常。
+     * 5、当 Selector 完成关闭，并清理掉 Reactor 线程中所有的 TheadLocal 缓存之后，Reactor 的状态变为 ST_TERMINATED 。
+     */
     @SuppressWarnings({"FieldMayBeFinal", "unused"})
     private volatile int state = ST_NOT_STARTED;
 
@@ -959,6 +967,8 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         if (!inEventLoop) {
             // 这里可以看出Reactor线程的启动是通过向NioEventLoop添加异步任务时启动的
             startThread();
+
+            // 当Reactor的状态为ST_SHUTDOWN时，拒绝用户提交的异步任务，但是在优雅关闭ST_SHUTTING_DOWN状态时还是可以接受用户提交的任务的
             if (isShutdown()) {
                 boolean reject = false;
                 try {
@@ -1128,13 +1138,20 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                 updateLastExecutionTime();
                 try {
                     /**
+                     * Reactor线程开始轮询处理IO事件，执行异步任务
                      * @see io.netty.channel.nio.NioEventLoop#run()
                      */
                     SingleThreadEventExecutor.this.run();
+
+                    // 后面的逻辑为用户调用shutdownGracefully关闭Reactor退出循环 走到这里
                     success = true;
                 } catch (Throwable t) {
                     logger.warn("Unexpected exception from an event executor: ", t);
                 } finally {
+                    /**
+                     * 走到这里表示在静默期内已经没有用户在向Reactor提交任务了，或者达到优雅关闭超时时间，开始对Reactor进行关闭
+                     * 如果当前Reactor不是关闭状态则将Reactor的状态设置为ST_SHUTTING_DOWN
+                     */
                     for (; ; ) {
                         int oldState = state;
                         if (oldState >= ST_SHUTTING_DOWN || STATE_UPDATER.compareAndSet(SingleThreadEventExecutor.this, oldState, ST_SHUTTING_DOWN)) {
@@ -1156,6 +1173,10 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                         // is in ST_SHUTTING_DOWN state still accepting tasks which is needed for
                         // graceful shutdown with quietPeriod.
                         for (; ; ) {
+                            /**
+                             * 此时Reactor线程虽然已经退出，而此时Reactor的状态为shuttingdown，但任务队列还在
+                             * 用户在此时依然可以提交任务，这里是确保用户在最后的这一刻提交的任务可以得到执行。
+                             */
                             if (confirmShutdown()) {
                                 break;
                             }
@@ -1164,6 +1185,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                         // Now we want to make sure no more tasks can be added from this point. This is
                         // achieved by switching the state. Any new tasks beyond this point will be rejected.
                         for (; ; ) {
+                            // 当Reactor的状态被更新为SHUTDOWN后，用户提交的任务将会被拒绝
                             int oldState = state;
                             if (oldState >= ST_SHUTDOWN || STATE_UPDATER.compareAndSet(SingleThreadEventExecutor.this, oldState, ST_SHUTDOWN)) {
                                 break;
@@ -1172,23 +1194,45 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
                         // We have the final set of tasks in the queue now, no more can be added, run all remaining.
                         // No need to loop here, this is the final pass.
+                        /**
+                         * 这里可能会有疑问，Netty 在 Reactor 的状态变为 ST_SHUTDOWN 之后，又一次调用了 confirmShutdown() 方法，这是为什么呢？
+                         * 这里Reactor的状态已经变为SHUTDOWN了，不会在接受用户提交的新任务了
+                         * 但为了防止用户在状态变为SHUTDOWN之前，也就是Reactor在SHUTTING_DOWN的时候 提交了任务
+                         * 所以此时Reactor中可能还会有任务，需要将剩余的任务执行完毕
+                         */
                         confirmShutdown();
                     } finally {
                         try {
+                            // SHUTDOWN状态下，在将全部的剩余任务执行完毕后，则将Selector关闭
                             cleanup();
                         } finally {
                             // Lets remove all FastThreadLocals for the Thread as we are about to terminate and notify
                             // the future. The user may block on the future and once it unblocks the JVM may terminate
                             // and start unloading classes.
                             // See https://github.com/netty/netty/issues/6596.
+                            // 清理Reactor线程中的threadLocal缓存，并通知相应future。
                             FastThreadLocal.removeAll();
 
+                            // ST_TERMINATED状态为Reactor真正的终止状态
                             STATE_UPDATER.set(SingleThreadEventExecutor.this, ST_TERMINATED);
+
+                            /**
+                             * 用户线程可能会调用 Reactor 的 awaitTermination 方法阻塞等待 Reactor 的关闭，
+                             * 当 Reactor 关闭之后会调用 threadLock.countDown() 使得用户线程从 awaitTermination 方法返回。
+                             * @see SingleThreadEventExecutor#awaitTermination(long, TimeUnit)
+                             */
                             threadLock.countDown();
+
+                            // 统计一下当前reactor任务队列中还有多少未执行的任务，打出日志
                             int numUserTasks = drainTasks();
                             if (numUserTasks > 0 && logger.isWarnEnabled()) {
                                 logger.warn("An event executor terminated with " + "non-empty task queue (" + numUserTasks + ')');
                             }
+
+                            /**
+                             * 通知Reactor的terminationFuture成功，在创建Reactor的时候会向其terminationFuture添加Listener
+                             * 在listener中增加terminatedChildren个数，当所有Reactor关闭后 ReactorGroup关闭成功
+                             * */
                             terminationFuture.setSuccess(null);
                         }
                     }
