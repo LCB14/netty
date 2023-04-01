@@ -32,13 +32,25 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class MultithreadEventExecutorGroup extends AbstractEventExecutorGroup {
 
+    /**
+     * 数组中存放的是当前 ReactorGroup 中包含的所有 Reactor，类型为 EventExecutor。
+     */
     private final EventExecutor[] children;
+
     private final Set<EventExecutor> readonlyChildren;
+
     /**
      * 记录已经关闭的Reactor个数，用来判断NioEventLoopGroup中的Reactor是否已经全部关闭。
      */
     private final AtomicInteger terminatedChildren = new AtomicInteger();
+
+    /**
+     * ReactorGroup 中的关闭 Future ，用户线程通过这个 terminationFuture 可以知道 ReactorGroup 完成关闭的时机，
+     * 也可以向 terminationFuture 注册一些 listener 。
+     * 当 ReactorGroup 完成关闭动作后，会回调用户注册的这些 listener 。
+     */
     private final Promise<?> terminationFuture = new DefaultPromise(GlobalEventExecutor.INSTANCE);
+
     private final EventExecutorChooserFactory.EventExecutorChooser chooser;
 
     /**
@@ -118,6 +130,9 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         // 创建channel到Reactor的绑定策略
         chooser = chooserFactory.newChooser(children);
 
+        /**
+         * 定义 Reactor 关闭的 terminationListener
+         */
         final FutureListener<Object> terminationListener = new FutureListener<Object>() {
             @Override
             public void operationComplete(Future<Object> future) throws Exception {
@@ -130,6 +145,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
         for (EventExecutor e : children) {
             /**
+             * 向每个Reactor注册terminationListener
              * @see io.netty.util.concurrent.DefaultPromise#addListener(io.netty.util.concurrent.GenericFutureListener)
              */
             e.terminationFuture().addListener(terminationListener);
@@ -171,6 +187,9 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
     @Override
     public Future<?> shutdownGracefully(long quietPeriod, long timeout, TimeUnit unit) {
         for (EventExecutor l : children) {
+            /**
+             * @see SingleThreadEventExecutor#shutdownGracefully(long, long, TimeUnit)
+             */
             l.shutdownGracefully(quietPeriod, timeout, unit);
         }
         return terminationFuture();

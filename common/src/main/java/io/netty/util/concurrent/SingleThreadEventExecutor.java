@@ -55,10 +55,31 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
     private static final InternalLogger logger =
             InternalLoggerFactory.getInstance(SingleThreadEventExecutor.class);
 
+    /**
+     * Reactor 的初始状态。在 Reactor 刚被创建出来的时候，状态为 ST_NOT_STARTED 。
+     */
     private static final int ST_NOT_STARTED = 1;
+
+    /**
+     * Reactor 的启动状态。当向 Reactor 提交第一个异步任务的时候会触发 Reactor 的启动。启动之后状态变为 ST_STARTED 。
+     */
     private static final int ST_STARTED = 2;
+
+    /**
+     * Reactor 准备开始关闭状态。当 Reactor 的 shutdownGracefully 方法被调用的时候，Reactor
+     * 的状态就会变为ST_SHUTTING_DOWN。在这个状态下，用户仍然可以向 Reactor 提交任务。
+     */
     private static final int ST_SHUTTING_DOWN = 3;
+
+    /**
+     * Reactor 停止状态。表示 Reactor 的优雅关闭流程已经结束，此时用户不能在向 Reactor 提交任务，Reactor 会在这个状态下最后一次执行剩余的异步任务。
+     */
     private static final int ST_SHUTDOWN = 4;
+
+    /**
+     * Reactor 真正的终结状态，该状态表示 Reactor 已经完全关闭了。在这个状态下 Reactor
+     * 会设置自己的 terminationFuture 为 Success。进而开始回调上小节末尾提到的 terminationListener 。
+     */
     private static final int ST_TERMINATED = 5;
 
     private static final Runnable NOOP_TASK = new Runnable() {
@@ -86,6 +107,9 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
     private volatile boolean interrupted;
 
     private final CountDownLatch threadLock = new CountDownLatch(1);
+    /**
+     * 可以向Reactor添加shutdownHook，当Reactor关闭的时候会被调用
+     */
     private final Set<Runnable> shutdownHooks = new LinkedHashSet<Runnable>();
     private final boolean addTaskWakesUp;
     private final int maxPendingTasks;
@@ -96,10 +120,25 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
     @SuppressWarnings({"FieldMayBeFinal", "unused"})
     private volatile int state = ST_NOT_STARTED;
 
+    /**
+     * 优雅关闭静默期，默认为 2s 。
+     * 这个参数主要来保证 Netty 整个关闭过程中的优雅。在关闭流程开始后，如果 Reactor 中还有遗留的异步任务需要执行，那么 Netty 就不能关闭，需要把所有异步任务执行完毕才可以。
+     * 当所有异步任务执行完毕后，Netty 为了实现更加优雅的关闭操作，一定要保障业务无损，这时候就引入了静默期这个概念，如果在这个静默期内，
+     * 用户没有新的任务向 Reactor 提交那么就开始关闭。如果在这个静默期内，还有用户继续提交异步任务，那么就不能关闭，需要把静默期内用户提交的异步任务执行完毕才可以放心关闭。
+     */
     private volatile long gracefulShutdownQuietPeriod;
+
+    /**
+     * 优雅关闭超时时间，默认为 15s 。
+     * 这个参数主要来保证 Netty 整个关闭过程的可控。我们知道一个生产级的优雅关闭方案既要保证优雅做到业务无损，更重要的是要保证关闭流程的可控，不能无限制的优雅下去。
+     * 导致长时间无法完成关闭动作。于是 Netty 就引入了这个参数，如果优雅关闭超时，那么无论此时有无异步任务需要执行都要开始关闭了。
+     */
     private volatile long gracefulShutdownTimeout;
     private long gracefulShutdownStartTime;
 
+    /**
+     * Reactor的关闭Future
+     */
     private final Promise<?> terminationFuture = new DefaultPromise<Void>(GlobalEventExecutor.INSTANCE);
 
     /**
@@ -110,8 +149,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
      * @param addTaskWakesUp {@code true} if and only if invocation of {@link #addTask(Runnable)} will wake up the
      *                       executor thread
      */
-    protected SingleThreadEventExecutor(
-            EventExecutorGroup parent, ThreadFactory threadFactory, boolean addTaskWakesUp) {
+    protected SingleThreadEventExecutor(EventExecutorGroup parent, ThreadFactory threadFactory, boolean addTaskWakesUp) {
         this(parent, new ThreadPerTaskExecutor(threadFactory), addTaskWakesUp);
     }
 
@@ -613,6 +651,11 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         }
     }
 
+    /**
+     * 注意这里的 ShutdownHooks 是 Netty 提供的一种机制并不是 JVM 中的 ShutdownHooks 。
+     * JVM 中的 ShutdownHooks 是一个 Thread ，JVM 在关闭之前会并发无序地运行。
+     * 而 Netty 中的 ShutdownHooks 是一个 Runnable ，Reactor 在关闭之前，会由 Reactor 线程同步有序地执行。
+     */
     private boolean runShutdownHooks() {
         boolean ran = false;
         // Note shutdown hooks can add / remove shutdown hooks.
@@ -621,6 +664,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             shutdownHooks.clear();
             for (Runnable task : copy) {
                 try {
+                    // Reactor线程挨个顺序同步执行
                     runTask(task);
                 } catch (Throwable t) {
                     logger.warn("Shutdown hook raised an exception.", t);
@@ -646,6 +690,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         }
         ObjectUtil.checkNotNull(unit, "unit");
 
+        // 此时Reactor的状态为ST_STARTED
         if (isShuttingDown()) {
             return terminationFuture();
         }
@@ -657,36 +702,72 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             if (isShuttingDown()) {
                 return terminationFuture();
             }
+
             int newState;
+
+            // 需要唤醒Reactor去执行关闭流程
             wakeup = true;
+
             oldState = state;
+
+            /**
+             * 如果通过 inEventLoop() 判断出当前执行线程是 Reactor 线程，那么表示当前 Reactor 的状态只会是 ST_STARTED 运行状态，
+             * 那么就可以直接将 newState 设置为 ST_SHUTTING_DOWN 。
+             * 因为只有 Reactor 处于 ST_STARTED 状态的时候才会运行到这里。否则在前边就直接返回 terminationFuture了。
+             */
             if (inEventLoop) {
                 newState = ST_SHUTTING_DOWN;
             } else {
+                /**
+                 * 如果当前执行线程为用户线程并不是 Reactor 线程的话，那么此时 Reactor 的状态可能是正在关闭状态或者已经关闭状态，用户线程在重复发起 Reactor 的关闭流程。
+                 */
                 switch (oldState) {
                     case ST_NOT_STARTED:
                     case ST_STARTED:
                         newState = ST_SHUTTING_DOWN;
                         break;
                     default:
+                        // Reactor正在关闭或者已经关闭
                         newState = oldState;
                         wakeup = false;
                 }
             }
+
             if (STATE_UPDATER.compareAndSet(this, oldState, newState)) {
                 break;
             }
         }
+
+        /**
+         * 优雅关闭静默期，在该时间内，用户还是可以向Reactor提交任务并且执行，只要有任务在Reactor中，就不能进行关闭
+         * 每隔100ms检测是否有任务提交进来，如果在静默期内没有新的任务提交，那么才会进行关闭 保证关闭行为的优雅
+         */
         gracefulShutdownQuietPeriod = unit.toNanos(quietPeriod);
+
+        /**
+         * 优雅关闭的最大超时时间，优雅关闭行为不能超过该时间，如果超过的话 不管当前是否还有任务 都要进行关闭
+         * 保证关闭行为的可控
+         */
         gracefulShutdownTimeout = unit.toNanos(timeout);
 
+        // 这里需要保证Reactor线程是在运行状态，如果已经停止，那么就不在进行后续关闭行为，直接返回terminationFuture
         if (ensureThreadStarted(oldState)) {
             return terminationFuture;
         }
 
+        // 将正在监听IO事件的Reactor从Selector上唤醒，表示要关闭了，开始执行关闭流程
         if (wakeup) {
+            /**
+             * 向 Reactor 中添加 WAKEUP_TASK，可以确保 Reactor 在执行完异步任务之后不会在 Selector 上做停留，直接执行关闭操作。
+             */
             taskQueue.offer(WAKEUP_TASK);
+
+            /**
+             * 这里的 addTaskWakesUp 默认为 false 。表示并不是只有 addTask 方法才能唤醒 Reactor 线程 还有其他方法可以唤醒 Reactor 线程，
+             * 比如 SingleThreadEventExecutor#execute 方法还有 SingleThreadEventExecutor#shutdownGracefully 方法都会唤醒 Reactor 线程。
+             */
             if (!addTaskWakesUp) {
+                // 如果此时Reactor正在Selector上阻塞，则可以确保Reactor被及时唤醒
                 wakeup(inEventLoop);
             }
         }
@@ -774,12 +855,15 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             throw new IllegalStateException("must be invoked from an event loop");
         }
 
+        // 取消掉所有的定时任务
         cancelScheduledTasks();
 
         if (gracefulShutdownStartTime == 0) {
+            // 记录优雅关闭开始时间 gracefulShutdownStartTime，这是为了后续判断优雅关闭流程是否超时。
             gracefulShutdownStartTime = getCurrentTimeNanos();
         }
 
+        // 这里判断只要有task任务或ShutdownHooks需要执行就不能关闭
         if (runAllTasks() || runShutdownHooks()) {
             if (isShutdown()) {
                 // Executor shut down - no new tasks anymore.
@@ -789,24 +873,40 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
             // There were tasks in the queue. Wait a little bit more until no tasks are queued for the quiet period or
             // terminate if the quiet period is 0.
             // See https://github.com/netty/netty/issues/4241
+            /**
+             * gracefulShutdownQuietPeriod表示在这段时间内，用户还是可以继续提交异步任务的，Reactor在这段时间内
+             * 是会保证这些任务被执行到的。
+             *
+             * gracefulShutdownQuietPeriod = 0 表示 没有这段静默时期，当前Reactor中的任务执行完毕后，无需等待静默期，执行关闭
+             **/
             if (gracefulShutdownQuietPeriod == 0) {
                 return true;
             }
+
+            // 避免Reactor在Selector上阻塞，因为此时已经不会再去处理IO事件了，专心处理关闭流程
             taskQueue.offer(WAKEUP_TASK);
+
             return false;
         }
 
+
         final long nanoTime = getCurrentTimeNanos();
 
+        // 当Reactor中所有的任务执行完毕后，判断是否超过gracefulShutdownTimeout，如果超过了 则直接关闭
         if (isShutdown() || nanoTime - gracefulShutdownStartTime > gracefulShutdownTimeout) {
             return true;
         }
 
+        /**
+         * 即使现在没有任务也还是不能进行关闭，需要等待一个静默期，在静默期内如果没有新的任务提交，才会进行关闭
+         * 如果在静默期内还有任务继续提交，那么静默期将会重新开始计算，进入一轮新的静默期检测
+         */
         if (nanoTime - lastExecutionTime <= gracefulShutdownQuietPeriod) {
             // Check if any tasks were added to the queue every 100ms.
             // TODO: Change the behavior of takeTask() so that it returns on timeout.
             taskQueue.offer(WAKEUP_TASK);
             try {
+                // gracefulShutdownQuietPeriod内每隔100ms检测一下 是否有任务需要执行
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 // Ignore
@@ -817,6 +917,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
         // No tasks were added for last quiet period - hopefully safe to shut down.
         // (Hopefully because we really cannot make a guarantee that there will be no execute() calls by a user.)
+        // 在整个gracefulShutdownQuietPeriod期间内没有任务需要执行或者静默期结束 则无需等待gracefulShutdownTimeout超时，直接关闭
         return true;
     }
 

@@ -653,8 +653,21 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             } finally {
                 // Always handle shutdown even if the loop processing threw an exception.
                 try {
+                    // Reactor 在每一次循环任务结束之后，都会先去判断一下当前 Reactor 的状态，如果状态变为准备关闭状态 ST_SHUTTING_DOWN 后，Reactor 就会开启优雅关闭流程。
                     if (isShuttingDown()) {
+                        /**
+                         * 首先会调用 closeAll() 方法，将 Reactor 上注册的所有 Channel 全部关闭掉，切掉现有流量。
+                         * 停止处理IO事件，触发unActive以及unRegister事件。
+                         */
                         closeAll();
+
+                        /**
+                         * 只要有异步任务 Task 或者 ShutdwonHooks 需要执行，就不能关闭，需要等待所有 tasks 或者 ShutdownHooks 执行完毕，才会考虑关闭的事情。
+                         * 该方法返回值为 true 时表示可以进行关闭。返回 false 时表示不能马上关闭。
+                         *
+                         * 思考：因为closeAll()方法已经把Reactor上注册的channel给关了，如果这里执行的异步任务需要借助channel向客户端或服务端同步数据怎么办？
+                         * 这样看还是没办法做到尽善尽美呀
+                         */
                         if (confirmShutdown()) {
                             return;
                         }
@@ -936,10 +949,14 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     }
 
     private void closeAll() {
+        // 这里的目的是清理selector中的一些无效key
         selectAgain();
+
+        // 获取Selector上注册的所有Channel
         Set<SelectionKey> keys = selector.keys();
         Collection<AbstractNioChannel> channels = new ArrayList<AbstractNioChannel>(keys.size());
         for (SelectionKey k : keys) {
+            // 获取NioSocketChannel
             Object a = k.attachment();
             if (a instanceof AbstractNioChannel) {
                 channels.add((AbstractNioChannel) a);
@@ -952,6 +969,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         }
 
         for (AbstractNioChannel ch : channels) {
+            // 关闭Reactor上注册的所有Channel，并在pipeline中触发unActive事件和unRegister事件
             ch.unsafe().close(ch.unsafe().voidPromise());
         }
     }
