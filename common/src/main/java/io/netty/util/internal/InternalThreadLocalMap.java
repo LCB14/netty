@@ -116,6 +116,11 @@ public final class InternalThreadLocalMap extends UnpaddedInternalThreadLocalMap
 
     public static InternalThreadLocalMap get() {
         Thread thread = Thread.currentThread();
+        /**
+         * fastGet 和 slowGet的区别？
+         * 前者直接从FastThreadLocalThread实例属性中去获取当前线程对应的InternalThreadLocalMap实例，
+         * 后者需要借助JDK提供的ThreadLocal去获取当前线程对应的InternalThreadLocalMap实例。
+         */
         if (thread instanceof FastThreadLocalThread) {
             return fastGet((FastThreadLocalThread) thread);
         } else {
