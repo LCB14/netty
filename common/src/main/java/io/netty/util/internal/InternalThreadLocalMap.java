@@ -358,11 +358,17 @@ public final class InternalThreadLocalMap extends UnpaddedInternalThreadLocalMap
         int newCapacity;
         if (index < ARRAY_LIST_CAPACITY_EXPAND_THRESHOLD) {
             newCapacity = index;
+            // 二进制最高两位为 1
             newCapacity |= newCapacity >>> 1;
+            // 二进制最高四位为 1
             newCapacity |= newCapacity >>> 2;
+            // 二进制最高八位为 1
             newCapacity |= newCapacity >>> 4;
+            // 二进制最高十六位为 1
             newCapacity |= newCapacity >>> 8;
+            // 二进制最高三十二位为 1
             newCapacity |= newCapacity >>> 16;
+            // 运行到此，newCapacity二进制表示形式除了符号位全为1，再进行加一操作一定等于2的n次幂
             newCapacity++;
         } else {
             newCapacity = ARRAY_LIST_CAPACITY_MAX_SIZE;
