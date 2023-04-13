@@ -117,11 +117,8 @@ public class FastThreadLocal<V> {
         variablesToRemove.add(variable);
     }
 
-    private static void removeFromVariablesToRemove(
-            InternalThreadLocalMap threadLocalMap, FastThreadLocal<?> variable) {
-
+    private static void removeFromVariablesToRemove(InternalThreadLocalMap threadLocalMap, FastThreadLocal<?> variable) {
         Object v = threadLocalMap.indexedVariable(VARIABLES_TO_REMOVE_INDEX);
-
         if (v == InternalThreadLocalMap.UNSET || v == null) {
             return;
         }
@@ -262,6 +259,7 @@ public class FastThreadLocal<V> {
             return;
         }
 
+        // 从数组中定位到下标 index 位置的元素，并将 index 位置的元素覆盖为缺省对象 UNSET。
         Object v = threadLocalMap.removeIndexedVariable(index);
         if (v != InternalThreadLocalMap.UNSET) {
             removeFromVariablesToRemove(threadLocalMap, this);
