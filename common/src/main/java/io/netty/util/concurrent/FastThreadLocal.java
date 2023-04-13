@@ -96,10 +96,19 @@ public class FastThreadLocal<V> {
 
     @SuppressWarnings("unchecked")
     private static void addToVariablesToRemove(InternalThreadLocalMap threadLocalMap, FastThreadLocal<?> variable) {
+        /**
+         * VARIABLES_TO_REMOVE_INDEX 参见：
+         * @see InternalThreadLocalMap#nextVariableIndex()
+         * 初始值为 0，且不会再改变。
+         */
         Object v = threadLocalMap.indexedVariable(VARIABLES_TO_REMOVE_INDEX);
         Set<FastThreadLocal<?>> variablesToRemove;
         if (v == InternalThreadLocalMap.UNSET || v == null) {
             variablesToRemove = Collections.newSetFromMap(new IdentityHashMap<FastThreadLocal<?>, Boolean>());
+            /**
+             * 将 Set<FastThreadLocal<?>> 集合设置到 InternalThreadLocalMap.indexedVariables 数组中下标为 0 的位置
+             * 这样就使使用FastThreadLocal的线程可以感知当前自己持有了哪些FastThreadLocal实例。
+             */
             threadLocalMap.setIndexedVariable(VARIABLES_TO_REMOVE_INDEX, variablesToRemove);
         } else {
             variablesToRemove = (Set<FastThreadLocal<?>>) v;
