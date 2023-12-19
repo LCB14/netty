@@ -315,7 +315,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
              * @see NioServerSocketChannel#NioServerSocketChannel()
              */
             channel = channelFactory.newChannel();
-            // 初始化channel
+
+            // 初始化channel，往pipeline中添加handler
             init(channel);
         } catch (Throwable t) {
             if (channel != null) {
@@ -330,7 +331,9 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
 
         /**
          * step2:注册步骤
-         * 向Main Reactor注册NioServerSocketChannel，config().group() -- 获取bossGroup
+         * 向Main Reactor注册NioServerSocketChannel
+         * config().group() -- 获取 serverBootstrap.group(bossGroup, workerGroup)中指定的bossGroup
+         * 之所以是 MultithreadEventLoopGroup，因为它是NioEventLoopGroup的父类
          * @see io.netty.channel.MultithreadEventLoopGroup#register(io.netty.channel.Channel) -- 选取一个Reactor进行注册
          * @see SingleThreadEventLoop#register(Channel)
          */

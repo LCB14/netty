@@ -87,6 +87,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
         checkPositive(nThreads, "nThreads");
 
         if (executor == null) {
+            // 创建线程执行器
             executor = new ThreadPerTaskExecutor(newDefaultThreadFactory());
         }
 
@@ -97,7 +98,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             boolean success = false;
             try {
                 /**
-                 * 创建reactor
+                 * 创建 reactor
                  * @see io.netty.channel.nio.NioEventLoopGroup#newChild(java.util.concurrent.Executor, java.lang.Object...)
                  */
                 children[i] = newChild(executor, args);
@@ -127,7 +128,10 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
             }
         }
 
-        // 创建channel到Reactor的绑定策略
+        /**
+         * 创建channel到Reactor的绑定策略
+         * @see io.netty.util.concurrent.DefaultEventExecutorChooserFactory#newChooser(io.netty.util.concurrent.EventExecutor[])
+         */
         chooser = chooserFactory.newChooser(children);
 
         /**
@@ -162,6 +166,10 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
 
     @Override
     public EventExecutor next() {
+        /**
+         * chooser 属性初始化位置
+         * @see io.netty.util.concurrent.DefaultEventExecutorChooserFactory#newChooser(io.netty.util.concurrent.EventExecutor[])
+         */
         return chooser.next();
     }
 

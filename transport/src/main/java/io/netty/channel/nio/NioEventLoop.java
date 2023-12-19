@@ -140,11 +140,15 @@ public final class NioEventLoop extends SingleThreadEventLoop {
          * @see java.nio.channels.spi.SelectorProvider#provider
          */
         this.provider = ObjectUtil.checkNotNull(selectorProvider, "selectorProvider");
+
         this.selectStrategy = ObjectUtil.checkNotNull(strategy, "selectStrategy");
+
         // openSelector是NioEventLoop类中用于创建IO多路复用的Selector，并对创建出来的JDK NIO 原生的Selector进行性能优化。
         final SelectorTuple selectorTuple = openSelector();
+
         // 通过用SelectedSelectionKeySet装饰后的unwrappedSelector
         this.selector = selectorTuple.selector;
+
         // Netty优化过的JDK NIO远程Selector
         this.unwrappedSelector = selectorTuple.unwrappedSelector;
     }
