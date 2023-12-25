@@ -967,7 +967,9 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
     private void execute(Runnable task, boolean immediate) {
         boolean inEventLoop = inEventLoop();
+
         addTask(task);
+
         // 如果当前线程不是Reactor线程，则启动Reactor线程
         if (!inEventLoop) {
             // 这里可以看出Reactor线程的启动是通过向NioEventLoop添加异步任务时启动的
