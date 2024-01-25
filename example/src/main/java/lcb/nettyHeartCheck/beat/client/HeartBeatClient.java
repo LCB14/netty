@@ -11,6 +11,8 @@ import java.util.Random;
 
 public class HeartBeatClient {
 
+    private static final String text = "I am alive";
+
     int port;
     Channel channel;
     Random random;
@@ -27,9 +29,8 @@ public class HeartBeatClient {
             bootstrap.group(eventLoopGroup)
                     .channel(NioSocketChannel.class)
                     .handler(new HeartBeatClientInitializer());
-
             connect(bootstrap, port);
-            String text = "I am alive";
+
             while (channel.isActive()) {
                 sendMsg(text);
             }
@@ -42,7 +43,7 @@ public class HeartBeatClient {
     }
 
     public void connect(Bootstrap bootstrap, int port) throws Exception {
-        channel = bootstrap.connect("localhost", 8090).sync().channel();
+        channel = bootstrap.connect("localhost", port).sync().channel();
     }
 
     public void sendMsg(String text) throws Exception {
