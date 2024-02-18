@@ -477,6 +477,10 @@ public class IdleStateHandler extends ChannelDuplexHandler {
         protected void run(ChannelHandlerContext ctx) {
             long nextDelay = readerIdleTimeNanos;
             if (!reading) {
+                /**
+                 * ticksInNanos() - lastReadTime -- 表示距离上一次读取数据已经过去多长时间了
+                 * nextDelay = nextDelay - （ticksInNanos() - lastReadTime）-- 表示距离下次检查是否有读操作还剩时间
+                 */
                 nextDelay -= ticksInNanos() - lastReadTime;
             }
 
