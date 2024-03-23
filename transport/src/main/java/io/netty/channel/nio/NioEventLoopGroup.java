@@ -126,6 +126,12 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
 
     public NioEventLoopGroup(int nThreads, Executor executor, final SelectorProvider selectorProvider,
                              final SelectStrategyFactory selectStrategyFactory) {
+        /**
+         * executor -- 用于启动 NioEventLoop(线程)
+         * selectorProvider -- 用来创建Selector的
+         * selectStrategyFactory -- 用于创建NioEventLoop线程当遇到IO就绪事件和异步任务时的处理策略的
+         * RejectedExecutionHandlers -- 当向reactor添加异步任务失败时，采用的拒绝策略。
+         */
         super(nThreads, executor, selectorProvider, selectStrategyFactory, RejectedExecutionHandlers.reject());
     }
 
@@ -225,6 +231,11 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
             tailTaskQueueFactory = (EventLoopTaskQueueFactory) args[4];
         }
 
-        return new NioEventLoop(this, executor, selectorProvider, selectStrategyFactory.newSelectStrategy(), rejectedExecutionHandler, taskQueueFactory, tailTaskQueueFactory);
+        return new NioEventLoop(this, executor
+                , selectorProvider
+                , selectStrategyFactory.newSelectStrategy()
+                , rejectedExecutionHandler
+                , taskQueueFactory
+                , tailTaskQueueFactory);
     }
 }

@@ -72,6 +72,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
      * @param args     arguments which will passed to each {@link #newChild(Executor, Object...)} call
      */
     protected MultithreadEventExecutorGroup(int nThreads, Executor executor, Object... args) {
+        // DefaultEventExecutorChooserFactory.INSTANCE -- 当客户端和主reactor建立好连接后，用于从从reactor组中选择一个reactor负责处理刚建立好的SocketChannel
         this(nThreads, executor, DefaultEventExecutorChooserFactory.INSTANCE, args);
     }
 

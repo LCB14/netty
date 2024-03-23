@@ -24,9 +24,13 @@ import java.util.NoSuchElementException;
 final class SelectedSelectionKeySet extends AbstractSet<SelectionKey> {
 
     /**
-     * 采用数组替换到JDK中的HashSet,这样add操作和遍历操作效率更高，不需要考虑hash冲突
+     * 采用数组替换到JDK中的HashSet
+     * 1、这样插入和遍历操作效率更高，不需要考虑hash冲突
+     * 2、数组可以利用CPU缓存的优势来提高遍历效率
      */
     SelectionKey[] keys;
+
+    // 数组尾部指针
     int size;
 
     SelectedSelectionKeySet() {
@@ -40,6 +44,7 @@ final class SelectedSelectionKeySet extends AbstractSet<SelectionKey> {
         }
 
         if (size == keys.length) {
+            // 扩容为原来两倍大小
             increaseCapacity();
         }
 

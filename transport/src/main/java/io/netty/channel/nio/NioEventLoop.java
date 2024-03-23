@@ -55,6 +55,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
 
     private static final int CLEANUP_INTERVAL = 256; // XXX Hard-coded value, but won't need customization.
 
+    // Selector 优化开关，默认开启，为了遍历的效率，会对Selector中的SelectedKeys进行数据结构优化
     private static final boolean DISABLE_KEY_SET_OPTIMIZATION = SystemPropertyUtil.getBoolean("io.netty.noKeySetOptimization", false);
 
     private static final int MIN_PREMATURE_SELECTOR_RETURNS = 3;
@@ -203,6 +204,13 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             @Override
             public Object run() {
                 try {
+                    /**
+                     * jdk nio 原生Selector的实现均继承 SelectorImpl 该抽象类。
+                     * SelectorProvider 实现如果通过SPI或者指定系统属性加载的自定义实现，创建的Selector就说不定了
+                     * 所以通过判断Selector的实现是否继承SelectorImpl可以间接判断 Selector是通过什么渠道创建的。
+                     *
+                     * 判断标准为sun.nio.ch.SelectorImpl类是否为SelectorProvider创建出Selector的父类。
+                     */
                     return Class.forName("sun.nio.ch.SelectorImpl", false, PlatformDependent.getSystemClassLoader());
                 } catch (Throwable cause) {
                     return cause;
@@ -286,6 +294,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
             logger.trace("failed to instrument a special java.util.Set into: {}", unwrappedSelector, e);
             return new SelectorTuple(unwrappedSelector);
         }
+
         /**
          * 将与sun.nio.ch.SelectorImpl类中selectedKeys和publicSelectedKeys关联好的Netty优化实现SelectedSelectionKeySet，
          * 设置到io.netty.channel.nio.NioEventLoop#selectedKeys字段中保存。
@@ -293,7 +302,8 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         selectedKeys = selectedKeySet;
         logger.trace("instrumented a special java.util.Set into: {}", unwrappedSelector);
         /**
-         * 用SelectedSelectionKeySetSelector装饰类将unwrappedSelector和与sun.nio.ch.SelectorImpl类关联好的Netty优化实现SelectedSelectionKeySet封装起来。
+         * 用SelectedSelectionKeySetSelector装饰类
+         * 将unwrappedSelector和与sun.nio.ch.SelectorImpl类关联好的Netty优化实现SelectedSelectionKeySet封装起来。
          */
         return new SelectorTuple(unwrappedSelector, new SelectedSelectionKeySetSelector(unwrappedSelector, selectedKeySet));
     }
