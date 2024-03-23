@@ -50,6 +50,7 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
         implements io.netty.channel.socket.ServerSocketChannel {
 
     private static final ChannelMetadata METADATA = new ChannelMetadata(false, 16);
+
     private static final SelectorProvider DEFAULT_SELECTOR_PROVIDER = SelectorProvider.provider();
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(NioServerSocketChannel.class);
@@ -92,7 +93,9 @@ public class NioServerSocketChannel extends AbstractNioMessageChannel
      * Create a new instance using the given {@link ServerSocketChannel}.
      */
     public NioServerSocketChannel(ServerSocketChannel channel) {
+        // 父类AbstractNioChannel中保存JDK NIO原生ServerSocketChannel以及要监听的事件OP_ACCEPT
         super(null, channel, SelectionKey.OP_ACCEPT);
+
         /**
          * 创建Channel的配置类NioServerSocketChannelConfig，在配置类中封装了对Channel底层的一些配置行为，以及JDK中的ServerSocket。
          * 以及创建NioServerSocketChannel接收数据用的Buffer分配器AdaptiveRecvByteBufAllocator。

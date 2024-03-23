@@ -295,7 +295,11 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
                         // Registration was successful, so set the correct executor to use.
                         // See https://github.com/netty/netty/issues/2586
                         promise.registered();
-                        // 注册完成后，Reactor线程回调这里。
+                        /**
+                         * 注册完成后，Reactor线程回调这里。
+                         * @see AbstractChannel.AbstractUnsafe#register0(ChannelPromise)
+                         * @see AbstractChannel.AbstractUnsafe#safeSetSuccess(ChannelPromise)
+                         */
                         doBind0(regFuture, channel, localAddress, promise);
                     }
                 }

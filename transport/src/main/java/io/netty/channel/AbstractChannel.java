@@ -16,6 +16,7 @@
 package io.netty.channel;
 
 import io.netty.bootstrap.AbstractBootstrap;
+import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.nio.AbstractNioByteChannel;
 import io.netty.channel.nio.AbstractNioChannel;
@@ -111,6 +112,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
          */
         unsafe = newUnsafe();
 
+        // 为channel分配独立的pipeline用于IO事件编排
         pipeline = newChannelPipeline();
     }
 
@@ -544,7 +546,6 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                     /**
                      * Reactor线程的启动是在向Reactor提交第一个异步任务的时候启动的。
                      * @see SingleThreadEventExecutor#execute(Runnable)
-                     * @see ThreadPerTaskExecutor#execute(Runnable)
                      */
                     eventLoop.execute(new Runnable() {
                         @Override
@@ -586,6 +587,8 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 // user may already fire events through the pipeline in the ChannelFutureListener.
                 /**
                  * 触发回调pipeline中添加的ChannelInitializer的handlerAdded方法，在handlerAdded方法中利用前面提到的ChannelInitializer初始化ChannelPipeline
+                 * @see ServerBootstrap#init(Channel)
+                 * 触发 p.addLast(new ChannelInitializer<Channel>() {...}) 调用
                  */
                 pipeline.invokeHandlerAddedIfNeeded();
 
