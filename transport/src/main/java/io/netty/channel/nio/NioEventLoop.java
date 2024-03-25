@@ -18,6 +18,7 @@ package io.netty.channel.nio;
 import io.netty.channel.*;
 import io.netty.util.IntSupplier;
 import io.netty.util.concurrent.RejectedExecutionHandler;
+import io.netty.util.concurrent.SingleThreadEventExecutor;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.ReflectionUtil;
@@ -572,7 +573,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                         case SelectStrategy.SELECT:
                             // 进入该case，表示此时没有任何异步任务需要执行，Reactor线程可以安心的阻塞在Selector上等待IO就绪事件的来临。
 
-                            // 从定时任务队列中取出即将快要执行的定时任务deadline
+                            // 从定时任务队列中取出即将快要执行的定时任务并获取其deadline
                             long curDeadlineNanos = nextScheduledTaskDeadlineNanos();
                             // -1代表当前定时任务队列中没有定时任务
                             if (curDeadlineNanos == -1L) {
@@ -618,7 +619,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 // 调整Reactor线程执行IO事件和执行异步任务的CPU时间比例 默认50，表示执行IO事件和异步任务的时间比例是一比一
                 final int ioRatio = this.ioRatio;
                 boolean ranTasks;
-                // 当ioRatio设置为100时，Reactor线程会先一股脑的处理IO就绪事件，然后在一股脑的执行异步任务，并没有时间的限制。
+                // 当ioRatio设置为100时，Reactor线程会先一股脑的处理IO就绪事件，然后再一股脑的执行异步任务，并没有时间的限制。
                 if (ioRatio == 100) {
                     try {
                         // 当有IO就绪事件时（strategy > 0）Reactor线程需要优先处理IO就绪事件，处理完IO事件后，执行所有的异步任务包括：普通任务，尾部任务，定时任务。无时间限制。
@@ -645,8 +646,8 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     ranTasks = runAllTasks(0);
                 }
 
+                // 判断是否触发JDK Epoll 空轮询 BUG
                 if (ranTasks || strategy > 0) {
-                    // 判断是否触发JDK Epoll 空轮询 BUG
                     if (selectCnt > MIN_PREMATURE_SELECTOR_RETURNS && logger.isDebugEnabled()) {
                         logger.debug("Selector.select() returned prematurely {} times in a row for Selector {}.", selectCnt - 1, selector);
                     }
@@ -1029,6 +1030,10 @@ public final class NioEventLoop extends SingleThreadEventLoop {
     private int select(long deadlineNanos) throws IOException {
         // 无定时任务，无普通任务执行时，开始轮询IO就绪事件，没有就一直阻塞 直到唤醒条件成立
         if (deadlineNanos == NONE) {
+            /**
+             * 如果此时阻塞之后恰好有异步任务提交过来怎么办？
+             * @see SingleThreadEventExecutor#execute(Runnable, boolean)
+             */
             return selector.select();
         }
 
