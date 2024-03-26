@@ -201,7 +201,8 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         }
 
         /**
-         * Netty 通过 ServerBootstrapAcceptor，会在 Channel 建立后触发 channelRead() 方法，并在 channelRead() 内将此 Channel 绑定至子反应组对应的处理线程，后续的数据处理就交于它进行处理。
+         * Netty 通过 ServerBootstrapAcceptor，会在 Channel 建立后触发 channelRead() 方法，
+         * 并在 channelRead() 内将此 Channel 绑定至子反应组对应的处理线程，后续的数据处理就交于它进行处理。
          */
         @Override
         @SuppressWarnings("unchecked")
@@ -217,6 +218,9 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
 
             try {
                 /**
+                 * 在服务端NioServerSocketChannel注册的时候我们会在listener中向Main Reactor提交bind绑定端口地址任务。
+                 * 但是在NioSocketChannel注册的时候，只会在listener中处理一下注册失败的情况。
+                 *
                  * 1：在Sub Reactor线程组中选择一个Reactor绑定
                  * 2：将客户端SocketChannel注册到绑定的Reactor上
                  * 3：SocketChannel注册到sub reactor中的selector上，并监听OP_READ事件

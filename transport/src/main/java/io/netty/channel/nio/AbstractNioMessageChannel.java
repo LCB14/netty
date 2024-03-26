@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.PortUnreachableException;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
+import java.nio.channels.ServerSocketChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,9 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
         public void read() {
             assert eventLoop().inEventLoop();
 
+            /**
+             * @see NioServerSocketChannel#NioServerSocketChannel(ServerSocketChannel)
+             */
             final ChannelConfig config = config();
             final ChannelPipeline pipeline = pipeline();
 
@@ -79,9 +83,12 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
                 try {
                     do {
                         /**
+                         * 底层调用NioServerSocketChannel->doReadMessages 创建客户端SocketChannel
                          * @see NioServerSocketChannel#doReadMessages(List)
                          */
                         int localRead = doReadMessages(readBuf);
+
+                        // 已无新的连接可接收则退出read loop
                         if (localRead == 0) {
                             break;
                         }
@@ -110,6 +117,7 @@ public abstract class AbstractNioMessageChannel extends AbstractNioChannel {
                      */
                     pipeline.fireChannelRead(readBuf.get(i));
                 }
+                // 清除本次accept 创建的客户端SocketChannel集合
                 readBuf.clear();
 
                 allocHandle.readComplete();
