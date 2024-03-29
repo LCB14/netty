@@ -196,6 +196,7 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                         close = allocHandle.lastBytesRead() < 0;
                         if (close) {
                             // There is nothing left to read as we received an EOF.
+                            // 表示客户端发起连接关闭
                             readPending = false;
                         }
                         break;
