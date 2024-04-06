@@ -71,6 +71,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     private Map<EventExecutorGroup, EventExecutor> childExecutors;
     /**
      * 计算要发送msg大小的handler
+     * 这个 estimatorHandle 会在 pipeline 对应的 Channel 中的配置类创建的时候被初始化。
      */
     private volatile MessageSizeEstimator.Handle estimatorHandle;
     private boolean firstRegistration = true;

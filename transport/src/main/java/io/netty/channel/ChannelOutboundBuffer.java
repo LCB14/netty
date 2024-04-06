@@ -167,7 +167,12 @@ public final class ChannelOutboundBuffer {
             }
             do {
                 flushed++;
-                // 如果当前entry对应的write操作被用户取消，则释放msg，并降低channelOutboundBuffer水位线
+                /**
+                 * 在 flush 发送数据流程开始时，数据的发送流程就不能被取消了，在这之前我们都是可以通过 ChannelPromise 取消数据发送流程的。
+                 *
+                 * setUncancellable() 方法返回 false 则说明在这之前用户已经将 ChannelPromise 取消掉了，
+                 * 接下来就需要调用 entry.cancel() 方法来释放为待发送数据 msg 分配的堆外内存。
+                 */
                 if (!entry.promise.setUncancellable()) {
                     // Was cancelled so make sure we free up memory and notify about the freed bytes
                     int pending = entry.cancel();

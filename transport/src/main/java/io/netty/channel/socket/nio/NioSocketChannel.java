@@ -498,15 +498,7 @@ public class NioSocketChannel extends AbstractNioByteChannel implements io.netty
             }
         } while (writeSpinCount > 0);
         /**
-         * writeSpinCount < 0：当 Netty 在传输文件的过程中发现 Socket 缓冲区已满无法在继续写入数据时，会返回
-         * WRITE_STATUS_SNDBUF_FULL = Integer.MAX_VALUE，这就使得 writeSpinCount的值 < 0。
-         * 随后 break 掉 write loop 来到 incompleteWrite(writeSpinCount < 0) 方法中，最后会在 incompleteWrite 方法中向
-         * reactor 注册 OP_WRITE 事件。当 Socket 缓冲区变得可写时，epoll 会通知 reactor 线程继续发送文件。
-         *
-         * writeSpinCount == 0：这种情况很好理解，就是已经写满了 16 次，但是还没写完，同时 Socket 的写缓冲区未满，还可以继续写入。
-         * 这种情况下即使 Socket 还可以继续写入，Netty 也不会再去写了，因为执行 flush 操作的是 reactor 线程，而 reactor
-         * 线程负责执行注册在它上边的所有 channel 的 IO 操作，Netty 不会允许 reactor 线程一直在一个 channel 上执行 IO 操作，
-         * reactor 线程的执行时间需要均匀的分配到每个 channel 上。所以这里 Netty 会停下，转而去处理其他 channel 上的 IO 事件。
+         * 处理write loop结束 但数据还没写完的情况
          */
         incompleteWrite(writeSpinCount < 0);
     }
