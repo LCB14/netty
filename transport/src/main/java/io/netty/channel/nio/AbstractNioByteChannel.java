@@ -189,16 +189,20 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
                     allocHandle.lastBytesRead(doReadBytes(byteBuf));
 
                     // 如果本次没有读取到任何字节，则退出循环，进行下一轮事件轮询
+                    // -1 表示客户端主动关闭了连接close或者shutdownOutput 这里均会返回-1
                     if (allocHandle.lastBytesRead() <= 0) {
                         // nothing was read. release the buffer.
                         byteBuf.release();
                         byteBuf = null;
+                        // 当客户端主动关闭连接时（客户端发送fin1），会触发read就绪事件，这里从channel读取的数据会是-1
                         close = allocHandle.lastBytesRead() < 0;
                         if (close) {
                             // There is nothing left to read as we received an EOF.
                             // 表示客户端发起连接关闭
                             readPending = false;
                         }
+                        // Netty 处理 TCP 正常关闭流程（ Socket 接收缓冲区中只有 EOF ，没有其他正常接收数据）可以看出，这种情况下只会触发 ChannelReadComplete 事件而不会触发 ChannelRead 事件。
+                        // 因为从这里就break掉了，下面的 pipeline.fireChannelRead(byteBuf); 语句无法得到执行
                         break;
                     }
 

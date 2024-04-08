@@ -731,17 +731,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
             ClosedChannelException closedChannelException = StacklessClosedChannelException.newInstance(AbstractChannel.class, "close(ChannelPromise)");
 
-            /**
-             * Throwable cause：当 Channel 关闭之后，需要清理 Channel 写入缓冲队列 ChannelOutboundBuffer 中的待发送数据，这里会将异常 cause 传递给用户的 writePromise ，
-             * 通知用户 Channel 已经关闭，write 操作失败。这里传入的异常类型为 StacklessClosedChannelException。
-             *
-             * ClosedChannelException closeCause：这个参数和 Throwable cause 参数的作用差不多，都是用于在连接关闭的时候如果此时还有待发送数据未发送。就通知用户这里在参数中指定的异常。唯一不同的是 Throwable cause 负责通知给 Channel 发送数据缓冲队列 ChannelOutboundBuffer 中的 flushedEntry 队列。
-             * ClosedChannelException closeCause 负责通知给 ChannelOutboundBuffer 中的 unflushedEntry 队列。
-             *
-             * boolean notify：由于在关闭 Channel 之后，会清理 Channel 对应的发送缓冲队列 ChannelOutboundBuffer 中存储的待发送数据，同时也会释放其中用于存储待发送数据用的 ByteBuffer，
-             * 当 ChannelOutboundBuffer 中的内存占用低于低水位线的时候，会触发 ChannelWritabilityChanged 事件。
-             * 这里的参数 boolean notify 决定是否触发 ChannelWritabilityChanged 事件，由于当前是关闭操作，所以 notify = false ，不需要触发 ChannelWritabilityChanged 事件。
-             */
+
             close(promise, closedChannelException, closedChannelException, false);
         }
 
@@ -816,6 +806,23 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             pipeline.fireUserEventTriggered(ChannelOutputShutdownEvent.INSTANCE);
         }
 
+        /**
+         * ChannelPromise promise：服务端作为被动关闭方，这里传入的 ChannelPromise 类型为 VoidChannelPromise ，
+         * 表示调用方对处理结果并不关心，VoidChannelPromise 不可添加 Listener ，不可修改操作结果状态。
+         * 而作为主动关闭方的客户端则需要监听 Channel 关闭的结果，所以这里传递的 ChannelPromise 参数为 DefaultChannelPromise 。
+         *
+         * Throwable cause：当 Channel 关闭之后，需要清理 Channel 写入缓冲队列 ChannelOutboundBuffer 中的待发送数据，这里会将异常 cause 传递给用户的 writePromise ，
+         * 通知用户 Channel 已经关闭，write 操作失败。这里传入的异常类型为 StacklessClosedChannelException。
+         *
+         * ClosedChannelException closeCause：这个参数和 Throwable cause 参数的作用差不多，都是用于在连接关闭的时候如果此时还有待发送数据未发送。
+         * 就通知用户这里在参数中指定的异常。唯一不同的是
+         * Throwable cause 负责通知给 Channel 发送数据缓冲队列 ChannelOutboundBuffer 中的 flushedEntry 队列。
+         * ClosedChannelException closeCause 负责通知给 ChannelOutboundBuffer 中的 unflushedEntry 队列。
+         *
+         * boolean notify：由于在关闭 Channel 之后，会清理 Channel 对应的发送缓冲队列 ChannelOutboundBuffer 中存储的待发送数据，同时也会释放其中用于存储待发送数据用的 ByteBuffer，
+         * 当 ChannelOutboundBuffer 中的内存占用低于低水位线的时候，会触发 ChannelWritabilityChanged 事件。
+         * 这里的参数 boolean notify 决定是否触发 ChannelWritabilityChanged 事件，由于当前是关闭操作，所以 notify = false ，不需要触发 ChannelWritabilityChanged 事件。
+         */
         private void close(final ChannelPromise promise, final Throwable cause, final ClosedChannelException closeCause, final boolean notify) {
             // 关闭操作如果被取消则直接返回
             if (!promise.setUncancellable()) {
@@ -881,6 +888,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                             invokeLater(new Runnable() {
                                 @Override
                                 public void run() {
+                                    // 前面 outboundBuffer 不是已经被置为null了吗？
                                     if (outboundBuffer != null) {
                                         // Fail all the queued messages
                                         // cause = closeCause = ClosedChannelException, notify = false
