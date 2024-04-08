@@ -103,11 +103,13 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
         this.parent = parent;
 
         /**
+         * machineId + processId + sequence + timestamp + random
          * @see DefaultChannelId#DefaultChannelId()
          */
         id = newId();
 
         /**
+         * unsafe用于底层socket的相关操作
          * @see AbstractNioMessageChannel#newUnsafe()
          */
         unsafe = newUnsafe();

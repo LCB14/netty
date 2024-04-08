@@ -213,6 +213,10 @@ public class DefaultChannelPipeline implements ChannelPipeline {
     @Override
     public final ChannelPipeline addLast(EventExecutorGroup group, String name, ChannelHandler handler) {
         final AbstractChannelHandlerContext newCtx;
+        /**
+         * 向 pipeline 中添加 channelHandler 的操作可能会在多个线程中进行，所以为了确保添加操作的线程安全性，
+         * 这里采用一个 synchronized 语句块将整个添加逻辑包裹起来。
+         */
         synchronized (this) {
             /**
              * 检查被添加的 ChannelHandler 是否是共享的（标注 @Sharable 注解），
@@ -221,11 +225,11 @@ public class DefaultChannelPipeline implements ChannelPipeline {
              */
             checkMultiplicity(handler);
 
-            // 创建channelHandlerContext包裹channelHandler并封装执行传播事件相关的上下文信息
+            // 创建ChannelHandlerContext包裹channelHandler并封装执行传播事件相关的上下文信息
             newCtx = newContext(group, filterName(name, handler), handler);
 
             /**
-             * 将channelHandelrContext插入到pipeline中的末尾处。双向链表操作
+             * 将channelHandlerContext插入到pipeline中的末尾处。双向链表操作
              * 此时channelHandler的状态还是ADD_PENDING，只有当channelHandler的handlerAdded方法被回调后，状态才会为ADD_COMPLETE
              */
             addLast0(newCtx);
@@ -255,7 +259,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
                 return this;
             }
 
-            // 如果当前channel已经向reactor注册成功，那么就直接回调channelHandler中的handlerAddded方法
+            // 如果当前channel已经向reactor注册成功，那么就直接回调channelHandler中的handlerAdded方法
             EventExecutor executor = newCtx.executor();
             if (!executor.inEventLoop()) {
                 // 这里需要确保channelHandler中handlerAdded方法的回调是在channel指定的executor中
@@ -264,7 +268,7 @@ public class DefaultChannelPipeline implements ChannelPipeline {
             }
         }
 
-        // 回调channelHandler中的handlerAddded方法
+        // 回调channelHandler中的handlerAdded方法
         callHandlerAdded0(newCtx);
         return this;
     }
