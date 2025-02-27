@@ -87,16 +87,20 @@ public class HashedWheelTimer implements Timer {
     static final InternalLogger logger =
             InternalLoggerFactory.getInstance(HashedWheelTimer.class);
 
+    // 系统当前时间轮实例的个数
     private static final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
     private static final AtomicBoolean WARNED_TOO_MANY_INSTANCES = new AtomicBoolean();
+    // 默认允许的 HashedWheelTimer 最大实例个数
     private static final int INSTANCE_COUNT_LIMIT = 64;
     private static final long MILLISECOND_NANOS = TimeUnit.MILLISECONDS.toNanos(1);
+    // 用于时间轮的资源泄露探测
     private static final ResourceLeakDetector<HashedWheelTimer> leakDetector = ResourceLeakDetectorFactory.instance()
             .newResourceLeakDetector(HashedWheelTimer.class, 1);
 
     private static final AtomicIntegerFieldUpdater<HashedWheelTimer> WORKER_STATE_UPDATER =
             AtomicIntegerFieldUpdater.newUpdater(HashedWheelTimer.class, "workerState");
 
+    // 用于跟踪探测资源泄露的发生，如果发生资源泄露，Netty 就会以 Error 日志的形式打印出泄露的位置。
     private final ResourceLeakTracker<HashedWheelTimer> leak;
     private final Worker worker = new Worker();
     private final Thread workerThread;
@@ -113,10 +117,14 @@ public class HashedWheelTimer implements Timer {
     private final CountDownLatch startTimeInitialized = new CountDownLatch(1);
     private final Queue<HashedWheelTimeout> timeouts = PlatformDependent.newMpscQueue();
     private final Queue<HashedWheelTimeout> cancelledTimeouts = PlatformDependent.newMpscQueue();
+    // 时间轮当前待执行的延时任务个数
     private final AtomicLong pendingTimeouts = new AtomicLong(0);
+    // 时间轮中待执行延时任务的最大个数
     private final long maxPendingTimeouts;
+    // 负责执行延时任务，默认为 workerThread
     private final Executor taskExecutor;
 
+    // 时间轮的启动时间
     private volatile long startTime;
 
     /**
@@ -621,8 +629,11 @@ public class HashedWheelTimer implements Timer {
         private static final AtomicIntegerFieldUpdater<HashedWheelTimeout> STATE_UPDATER =
                 AtomicIntegerFieldUpdater.newUpdater(HashedWheelTimeout.class, "state");
 
+        // 延时任务所属时间轮
         private final HashedWheelTimer timer;
         private final TimerTask task;
+        // 延时任务的到期时间，是一个绝对时间值，它以时间轮的启动时间 startTime 为起点，表示从 startTime 这个时间点开始，到 deadline 这个时间点到期。
+        // long deadline = System.nanoTime() + unit.toNanos(delay) - startTime;
         private final long deadline;
 
         @SuppressWarnings({"unused", "FieldMayBeFinal", "RedundantFieldInitialization"})
@@ -630,6 +641,7 @@ public class HashedWheelTimer implements Timer {
 
         // remainingRounds will be calculated and set by Worker.transferTimeoutsToBuckets() before the
         // HashedWheelTimeout will be added to the correct HashedWheelBucket.
+        // 执行该延时任务需要经过多少时钟周期
         long remainingRounds;
 
         // This will be used to chain timeouts in HashedWheelTimerBucket via a double-linked-list.
@@ -638,6 +650,7 @@ public class HashedWheelTimer implements Timer {
         HashedWheelTimeout prev;
 
         // The bucket to which the timeout was added
+        // 延时任务所属的桶，在时间轮中，每个时间点对应一个 HashedWheelBucket 对象。
         HashedWheelBucket bucket;
 
         HashedWheelTimeout(HashedWheelTimer timer, TimerTask task, long deadline) {
