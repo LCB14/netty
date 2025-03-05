@@ -39,9 +39,13 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
     static final int DEFAULT_INITIAL = 2048;
     static final int DEFAULT_MAXIMUM = 65536;
 
+    // 扩容步长
     private static final int INDEX_INCREMENT = 4;
+
+    // 缩容步长
     private static final int INDEX_DECREMENT = 1;
 
+    // ByteBuf分配容量表（扩缩容索引表）按照表中记录的容量大小进行扩缩容
     private static final int[] SIZE_TABLE;
 
     static {
@@ -133,9 +137,14 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
             // This helps adjust more quickly when large amounts of data is pending and can avoid going back to
             // the selector to check for more data. Going back to the selector can add significant latency for large
             // data transfers.
+            // bytes 为本次从 socket 中真实读取的数据大小
+            // attemptedBytesRead 为 ByteBuf 可写的容量大小，初始为 2048
             if (bytes == attemptedBytesRead()) {
+                // 如果本次读取 socket 中的数据将 ByteBuf 装满了
+                // 那么就对 ByteBuf 进行扩容，在下一次读取的时候用更大的 ByteBuf 去读
                 record(bytes);
             }
+            // 记录本次从 socket 中读取的数据大小
             super.lastBytesRead(bytes);
         }
 
@@ -146,6 +155,7 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
 
         private void record(int actualReadBytes) {
             if (actualReadBytes <= SIZE_TABLE[max(0, index - INDEX_DECREMENT)]) {
+                // 缩容条件触发两次之后就进行缩容
                 if (decreaseNow) {
                     index = max(index - INDEX_DECREMENT, minIndex);
                     nextReceiveBufferSize = SIZE_TABLE[index];
@@ -154,6 +164,7 @@ public class AdaptiveRecvByteBufAllocator extends DefaultMaxMessagesRecvByteBufA
                     decreaseNow = true;
                 }
             } else if (actualReadBytes >= nextReceiveBufferSize) {
+                // 扩容条件满足一次之后就进行扩容
                 index = min(index + INDEX_INCREMENT, maxIndex);
                 nextReceiveBufferSize = SIZE_TABLE[index];
                 decreaseNow = false;

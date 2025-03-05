@@ -316,17 +316,25 @@ public abstract class AbstractByteBuf extends ByteBuf {
         checkPositiveOrZero(minWritableBytes, "minWritableBytes");
 
         if (minWritableBytes <= writableBytes()) {
+            // 表示 ByteBuf 当前可写容量可以满足本次写入操作的需求，不需要扩容
             return 0;
         }
 
         final int maxCapacity = maxCapacity();
         final int writerIndex = writerIndex();
+        // 如果本次写入的数据大小已经超过了 ByteBuf 的最大可写容量 maxCapacity - writerIndex
         if (minWritableBytes > maxCapacity - writerIndex) {
+            // force = false ， 那么停止扩容，直接返回
+            // force = true, 直接扩容到 maxCapacity，如果当前 capacity 已经等于 maxCapacity 了则停止扩容
             if (!force || capacity() == maxCapacity) {
+                // 表示本次写入的数据大小已经超过了 ByteBuf 的最大可写容量，但 ByteBuf 的容量已经达到了 maxCapacity，无法进行扩容。
                 return 1;
             }
 
+            // 虽然扩容之后还是无法满足写入需求，但还是强制扩容至 maxCapacity
             capacity(maxCapacity);
+
+            // 表示本次写入的数据大小已经超过了 ByteBuf 的最大可写容量，这种情况下，强制将容量扩容至 maxCapacity。
             return 3;
         }
 
@@ -336,6 +344,8 @@ public abstract class AbstractByteBuf extends ByteBuf {
 
         // Adjust to the new capacity.
         capacity(newCapacity);
+
+        // 表示执行正常的扩容逻辑。
         return 2;
     }
 
