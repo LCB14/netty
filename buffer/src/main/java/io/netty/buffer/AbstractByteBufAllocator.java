@@ -31,6 +31,7 @@ public abstract class AbstractByteBufAllocator implements ByteBufAllocator {
     static final int DEFAULT_INITIAL_CAPACITY = 256;
     static final int DEFAULT_MAX_CAPACITY = Integer.MAX_VALUE;
     static final int DEFAULT_MAX_COMPONENTS = 16;
+    // 扩容的尺度
     static final int CALCULATE_THRESHOLD = 1048576 * 4; // 4 MiB page
 
     static {
@@ -251,30 +252,41 @@ public abstract class AbstractByteBufAllocator implements ByteBufAllocator {
     @Override
     public int calculateNewCapacity(int minNewCapacity, int maxCapacity) {
         checkPositiveOrZero(minNewCapacity, "minNewCapacity");
+        // 满足本次写入操作的最小容量 minNewCapacity 不能超过 maxCapacity
         if (minNewCapacity > maxCapacity) {
             throw new IllegalArgumentException(String.format(
                     "minNewCapacity: %d (expected: not greater than maxCapacity(%d)",
                     minNewCapacity, maxCapacity));
         }
+
+        // 用于决定扩容的尺度
         final int threshold = CALCULATE_THRESHOLD; // 4 MiB page
 
+        // 如果 minNewCapacity 恰好等于 CALCULATE_THRESHOLD，那么扩容后的容量 newCapacity 就是 4M。
         if (minNewCapacity == threshold) {
             return threshold;
         }
 
         // If over threshold, do not double but just increase by threshold.
         if (minNewCapacity > threshold) {
+            // 计算扩容基准线。
+            // 要求必须是 CALCULATE_THRESHOLD 的最小倍数，而且必须要小于等于 minNewCapacity
+            // 经过下面计算后，newCapacity的值一定小于等于threshold（CALCULATE_THRESHOLD）的最小倍数
             int newCapacity = minNewCapacity / threshold * threshold;
             if (newCapacity > maxCapacity - threshold) {
                 newCapacity = maxCapacity;
             } else {
+                // 按照 threshold (4M)扩容
                 newCapacity += threshold;
             }
             return newCapacity;
         }
 
         // 64 <= newCapacity is a power of 2 <= threshold
+        // 如果 minNewCapacity 小于 CALCULATE_THRESHOLD，那么 newCapacity 就会从 64 开始，
+        // 一直循环 double , 也就是按照 64 的倍数进行扩容。直到 newCapacity 大于等于 minNewCapacity。
         final int newCapacity = MathUtil.findNextPositivePowerOfTwo(Math.max(minNewCapacity, 64));
+
         return Math.min(newCapacity, maxCapacity);
     }
 }

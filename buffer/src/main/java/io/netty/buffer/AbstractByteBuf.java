@@ -297,11 +297,16 @@ public abstract class AbstractByteBuf extends ByteBuf {
         }
 
         // Normalize the target capacity to the power of 2.
+        // fastWritable 表示在不涉及到 memory reallocation or data-copy 的情况下，当前 ByteBuf 可以直接写入的容量
+        // 对于 UnpooledDirectBuffer 这里的 fastWritable = capacity - writerIndex
+        // PooledDirectBuffer 有另外的实现，这里先暂时不需要关注
         final int fastWritable = maxFastWritableBytes();
+
         int newCapacity = fastWritable >= minWritableBytes ? writerIndex + fastWritable
                 : alloc().calculateNewCapacity(targetCapacity, maxCapacity);
 
         // Adjust to the new capacity.
+        // 根据 newCapacity 对 ByteBuf 进行扩容
         capacity(newCapacity);
     }
 
