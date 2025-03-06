@@ -316,15 +316,18 @@ public final class Unpooled {
             case 1:
                 ByteBuf buffer = buffers[0];
                 if (buffer.isReadable()) {
+                    // 如果我们只是传入一个 ByteBuf 的话，那么就无需创建 CompositeByteBuf，而是直接返回该 ByteBuf 的 slice 视图。
                     return wrappedBuffer(buffer.order(BIG_ENDIAN));
                 } else {
                     buffer.release();
                 }
                 break;
             default:
+                // 遍历所有的 ByteBuf，直到找到第一个可读的 ByteBuf 为止。
                 for (int i = 0; i < buffers.length; i++) {
                     ByteBuf buf = buffers[i];
                     if (buf.isReadable()) {
+                        // 从第一个可读的 ByteBuf —— buffers[i] 开始创建 CompositeByteBuf
                         return new CompositeByteBuf(ALLOC, false, maxNumComponents, buffers, i);
                     }
                     buf.release();

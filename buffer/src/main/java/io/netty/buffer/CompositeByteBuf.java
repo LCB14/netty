@@ -51,16 +51,26 @@ public class CompositeByteBuf extends AbstractReferenceCountedByteBuf implements
     private static final ByteBuffer EMPTY_NIO_BUFFER = Unpooled.EMPTY_BUFFER.nioBuffer();
     private static final Iterator<ByteBuf> EMPTY_ITERATOR = Collections.<ByteBuf>emptyList().iterator();
 
+    // 内部 ByteBuf 的分配器，用于后续扩容，copy , 合并等操作
     private final ByteBufAllocator alloc;
+
+    // compositeDirectBuffer 还是 compositeHeapBuffer ?
     private final boolean direct;
+
+    // 表示 components 数组最大的容量，CompositeByteBuf 默认能够包含 Component 的最大个数为 16，
+    // 如果超过这个数量的话，Netty 会将当前 CompositeByteBuf 中包含的所有 Components 重新合并成一个更大的 Component。
     private final int maxNumComponents;
 
+    // 当前 CompositeByteBuf 中包含的 components 个数
     private int componentCount;
+
+    // 需要被聚合的原生 ByteBuf 会被 Netty 封装在 Component 类中，并统一组织在 components 数组中。
     private Component[] components; // resized when needed
 
     private boolean freed;
 
     private CompositeByteBuf(ByteBufAllocator alloc, boolean direct, int maxNumComponents, int initSize) {
+        // 设置 maxCapacity
         super(AbstractByteBufAllocator.DEFAULT_MAX_CAPACITY);
 
         this.alloc = ObjectUtil.checkNotNull(alloc, "alloc");
@@ -71,6 +81,8 @@ public class CompositeByteBuf extends AbstractReferenceCountedByteBuf implements
 
         this.direct = direct;
         this.maxNumComponents = maxNumComponents;
+
+        // 初始 Component 数组的容量为 maxNumComponents
         components = newCompArray(initSize, maxNumComponents);
     }
 
@@ -84,10 +96,16 @@ public class CompositeByteBuf extends AbstractReferenceCountedByteBuf implements
 
     CompositeByteBuf(ByteBufAllocator alloc, boolean direct, int maxNumComponents,
                      ByteBuf[] buffers, int offset) {
+        // 先初始化一个空的 CompositeByteBuf，initSize 为 buffers.length - offset
         this(alloc, direct, maxNumComponents, buffers.length - offset);
 
+        // 为 buffers 数组中的每一个 ByteBuf 创建初始化 Component 实例，并将他们有序的添加到 CompositeByteBuf 的 components 数组中。
         addComponents0(false, 0, buffers, offset);
+
+        // 如果当前 component 的个数已经超过了 maxNumComponents，则将所有 component 合并成一个
         consolidateIfNeeded();
+
+        // 设置 CompositeByteBuf 的 readerIndex = 0，writerIndex 为最后一个 component 的 endOffset
         setIndex0(0, capacity());
     }
 
@@ -1901,12 +1919,20 @@ public class CompositeByteBuf extends AbstractReferenceCountedByteBuf implements
     }
 
     private static final class Component {
+        // 原生 ByteBuf
         final ByteBuf srcBuf; // the originally added buffer
+
+        // srcBuf 可能是一个被包装过的 ByteBuf，比如 SlicedByteBuf ， DuplicatedByteBuf
+        // 被 srcBuf 包装的最底层的 ByteBuf 就存放在 buf 字段中
         final ByteBuf buf; // srcBuf unwrapped zero or more times
 
+        // CompositeByteBuf 的 index 加上 srcAdjustment 就得到了srcBuf 的相关 index
         int srcAdjustment; // index of the start of this CompositeByteBuf relative to srcBuf
+
+        // CompositeByteBuf 的 index 加上 adjustment 就得到了 buf 的相关 index
         int adjustment; // index of the start of this CompositeByteBuf relative to buf
 
+        // 该 Component 在 CompositeByteBuf 视角中表示的逻辑数据范围 [offset , endOffset)
         int offset; // offset of this component within this CompositeByteBuf
         int endOffset; // end offset of this component within this CompositeByteBuf
 
