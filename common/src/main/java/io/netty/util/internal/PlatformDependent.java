@@ -87,6 +87,7 @@ public final class PlatformDependent {
     private static final boolean CAN_ENABLE_TCP_NODELAY_BY_DEFAULT = !isAndroid();
 
     private static final Throwable UNSAFE_UNAVAILABILITY_CAUSE = unsafeUnavailabilityCause0();
+    // 是否偏向于分配 Direct Memory
     private static final boolean DIRECT_BUFFER_PREFERRED;
     private static final long MAX_DIRECT_MEMORY = estimateMaxDirectMemory();
 
@@ -113,7 +114,10 @@ public final class PlatformDependent {
 
     private static final int ADDRESS_SIZE = addressSize0();
     private static final boolean USE_DIRECT_BUFFER_NO_CLEANER;
+
+    // 用于统计 NoCleaner 的 DirectByteBuf 所引用的 Native Memory 大小
     private static final AtomicLong DIRECT_MEMORY_COUNTER;
+
     private static final long DIRECT_MEMORY_LIMIT;
     private static final ThreadLocalRandomProvider RANDOM_PROVIDER;
     private static final Cleaner CLEANER;
@@ -189,8 +193,10 @@ public final class PlatformDependent {
             // only direct to method if we are not running on android.
             // See https://github.com/netty/netty/issues/2604
             if (javaVersion() >= 9) {
+                // 检查 sun.misc.Unsafe 类中是否包含有效的 invokeCleaner 方法
                 CLEANER = CleanerJava9.isSupported() ? new CleanerJava9() : NOOP;
             } else {
+                // 检查 java.nio.ByteBuffer 中是否包含了 cleaner 字段
                 CLEANER = CleanerJava6.isSupported() ? new CleanerJava6() : NOOP;
             }
         } else {
