@@ -517,6 +517,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
         @Override
         public final void register(EventLoop eventLoop, final ChannelPromise promise) {
             ObjectUtil.checkNotNull(eventLoop, "eventLoop");
+            // 首先检查NioServerSocketChannel是否已经完成注册。如果以完成注册，则直接设置代表注册操作结果的ChannelPromise为fail状态。
             if (isRegistered()) {
                 promise.setFailure(new IllegalStateException("registered to an event loop already"));
                 return;
@@ -595,7 +596,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 pipeline.invokeHandlerAddedIfNeeded();
 
                 /**
-                 * 设置regFuture为success，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
+                 * 设置regFuture为success(注：ChannelPromise 继承 ChannelFuture)，触发operationComplete回调,将bind操作放入Reactor的任务队列中，等待Reactor线程执行。
                  *
                  * 思考：凭什么可以保证reactor线程执行到此处的时候，ChannelFutureListener 一定就被 regFuture 添加了呢？
                  * 及时此处未完成，在regFuture真正添加ChannelFutureListener之后也会主动调用 notifyListeners 方法。
