@@ -299,6 +299,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
 
     @Override
     public ChannelFuture bind(SocketAddress localAddress, ChannelPromise promise) {
+        // 在pipeline中传播bind事件，触发回调pipeline中所有ChannelHandler的bind方法。
         return pipeline.bind(localAddress, promise);
     }
 
