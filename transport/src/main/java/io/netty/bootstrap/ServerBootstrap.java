@@ -126,12 +126,13 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
 
         final EventLoopGroup currentChildGroup = childGroup;
         final ChannelHandler currentChildHandler = childHandler;
+
         final Entry<ChannelOption<?>, Object>[] currentChildOptions = newOptionsArray(childOptions);
         final Entry<AttributeKey<?>, Object>[] currentChildAttrs = newAttributesArray(childAttrs);
 
         /**
          * 这里为什么不干脆直接将ChannelHandler添加到pipeline中，而是创建一个匿名的ChannelInitializer呢？
-         * 1、为了保证线程安全地初始化pipeline，所以初始化的动作需要由Reactor线程进行，而当前线程是用户程序的启动Main线程 并不是Reactor线程。这里不能立即初始化。
+         * 1、为了保证线程安全地初始化pipeline，所以初始化的动作需要由Reactor线程进行，而当前线程是用户程序的启动Main线程并不是Reactor线程。这里不能立即初始化。
          * 2、初始化Channel中pipeline的动作，需要等到Channel注册到对应的Reactor中才可以进行初始化，当前只是创建好了NioServerSocketChannel，但并未注册到Main Reactor上。
          * 3、兼容Netty支持的两种初始化 pipeline 的方式
          *  1）：一种是直接使用一个具体的 ChannelHandler 来初始化 pipeline。
@@ -148,7 +149,12 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                     pipeline.addLast(handler);
                 }
 
-                // 添加用于接收客户端连接的acceptor(handler)到reactor的任务队列中
+                /**
+                 * 添加用于接收客户端连接的acceptor(handler)到reactor的任务队列中
+                 *
+                 * 添加 ServerBootstrapAcceptor 这个handler为啥要通过异步任务的形式？
+                 *
+                 */
                 ch.eventLoop().execute(new Runnable() {
                     @Override
                     public void run() {
