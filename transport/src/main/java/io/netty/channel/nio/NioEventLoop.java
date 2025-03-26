@@ -646,7 +646,11 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                     ranTasks = runAllTasks(0);
                 }
 
-                // 判断是否触发JDK Epoll 空轮询 BUG
+                /**
+                 * 判断是否触发JDK Epoll 空轮询 BUG
+                 * ranTasks - 用来表示是否执行过至少一次异步任务。
+                 * strategy - 用来表示 IO 就绪的 Channel 个数。
+                 */
                 if (ranTasks || strategy > 0) {
                     if (selectCnt > MIN_PREMATURE_SELECTOR_RETURNS && logger.isDebugEnabled()) {
                         logger.debug("Selector.select() returned prematurely {} times in a row for Selector {}.", selectCnt - 1, selector);
