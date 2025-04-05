@@ -742,6 +742,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
                     default:
                         // Reactor正在关闭或者已经关闭
                         newState = oldState;
+                        // 当前Reactor已经处于关闭流程中，则无需在唤醒Reactor了
                         wakeup = false;
                 }
             }
